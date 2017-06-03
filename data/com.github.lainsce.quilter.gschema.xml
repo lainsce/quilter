@@ -15,5 +15,20 @@
 			<summary>Invert colors</summary>
 			<description>Invert the app's colors</description>
 		</key>
+        <key name="highlight-current-line" type="b">
+			<default>false</default>
+			<summary>Highlight Current Line</summary>
+			<description>Whether Quilter should highlight the current line.</description>
+		</key>
+        <key name="use-system-font" type="b">
+			<default>true</default>
+			<summary>Use system font</summary>
+			<description>Whether Quilter should use the default system font</description>
+		</key>
+		<key name="font" type="s">
+			<default>'Loma Regular 10'</default>
+			<summary>Preferred Font</summary>
+			<description>Set the preferred font.</description>
+		</key>
 	</schema>
 </schemalist>

@@ -27,7 +27,7 @@ namespace Quilter.Widgets {
         private Gtk.Button open_button;
         private Gtk.Button save_button;
         private Gtk.MenuButton menu_button;
-        private Widgets.PreferencesDialog preferences_dialog;
+        private Widgets.Preferences preferences_dialog;
 
         public File file;
 
@@ -74,7 +74,7 @@ namespace Quilter.Widgets {
             var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
             preferences.activate.connect(() => {
                 debug ("Prefs button pressed.");
-                preferences_dialog = new Widgets.PreferencesDialog ();
+                preferences_dialog = new Widgets.Preferences ();
                 preferences_dialog.show_all ();
             });
 

@@ -1,5 +1,11 @@
 com.github.lainsce.notejot (0.1.0) xenial; urgency=low
 
+  * Initial Stable release.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 3 June 2017 19:23:00 -0300
+
+com.github.lainsce.notejot (0.1.0) xenial; urgency=low
+
   * Initial Release.
 
  -- Lains <lainsce@airmail.cc>  Sat, 3 June 2017 01:23:00 -0300

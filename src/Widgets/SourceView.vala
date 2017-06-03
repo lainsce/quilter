@@ -16,13 +16,20 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
         public static new Gtk.SourceBuffer buffer;
         public static bool is_modified;
+        private string font;
+
+        public SourceView () {
+            restore_settings ();
+            var settings = AppSettings.get_default ();
+            settings.changed.connect (restore_settings);
+        }
 
         construct {
+            var settings = AppSettings.get_default ();
             var context = this.get_style_context ();
             context.add_class ("quilter-note");
 
@@ -39,7 +46,6 @@ namespace Quilter.Widgets {
             this.right_margin = 45;
             this.bottom_margin = 45;
             this.expand = true;
-            this.set_highlight_current_line (true);
         }
 
         public void on_text_modified () {
@@ -47,6 +53,30 @@ namespace Quilter.Widgets {
             if (!is_modified) {
                 is_modified = true;
             }
+        }
+
+        public void use_default_font (bool value) {
+            if (!value)
+                return;
+
+            var default_font = new GLib.Settings ("org.gnome.desktop.interface").get_string ("monospace-font-name");
+
+            this.font = default_font;
+        }
+
+        private void restore_settings () {
+            var settings = AppSettings.get_default ();
+            this.highlight_current_line = settings.highlight_current_line;
+
+            this.font = settings.font;
+            use_default_font (settings.use_system_font);
+            this.override_font (Pango.FontDescription.from_string (this.font));
+        }
+
+        private void update_settings () {
+            var settings = AppSettings.get_default ();
+            settings.highlight_current_line = highlight_current_line;
+            settings.font = this.font;
         }
     }
 }

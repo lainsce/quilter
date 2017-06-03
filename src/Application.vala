@@ -25,6 +25,10 @@ namespace Quilter {
         private static bool print_version = false;
         private static bool show_about_dialog = false;
 
+        public Application () {
+
+        }
+
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             application_id = "com.github.lainsce.quilter";
@@ -32,7 +36,7 @@ namespace Quilter {
             app_years = "2017";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            build_version = "1.0.8";
+            build_version = "1.0.0";
             app_icon = "com.github.lainsce.quilter";
             main_url = "https://github.com/lainsce/quilter/";
             bug_url = "https://github.com/lainsce/quilter/issues";
