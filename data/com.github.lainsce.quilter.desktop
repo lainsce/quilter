@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Quilter
+Comment=Focus on your writing
+Exec=com.github.lainsce.quilter
+Icon=com.github.lainsce.quilter
+Keywords=Text;Plain;Plaintext;Editor;
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GTK;Utility;
+Actions=AboutDialog;
+
+[Desktop Action AboutDialog]
+Name=About Quilter
+Exec=com.github.lainsce.quilter --about

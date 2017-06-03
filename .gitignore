@@ -1,0 +1,10 @@
+build/
+~*
+*~
+debian/com.github.lainsce.quilter.debhelper.log
+debian/com.github.lainsce.quilter.substvars
+debian/com.github.lainsce.quilter/
+debian/debhelper-build-stamp
+debian/files
+obj-x86_64-linux-gnu/
+po/*.po

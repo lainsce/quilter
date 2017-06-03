@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>com.github.lainsce.quilter.desktop</id>
+    <metadata_license>CC0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <name>Quilter</name>
+    <summary>Focus on your writing</summary>
+    <description>
+        <p>Focused writing for any kind of story, even longer ones.</p>
+        <ul>
+            <li>Save your notes anywhere, even on existing files.</li>
+            <li>Quit anytime with the shortcut Ctrl + Q</li>
+        </ul>
+    </description>
+    <provides>
+        <binary>com.github.lainsce.quilter</binary>
+    </provides>
+    <developer_name>Lains</developer_name>
+    <url type="homepage">https://github.com/lainsce/quilter/</url>
+    <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
+    <screenshots>
+        <screenshot type="default">
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot.png</image>
+        </screenshot>
+    </screenshots>
+    <custom>
+        <value key="x-appcenter-color-primary">#b8d2e2</value>
+        <value key="x-appcenter-color-primary-text">#333333</value>
+    </custom>
+</component>
