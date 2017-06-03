@@ -20,7 +20,7 @@ using Granite.Widgets;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-        private Gtk.ScrolledWindow scroll;
+        public Gtk.ScrolledWindow scroll;
 
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;

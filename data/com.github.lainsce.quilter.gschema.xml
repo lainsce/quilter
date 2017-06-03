@@ -10,5 +10,10 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
+        <key name="invert-colors" type="b">
+			<default>false</default>
+			<summary>Invert colors</summary>
+			<description>Invert the app's colors</description>
+		</key>
 	</schema>
 </schemalist>

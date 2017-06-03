@@ -22,9 +22,12 @@ using Granite;
 
 namespace Quilter.Widgets {
     public class Toolbar : Gtk.HeaderBar {
+        private Gtk.Menu menu;
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_button;
+        private Gtk.MenuButton menu_button;
+        private Widgets.PreferencesDialog preferences_dialog;
 
         public File file;
 
@@ -60,9 +63,30 @@ namespace Quilter.Widgets {
                 open_button_pressed ();
             });
 
+            menu_button = new Gtk.MenuButton();
+            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            menu_button.has_tooltip = true;
+            menu_button.tooltip_text = (_("Settings"));
+
+            menu = new Gtk.Menu ();
+
+
+            var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
+            preferences.activate.connect(() => {
+                debug ("Prefs button pressed.");
+                preferences_dialog = new Widgets.PreferencesDialog ();
+                preferences_dialog.show_all ();
+            });
+
+            menu.add (preferences);
+            menu.show_all ();
+
+            menu_button.popup = menu;
+
             this.pack_start (new_button);
-            this.pack_end (save_button);
-            this.pack_end (open_button);
+            this.pack_start (open_button);
+            this.pack_start (save_button);
+            this.pack_end (menu_button);
 
             this.show_close_button = true;
             this.show_all ();
