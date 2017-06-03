@@ -25,10 +25,6 @@ namespace Quilter.Stylesheet {
             background-color: #FEFEFE;
         }
 
-        .quilter-window:maximized {
-            background-color: #FEFEFE;
-        }
-
         .quilter-toolbar {
             background: transparent;
             border-bottom-color: transparent;
@@ -47,7 +43,7 @@ namespace Quilter.Stylesheet {
         }
 
         .monospace {
-                font-family: monospace;
+            font-family: monospace;
         }
     """;
 }
