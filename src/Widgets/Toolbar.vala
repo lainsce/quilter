@@ -30,6 +30,7 @@ namespace Quilter.Widgets {
         private Widgets.Preferences preferences_dialog;
 
         public File file;
+        public Quilter.MainWindow win;
 
         public Toolbar() {
 			var header_context = this.get_style_context ();
@@ -41,8 +42,7 @@ namespace Quilter.Widgets {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect(() => {
-                Widgets.SourceView.buffer.set_text ("");
-                Utils.FileUtils.save_tmp_file ();
+                new_button_pressed ();
             });
 
             save_button = new Gtk.Button ();
@@ -92,6 +92,22 @@ namespace Quilter.Widgets {
             this.show_all ();
         }
 
+        public void new_button_pressed () {
+
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Opening file...");
+                    new_document ();
+                } catch (Error e) {
+                    error ("Unexpected error during open: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
         public void open_button_pressed () {
             debug ("Open button pressed.");
 
@@ -124,6 +140,33 @@ namespace Quilter.Widgets {
             Widgets.SourceView.is_modified = false;
         }
 
+        public bool new_document() throws Error {
+            if (Widgets.SourceView.is_modified) {
+                // Ask the user for save before loading a new file.
+                debug ("Buffer was modified. Asking user to save first.");
+                int wanna_save = Utils.DialogUtils.display_save_confirm ();
+                if (wanna_save == Gtk.ResponseType.CANCEL ||
+                    wanna_save == Gtk.ResponseType.DELETE_EVENT) {
+                    debug ("User canceled save confirm. Aborting operation.");
+                }
+
+                if (wanna_save == Gtk.ResponseType.YES) {
+                    debug ("Saving file before loading new file.");
+                    try {
+                        bool was_saved = save_document ();
+                        if (!was_saved) {
+                            debug ("Cancelling open document too.");
+                            Widgets.SourceView.buffer.text = "";
+                        }
+                    } catch (Error e) {
+                        error ("Unexpected error during save: " + e.message);
+                    }
+                }
+            }
+            Utils.FileUtils.save_tmp_file ();
+            return true;
+        }
+
         public bool open_document () throws Error {
             // If it's a file, ask the user for a valid location.
             if (file == null) {
@@ -138,7 +181,6 @@ namespace Quilter.Widgets {
 
             string text;
             FileUtils.get_contents (file.get_path(), out text);
-
             Widgets.SourceView.buffer.text = text;
             return true;
         }

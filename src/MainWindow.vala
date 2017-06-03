@@ -74,6 +74,7 @@ namespace Quilter {
             settings.window_x = x;
             settings.window_y = y;
 
+            Utils.FileUtils.save_tmp_file ();
             return false;
         }
     }
