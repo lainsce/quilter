@@ -38,7 +38,7 @@ namespace Quilter.Widgets {
             this.top_margin = 45;
             this.right_margin = 45;
             this.bottom_margin = 45;
-            this.expand = false;
+            this.expand = true;
             this.set_highlight_current_line (true);
         }
 
