@@ -39,6 +39,8 @@ namespace Quilter.Widgets {
             is_modified = false;
             buffer.changed.connect (on_text_modified);
 
+            this.set_scheme (this.get_default_scheme ());
+
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.margin = 1;
             this.left_margin = 45;
@@ -77,6 +79,16 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             settings.highlight_current_line = highlight_current_line;
             settings.font = this.font;
+        }
+
+        public void set_scheme (string id) {
+            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
+            var style = style_manager.get_scheme (id);
+            this.buffer.set_style_scheme (style);
+        }
+
+        private string get_default_scheme () {
+            return "quilter-focused";
         }
     }
 }

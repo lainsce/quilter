@@ -19,27 +19,21 @@
 
 namespace Quilter.Stylesheet {
     public const string PAGE = """
-        @define-color textColorPrimary #333333;
+        @define-color textColorPrimary #424242;
 
         .quilter-window {
-            background-color: #FEFEFE;
+            background-color: #f5f6f6;
         }
 
         .quilter-toolbar {
-            background: transparent;
+            background-color: #f5f6f6;
+            background: #f5f6f6;
             border-bottom-color: transparent;
             box-shadow: inset 0px 1px 2px -2px white;
         }
 
-        .quilter-note {
-            background-color: #FEFEFE;
-            color: #333333;
-            font-size: 10px;
-        }
-
         .quilter-note:selected {
-            background-color: #00AAFF;
-            color: #FEFEFE;
+            background-color: #97ceff;
         }
 
         .monospace {

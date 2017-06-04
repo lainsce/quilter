@@ -78,7 +78,7 @@ namespace Quilter.Widgets {
 
             var editor_header = new SettingsHeader (_("Editor"));
 
-            var highlight_current_line_label = new SettingsLabel (_("Highlight current line:"));
+            var highlight_current_line_label = new SettingsLabel (_("Enable Focus Mode:"));
             highlight_current_line = new SettingsSwitch ("highlight-current-line");
 
             var font_header = new SettingsHeader (_("Font"));

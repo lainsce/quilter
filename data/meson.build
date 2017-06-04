@@ -20,3 +20,8 @@ install_data(
     meson.project_name() + '.appdata.xml',
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
+
+install_data(
+    join_paths('schemes', 'quilter.xml'),
+    install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
+)
