@@ -39,8 +39,6 @@ namespace Quilter.Widgets {
             is_modified = false;
             buffer.changed.connect (on_text_modified);
 
-            this.set_scheme (this.get_default_scheme ());
-
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.left_margin = 45;
             this.top_margin = 45;
@@ -78,23 +76,6 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             settings.highlight_current_line = highlight_current_line;
             settings.font = this.font;
-        }
-
-        public void set_scheme (string id) {
-            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
-            var style = style_manager.get_scheme (id);
-            buffer.set_style_scheme (style);
-        }
-
-        private string get_default_scheme () {
-            var settings = AppSettings.get_default ();
-            if (settings.dark_mode == true) {
-                Gtk.Settings.get_default().set("gtk-application-prefer-dark-theme", true);
-                return "quilterdark";
-            } else {
-                Gtk.Settings.get_default().set("gtk-application-prefer-dark-theme", false);
-                return "quilter";
-            }
         }
     }
 }

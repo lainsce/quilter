@@ -22,7 +22,6 @@ namespace Quilter.Widgets {
         private Gtk.StackSwitcher main_stackswitcher;
 
         Gtk.Switch highlight_current_line;
-        Gtk.Switch dark_mode;
         Gtk.Switch use_custom_font;
         Gtk.FontButton select_font;
 
@@ -76,8 +75,6 @@ namespace Quilter.Widgets {
 
             var highlight_current_line_label = new SettingsLabel (_("Enable Focus Mode:"));
             highlight_current_line = new SettingsSwitch ("highlight-current-line");
-            var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
-            dark_mode = new SettingsSwitch ("dark-mode");
 
             var font_header = new SettingsHeader (_("Font"));
             var use_custom_font_label = new SettingsLabel (_("Custom font:"));
@@ -93,8 +90,6 @@ namespace Quilter.Widgets {
             content.attach (editor_header, 0, 0, 3, 1);
             content.attach (highlight_current_line_label, 0, 1, 1, 1);
             content.attach (highlight_current_line, 1, 1, 1, 1);
-            content.attach (dark_mode_label, 0, 2, 1, 1);
-            content.attach (dark_mode, 1, 2, 1, 1);
             content.attach (font_header, 0, 3, 3, 1);
             content.attach (use_custom_font_label , 0, 4, 1, 1);
             content.attach (use_custom_font, 1, 4, 1, 1);

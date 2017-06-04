@@ -25,8 +25,3 @@ install_data(
     join_paths('schemes', 'quilter.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
 )
-
-install_data(
-    join_paths('schemes', 'quilterdark.xml'),
-    install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
-)

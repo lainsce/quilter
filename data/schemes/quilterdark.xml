@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<style-scheme id="quilterdark" _name="Quilter Dark" version="1.0">
-  <author>Lains</author>
-  <_description>Emphasis on focus.</_description>
-
-  <style name="text"            foreground="#f5f6f6" background="#424242"/>
-  <style name="cursor"          foreground="#97ceff"/>
-  <style name="current-line"    background="#535353"/>
-</style-scheme>

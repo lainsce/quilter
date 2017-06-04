@@ -41,6 +41,7 @@ namespace Quilter {
 
         construct {
             var context = this.get_style_context ();
+            set_hide_titlebar_when_maximized (false);
             context.add_class ("quilter-window");
             this.toolbar = new Widgets.Toolbar ();
 
