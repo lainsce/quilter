@@ -10,10 +10,10 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
-        <key name="invert-colors" type="b">
+        <key name="dark-mode" type="b">
 			<default>false</default>
-			<summary>Invert colors</summary>
-			<description>Invert the app's colors</description>
+			<summary>Go into dark mode</summary>
+			<description>Whether Quilter should be in dark mode font</description>
 		</key>
         <key name="highlight-current-line" type="b">
 			<default>false</default>

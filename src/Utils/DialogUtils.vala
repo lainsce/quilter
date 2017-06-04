@@ -84,6 +84,10 @@ namespace Quilter.Utils.DialogUtils {
                 "\n\n" + _("If you don't save, changes will be lost forever."));
         dialog.use_markup = true;
         dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
+
+        var button = new Gtk.Button.with_label (_("Close without saving"));
+        button.show ();
+        dialog.add_action_widget (button, Gtk.ResponseType.NO);
         dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
         dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
         dialog.set_default_response (Gtk.ResponseType.ACCEPT);

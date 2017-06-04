@@ -42,7 +42,6 @@ namespace Quilter {
         construct {
             var context = this.get_style_context ();
             context.add_class ("quilter-window");
-            context.add_class ("rounded");
             this.toolbar = new Widgets.Toolbar ();
 
             this.window_position = Gtk.WindowPosition.CENTER;

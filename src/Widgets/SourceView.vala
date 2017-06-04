@@ -42,7 +42,6 @@ namespace Quilter.Widgets {
             this.set_scheme (this.get_default_scheme ());
 
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.margin = 1;
             this.left_margin = 45;
             this.top_margin = 45;
             this.right_margin = 45;
@@ -84,11 +83,18 @@ namespace Quilter.Widgets {
         public void set_scheme (string id) {
             var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
             var style = style_manager.get_scheme (id);
-            this.buffer.set_style_scheme (style);
+            buffer.set_style_scheme (style);
         }
 
         private string get_default_scheme () {
-            return "quilter-focused";
+            var settings = AppSettings.get_default ();
+            if (settings.dark_mode == true) {
+                Gtk.Settings.get_default().set("gtk-application-prefer-dark-theme", true);
+                return "quilterdark";
+            } else {
+                Gtk.Settings.get_default().set("gtk-application-prefer-dark-theme", false);
+                return "quilter";
+            }
         }
     }
 }
