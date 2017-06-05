@@ -48,6 +48,9 @@ namespace Quilter.Widgets {
             this.right_margin = 45;
             this.bottom_margin = 45;
             this.expand = true;
+            this.has_focus = true;
+            this.set_tab_width (4);
+            this.set_insert_spaces_instead_of_tabs (true);
         }
 
         public void on_text_modified () {

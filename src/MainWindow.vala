@@ -30,7 +30,7 @@ namespace Quilter {
                     resizable: true,
                     title: _("Quilter"),
                     height_request: 800,
-                    width_request: 700);
+                    width_request: 920);
 
             Granite.Widgets.Utils.set_theming_for_screen (
                 this.get_screen (),

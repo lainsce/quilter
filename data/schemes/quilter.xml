@@ -3,34 +3,34 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#424242" background="#f5f6f6"/>
-  <style name="cursor"          foreground="#97ceff"/>
-  <style name="current-line"    background="#e5e6e6"/>
+  <style name="text"            foreground="#1A1A1A" background="#F1F1F1"/>
+  <style name="cursor"          foreground="#00BAFF"/>
+  <style name="current-line"    background="#E1E1E1"/>
 
   <!-- Bold -->
-  <style name="def:statement" foreground="#000000"  bold="true"/>
+  <style name="def:statement" foreground="#1A1A1A"  bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#656565" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#1A1A1A" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#888888"/>
+  <style name="def:comment" foreground="#1A1A1A"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#888888"/>
+  <style name="def:identifier" foreground="#6A6A6A"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#757575"/>
+  <style name="def:note" foreground="#1A1A1A"/>
 
   <!-- Label -->
-  <style name="def:preprocessor" foreground="#666666"/>
+  <style name="def:preprocessor" foreground="#1A1A1A"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#888888"/>
+  <style name="def:shebang" foreground="#1A1A1A"/>
 
   <!-- Backslash Escaping -->
-  <style name="def:special-char" foreground="#545454"/>
+  <style name="def:special-char" foreground="#6A6A6A"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#000000" bold="true" italic="true"/>
+  <style name="def:type" foreground="#1A1A1A" bold="true"/>
 </style-scheme>
