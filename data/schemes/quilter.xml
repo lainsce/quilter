@@ -6,4 +6,31 @@
   <style name="text"            foreground="#424242" background="#f5f6f6"/>
   <style name="cursor"          foreground="#97ceff"/>
   <style name="current-line"    background="#e5e6e6"/>
+
+  <!-- Bold -->
+  <style name="def:statement" foreground="#000000"  bold="true"/>
+
+  <!-- Italic -->
+  <style name="def:doc-comment-element" foreground="#656565" italic="true"/>
+
+  <!-- Links -->
+  <style name="def:comment" foreground="#888888"/>
+
+  <!-- Code -->
+  <style name="def:identifier" foreground="#888888"/>
+
+  <!-- Line-break -->
+  <style name="def:note" foreground="#757575"/>
+
+  <!-- Label -->
+  <style name="def:preprocessor" foreground="#666666"/>
+
+  <!-- Image marking in Links -->
+  <style name="def:shebang" foreground="#888888"/>
+
+  <!-- Backslash Escaping -->
+  <style name="def:special-char" foreground="#545454"/>
+
+  <!-- Headers -->
+  <style name="def:type" foreground="#000000" bold="true" italic="true"/>
 </style-scheme>
