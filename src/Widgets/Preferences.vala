@@ -44,7 +44,6 @@ namespace Quilter.Widgets {
         private void create_layout () {
             this.main_stack.add_titled (get_editor_box (), "interface", _("Interface"));
 
-            // Close button
             var close_button = new Gtk.Button.with_label (_("Close"));
             close_button.clicked.connect (() => {this.destroy ();});
 
@@ -54,7 +53,6 @@ namespace Quilter.Widgets {
             button_box.margin = 12;
             button_box.margin_bottom = 0;
 
-            // Pack everything into the dialog
             var main_grid = new Gtk.Grid ();
             main_grid.attach (this.main_stackswitcher, 0, 0, 1, 1);
             main_grid.attach (this.main_stack, 0, 1, 1, 1);

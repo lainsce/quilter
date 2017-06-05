@@ -142,7 +142,6 @@ namespace Quilter.Widgets {
 
         public bool new_document() throws Error {
             if (Widgets.SourceView.is_modified) {
-                // Ask the user for save before loading a new file.
                 debug ("Buffer was modified. Asking user to save first.");
                 int wanna_save = Utils.DialogUtils.display_save_confirm ();
                 if (wanna_save == Gtk.ResponseType.CANCEL ||
@@ -168,11 +167,9 @@ namespace Quilter.Widgets {
         }
 
         public bool open_document () throws Error {
-            // If it's a file, ask the user for a valid location.
             if (file == null) {
                 debug ("Asking the user what to open.");
                 file = Utils.DialogUtils.display_open_dialog ();
-                // If file is still null, then user aborted open operation.
                 if (file == null) {
                     debug ("User cancelled operation. Aborting.");
                     return false;
@@ -186,11 +183,9 @@ namespace Quilter.Widgets {
         }
 
         public bool save_document () throws Error {
-            // If it's a new file, ask the user for a valid location.
             if (file == null) {
                 debug ("Asking the user where to save.");
                 file = Utils.DialogUtils.display_save_dialog ();
-                // If file is still null, then user aborted save operation.
                 if (file == null) {
                     debug ("User cancelled operation. Aborting.");
                     return false;

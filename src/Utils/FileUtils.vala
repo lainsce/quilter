@@ -19,7 +19,6 @@ namespace Quilter.Utils.FileUtils {
 
     File tmp_file;
 
-    // Save a buffer to a file.
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create
                 (FileCreateFlags.NONE));
@@ -27,7 +26,6 @@ namespace Quilter.Utils.FileUtils {
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
-        // No close method? This is scary, GLib. Very scary.
     }
 
     private void load_tmp_file () {

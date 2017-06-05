@@ -19,7 +19,6 @@ namespace Quilter.Utils.DialogUtils {
     public Gtk.FileChooserDialog create_file_chooser (string title,
             Gtk.FileChooserAction action) {
 
-        // Init the FileChooser, based on what the calling method desires.
         var chooser = new Gtk.FileChooserDialog (title, null, action);
 
         chooser.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
@@ -40,7 +39,7 @@ namespace Quilter.Utils.DialogUtils {
         filter2.add_pattern ("*.md");
         chooser.add_filter (filter2);
 
-        filter = new Gtk.FileFilter ();
+        var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
         chooser.add_filter (filter);
@@ -66,7 +65,7 @@ namespace Quilter.Utils.DialogUtils {
         filter2.add_pattern ("*.md");
         chooser.add_filter (filter2);
 
-        filter = new Gtk.FileFilter ();
+        var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
         chooser.add_filter (filter);
