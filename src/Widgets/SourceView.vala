@@ -33,7 +33,9 @@ namespace Quilter.Widgets {
             var context = this.get_style_context ();
             context.add_class ("quilter-note");
 
-            buffer = new Gtk.SourceBuffer (null);
+            var manager = Gtk.SourceLanguageManager.get_default ();
+            var language = manager.guess_language (null, "text/x-markdown");
+            buffer = new Gtk.SourceBuffer.with_language (language);
             this.set_buffer (buffer);
 
             is_modified = false;
