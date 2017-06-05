@@ -30,12 +30,15 @@ namespace Quilter.Utils.DialogUtils {
             chooser.set_do_overwrite_confirmation (true);
         }
 
-        var filter = new Gtk.FileFilter ();
-        filter.set_filter_name (_("Text files"));
-        filter.add_pattern ("*.txt");
-        filter.set_filter_name (_("Markdown files"));
-        filter.add_pattern ("*.md");
-        chooser.add_filter (filter);
+        var filter1 = new Gtk.FileFilter ();
+        filter1.set_filter_name (_("Text files"));
+        filter1.add_pattern ("*.txt");
+        chooser.add_filter (filter1);
+
+        var filter2 = new Gtk.FileFilter ();
+        filter2.set_filter_name (_("Markdown files"));
+        filter2.add_pattern ("*.md");
+        chooser.add_filter (filter2);
 
         filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
@@ -53,12 +56,15 @@ namespace Quilter.Utils.DialogUtils {
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();
 
-        var filter = new Gtk.FileFilter ();
-        filter.set_filter_name (_("Text files"));
-        filter.add_pattern ("*.txt");
-        filter.set_filter_name (_("Markdown files"));
-        filter.add_pattern ("*.md");
-        chooser.add_filter (filter);
+        var filter1 = new Gtk.FileFilter ();
+        filter1.set_filter_name (_("Text files"));
+        filter1.add_pattern ("*.txt");
+        chooser.add_filter (filter1);
+
+        var filter2 = new Gtk.FileFilter ();
+        filter2.set_filter_name (_("Markdown files"));
+        filter2.add_pattern ("*.md");
+        chooser.add_filter (filter2);
 
         filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
