@@ -33,6 +33,8 @@ namespace Quilter.Utils.DialogUtils {
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("Text files"));
         filter.add_pattern ("*.txt");
+        filter.set_filter_name (_("Markdown files"));
+        filter.add_pattern ("*.md");
         chooser.add_filter (filter);
 
         filter = new Gtk.FileFilter ();
@@ -54,6 +56,8 @@ namespace Quilter.Utils.DialogUtils {
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("Text files"));
         filter.add_pattern ("*.txt");
+        filter.set_filter_name (_("Markdown files"));
+        filter.add_pattern ("*.md");
         chooser.add_filter (filter);
 
         filter = new Gtk.FileFilter ();
