@@ -161,6 +161,11 @@ namespace Quilter.Widgets {
                         error ("Unexpected error during save: " + e.message);
                     }
                 }
+
+                if (wanna_save == Gtk.ResponseType.NO) {
+                    debug ("User cancelled the dialog. Remove document from view then.");
+                    Widgets.SourceView.buffer.text = "";
+                }
             }
             Utils.FileUtils.save_tmp_file ();
             return true;

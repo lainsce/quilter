@@ -10,10 +10,20 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
-        <key name="dark-mode" type="b">
+        <key name="window-height" type="i">
+			<default>800</default>
+			<summary>Window position</summary>
+			<description>The height of the window</description>
+		</key>
+		<key name="window-width" type="i">
+			<default>920</default>
+			<summary>Window position</summary>
+			<description>The width of the window</description>
+		</key>
+        <key name="window-maximized" type="b">
 			<default>false</default>
-			<summary>Go into dark mode</summary>
-			<description>Whether Quilter should be in dark mode font</description>
+			<summary>Window state is maximized or not</summary>
+			<description>Whether Quilter should be maximized or not</description>
 		</key>
         <key name="highlight-current-line" type="b">
 			<default>false</default>

@@ -59,20 +59,35 @@ namespace Quilter {
             int x = settings.window_x;
             int y = settings.window_y;
 
+            int h = settings.window_height;
+            int w = settings.window_width;
+
             if (x != -1 && y != -1) {
                 move (x, y);
+            }
+
+            if (w != 0 && h != 0) {
+                resize (w, h);
+            }
+
+            if (settings.window_maximized) {
+                maximize ();
             }
 
             Utils.FileUtils.load_tmp_file ();
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            int x, y;
+            int x, y, w, h;
             get_position (out x, out y);
+            get_size (out w, out h);
 
             var settings = AppSettings.get_default ();
             settings.window_x = x;
             settings.window_y = y;
+            settings.window_width = w;
+            settings.window_height = h;
+            settings.window_maximized = is_maximized;
 
             Utils.FileUtils.save_tmp_file ();
             return false;

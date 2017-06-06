@@ -19,6 +19,9 @@ namespace Quilter {
     public class AppSettings : Granite.Services.Settings {
         public int window_x { get; set; }
         public int window_y { get; set; }
+        public int window_height { get; set; }
+        public int window_width { get; set; }
+        public bool window_maximized { get; set; }
         public bool highlight_current_line { get; set; }
         public bool use_system_font { get; set; }
         public string font { get; set; }
