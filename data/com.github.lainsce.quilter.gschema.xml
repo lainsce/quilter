@@ -40,5 +40,10 @@
 			<summary>Preferred Font</summary>
 			<description>Set the preferred font.</description>
 		</key>
+        <key name="last-file" type="s">
+			<default>''</default>
+			<summary>Last opened file</summary>
+			<description>The last opened file in Quilter</description>
+		</key>
 	</schema>
 </schemalist>

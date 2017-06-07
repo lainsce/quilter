@@ -19,15 +19,8 @@
 */
 namespace Quilter {
     public class Application : Granite.Application {
-
-        private Quilter.MainWindow? window = null;
-
         private static bool print_version = false;
         private static bool show_about_dialog = false;
-
-        public Application () {
-
-        }
 
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
@@ -36,33 +29,40 @@ namespace Quilter {
             app_years = "2017";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            build_version = "1.0.1";
+            build_version = "1.0.3";
             app_icon = "com.github.lainsce.quilter";
             main_url = "https://github.com/lainsce/quilter/";
             bug_url = "https://github.com/lainsce/quilter/issues";
             help_url = "https://github.com/lainsce/quilter/";
             about_authors = {"Lains <lainsce@airmail.cc>", null};
             about_license_type = Gtk.License.GPL_3_0;
-
-            var quit_action = new SimpleAction ("quit", null);
-            add_action (quit_action);
-            add_accelerator ("<Control>q", "app.quit", null);
-
-            quit_action.activate.connect (() => {
-                if (window != null) {
-                    window.destroy ();
-                }
-            });
         }
 
         protected override void activate () {
-            if (window == null) {
-                window = new MainWindow (this);
-                add_window (window);
-                window.show_all ();
-            } else {
-                window.present ();
+            if (get_windows () != null) {
+                get_windows ().data.present (); // present window if app is already running
+                return;
             }
+
+            var window = new MainWindow (this);
+
+            var settings = AppSettings.get_default ();
+            int x = settings.window_x;
+            int y = settings.window_y;
+            int h = settings.window_height;
+            int w = settings.window_width;
+
+            if (x != -1 && y != -1) {
+                window.move (x, y);
+            }
+            if (w != 0 && h != 0) {
+                window.resize (w, h);
+            }
+            if (settings.window_maximized) {
+                window.maximize ();
+            }
+
+            window.show_all ();
         }
 
         public static int main (string[] args) {

@@ -32,7 +32,9 @@ namespace Quilter.Widgets {
         public File file;
         public Quilter.MainWindow win;
 
-        public Toolbar() {
+        public Toolbar () {
+            var settings = AppSettings.get_default ();
+            this.subtitle = settings.last_file;
 			var header_context = this.get_style_context ();
             header_context.add_class ("quilter-toolbar");
 
@@ -41,7 +43,7 @@ namespace Quilter.Widgets {
 			new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
 
-            new_button.clicked.connect(() => {
+            new_button.clicked.connect (() => {
                 new_button_pressed ();
             });
 
@@ -50,7 +52,7 @@ namespace Quilter.Widgets {
 			save_button.has_tooltip = true;
             save_button.tooltip_text = (_("Save as…"));
 
-            save_button.clicked.connect(() => {
+            save_button.clicked.connect (() => {
                 save_button_pressed ();
             });
 
@@ -59,20 +61,19 @@ namespace Quilter.Widgets {
 			open_button.has_tooltip = true;
             open_button.tooltip_text = (_("Open…"));
 
-            open_button.clicked.connect(() => {
+            open_button.clicked.connect (() => {
                 open_button_pressed ();
             });
 
-            menu_button = new Gtk.MenuButton();
+            menu_button = new Gtk.MenuButton ();
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
             menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
 
             menu = new Gtk.Menu ();
 
-
             var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
-            preferences.activate.connect(() => {
+            preferences.activate.connect (() => {
                 debug ("Prefs button pressed.");
                 preferences_dialog = new Widgets.Preferences ();
                 preferences_dialog.show_all ();
@@ -140,7 +141,7 @@ namespace Quilter.Widgets {
             Widgets.SourceView.is_modified = false;
         }
 
-        public bool new_document() throws Error {
+        public bool new_document () throws Error {
             if (Widgets.SourceView.is_modified) {
                 debug ("Buffer was modified. Asking user to save first.");
                 int wanna_save = Utils.DialogUtils.display_save_confirm ();
@@ -165,6 +166,9 @@ namespace Quilter.Widgets {
                 if (wanna_save == Gtk.ResponseType.NO) {
                     debug ("User cancelled the dialog. Remove document from view then.");
                     Widgets.SourceView.buffer.text = "";
+                    this.subtitle = "";
+                    var settings = AppSettings.get_default ();
+                    settings.last_file = "";
                 }
             }
             Utils.FileUtils.save_tmp_file ();
@@ -182,8 +186,11 @@ namespace Quilter.Widgets {
             }
 
             string text;
-            FileUtils.get_contents (file.get_path(), out text);
+            FileUtils.get_contents (file.get_path (), out text);
             Widgets.SourceView.buffer.text = text;
+            var settings = AppSettings.get_default ();
+            settings.last_file = file.get_path ();
+            this.subtitle = file.get_path ();
             return true;
         }
 

@@ -25,6 +25,7 @@ namespace Quilter {
         public bool highlight_current_line { get; set; }
         public bool use_system_font { get; set; }
         public string font { get; set; }
+        public string last_file { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

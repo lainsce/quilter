@@ -25,6 +25,19 @@ namespace Quilter {
         public Widgets.Toolbar toolbar;
         public Widgets.SourceView view;
 
+        private bool _is_fullscreen;
+    	public bool is_fullscreen {
+    		set {
+    			_is_fullscreen = value;
+
+    			if (_is_fullscreen)
+    				fullscreen ();
+    			else
+    				unfullscreen ();
+    		}
+    		get { return _is_fullscreen; }
+    	}
+
         public MainWindow (Gtk.Application application) {
             Object (application: application,
                     resizable: true,
@@ -54,27 +67,33 @@ namespace Quilter {
             this.view.monospace = true;
             scroll.add (view);
 
-            var settings = AppSettings.get_default ();
-
-            int x = settings.window_x;
-            int y = settings.window_y;
-
-            int h = settings.window_height;
-            int w = settings.window_width;
-
-            if (x != -1 && y != -1) {
-                move (x, y);
-            }
-
-            if (w != 0 && h != 0) {
-                resize (w, h);
-            }
-
-            if (settings.window_maximized) {
-                maximize ();
-            }
-
             Utils.FileUtils.load_tmp_file ();
+
+            this.key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.q, keycode)) {
+                        this.destroy ();
+                    }
+                }
+                if (match_keycode (Gdk.Key.F11, keycode)) {
+                    is_fullscreen = !is_fullscreen;
+                }
+                return false;
+            });
+        }
+
+        protected bool match_keycode (int keyval, uint code) {
+            Gdk.KeymapKey [] keys;
+            Gdk.Keymap keymap = Gdk.Keymap.get_default ();
+            if (keymap.get_entries_for_keyval (keyval, out keys)) {
+                foreach (var key in keys) {
+                    if (code == key.keycode)
+                        return true;
+                    }
+                }
+
+            return false;
         }
 
         public override bool delete_event (Gdk.EventAny event) {
