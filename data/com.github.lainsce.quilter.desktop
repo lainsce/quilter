@@ -7,7 +7,7 @@ Keywords=Text;Plain;Plaintext;Editor;
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GTK;Utility;
+Categories=GTK;Utility;Office;
 Actions=AboutDialog;
 
 [Desktop Action AboutDialog]
