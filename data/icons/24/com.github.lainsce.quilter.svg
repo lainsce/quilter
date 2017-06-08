@@ -29,7 +29,7 @@
      showgrid="false"
      showguides="false"
      inkscape:zoom="19.666667"
-     inkscape:cx="3.2215099"
+     inkscape:cx="-1.0677958"
      inkscape:cy="10.016371"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -171,7 +171,8 @@
        fx="12.008832"
        fy="12.027124"
        r="9.500001"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.84976894,0,0,1,2.150231,0)" />
   </defs>
   <metadata
      id="metadata3431">
@@ -186,9 +187,9 @@
     </rdf:RDF>
   </metadata>
   <g
-     style="display:inline;opacity:0.764"
+     style="display:inline;opacity:0.76399997"
      id="g2036"
-     transform="matrix(0.55,0,0,0.3333336,-1.2000011,7.33331)">
+     transform="matrix(0.46737292,0,0,0.3333336,1.1305074,7.33331)">
     <g
        style="opacity:0.4"
        id="g3712"
@@ -218,81 +219,81 @@
     </g>
   </g>
   <rect
-     width="19.000002"
+     width="16.145611"
      height="19.000002"
-     rx="1"
-     ry="1"
-     x="2.5088305"
+     rx="0"
+     ry="0"
+     x="4.2821569"
      y="2.5271232"
      id="rect5505-21-8-1-3"
-     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:url(#radialGradient4289);fill-opacity:1.0;marker:none;enable-background:accumulate;stroke:none" />
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:1;fill:url(#radialGradient4289);fill-opacity:1;stroke:none;marker:none;enable-background:accumulate" />
   <rect
-     width="19.000002"
+     width="16.145611"
      height="19.000002"
-     rx="1"
-     ry="1"
-     x="2.4999981"
+     rx="0"
+     ry="0"
+     x="4.2746515"
      y="2.500026"
      id="rect5505-21-8-1"
-     style="opacity:0.7;color:#000000;fill:none;stroke:#4a4a4a;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate" />
+     style="color:#000000;display:inline;overflow:visible;visibility:visible;opacity:0.7;fill:none;stroke:#4a4a4a;stroke-width:0.92182916;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;marker:none;enable-background:accumulate" />
   <rect
-     width="17"
+     width="14.446073"
      height="17"
-     x="3.5012493"
+     x="5.125484"
      y="3.4987738"
      id="rect6741-9-5"
-     style="opacity:0.3;fill:none;stroke:url(#linearGradient3101);stroke-width:0.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+     style="opacity:0.3;fill:none;stroke:#ffffff;stroke-width:0.92182904;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.89743593" />
   <rect
      style="opacity:0.39800002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305"
-     width="9.8644066"
+     width="8.3824663"
      height="1.3728814"
-     x="5.0338979"
+     x="6.4278812"
      y="6.0508475"
      rx="0"
      ry="1.2272727" />
   <rect
      style="opacity:0.39800002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305-7"
-     width="12.050847"
+     width="10.240436"
      height="1.3728814"
-     x="4.9830513"
+     x="6.3846731"
      y="9.025424"
      rx="0"
      ry="1.2272727" />
   <rect
      style="opacity:0.39800002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305-3"
-     width="9.8644066"
+     width="8.3824663"
      height="1.3728814"
-     x="5.0084739"
+     x="6.4062767"
      y="11.911017"
      rx="0"
      ry="1.2272727" />
   <rect
      style="opacity:0.39800002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305-7-6"
-     width="10.576271"
+     width="8.9873867"
      height="1.3728814"
-     x="4.9576273"
+     x="6.3630686"
      y="14.885593"
      rx="0"
      ry="1.2272727" />
   <rect
      style="opacity:0.39800002;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-opacity:1"
      id="rect4305-75"
-     width="9.8644066"
+     width="8.3824663"
      height="1.3728814"
-     x="4.9576268"
+     x="6.3630686"
      y="17.758474"
      rx="0"
      ry="1.2272727" />
   <rect
      style="opacity:0.63599997;fill:#5599ff;fill-opacity:0.70588235;stroke:none;stroke-opacity:1"
      id="rect4198"
-     width="0.81355929"
+     width="0.69133741"
      height="4.0677967"
-     x="14.898304"
+     x="14.810348"
      y="10.627118"
      ry="0.52487695" />
 </svg>

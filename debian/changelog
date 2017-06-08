@@ -1,8 +1,14 @@
+com.github.lainsce.quilter (1.0.4) xenial; urgency=low
+
+  * Focus mode is complete.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 8 June 2017 14:23:00 -0300
+
 com.github.lainsce.quilter (1.0.3) xenial; urgency=low
 
   * Many fixes that you can find on GitHub.
 
- -- Lains <lainsce@airmail.cc>  Sat, 6 June 2017 19:23:00 -0300
+ -- Lains <lainsce@airmail.cc>  Tue, 6 June 2017 19:23:00 -0300
 
 com.github.lainsce.quilter (0.1.0) xenial; urgency=low
 

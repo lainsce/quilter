@@ -22,11 +22,13 @@ using Granite;
 
 namespace Quilter.Widgets {
     public class Toolbar : Gtk.HeaderBar {
+        private Gtk.Menu menu;
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_button;
-        private Gtk.Button menu_button;
+        private Gtk.MenuButton menu_button;
         private Widgets.Preferences preferences_dialog;
+        private Widgets.Cheatsheet cheatsheet_dialog;
 
         public File file;
         public Quilter.MainWindow win;
@@ -64,16 +66,35 @@ namespace Quilter.Widgets {
                 open_button_pressed ();
             });
 
-            menu_button = new Gtk.Button ();
+            menu_button = new Gtk.MenuButton ();
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
-			menu_button.has_tooltip = true;
+            menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
 
-            menu_button.clicked.connect (() => {
+            menu = new Gtk.Menu ();
+
+            var cheatsheet = new Gtk.MenuItem.with_label (_("Markdown Cheatsheet"));
+            cheatsheet.activate.connect (() => {
+                debug ("Cheatsheet button pressed.");
+                cheatsheet_dialog = new Widgets.Cheatsheet ();
+                cheatsheet_dialog.show_all ();
+            });
+
+            var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
+            preferences.activate.connect (() => {
                 debug ("Prefs button pressed.");
                 preferences_dialog = new Widgets.Preferences ();
                 preferences_dialog.show_all ();
             });
+
+            var separator = new Gtk.SeparatorMenuItem ();
+
+            menu.add (cheatsheet);
+            menu.add (separator);
+            menu.add (preferences);
+            menu.show_all ();
+
+            menu_button.popup = menu;
 
             this.pack_start (new_button);
             this.pack_start (open_button);
