@@ -11,7 +11,7 @@
   <style name="def:statement" foreground="#1A1A1A"  bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#1A1A1A" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#4A4A4A" italic="true"/>
 
   <!-- Links -->
   <style name="def:comment" foreground="#AAAAAA"/>

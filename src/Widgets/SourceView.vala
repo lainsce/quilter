@@ -23,9 +23,9 @@ namespace Quilter.Widgets {
         private string font;
 
         public SourceView () {
-            restore_settings ();
+            update_settings ();
             var settings = AppSettings.get_default ();
-            settings.changed.connect (restore_settings);
+            settings.changed.connect (update_settings);
         }
 
         construct {
@@ -40,7 +40,6 @@ namespace Quilter.Widgets {
 
             is_modified = false;
             buffer.changed.connect (on_text_modified);
-            this.set_scheme (this.get_default_scheme ());
 
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.left_margin = 45;
@@ -69,19 +68,14 @@ namespace Quilter.Widgets {
             this.font = default_font;
         }
 
-        private void restore_settings () {
+        private void update_settings () {
             var settings = AppSettings.get_default ();
             this.highlight_current_line = settings.highlight_current_line;
 
             this.font = settings.font;
             use_default_font (settings.use_system_font);
+            set_scheme (get_default_scheme ());
             this.override_font (Pango.FontDescription.from_string (this.font));
-        }
-
-        private void update_settings () {
-            var settings = AppSettings.get_default ();
-            settings.highlight_current_line = highlight_current_line;
-            settings.font = this.font;
         }
 
         public void set_scheme (string id) {
@@ -91,7 +85,12 @@ namespace Quilter.Widgets {
         }
 
         private string get_default_scheme () {
-            return "quilter";
+            var settings = AppSettings.get_default ();
+            if (!settings.dark_mode) {
+                return "quilter";
+            } else {
+                return "quilter-dark";
+            }
         }
     }
 }

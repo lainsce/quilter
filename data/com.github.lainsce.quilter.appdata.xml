@@ -10,6 +10,8 @@
         <ul>
             <li>Save your documents anywhere, even on existing files.</li>
             <li>Configure whether to have Focus Mode or not.</li>
+            <li>Configure whether to have Dark Mode or not.</li>
+            <li>Fullscreen your writing area with F11.</li>
             <li>Quit anytime with the shortcut Ctrl + Q</li>
         </ul>
     </description>
@@ -22,6 +24,7 @@
     <screenshots>
         <screenshot type="default">
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot.png</image>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot-dark.png</image>
         </screenshot>
     </screenshots>
     <custom>

@@ -29,7 +29,7 @@ namespace Quilter {
             app_years = "2017";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            build_version = "1.0.4";
+            build_version = "1.0.5";
             app_icon = "com.github.lainsce.quilter";
             main_url = "https://github.com/lainsce/quilter/";
             bug_url = "https://github.com/lainsce/quilter/issues";

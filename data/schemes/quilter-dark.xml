@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="quilter-dark" _name="Quilter Dark" version="1.0">
+  <author>Lains</author>
+  <_description>Emphasis on focus.</_description>
+
+  <style name="text"            foreground="#EDEDED" background="#1A1A1A"/>
+  <style name="cursor"          foreground="#0098DD"/>
+  <style name="current-line"    background="#2A2A2A"/>
+
+  <!-- Bold -->
+  <style name="def:statement" foreground="#EDEDED"  bold="true"/>
+
+  <!-- Italic -->
+  <style name="def:doc-comment-element" foreground="#D1D1D1" italic="true"/>
+
+  <!-- Links -->
+  <style name="def:comment" foreground="#333333"/>
+  <style name="def:underlined" foreground="#333333"/>
+
+  <!-- Code -->
+  <style name="def:identifier" foreground="#919191"/>
+
+  <!-- Line-break -->
+  <style name="def:note" foreground="#EDEDED"/>
+
+  <!-- Label -->
+  <style name="def:preprocessor" foreground="#EDEDED"/>
+
+  <!-- Image marking in Links -->
+  <style name="def:shebang" foreground="#333333"/>
+  <style name="def:constant" foreground="#333333"/>
+
+  <!-- Backslash Escaping -->
+  <style name="def:special-char" foreground="#8F8F8F"/>
+
+  <!-- Headers -->
+  <style name="def:type" foreground="#EDEDED" bold="true"/>
+</style-scheme>

@@ -19,19 +19,6 @@
 
 namespace Quilter.Stylesheet {
     public const string PAGE = """
-    @define-color textColorPrimary #1A1A1A;
-
-    .quilter-window {
-        background-color: #F1F1F1;
-    }
-
-    .quilter-toolbar {
-        background-color: #F1F1F1;
-        background: #F1F1F1;
-        border-bottom-color: transparent;
-        box-shadow: inset 0px 1px 2px -2px white;
-    }
-
     .quilter-note:selected {
         background-color: #00BAFF;
     }

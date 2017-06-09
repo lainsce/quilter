@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.0.5) xenial; urgency=low
+
+  * Dark mode is complete.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 8 June 2017 21:23:00 -0300
+
 com.github.lainsce.quilter (1.0.4) xenial; urgency=low
 
   * Focus mode is complete.
