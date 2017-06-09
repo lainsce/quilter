@@ -87,8 +87,10 @@ namespace Quilter.Widgets {
         private string get_default_scheme () {
             var settings = AppSettings.get_default ();
             if (!settings.dark_mode) {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 return "quilter";
             } else {
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 return "quilter-dark";
             }
         }
