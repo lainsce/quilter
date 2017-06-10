@@ -23,7 +23,11 @@
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <screenshots>
         <screenshot type="default">
+            <caption>Normal Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Dark Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot-dark.png</image>
         </screenshot>
     </screenshots>
