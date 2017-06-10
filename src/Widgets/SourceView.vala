@@ -22,6 +22,20 @@ namespace Quilter.Widgets {
         public static bool is_modified;
         private string font;
 
+        private const string COLOR_PRIMARY = """
+            @define-color colorPrimary %s;
+            @define-color textColorPrimary %s;
+            .quilter-window {
+                background-color: @colorPrimary;
+            }
+            .quilter-toolbar {
+                background-color: @colorPrimary;
+                background: @colorPrimary;
+                border-bottom-color: transparent;
+                box-shadow: inset 0px 1px 2px -2px white;
+            }
+        """;
+
         public SourceView () {
             update_settings ();
             var settings = AppSettings.get_default ();
@@ -87,10 +101,30 @@ namespace Quilter.Widgets {
         private string get_default_scheme () {
             var settings = AppSettings.get_default ();
             if (!settings.dark_mode) {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                var provider = new Gtk.CssProvider ();
+                var color_primary = "#F1F1F1";
+                var text_primary = "#1A1A1A";
+                try {
+                    var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
+                    provider.load_from_data (colored_css, colored_css.length);
+
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                } catch (GLib.Error e) {
+                    critical (e.message);
+                }
                 return "quilter";
             } else {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                var provider = new Gtk.CssProvider ();
+                var color_primary = "#1A1A1A";
+                var text_primary = "#F1F1F1";
+                try {
+                    var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
+                    provider.load_from_data (colored_css, colored_css.length);
+
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                } catch (GLib.Error e) {
+                    critical (e.message);
+                }
                 return "quilter-dark";
             }
         }
