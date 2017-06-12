@@ -23,7 +23,7 @@ namespace Quilter {
         public Gtk.ScrolledWindow scroll;
 
         public Widgets.Toolbar toolbar;
-        public Widgets.SourceView view;
+        public Widgets.WindowView view;
 
         private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -61,11 +61,8 @@ namespace Quilter {
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
 
-            scroll = new Gtk.ScrolledWindow (null, null);
-            this.add (scroll);
-            this.view = new Widgets.SourceView ();
-            this.view.monospace = true;
-            scroll.add (view);
+            this.view = new Widgets.WindowView ();
+            this.add (view);
 
             Utils.FileUtils.load_tmp_file ();
 
