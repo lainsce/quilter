@@ -23,7 +23,7 @@ namespace Quilter {
         public int window_width { get; set; }
         public bool window_maximized { get; set; }
         public bool dark_mode { get; set; }
-        public bool highlight_current_line { get; set; }
+        public bool focus_mode { get; set; }
         public bool use_system_font { get; set; }
         public string font { get; set; }
         public string last_file { get; set; }

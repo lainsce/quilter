@@ -176,7 +176,7 @@ namespace Quilter.Widgets {
                 }
 
                 if (wanna_save == Gtk.ResponseType.NO) {
-                    debug ("User cancelled the dialog. Remove document from view then.");
+                    debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
                     Widgets.SourceView.buffer.text = "";
                     this.subtitle = "";
                     var settings = AppSettings.get_default ();

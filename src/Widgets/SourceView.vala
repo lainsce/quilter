@@ -84,7 +84,7 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var settings = AppSettings.get_default ();
-            this.highlight_current_line = settings.highlight_current_line;
+            this.highlight_current_line = settings.focus_mode;
 
             this.font = settings.font;
             use_default_font (settings.use_system_font);

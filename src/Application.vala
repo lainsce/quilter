@@ -98,7 +98,7 @@ namespace Quilter {
             return 0;
         }
 
-        static const OptionEntry[] entries = {
+        const OptionEntry[] entries = {
             { "version", 'v', 0, OptionArg.NONE, out print_version, N_("Print version info and exit"), null },
             { "about", 'a', 0, OptionArg.NONE, out show_about_dialog, N_("Show about dialog"), null },
             { null }
