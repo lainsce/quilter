@@ -20,10 +20,8 @@ using Granite.Widgets;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-        public Gtk.ScrolledWindow scroll;
-
         public Widgets.Toolbar toolbar;
-        public Widgets.WindowView view;
+        public Widgets.SourceView view;
 
         private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -60,9 +58,12 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
-
-            this.view = new Widgets.WindowView ();
-            this.add (view);
+            
+            var scroll = new Gtk.ScrolledWindow (null, null);
+            this.add (scroll);
+            this.view = new Widgets.SourceView ();
+            this.view.monospace = true;
+            scroll.add (view);
 
             Utils.FileUtils.load_tmp_file ();
 
@@ -71,6 +72,22 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.q, keycode)) {
                         this.destroy ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.s, keycode)) {
+                        Utils.DialogUtils.display_save_dialog ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.o, keycode)) {
+                        Utils.DialogUtils.display_open_dialog ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.h, keycode)) {
+                        var cheatsheet_dialog = new Widgets.Cheatsheet ();
+                        cheatsheet_dialog.show_all ();
                     }
                 }
                 if (match_keycode (Gdk.Key.F11, keycode)) {

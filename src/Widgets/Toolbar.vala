@@ -31,7 +31,6 @@ namespace Quilter.Widgets {
         private Widgets.Cheatsheet cheatsheet_dialog;
 
         public File file;
-        public Quilter.MainWindow win;
 
         public Toolbar () {
             var settings = AppSettings.get_default ();

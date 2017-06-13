@@ -40,8 +40,6 @@ executable(
     'src/MainWindow.vala',
     'src/Widgets/Toolbar.vala',
     'src/Widgets/SourceView.vala',
-    'src/Widgets/WindowView.vala',
-    'src/Widgets/WebView.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
     'src/Constants/Stylesheet.vala',
