@@ -24,6 +24,7 @@ namespace Quilter.Widgets {
 
         private const string COLOR_PRIMARY = """
             @define-color colorPrimary %s;
+            @define-color textColorPrimary %s;
             .quilter-window {
                 background-color: @colorPrimary;
             }
