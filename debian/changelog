@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.0.9) xenial; urgency=low
+
+  * Fixed the saving of files before opening new ones.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 15 June 2017 01:55:00 -0300
+
 com.github.lainsce.quilter (1.0.6) xenial; urgency=low
 
   * Version bump.
