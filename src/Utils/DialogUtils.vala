@@ -104,4 +104,23 @@ namespace Quilter.Utils.DialogUtils {
         dialog.destroy();
         return response;
     }
+
+    private int display_open_confirm () {
+        var dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.MODAL,
+                Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "<b>" +
+                _("There are unsaved changes. Do you want to save?") + "</b>" +
+                "\n\n" + _("If you don't save, changes will be lost forever."));
+        dialog.use_markup = true;
+        dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
+
+        var button = new Gtk.Button.with_label (_("Open a document"));
+        button.show ();
+        dialog.add_action_widget (button, Gtk.ResponseType.NO);
+        dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
+        dialog.set_default_response (Gtk.ResponseType.ACCEPT);
+        int response = dialog.run ();
+        dialog.destroy();
+        return response;
+    }
 }

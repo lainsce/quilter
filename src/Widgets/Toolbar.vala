@@ -189,7 +189,7 @@ namespace Quilter.Widgets {
         public bool open_document () throws Error {
             if (Widgets.SourceView.is_modified) {
                 debug ("Buffer was modified. Asking user to save first.");
-                int wanna_save = Utils.DialogUtils.display_save_confirm ();
+                int wanna_save = Utils.DialogUtils.display_open_confirm ();
                 if (wanna_save == Gtk.ResponseType.CANCEL ||
                     wanna_save == Gtk.ResponseType.DELETE_EVENT) {
                     debug ("User canceled save confirm. Aborting operation.");
