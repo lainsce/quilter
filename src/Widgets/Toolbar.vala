@@ -187,12 +187,41 @@ namespace Quilter.Widgets {
         }
 
         public bool open_document () throws Error {
-            if (file == null) {
-                debug ("Asking the user what to open.");
-                file = Utils.DialogUtils.display_open_dialog ();
-                if (file == null) {
-                    debug ("User cancelled operation. Aborting.");
-                    return false;
+            if (Widgets.SourceView.is_modified) {
+                debug ("Buffer was modified. Asking user to save first.");
+                int wanna_save = Utils.DialogUtils.display_save_confirm ();
+                if (wanna_save == Gtk.ResponseType.CANCEL ||
+                    wanna_save == Gtk.ResponseType.DELETE_EVENT) {
+                    debug ("User canceled save confirm. Aborting operation.");
+                }
+
+                if (wanna_save == Gtk.ResponseType.YES) {
+                    debug ("Saving file before opening the open document dialog.");
+                    try {
+                        save_document ();
+                    } catch (Error e) {
+                        error ("Unexpected error during save: " + e.message);
+                    }
+                }
+
+                if (wanna_save == Gtk.ResponseType.NO) {
+                    debug ("User cancelled the dialog. Open the open document dialog.");
+                    if (file == null) {
+                        debug ("Asking the user what to open.");
+                        file = Utils.DialogUtils.display_open_dialog ();
+                        if (file == null) {
+                            debug ("User cancelled operation. Aborting.");
+                            return false;
+                        }
+                    }
+
+                    string text;
+                    FileUtils.get_contents (file.get_path (), out text);
+                    Widgets.SourceView.buffer.text = text;
+                    var settings = AppSettings.get_default ();
+                    settings.last_file = file.get_path ();
+                    this.subtitle = file.get_path ();
+                    return true;
                 }
             }
 
