@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.1.0) xenial; urgency=low
+
+  * New Focus mode, makes text bigger and the toolbar more light.
+  * Simplified the settings dialog.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 19 June 2017 08:55:00 -0300
+
 com.github.lainsce.quilter (1.0.9) xenial; urgency=low
 
   * Fixed the saving of files before opening new ones.

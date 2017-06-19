@@ -35,12 +35,11 @@ namespace Quilter.Widgets {
         public Toolbar () {
             var settings = AppSettings.get_default ();
             this.subtitle = settings.last_file;
-			var header_context = this.get_style_context ();
+			      var header_context = this.get_style_context ();
             header_context.add_class ("quilter-toolbar");
 
             new_button = new Gtk.Button ();
-            new_button.set_image (new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR));
-			new_button.has_tooltip = true;
+            new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
@@ -48,8 +47,7 @@ namespace Quilter.Widgets {
             });
 
             save_button = new Gtk.Button ();
-            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
-			save_button.has_tooltip = true;
+            save_button.has_tooltip = true;
             save_button.tooltip_text = (_("Save as…"));
 
             save_button.clicked.connect (() => {
@@ -57,8 +55,7 @@ namespace Quilter.Widgets {
             });
 
             open_button = new Gtk.Button ();
-            open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
-			open_button.has_tooltip = true;
+			      open_button.has_tooltip = true;
             open_button.tooltip_text = (_("Open…"));
 
             open_button.clicked.connect (() => {
@@ -66,9 +63,11 @@ namespace Quilter.Widgets {
             });
 
             menu_button = new Gtk.MenuButton ();
-            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
             menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
+
+            focused_toolbar ();
+            settings.changed.connect (focused_toolbar);
 
             menu = new Gtk.Menu ();
 
@@ -102,6 +101,21 @@ namespace Quilter.Widgets {
 
             this.show_close_button = true;
             this.show_all ();
+        }
+
+        public void focused_toolbar () {
+            var settings = AppSettings.get_default ();
+            if (!settings.focus_mode) {
+                new_button.set_image (new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
+                open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
+                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
+            } else {
+                new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            }
         }
 
         public void new_button_pressed () {

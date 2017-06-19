@@ -73,23 +73,19 @@ namespace Quilter.Widgets {
             }
         }
 
-        public void use_default_font (bool value) {
-            if (!value)
-                return;
-
-            var default_font = new GLib.Settings ("org.gnome.desktop.interface").get_string ("monospace-font-name");
-
-            this.font = default_font;
-        }
-
         private void update_settings () {
             var settings = AppSettings.get_default ();
-            this.highlight_current_line = settings.focus_mode;
+            if (!settings.focus_mode) {
+                this.highlight_current_line = false;
+                this.font = settings.font;
+                this.override_font (Pango.FontDescription.from_string (this.font));
+            } else {
+                this.highlight_current_line = true;
+                this.font = "Cousine 18";
+                this.override_font (Pango.FontDescription.from_string (this.font));
+            }
 
-            this.font = settings.font;
-            use_default_font (settings.use_system_font);
             set_scheme (get_default_scheme ());
-            this.override_font (Pango.FontDescription.from_string (this.font));
         }
 
         public void set_scheme (string id) {

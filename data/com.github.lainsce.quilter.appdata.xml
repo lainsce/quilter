@@ -30,6 +30,10 @@
             <caption>Dark Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot-dark.png</image>
         </screenshot>
+        <screenshot>
+            <caption>Focus Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/shot-focused.png</image>
+        </screenshot>
     </screenshots>
     <custom>
         <value key="x-appcenter-color-primary">#b8d2e2</value>

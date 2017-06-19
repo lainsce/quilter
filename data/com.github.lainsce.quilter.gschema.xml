@@ -10,7 +10,7 @@
 			<summary>Window position</summary>
 			<description>The y axis of window position</description>
 		</key>
-        <key name="window-height" type="i">
+    <key name="window-height" type="i">
 			<default>800</default>
 			<summary>Window position</summary>
 			<description>The height of the window</description>
@@ -20,32 +20,27 @@
 			<summary>Window position</summary>
 			<description>The width of the window</description>
 		</key>
-        <key name="window-maximized" type="b">
+    <key name="window-maximized" type="b">
 			<default>false</default>
 			<summary>Window state is maximized or not</summary>
 			<description>Whether Quilter should be maximized or not</description>
 		</key>
-        <key name="focus-mode" type="b">
+    <key name="focus-mode" type="b">
 			<default>false</default>
 			<summary>Focus Mode</summary>
 			<description>Whether Quilter should be in Focus Mode</description>
 		</key>
-        <key name="dark-mode" type="b">
+    <key name="dark-mode" type="b">
 			<default>false</default>
 			<summary>Dark Mode</summary>
 			<description>Whether Quilter should be in Dark Mode</description>
-		</key>
-        <key name="use-system-font" type="b">
-			<default>true</default>
-			<summary>Use system font</summary>
-			<description>Whether Quilter should use the default system font</description>
 		</key>
 		<key name="font" type="s">
 			<default>'Cousine 12'</default>
 			<summary>Preferred Font</summary>
 			<description>Set the preferred font</description>
 		</key>
-        <key name="last-file" type="s">
+    <key name="last-file" type="s">
 			<default>''</default>
 			<summary>Last opened file</summary>
 			<description>The last opened file in Quilter</description>
