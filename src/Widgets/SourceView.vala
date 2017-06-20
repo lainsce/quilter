@@ -34,7 +34,10 @@ namespace Quilter.Widgets {
                 background-color: @colorPrimary;
                 background: @colorPrimary;
                 border-bottom-color: transparent;
+                color: @textColorPrimary;
                 box-shadow: inset 0px 1px 2px -2px white;
+                icon-shadow: 0 1px 0px shade (@colorPrimary, 0.52);
+                text-shadow: 0 1px 0px shade (@colorPrimary, 0.52);
             }
         """;
 
@@ -101,7 +104,7 @@ namespace Quilter.Widgets {
             if (!settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
                 var color_primary = "#F1F1F1";
-                var text_primary = "#1A1A1A";
+                var text_primary = "#7A7A7A";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
@@ -114,7 +117,7 @@ namespace Quilter.Widgets {
             } else {
                 var provider = new Gtk.CssProvider ();
                 var color_primary = "#1A1A1A";
-                var text_primary = "#F1F1F1";
+                var text_primary = "#ABABAB";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
