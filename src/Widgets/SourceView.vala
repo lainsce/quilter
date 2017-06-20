@@ -18,6 +18,8 @@
 */
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
+        public Quilter.MainWindow window;
+
         public static Gtk.SourceBuffer buffer;
         public static bool is_modified;
         private string font;
@@ -81,7 +83,7 @@ namespace Quilter.Widgets {
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
                 this.highlight_current_line = true;
-                this.font = "Cousine 18";
+                this.font = "Cousine 16";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 
