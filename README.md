@@ -1,5 +1,6 @@
 # ![icon](data/icon.png) Quilter
 ## Focus on your writing.
+[![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.quilter)
 
 ![Screenshot](data/shot.png)
 
