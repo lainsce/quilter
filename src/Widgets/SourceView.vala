@@ -24,6 +24,8 @@ namespace Quilter.Widgets {
         public static bool is_modified;
         private string font;
 
+        public File file;
+
         private const string COLOR_PRIMARY = """
             @define-color colorPrimary %s;
             @define-color textColorPrimary %s;
@@ -72,7 +74,19 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
+            var settings = AppSettings.get_default ();
             Utils.FileUtils.save_tmp_file ();
+
+            var file = File.new_for_path (settings.last_file);
+
+            if (file.query_exists ())
+                file.delete ();
+
+            Gtk.TextIter start, end;
+            buffer.get_bounds (out start, out end);
+            string buffer = buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+            Utils.FileUtils.save_file (file, binbuffer);
             if (!is_modified) {
                 is_modified = true;
             }
