@@ -53,6 +53,29 @@ namespace Quilter.Utils.FileUtils {
         }
     }
 
+    private void load_work_file () {
+      var settings = AppSettings.get_default ();
+      var file = File.new_for_path (settings.last_file);
+
+        if ( !file.query_exists () ) {
+            try {
+                file.create (FileCreateFlags.NONE);
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
+        }
+
+        try {
+            string text;
+            string filename = file.get_path ();
+
+            GLib.FileUtils.get_contents (filename, out text);
+            Widgets.SourceView.buffer.text = text;
+        } catch (Error e) {
+            error ("%s", e.message);
+        }
+    }
+
     private void save_tmp_file () {
         if ( tmp_file.query_exists () ) {
             try {
@@ -70,6 +93,31 @@ namespace Quilter.Utils.FileUtils {
 
         try {
             save_file (tmp_file, binbuffer);
+        } catch (Error e) {
+            print ("Exception found: "+ e.message);
+        }
+    }
+
+    private void save_work_file () {
+        var settings = AppSettings.get_default ();
+        var file = File.new_for_path (settings.last_file);
+
+        if ( file.query_exists () ) {
+            try {
+                file.delete();
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
+        }
+
+        Gtk.TextIter start, end;
+        Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+        uint8[] binbuffer = buffer.data;
+
+        try {
+            save_file (file, binbuffer);
         } catch (Error e) {
             print ("Exception found: "+ e.message);
         }

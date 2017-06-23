@@ -74,19 +74,9 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
-            var settings = AppSettings.get_default ();
             Utils.FileUtils.save_tmp_file ();
+            Utils.FileUtils.save_work_file ();
 
-            var file = File.new_for_path (settings.last_file);
-
-            if (file.query_exists ())
-                file.delete ();
-
-            Gtk.TextIter start, end;
-            buffer.get_bounds (out start, out end);
-            string buffer = buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-            Utils.FileUtils.save_file (file, binbuffer);
             if (!is_modified) {
                 is_modified = true;
             }

@@ -58,7 +58,7 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
-            
+
             var scroll = new Gtk.ScrolledWindow (null, null);
             this.add (scroll);
             this.view = new Widgets.SourceView ();
@@ -66,6 +66,7 @@ namespace Quilter {
             scroll.add (view);
 
             Utils.FileUtils.load_tmp_file ();
+            Utils.FileUtils.load_work_file ();
 
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
@@ -123,6 +124,7 @@ namespace Quilter {
             settings.window_maximized = is_maximized;
 
             Utils.FileUtils.save_tmp_file ();
+            Utils.FileUtils.save_work_file ();
             return false;
         }
     }
