@@ -78,11 +78,21 @@ namespace Quilter.Widgets {
             }
         }
 
+        public void use_default_font (bool value) {
+            if (!value)
+                return;
+
+            var default_font = new GLib.Settings ("org.gnome.desktop.interface").get_string ("monospace-font-name");
+
+            this.font = default_font;
+        }
+
         private void update_settings () {
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
                 this.highlight_current_line = false;
                 this.font = settings.font;
+                use_default_font (settings.use_system_font);
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
                 this.highlight_current_line = true;

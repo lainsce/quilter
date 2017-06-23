@@ -20,6 +20,8 @@ namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
         Gtk.Switch focus_mode;
         Gtk.Switch dark_mode;
+        Gtk.Switch use_custom_font;
+        Gtk.FontButton select_font;
 
         public Preferences () {
             create_layout ();
@@ -33,6 +35,7 @@ namespace Quilter.Widgets {
         }
 
         private void create_layout () {
+            var main_settings = AppSettings.get_default ();
             var main_grid = new Gtk.Grid ();
             main_grid.row_spacing = 6;
             main_grid.column_spacing = 12;
@@ -45,6 +48,16 @@ namespace Quilter.Widgets {
             focus_mode = new SettingsSwitch ("focus-mode");
             var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
             dark_mode = new SettingsSwitch ("dark-mode");
+
+            var font_header = new SettingsHeader (_("Font"));
+            var use_custom_font_label = new SettingsLabel (_("Custom font:"));
+            use_custom_font = new Gtk.Switch ();
+            use_custom_font.halign = Gtk.Align.START;
+            main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
+            select_font = new Gtk.FontButton ();
+            select_font.hexpand = true;
+            main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
+            main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
 
             var close_button = new Gtk.Button.with_label (_("Close"));
             close_button.clicked.connect (() => {this.destroy ();});
@@ -61,6 +74,10 @@ namespace Quilter.Widgets {
             main_grid.attach (focus_mode, 1, 2, 1, 1);
             main_grid.attach (dark_mode_label, 0, 3, 1, 1);
             main_grid.attach (dark_mode, 1, 3, 1, 1);
+            main_grid.attach (font_header, 0, 4, 3, 1);
+            main_grid.attach (use_custom_font_label , 0, 5, 1, 1);
+            main_grid.attach (use_custom_font, 1, 5, 1, 1);
+            main_grid.attach (select_font, 2, 5, 1, 1);
             main_grid.attach (button_box, 0, 6, 4, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);

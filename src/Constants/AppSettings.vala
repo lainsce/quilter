@@ -24,6 +24,7 @@ namespace Quilter {
         public bool window_maximized { get; set; }
         public bool dark_mode { get; set; }
         public bool focus_mode { get; set; }
+        public bool use_system_font { get; set; }
         public string font { get; set; }
         public string last_file { get; set; }
 

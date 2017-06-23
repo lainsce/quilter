@@ -1,3 +1,15 @@
+com.github.lainsce.quilter (1.1.2) xenial; urgency=low
+
+  * Reintroduce the font customization options.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 23 June 2017 12:40:00 -0300
+
+com.github.lainsce.quilter (1.1.1) xenial; urgency=low
+
+  * AppCenter monetization
+
+ -- Lains <lainsce@airmail.cc>  Thu, 22 June 2017 09:55:00 -0300
+
 com.github.lainsce.quilter (1.1.0) xenial; urgency=low
 
   * New Focus mode, makes text bigger and the toolbar more light.
