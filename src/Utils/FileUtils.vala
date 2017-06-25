@@ -20,8 +20,9 @@ namespace Quilter.Utils.FileUtils {
     File tmp_file;
 
     public void save_file (File file, uint8[] buffer) throws Error {
-        var output = new DataOutputStream (file.create
-                (FileCreateFlags.NONE));
+        var output = new DataOutputStream (
+                     new BufferedOutputStream.sized (
+                    file.create (FileCreateFlags.REPLACE_DESTINATION), 65536));
 
         long written = 0;
         while (written < buffer.length)
@@ -31,70 +32,54 @@ namespace Quilter.Utils.FileUtils {
     private void load_tmp_file () {
         Granite.Services.Paths.initialize ("quilter", Build.PKGDATADIR);
         Granite.Services.Paths.ensure_directory_exists (Granite.Services.Paths.user_data_folder);
+
         tmp_file = Granite.Services.Paths.user_data_folder.get_child ("temp");
 
         if ( !tmp_file.query_exists () ) {
             try {
                 tmp_file.create (FileCreateFlags.NONE);
             } catch (Error e) {
-                error ("E: %s\n", e.message);
+                error ("%s\n", e.message);
             }
-        } else {
-            try {
-                string text;
-                string filename = tmp_file.get_path ();
+        }
 
-                GLib.FileUtils.get_contents (filename, out text);
-                Widgets.SourceView.buffer.text = text;
-            } catch (Error e) {
-                error ("E: %s\n", e.message);
-            }
+        try {
+            string text;
+            string filename = tmp_file.get_path ();
+
+            GLib.FileUtils.get_contents (filename, out text);
+            Widgets.SourceView.buffer.text = text;
+        } catch (Error e) {
+            error ("%s\n", e.message);
         }
     }
 
     private void load_work_file () {
-      var settings = AppSettings.get_default ();
-      var filename = settings.last_file;
+        var settings = AppSettings.get_default ();
+        var file = File.new_for_path (settings.last_file);
 
-        if ( filename == "" ) {
-            load_tmp_file ();
-        } else {
+        if ( !file.query_exists () ) {
             try {
-              string text;
+                file.create (FileCreateFlags.NONE);
+                string text;
+                string filename = file.get_path ();
 
-              GLib.FileUtils.get_contents (filename, out text);
-              Widgets.SourceView.buffer.text = text;
+                GLib.FileUtils.get_contents (filename, out text);
+                Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
-                error ("E: %s\n", e.message);
+                error ("%s\n", e.message);
             }
         }
     }
 
     private void save_tmp_file () {
-        if ( !tmp_file.query_exists () ) {
-            Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-
-            try {
-                save_file (tmp_file, binbuffer);
-            } catch (Error e) {
-                print ("E: %s\n"+ e.message);
-            }
-        } else {
+        if ( tmp_file.query_exists () ) {
             try {
                 tmp_file.delete();
             } catch (Error e) {
-                error ("E: %s\n", e.message);
+                error ("%s\n", e.message);
             }
         }
-    }
-
-    private void save_work_file () {
-        var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
 
         Gtk.TextIter start, end;
         Widgets.SourceView.buffer.get_bounds (out start, out end);
@@ -102,12 +87,32 @@ namespace Quilter.Utils.FileUtils {
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
+        try {
+            save_file (tmp_file, binbuffer);
+        } catch (Error e) {
+            print ("%s\n", e.message);
+        }
+    }
+
+    private void save_work_file () {
+        var settings = AppSettings.get_default ();
+        var file = File.new_for_path (settings.last_file);
+
         if ( file.query_exists () ) {
             try {
-                file.delete ();
-                save_file (file, binbuffer);
+                Gtk.TextIter start, end;
+                Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                uint8[] binbuffer = buffer.data;
+
+                try {
+                    save_file (file, binbuffer);
+                } catch (Error e) {
+                    print ("%s\n", e.message);
+                }
             } catch (Error e) {
-                error ("Error: %s\n", e.message);
+                error ("%s\n", e.message);
             }
         }
     }

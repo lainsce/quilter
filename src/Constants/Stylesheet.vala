@@ -19,10 +19,6 @@
 
 namespace Quilter.Stylesheet {
     public const string PAGE = """
-    .quilter-note:selected {
-        background-color: #00BAFF;
-    }
-
     .monospace {
         font-family: monospace;
     }
