@@ -31,70 +31,64 @@ namespace Quilter.Utils.FileUtils {
     private void load_tmp_file () {
         Granite.Services.Paths.initialize ("quilter", Build.PKGDATADIR);
         Granite.Services.Paths.ensure_directory_exists (Granite.Services.Paths.user_data_folder);
-
         tmp_file = Granite.Services.Paths.user_data_folder.get_child ("temp");
 
         if ( !tmp_file.query_exists () ) {
             try {
                 tmp_file.create (FileCreateFlags.NONE);
             } catch (Error e) {
-                error ("Error: %s\n", e.message);
+                error ("E: %s\n", e.message);
             }
-        }
+        } else {
+            try {
+                string text;
+                string filename = tmp_file.get_path ();
 
-        try {
-            string text;
-            string filename = tmp_file.get_path ();
-
-            GLib.FileUtils.get_contents (filename, out text);
-            Widgets.SourceView.buffer.text = text;
-        } catch (Error e) {
-            error ("%s", e.message);
+                GLib.FileUtils.get_contents (filename, out text);
+                Widgets.SourceView.buffer.text = text;
+            } catch (Error e) {
+                error ("E: %s\n", e.message);
+            }
         }
     }
 
     private void load_work_file () {
       var settings = AppSettings.get_default ();
-      var file = File.new_for_path (settings.last_file);
+      var filename = settings.last_file;
 
-        if ( !file.query_exists () ) {
+        if ( filename == "" ) {
+            load_tmp_file ();
+        } else {
             try {
-                file.create (FileCreateFlags.NONE);
+              string text;
+
+              GLib.FileUtils.get_contents (filename, out text);
+              Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
-                error ("Error: %s\n", e.message);
+                error ("E: %s\n", e.message);
             }
-        }
-
-        try {
-            string text;
-            string filename = file.get_path ();
-
-            GLib.FileUtils.get_contents (filename, out text);
-            Widgets.SourceView.buffer.text = text;
-        } catch (Error e) {
-            error ("%s", e.message);
         }
     }
 
     private void save_tmp_file () {
-        if ( tmp_file.query_exists () ) {
+        if ( !tmp_file.query_exists () ) {
+            Gtk.TextIter start, end;
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+
+            try {
+                save_file (tmp_file, binbuffer);
+            } catch (Error e) {
+                print ("E: %s\n"+ e.message);
+            }
+        } else {
             try {
                 tmp_file.delete();
             } catch (Error e) {
-                error ("Error: %s\n", e.message);
+                error ("E: %s\n", e.message);
             }
-        }
-
-        Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-        uint8[] binbuffer = buffer.data;
-
-        try {
-            save_file (tmp_file, binbuffer);
-        } catch (Error e) {
-            print ("Exception found: "+ e.message);
         }
     }
 
@@ -102,24 +96,19 @@ namespace Quilter.Utils.FileUtils {
         var settings = AppSettings.get_default ();
         var file = File.new_for_path (settings.last_file);
 
-        if ( file.query_exists () ) {
-            try {
-                file.delete();
-            } catch (Error e) {
-                error ("Error: %s\n", e.message);
-            }
-        }
-
         Gtk.TextIter start, end;
         Widgets.SourceView.buffer.get_bounds (out start, out end);
 
         string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
-        try {
-            save_file (file, binbuffer);
-        } catch (Error e) {
-            print ("Exception found: "+ e.message);
+        if ( file.query_exists () ) {
+            try {
+                file.delete ();
+                save_file (file, binbuffer);
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
         }
     }
 }

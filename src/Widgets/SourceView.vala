@@ -74,8 +74,10 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
-            Utils.FileUtils.save_tmp_file ();
-            Utils.FileUtils.save_work_file ();
+            Timeout.add_seconds(2, () => { Utils.FileUtils.save_tmp_file ();
+                                           Utils.FileUtils.save_work_file ();
+                                           return true;
+                                           });
 
             if (!is_modified) {
                 is_modified = true;
