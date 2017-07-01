@@ -1,9 +1,10 @@
 [Desktop Entry]
 Name=Quilter
 Comment=Focus on your writing
-Exec=com.github.lainsce.quilter
+Exec=com.github.lainsce.quilter %U
 Icon=com.github.lainsce.quilter
 Keywords=Text;Plain;Plaintext;Editor;
+MimeType=text/plain;text/markdown;
 Terminal=false
 Type=Application
 StartupNotify=true
