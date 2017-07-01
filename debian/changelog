@@ -1,3 +1,17 @@
+com.github.lainsce.quilter (1.1.6) xenial; urgency=low
+
+  * Bump for AppCenter
+
+ -- Lains <lainsce@airmail.cc>  Sat, 1 July 2017 18:56:00 -0300
+
+com.github.lainsce.quilter (1.1.5) xenial; urgency=low
+
+  * Register Quilter with the plaintext & markdown mime types it uses.
+  * Ability to choose Quilter in the Switchboard Applications Plug as an Text Editor.
+  * New icons that respect the pixel grid.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 1 July 2017 18:36:00 -0300
+
 com.github.lainsce.quilter (1.1.4) xenial; urgency=low
 
   * Speed up saving files.
