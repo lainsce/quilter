@@ -23,6 +23,7 @@ namespace Quilter {
         private static bool show_about_dialog = false;
 
         private static string _cwd;
+        public static string[] supported_mimetypes;
 
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
@@ -39,6 +40,9 @@ namespace Quilter {
             help_url = "https://github.com/lainsce/quilter/";
             about_authors = {"Lains <lainsce@airmail.cc>", null};
             about_license_type = Gtk.License.GPL_3_0;
+
+            supported_mimetypes = {"text/plain", "text/markdown"};
+            register_default_handler ();
         }
 
         protected override void activate () {
@@ -91,7 +95,7 @@ namespace Quilter {
                 context.parse (ref tmp);
                 unclaimed_args = tmp.length - 1;
             } catch (Error e) {
-                stdout.printf ("com.github.lainsce.quilter: ERROR: " + e.message + "\n");
+                stdout.printf ("ERROR: " + e.message + "\n");
                 return 0;
             }
 
@@ -190,11 +194,41 @@ namespace Quilter {
                 string text;
                 try {
                     FileUtils.get_contents (file.get_path (), out text);
+                    Widgets.SourceView.buffer.text = text;
                 } catch (Error e) {
                     print ("Error: %s", e.message);
                 }
-                Widgets.SourceView.buffer.text = text;;
                 //MainWindow.subtitle = file.get_path ();
+            }
+        }
+
+        private static void register_default_handler () {
+            var app_info = new DesktopAppInfo ("com.github.lainsce.quilter");
+            if (app_info == null) {
+                warning ("AppInfo object not found for Quilter.");
+                return;
+            }
+
+            foreach (string mimetype in supported_mimetypes) {
+                var handler = AppInfo.get_default_for_type (mimetype, false);
+                if (handler == null) {
+                    try {
+                        debug ("Registering Quilter as the default handler for %s", mimetype);
+                        app_info.set_as_default_for_type (mimetype);
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else {
+                    unowned string[] types = handler.get_supported_types ();
+                    if (types == null || !(mimetype in types)) {
+                        try {
+                            debug ("Registering Quilter as the default handler for %s", mimetype);
+                            app_info.set_as_default_for_type (mimetype);
+                        } catch (Error e) {
+                            warning (e.message);
+                        }
+                    }
+                }
             }
         }
 

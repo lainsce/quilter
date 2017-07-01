@@ -8,7 +8,7 @@ MimeType=text/plain;text/markdown;
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=GTK;Utility;Office;
+Categories=GTK;Utility;Office;TextEditor;
 Actions=AboutDialog;
 
 [Desktop Action AboutDialog]

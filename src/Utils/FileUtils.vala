@@ -38,19 +38,14 @@ namespace Quilter.Utils.FileUtils {
         if ( !tmp_file.query_exists () ) {
             try {
                 tmp_file.create (FileCreateFlags.NONE);
+                string text;
+                string filename = tmp_file.get_path ();
+
+                GLib.FileUtils.get_contents (filename, out text);
+                Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
                 error ("%s\n", e.message);
             }
-        }
-
-        try {
-            string text;
-            string filename = tmp_file.get_path ();
-
-            GLib.FileUtils.get_contents (filename, out text);
-            Widgets.SourceView.buffer.text = text;
-        } catch (Error e) {
-            error ("%s\n", e.message);
         }
     }
 
@@ -76,21 +71,20 @@ namespace Quilter.Utils.FileUtils {
         if ( tmp_file.query_exists () ) {
             try {
                 tmp_file.delete();
+                Gtk.TextIter start, end;
+                Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                uint8[] binbuffer = buffer.data;
+
+                try {
+                    save_file (tmp_file, binbuffer);
+                } catch (Error e) {
+                    print ("%s\n", e.message);
+                }
             } catch (Error e) {
                 error ("%s\n", e.message);
             }
-        }
-
-        Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-        uint8[] binbuffer = buffer.data;
-
-        try {
-            save_file (tmp_file, binbuffer);
-        } catch (Error e) {
-            print ("%s\n", e.message);
         }
     }
 
@@ -100,6 +94,7 @@ namespace Quilter.Utils.FileUtils {
 
         if ( file.query_exists () ) {
             try {
+                file.delete();
                 Gtk.TextIter start, end;
                 Widgets.SourceView.buffer.get_bounds (out start, out end);
 
@@ -113,7 +108,7 @@ namespace Quilter.Utils.FileUtils {
                 }
             } catch (Error e) {
                 error ("%s\n", e.message);
-            }
+           }
         }
     }
 }
