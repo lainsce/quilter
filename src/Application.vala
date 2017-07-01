@@ -203,7 +203,7 @@ namespace Quilter {
         }
 
         private static void register_default_handler () {
-            var app_info = new DesktopAppInfo ("com.github.lainsce.quilter");
+            var app_info = new DesktopAppInfo ("com.github.lainsce.quilter.desktop");
             if (app_info == null) {
                 warning ("AppInfo object not found for Quilter.");
                 return;
