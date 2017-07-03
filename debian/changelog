@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.1.7) xenial; urgency=low
+
+  * Bump for Glitched AppCenter release
+
+ -- Lains <lainsce@airmail.cc>  Mon, 3 July 2017 01:12:00 -0300
+
 com.github.lainsce.quilter (1.1.6) xenial; urgency=low
 
   * Bump for AppCenter
