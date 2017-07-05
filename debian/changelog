@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.1.8) xenial; urgency=low
+
+  * Fixed the saving/loading of files
+
+ -- Lains <lainsce@airmail.cc>  Wed, 5 July 2017 19:33:00 -0300
+
 com.github.lainsce.quilter (1.1.7) xenial; urgency=low
 
   * Bump for Glitched AppCenter release

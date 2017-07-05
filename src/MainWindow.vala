@@ -65,7 +65,6 @@ namespace Quilter {
             this.view.monospace = true;
             scroll.add (view);
 
-            Utils.FileUtils.load_tmp_file ();
             Utils.FileUtils.load_work_file ();
 
             this.key_press_event.connect ((e) => {
