@@ -52,7 +52,6 @@ namespace Quilter {
 
         construct {
             var context = this.get_style_context ();
-            set_hide_titlebar_when_maximized (false);
             context.add_class ("quilter-window");
             this.toolbar = new Widgets.Toolbar ();
 
@@ -65,6 +64,7 @@ namespace Quilter {
             this.view.monospace = true;
             scroll.add (view);
 
+            Utils.FileUtils.load_tmp_file ();
             Utils.FileUtils.load_work_file ();
 
             this.key_press_event.connect ((e) => {
@@ -120,7 +120,6 @@ namespace Quilter {
             settings.window_y = y;
             settings.window_width = w;
             settings.window_height = h;
-            settings.window_maximized = is_maximized;
 
             Utils.FileUtils.save_tmp_file ();
             Utils.FileUtils.save_work_file ();

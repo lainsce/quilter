@@ -20,11 +20,6 @@
 				<summary>Window position</summary>
 				<description>The width of the window</description>
 		</key>
-		<key name="window-maximized" type="b">
-				<default>false</default>
-				<summary>Window state is maximized or not</summary>
-				<description>Whether Quilter should be maximized or not</description>
-			</key>
 		<key name="focus-mode" type="b">
 				<default>false</default>
 				<summary>Focus Mode</summary>

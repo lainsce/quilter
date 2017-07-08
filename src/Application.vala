@@ -65,9 +65,6 @@ namespace Quilter {
             if (w != 0 && h != 0) {
                 window.resize (w, h);
             }
-            if (settings.window_maximized) {
-                window.maximize ();
-            }
 
             window.show_all ();
         }

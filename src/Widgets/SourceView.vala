@@ -82,9 +82,9 @@ namespace Quilter.Widgets {
             if (!is_modified) {
                 is_modified = true;
             } else {
-                Timeout.add_seconds(60, () => { Utils.FileUtils.save_tmp_file ();
-                                               Utils.FileUtils.save_work_file ();
-                                               return true;
+                Utils.FileUtils.save_tmp_file ();
+                Timeout.add_seconds(120, () => { Utils.FileUtils.save_work_file ();
+                                                 return true;
                                                });
                 is_modified = false;
             }

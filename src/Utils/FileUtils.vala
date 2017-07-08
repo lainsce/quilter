@@ -20,10 +20,7 @@ namespace Quilter.Utils.FileUtils {
     File tmp_file;
 
     public void save_file (File file, uint8[] buffer) throws Error {
-        var output = new DataOutputStream (
-                     new BufferedOutputStream.sized (
-                    file.create (FileCreateFlags.REPLACE_DESTINATION), 65536));
-
+        var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
@@ -39,7 +36,7 @@ namespace Quilter.Utils.FileUtils {
             try {
                 tmp_file.create (FileCreateFlags.NONE);
             } catch (Error e) {
-                warning ("%s\n", e.message);
+                error ("Error: %s\n", e.message);
             }
         }
 
@@ -50,27 +47,32 @@ namespace Quilter.Utils.FileUtils {
             GLib.FileUtils.get_contents (filename, out text);
             Widgets.SourceView.buffer.text = text;
         } catch (Error e) {
-                warning ("%s\n", e.message);
+            error ("%s", e.message);
         }
     }
 
     private void load_work_file () {
-        var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
+      var settings = AppSettings.get_default ();
+      var file = File.new_for_path (settings.last_file);
 
         if ( !file.query_exists () ) {
-            load_tmp_file ();
-        } else {
             try {
                 file.create (FileCreateFlags.NONE);
+            } catch (Error e) {
+                error ("Error: %s\n", e.message);
+            }
+
+            try {
                 string text;
                 string filename = file.get_path ();
 
                 GLib.FileUtils.get_contents (filename, out text);
                 Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
-                warning ("%s\n", e.message);
+                error ("%s", e.message);
             }
+        } else {
+            load_tmp_file ();
         }
     }
 
@@ -79,8 +81,9 @@ namespace Quilter.Utils.FileUtils {
             try {
                 tmp_file.delete();
             } catch (Error e) {
-                warning ("%s\n", e.message);
+                error ("Error: %s\n", e.message);
             }
+
         }
 
         Gtk.TextIter start, end;
@@ -92,7 +95,7 @@ namespace Quilter.Utils.FileUtils {
         try {
             save_file (tmp_file, binbuffer);
         } catch (Error e) {
-            print ("%s\n", e.message);
+            print ("Exception found: "+ e.message);
         }
     }
 
@@ -100,26 +103,26 @@ namespace Quilter.Utils.FileUtils {
         var settings = AppSettings.get_default ();
         var file = File.new_for_path (settings.last_file);
 
-        if ( !file.query_exists () ) {
-            save_tmp_file ();
-        } else {
+        if ( file.query_exists () ) {
             try {
                 file.delete();
-                Gtk.TextIter start, end;
-                Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-                uint8[] binbuffer = buffer.data;
-
-                try {
-                    save_file (file, binbuffer);
-                } catch (Error e) {
-                    print ("%s\n", e.message);
-                }
             } catch (Error e) {
-                warning ("%s\n", e.message);
+                error ("Error: %s\n", e.message);
             }
-        }
 
+            Gtk.TextIter start, end;
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+
+            try {
+                save_file (file, binbuffer);
+            } catch (Error e) {
+                print ("Exception found: "+ e.message);
+            }
+        } else {
+            save_tmp_file ();
+        }
     }
 }
