@@ -14,8 +14,8 @@
   <style name="def:doc-comment-element" foreground="#4A4A4A" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#AAAAAA"/>
-  <style name="def:underlined" foreground="#AAAAAA"/>
+  <style name="def:comment" foreground="#00BAFF"/>
+  <style name="def:underlined" foreground="#00BAFF"/>
 
   <!-- Code -->
   <style name="def:identifier" foreground="#6A6A6A"/>
@@ -27,8 +27,8 @@
   <style name="def:preprocessor" foreground="#1A1A1A"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#AAAAAA"/>
-  <style name="def:constant" foreground="#AAAAAA"/>
+  <style name="def:shebang" foreground="#00BAFF"/>
+  <style name="def:constant" foreground="#00BAFF"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#6A6A6A"/>
