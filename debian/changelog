@@ -1,8 +1,9 @@
 com.github.lainsce.quilter (1.1.8) xenial; urgency=low
 
   * Fixed the saving/loading of files
+  * Added links, codeblocks and the horizontal rule markdown syntaxes to the cheatsheet
 
- -- Lains <lainsce@airmail.cc>  Wed, 5 July 2017 19:33:00 -0300
+ -- Lains <lainsce@airmail.cc>  Fri, 7 July 2017 23:26:00 -0300
 
 com.github.lainsce.quilter (1.1.7) xenial; urgency=low
 

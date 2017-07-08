@@ -41,8 +41,6 @@ namespace Quilter.Widgets {
             main_grid.column_spacing = 12;
             main_grid.margin = 12;
 
-            var header = new TitleHeader (_("Preferences"));
-
             var editor_header = new SettingsHeader (_("Editor"));
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             focus_mode = new SettingsSwitch ("focus-mode");
@@ -68,7 +66,6 @@ namespace Quilter.Widgets {
             button_box.margin = 12;
             button_box.margin_bottom = 0;
 
-            main_grid.attach (header, 0, 0, 1, 1);
             main_grid.attach (editor_header, 0, 1, 3, 1);
             main_grid.attach (focus_mode_label, 0, 2, 1, 1);
             main_grid.attach (focus_mode, 1, 2, 1, 1);
