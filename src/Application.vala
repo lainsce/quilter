@@ -33,7 +33,7 @@ namespace Quilter {
             app_years = "2017";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            build_version = "1.1.9";
+            build_version = "1.2.0";
             app_icon = "com.github.lainsce.quilter";
             main_url = "https://github.com/lainsce/quilter/";
             bug_url = "https://github.com/lainsce/quilter/issues";
@@ -53,20 +53,7 @@ namespace Quilter {
 
             var window = new MainWindow (this);
 
-            var settings = AppSettings.get_default ();
-            int x = settings.window_x;
-            int y = settings.window_y;
-            int h = settings.window_height;
-            int w = settings.window_width;
-
-            if (x != -1 && y != -1) {
-                window.move (x, y);
-            }
-            if (w != 0 && h != 0) {
-                window.resize (w, h);
-            }
-
-            window.show_all ();
+            window.show ();
         }
 
         public static int main (string[] args) {

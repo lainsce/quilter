@@ -55,6 +55,19 @@ namespace Quilter {
             context.add_class ("quilter-window");
             this.toolbar = new Widgets.Toolbar ();
 
+            var settings = AppSettings.get_default ();
+            int x = settings.window_x;
+            int y = settings.window_y;
+            int h = settings.window_height;
+            int w = settings.window_width;
+
+            if (x != -1 && y != -1) {
+                this.move (x, y);
+            }
+            if (w != 0 && h != 0) {
+                this.resize (w, h);
+            }
+
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
 

@@ -54,6 +54,10 @@ namespace Quilter.Widgets {
             settings.changed.connect (update_settings);
         }
 
+        ~SourceView () {
+          Utils.FileUtils.save_work_file ();
+        }
+
         construct {
             var settings = AppSettings.get_default ();
             var context = this.get_style_context ();
@@ -83,9 +87,6 @@ namespace Quilter.Widgets {
                 is_modified = true;
             } else {
                 Utils.FileUtils.save_tmp_file ();
-                Timeout.add_seconds(120, () => { Utils.FileUtils.save_work_file ();
-                                                 return true;
-                                               });
                 is_modified = false;
             }
         }
