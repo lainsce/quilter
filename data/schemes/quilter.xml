@@ -6,6 +6,7 @@
   <style name="text"            foreground="#1A1A1A" background="#F1F1F1"/>
   <style name="cursor"          foreground="#00BAFF"/>
   <style name="current-line"    background="#E1E1E1"/>
+  <style name="selection"       foreground="#F1F1F1" background="#00BAFF"/>
 
   <!-- Bold -->
   <style name="def:statement" foreground="#1A1A1A"  bold="true"/>

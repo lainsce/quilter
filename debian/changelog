@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.2.1) xenial; urgency=low
+
+  * Fixed the selection bug when using the Quilter style schemes outside Quilter.
+
+ -- Lains <lainsce@airmail.cc>  Tue, 25 July 2017 14:15:00 -0300
+
 com.github.lainsce.quilter (1.2.0) xenial; urgency=low
 
   * Fixed the "timed crash" on saving the file

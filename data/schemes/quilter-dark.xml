@@ -4,8 +4,9 @@
   <_description>Emphasis on focus.</_description>
 
   <style name="text"            foreground="#EDEDED" background="#1A1A1A"/>
-  <style name="cursor"          foreground="#0098DD"/>
+  <style name="cursor"          foreground="#0067CC"/>
   <style name="current-line"    background="#2A2A2A"/>
+  <style name="selection"       foreground="#EDEDED" background="#0067CC"/>
 
   <!-- Bold -->
   <style name="def:statement" foreground="#EDEDED"  bold="true"/>
@@ -14,8 +15,8 @@
   <style name="def:doc-comment-element" foreground="#D1D1D1" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#0098DD"/>
-  <style name="def:underlined" foreground="#0098DD"/>
+  <style name="def:comment" foreground="#0067CC"/>
+  <style name="def:underlined" foreground="#0067CC"/>
 
   <!-- Code -->
   <style name="def:identifier" foreground="#919191"/>
@@ -27,8 +28,8 @@
   <style name="def:preprocessor" foreground="#EDEDED"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#0098DD"/>
-  <style name="def:constant" foreground="#0098DD"/>
+  <style name="def:shebang" foreground="#0067CC"/>
+  <style name="def:constant" foreground="#0067CC"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#8F8F8F"/>
