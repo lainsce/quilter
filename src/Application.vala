@@ -19,10 +19,9 @@
 */
 namespace Quilter {
     public class Application : Granite.Application {
-        private static bool print_version = false;
-        private static bool show_about_dialog = false;
-
+        private static bool print_cr = false;
         private static string _cwd;
+
         public static string[] supported_mimetypes;
 
         construct {
@@ -30,16 +29,9 @@ namespace Quilter {
             flags |= ApplicationFlags.HANDLES_OPEN;
             application_id = "com.github.lainsce.quilter";
             program_name = "Quilter";
-            app_years = "2017";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            build_version = "1.2.1";
             app_icon = "com.github.lainsce.quilter";
-            main_url = "https://github.com/lainsce/quilter/";
-            bug_url = "https://github.com/lainsce/quilter/issues";
-            help_url = "https://github.com/lainsce/quilter/";
-            about_authors = {"Lains <lainsce@airmail.cc>", null};
-            about_license_type = Gtk.License.GPL_3_0;
 
             supported_mimetypes = {"text/plain", "text/markdown"};
             register_default_handler ();
@@ -83,8 +75,7 @@ namespace Quilter {
                 return 0;
             }
 
-            if (print_version) {
-                stdout.printf ("Quilter %s\n", this.build_version);
+            if (print_cr) {
                 stdout.printf ("Copyright 2017 Lains\n");
                 return 0;
             } else {
@@ -182,7 +173,6 @@ namespace Quilter {
                 } catch (Error e) {
                     print ("Error: %s", e.message);
                 }
-                //MainWindow.subtitle = file.get_path ();
             }
         }
 
@@ -217,8 +207,7 @@ namespace Quilter {
         }
 
         const OptionEntry[] entries = {
-            { "version", 'v', 0, OptionArg.NONE, out print_version, N_("Print version info and exit"), null },
-            { "about", 'a', 0, OptionArg.NONE, out show_about_dialog, N_("Show about dialog"), null },
+            { "copyright", 'v', 0, OptionArg.NONE, out print_cr, N_("Print copyright info and exit"), null },
             { null }
         };
     }

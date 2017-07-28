@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.2.2) xenial; urgency=low
+
+  * Remove the About Dialog.
+  * Shortcuts (Ctrl-O/S) now work properly.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 28 July 2017 18:06:00 -0300
+
 com.github.lainsce.quilter (1.2.1) xenial; urgency=low
 
   * Fixed the selection bug when using the Quilter style schemes outside Quilter.

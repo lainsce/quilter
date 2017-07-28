@@ -9,8 +9,3 @@ Terminal=false
 Type=Application
 StartupNotify=true
 Categories=GTK;Utility;Office;TextEditor;
-Actions=AboutDialog;
-
-[Desktop Action AboutDialog]
-Name=About Quilter
-Exec=com.github.lainsce.quilter --about
