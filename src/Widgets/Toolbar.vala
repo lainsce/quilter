@@ -119,14 +119,15 @@ namespace Quilter.Widgets {
         }
 
         public void new_button_pressed () {
-
+            debug ("New button pressed.");
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Opening file...");
-                    new_document ();
+                    Utils.FileUtils.new_document ();
+                    this.subtitle = "";
                 } catch (Error e) {
-                    error ("Unexpected error during open: " + e.message);
+                    warning ("Unexpected error during open: " + e.message);
                 }
             }
 
@@ -140,9 +141,10 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Opening file...");
-                    open_document ();
+                    Utils.FileUtils.open_document ();
+                    this.subtitle = file.get_path ();
                 } catch (Error e) {
-                    error ("Unexpected error during open: " + e.message);
+                    warning ("Unexpected error during open: " + e.message);
                 }
             }
 
@@ -156,117 +158,14 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Saving file...");
-                    save_document ();
+                    Utils.FileUtils.save_document ();
                 } catch (Error e) {
-                    error ("Unexpected error during save: " + e.message);
+                    warning ("Unexpected error during save: " + e.message);
                 }
             }
 
             file = null;
             Widgets.SourceView.is_modified = false;
-        }
-
-        public bool new_document () throws Error {
-            if (Widgets.SourceView.is_modified) {
-                debug ("Buffer was modified. Asking user to save first.");
-                int wanna_save = Utils.DialogUtils.display_save_confirm ();
-                if (wanna_save == Gtk.ResponseType.CANCEL ||
-                    wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-                    debug ("User canceled save confirm. Aborting operation.");
-                }
-
-                if (wanna_save == Gtk.ResponseType.YES) {
-                    debug ("Saving file before loading new file.");
-                    try {
-                        bool was_saved = save_document ();
-                        if (!was_saved) {
-                            debug ("Cancelling open document too.");
-                            Widgets.SourceView.buffer.text = "";
-                        }
-                    } catch (Error e) {
-                        error ("Unexpected error during save: " + e.message);
-                    }
-                }
-
-                if (wanna_save == Gtk.ResponseType.NO) {
-                    debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
-                    Widgets.SourceView.buffer.text = "";
-                    this.subtitle = "";
-                    var settings = AppSettings.get_default ();
-                    settings.last_file = "";
-                }
-            }
-            Utils.FileUtils.save_tmp_file ();
-            return true;
-        }
-
-        public bool open_document () throws Error {
-            if (Widgets.SourceView.is_modified) {
-                debug ("Buffer was modified. Asking user to save first.");
-                int wanna_save = Utils.DialogUtils.display_open_confirm ();
-                if (wanna_save == Gtk.ResponseType.CANCEL ||
-                    wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-                    debug ("User canceled save confirm. Aborting operation.");
-                }
-
-                if (wanna_save == Gtk.ResponseType.YES) {
-                    debug ("Saving file before opening the open document dialog.");
-                    try {
-                        save_document ();
-                    } catch (Error e) {
-                        error ("Unexpected error during save: " + e.message);
-                    }
-                }
-
-                if (wanna_save == Gtk.ResponseType.NO) {
-                    debug ("User cancelled the dialog. Open the open document dialog.");
-                    if (file == null) {
-                        debug ("Asking the user what to open.");
-                        file = Utils.DialogUtils.display_open_dialog ();
-                        if (file == null) {
-                            debug ("User cancelled operation. Aborting.");
-                            return false;
-                        }
-                    }
-
-                    string text;
-                    FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.SourceView.buffer.text = text;
-                    var settings = AppSettings.get_default ();
-                    settings.last_file = file.get_path ();
-                    this.subtitle = file.get_path ();
-                    return true;
-                }
-            }
-
-            string text;
-            FileUtils.get_contents (file.get_path (), out text);
-            Widgets.SourceView.buffer.text = text;
-            var settings = AppSettings.get_default ();
-            settings.last_file = file.get_path ();
-            this.subtitle = file.get_path ();
-            return true;
-        }
-
-        public bool save_document () throws Error {
-            if (file == null) {
-                debug ("Asking the user where to save.");
-                file = Utils.DialogUtils.display_save_dialog ();
-                if (file == null) {
-                    debug ("User cancelled operation. Aborting.");
-                    return false;
-                }
-            }
-
-            if (file.query_exists ())
-                file.delete ();
-
-            Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-            Utils.FileUtils.save_file (file, binbuffer);
-            return true;
         }
     }
 }

@@ -50,23 +50,18 @@ namespace Quilter.Widgets {
             settings.changed.connect (update_settings);
         }
 
-        ~SourceView () {
-          Utils.FileUtils.save_work_file ();
-        }
-
         construct {
             var settings = AppSettings.get_default ();
             var context = this.get_style_context ();
             context.add_class ("quilter-note");
-
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
             buffer = new Gtk.SourceBuffer.with_language (language);
-            this.set_buffer (buffer);
-
-            is_modified = false;
             buffer.changed.connect (on_text_modified);
 
+            is_modified = false;
+
+            this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.left_margin = 45;
             this.top_margin = 45;
@@ -83,13 +78,18 @@ namespace Quilter.Widgets {
                 is_modified = true;
             } else {
                 Utils.FileUtils.save_tmp_file ();
+                Timeout.add_seconds (200, () => {
+                    Utils.FileUtils.save_work_file ();
+                    return true;
+                });
                 is_modified = false;
             }
         }
 
         public void use_default_font (bool value) {
-            if (!value)
+            if (!value) {
                 return;
+            }
 
             var default_font = new GLib.Settings ("org.gnome.desktop.interface").get_string ("monospace-font-name");
 
@@ -130,7 +130,7 @@ namespace Quilter.Widgets {
 
                     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } catch (GLib.Error e) {
-                    critical (e.message);
+                    warning (e.message);
                 }
                 return "quilter";
             } else {
@@ -143,7 +143,7 @@ namespace Quilter.Widgets {
 
                     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 } catch (GLib.Error e) {
-                    critical (e.message);
+                    warning (e.message);
                 }
                 return "quilter-dark";
             }

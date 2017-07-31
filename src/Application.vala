@@ -149,7 +149,7 @@ namespace Quilter {
                         }
 
                         if (reason.length > 0) {
-                            msg = err_msg.printf ("<b>%s</b>".printf (file.get_path ()), reason);
+                            warning ("%s", err_msg);
                         }
 
                     } catch (Error e) {
@@ -171,7 +171,7 @@ namespace Quilter {
                     FileUtils.get_contents (file.get_path (), out text);
                     Widgets.SourceView.buffer.text = text;
                 } catch (Error e) {
-                    print ("Error: %s", e.message);
+                    warning ("Error: %s", e.message);
                 }
             }
         }

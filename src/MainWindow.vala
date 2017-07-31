@@ -20,10 +20,10 @@ using Granite.Widgets;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-        public Widgets.Toolbar toolbar;
-        public Widgets.SourceView view;
+      public Widgets.Toolbar toolbar;
+      public Widgets.SourceView view;
 
-        private bool _is_fullscreen;
+      private bool _is_fullscreen;
     	public bool is_fullscreen {
     		set {
     			_is_fullscreen = value;
