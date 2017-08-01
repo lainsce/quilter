@@ -36,7 +36,7 @@
 				<description>Whether Quilter should use the default system font</description>
 			</key>
 		<key name="font" type="s">
-				<default>'Cousine 10'</default>
+				<default>'PT Mono 11'</default>
 				<summary>Preferred Font</summary>
 				<description>Set the preferred font</description>
 		</key>

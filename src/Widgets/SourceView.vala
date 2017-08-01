@@ -91,7 +91,7 @@ namespace Quilter.Widgets {
                 return;
             }
 
-            var default_font = new GLib.Settings ("org.gnome.desktop.interface").get_string ("monospace-font-name");
+            var default_font = "PT Mono 10";
 
             this.font = default_font;
         }
@@ -105,7 +105,7 @@ namespace Quilter.Widgets {
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
                 this.highlight_current_line = true;
-                this.font = "Cousine 16";
+                this.font = "PT Mono 16";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 

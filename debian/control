@@ -12,5 +12,5 @@ Build-Depends: meson,
 Standards-Version: 3.9.3
 Package: com.github.lainsce.quilter
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}, fonts-croscore
+Depends: ${misc:Depends}, ${shlibs:Depends}
 Description: Focus on your writing.

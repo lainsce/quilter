@@ -30,3 +30,8 @@ install_data(
     join_paths('schemes', 'quilter-dark.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
 )
+
+install_data(
+    join_paths('font', 'PTM55FT.ttf'),
+    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'pt-mono')
+)
