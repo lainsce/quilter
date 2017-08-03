@@ -3,8 +3,9 @@ com.github.lainsce.quilter (1.2.3) xenial; urgency=low
   * File I/O now works properly.
   * Organized code properly now.
   * New font for better reading.
+  * Fixed the subtitle showing the current file.
 
- -- Lains <lainsce@airmail.cc>  Mon, 31 July 2017 18:45:00 -0300
+ -- Lains <lainsce@airmail.cc>  Wed, 2 August 2017 22:45:00 -0300
 
 com.github.lainsce.quilter (1.2.2) xenial; urgency=low
 
