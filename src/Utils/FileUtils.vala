@@ -211,7 +211,10 @@ namespace Quilter.Utils.FileUtils {
             debug ("User cancelled operation. Aborting.");
             return false;
         } else {
-            file.delete ();
+            if (file.query_exists ()) {
+              file.delete ();
+            }
+
             Gtk.TextIter start, end;
             Widgets.SourceView.buffer.get_bounds (out start, out end);
             string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
