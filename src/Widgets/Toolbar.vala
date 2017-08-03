@@ -142,7 +142,8 @@ namespace Quilter.Widgets {
                 try {
                     debug ("Opening file...");
                     Utils.FileUtils.open_document ();
-                    this.subtitle = file.get_path ();
+                    var settings = AppSettings.get_default ();
+                    this.subtitle = settings.last_file;
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
