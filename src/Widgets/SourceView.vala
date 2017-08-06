@@ -63,10 +63,10 @@ namespace Quilter.Widgets {
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.left_margin = 45;
-            this.top_margin = 45;
-            this.right_margin = 45;
-            this.bottom_margin = 45;
+            this.left_margin = 80;
+            this.top_margin = 40;
+            this.right_margin = 80;
+            this.bottom_margin = 40;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
@@ -91,7 +91,7 @@ namespace Quilter.Widgets {
                 return;
             }
 
-            var default_font = "PT Mono 10";
+            var default_font = "PT Mono 11";
 
             this.font = default_font;
         }
@@ -105,7 +105,7 @@ namespace Quilter.Widgets {
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
                 this.highlight_current_line = true;
-                this.font = "PT Mono 16";
+                this.font = "PT Mono 15";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 
@@ -122,8 +122,8 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             if (!settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
-                var color_primary = "#F1F1F1";
-                var text_primary = "#7A7A7A";
+                var color_primary = "#FAFAFA";
+                var text_primary = "#7E8087";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
@@ -132,11 +132,12 @@ namespace Quilter.Widgets {
                 } catch (GLib.Error e) {
                     warning (e.message);
                 }
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 return "quilter";
             } else {
                 var provider = new Gtk.CssProvider ();
-                var color_primary = "#1A1A1A";
-                var text_primary = "#ABABAB";
+                var color_primary = "#363B3E";
+                var text_primary = "#ABACAE";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
@@ -145,6 +146,7 @@ namespace Quilter.Widgets {
                 } catch (GLib.Error e) {
                     warning (e.message);
                 }
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 return "quilter-dark";
             }
         }

@@ -1,3 +1,12 @@
+com.github.lainsce.quilter (1.2.4) xenial; urgency=low
+
+  * Dark Mode is now truly a dark mode.
+  * Organized the text view to be centered.
+  * Follows the elementary Palette now.
+  * Fixed the order of the mime-types in the dialogs.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 6 August 2017 15:32:00 -0300
+
 com.github.lainsce.quilter (1.2.3) xenial; urgency=low
 
   * File I/O now works properly.

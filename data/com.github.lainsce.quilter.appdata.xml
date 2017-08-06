@@ -22,44 +22,53 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
-    <release version="1.2.3" date="2017-08-02">
-      <description>
-        <p>Release: Files &amp; Subtitles</p>
-        <ul>
-          <li>File I/O now works properly</li>
-          <li>Organized code properly now</li>
-          <li>New font for better reading</li>
-          <li>Fixed the subtitle showing the current file</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.2.2" date="2017-07-28">
-      <description>
-        <p>Release: Shortcuts to Time &amp; Space</p>
-        <ul>
-          <li>Actually open/save documents when using the Ctrl-S/Ctrl-O shortcuts</li>
-          <li>Remove the About Dialog</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.2.1" date="2017-07-25">
-      <description>
-        <p>Release: Highlight What's Important</p>
-        <ul>
-          <li>Fixed the selection bug when using the Quilter style schemes outside Quilter</li>
-        </ul>
-      </description>
-    </release>
-    <release version="1.2.0" date="2017-07-10">
-      <description>
-        <p>Release: Timebomb No More, Darling!</p>
-        <ul>
-          <li>Fixed the "timed crash" on saving the file</li>
-          <li>Save window width &amp; height on close</li>
-        </ul>
-      </description>
-    </release>
-  </releases>
+      <release version="1.2.4" date="2017-08-06">
+        <description>
+          <p>Release: New Colors &amp; Layout</p>
+          <ul>
+            <li>A new and fresh coat of paint following the elementary Palette</li>
+            <li>Centered the layout of the text view for the Edit View</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.2.3" date="2017-08-02">
+        <description>
+          <p>Release: Files &amp; Subtitles</p>
+          <ul>
+            <li>File I/O now works properly</li>
+            <li>Organized code properly now</li>
+            <li>New font for better reading</li>
+            <li>Fixed the subtitle showing the current file</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.2.2" date="2017-07-28">
+        <description>
+          <p>Release: Shortcuts to Time &amp; Space</p>
+          <ul>
+            <li>Actually open/save documents when using the Ctrl-S/Ctrl-O shortcuts</li>
+            <li>Remove the About Dialog</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.2.1" date="2017-07-25">
+        <description>
+          <p>Release: Highlight What's Important</p>
+          <ul>
+            <li>Fixed the selection bug when using the Quilter style schemes outside Quilter</li>
+          </ul>
+        </description>
+      </release>
+      <release version="1.2.0" date="2017-07-10">
+        <description>
+          <p>Release: Timebomb No More, Darling!</p>
+          <ul>
+            <li>Fixed the "timed crash" on saving the file</li>
+            <li>Save window width &amp; height on close</li>
+          </ul>
+        </description>
+      </release>
+    </releases>
     <screenshots>
         <screenshot type="default">
             <caption>Normal Mode</caption>
