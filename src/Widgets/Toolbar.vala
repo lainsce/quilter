@@ -141,6 +141,7 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Opening file...");
+                    Utils.FileUtils.save_work_file ();
                     Utils.FileUtils.open_document ();
                     var settings = AppSettings.get_default ();
                     this.subtitle = settings.last_file;

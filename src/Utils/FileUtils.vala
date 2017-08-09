@@ -167,41 +167,19 @@ namespace Quilter.Utils.FileUtils {
     }
 
     public bool open_document () throws Error {
-        if (Widgets.SourceView.is_modified) {
-            debug ("Buffer was modified. Asking user to save first.");
-            int wanna_save = Utils.DialogUtils.display_open_confirm ();
-            if (wanna_save == Gtk.ResponseType.CANCEL ||
-                wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-                debug ("User canceled save confirm. Aborting operation.");
-            }
-
-            if (wanna_save == Gtk.ResponseType.YES) {
-                debug ("Saving file before opening the open document dialog.");
-                try {
-                    save_document ();
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-
-            if (wanna_save == Gtk.ResponseType.NO) {
-                debug ("User cancelled the dialog. Open the open document dialog.");
-                debug ("Asking the user what to open.");
-                var file = Utils.DialogUtils.display_open_dialog ();
-                if (file == null) {
-                    debug ("User cancelled operation. Aborting.");
-                    return false;
-                } else {
-                    string text;
-                    GLib.FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.SourceView.buffer.text = text;
-                    var settings = AppSettings.get_default ();
-                    settings.last_file = file.get_path ();
-                    return true;
-                }
-            }
+        debug ("Asking the user what to open.");
+        var file = Utils.DialogUtils.display_open_dialog ();
+        if (file == null) {
+            debug ("User cancelled operation. Aborting.");
+            return false;
+        } else {
+            string text;
+            GLib.FileUtils.get_contents (file.get_path (), out text);
+            Widgets.SourceView.buffer.text = text;
+            var settings = AppSettings.get_default ();
+            settings.last_file = file.get_path ();
+            return true;
         }
-        return false;
     }
 
     public bool save_document () throws Error {

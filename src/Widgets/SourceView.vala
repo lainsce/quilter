@@ -60,6 +60,10 @@ namespace Quilter.Widgets {
             buffer.changed.connect (on_text_modified);
 
             is_modified = false;
+            Timeout.add_seconds (20, () => {
+                save_file ();
+                return true;
+            });
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
@@ -78,11 +82,18 @@ namespace Quilter.Widgets {
                 is_modified = true;
             } else {
                 Utils.FileUtils.save_tmp_file ();
-                Timeout.add_seconds (200, () => {
-                    Utils.FileUtils.save_work_file ();
-                    return true;
-                });
                 is_modified = false;
+            }
+        }
+
+        public bool save_file () {
+            if (!is_modified) {
+              is_modified = true;
+              return true;
+            } else {
+              Utils.FileUtils.save_work_file ();
+              is_modified = false;
+              return false;
             }
         }
 
