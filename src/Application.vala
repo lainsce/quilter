@@ -22,6 +22,8 @@ namespace Quilter {
         private static bool print_cr = false;
         private static string _cwd;
 
+        private MainWindow window = null;
+
         public static string[] supported_mimetypes;
 
         construct {
@@ -38,14 +40,7 @@ namespace Quilter {
         }
 
         protected override void activate () {
-            if (get_windows () != null) {
-                get_windows ().data.present (); // present window if app is already running
-                return;
-            }
-
-            var window = new MainWindow (this);
-
-            window.show ();
+            new_window ();
         }
 
         public static int main (string[] args) {
@@ -54,7 +49,12 @@ namespace Quilter {
         }
 
         public void new_window () {
-            new MainWindow (this).show_all ();
+            if (window != null) {
+                window.present ();
+                return;
+            }
+            window = new MainWindow (this);
+            window.show_all ();
         }
 
         protected override int command_line (ApplicationCommandLine command_line) {
@@ -158,22 +158,10 @@ namespace Quilter {
                 }
 
                 if (files.length > 0)
-                    open (files, "");
+                    Utils.FileUtils.open_from_outside (files, "");
             }
 
             return 0;
-        }
-
-        protected override void open (File[] files, string hint) {
-            foreach (var file in files) {
-                string text;
-                try {
-                    FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.SourceView.buffer.text = text;
-                } catch (Error e) {
-                    warning ("Error: %s", e.message);
-                }
-            }
         }
 
         private static void register_default_handler () {

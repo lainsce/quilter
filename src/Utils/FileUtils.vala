@@ -16,45 +16,11 @@
  */
 
 namespace Quilter.Utils.FileUtils {
-    File tmp_file;
-
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
-    }
-
-    private void load_tmp_file () {
-        string cache_path = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-        var cache_folder = File.new_for_path (cache_path);
-        if (!cache_folder.query_exists ()) {
-            try {
-                cache_folder.make_directory_with_parents ();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        }
-
-        tmp_file = cache_folder.get_child ("temp");
-
-        if ( !tmp_file.query_exists () ) {
-            try {
-                tmp_file.create (FileCreateFlags.NONE);
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        }
-
-        try {
-            string text;
-            string filename = tmp_file.get_path ();
-
-            GLib.FileUtils.get_contents (filename, out text);
-            Widgets.SourceView.buffer.text = text;
-        } catch (Error e) {
-            warning ("%s", e.message);
-        }
     }
 
     private void load_work_file () {
@@ -77,31 +43,6 @@ namespace Quilter.Utils.FileUtils {
             } catch (Error e) {
                 warning ("%s", e.message);
             }
-        } else {
-            load_tmp_file ();
-        }
-    }
-
-    private void save_tmp_file () {
-        if ( tmp_file.query_exists () ) {
-            try {
-                tmp_file.delete();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-
-        }
-
-        Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-        uint8[] binbuffer = buffer.data;
-
-        try {
-            save_file (tmp_file, binbuffer);
-        } catch (Error e) {
-            warning ("Exception found: "+ e.message);
         }
     }
 
@@ -127,8 +68,6 @@ namespace Quilter.Utils.FileUtils {
             } catch (Error e) {
                 warning ("Exception found: "+ e.message);
             }
-        } else {
-            save_tmp_file ();
         }
     }
 
@@ -162,7 +101,19 @@ namespace Quilter.Utils.FileUtils {
                 settings.last_file = "";
             }
         }
-        save_tmp_file ();
+        return true;
+    }
+
+    public bool open_from_outside (File[] files, string hint) {
+        foreach (var file in files) {
+            string text;
+            try {
+                GLib.FileUtils.get_contents (file.get_path (), out text);
+                Widgets.SourceView.buffer.text = text;
+            } catch (Error e) {
+                warning ("Error: %s", e.message);
+            }
+        }
         return true;
     }
 

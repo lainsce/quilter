@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.2.6) xenial; urgency=low
+
+  * Add a toggle for the save button on new openings of the app.
+  * Make Quilter behave like a One-Window App to disallow rogue instances.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 3 September 2017 00:37:00 -0300
+
 com.github.lainsce.quilter (1.2.5) xenial; urgency=low
 
   * Remove unnecessary "Save before opening dialog".

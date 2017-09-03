@@ -81,7 +81,6 @@ namespace Quilter.Widgets {
             if (!is_modified) {
                 is_modified = true;
             } else {
-                Utils.FileUtils.save_tmp_file ();
                 is_modified = false;
             }
         }

@@ -26,6 +26,7 @@ namespace Quilter.Widgets {
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_button;
+        private Gtk.Button save_as_button;
         private Gtk.MenuButton menu_button;
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
@@ -35,7 +36,8 @@ namespace Quilter.Widgets {
         public Toolbar () {
             var settings = AppSettings.get_default ();
             this.subtitle = settings.last_file;
-			      var header_context = this.get_style_context ();
+
+			var header_context = this.get_style_context ();
             header_context.add_class ("quilter-toolbar");
 
             new_button = new Gtk.Button ();
@@ -46,9 +48,17 @@ namespace Quilter.Widgets {
                 new_button_pressed ();
             });
 
+            save_as_button = new Gtk.Button ();
+            save_as_button.has_tooltip = true;
+            save_as_button.tooltip_text = (_("Save as…"));
+
+            save_as_button.clicked.connect (() => {
+                save_as_button_pressed ();
+            });
+
             save_button = new Gtk.Button ();
             save_button.has_tooltip = true;
-            save_button.tooltip_text = (_("Save as…"));
+            save_button.tooltip_text = (_("Save file"));
 
             save_button.clicked.connect (() => {
                 save_button_pressed ();
@@ -96,23 +106,38 @@ namespace Quilter.Widgets {
 
             this.pack_start (new_button);
             this.pack_start (open_button);
-            this.pack_start (save_button);
+            
+            save_button_toggle ();
+            settings.changed.connect (save_button_toggle);
+
+            this.pack_start (save_as_button);
             this.pack_end (menu_button);
 
             this.show_close_button = true;
             this.show_all ();
         }
 
+        public void save_button_toggle () {
+            var settings = AppSettings.get_default ();
+            if (!settings.show_save_button) {
+                // do nothing.
+            } else {
+                this.pack_start (save_button);
+            }
+        }
+
         public void focused_toolbar () {
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR));
-                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save", Gtk.IconSize.LARGE_TOOLBAR));
+                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
             } else {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             }
@@ -155,6 +180,28 @@ namespace Quilter.Widgets {
         }
 
         public void save_button_pressed () {
+            debug ("Save button pressed.");
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Saving file...");
+                    Gtk.TextIter start, end;
+                    Widgets.SourceView.buffer.get_bounds (out start, out end);
+
+                    string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                    uint8[] binbuffer = buffer.data;
+
+                    Utils.FileUtils.save_file (file, binbuffer);
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
+        public void save_as_button_pressed () {
             debug ("Save button pressed.");
 
             if (Widgets.SourceView.is_modified = true) {
