@@ -22,8 +22,7 @@ namespace Quilter {
         private static bool print_cr = false;
         private static string _cwd;
 
-        private MainWindow window = null;
-
+        public static MainWindow window = null;
         public static string[] supported_mimetypes;
 
         construct {

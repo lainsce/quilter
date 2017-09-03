@@ -106,7 +106,7 @@ namespace Quilter.Widgets {
 
             this.pack_start (new_button);
             this.pack_start (open_button);
-            
+
             save_button_toggle ();
             settings.changed.connect (save_button_toggle);
 
@@ -148,11 +148,11 @@ namespace Quilter.Widgets {
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
-                    debug ("Opening file...");
+                    debug ("Making new file...");
                     Utils.FileUtils.new_document ();
                     this.subtitle = "";
                 } catch (Error e) {
-                    warning ("Unexpected error during open: " + e.message);
+                    warning ("Unexpected error: " + e.message);
                 }
             }
 

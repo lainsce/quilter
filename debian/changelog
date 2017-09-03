@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.2.7) xenial; urgency=low
+
+  * Fix opening a file from outside the app.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 3 September 2017 15:37:00 -0300
+
 com.github.lainsce.quilter (1.2.6) xenial; urgency=low
 
   * Add a toggle for the save button on new openings of the app.
