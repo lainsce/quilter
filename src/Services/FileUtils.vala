@@ -53,6 +53,12 @@ namespace Quilter.Services.FileUtils {
         var file = File.new_for_path (settings.last_file);
 
         if ( file.query_exists () ) {
+            try {
+                file.delete ();
+            } catch (Error e) {
+                warning ("Error: %s\n", e.message);
+            }
+
             Gtk.TextIter start, end;
             Widgets.SourceView.buffer.get_bounds (out start, out end);
 

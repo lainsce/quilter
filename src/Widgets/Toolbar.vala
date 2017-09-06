@@ -173,20 +173,26 @@ namespace Quilter.Widgets {
 
         public void save_button_pressed () {
             debug ("Save button pressed.");
+            var settings = AppSettings.get_default ();
+            var file = File.new_for_path (settings.last_file);
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (file.query_exists ()) {
                 try {
-                    debug ("Saving file...");
-                    Gtk.TextIter start, end;
-                    Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-                    string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-                    uint8[] binbuffer = buffer.data;
-
-                    Services.FileUtils.save_file (file, binbuffer);
+                    file.delete ();
                 } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
+                    warning ("Error: " + e.message);
                 }
+            }
+
+            Gtk.TextIter start, end;
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+
+            try {
+                Services.FileUtils.save_file (file, binbuffer);
+            } catch (Error e) {
+                warning ("Unexpected error during save: " + e.message);
             }
 
             file = null;
@@ -194,7 +200,7 @@ namespace Quilter.Widgets {
         }
 
         public void save_as_button_pressed () {
-            debug ("Save button pressed.");
+            debug ("Save as button pressed.");
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
