@@ -88,7 +88,7 @@ namespace Quilter.Widgets {
               is_modified = true;
               return true;
             } else {
-              Utils.FileUtils.save_work_file ();
+              Services.FileUtils.save_work_file ();
               is_modified = false;
               return false;
             }

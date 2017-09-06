@@ -77,7 +77,7 @@ namespace Quilter {
             this.view.monospace = true;
             scroll.add (view);
 
-            Utils.FileUtils.load_work_file ();
+            Services.FileUtils.load_work_file ();
 
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
@@ -133,7 +133,7 @@ namespace Quilter {
             settings.window_width = w;
             settings.window_height = h;
 
-            Utils.FileUtils.save_work_file ();
+            Services.FileUtils.save_work_file ();
             return false;
         }
     }

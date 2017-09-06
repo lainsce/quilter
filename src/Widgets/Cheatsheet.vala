@@ -104,7 +104,7 @@ namespace Quilter.Widgets {
 
             var special_header = new Header (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
-            var hr_label = new Label (_("--- ← This creates a horizontal rule"));
+            var hr_label = new Label (_("--- ← This creates an horizontal rule"));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);

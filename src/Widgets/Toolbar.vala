@@ -106,24 +106,16 @@ namespace Quilter.Widgets {
 
             this.pack_start (new_button);
             this.pack_start (open_button);
-
-            save_button_toggle ();
-            settings.changed.connect (save_button_toggle);
-
+            this.pack_start (save_button);
             this.pack_start (save_as_button);
             this.pack_end (menu_button);
 
             this.show_close_button = true;
             this.show_all ();
-        }
 
-        public void save_button_toggle () {
-            var settings = AppSettings.get_default ();
-            if (!settings.show_save_button) {
-                // do nothing.
-            } else {
-                this.pack_start (save_button);
-            }
+            settings.changed.connect (() => {
+                save_button.visible = settings.show_save_button;
+            });
         }
 
         public void focused_toolbar () {
@@ -149,7 +141,7 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Making new file...");
-                    Utils.FileUtils.new_document ();
+                    Services.FileUtils.new_document ();
                     this.subtitle = "";
                 } catch (Error e) {
                     warning ("Unexpected error: " + e.message);
@@ -166,8 +158,8 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Opening file...");
-                    Utils.FileUtils.save_work_file ();
-                    Utils.FileUtils.open_document ();
+                    Services.FileUtils.save_work_file ();
+                    Services.FileUtils.open_document ();
                     var settings = AppSettings.get_default ();
                     this.subtitle = settings.last_file;
                 } catch (Error e) {
@@ -191,7 +183,7 @@ namespace Quilter.Widgets {
                     string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
                     uint8[] binbuffer = buffer.data;
 
-                    Utils.FileUtils.save_file (file, binbuffer);
+                    Services.FileUtils.save_file (file, binbuffer);
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }
@@ -207,7 +199,7 @@ namespace Quilter.Widgets {
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Saving file...");
-                    Utils.FileUtils.save_document ();
+                    Services.FileUtils.save_document ();
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }

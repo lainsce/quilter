@@ -15,7 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Quilter.Utils.FileUtils {
+namespace Quilter.Services.FileUtils {
     public Widgets.Toolbar toolbar;
 
     public void save_file (File file, uint8[] buffer) throws Error {
@@ -35,7 +35,7 @@ namespace Quilter.Utils.FileUtils {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
-
+        } else {
             try {
                 string text;
                 string filename = file.get_path ();
@@ -53,12 +53,6 @@ namespace Quilter.Utils.FileUtils {
         var file = File.new_for_path (settings.last_file);
 
         if ( file.query_exists () ) {
-            try {
-                file.delete();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-
             Gtk.TextIter start, end;
             Widgets.SourceView.buffer.get_bounds (out start, out end);
 
@@ -77,7 +71,7 @@ namespace Quilter.Utils.FileUtils {
     public bool new_document () throws Error {
         if (Widgets.SourceView.is_modified) {
             debug ("Buffer was modified. Asking user to save first.");
-            int wanna_save = Utils.DialogUtils.display_save_confirm ();
+            int wanna_save = Services.DialogUtils.display_save_confirm ();
             if (wanna_save == Gtk.ResponseType.CANCEL ||
                 wanna_save == Gtk.ResponseType.DELETE_EVENT) {
                 debug ("User canceled save confirm. Aborting operation.");
@@ -125,7 +119,7 @@ namespace Quilter.Utils.FileUtils {
 
     public bool open_document () throws Error {
         debug ("Asking the user what to open.");
-        var file = Utils.DialogUtils.display_open_dialog ();
+        var file = Services.DialogUtils.display_open_dialog ();
         if (file == null) {
             debug ("User cancelled operation. Aborting.");
             return false;
@@ -141,7 +135,7 @@ namespace Quilter.Utils.FileUtils {
 
     public bool save_document () throws Error {
         debug ("Asking the user where to save.");
-        var file = Utils.DialogUtils.display_save_dialog ();
+        var file = Services.DialogUtils.display_save_dialog ();
         if (file == null) {
             debug ("User cancelled operation. Aborting.");
             return false;

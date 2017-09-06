@@ -43,8 +43,8 @@ executable(
     'src/Widgets/Cheatsheet.vala',
     'src/Constants/Stylesheet.vala',
     'src/Constants/AppSettings.vala',
-    'src/Utils/FileUtils.vala',
-    'src/Utils/DialogUtils.vala',
+    'src/Services/FileUtils.vala',
+    'src/Services/DialogUtils.vala',
     c_args: c_args,
     dependencies: [
         dependency('granite'),
