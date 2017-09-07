@@ -155,6 +155,8 @@ namespace Quilter.Services.FileUtils {
             string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
             uint8[] binbuffer = buffer.data;
             save_file (file, binbuffer);
+            var settings = AppSettings.get_default ();
+            settings.last_file = file.get_path ();
             return true;
         }
     }

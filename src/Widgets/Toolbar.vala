@@ -154,13 +154,13 @@ namespace Quilter.Widgets {
 
         public void open_button_pressed () {
             debug ("Open button pressed.");
+            var settings = AppSettings.get_default ();
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Opening file...");
                     Services.FileUtils.save_work_file ();
                     Services.FileUtils.open_document ();
-                    var settings = AppSettings.get_default ();
                     this.subtitle = settings.last_file;
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
@@ -191,6 +191,7 @@ namespace Quilter.Widgets {
 
             try {
                 Services.FileUtils.save_file (file, binbuffer);
+                this.subtitle = settings.last_file;
             } catch (Error e) {
                 warning ("Unexpected error during save: " + e.message);
             }
@@ -201,11 +202,13 @@ namespace Quilter.Widgets {
 
         public void save_as_button_pressed () {
             debug ("Save as button pressed.");
+            var settings = AppSettings.get_default ();
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Saving file...");
                     Services.FileUtils.save_document ();
+                    this.subtitle = settings.last_file;
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }

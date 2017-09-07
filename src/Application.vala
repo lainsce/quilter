@@ -34,7 +34,7 @@ namespace Quilter {
             app_launcher = "com.github.lainsce.quilter";
             app_icon = "com.github.lainsce.quilter";
 
-            supported_mimetypes = {"text/plain", "text/markdown"};
+            supported_mimetypes = {"text/markdown"};
             register_default_handler ();
         }
 

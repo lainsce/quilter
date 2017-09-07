@@ -34,11 +34,6 @@ namespace Quilter.Services.DialogUtils {
         filter1.add_pattern ("*.md");
         chooser.add_filter (filter1);
 
-        var filter2 = new Gtk.FileFilter ();
-        filter2.set_filter_name (_("Text files"));
-        filter2.add_pattern ("*.txt");
-        chooser.add_filter (filter2);
-
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
