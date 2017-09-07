@@ -36,9 +36,9 @@ namespace Quilter.Widgets {
                 background: @colorPrimary;
                 border-bottom-color: transparent;
                 color: @textColorPrimary;
-                box-shadow: inset 0px 1px 2px -2px @colorPrimary;
-                icon-shadow: 0 1px 0px shade (@colorPrimary, 0.52);
-                text-shadow: 0 1px 0px shade (@colorPrimary, 0.52);
+                box-shadow: inset 0px 0px 1px 1px @colorPrimary;
+                icon-shadow: 0 2px 0px shade (@colorPrimary, 0.42);
+                text-shadow: 0 2px 0px shade (@colorPrimary, 0.42);
             }
         """;
 
@@ -113,7 +113,7 @@ namespace Quilter.Widgets {
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
                 this.highlight_current_line = true;
-                this.font = "PT Mono 15";
+                this.font = "PT Mono 13";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 
@@ -130,8 +130,8 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             if (!settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
-                var color_primary = "#FAFAFA";
-                var text_primary = "#7E8087";
+                var color_primary = "#EFF0F1";
+                var text_primary = "#4D4D4D";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
@@ -144,8 +144,8 @@ namespace Quilter.Widgets {
                 return "quilter";
             } else {
                 var provider = new Gtk.CssProvider ();
-                var color_primary = "#363B3E";
-                var text_primary = "#ABACAE";
+                var color_primary = "#31363B";
+                var text_primary = "#EFF0F1";
                 try {
                     var colored_css = COLOR_PRIMARY.printf (color_primary, text_primary);
                     provider.load_from_data (colored_css, colored_css.length);
