@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-25 16:11-0300\n"
+"POT-Creation-Date: 2017-09-07 00:50-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,167 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/MainWindow.vala:30
+#: src/MainWindow.vala:42
 msgid "Quilter"
 msgstr ""
 
-#: ../src/Widgets/Toolbar.vala:36
-msgid "Settings"
+#: src/Widgets/Toolbar.vala:45
+msgid "New file"
 msgstr ""
 
-#: ../src/Widgets/Toolbar.vala:40
+#: src/Widgets/Toolbar.vala:53
 msgid "Save as…"
 msgstr ""
 
-#: ../src/Widgets/Toolbar.vala:45
-msgid "About"
+#: src/Widgets/Toolbar.vala:61 src/Services/DialogUtils.vala:63
+msgid "Save file"
+msgstr ""
+
+#: src/Widgets/Toolbar.vala:69
+msgid "Open…"
+msgstr ""
+
+#: src/Widgets/Toolbar.vala:77
+msgid "Settings"
+msgstr ""
+
+#: src/Widgets/Toolbar.vala:84
+msgid "Markdown Cheatsheet"
+msgstr ""
+
+#: src/Widgets/Toolbar.vala:91 src/Widgets/Preferences.vala:32
+msgid "Preferences"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:45
+msgid "Editor"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:46
+msgid "Enable Focus Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:48
+msgid "Enable Dark Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:51
+msgid "Show the Save Button:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:54
+msgid "Font"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:55
+msgid "Custom font:"
+msgstr ""
+
+#. Close button
+#: src/Widgets/Preferences.vala:64 src/Widgets/Cheatsheet.vala:45
+msgid "Close"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:29
+msgid "Cheatsheet"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:41
+msgid "Text Style"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:42
+msgid "Links & Special"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:69
+msgid "Header"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:70
+msgid "# Header 1"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:71
+msgid "## Header 2"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:72
+msgid "### Header 3"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:73
+msgid "#### Header 4"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:75
+msgid "Special Text"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:76
+msgid "** Bold text **"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:77
+msgid "* Emphasized text *"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:78
+msgid "` Code text `"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:79
+msgid "> Quoting text"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:101
+msgid "Links"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:102
+msgid "[Link Label](http://link.url.here.com)"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:103
+msgid "![Image Label](http://image.url.here.com)"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:105
+msgid "Special"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:106
+msgid "```This is a code block```"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:107
+msgid "--- ← This creates an horizontal rule"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:33
+msgid "Markdown files"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:38
+msgid "Text files"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:43
+msgid "All files"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:51
+msgid "Open file"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:77
+msgid "There are unsaved changes. Do you want to save?"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:78
+msgid "If you don't save, changes will be lost forever."
+msgstr ""
+
+#: src/Services/DialogUtils.vala:82
+msgid "Close without saving"
 msgstr ""

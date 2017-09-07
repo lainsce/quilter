@@ -17,4 +17,4 @@ if not os.environ.get('DESTDIR'):
     subprocess.call(['update-icon-caches', icondir], shell=False)
 
     print('Rebuilding font cache...')
-    subprocess.call(['fc-cache -fv'], shell=True)
+    subprocess.call(['fc-cache -f'], shell=True)

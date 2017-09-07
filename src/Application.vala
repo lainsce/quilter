@@ -102,20 +102,20 @@ namespace Quilter {
                                 string reason = "";
                                 // We list some common errors for quick feedback
                                 if (e is FileError.ACCES) {
-                                    reason = _("Maybe you do not have the necessary permissions.");
+                                    reason = ("Maybe you do not have the necessary permissions.");
                                 } else if (e is FileError.NOENT) {
-                                    reason = _("Maybe the file path provided is not valid.");
+                                    reason = ("Maybe the file path provided is not valid.");
                                 } else if (e is FileError.ROFS) {
-                                    reason = _("The location is read-only.");
+                                    reason = ("The location is read-only.");
                                 } else if (e is FileError.NOTDIR) {
-                                    reason = _("The parent directory doesn't exist.");
+                                    reason = ("The parent directory doesn't exist.");
                                 } else {
                                     // Otherwise we simple use the error notification from glib
                                     msg = e.message;
                                 }
 
                                 if (reason.length > 0) {
-                                    msg = _("File \"%s\" cannot be created.\n%s").printf ("<b>%s</b>".printf (file.get_path ()), reason);
+                                    msg = ("File \"%s\" cannot be created.\n%s").printf ("<b>%s</b>".printf (file.get_path ()), reason);
                                 }
 
                                 // Escape to the outer catch clause, and overwrite
@@ -125,7 +125,7 @@ namespace Quilter {
                         }
 
                         var info = file.query_info ("standard::*", FileQueryInfoFlags.NONE, null);
-                        string err_msg = _("File \"%s\" cannot be opened.\n%s");
+                        string err_msg = ("File \"%s\" cannot be opened.\n%s");
                         string reason = "";
 
                         switch (info.get_file_type ()) {
@@ -134,16 +134,16 @@ namespace Quilter {
                                 files += file;
                                 break;
                             case FileType.MOUNTABLE:
-                                reason = _("It is a mountable location.");
+                                reason = ("It is a mountable location.");
                                 break;
                             case FileType.DIRECTORY:
-                                reason = _("It is a directory.");
+                                reason = ("It is a directory.");
                                 break;
                             case FileType.SPECIAL:
-                                reason = _("It is a \"special\" file such as a socket,\n fifo, block device, or character device.");
+                                reason = ("It is a \"special\" file such as a socket,\n fifo, block device, or character device.");
                                 break;
                             default:
-                                reason = _("It is an \"unknown\" file type.");
+                                reason = ("It is an \"unknown\" file type.");
                                 break;
                         }
 
@@ -194,7 +194,7 @@ namespace Quilter {
         }
 
         const OptionEntry[] entries = {
-            { "copyright", 'v', 0, OptionArg.NONE, out print_cr, N_("Print copyright info and exit"), null },
+            { "copyright", 'v', 0, OptionArg.NONE, out print_cr, ("Print copyright info and exit"), null },
             { null }
         };
     }

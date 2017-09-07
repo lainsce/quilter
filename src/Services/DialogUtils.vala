@@ -21,11 +21,11 @@ namespace Quilter.Services.DialogUtils {
 
         var chooser = new Gtk.FileChooserDialog (title, null, action);
 
-        chooser.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
+        chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
         if (action == Gtk.FileChooserAction.OPEN) {
-            chooser.add_button (Gtk.Stock.OPEN, Gtk.ResponseType.ACCEPT);
+            chooser.add_button ("_Open", Gtk.ResponseType.ACCEPT);
         } else if (action == Gtk.FileChooserAction.SAVE) {
-            chooser.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.ACCEPT);
+            chooser.add_button ("_Save", Gtk.ResponseType.ACCEPT);
             chooser.set_do_overwrite_confirmation (true);
         }
 
@@ -82,8 +82,8 @@ namespace Quilter.Services.DialogUtils {
         var button = new Gtk.Button.with_label (_("Close without saving"));
         button.show ();
         dialog.add_action_widget (button, Gtk.ResponseType.NO);
-        dialog.add_button (Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
-        dialog.add_button (Gtk.Stock.SAVE, Gtk.ResponseType.YES);
+        dialog.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
+        dialog.add_button ("_Save", Gtk.ResponseType.YES);
         dialog.set_default_response (Gtk.ResponseType.ACCEPT);
         int response = dialog.run ();
         dialog.destroy();
