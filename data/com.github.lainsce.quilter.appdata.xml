@@ -27,6 +27,8 @@
           <p>Release: Colors are Nice</p>
           <ul>
             <li>Use colors that make sense for the app</li>
+            <li>Make the toolbar stand out less for focus</li>
+            <li>Minor fixes in the headerbar subtitle for files</li>
           </ul>
         </description>
       </release>

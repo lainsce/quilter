@@ -36,9 +36,7 @@ namespace Quilter.Widgets {
                 background: @colorPrimary;
                 border-bottom-color: transparent;
                 color: @textColorPrimary;
-                box-shadow: inset 0px 0px 1px 1px @colorPrimary;
-                icon-shadow: 0 1px 0px shade (@colorPrimary, 0.42);
-                text-shadow: 0 1px 0px shade (@colorPrimary, 0.42);
+                box-shadow: inset 0px 2px 1px 1px @colorPrimary;
             }
         """;
 
