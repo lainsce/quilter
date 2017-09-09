@@ -16,12 +16,25 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-using Granite.Widgets;
+using Gtk;
+using Granite;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-      public Widgets.Toolbar toolbar;
       public Widgets.SourceView view;
+
+      // HeaderBar
+      private Gtk.Menu menu;
+      private Gtk.Button new_button;
+      private Gtk.Button open_button;
+      private Gtk.Button save_button;
+      private Gtk.Button save_as_button;
+      private Gtk.MenuButton menu_button;
+      private Widgets.Preferences preferences_dialog;
+      private Widgets.Cheatsheet cheatsheet_dialog;
+
+      public Gtk.HeaderBar toolbar;
+      public File file;
 
       private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -53,9 +66,90 @@ namespace Quilter {
         construct {
             var context = this.get_style_context ();
             context.add_class ("quilter-window");
-            this.toolbar = new Widgets.Toolbar ();
-
+            toolbar = new Gtk.HeaderBar ();
             var settings = AppSettings.get_default ();
+            toolbar.subtitle = settings.last_file;
+
+			var header_context = toolbar.get_style_context ();
+            header_context.add_class ("quilter-toolbar");
+
+            new_button = new Gtk.Button ();
+            new_button.has_tooltip = true;
+            new_button.tooltip_text = (_("New file"));
+
+            new_button.clicked.connect (() => {
+                new_button_pressed ();
+            });
+
+            save_as_button = new Gtk.Button ();
+            save_as_button.has_tooltip = true;
+            save_as_button.tooltip_text = (_("Save as…"));
+
+            save_as_button.clicked.connect (() => {
+                save_as_button_pressed ();
+            });
+
+            save_button = new Gtk.Button ();
+            save_button.has_tooltip = true;
+            save_button.tooltip_text = (_("Save file"));
+
+            save_button.clicked.connect (() => {
+                save_button_pressed ();
+            });
+
+            open_button = new Gtk.Button ();
+			      open_button.has_tooltip = true;
+            open_button.tooltip_text = (_("Open…"));
+
+            open_button.clicked.connect (() => {
+                open_button_pressed ();
+            });
+
+            menu_button = new Gtk.MenuButton ();
+            menu_button.has_tooltip = true;
+            menu_button.tooltip_text = (_("Settings"));
+
+            menu = new Gtk.Menu ();
+
+            var cheatsheet = new Gtk.MenuItem.with_label (_("Markdown Cheatsheet"));
+            cheatsheet.activate.connect (() => {
+                debug ("Cheatsheet button pressed.");
+                cheatsheet_dialog = new Widgets.Cheatsheet ();
+                cheatsheet_dialog.show_all ();
+            });
+
+            var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
+            preferences.activate.connect (() => {
+                debug ("Prefs button pressed.");
+                preferences_dialog = new Widgets.Preferences ();
+                preferences_dialog.show_all ();
+            });
+
+            var separator = new Gtk.SeparatorMenuItem ();
+
+            menu.add (cheatsheet);
+            menu.add (separator);
+            menu.add (preferences);
+            menu.show_all ();
+
+            menu_button.popup = menu;
+
+            toolbar.pack_start (new_button);
+            toolbar.pack_start (open_button);
+            toolbar.pack_start (save_button);
+            toolbar.pack_start (save_as_button);
+            toolbar.pack_end (menu_button);
+
+            toolbar.show_close_button = true;
+            toolbar.show_all ();
+
+            focus_mode_toolbar ();
+
+            settings.changed.connect (() => {
+                save_button.visible = settings.show_save_button;
+                focus_mode_toolbar ();
+            });
+
             int x = settings.window_x;
             int y = settings.window_y;
             int h = settings.window_height;
@@ -88,12 +182,12 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.s, keycode)) {
-                        toolbar.save_button_pressed ();
+                        save_button_pressed ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.o, keycode)) {
-                        toolbar.open_button_pressed ();
+                        open_button_pressed ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -135,6 +229,106 @@ namespace Quilter {
 
             Services.FileUtils.save_work_file ();
             return false;
+        }
+
+        public void focus_mode_toolbar () {
+            var settings = AppSettings.get_default ();
+            if (!settings.focus_mode) {
+                new_button.set_image (new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save", Gtk.IconSize.LARGE_TOOLBAR));
+                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
+                open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
+                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
+            } else {
+                new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+                open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            }
+        }
+
+        public void new_button_pressed () {
+            debug ("New button pressed.");
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Making new file...");
+                    Services.FileUtils.new_document ();
+                    toolbar.subtitle = "New Document";
+                } catch (Error e) {
+                    warning ("Unexpected error: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
+        public void open_button_pressed () {
+            debug ("Open button pressed.");
+            var settings = AppSettings.get_default ();
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Opening file...");
+                    Services.FileUtils.save_work_file ();
+                    Services.FileUtils.open_document ();
+                    toolbar.subtitle = settings.last_file;
+                } catch (Error e) {
+                    warning ("Unexpected error during open: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
+        public void save_button_pressed () {
+            debug ("Save button pressed.");
+            var settings = AppSettings.get_default ();
+            var file = File.new_for_path (settings.last_file);
+
+            if (file.query_exists ()) {
+                try {
+                    file.delete ();
+                } catch (Error e) {
+                    warning ("Error: " + e.message);
+                }
+            }
+
+            Gtk.TextIter start, end;
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            uint8[] binbuffer = buffer.data;
+
+            try {
+                Services.FileUtils.save_file (file, binbuffer);
+                toolbar.subtitle = settings.last_file;
+            } catch (Error e) {
+                warning ("Unexpected error during save: " + e.message);
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
+        }
+
+        public void save_as_button_pressed () {
+            debug ("Save as button pressed.");
+            var settings = AppSettings.get_default ();
+
+            if (Widgets.SourceView.is_modified = true) {
+                try {
+                    debug ("Saving file...");
+                    Services.FileUtils.save_document ();
+                    toolbar.subtitle = settings.last_file;
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
+            }
+
+            file = null;
+            Widgets.SourceView.is_modified = false;
         }
     }
 }

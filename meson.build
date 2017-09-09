@@ -37,7 +37,6 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
-    'src/Widgets/Toolbar.vala',
     'src/Widgets/SourceView.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
