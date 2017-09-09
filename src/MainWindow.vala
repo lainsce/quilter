@@ -21,22 +21,22 @@ using Granite;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-      public Widgets.SourceView view;
+        public Widgets.SourceView view;
 
-      // HeaderBar
-      private Gtk.Menu menu;
-      private Gtk.Button new_button;
-      private Gtk.Button open_button;
-      private Gtk.Button save_button;
-      private Gtk.Button save_as_button;
-      private Gtk.MenuButton menu_button;
-      private Widgets.Preferences preferences_dialog;
-      private Widgets.Cheatsheet cheatsheet_dialog;
+        // HeaderBar
+        private Gtk.Menu menu;
+        private Gtk.Button new_button;
+        private Gtk.Button open_button;
+        private Gtk.Button save_button;
+        private Gtk.Button save_as_button;
+        private Gtk.MenuButton menu_button;
+        private Widgets.Preferences preferences_dialog;
+        private Widgets.Cheatsheet cheatsheet_dialog;
 
-      public Gtk.HeaderBar toolbar;
-      public File file;
+        public Gtk.HeaderBar toolbar;
+        public File file;
 
-      private bool _is_fullscreen;
+        private bool _is_fullscreen;
     	public bool is_fullscreen {
     		set {
     			_is_fullscreen = value;
