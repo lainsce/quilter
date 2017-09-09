@@ -12,7 +12,7 @@
    height="16"
    width="16"
    version="1.1"
-   inkscape:version="0.92.1 unknown"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="com.github.lainsce.quilter.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -30,8 +30,8 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="45.254834"
-     inkscape:cx="10.190175"
-     inkscape:cy="7.5085917"
+     inkscape:cx="7.0634372"
+     inkscape:cy="8.3924752"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -585,24 +585,24 @@
      inkscape:connector-curvature="0"
      d="m 2.999999,1.0000134 c 2.2915074,0 9.999989,8.904e-4 9.999989,8.904e-4 L 13,15.000013 c 0,0 -6.6666678,0 -10.000001,0 0,-4.666666 0,-9.3333332 0,-13.9999996 z"
      id="path4160"
-     style="display:inline;fill:#f4f4f4;fill-opacity:1;stroke:none" />
+     style="display:inline;fill:#f9f9f9;fill-opacity:1;stroke:none" />
   <path
      inkscape:connector-curvature="0"
      d="M 12.5,14.500013 H 3.4999989 V 1.5000134 H 12.5 Z"
      id="rect6741-1"
-     style="fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+     style="fill:#ffffff;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
   <path
      inkscape:connector-curvature="0"
      d="m 2.4999611,0.49998735 c 2.5206756,0 11.0000639,9.54e-4 11.0000639,9.54e-4 l 1.3e-5,14.99909765 c 0,0 -7.3333851,0 -11.000077,0 0,-5.000017 0,-10.0000346 1e-7,-15.00005165 z"
      id="path4160-8"
-     style="display:inline;fill:none;stroke:#000000;stroke-width:0.99992192;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.25555557" />
+     style="display:inline;fill:#ffffff;stroke:#000000;stroke-width:0.99992192;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.25555557;fill-opacity:1" />
   <rect
      style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9214676;stroke-opacity:1"
      id="rect4305"
      width="5"
      height="1"
      x="4"
-     y="3"
+     y="4"
      rx="0"
      ry="0" />
   <rect
@@ -611,16 +611,7 @@
      width="6"
      height="1"
      x="4"
-     y="5"
-     rx="0"
-     ry="0" />
-  <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.92543525;stroke-opacity:1"
-     id="rect4305-36"
-     width="5"
-     height="1"
-     x="4"
-     y="7"
+     y="6"
      rx="0"
      ry="0" />
   <rect
@@ -629,7 +620,7 @@
      width="4"
      height="1"
      x="4"
-     y="9"
+     y="8"
      rx="0"
      ry="0" />
   <rect
@@ -638,7 +629,7 @@
      width="6"
      height="1"
      x="4"
-     y="11"
+     y="10"
      rx="0"
      ry="0" />
   <rect
@@ -647,6 +638,22 @@
      width="1"
      height="5"
      x="11"
-     y="5"
+     y="6"
+     ry="0" />
+  <rect
+     style="fill:#e6e6e6;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     id="rect3436"
+     width="10"
+     height="2"
+     x="3"
+     y="1" />
+  <rect
+     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9214676;stroke-opacity:1"
+     id="rect4305-36"
+     width="5"
+     height="1"
+     x="4"
+     y="12"
+     rx="0"
      ry="0" />
 </svg>

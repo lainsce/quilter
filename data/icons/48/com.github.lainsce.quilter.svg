@@ -12,7 +12,7 @@
    height="48"
    width="48"
    version="1.1"
-   inkscape:version="0.92.1 unknown"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="com.github.lainsce.quilter.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -29,9 +29,9 @@
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="21.963805"
-     inkscape:cx="11.131537"
-     inkscape:cy="33.115331"
+     inkscape:zoom="10.981903"
+     inkscape:cx="2.5117935"
+     inkscape:cy="26.118177"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -42,6 +42,28 @@
   </sodipodi:namedview>
   <defs
      id="defs13988">
+    <linearGradient
+       id="linearGradient4280">
+      <stop
+         offset="0"
+         style="stop-color:#f0f0f0;stop-opacity:1"
+         id="stop4282" />
+      <stop
+         offset="1"
+         style="stop-color:#f5f5f5;stop-opacity:1"
+         id="stop4284" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4266">
+      <stop
+         offset="0"
+         style="stop-color:#ffffff;stop-opacity:1"
+         id="stop4268" />
+      <stop
+         offset="1"
+         style="stop-color:#f5f5f5;stop-opacity:1"
+         id="stop4270" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5540">
       <stop
@@ -635,6 +657,24 @@
          style="stop-color:#000000;stop-opacity:0"
          offset="1" />
     </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4266"
+       id="linearGradient4264"
+       x1="25"
+       y1="3"
+       x2="25"
+       y2="45"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4280"
+       id="linearGradient4278"
+       x1="25"
+       y1="8"
+       x2="25"
+       y2="3"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata13991">
@@ -676,7 +716,7 @@
      d="m 40.15,43.429975 c 0,0 0,3.569981 0,3.569981 1.178897,0.0067 2.85,-0.799851 2.85,-1.785221 0,-0.985367 -1.315561,-1.784759 -2.85,-1.78476 z" />
   <path
      inkscape:connector-curvature="0"
-     style="display:inline;fill:url(#linearGradient3109);fill-opacity:1;stroke:none;stroke-width:1"
+     style="display:inline;fill:url(#linearGradient4264);fill-opacity:1;stroke:none;stroke-width:1"
      id="path4160"
      d="m 7,1.999928 c 7.791127,0 33.999959,0.00274 33.999959,0.00274 L 41,44.999928 c 0,0 -22.666665,0 -34,0 0,-14.333334 0,-28.666666 0,-43 z" />
   <path
@@ -747,9 +787,9 @@
      style="opacity:0.76399997;fill:#1f92ff;fill-opacity:1;stroke:none;stroke-width:1.25915825;stroke-opacity:0.39215686"
      id="rect4268"
      width="1"
-     height="5"
-     x="30"
-     y="20" />
+     height="7"
+     x="32"
+     y="18" />
   <rect
      style="opacity:0.36800005;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99473906;stroke-opacity:0.34615389"
      id="rect5722-36"
@@ -786,4 +826,11 @@
      y="39.991257"
      ry="0"
      transform="matrix(0.99999961,8.81016e-4,-0.00295157,0.99999564,0,0)" />
+  <rect
+     style="fill:url(#linearGradient4278);fill-opacity:1;stroke:none;stroke-opacity:1"
+     id="rect4256"
+     width="34"
+     height="5"
+     x="7"
+     y="3" />
 </svg>

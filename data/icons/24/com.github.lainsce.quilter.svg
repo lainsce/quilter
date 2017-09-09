@@ -12,7 +12,7 @@
    width="24"
    height="24"
    id="svg3426"
-   inkscape:version="0.92.1 unknown"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="com.github.lainsce.quilter.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -28,9 +28,9 @@
      id="namedview40"
      showgrid="true"
      showguides="false"
-     inkscape:zoom="11.854005"
-     inkscape:cx="19.82485"
-     inkscape:cy="0.58781022"
+     inkscape:zoom="23.70801"
+     inkscape:cx="11.104279"
+     inkscape:cy="7.3174323"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -305,12 +305,7 @@
      inkscape:connector-curvature="0"
      d="m 4,1.9999996 c 3.6664118,0 15.999979,0.0013 15.999979,0.0013 l 2e-5,19.9986994 c 0,0 -10.6666653,0 -15.999999,0 C 4,15.333339 4,8.6666811 4,2.0000208 Z"
      id="path4160-3"
-     style="display:inline;fill:url(#linearGradient3016);fill-opacity:1;stroke:none" />
-  <path
-     inkscape:connector-curvature="0"
-     d="M 19.499999,21.499999 H 4.4999996 V 2.4999996 H 19.499999 Z"
-     id="rect6741-1"
-     style="fill:none;stroke:url(#linearGradient3013);stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none" />
   <path
      inkscape:connector-curvature="0"
      d="m 3.4999601,1.4999565 c 3.8955809,0 17.0000579,0.00136 17.0000579,0.00136 l 2.1e-5,20.9987155 c 0,0 -11.3333852,0 -17.0000789,0 0,-7.000018 0,-14.0000349 0,-21.0000532 z"
@@ -369,4 +364,11 @@
      x="17"
      y="10"
      ry="0" />
+  <rect
+     style="fill:#ececec;fill-opacity:1;stroke:none"
+     id="rect4191"
+     width="16"
+     height="2"
+     x="4"
+     y="2" />
 </svg>

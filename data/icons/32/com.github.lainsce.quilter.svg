@@ -12,7 +12,7 @@
    height="32"
    width="32"
    version="1.1"
-   inkscape:version="0.92.1 unknown"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="com.github.lainsce.quilter.svg">
   <sodipodi:namedview
      pagecolor="#ffffff"
@@ -30,7 +30,7 @@
      showguides="false"
      inkscape:guide-bbox="true"
      inkscape:zoom="17.567184"
-     inkscape:cx="6.9374556"
+     inkscape:cx="12.809929"
      inkscape:cy="14.08503"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -106,11 +106,11 @@
        id="linearGradient4431">
       <stop
          offset="0"
-         style="stop-color:#d6d6d6;stop-opacity:1"
+         style="stop-color:#afafaf;stop-opacity:1"
          id="stop4579" />
       <stop
          offset="1"
-         style="stop-color:#555555;stop-opacity:1"
+         style="stop-color:#555555;stop-opacity:0.41447368"
          id="stop4581" />
     </linearGradient>
     <linearGradient
@@ -542,7 +542,7 @@
        gradientTransform="matrix(0.53064141,0,0,0.58970049,39.26962,-0.79191863)"
        gradientUnits="userSpaceOnUse"
        id="linearGradient3148"
-       xlink:href="#linearGradient4249" />
+       xlink:href="#linearGradient4431" />
     <linearGradient
        gradientTransform="matrix(0.56756757,0,0,0.72972971,2.378395,-1.5135069)"
        gradientUnits="userSpaceOnUse"
@@ -676,14 +676,9 @@
      d="m 27.050024,30.000086 c 0,0 0,1.99989 0,1.99989 0.806614,0.0038 1.950002,-0.448074 1.950002,-1.000074 0,-0.552 -0.900122,-0.999816 -1.950002,-0.999816 z" />
   <path
      inkscape:connector-curvature="0"
-     style="display:inline;fill:url(#linearGradient3016);fill-opacity:1;stroke:none"
+     style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none"
      id="path4160-3"
      d="m 5.000013,1.9999994 c 5.041316,0 21.999973,0.00179 21.999973,0.00179 L 27.000013,30 c 0,0 -14.666666,0 -22,0 0,-9.333333 0,-18.666664 0,-27.9999965 z" />
-  <path
-     inkscape:connector-curvature="0"
-     style="fill:none;stroke:url(#linearGradient3013);stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="rect6741-1"
-     d="m 26.500013,29.5 h -21 V 2.4999994 h 21 z" />
   <path
      inkscape:connector-curvature="0"
      d="m 4.499974,1.4999434 c 5.27048,0 23.000054,0.002 23.000054,0.002 l 2.4e-5,28.9981126 c 0,0 -15.333385,0 -23.000078,0 0,-9.666722 0,-19.333346 0,-28.9999566 z"
@@ -694,8 +689,8 @@
      id="rect5722-3"
      width="15.998819"
      height="0.9905327"
-     x="6.9856453"
-     y="12.013611"
+     x="6.9844503"
+     y="13.013611"
      ry="0"
      transform="matrix(0.99999982,-5.9179532e-4,0.00119499,0.99999929,0,0)" />
   <rect
@@ -703,8 +698,8 @@
      id="rect5722-36"
      width="13.998967"
      height="0.99053252"
-     x="6.9843025"
-     y="15.014201"
+     x="6.9832568"
+     y="16.0142"
      ry="0"
      transform="matrix(0.99999977,-6.7633528e-4,0.00104562,0.99999945,0,0)" />
   <rect
@@ -712,8 +707,8 @@
      id="rect5722-3-7"
      width="14.998894"
      height="0.99053252"
-     x="6.9798207"
-     y="18.013885"
+     x="6.9787006"
+     y="19.013885"
      ry="0"
      transform="matrix(0.9999998,-6.3125236e-4,0.00112031,0.99999937,0,0)" />
   <rect
@@ -721,8 +716,8 @@
      id="rect5722-5"
      width="12.999042"
      height="0.99053246"
-     x="6.9795985"
-     y="21.014563"
+     x="6.9786277"
+     y="22.014561"
      ry="0"
      transform="matrix(0.99999973,-7.2836002e-4,9.7093671e-4,0.99999953,0,0)" />
   <rect
@@ -737,8 +732,8 @@
      id="rect5722-5-3"
      width="11.999116"
      height="0.9905324"
-     x="6.9784789"
-     y="24.014984"
+     x="6.9775825"
+     y="25.014984"
      ry="0"
      transform="matrix(0.99999969,-7.8905666e-4,8.9624662e-4,0.9999996,0,0)" />
   <rect
@@ -746,8 +741,8 @@
      id="rect5722-3-3"
      width="11.999116"
      height="0.9905324"
-     x="6.9919229"
-     y="9.0149889"
+     x="6.9910264"
+     y="10.014988"
      ry="0"
      transform="matrix(0.99999969,-7.8906033e-4,8.9624276e-4,0.9999996,0,0)" />
   <rect
@@ -755,8 +750,15 @@
      id="rect5722-3-6"
      width="15.998819"
      height="0.9905327"
-     x="6.9916315"
-     y="6.0136099"
+     x="6.9904366"
+     y="7.0136099"
      ry="0"
      transform="matrix(0.99999982,-5.9179532e-4,0.00119499,0.99999929,0,0)" />
+  <rect
+     style="fill:#ececec;fill-opacity:1;stroke:none"
+     id="rect4255"
+     width="22"
+     height="3"
+     x="5"
+     y="2" />
 </svg>
