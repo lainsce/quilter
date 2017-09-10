@@ -41,8 +41,7 @@ namespace Quilter.Services.FileUtils {
                 string filename = file.get_path ();
 
                 GLib.FileUtils.get_contents (filename, out text);
-                if (Application.window != null)
-                    Application.window.view.buffer.text = text;
+                Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
                 warning ("%s", e.message);
             }
@@ -61,9 +60,9 @@ namespace Quilter.Services.FileUtils {
             }
 
             Gtk.TextIter start, end;
-            Application.window.view.buffer.get_bounds (out start, out end);
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
 
-            string buffer = Application.window.view.buffer.get_text (start, end, true);
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
             uint8[] binbuffer = buffer.data;
 
             try {
@@ -76,7 +75,7 @@ namespace Quilter.Services.FileUtils {
 
     // File I/O
     public bool new_document () throws Error {
-        if (Application.window.view.is_modified == true) {
+        if (Widgets.SourceView.is_modified) {
             debug ("Buffer was modified. Asking user to save first.");
             int wanna_save = Services.DialogUtils.display_save_confirm ();
             if (wanna_save == Gtk.ResponseType.CANCEL ||
@@ -90,7 +89,7 @@ namespace Quilter.Services.FileUtils {
                     bool was_saved = save_document ();
                     if (!was_saved) {
                         debug ("Cancelling open document too.");
-                        Application.window.view.buffer.text = "";
+                        Widgets.SourceView.buffer.text = "";
                     }
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
@@ -98,8 +97,8 @@ namespace Quilter.Services.FileUtils {
             }
 
             if (wanna_save == Gtk.ResponseType.NO) {
-                debug ("User cancelled the dialog. Remove document from Application.window.view then.");
-                Application.window.view.buffer.text = "";
+                debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
+                Widgets.SourceView.buffer.text = "";
                 var settings = AppSettings.get_default ();
                 settings.last_file = "";
             }
@@ -116,8 +115,7 @@ namespace Quilter.Services.FileUtils {
                 var settings = AppSettings.get_default ();
                 window.toolbar.subtitle = settings.last_file;
                 GLib.FileUtils.get_contents (file.get_path (), out text);
-                if (Application.window != null)
-                    Application.window.view.buffer.text = text;
+                Widgets.SourceView.buffer.text = text;
             } catch (Error e) {
                 warning ("Error: %s", e.message);
             }
@@ -134,8 +132,7 @@ namespace Quilter.Services.FileUtils {
         } else {
             string text;
             GLib.FileUtils.get_contents (file.get_path (), out text);
-            if (Application.window != null)
-                Application.window.view.buffer.text = text;
+            Widgets.SourceView.buffer.text = text;
             var settings = AppSettings.get_default ();
             settings.last_file = file.get_path ();
             return true;
@@ -154,8 +151,8 @@ namespace Quilter.Services.FileUtils {
             }
 
             Gtk.TextIter start, end;
-            Application.window.view.buffer.get_bounds (out start, out end);
-            string buffer = Application.window.view.buffer.get_text (start, end, true);
+            Widgets.SourceView.buffer.get_bounds (out start, out end);
+            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
             uint8[] binbuffer = buffer.data;
             save_file (file, binbuffer);
             var settings = AppSettings.get_default ();

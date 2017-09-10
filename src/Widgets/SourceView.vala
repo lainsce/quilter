@@ -18,8 +18,8 @@
 */
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
-        public new Gtk.SourceBuffer buffer;
-        public bool is_modified;
+        public static new Gtk.SourceBuffer buffer;
+        public static bool is_modified;
         private string font;
 
         public File file;
