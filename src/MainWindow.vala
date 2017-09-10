@@ -137,7 +137,6 @@ namespace Quilter {
             toolbar.show_all ();
 
             focus_mode_toolbar ();
-            show_save_button ();
 
             settings.changed.connect (() => {
                 show_save_button ();
