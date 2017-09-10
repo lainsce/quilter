@@ -18,8 +18,8 @@
 */
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
-        public static new Gtk.SourceBuffer buffer;
-        public static bool is_modified;
+        public new Gtk.SourceBuffer buffer;
+        public bool is_modified;
         private string font;
 
         public File file;
@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
                 background: @colorPrimary;
                 border-bottom-color: transparent;
                 color: @textColorPrimary;
-                box-shadow: inset 0px 2px 1px 1px @colorPrimary;
+                box-shadow: inset 0px 1px 1px 2px @colorPrimary;
             }
         """;
 

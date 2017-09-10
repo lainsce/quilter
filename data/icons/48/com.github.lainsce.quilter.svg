@@ -30,7 +30,7 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="10.981903"
-     inkscape:cx="2.5117935"
+     inkscape:cx="-11.101512"
      inkscape:cy="26.118177"
      inkscape:window-x="0"
      inkscape:window-y="30"
@@ -46,7 +46,7 @@
        id="linearGradient4280">
       <stop
          offset="0"
-         style="stop-color:#f0f0f0;stop-opacity:1"
+         style="stop-color:#ebebeb;stop-opacity:1"
          id="stop4282" />
       <stop
          offset="1"
@@ -784,12 +784,12 @@
      ry="0"
      transform="matrix(0.99999961,8.8102211e-4,-0.00295156,0.99999564,0,0)" />
   <rect
-     style="opacity:0.76399997;fill:#1f92ff;fill-opacity:1;stroke:none;stroke-width:1.25915825;stroke-opacity:0.39215686"
+     style="opacity:0.76399997;fill:#0079ec;fill-opacity:1;stroke:none;stroke-width:1.25915825;stroke-opacity:0.39215686"
      id="rect4268"
      width="1"
-     height="7"
+     height="5"
      x="32"
-     y="18" />
+     y="20" />
   <rect
      style="opacity:0.36800005;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.99473906;stroke-opacity:0.34615389"
      id="rect5722-36"

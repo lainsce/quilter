@@ -55,12 +55,6 @@ namespace Quilter {
                     title: _("Quilter"),
                     height_request: 800,
                     width_request: 920);
-
-            Granite.Widgets.Utils.set_theming_for_screen (
-                this.get_screen (),
-                Stylesheet.PAGE,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
         }
 
         construct {
@@ -136,7 +130,6 @@ namespace Quilter {
 
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
-            toolbar.pack_start (save_button);
             toolbar.pack_start (save_as_button);
             toolbar.pack_end (menu_button);
 
@@ -144,9 +137,10 @@ namespace Quilter {
             toolbar.show_all ();
 
             focus_mode_toolbar ();
+            save_button_show ();
 
             settings.changed.connect (() => {
-                save_button.visible = settings.show_save_button;
+                save_button_show ();
                 focus_mode_toolbar ();
             });
 
@@ -233,6 +227,7 @@ namespace Quilter {
 
         public void focus_mode_toolbar () {
             var settings = AppSettings.get_default ();
+
             if (!settings.focus_mode) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new", Gtk.IconSize.LARGE_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save", Gtk.IconSize.LARGE_TOOLBAR));
@@ -248,10 +243,21 @@ namespace Quilter {
             }
         }
 
+        public void save_button_show () {
+            var settings = AppSettings.get_default ();
+
+            if (!settings.show_save_button) {
+                save_button.visible = false;
+            } else {
+                toolbar.pack_start (save_button);
+                save_button.visible = true;
+            }
+        }
+
         public void new_button_pressed () {
             debug ("New button pressed.");
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (view.is_modified = true) {
                 try {
                     debug ("Making new file...");
                     Services.FileUtils.new_document ();
@@ -262,14 +268,14 @@ namespace Quilter {
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
+            view.is_modified = false;
         }
 
         public void open_button_pressed () {
             debug ("Open button pressed.");
             var settings = AppSettings.get_default ();
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (view.is_modified = true) {
                 try {
                     debug ("Opening file...");
                     Services.FileUtils.save_work_file ();
@@ -281,7 +287,7 @@ namespace Quilter {
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
+            view.is_modified = false;
         }
 
         public void save_button_pressed () {
@@ -298,8 +304,8 @@ namespace Quilter {
             }
 
             Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            view.buffer.get_bounds (out start, out end);
+            string buffer = view.buffer.get_text (start, end, true);
             uint8[] binbuffer = buffer.data;
 
             try {
@@ -310,14 +316,14 @@ namespace Quilter {
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
+            view.is_modified = false;
         }
 
         public void save_as_button_pressed () {
             debug ("Save as button pressed.");
             var settings = AppSettings.get_default ();
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (view.is_modified = true) {
                 try {
                     debug ("Saving file...");
                     Services.FileUtils.save_document ();
@@ -328,7 +334,7 @@ namespace Quilter {
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
+            view.is_modified = false;
         }
     }
 }
