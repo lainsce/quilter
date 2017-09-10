@@ -243,6 +243,7 @@ namespace Quilter {
         }
 
         public void show_save_button () {
+            var settings = AppSettings.get_default ();
             toolbar.pack_start (save_button);
             save_button.visible = settings.show_save_button;
         }
