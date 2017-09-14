@@ -24,6 +24,9 @@ namespace Quilter {
         public Widgets.SourceView view;
 
         // HeaderBar
+        public Gtk.HeaderBar toolbar;
+        public File file;
+
         private Gtk.Menu menu;
         private Gtk.Button new_button;
         private Gtk.Button open_button;
@@ -33,20 +36,17 @@ namespace Quilter {
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
 
-        public Gtk.HeaderBar toolbar;
-        public File file;
-
         private bool _is_fullscreen;
     	public bool is_fullscreen {
-    		set {
-    			_is_fullscreen = value;
-
-    			if (_is_fullscreen)
-    				fullscreen ();
-    			else
-    				unfullscreen ();
-    		}
     		get { return _is_fullscreen; }
+            set {
+                _is_fullscreen = value;
+
+                if (_is_fullscreen)
+                    fullscreen ();
+                else
+                    unfullscreen ();
+            }
     	}
 
         public MainWindow (Gtk.Application application) {

@@ -16,8 +16,6 @@
  */
 
 namespace Quilter.Services.FileUtils {
-    public MainWindow window;
-
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
         long written = 0;
@@ -112,10 +110,10 @@ namespace Quilter.Services.FileUtils {
             string text;
 
             try {
-                var settings = AppSettings.get_default ();
-                window.toolbar.subtitle = settings.last_file;
                 GLib.FileUtils.get_contents (file.get_path (), out text);
                 Widgets.SourceView.buffer.text = text;
+                var settings = AppSettings.get_default ();
+                settings.last_file = file.get_path ();
             } catch (Error e) {
                 warning ("Error: %s", e.message);
             }

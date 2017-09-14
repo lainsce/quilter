@@ -57,6 +57,7 @@ namespace Quilter.Widgets {
             use_custom_font.halign = Gtk.Align.START;
             main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
             select_font = new Gtk.FontButton ();
+            select_font.use_font = true;
             select_font.hexpand = true;
             main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
             main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
