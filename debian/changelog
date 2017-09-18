@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.2.9) xenial; urgency=low
+
+  * Fix the bug that recreates old files when not needed.
+  * New icon that matches the brand of Quilter more.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 8 September 2017 20:27:00 -0300
+
 com.github.lainsce.quilter (1.2.8) xenial; urgency=low
 
   * Use colors that make sense for the app.
@@ -5,7 +12,6 @@ com.github.lainsce.quilter (1.2.8) xenial; urgency=low
   * Minor fixes in the headerbar subtitle for files.
 
  -- Lains <lainsce@airmail.cc>  Fri, 8 September 2017 20:27:00 -0300
-
 
 com.github.lainsce.quilter (1.2.7) xenial; urgency=low
 

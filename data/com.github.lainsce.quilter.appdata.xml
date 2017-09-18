@@ -22,6 +22,15 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+      <release version="1.2.9" date="2017-09-17">
+        <description>
+          <p>Release: Resourceful Little Worker</p>
+          <ul>
+            <li>Fix the bug that recreates old files when not needed</li>
+            <li>New icon that matches the brand of Quilter more</li>
+          </ul>
+        </description>
+      </release>
       <release version="1.2.8" date="2017-09-06">
         <description>
           <p>Release: Colors are Nice</p>

@@ -164,7 +164,13 @@ namespace Quilter {
             this.view.monospace = true;
             scroll.add (view);
 
-            Services.FileUtils.load_work_file ();
+            if (settings.last_file != null) {
+                Services.FileUtils.load_work_file ();
+            } else {
+                var home = GLib.Environment.get_home_dir ();
+                settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
+                Services.FileUtils.load_tmp_file ();
+            }
 
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
@@ -220,7 +226,14 @@ namespace Quilter {
             settings.window_width = w;
             settings.window_height = h;
 
-            Services.FileUtils.save_work_file ();
+            if (settings.last_file != null) {
+                Services.FileUtils.save_work_file ();
+            } else {
+                var home = GLib.Environment.get_home_dir ();
+                settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
+                Services.FileUtils.save_tmp_file ();
+            }
+
             return false;
         }
 
@@ -249,12 +262,15 @@ namespace Quilter {
 
         public void new_button_pressed () {
             debug ("New button pressed.");
+            var settings = AppSettings.get_default ();
 
             if (Widgets.SourceView.is_modified = true) {
                 try {
                     debug ("Making new file...");
                     Services.FileUtils.new_document ();
                     toolbar.subtitle = "New Document";
+                    var home = GLib.Environment.get_home_dir ();
+                    settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
                 } catch (Error e) {
                     warning ("Unexpected error: " + e.message);
                 }
