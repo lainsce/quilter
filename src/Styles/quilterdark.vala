@@ -99,14 +99,14 @@ max-width: 40%;
 }
 
 body {
-color: #fff;
-background-color: #333;
+color: #eff0f1;
+background-color: #232629;
 font-family: 'Open Sans', Helvetica, sans-serif;
 font-weight: 400;
 margin-left: 80px;
 margin-right: 80px;
 margin-top: 40px;
-max-width: 48rem;
+max-width: 50rem;
 text-align: left;
 }
 
@@ -117,26 +117,24 @@ margin: 0 auto;
 }
 
 a,
-a:visited {
-color: #3498db;
-}
-
+a:visited,
 a:hover,
 a:focus,
 a:active {
-color: #2980b9;
+color: #1d99f3;
 }
 
 pre {
 font-family: 'PT Mono', monospace;
-background-color: #fff;
+background-color: #4D4D4D;
+color: #7E8087;
 padding: 1rem;
 text-align: left;
 }
 
 blockquote {
 margin: 0;
-border-left: 5px solid #bbb;
+border-left: 5px solid #1d99f3;
 font-style: italic;
 padding-left: .8rem;
 text-align: left;
@@ -149,6 +147,6 @@ text-align: left;
 }
 
 p {
-color: #eee;
+color: #eff0f1;
 }""";
 }

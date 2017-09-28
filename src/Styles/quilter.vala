@@ -99,7 +99,7 @@ textarea {
 }
 
 body {
-  color: #222;
+  color: #232629;
   font-family: 'Open Sans', Helvetica, sans-serif;
   font-weight: 400;
   margin-left: 80px;
@@ -116,26 +116,24 @@ img {
 }
 
 a,
-a:visited {
-  color: #3498db;
-}
-
+a:visited,
 a:hover,
 a:focus,
 a:active {
-  color: #2980b9;
+  color: #3daee9;
 }
 
 pre {
   font-family: 'PT Mono', monospace;
   background-color: #fafafa;
+  color: #4d4d4d;
   padding: 1rem;
   text-align: left;
 }
 
 blockquote {
   margin: 0;
-  border-left: 5px solid #7a7a7a;
+  border-left: 5px solid #3daee9;
   font-style: italic;
   padding-left: .8rem;
   text-align: left;
@@ -148,6 +146,6 @@ li {
 }
 
 p {
-  color: #444;
+  color: #232629;
 }""";
 }

@@ -135,6 +135,10 @@
             <caption>Focus Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
         </screenshot>
+        <screenshot>
+            <caption>Preview Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
+        </screenshot>
     </screenshots>
     <custom>
         <value key="x-appcenter-color-primary">#b8d2e2</value>
