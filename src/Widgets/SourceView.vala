@@ -21,8 +21,10 @@ namespace Quilter.Widgets {
         public static new Gtk.SourceBuffer buffer;
         public static bool is_modified;
         public File file;
-
+        public WebView webview;
         private string font;
+
+        public signal void changed ();
 
         public SourceView () {
             update_settings ();
@@ -37,9 +39,9 @@ namespace Quilter.Widgets {
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
             buffer = new Gtk.SourceBuffer.with_language (language);
-            buffer.changed.connect (on_text_modified);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
+            buffer.changed.connect (on_text_modified);
 
             is_modified = false;
             Timeout.add_seconds (20, () => {
@@ -63,6 +65,7 @@ namespace Quilter.Widgets {
             if (!is_modified) {
                 is_modified = true;
             } else {
+                changed ();
                 is_modified = false;
             }
         }
@@ -81,12 +84,14 @@ namespace Quilter.Widgets {
         public void set_text (string text, bool opening = true) {
             if (opening) {
                 buffer.begin_not_undoable_action ();
+                buffer.changed.disconnect (on_text_modified);
             }
 
             buffer.text = text;
 
             if (opening) {
                 buffer.end_not_undoable_action ();
+                buffer.changed.connect (on_text_modified);
             }
 
             Gtk.TextIter? start = null;

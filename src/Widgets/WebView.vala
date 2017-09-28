@@ -21,16 +21,18 @@ using WebKit;
 
 namespace Quilter {
     public class Widgets.WebView : WebKit.WebView {
-        public signal void updated ();
+        public MainWindow parent_window;
 
         public WebView (MainWindow window) {
             Object(user_content_manager: new UserContentManager());
+            parent_window = window;
             visible = true;
             vexpand = true;
             hexpand = true;
             var settingsweb = get_settings();
             settingsweb.enable_plugins = false;
-            settingsweb.enable_page_cache = false;
+            settingsweb.enable_page_cache = true;
+            settingsweb.enable_developer_extras = false;
             web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 
             update_html_view ();
@@ -144,7 +146,6 @@ namespace Quilter {
             html += process (text);
             html += "</div></body></html>";
             this.load_html (html, "file://");
-            updated ();
         }
     }
 }

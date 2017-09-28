@@ -41,8 +41,8 @@ namespace Quilter {
         private Gtk.ScrolledWindow edit_view;
         private int edit_view_id;
         private int preview_view_id;
-
-        public signal void updated ();
+        private bool timer_scheduled = false;
+        private const int TIME_TO_REFRESH = 300;
 
         private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -56,10 +56,6 @@ namespace Quilter {
                     unfullscreen ();
             }
         }
-        
-        // current state for webview
-        private bool timer_scheduled = false;
-        private uint timer_id = 0;
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
@@ -69,6 +65,8 @@ namespace Quilter {
                     width_request: 920);
             
             view_mode.notify["selected"].connect (on_view_mode_changed);
+            schedule_timer ();
+            edit_view_content.changed.connect (schedule_timer);
         }
 
         construct {
@@ -192,8 +190,6 @@ namespace Quilter {
             preview_view_content = new Widgets.WebView (this);
             preview_view.add (preview_view_content);
 
-            schedule_timer ();
-
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stack.add (edit_view);
@@ -242,23 +238,6 @@ namespace Quilter {
             });
         }
 
-        private void schedule_timer () {
-            timer_id = Timeout.add (300, render_func);
-            timer_scheduled = true;
-        }
-
-        private void remove_timer () {
-            if (timer_scheduled) {
-                Source.remove(timer_id);
-            }
-        }
-    
-        private bool render_func () {
-            preview_view_content.update_html_view ();
-            timer_scheduled = false;
-            return false;
-        }
-
         protected bool match_keycode (int keyval, uint code) {
             Gdk.KeymapKey [] keys;
             Gdk.Keymap keymap = Gdk.Keymap.get_default ();
@@ -290,8 +269,19 @@ namespace Quilter {
                 settings.last_file = @"$cache/temp";
                 Services.FileUtils.save_tmp_file ();
             }
+            return false;
+        }
 
-            remove_timer ();
+        private void schedule_timer () {
+            if (!timer_scheduled) {
+                Timeout.add (TIME_TO_REFRESH, render_func);
+                timer_scheduled = true;
+            }
+        }
+    
+        private bool render_func () {
+            preview_view_content.update_html_view ();
+            timer_scheduled = false;
             return false;
         }
 
@@ -322,7 +312,7 @@ namespace Quilter {
             debug ("New button pressed.");
             var settings = AppSettings.get_default ();
 
-            if (!Widgets.SourceView.is_modified) {
+            if (Widgets.SourceView.is_modified) {
                 try {
                     debug ("Making new file...");
                     Services.FileUtils.new_document ();
@@ -332,9 +322,9 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error: " + e.message);
                 }
-                Widgets.SourceView.is_modified = true;
-            } else {
                 Widgets.SourceView.is_modified = false;
+            } else {
+                Widgets.SourceView.is_modified = true;
             }
 
             file = null;
