@@ -55,6 +55,8 @@ executable(
     'src/Widgets/WebView.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
+    'src/Styles/quilter.vala',
+    'src/Styles/quilterdark.vala',
     'src/Constants/AppSettings.vala',
     'src/Services/FileUtils.vala',
     'src/Services/DialogUtils.vala',

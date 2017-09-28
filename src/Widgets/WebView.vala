@@ -28,10 +28,14 @@ namespace Quilter {
             visible = true;
             vexpand = true;
             hexpand = true;
-            var settings = get_settings();
-            settings.enable_plugins = false;
-            settings.enable_page_cache = false;
+            var settingsweb = get_settings();
+            settingsweb.enable_plugins = false;
+            settingsweb.enable_page_cache = false;
             web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
+
+            refresh_page ();
+            var settings = AppSettings.get_default ();
+            settings.changed.connect (refresh_page);        
         }
     
         protected override bool context_menu (
@@ -40,6 +44,21 @@ namespace Quilter {
             HitTestResult hit_test_result
         ) {
             return true;
+        }
+
+        private string set_stylesheet () {
+            var settings = AppSettings.get_default ();
+            if (!settings.dark_mode) {
+                string normal = Styles.quilter.css;
+                return normal;
+            } else {
+                string dark = Styles.quilterdark.css;
+                return dark;
+            }
+        }
+
+        public void refresh_page () {
+            set_stylesheet ();
         }
 
         /**
@@ -111,16 +130,20 @@ namespace Quilter {
         }
 
         public void update_html_view () {
-            var settings = AppSettings.get_default ();
-            var file = File.new_for_path (settings.last_file);
-            string text;
+            //var settings = AppSettings.get_default ();
+            //var file = File.new_for_path (settings.last_file);
+            //string text;
       
-            string filename = file.get_path ();
-            GLib.FileUtils.get_contents (filename, out text);
+            //string filename = file.get_path ();
+            //GLib.FileUtils.get_contents (filename, out text);
+
+            string text = Widgets.SourceView.buffer.text;
             
             string html = "";
             html += "<html><head>";
-            //html += "<style>"+render_stylesheet+"</style>";
+            html += "<style>";
+            html += set_stylesheet ();
+            html += "</style>";
             html += "</head><body><div class=\"markdown-body\">";
             html += process (text);
             html += "</div></body></html>";
