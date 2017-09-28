@@ -33,9 +33,9 @@ namespace Quilter {
             settingsweb.enable_page_cache = false;
             web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 
-            refresh_page ();
+            update_html_view ();
             var settings = AppSettings.get_default ();
-            settings.changed.connect (refresh_page);        
+            settings.changed.connect (update_html_view);        
         }
     
         protected override bool context_menu (
@@ -55,10 +55,6 @@ namespace Quilter {
                 string dark = Styles.quilterdark.css;
                 return dark;
             }
-        }
-
-        public void refresh_page () {
-            set_stylesheet ();
         }
 
         /**
