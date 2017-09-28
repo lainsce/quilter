@@ -42,6 +42,8 @@ namespace Quilter {
         private int edit_view_id;
         private int preview_view_id;
 
+        public signal void updated ();
+
         private bool _is_fullscreen;
     	public bool is_fullscreen {
     		get { return _is_fullscreen; }
@@ -53,7 +55,11 @@ namespace Quilter {
                 else
                     unfullscreen ();
             }
-    	}
+        }
+        
+        // current state for webview
+        private bool timer_scheduled = false;
+        private uint timer_id = 0;
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
@@ -178,13 +184,15 @@ namespace Quilter {
             this.set_titlebar (toolbar);
 
             edit_view = new Gtk.ScrolledWindow (null, null);
-            var edit_view_content = new Widgets.SourceView ();
+            edit_view_content = new Widgets.SourceView ();
             edit_view_content.monospace = true;
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            var preview_view_content = new Widgets.WebView (this);
+            preview_view_content = new Widgets.WebView (this);
             preview_view.add (preview_view_content);
+
+            schedule_timer ();
 
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
@@ -234,6 +242,23 @@ namespace Quilter {
             });
         }
 
+        private void schedule_timer () {
+            timer_id = Timeout.add (300, render_func);
+            timer_scheduled = true;
+        }
+
+        private void remove_timer () {
+            if (timer_scheduled) {
+                Source.remove(timer_id);
+            }
+        }
+    
+        private bool render_func () {
+            preview_view_content.update_html_view ();
+            timer_scheduled = false;
+            return false;
+        }
+
         protected bool match_keycode (int keyval, uint code) {
             Gdk.KeymapKey [] keys;
             Gdk.Keymap keymap = Gdk.Keymap.get_default ();
@@ -266,6 +291,7 @@ namespace Quilter {
                 Services.FileUtils.save_tmp_file ();
             }
 
+            remove_timer ();
             return false;
         }
 
@@ -296,7 +322,7 @@ namespace Quilter {
             debug ("New button pressed.");
             var settings = AppSettings.get_default ();
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (!Widgets.SourceView.is_modified) {
                 try {
                     debug ("Making new file...");
                     Services.FileUtils.new_document ();
@@ -306,17 +332,19 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error: " + e.message);
                 }
+                Widgets.SourceView.is_modified = true;
+            } else {
+                Widgets.SourceView.is_modified = false;
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
         }
 
         public void open_button_pressed () {
             debug ("Open button pressed.");
             var settings = AppSettings.get_default ();
 
-            if (Widgets.SourceView.is_modified = true) {
+            if (!Widgets.SourceView.is_modified) {
                 try {
                     debug ("Opening file...");
                     Services.FileUtils.save_work_file ();
@@ -325,10 +353,12 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
+                Widgets.SourceView.is_modified = true;
+            } else {
+                Widgets.SourceView.is_modified = false;
             }
 
             file = null;
-            Widgets.SourceView.is_modified = false;
         }
 
         public void save_button_pressed () {

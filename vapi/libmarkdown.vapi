@@ -1,31 +1,20 @@
-[CCode(cheader_filename = "mkdio.h")]
+[CCode (cprefix = "mkd")]
 namespace Markdown {
+
     [Compact]
-    [CCode(cname = "MMIOT", cprefix = "mkd_", free_function = "mkd_cleanup")]
+    [CCode (cheader_filename = "mkdio.h", cname = "MMIOT", free_function = "mkd_cleanup")]
     public class Document {
-        internal bool compile(int flags);
-        private int document(out unowned string text);
-        private int toc(out unowned string? text);
 
-        [CCode(cname = "mkd_string")]
-        public Document.from_string(uint8[] bfr, int flags);
+        [CCode (cname = "mkd_string")]
+        public Document (uint8[] data, int flag = 0);
 
-        public unowned string render_html() {
-            unowned string html;
-            int size = this.document(out html);
-            return html;
-        }
+        [CCode (cname = "gfm_string")]
+        public Document.gfm_format (uint8[] data, int flag = 0);
 
-        public unowned string? render_html_toc() {
-            unowned string? html = null;
-            int size = this.toc(out html);
-            return html;
-        }
-    }
+        [CCode (cname = "mkd_compile")]
+        public void compile (int flag = 0);
 
-    public Document parse(uint8[] text, int flags = 0x02001000) {
-        var document = new Document.from_string(text, flags);
-        document.compile(flags);
-        return document;
+        [CCode (cname = "mkd_document")]
+        public int get_document (out unowned string result);
     }
 }
