@@ -21,11 +21,10 @@ using Granite;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
-        public Widgets.SourceView view;
-
-        // HeaderBar
         public Gtk.HeaderBar toolbar;
         public File file;
+        public Widgets.SourceView edit_view_content;
+        public Widgets.WebView preview_view_content;
 
         private Gtk.Menu menu;
         private Gtk.Button new_button;
@@ -33,8 +32,15 @@ namespace Quilter {
         private Gtk.Button save_button;
         private Gtk.Button save_as_button;
         private Gtk.MenuButton menu_button;
+        private Gtk.Stack stack;
+        private Granite.Widgets.ModeButton view_mode;
+        private Gtk.Revealer view_mode_revealer;
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
+        private Gtk.ScrolledWindow edit_view;
+        private Gtk.ScrolledWindow preview_view;
+        private int edit_view_id;
+        private int preview_view_id;
 
         private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -55,6 +61,8 @@ namespace Quilter {
                     title: _("Quilter"),
                     height_request: 800,
                     width_request: 920);
+            
+            view_mode.notify["selected"].connect (on_view_mode_changed);
         }
 
         construct {
@@ -128,10 +136,21 @@ namespace Quilter {
 
             menu_button.popup = menu;
 
+            view_mode = new Granite.Widgets.ModeButton ();
+            view_mode.margin = 1;
+            edit_view_id = view_mode.append_text (_("Edit"));
+            preview_view_id = view_mode.append_text (_("Preview"));
+    
+            view_mode_revealer = new Gtk.Revealer ();
+            view_mode_revealer.reveal_child = true;
+            view_mode_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            view_mode_revealer.add (view_mode);
+
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
             toolbar.pack_start (save_as_button);
             toolbar.pack_end (menu_button);
+            toolbar.pack_end (view_mode_revealer);
 
             toolbar.show_close_button = true;
             toolbar.show_all ();
@@ -158,11 +177,24 @@ namespace Quilter {
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
 
-            var scroll = new Gtk.ScrolledWindow (null, null);
-            this.add (scroll);
-            this.view = new Widgets.SourceView ();
-            this.view.monospace = true;
-            scroll.add (view);
+            edit_view = new Gtk.ScrolledWindow (null, null);
+            var edit_view_content = new Widgets.SourceView ();
+            edit_view_content.monospace = true;
+            edit_view.add (edit_view_content);
+
+            preview_view = new Gtk.ScrolledWindow (null, null);
+            var preview_view_content = new Widgets.WebView ();
+            preview_view.add (preview_view_content);
+
+            stack = new Gtk.Stack ();
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.add (edit_view);
+            stack.add (preview_view);
+
+            this.add (stack);
+
+            view_mode.selected = edit_view_id;
+            stack.visible_child = edit_view;
 
             if (settings.last_file != null) {
                 Services.FileUtils.load_work_file ();
@@ -229,8 +261,8 @@ namespace Quilter {
             if (settings.last_file != null) {
                 Services.FileUtils.save_work_file ();
             } else {
-                var home = GLib.Environment.get_home_dir ();
-                settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
+                string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+                settings.last_file = @"$cache/temp";
                 Services.FileUtils.save_tmp_file ();
             }
 
@@ -344,6 +376,14 @@ namespace Quilter {
 
             file = null;
             Widgets.SourceView.is_modified = false;
+        }
+
+        private void on_view_mode_changed () {
+            if (view_mode.selected == edit_view_id) {
+                stack.visible_child = edit_view;
+            } else if (view_mode.selected == preview_view_id) {
+                stack.visible_child = preview_view;
+            }
         }
     }
 }

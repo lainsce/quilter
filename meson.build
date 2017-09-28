@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '1.2.9'
+    version: '1.3.0'
 )
 
 # Import main lib files
@@ -38,6 +38,7 @@ executable(
     'src/Application.vala',
     'src/MainWindow.vala',
     'src/Widgets/SourceView.vala',
+    'src/Widgets/WebView.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
     'src/Constants/AppSettings.vala',
@@ -48,7 +49,8 @@ executable(
         dependency('granite'),
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
-        dependency('gtk+-3.0')
+        dependency('gtk+-3.0'),
+        dependency('webkit2gtk-4.0')
     ],
     vala_args: [
         meson.source_root() + '/vapi/config.vapi',

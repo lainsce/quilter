@@ -22,6 +22,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+      <release version="1.3.0" date="2017-09-27">
+        <description>
+          <p>Release: Preview Your Story</p>
+          <ul>
+            <li>All-new Preview Mode that shows your file</li>
+          </ul>
+        </description>
+      </release>
       <release version="1.2.9" date="2017-09-17">
         <description>
           <p>Release: Resourceful Little Worker</p>

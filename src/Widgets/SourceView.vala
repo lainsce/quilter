@@ -20,10 +20,9 @@ namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
         public static new Gtk.SourceBuffer buffer;
         public static bool is_modified;
-        private string font;
-
         public File file;
 
+        private string font;
         private const string COLOR_PRIMARY = """
             @define-color colorPrimary %s;
             @define-color textColorPrimary %s;
@@ -54,6 +53,8 @@ namespace Quilter.Widgets {
             var language = manager.guess_language (null, "text/x-markdown");
             buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.changed.connect (on_text_modified);
+            buffer.highlight_syntax = true;
+            buffer.set_max_undo_levels (20);
 
             is_modified = false;
             Timeout.add_seconds (20, () => {
@@ -90,6 +91,22 @@ namespace Quilter.Widgets {
               is_modified = false;
               return false;
             }
+        }
+
+        public void set_text (string text, bool opening = true) {
+            if (opening) {
+                buffer.begin_not_undoable_action ();
+            }
+
+            buffer.text = text;
+
+            if (opening) {
+                buffer.end_not_undoable_action ();
+            }
+
+            Gtk.TextIter? start = null;
+            buffer.get_start_iter (out start);
+            buffer.place_cursor (start);
         }
 
         public void use_default_font (bool value) {
