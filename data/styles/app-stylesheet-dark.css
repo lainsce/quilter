@@ -1,0 +1,13 @@
+@define-color colorPrimary #31363B;
+@define-color textColorPrimary #EFF0F1;
+
+.quilter-window {
+    background-color: @colorPrimary;
+}
+.quilter-toolbar {
+    background-color: @colorPrimary;
+    background: @colorPrimary;
+    border-bottom-color: transparent;
+    color: @textColorPrimary;
+    box-shadow: inset 0px 1px 1px 2px @colorPrimary;
+}

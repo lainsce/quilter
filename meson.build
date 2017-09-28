@@ -7,6 +7,13 @@ project('com.github.lainsce.quilter', ['vala', 'c'],
 gnome = import('gnome')
 i18n = import('i18n')
 
+# Compile the GResources for this project
+asresources = gnome.compile_resources(
+    'as-resources', 'data/app.gresource.xml',
+    source_dir: 'data',
+    c_name: 'as'
+)
+
 # Set this for convenience
 conf = configuration_data()
 
@@ -32,6 +39,13 @@ c_args = [
 
 cc = meson.get_compiler('c')
 
+# Find libMarkdown
+libmarkdown = dependency('libmarkdown', version: '>= 2.2.1', required: false)
+if libmarkdown.found() == false
+    cc = meson.get_compiler('c')
+    libmarkdown = cc.find_library('libmarkdown', required: true)
+endif
+
 # Let's define our executable
 executable(
     meson.project_name(),
@@ -44,16 +58,19 @@ executable(
     'src/Constants/AppSettings.vala',
     'src/Services/FileUtils.vala',
     'src/Services/DialogUtils.vala',
+    asresources,
     c_args: c_args,
     dependencies: [
         dependency('granite'),
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
         dependency('gtk+-3.0'),
-        dependency('webkit2gtk-4.0')
+        dependency('webkit2gtk-4.0'),
+        libmarkdown
     ],
     vala_args: [
         meson.source_root() + '/vapi/config.vapi',
+        meson.source_root() + '/vapi/libmarkdown.vapi',
         '--vapidir=' + meson.source_root() + '/vapi/',
     ],
     install : true

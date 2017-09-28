@@ -25,6 +25,7 @@ namespace Quilter {
         public File file;
         public Widgets.SourceView edit_view_content;
         public Widgets.WebView preview_view_content;
+        public Gtk.ScrolledWindow preview_view;
 
         private Gtk.Menu menu;
         private Gtk.Button new_button;
@@ -38,7 +39,6 @@ namespace Quilter {
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
         private Gtk.ScrolledWindow edit_view;
-        private Gtk.ScrolledWindow preview_view;
         private int edit_view_id;
         private int preview_view_id;
 
@@ -183,7 +183,7 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            var preview_view_content = new Widgets.WebView ();
+            var preview_view_content = new Widgets.WebView (this);
             preview_view.add (preview_view_content);
 
             stack = new Gtk.Stack ();
@@ -378,7 +378,7 @@ namespace Quilter {
             Widgets.SourceView.is_modified = false;
         }
 
-        private void on_view_mode_changed () {
+        public void on_view_mode_changed () {
             if (view_mode.selected == edit_view_id) {
                 stack.visible_child = edit_view;
             } else if (view_mode.selected == preview_view_id) {

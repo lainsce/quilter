@@ -18,6 +18,7 @@ granite
 gtk+-3.0
 gtksourceview-3.0
 libwebkit2gtk-4.0-dev
+libmarkdown2-dev
 meson
 ```
 
