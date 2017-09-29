@@ -30,6 +30,16 @@ namespace Quilter.Widgets {
             update_settings ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_settings);
+
+            try {
+                string text;
+                var file = File.new_for_path (settings.last_file);
+                string filename = file.get_path ();
+                GLib.FileUtils.get_contents (filename, out text);
+                set_text (text, true);
+            } catch (Error e) {
+                warning ("Error: %s\n", e.message);
+            }
         }
 
         construct {
@@ -45,7 +55,7 @@ namespace Quilter.Widgets {
 
             is_modified = false;
             Timeout.add_seconds (20, () => {
-                save_file ();
+                on_text_modified ();
                 return true;
             });
 
@@ -66,18 +76,8 @@ namespace Quilter.Widgets {
                 is_modified = true;
             } else {
                 changed ();
+                Services.FileManager.save_work_file ();
                 is_modified = false;
-            }
-        }
-
-        public bool save_file () {
-            if (!is_modified) {
-              is_modified = true;
-              return true;
-            } else {
-              Services.FileUtils.save_work_file ();
-              is_modified = false;
-              return false;
             }
         }
 

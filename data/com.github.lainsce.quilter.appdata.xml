@@ -22,6 +22,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+      <release version="1.3.2" date="2017-09-30">
+        <description>
+          <p>Release: Undo all you Want, Redo all you Want</p>
+          <ul>
+            <li>Ctrl-Z and Ctrl-Shift-Z now work properly</li>
+          </ul>
+        </description>
+      </release>
       <release version="1.3.1" date="2017-09-29">
         <description>
           <p>Release: Now Make It Fly</p>

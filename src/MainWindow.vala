@@ -84,7 +84,9 @@ namespace Quilter {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
-                new_button_pressed ();
+                Services.FileManager.new_file ();
+                toolbar.subtitle = "New Document";
+                file = null;
             });
 
             save_as_button = new Gtk.Button ();
@@ -92,7 +94,12 @@ namespace Quilter {
             save_as_button.tooltip_text = (_("Save as…"));
 
             save_as_button.clicked.connect (() => {
-                save_as_button_pressed ();
+                try {
+                    Services.FileManager.save_as ();
+                } catch (Error e) {
+                    warning ("Unexpected error during open: " + e.message);
+                }
+                toolbar.subtitle = settings.last_file;
             });
 
             save_button = new Gtk.Button ();
@@ -100,7 +107,12 @@ namespace Quilter {
             save_button.tooltip_text = (_("Save file"));
 
             save_button.clicked.connect (() => {
-                save_button_pressed ();
+                try {
+                    Services.FileManager.save ();
+                } catch (Error e) {
+                    warning ("Unexpected error during open: " + e.message);
+                }
+                toolbar.subtitle = settings.last_file;
             });
 
             open_button = new Gtk.Button ();
@@ -108,7 +120,12 @@ namespace Quilter {
             open_button.tooltip_text = (_("Open…"));
 
             open_button.clicked.connect (() => {
-                open_button_pressed ();
+                try {
+                    Services.FileManager.open ();
+                } catch (Error e) {
+                    warning ("Unexpected error during open: " + e.message);
+                }
+                toolbar.subtitle = settings.last_file;
             });
 
             menu_button = new Gtk.MenuButton ();
@@ -193,11 +210,11 @@ namespace Quilter {
             toolbar.pack_end (view_mode);
 
             if (settings.last_file != null) {
-                Services.FileUtils.load_work_file ();
+                Services.FileManager.load_work_file ();
             } else {
                 string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
                 settings.last_file = @"$cache/temp";
-                Services.FileUtils.load_tmp_file ();
+                Services.FileManager.load_tmp_file ();
             }
 
             this.key_press_event.connect ((e) => {
@@ -209,18 +226,36 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.s, keycode)) {
-                        save_button_pressed ();
+                        try {
+                            Services.FileManager.save ();
+                        } catch (Error e) {
+                            warning ("Unexpected error during open: " + e.message);
+                        }
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.o, keycode)) {
-                        open_button_pressed ();
+                        try {
+                            Services.FileManager.open ();
+                        } catch (Error e) {
+                            warning ("Unexpected error during open: " + e.message);
+                        }
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.h, keycode)) {
                         var cheatsheet_dialog = new Widgets.Cheatsheet (this);
                         cheatsheet_dialog.show_all ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        Widgets.SourceView.buffer.undo ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        Widgets.SourceView.buffer.redo ();
                     }
                 }
                 if (match_keycode (Gdk.Key.F11, keycode)) {
@@ -255,11 +290,11 @@ namespace Quilter {
             settings.window_height = h;
 
             if (settings.last_file != null) {
-                Services.FileUtils.save_work_file ();
+                Services.FileManager.save_work_file ();
             } else {
                 string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
                 settings.last_file = @"$cache/temp";
-                Services.FileUtils.save_tmp_file ();
+                Services.FileManager.save_tmp_file ();
             }
             return false;
         }
@@ -298,96 +333,6 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
             toolbar.pack_start (save_button);
             save_button.visible = settings.show_save_button;
-        }
-
-        public void new_button_pressed () {
-            debug ("New button pressed.");
-            var settings = AppSettings.get_default ();
-
-            if (Widgets.SourceView.is_modified) {
-                try {
-                    debug ("Making new file...");
-                    Services.FileUtils.new_document ();
-                    toolbar.subtitle = "New Document";
-                    string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-                    settings.last_file = @"$cache/temp";
-                } catch (Error e) {
-                    warning ("Unexpected error: " + e.message);
-                }
-                Widgets.SourceView.is_modified = false;
-            } else {
-                Widgets.SourceView.is_modified = true;
-            }
-
-            file = null;
-        }
-
-        public void open_button_pressed () {
-            debug ("Open button pressed.");
-            var settings = AppSettings.get_default ();
-
-            if (!Widgets.SourceView.is_modified) {
-                try {
-                    debug ("Opening file...");
-                    Services.FileUtils.save_work_file ();
-                    Services.FileUtils.open_document ();
-                    toolbar.subtitle = settings.last_file;
-                } catch (Error e) {
-                    warning ("Unexpected error during open: " + e.message);
-                }
-                Widgets.SourceView.is_modified = true;
-            } else {
-                Widgets.SourceView.is_modified = false;
-            }
-
-            file = null;
-        }
-
-        public void save_button_pressed () {
-            debug ("Save button pressed.");
-            var settings = AppSettings.get_default ();
-            var file = File.new_for_path (settings.last_file);
-
-            if (file.query_exists ()) {
-                try {
-                    file.delete ();
-                } catch (Error e) {
-                    warning ("Error: " + e.message);
-                }
-            }
-
-            Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-
-            try {
-                Services.FileUtils.save_file (file, binbuffer);
-                toolbar.subtitle = settings.last_file;
-            } catch (Error e) {
-                warning ("Unexpected error during save: " + e.message);
-            }
-
-            file = null;
-            Widgets.SourceView.is_modified = false;
-        }
-
-        public void save_as_button_pressed () {
-            debug ("Save as button pressed.");
-            var settings = AppSettings.get_default ();
-
-            if (Widgets.SourceView.is_modified = true) {
-                try {
-                    debug ("Saving file...");
-                    Services.FileUtils.save_document ();
-                    toolbar.subtitle = settings.last_file;
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-
-            file = null;
-            Widgets.SourceView.is_modified = false;
         }
     }
 }

@@ -157,7 +157,7 @@ namespace Quilter {
                 }
 
                 if (files.length > 0)
-                    Services.FileUtils.open_from_outside (files, "");
+                    Services.FileManager.open_from_outside (files, "");
             }
 
             return 0;

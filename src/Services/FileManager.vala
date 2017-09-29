@@ -15,8 +15,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Quilter.Services.FileUtils {
+namespace Quilter.Services.FileManager {
     File tmp_file;
+
+    public MainWindow window;
 
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
@@ -129,36 +131,6 @@ namespace Quilter.Services.FileUtils {
     }
 
     // File I/O
-    public bool new_document () throws Error {
-        if (Widgets.SourceView.is_modified) {
-            debug ("Buffer was modified. Asking user to save first.");
-            int wanna_save = Services.DialogUtils.display_save_confirm ();
-            if (wanna_save == Gtk.ResponseType.CANCEL ||
-                wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-                debug ("User canceled save confirm. Aborting operation.");
-            }
-
-            if (wanna_save == Gtk.ResponseType.YES) {
-                debug ("Saving file before loading new file.");
-                try {
-                    bool was_saved = save_document ();
-                    if (!was_saved) {
-                        debug ("Cancelling open document too.");
-                        Widgets.SourceView.buffer.text = "";
-                    }
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-
-            if (wanna_save == Gtk.ResponseType.NO) {
-                debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
-                Widgets.SourceView.buffer.text = "";
-            }
-        }
-        return true;
-    }
-
     public bool open_from_outside (File[] files, string hint) {
         if (files.length > 0) {
             var file = files[0];
@@ -176,41 +148,125 @@ namespace Quilter.Services.FileUtils {
         return true;
     }
 
-    public bool open_document () throws Error {
-        debug ("Asking the user what to open.");
-        var file = Services.DialogUtils.display_open_dialog ();
-        if (file == null) {
-            debug ("User cancelled operation. Aborting.");
-            return false;
+    public void new_file () {
+        debug ("New button pressed.");
+        var settings = AppSettings.get_default ();
+
+        if (Widgets.SourceView.is_modified == true) {
+            debug ("Making new file...");
+            debug ("Buffer was modified. Asking user to save first.");
+            int wanna_save = Services.DialogUtils.display_save_confirm ();
+            if (wanna_save == Gtk.ResponseType.CANCEL ||
+                wanna_save == Gtk.ResponseType.DELETE_EVENT) {
+                debug ("User canceled save confirm. Aborting operation.");
+            }
+
+            if (wanna_save == Gtk.ResponseType.YES) {
+                debug ("Saving file before loading new file.");
+                try {
+                    save_as ();
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
+            }
+
+            if (wanna_save == Gtk.ResponseType.NO) {
+                debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
+                Widgets.SourceView.buffer.text = "";
+            }
+            Widgets.SourceView.buffer.text = "";
+            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+            settings.last_file = @"$cache/temp";
+            Widgets.SourceView.is_modified = false;
         } else {
-            string text;
-            GLib.FileUtils.get_contents (file.get_path (), out text);
-            Widgets.SourceView.buffer.text = text;
-            var settings = AppSettings.get_default ();
-            settings.last_file = file.get_path ();
-            return true;
+            Widgets.SourceView.is_modified = true;
         }
     }
 
-    public bool save_document () throws Error {
-        debug ("Asking the user where to save.");
-        var file = Services.DialogUtils.display_save_dialog ();
-        if (file == null) {
-            debug ("User cancelled operation. Aborting.");
-            return false;
-        } else {
-            if (file.query_exists ()) {
-              file.delete ();
-            }
+    public void open () throws Error {
+        debug ("Open button pressed.");
+        var settings = AppSettings.get_default ();
+        var file = Services.DialogUtils.display_open_dialog ();
 
-            Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-            save_file (file, binbuffer);
-            var settings = AppSettings.get_default ();
-            settings.last_file = file.get_path ();
-            return true;
+        if (!Widgets.SourceView.is_modified) {
+            try {
+                debug ("Opening file...");
+                save_work_file ();
+                if (file == null) {
+                    debug ("User cancelled operation. Aborting.");
+                } else {
+                    string text;
+                    GLib.FileUtils.get_contents (file.get_path (), out text);
+                    Widgets.SourceView.buffer.text = text;
+                    settings.last_file = file.get_path ();
+                }
+            } catch (Error e) {
+                warning ("Unexpected error during open: " + e.message);
+            }
+            Widgets.SourceView.is_modified = true;
+        } else {
+            Widgets.SourceView.is_modified = false;
         }
+
+        file = null;
+    }
+
+    public void save () throws Error {
+        debug ("Save button pressed.");
+        var settings = AppSettings.get_default ();
+        var file = File.new_for_path (settings.last_file);
+
+        if (file.query_exists ()) {
+            try {
+                file.delete ();
+            } catch (Error e) {
+                warning ("Error: " + e.message);
+            }
+        }
+
+        Gtk.TextIter start, end;
+        Widgets.SourceView.buffer.get_bounds (out start, out end);
+        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+        uint8[] binbuffer = buffer.data;
+
+        try {
+            save_file (file, binbuffer);
+        } catch (Error e) {
+            warning ("Unexpected error during save: " + e.message);
+        }
+
+        file = null;
+        Widgets.SourceView.is_modified = false;
+    }
+
+    public void save_as () throws Error {
+        debug ("Save as button pressed.");
+        var settings = AppSettings.get_default ();
+        var file = Services.DialogUtils.display_save_dialog ();
+
+        if (Widgets.SourceView.is_modified = true) {
+            try {
+                debug ("Saving file...");
+                if (file == null) {
+                    debug ("User cancelled operation. Aborting.");
+                } else {
+                    if (file.query_exists ()) {
+                      file.delete ();
+                    }
+        
+                    Gtk.TextIter start, end;
+                    Widgets.SourceView.buffer.get_bounds (out start, out end);
+                    string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                    uint8[] binbuffer = buffer.data;
+                    save_file (file, binbuffer);
+                    settings.last_file = file.get_path ();
+                }
+            } catch (Error e) {
+                warning ("Unexpected error during save: " + e.message);
+            }
+        }
+
+        file = null;
+        Widgets.SourceView.is_modified = false;
     }
 }
