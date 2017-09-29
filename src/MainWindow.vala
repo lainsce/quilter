@@ -25,7 +25,6 @@ namespace Quilter {
         public File file;
         public Widgets.SourceView edit_view_content;
         public Widgets.WebView preview_view_content;
-        public Gtk.ScrolledWindow preview_view;
 
         private Gtk.Menu menu;
         private Gtk.Button new_button;
@@ -34,13 +33,11 @@ namespace Quilter {
         private Gtk.Button save_as_button;
         private Gtk.MenuButton menu_button;
         private Gtk.Stack stack;
-        private Granite.Widgets.ModeButton view_mode;
-        private Gtk.Revealer view_mode_revealer;
+        private Gtk.StackSwitcher view_mode;
+        private Gtk.ScrolledWindow edit_view;
+        private Gtk.ScrolledWindow preview_view;
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
-        private Gtk.ScrolledWindow edit_view;
-        private int edit_view_id;
-        private int preview_view_id;
         private bool timer_scheduled = false;
 
         /*
@@ -68,7 +65,6 @@ namespace Quilter {
                     height_request: 800,
                     width_request: 920);
             
-            view_mode.notify["selected"].connect (on_view_mode_changed);
             schedule_timer ();
             edit_view_content.changed.connect (schedule_timer);
         }
@@ -144,21 +140,10 @@ namespace Quilter {
 
             menu_button.popup = menu;
 
-            view_mode = new Granite.Widgets.ModeButton ();
-            view_mode.margin = 1;
-            edit_view_id = view_mode.append_text (_("Edit"));
-            preview_view_id = view_mode.append_text (_("Preview"));
-    
-            view_mode_revealer = new Gtk.Revealer ();
-            view_mode_revealer.reveal_child = true;
-            view_mode_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
-            view_mode_revealer.add (view_mode);
-
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
             toolbar.pack_start (save_as_button);
             toolbar.pack_end (menu_button);
-            toolbar.pack_end (view_mode_revealer);
 
             toolbar.show_close_button = true;
             toolbar.show_all ();
@@ -196,12 +181,16 @@ namespace Quilter {
 
             stack = new Gtk.Stack ();
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add (edit_view);
-            stack.add (preview_view);
+            stack.add_titled (edit_view, "edit_view", _("Edit"));
+            stack.add_titled (preview_view, "preview_view", _("Preview"));
 
             this.add (stack);
+            view_mode = new Gtk.StackSwitcher ();
+            view_mode.set_stack (stack);
+            view_mode.valign = Gtk.Align.CENTER;
+            view_mode.homogeneous = false;
 
-            view_mode.selected = edit_view_id;
+            toolbar.pack_end (view_mode);
 
             if (settings.last_file != null) {
                 Services.FileUtils.load_work_file ();
@@ -399,14 +388,6 @@ namespace Quilter {
 
             file = null;
             Widgets.SourceView.is_modified = false;
-        }
-
-        public void on_view_mode_changed () {
-            if (view_mode.selected == edit_view_id) {
-                stack.visible_child = edit_view;
-            } else if (view_mode.selected == preview_view_id) {
-                stack.visible_child = preview_view;
-            }
         }
     }
 }
