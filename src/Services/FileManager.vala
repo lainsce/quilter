@@ -152,35 +152,34 @@ namespace Quilter.Services.FileManager {
         debug ("New button pressed.");
         var settings = AppSettings.get_default ();
 
-        if (Widgets.SourceView.is_modified == true) {
-            debug ("Making new file...");
-            debug ("Buffer was modified. Asking user to save first.");
-            int wanna_save = Services.DialogUtils.display_save_confirm ();
-            if (wanna_save == Gtk.ResponseType.CANCEL ||
-                wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-                debug ("User canceled save confirm. Aborting operation.");
-            }
+        debug ("Making new file...");
+        debug ("Buffer was modified. Asking user to save first.");
+        int wanna_save = Services.DialogUtils.display_save_confirm ();
 
-            if (wanna_save == Gtk.ResponseType.YES) {
-                debug ("Saving file before loading new file.");
-                try {
-                    save_as ();
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-
-            if (wanna_save == Gtk.ResponseType.NO) {
-                debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
-                Widgets.SourceView.buffer.text = "";
-            }
-            Widgets.SourceView.buffer.text = "";
-            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-            settings.last_file = @"$cache/temp";
-            Widgets.SourceView.is_modified = false;
-        } else {
-            Widgets.SourceView.is_modified = true;
+        if (wanna_save == Gtk.ResponseType.CANCEL ||
+            wanna_save == Gtk.ResponseType.DELETE_EVENT) {
+            debug ("User canceled save confirm. Aborting operation.");
         }
+
+        if (wanna_save == Gtk.ResponseType.YES) {
+            debug ("Saving file before loading new file.");
+
+            try {
+                save_as ();
+            } catch (Error e) {
+                warning ("Unexpected error during save: " + e.message);
+            }
+        }
+
+        if (wanna_save == Gtk.ResponseType.NO) {
+            debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
+            Widgets.SourceView.buffer.text = "";
+        }
+
+        string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+        settings.last_file = @"$cache/temp";
+
+        Widgets.SourceView.is_modified = false;
     }
 
     public void open () throws Error {
@@ -188,26 +187,22 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_open_dialog ();
 
-        if (Widgets.SourceView.is_modified) {
-            try {
-                debug ("Opening file...");
-                save_work_file ();
-                if (file == null) {
-                    debug ("User cancelled operation. Aborting.");
-                } else {
-                    string text;
-                    GLib.FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.SourceView.buffer.text = text;
-                    settings.last_file = file.get_path ();
-                }
-            } catch (Error e) {
-                warning ("Unexpected error during open: " + e.message);
+        try {
+            debug ("Opening file...");
+            save_work_file ();
+            if (file == null) {
+                debug ("User cancelled operation. Aborting.");
+            } else {
+                string text;
+                GLib.FileUtils.get_contents (file.get_path (), out text);
+                Widgets.SourceView.buffer.text = text;
+                settings.last_file = file.get_path ();
             }
-            Widgets.SourceView.is_modified = false;
-        } else {
-            Widgets.SourceView.is_modified = true;
+        } catch (Error e) {
+            warning ("Unexpected error during open: " + e.message);
         }
 
+        Widgets.SourceView.is_modified = false;
         file = null;
     }
 
@@ -244,31 +239,27 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_save_dialog ();
 
-        if (Widgets.SourceView.is_modified == true) {
-            try {
-                debug ("Saving file...");
-                if (file == null) {
-                    debug ("User cancelled operation. Aborting.");
-                } else {
-                    if (file.query_exists ()) {
-                        file.delete ();
-                    }
-        
-                    Gtk.TextIter start, end;
-                    Widgets.SourceView.buffer.get_bounds (out start, out end);
-                    string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-                    uint8[] binbuffer = buffer.data;
-                    save_file (file, binbuffer);
-                    settings.last_file = file.get_path ();
+        try {
+            debug ("Saving file...");
+            if (file == null) {
+                debug ("User cancelled operation. Aborting.");
+            } else {
+                if (file.query_exists ()) {
+                    file.delete ();
                 }
-            } catch (Error e) {
-                warning ("Unexpected error during save: " + e.message);
+    
+                Gtk.TextIter start, end;
+                Widgets.SourceView.buffer.get_bounds (out start, out end);
+                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                uint8[] binbuffer = buffer.data;
+                save_file (file, binbuffer);
+                settings.last_file = file.get_path ();
             }
-            Widgets.SourceView.is_modified = false;
-        } else {
-            Widgets.SourceView.is_modified = true;
+        } catch (Error e) {
+            warning ("Unexpected error during save: " + e.message);
         }
 
         file = null;
+        Widgets.SourceView.is_modified = false;
     }
 }
