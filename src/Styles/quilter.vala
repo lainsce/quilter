@@ -23,129 +23,145 @@ THE SOFTWARE.
 */
 
 public class Quilter.Styles.quilter {
-    public const string css = """
-html {
-  font-size: 16px;
-}
+  public const string css="""
+    html {
+      font-size: 16px;
+    }
 
-body {
-  line-height: 1.5;
-}
+    p,
+    .air-p {
+      font-size: 1rem;
+      color: #232629;
+    }
 
-p,
-.air-p {
-  font-size: 1rem;
-}
+    h1,
+    .air-h1,
+    h2,
+    .air-h2,
+    h3,
+    .air-h3 {
+      margin: 0.67em 0;
+      font-style: bold;
+    }
 
-h1,
-.air-h1,
-h2,
-.air-h2,
-h3,
-.air-h3,
-h4,
-.air-h4 {
-  margin: 1.214rem 0 .5rem;
-  font-weight: inherit;
-}
+    h1,
+    .air-h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
 
-h1,
-.air-h1 {
-  margin-top: 0;
-  font-size: 3rem;
-}
+    h2,
+    .air-h2 {
+      font-size: 1.5rem;
+    }
 
-h2,
-.air-h2 {
-  font-size: 2rem;
-}
+    h3,
+    .air-h3 {
+      font-size: 1.25rem;
+    }
 
-h3,
-.air-h3 {
-  font-size: 1.5rem;
-}
+    h4,
+    .air-h4 {
+      font-size: 1rem;
+    }
 
-h4,
-.air-h4 {
-  font-size: 1.214rem;
-}
+    h5,
+    .air-h5 {
+      font-size: .875rem;
+    }
 
-h5,
-.air-h5 {
-  font-size: 1.121rem;
-}
+    h6,
+    .air-h6 {
+      font-size: .75rem;
+    }
 
-h6,
-.air-h6 {
-  font-size: .88rem;
-}
+    small,
+    .air-small {
+      font-size: .7em;
+    }
 
-small,
-.air-small {
-  font-size: .707em;
-}
+    img,
+    canvas,
+    iframe,
+    video,
+    svg,
+    select,
+    textarea {
+      display: block;
+      max-width: 40%;
+    }
 
-/* https://github.com/mrmrs/fluidity */
+    body {
+      color: #232629;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-left: 80px;
+      margin-right: 80px;
+      margin-top: 40px;
+      max-width: 50rem;
+      text-align: left;
+      word-wrap: break-word;
+    }
 
-img,
-canvas,
-iframe,
-video,
-svg,
-select,
-textarea {
-  display: block;
-  max-width: 40%;
-}
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
 
-body {
-  color: #232629;
-  font-family: 'Open Sans', Helvetica, sans-serif;
-  font-weight: 400;
-  margin-left: 80px;
-  margin-right: 80px;
-  margin-top: 40px;
-  max-width: 48rem;
-  text-align: left;
-}
+    table th {
+      font-weight: bold;
+      background-color: #F5F5F5;
+    }
+    
+    table th,
+    table td {
+      padding: 6px 13px;
+      border: 1px solid #eff0f1;
+    }
+    
+    table tr {
+      background-color: #fff;
+      border-top: 1px solid #eff0f1;
+    }
 
-img {
-  border-radius: 10%;
-  height: auto;
-  margin: 0 auto;
-}
+    img {
+      border-radius: 10%;
+      height: auto;
+      margin: 0 auto;
+    }
 
-a,
-a:visited,
-a:hover,
-a:focus,
-a:active {
-  color: #3daee9;
-}
+    a,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: #3daee9;
+    }
 
-pre {
-  font-family: 'PT Mono', monospace;
-  background-color: #fafafa;
-  color: #4d4d4d;
-  padding: 1rem;
-  text-align: left;
-}
+    pre {
+      font-family: 'PT Mono', monospace;
+      background-color: #F5F5F5;
+      color: #4d4d4d;
+      padding: 1rem;
+      text-align: left;
+    }
 
-blockquote {
-  margin: 0;
-  border-left: 5px solid #3daee9;
-  font-style: italic;
-  padding-left: .8rem;
-  text-align: left;
-}
+    blockquote {
+      margin: 0;
+      border-left: 5px solid #3daee9;
+      font-style: italic;
+      padding-left: .8rem;
+      text-align: left;
+    }
 
-ul,
-ol,
-li {
-  text-align: left;
-}
-
-p {
-  color: #232629;
-}""";
+    ul,
+    ol,
+    li {
+      text-align: left;
+      color: #4d4d4d;
+    }
+  """;
 }

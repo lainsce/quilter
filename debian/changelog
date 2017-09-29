@@ -1,8 +1,15 @@
+com.github.lainsce.quilter (1.3.1) xenial; urgency=low
+
+  * Small fixes all around to make Quilter work better.
+  * You can now do Markdown Tables.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 29 September 2017 03:27:00 -0300
+
 com.github.lainsce.quilter (1.3.0) xenial; urgency=low
 
   * All-new Preview Mode that shows your file.
 
- -- Lains <lainsce@airmail.cc>  Fri, 28 September 2017 00:27:00 -0300
+ -- Lains <lainsce@airmail.cc>  Thu, 28 September 2017 00:27:00 -0300
 
 com.github.lainsce.quilter (1.2.9) xenial; urgency=low
 

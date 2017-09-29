@@ -22,6 +22,15 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+      <release version="1.3.1" date="2017-09-29">
+        <description>
+          <p>Release: Now Make It Fly</p>
+          <ul>
+            <li>Small fixes all around to make Quilter work better</li>
+            <li>You can now ake Markdown Tables</li>
+          </ul>
+        </description>
+      </release>
       <release version="1.3.0" date="2017-09-27">
         <description>
           <p>Release: Preview Your Story</p>

@@ -37,7 +37,8 @@ namespace Quilter {
 
             update_html_view ();
             var settings = AppSettings.get_default ();
-            settings.changed.connect (update_html_view);        
+            settings.changed.connect (update_html_view); 
+            connect_signals ();       
         }
     
         protected override bool context_menu (
@@ -56,6 +57,50 @@ namespace Quilter {
             } else {
                 string dark = Styles.quilterdark.css;
                 return dark;
+            }
+        }
+
+        private void connect_signals () {
+            create.connect ((navigation_action)=> {
+                launch_browser (navigation_action.get_request().get_uri ());
+                return null;
+            });
+    
+            decide_policy.connect ((decision, type) => {
+                switch (type) {
+                    case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION:
+                        if (decision is WebKit.ResponsePolicyDecision) {
+                            launch_browser ((decision as WebKit.ResponsePolicyDecision).request.get_uri ());
+                        }
+                    break;
+                    case WebKit.PolicyDecisionType.RESPONSE:
+                        if (decision is WebKit.ResponsePolicyDecision) {
+                            var policy = (WebKit.ResponsePolicyDecision) decision;
+                            launch_browser (policy.request.get_uri ());
+                            return false;
+                        }
+                    break;
+                }
+    
+                return true;
+            });
+    
+            load_changed.connect ((event) => {
+                if (event == WebKit.LoadEvent.FINISHED) {
+                    var rectangle = get_window_properties ().get_geometry ();
+                    set_size_request (rectangle.width, rectangle.height);
+                }
+            });
+        }
+    
+        private void launch_browser (string url) {
+            if (!url.contains ("/embed/")) {
+                try {
+                    AppInfo.launch_default_for_uri (url, null);
+                } catch (Error e) {
+                    warning ("No app to handle urls: %s", e.message);
+                }
+                stop_loading ();
             }
         }
 
@@ -128,13 +173,6 @@ namespace Quilter {
         }
 
         public void update_html_view () {
-            //var settings = AppSettings.get_default ();
-            //var file = File.new_for_path (settings.last_file);
-            //string text;
-      
-            //string filename = file.get_path ();
-            //GLib.FileUtils.get_contents (filename, out text);
-
             string text = Widgets.SourceView.buffer.text;
             
             string html = "";

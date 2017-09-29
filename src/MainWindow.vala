@@ -42,7 +42,11 @@ namespace Quilter {
         private int edit_view_id;
         private int preview_view_id;
         private bool timer_scheduled = false;
-        private const int TIME_TO_REFRESH = 300;
+
+        /*
+         * 3 * 100 equals one beat, three keypresses. The normal typing speed.
+         */
+        private const int TIME_TO_REFRESH = 3 * 100;
 
         private bool _is_fullscreen;
     	public bool is_fullscreen {
@@ -120,14 +124,14 @@ namespace Quilter {
             var cheatsheet = new Gtk.MenuItem.with_label (_("Markdown Cheatsheet"));
             cheatsheet.activate.connect (() => {
                 debug ("Cheatsheet button pressed.");
-                cheatsheet_dialog = new Widgets.Cheatsheet ();
+                cheatsheet_dialog = new Widgets.Cheatsheet (this);
                 cheatsheet_dialog.show_all ();
             });
 
             var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
             preferences.activate.connect (() => {
                 debug ("Prefs button pressed.");
-                preferences_dialog = new Widgets.Preferences ();
+                preferences_dialog = new Widgets.Preferences (this);
                 preferences_dialog.show_all ();
             });
 
@@ -198,13 +202,12 @@ namespace Quilter {
             this.add (stack);
 
             view_mode.selected = edit_view_id;
-            stack.visible_child = edit_view;
 
             if (settings.last_file != null) {
                 Services.FileUtils.load_work_file ();
             } else {
-                var home = GLib.Environment.get_home_dir ();
-                settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
+                string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+                settings.last_file = @"$cache/temp";
                 Services.FileUtils.load_tmp_file ();
             }
 
@@ -227,7 +230,7 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.h, keycode)) {
-                        var cheatsheet_dialog = new Widgets.Cheatsheet ();
+                        var cheatsheet_dialog = new Widgets.Cheatsheet (this);
                         cheatsheet_dialog.show_all ();
                     }
                 }

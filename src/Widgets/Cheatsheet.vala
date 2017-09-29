@@ -21,16 +21,18 @@ namespace Quilter.Widgets {
         private Gtk.Stack main_stack;
         private Gtk.StackSwitcher main_stackswitcher;
 
-        public Cheatsheet () {
+        public Cheatsheet (Gtk.Window? parent) {
+            Object (
+                border_width: 10,
+                deletable: false,
+                resizable: false,
+                title: _("Cheatsheet"),
+                transient_for: parent
+            );
             create_layout ();
         }
 
         construct {
-            title = _("Cheatsheet");
-            set_default_size (600, 600);
-            resizable = false;
-            deletable = false;
-
             main_stack = new Gtk.Stack ();
             main_stackswitcher = new Gtk.StackSwitcher ();
             main_stackswitcher.set_stack (main_stack);
@@ -38,8 +40,9 @@ namespace Quilter.Widgets {
         }
 
         private void create_layout () {
-            this.main_stack.add_titled (get_textstyle_grid (), "textstyle", _("Text Style"));
+            this.main_stack.add_titled (get_textstyle_grid (), "textstyle", _("Text"));
             this.main_stack.add_titled (get_links_grid (), "links", _("Links & Special"));
+            this.main_stack.add_titled (get_tables_grid (), "tables", _("Tables"));
 
             // Close button
             var close_button = new Gtk.Button.with_label (_("Close"));
@@ -48,7 +51,7 @@ namespace Quilter.Widgets {
             var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
             button_box.set_layout (Gtk.ButtonBoxStyle.END);
             button_box.pack_end (close_button);
-            button_box.margin = 12;
+            button_box.margin = 20;
             button_box.margin_bottom = 0;
 
             // Pack everything into the dialog
@@ -114,6 +117,21 @@ namespace Quilter.Widgets {
             links_grid.attach (hr_label, 0, 5, 3, 1);
 
             return links_grid;
+        }
+
+        private Gtk.Widget get_tables_grid () {
+            var tables_grid = new Gtk.Grid ();
+            tables_grid.row_spacing = 6;
+            tables_grid.column_spacing = 12;
+            tables_grid.margin = 12;
+
+            var table_header = new Header (_("Tables"));
+            var table_label = new Label (_("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|"));
+
+            tables_grid.attach (table_header, 0, 0, 5, 1);
+            tables_grid.attach (table_label, 0, 1, 1, 1);
+
+            return tables_grid;
         }
 
         private class TitleHeader : Gtk.Label {

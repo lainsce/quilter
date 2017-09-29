@@ -23,130 +23,144 @@ THE SOFTWARE.
 */
 
 public class Quilter.Styles.quilterdark {
-  public const string css = """
-html {
-font-size: 16px;
-}
+  public const string css="""
+    html {
+      font-size: 16px;
+    }
 
-body {
-line-height: 1.5;
-}
+    p,
+    .air-p {
+      font-size: 1rem;
+      color: #eff0f1;
+    }
 
-p,
-.air-p {
-font-size: 1rem;
-}
+    h1,
+    .air-h1,
+    h2,
+    .air-h2,
+    h3,
+    .air-h3 {
+      margin: 0.67em 0;
+      font-style: bold;
+    }
 
-h1,
-.air-h1,
-h2,
-.air-h2,
-h3,
-.air-h3,
-h4,
-.air-h4 {
-margin: 1.214rem 0 .5rem;
-font-weight: inherit;
-}
+    h1,
+    .air-h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
 
-h1,
-.air-h1 {
-margin-top: 0;
-font-size: 3rem;
-}
+    h2,
+    .air-h2 {
+      font-size: 1.5rem;
+    }
 
-h2,
-.air-h2 {
-font-size: 2rem;
-}
+    h3,
+    .air-h3 {
+      font-size: 1.25rem;
+    }
+    h4,
+    .air-h4 {
+      font-size: 1rem;
+    }
 
-h3,
-.air-h3 {
-font-size: 1.5rem;
-}
+    h5,
+    .air-h5 {
+      font-size: .875rem;
+    }
 
-h4,
-.air-h4 {
-font-size: 1.214rem;
-}
+    h6,
+    .air-h6 {
+      font-size: .75rem;
+    }
 
-h5,
-.air-h5 {
-font-size: 1.121rem;
-}
+    small,
+    .air-small {
+      font-size: .7em;
+    }
 
-h6,
-.air-h6 {
-font-size: .88rem;
-}
+    img,
+    canvas,
+    iframe,
+    video,
+    svg,
+    select,
+    textarea {
+      display: block;
+      max-width: 40%;
+    }
 
-small,
-.air-small {
-font-size: .707em;
-}
+    body {
+      color: #eff0f1;
+      background-color: #232629;
+      font-family: 'Open Sans', Helvetica, sans-serif;
+      font-weight: 400;
+      line-height: 1.5;
+      margin-left: 80px;
+      margin-right: 80px;
+      margin-top: 40px;
+      max-width: 50rem;
+      text-align: left;
+    }
 
-/* https://github.com/mrmrs/fluidity */
+    table {
+      border-spacing: 0;
+      border-collapse: collapse;
+      margin-top: 0;
+      margin-bottom: 16px;
+    }
 
-img,
-canvas,
-iframe,
-video,
-svg,
-select,
-textarea {
-display: block;
-max-width: 40%;
-}
+    table th {
+      font-weight: bold;
+      background-color: #F5F5F5;
+    }
+    
+    table th,
+    table td {
+      padding: 6px 13px;
+      border: 1px solid #3a4045;
+    }
+    
+    table tr {
+      background-color: #232629;
+      border-top: 1px solid #3a4045;
+    }
 
-body {
-color: #eff0f1;
-background-color: #232629;
-font-family: 'Open Sans', Helvetica, sans-serif;
-font-weight: 400;
-margin-left: 80px;
-margin-right: 80px;
-margin-top: 40px;
-max-width: 50rem;
-text-align: left;
-}
+    img {
+      border-radius: 10%;
+      height: auto;
+      margin: 0 auto;
+    }
 
-img {
-border-radius: 10%;
-height: auto;
-margin: 0 auto;
-}
+    a,
+    a:visited,
+    a:hover,
+    a:focus,
+    a:active {
+      color: #1d99f3;
+    }
 
-a,
-a:visited,
-a:hover,
-a:focus,
-a:active {
-color: #1d99f3;
-}
+    pre {
+      font-family: 'PT Mono', monospace;
+      background-color: #17191b;
+      color: #7E8087;
+      padding: 1rem;
+      text-align: left;
+    }
 
-pre {
-font-family: 'PT Mono', monospace;
-background-color: #4D4D4D;
-color: #7E8087;
-padding: 1rem;
-text-align: left;
-}
+    blockquote {
+      margin: 0;
+      border-left: 5px solid #1d99f3;
+      font-style: italic;
+      padding-left: .8rem;
+      text-align: left;
+    }
 
-blockquote {
-margin: 0;
-border-left: 5px solid #1d99f3;
-font-style: italic;
-padding-left: .8rem;
-text-align: left;
-}
-
-ul,
-ol,
-li {
-text-align: left;
-}
-
-p {
-color: #eff0f1;
-}""";
+    ul,
+    ol,
+    li {
+      text-align: left;
+      color: #7E8087;
+    }
+  """;
 }

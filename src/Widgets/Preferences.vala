@@ -24,15 +24,15 @@ namespace Quilter.Widgets {
         Gtk.Switch save_button;
         Gtk.FontButton select_font;
 
-        public Preferences () {
+        public Preferences (Gtk.Window? parent) {
+            Object (
+                border_width: 0,
+                deletable: false,
+                resizable: false,
+                title: _("Preferences"),
+                transient_for: parent
+            );
             create_layout ();
-        }
-
-        construct {
-            title = _("Preferences");
-            set_default_size (600, 400);
-            resizable = false;
-            deletable = false;
         }
 
         private void create_layout () {
