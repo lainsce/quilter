@@ -131,9 +131,15 @@ namespace Quilter.Widgets {
 
             var table_header = new Header (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
+            var table_explain_label = new Text (_("To make a column's content go to the left, change --- to :--- ."));
+            var table_explain_label2 = new Text (_("To make a column's content centered, change --- to :---: ."));
+            var table_explain_label3 = new Text (_("To make a column's content go to the right, change --- to ---: ."));
 
             tables_grid.attach (table_header, 0, 0, 5, 1);
             tables_grid.attach (table_label, 0, 1, 1, 1);
+            tables_grid.attach (table_explain_label, 0, 2, 5, 1);
+            tables_grid.attach (table_explain_label2, 0, 3, 5, 1);
+            tables_grid.attach (table_explain_label3, 0, 4, 5, 1);
 
             return tables_grid;
         }
@@ -159,6 +165,14 @@ namespace Quilter.Widgets {
             public Label (string text) {
                 label = text;
                 halign = Gtk.Align.END;
+                margin_start = 12;
+            }
+        }
+
+        private class Text : Gtk.Label {
+            public Text (string text) {
+                label = text;
+                halign = Gtk.Align.START;
                 margin_start = 12;
             }
         }
