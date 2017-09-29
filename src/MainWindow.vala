@@ -320,8 +320,8 @@ namespace Quilter {
                     debug ("Making new file...");
                     Services.FileUtils.new_document ();
                     toolbar.subtitle = "New Document";
-                    var home = GLib.Environment.get_home_dir ();
-                    settings.last_file = @"$home/.cache/com.github.lainsce.quilter/temp";
+                    string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+                    settings.last_file = @"$cache/temp";
                 } catch (Error e) {
                     warning ("Unexpected error: " + e.message);
                 }

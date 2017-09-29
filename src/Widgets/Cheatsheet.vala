@@ -74,6 +74,8 @@ namespace Quilter.Widgets {
             var header_two_label = new Label (_("## Header 2"));
             var header_three_label = new Label (_("### Header 3"));
             var header_four_label = new Label (_("#### Header 4"));
+            var header_five_label = new Label (_("##### Header 5"));
+            var header_six_label = new Label (_("###### Header 6"));
 
             var font_header = new Header (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
@@ -86,11 +88,13 @@ namespace Quilter.Widgets {
             textstyle_grid.attach (header_two_label, 0, 2, 3, 1);
             textstyle_grid.attach (header_three_label, 0, 3, 3, 1);
             textstyle_grid.attach (header_four_label, 0, 4, 3, 1);
-            textstyle_grid.attach (font_header, 0, 5, 5, 1);
-            textstyle_grid.attach (bold_font_label , 0, 6, 3, 1);
-            textstyle_grid.attach (emph_font_label , 0, 7, 3, 1);
-            textstyle_grid.attach (code_font_label , 0, 8, 3, 1);
-            textstyle_grid.attach (quote_font_label , 0, 9, 3, 1);
+            textstyle_grid.attach (header_five_label, 0, 5, 3, 1);
+            textstyle_grid.attach (header_six_label, 0, 6, 3, 1);
+            textstyle_grid.attach (font_header, 0, 7, 5, 1);
+            textstyle_grid.attach (bold_font_label , 0, 8, 3, 1);
+            textstyle_grid.attach (emph_font_label , 0, 9, 3, 1);
+            textstyle_grid.attach (code_font_label , 0, 10, 3, 1);
+            textstyle_grid.attach (quote_font_label , 0, 11, 3, 1);
 
             return textstyle_grid;
         }
@@ -126,7 +130,7 @@ namespace Quilter.Widgets {
             tables_grid.margin = 12;
 
             var table_header = new Header (_("Tables"));
-            var table_label = new Label (_("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|"));
+            var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
 
             tables_grid.attach (table_header, 0, 0, 5, 1);
             tables_grid.attach (table_label, 0, 1, 1, 1);
