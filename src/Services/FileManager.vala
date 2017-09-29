@@ -188,7 +188,7 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_open_dialog ();
 
-        if (!Widgets.SourceView.is_modified) {
+        if (Widgets.SourceView.is_modified) {
             try {
                 debug ("Opening file...");
                 save_work_file ();
@@ -203,9 +203,9 @@ namespace Quilter.Services.FileManager {
             } catch (Error e) {
                 warning ("Unexpected error during open: " + e.message);
             }
-            Widgets.SourceView.is_modified = true;
-        } else {
             Widgets.SourceView.is_modified = false;
+        } else {
+            Widgets.SourceView.is_modified = true;
         }
 
         file = null;
@@ -244,14 +244,14 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_save_dialog ();
 
-        if (Widgets.SourceView.is_modified = true) {
+        if (Widgets.SourceView.is_modified == true) {
             try {
                 debug ("Saving file...");
                 if (file == null) {
                     debug ("User cancelled operation. Aborting.");
                 } else {
                     if (file.query_exists ()) {
-                      file.delete ();
+                        file.delete ();
                     }
         
                     Gtk.TextIter start, end;
@@ -264,9 +264,11 @@ namespace Quilter.Services.FileManager {
             } catch (Error e) {
                 warning ("Unexpected error during save: " + e.message);
             }
+            Widgets.SourceView.is_modified = false;
+        } else {
+            Widgets.SourceView.is_modified = true;
         }
 
         file = null;
-        Widgets.SourceView.is_modified = false;
     }
 }
