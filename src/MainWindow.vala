@@ -64,7 +64,7 @@ namespace Quilter {
                     title: _("Quilter"),
                     height_request: 800,
                     width_request: 920);
-            
+
             schedule_timer ();
             edit_view_content.changed.connect (schedule_timer);
         }
@@ -74,7 +74,13 @@ namespace Quilter {
             context.add_class ("quilter-window");
             toolbar = new Gtk.HeaderBar ();
             var settings = AppSettings.get_default ();
-            toolbar.subtitle = settings.last_file;
+            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+
+            if (settings.last_file != null) {
+                toolbar.subtitle = settings.last_file;
+            } else if (settings.last_file == @"$cache/temp") {
+                toolbar.subtitle = "New Document";
+            }
 
 			var header_context = toolbar.get_style_context ();
             header_context.add_class ("quilter-toolbar");
@@ -209,14 +215,6 @@ namespace Quilter {
 
             toolbar.pack_end (view_mode);
 
-            if (settings.last_file != null) {
-                Services.FileManager.load_work_file ();
-            } else {
-                string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-                settings.last_file = @"$cache/temp";
-                Services.FileManager.load_tmp_file ();
-            }
-
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -291,9 +289,7 @@ namespace Quilter {
 
             if (settings.last_file != null) {
                 Services.FileManager.save_work_file ();
-            } else {
-                string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-                settings.last_file = @"$cache/temp";
+            } else if (settings.last_file == "New Document") {
                 Services.FileManager.save_tmp_file ();
             }
             return false;
@@ -305,7 +301,7 @@ namespace Quilter {
                 timer_scheduled = true;
             }
         }
-    
+
         private bool render_func () {
             preview_view_content.update_html_view ();
             timer_scheduled = false;

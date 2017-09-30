@@ -27,61 +27,6 @@ namespace Quilter.Services.FileManager {
             written += output.write (buffer[written:buffer.length]);
     }
 
-    private void load_work_file () {
-      var settings = AppSettings.get_default ();
-      var file = File.new_for_path (settings.last_file);
-
-        if ( !file.query_exists () ) {
-            try {
-                file.create (FileCreateFlags.NONE);
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        } else {
-            try {
-                string text;
-                string filename = file.get_path ();
-
-                GLib.FileUtils.get_contents (filename, out text);
-                Widgets.SourceView.buffer.text = text;
-            } catch (Error e) {
-                warning ("%s", e.message);
-            }
-        }
-    }
-
-    private void load_tmp_file () {
-        string cache_path = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-        var cache_folder = File.new_for_path (cache_path);
-        if (!cache_folder.query_exists ()) {
-            try {
-                cache_folder.make_directory_with_parents ();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        }
-
-        tmp_file = cache_folder.get_child ("temp");
-
-        if ( !tmp_file.query_exists () ) {
-            try {
-                tmp_file.create (FileCreateFlags.NONE);
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        }
-
-        try {
-            string text;
-            string filename = tmp_file.get_path ();
-
-            GLib.FileUtils.get_contents (filename, out text);
-            Widgets.SourceView.buffer.text = text;
-        } catch (Error e) {
-            warning ("%s", e.message);
-        }
-    }
-
     private void save_work_file () {
         var settings = AppSettings.get_default ();
         var file = File.new_for_path (settings.last_file);
@@ -150,10 +95,8 @@ namespace Quilter.Services.FileManager {
 
     public void new_file () {
         debug ("New button pressed.");
-        var settings = AppSettings.get_default ();
-
-        debug ("Making new file...");
         debug ("Buffer was modified. Asking user to save first.");
+        var settings = AppSettings.get_default ();
         int wanna_save = Services.DialogUtils.display_save_confirm ();
 
         if (wanna_save == Gtk.ResponseType.CANCEL ||
@@ -175,10 +118,7 @@ namespace Quilter.Services.FileManager {
             debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
             Widgets.SourceView.buffer.text = "";
         }
-
-        string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-        settings.last_file = @"$cache/temp";
-
+        settings.last_file = "New Document";
         Widgets.SourceView.is_modified = false;
     }
 
