@@ -50,5 +50,14 @@
 				<summary>Last opened file</summary>
 				<description>The last opened file in Quilter</description>
 		</key>
+        <key name="spellcheck" type="b">
+			    <default>false</default>
+			    <summary>Enable spellcheck</summary>
+        </key>
+        <key name="spellcheck-language" type="s">
+			    <default>""</default>
+			    <summary>Spell check language used</summary>
+			    <description>This must be the name of one of the installed languages</description>
+        </key>
 		</schema>
 </schemalist>

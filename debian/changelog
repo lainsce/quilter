@@ -2,6 +2,7 @@ com.github.lainsce.quilter (1.3.2) xenial; urgency=low
 
   * Ctrl-Z/Ctrl-Shift-Z now work properly.
   * All File I/O internal functions have been unified.
+  * Spell-checking has been enabled.
 
  -- Lains <lainsce@airmail.cc>  Sat, 30 September 2017 00:04:00 -0300
 

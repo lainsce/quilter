@@ -25,9 +25,10 @@
     <releases>
       <release version="1.3.2" date="2017-09-30">
         <description>
-          <p>Release: Undo all you Want, Redo all you Want</p>
+          <p>Release: Correct &amp; Undo/Redo All You Want</p>
           <ul>
-            <li>Ctrl-Z and Ctrl-Shift-Z now work properly</li>
+            <li>Undoing and Redoing now work properly</li>
+            <li>You can now set spellchecking as enabled or not in the Settings</li>
           </ul>
         </description>
       </release>

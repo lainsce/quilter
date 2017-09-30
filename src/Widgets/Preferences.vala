@@ -21,6 +21,7 @@ namespace Quilter.Widgets {
         Gtk.Switch focus_mode;
         Gtk.Switch dark_mode;
         Gtk.Switch use_custom_font;
+        Gtk.Switch spellcheck;
         Gtk.Switch save_button;
         Gtk.FontButton select_font;
 
@@ -62,6 +63,11 @@ namespace Quilter.Widgets {
             main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
             main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
 
+            var spellcheck_header = new SettingsHeader (_("Spellcheck"));
+            var spellcheck_label = new Gtk.Label (_("Enable Spellchecking:"));
+            spellcheck_label.set_halign (Gtk.Align.END);
+            spellcheck = new SettingsSwitch ("spellcheck");
+
             var close_button = new Gtk.Button.with_label (_("Close"));
             close_button.clicked.connect (() => {this.destroy ();});
 
@@ -83,7 +89,12 @@ namespace Quilter.Widgets {
             main_grid.attach (use_custom_font_label , 0, 6, 1, 1);
             main_grid.attach (use_custom_font, 1, 6, 1, 1);
             main_grid.attach (select_font, 2, 6, 1, 1);
-            main_grid.attach (button_box, 0, 7, 4, 1);
+
+            main_grid.attach (spellcheck_header,  0, 7, 1, 1);
+            main_grid.attach (spellcheck_label,  0, 8, 1, 1);
+            main_grid.attach (spellcheck, 1, 8, 1, 1);
+
+            main_grid.attach (button_box, 0, 9, 4, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
         }

@@ -9,6 +9,7 @@ Build-Depends: meson,
                libgtksourceview-3.0-dev (>= 3.10),
                libwebkit2gtk-4.0-dev,
                libmarkdown2-dev,
+               libgtkspell3-3-dev,
                valac (>= 0.26)
 
 Standards-Version: 3.9.3

@@ -23,8 +23,41 @@ namespace Quilter.Widgets {
         public File file;
         public WebView webview;
         private string font;
+        private GtkSpell.Checker spell = null;
 
         public signal void changed ();
+
+        public bool spellcheck {
+            set {
+                if (value) {
+                    try {
+                        var settings = AppSettings.get_default ();
+                        var last_language = settings.spellcheck_language;
+                        bool language_set = false;
+                        var language_list = GtkSpell.Checker.get_language_list ();
+                        foreach (var element in language_list) {
+                            if (last_language == element) {
+                                language_set = true;
+                                spell.set_language (last_language);
+                                break;
+                            }
+                        }
+
+                        if (language_list.length () == 0) {
+                            spell.set_language (null);
+                        } else if (!language_set) {
+                            last_language = language_list.first ().data;
+                            spell.set_language (last_language);
+                        }
+                        spell.attach (this);
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else {
+                    spell.detach ();
+                }
+            }
+        }
 
         public SourceView () {
             update_settings ();
@@ -52,6 +85,9 @@ namespace Quilter.Widgets {
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (on_text_modified);
+
+            spell = new GtkSpell.Checker ();
+            spellcheck = settings.spellcheck;
 
             is_modified = false;
             Timeout.add_seconds (20, () => {
