@@ -88,6 +88,20 @@ namespace Quilter.Widgets {
 
             spell = new GtkSpell.Checker ();
             spellcheck = settings.spellcheck;
+            settings.changed.connect (spellcheck_enable);
+
+            this.populate_popup.connect ((menu) => {
+                menu.selection_done.connect (() => {
+                    var selected = get_selected (menu);
+
+                    if (selected != null) {
+                        try {
+                            spell.set_language (selected.label);
+                            settings.spellcheck_language = selected.label;
+                        } catch (Error e) {}
+                    }
+                });
+            });
 
             is_modified = false;
             Timeout.add_seconds (20, () => {
@@ -105,6 +119,21 @@ namespace Quilter.Widgets {
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
+        }
+
+        private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
+            if (menu == null) return null;
+            var active = menu.get_active () as Gtk.MenuItem;
+
+            if (active == null) return null;
+
+            var sub_menu = active.get_submenu () as Gtk.Menu;
+
+            if (sub_menu != null) {
+                return sub_menu.get_active () as Gtk.MenuItem;
+            }
+
+            return null;
         }
 
         public void on_text_modified () {
@@ -159,6 +188,15 @@ namespace Quilter.Widgets {
             }
 
             set_scheme (get_default_scheme ());
+        }
+
+        private void spellcheck_enable () {
+            var settings = AppSettings.get_default ();
+            if (settings.spellcheck != false) {
+                spellcheck = settings.spellcheck;
+            } else {
+                spellcheck = settings.spellcheck;
+            }
         }
 
         public void set_scheme (string id) {
