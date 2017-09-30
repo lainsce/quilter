@@ -67,9 +67,16 @@ namespace Quilter.Widgets {
             try {
                 string text;
                 var file = File.new_for_path (settings.last_file);
-                string filename = file.get_path ();
-                GLib.FileUtils.get_contents (filename, out text);
-                set_text (text, true);
+
+                if (file.query_exists ()) {
+                    string filename = file.get_path ();
+                    GLib.FileUtils.get_contents (filename, out text);
+                    set_text (text, true);
+                } else {
+                    string filename = Services.FileManager.setup_tmp_file ().get_path ();
+                    GLib.FileUtils.get_contents (filename, out text);
+                    set_text (text, true);
+                }
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }

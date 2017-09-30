@@ -288,8 +288,10 @@ namespace Quilter {
             settings.window_height = h;
 
             if (settings.last_file != null) {
+                debug ("Saving working file...");
                 Services.FileManager.save_work_file ();
             } else if (settings.last_file == "New Document") {
+                debug ("Saving cache...");
                 Services.FileManager.save_tmp_file ();
             }
             return false;

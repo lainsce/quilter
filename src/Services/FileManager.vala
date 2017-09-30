@@ -16,8 +16,7 @@
  */
 
 namespace Quilter.Services.FileManager {
-    File tmp_file;
-
+    public File tmp_file;
     public MainWindow window;
 
     public void save_file (File file, uint8[] buffer) throws Error {
@@ -52,7 +51,26 @@ namespace Quilter.Services.FileManager {
         }
     }
 
+    public File setup_tmp_file () {
+        debug ("Setupping cache...");
+        string cache_path = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
+        var cache_folder = File.new_for_path (cache_path);
+        if (!cache_folder.query_exists ()) {
+            try {
+                cache_folder.make_directory_with_parents ();
+            } catch (Error e) {
+                warning ("Error: %s\n", e.message);
+            }
+        }
+
+        tmp_file = cache_folder.get_child ("temp");
+        return tmp_file;
+    }
+
     private void save_tmp_file () {
+        setup_tmp_file ();
+
+        debug ("Saving cache...");
         if ( tmp_file.query_exists () ) {
             try {
                 tmp_file.delete();
