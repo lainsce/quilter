@@ -51,7 +51,7 @@
 				<description>The last opened file in Quilter</description>
 		</key>
         <key name="spellcheck" type="b">
-			    <default>false</default>
+			    <default>true</default>
 			    <summary>Enable spellcheck</summary>
         </key>
         <key name="spellcheck-language" type="s">

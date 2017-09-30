@@ -165,7 +165,7 @@ namespace Quilter.Services.FileManager {
             debug ("Saving file before loading new file.");
 
             try {
-                save_as ();
+                save ();
             } catch (Error e) {
                 warning ("Unexpected error during save: " + e.message);
             }
@@ -189,7 +189,7 @@ namespace Quilter.Services.FileManager {
 
         try {
             debug ("Opening file...");
-            save_work_file ();
+            save ();
             if (file == null) {
                 debug ("User cancelled operation. Aborting.");
             } else {
@@ -247,7 +247,7 @@ namespace Quilter.Services.FileManager {
                 if (file.query_exists ()) {
                     file.delete ();
                 }
-    
+
                 Gtk.TextIter start, end;
                 Widgets.SourceView.buffer.get_bounds (out start, out end);
                 string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
