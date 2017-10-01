@@ -82,7 +82,7 @@ namespace Quilter.Widgets {
             var emph_font_label = new Label (_("* Emphasized text *"));
             var code_font_label = new Label (_("` Code text `"));
             var quote_font_label = new Label (_("> Quoting text"));
-            var strike_font_label = new Label (_("~Strikethrough text~"));
+            var strike_font_label = new Label (_("~~Strikethrough text~~"));
 
             textstyle_grid.attach (header_header, 0, 0, 5, 1);
             textstyle_grid.attach (header_one_label, 0, 1, 3, 1);

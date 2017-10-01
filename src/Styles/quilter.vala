@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 John Otander
+Copyright (c) 2017 Lains
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,55 +28,44 @@ public class Quilter.Styles.quilter {
       font-size: 16px;
     }
 
-    p,
-    .air-p {
+    p {
       font-size: 1rem;
       color: #232629;
     }
 
     h1,
-    .air-h1,
     h2,
-    .air-h2,
-    h3,
-    .air-h3 {
-      margin: 0.67em 0;
+    h3 {
+      margin: 0.7em 0;
       font-style: bold;
     }
 
-    h1,
-    .air-h1 {
+    h1 {
       margin-top: 0;
       font-size: 2rem;
     }
 
-    h2,
-    .air-h2 {
+    h2 {
       font-size: 1.5rem;
     }
 
-    h3,
-    .air-h3 {
+    h3 {
       font-size: 1.25rem;
     }
 
-    h4,
-    .air-h4 {
+    h4 {
       font-size: 1rem;
     }
 
-    h5,
-    .air-h5 {
+    h5 {
       font-size: .875rem;
     }
 
-    h6,
-    .air-h6 {
+    h6 {
       font-size: .75rem;
     }
 
-    small,
-    .air-small {
+    small {
       font-size: .7em;
     }
 
@@ -88,18 +77,19 @@ public class Quilter.Styles.quilter {
     select,
     textarea {
       display: block;
-      max-width: 40%;
+      max-width: 50%;
     }
 
     body {
       color: #232629;
+      background-color: #FCFCFC;
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: 400;
       line-height: 1.5;
       margin-left: 80px;
       margin-right: 80px;
       margin-top: 40px;
-      max-width: 50rem;
+      max-width: 100%;
       text-align: left;
       word-wrap: break-word;
     }
@@ -113,22 +103,21 @@ public class Quilter.Styles.quilter {
 
     table th {
       font-weight: bold;
-      background-color: #F5F5F5;
+      background-color: #E7E7E7;
     }
-    
+
     table th,
     table td {
-      padding: 6px 13px;
-      border: 1px solid #eff0f1;
+      padding: 8px 13px;
+      border: 1px solid #EAEAEA;
     }
-    
+
     table tr {
-      background-color: #fff;
-      border-top: 1px solid #eff0f1;
+      border-top: 1px solid #EAEAEA;
     }
 
     img {
-      border-radius: 10%;
+      border-radius: .5rem;
       height: auto;
       margin: 0 auto;
     }
@@ -143,7 +132,7 @@ public class Quilter.Styles.quilter {
 
     pre {
       font-family: 'PT Mono', monospace;
-      background-color: #F5F5F5;
+      background-color: #F0F0F0;
       color: #4d4d4d;
       padding: 1rem;
       text-align: left;

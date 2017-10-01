@@ -3,10 +3,10 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#232629" background="#FFFFFF"/>
+  <style name="text"            foreground="#232629" background="#FCFCFC"/>
   <style name="cursor"          foreground="#3daee9"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#fcfcfc" background="#3daee9"/>
+  <style name="selection"       foreground="#EAEAEA" background="#3daee9"/>
 
   <!-- Bold -->
   <style name="def:statement" foreground="#232629"  bold="true"/>

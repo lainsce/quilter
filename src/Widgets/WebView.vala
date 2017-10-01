@@ -37,10 +37,10 @@ namespace Quilter {
 
             update_html_view ();
             var settings = AppSettings.get_default ();
-            settings.changed.connect (update_html_view); 
-            connect_signals ();       
+            settings.changed.connect (update_html_view);
+            connect_signals ();
         }
-    
+
         protected override bool context_menu (
             ContextMenu context_menu,
             Gdk.Event event,
@@ -63,9 +63,9 @@ namespace Quilter {
         private void connect_signals () {
             create.connect ((navigation_action) => {
                 launch_browser (navigation_action.get_request().get_uri ());
-                return null;
+                return (Gtk.Widget) null;
             });
-    
+
             decide_policy.connect ((decision, type) => {
                 switch (type) {
                     case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION:
@@ -81,10 +81,10 @@ namespace Quilter {
                         }
                     break;
                 }
-    
+
                 return true;
             });
-    
+
             load_changed.connect ((event) => {
                 if (event == WebKit.LoadEvent.FINISHED) {
                     var rectangle = get_window_properties ().get_geometry ();
@@ -92,7 +92,7 @@ namespace Quilter {
                 }
             });
         }
-    
+
         private void launch_browser (string url) {
             if (!url.contains ("/embed/")) {
                 try {
@@ -174,7 +174,7 @@ namespace Quilter {
 
         public void update_html_view () {
             string text = Widgets.SourceView.buffer.text;
-            
+
             string html = "";
             html += "<html><head>";
             html += "<style>";

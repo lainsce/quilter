@@ -163,10 +163,31 @@ namespace Quilter {
 
             menu_button.popup = menu;
 
+            edit_view = new Gtk.ScrolledWindow (null, null);
+            edit_view_content = new Widgets.SourceView ();
+            edit_view_content.monospace = true;
+            edit_view.add (edit_view_content);
+
+            preview_view = new Gtk.ScrolledWindow (null, null);
+            preview_view_content = new Widgets.WebView (this);
+            preview_view.add (preview_view_content);
+
+            stack = new Gtk.Stack ();
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.add_titled (edit_view, "edit_view", _("Edit"));
+            stack.add_titled (preview_view, "preview_view", _("Preview"));
+
+            this.add (stack);
+            view_mode = new Gtk.StackSwitcher ();
+            view_mode.set_stack (stack);
+            view_mode.valign = Gtk.Align.CENTER;
+            view_mode.homogeneous = false;
+
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
             toolbar.pack_start (save_as_button);
             toolbar.pack_end (menu_button);
+            toolbar.pack_end (view_mode);
 
             toolbar.show_close_button = true;
             toolbar.show_all ();
@@ -192,28 +213,6 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
-
-            edit_view = new Gtk.ScrolledWindow (null, null);
-            edit_view_content = new Widgets.SourceView ();
-            edit_view_content.monospace = true;
-            edit_view.add (edit_view_content);
-
-            preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view_content = new Widgets.WebView (this);
-            preview_view.add (preview_view_content);
-
-            stack = new Gtk.Stack ();
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add_titled (edit_view, "edit_view", _("Edit"));
-            stack.add_titled (preview_view, "preview_view", _("Preview"));
-
-            this.add (stack);
-            view_mode = new Gtk.StackSwitcher ();
-            view_mode.set_stack (stack);
-            view_mode.valign = Gtk.Align.CENTER;
-            view_mode.homogeneous = false;
-
-            toolbar.pack_end (view_mode);
 
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;

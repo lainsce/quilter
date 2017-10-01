@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2014-2015 John Otander
+Copyright (c) 2017 Lains
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -28,54 +28,44 @@ public class Quilter.Styles.quilterdark {
       font-size: 16px;
     }
 
-    p,
-    .air-p {
+    p {
       font-size: 1rem;
       color: #eff0f1;
     }
 
     h1,
-    .air-h1,
     h2,
-    .air-h2,
-    h3,
-    .air-h3 {
-      margin: 0.67em 0;
+    h3 {
+      margin: 0.7em 0;
       font-style: bold;
     }
 
-    h1,
-    .air-h1 {
+    h1 {
       margin-top: 0;
       font-size: 2rem;
     }
 
-    h2,
-    .air-h2 {
+    h2 {
       font-size: 1.5rem;
     }
 
-    h3,
-    .air-h3 {
+    h3 {
       font-size: 1.25rem;
     }
-    h4,
-    .air-h4 {
+
+    h4 {
       font-size: 1rem;
     }
 
-    h5,
-    .air-h5 {
+    h5 {
       font-size: .875rem;
     }
 
-    h6,
-    .air-h6 {
+    h6 {
       font-size: .75rem;
     }
 
-    small,
-    .air-small {
+    small {
       font-size: .7em;
     }
 
@@ -87,7 +77,7 @@ public class Quilter.Styles.quilterdark {
     select,
     textarea {
       display: block;
-      max-width: 40%;
+      max-width: 50%;
     }
 
     body {
@@ -112,22 +102,21 @@ public class Quilter.Styles.quilterdark {
 
     table th {
       font-weight: bold;
-      background-color: #F5F5F5;
+      background-color: #3a4045;
     }
-    
+
     table th,
     table td {
-      padding: 6px 13px;
+      padding: 8px 13px;
       border: 1px solid #3a4045;
     }
-    
+
     table tr {
-      background-color: #232629;
       border-top: 1px solid #3a4045;
     }
 
     img {
-      border-radius: 10%;
+      border-radius: .5rem;
       height: auto;
       margin: 0 auto;
     }
