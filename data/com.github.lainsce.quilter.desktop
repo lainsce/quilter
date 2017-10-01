@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Quilter
 Comment=Focus on your writing
+Comment[pt_BR]=Foque na sua escrita
 Exec=com.github.lainsce.quilter %U
 Icon=com.github.lainsce.quilter
 Keywords=Text;Plain;Plaintext;Editor;

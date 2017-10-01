@@ -43,6 +43,9 @@ namespace Quilter {
         }
 
         public static int main (string[] args) {
+            Intl.setlocale (LocaleCategory.ALL, "");
+            Intl.textdomain (Build.GETTEXT_PACKAGE);
+
             var app = new Quilter.Application ();
             return app.run (args);
         }
