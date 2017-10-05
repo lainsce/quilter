@@ -11,45 +11,49 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:64
+#: src/MainWindow.vala:65
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:90
+#: src/MainWindow.vala:92
 msgid "New file"
 msgstr "Nuevo Archivo"
 
-#: src/MainWindow.vala:100
+#: src/MainWindow.vala:102
 msgid "Save as…"
 msgstr "Guardar como…"
 
-#: src/MainWindow.vala:113 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:115 src/Services/DialogUtils.vala:58
 msgid "Save file"
 msgstr "Guardar archivo"
 
-#: src/MainWindow.vala:126
+#: src/MainWindow.vala:128
 msgid "Open…"
 msgstr "Abrir…"
 
-#: src/MainWindow.vala:139
+#: src/MainWindow.vala:141
 msgid "Settings"
 msgstr "Ajustes"
 
-#: src/MainWindow.vala:143
+#: src/MainWindow.vala:145
 msgid "Markdown Cheatsheet"
 msgstr "Claves de Markdown"
 
-#: src/MainWindow.vala:150 src/Widgets/Preferences.vala:33
+#: src/MainWindow.vala:152 src/Widgets/Preferences.vala:33
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/MainWindow.vala:177
+#: src/MainWindow.vala:179
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:178
+#: src/MainWindow.vala:180
 msgid "Preview"
 msgstr "Vista"
+
+#: src/Widgets/StatusBar.vala:41
+msgid "Words: "
+msgstr "Palabras: "
 
 #: src/Widgets/Preferences.vala:46
 msgid "Editor"

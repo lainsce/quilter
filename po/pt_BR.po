@@ -18,45 +18,49 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: pt_BR\n"
 
-#: src/MainWindow.vala:64
+#: src/MainWindow.vala:65
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:90
+#: src/MainWindow.vala:92
 msgid "New file"
 msgstr "Novo arquivo"
 
-#: src/MainWindow.vala:100
+#: src/MainWindow.vala:102
 msgid "Save as…"
 msgstr "Salvar como…"
 
-#: src/MainWindow.vala:113 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:115 src/Services/DialogUtils.vala:58
 msgid "Save file"
 msgstr "Salvar arquivo"
 
-#: src/MainWindow.vala:126
+#: src/MainWindow.vala:128
 msgid "Open…"
 msgstr "Abrir…"
 
-#: src/MainWindow.vala:139
+#: src/MainWindow.vala:141
 msgid "Settings"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:143
+#: src/MainWindow.vala:145
 msgid "Markdown Cheatsheet"
 msgstr "Cola de Markdown"
 
-#: src/MainWindow.vala:150 src/Widgets/Preferences.vala:33
+#: src/MainWindow.vala:152 src/Widgets/Preferences.vala:33
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:177
+#: src/MainWindow.vala:179
 msgid "Edit"
 msgstr "Editor"
 
-#: src/MainWindow.vala:178
+#: src/MainWindow.vala:180
 msgid "Preview"
 msgstr "Prévia"
+
+#: src/Widgets/StatusBar.vala:41
+msgid "Words: "
+msgstr "Palavras: "
 
 #: src/Widgets/Preferences.vala:46
 msgid "Editor"

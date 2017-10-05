@@ -38,7 +38,7 @@ namespace Quilter {
 
         public void update_wordcount () {
             var wc = get_count();
-		    wordcount_label.set_text("Words: " + wc.words.to_string());
+		    wordcount_label.set_text((_("Words: ")) + wc.words.to_string());
         }
 
         public WordCount get_count() {

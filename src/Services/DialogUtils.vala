@@ -69,7 +69,7 @@ namespace Quilter.Services.DialogUtils {
     private int display_save_confirm () {
         var dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.MODAL,
                 Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "<b>" +
-                _("There are unsaved changesto the file. Do you want to save?") + "</b>" +
+                _("There are unsaved changes to the file. Do you want to save?") + "</b>" +
                 "\n\n" + _("If you don't save, changes will be lost forever."));
         dialog.use_markup = true;
         dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
