@@ -25,6 +25,14 @@
     <releases>
         <release version="1.3.4" date="2017-10-01">
             <description>
+                <p>Release: Focus pocus!</p>
+                <ul>
+                    <li>The Focus Mode now has a better way of showing focus on the text</li>
+                </ul>
+            </description>
+        </release>
+        <release version="1.3.4" date="2017-10-01">
+            <description>
                 <p>Release: Count Your Words</p>
                 <ul>
                     <li>Now you can see on the statusbar in-app how many words you have written</li>

@@ -24,6 +24,9 @@ namespace Quilter.Widgets {
         public WebView webview;
         private string font;
         private GtkSpell.Checker spell = null;
+        private Gtk.TextTag blackfont;
+        private Gtk.TextTag grayfont;
+        private Gtk.TextTag whitefont;
 
         public signal void changed ();
 
@@ -80,6 +83,13 @@ namespace Quilter.Widgets {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
+
+            if (settings.focus_mode) {
+                set_focused_text ();
+                buffer.notify["cursor-position"].connect  (() => {
+                    set_focused_text ();
+                });
+            }
         }
 
         construct {
@@ -92,6 +102,10 @@ namespace Quilter.Widgets {
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (on_text_modified);
+
+            grayfont = buffer.create_tag(null, "foreground", "grey");
+            blackfont = buffer.create_tag(null, "foreground", "#222");
+            whitefont = buffer.create_tag(null, "foreground", "#FFF");
 
             spell = new GtkSpell.Checker ();
             spellcheck = settings.spellcheck;
@@ -184,12 +198,16 @@ namespace Quilter.Widgets {
         private void update_settings () {
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
-                this.highlight_current_line = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(grayfont, start, end);
+                buffer.remove_tag(blackfont, start, end);
+                buffer.remove_tag(whitefont, start, end);
                 this.font = settings.font;
                 use_default_font (settings.use_system_font);
                 this.override_font (Pango.FontDescription.from_string (this.font));
             } else {
-                this.highlight_current_line = true;
+                set_focused_text ();
                 this.font = "PT Mono 13";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
@@ -219,13 +237,55 @@ namespace Quilter.Widgets {
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(whitefont, start, end);
                 return "quilter";
             } else {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
+            }
+        }
+
+        public void set_focused_text () {
+            Gtk.TextIter start, end;
+            Gtk.TextIter cursor_iter;
+            var settings = AppSettings.get_default ();
+
+            buffer.get_bounds (out start, out end);
+            buffer.apply_tag(grayfont, start, end);
+            buffer.remove_tag(blackfont, start, end);
+            buffer.remove_tag(whitefont, start, end);
+
+            var cursor = buffer.get_insert();
+            if (cursor != null) {
+                buffer.get_iter_at_mark(out cursor_iter, cursor);
+
+                var end_sentence = cursor_iter;
+                end_sentence.forward_sentence_end();
+
+                var end_line = cursor_iter;
+                end_line.forward_to_line_end();
+
+                var start_sentence = cursor_iter;
+                start_sentence.backward_sentence_start();
+
+                var comp = end_line.compare(end_sentence);
+                if (comp <= 0) {
+                    end_sentence = end_line;
+                }
+
+                if (!settings.dark_mode) {
+                    buffer.apply_tag(blackfont, start_sentence, end_line);
+                } else {
+                    buffer.apply_tag(whitefont, start_sentence, end_line);
+                }
             }
         }
     }

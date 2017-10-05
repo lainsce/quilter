@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.3.5) xenial; urgency=low
+
+  * Focus Mode now has a better way of showing focus on the text.
+
+ -- Lains <lainsce@airmail.cc>  Thu, 5 October 2017 14:14:00 -0300
+
 com.github.lainsce.quilter (1.3.4) xenial; urgency=low
 
   * Added a statusbar showing how many words the file has.
