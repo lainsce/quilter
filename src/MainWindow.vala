@@ -25,6 +25,7 @@ namespace Quilter {
         public File file;
         public Widgets.SourceView edit_view_content;
         public Widgets.WebView preview_view_content;
+        public Widgets.StatusBar statusbar;
 
         private Gtk.Menu menu;
         private Gtk.Button new_button;
@@ -67,6 +68,7 @@ namespace Quilter {
 
             schedule_timer ();
             edit_view_content.changed.connect (schedule_timer);
+            edit_view_content.changed.connect (statusbar.update_wordcount);
         }
 
         construct {
@@ -177,7 +179,15 @@ namespace Quilter {
             stack.add_titled (edit_view, "edit_view", _("Edit"));
             stack.add_titled (preview_view, "preview_view", _("Preview"));
 
-            this.add (stack);
+            statusbar = new Widgets.StatusBar ();
+
+            var grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
+            grid.add (stack);
+            grid.add (statusbar);
+            grid.show_all ();
+            this.add (grid);
+
             view_mode = new Gtk.StackSwitcher ();
             view_mode.set_stack (stack);
             view_mode.valign = Gtk.Align.CENTER;

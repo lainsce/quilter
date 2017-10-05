@@ -11,3 +11,12 @@
     color: @textColorPrimary;
     box-shadow: inset 0px 1px 1px 2px @colorPrimary;
 }
+actionbar,
+.action-bar,
+.quilter-statusbar {
+    background-color: @colorPrimary;
+    background-image: none;
+    border-top-color: transparent;
+    background: @colorPrimary;
+    color: @textColorPrimary;
+}

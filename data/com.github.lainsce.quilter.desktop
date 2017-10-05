@@ -2,10 +2,11 @@
 Name=Quilter
 Comment=Focus on your writing
 Comment[pt_BR]=Foque na sua escrita
+Comment[es]=Foque en su escritura
 Exec=com.github.lainsce.quilter %U
 Icon=com.github.lainsce.quilter
 Keywords=Text;Plain;Plaintext;Editor;
-MimeType=text/markdown;
+MimeType=text/x-markdown;
 Terminal=false
 Type=Application
 StartupNotify=true
