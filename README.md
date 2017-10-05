@@ -4,7 +4,7 @@
 
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.quilter)
 
-![Screenshot](data/images/shot.png)
+![Screenshot](data/images/shot-preview.png)
 
 ## License
 
