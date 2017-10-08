@@ -87,6 +87,14 @@ msgstr "Autocorrector"
 msgid "Enable Spellchecking:"
 msgstr "Habilitar Autocorrector"
 
+#: src/Widgets/Preferences.vala:72
+msgid "Statusbar"
+msgstr "Barra del Estado"
+
+#: src/Widgets/Preferences.vala:73
+msgid "Show Statusbar:"
+msgstr "Mostrar la Barra del Estado:"
+
 #. Close button
 #: src/Widgets/Preferences.vala:71 src/Widgets/Cheatsheet.vala:48
 msgid "Close"

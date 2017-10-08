@@ -37,6 +37,7 @@ namespace Quilter {
         private Gtk.StackSwitcher view_mode;
         private Gtk.ScrolledWindow edit_view;
         private Gtk.ScrolledWindow preview_view;
+        private Gtk.Grid grid;
         private Widgets.Preferences preferences_dialog;
         private Widgets.Cheatsheet cheatsheet_dialog;
         private bool timer_scheduled = false;
@@ -67,6 +68,7 @@ namespace Quilter {
                     width_request: 920);
 
             schedule_timer ();
+            statusbar.update_wordcount ();
             edit_view_content.changed.connect (schedule_timer);
             edit_view_content.changed.connect (statusbar.update_wordcount);
         }
@@ -181,7 +183,7 @@ namespace Quilter {
 
             statusbar = new Widgets.StatusBar ();
 
-            var grid = new Gtk.Grid ();
+            grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.add (stack);
             grid.add (statusbar);
@@ -207,6 +209,7 @@ namespace Quilter {
             settings.changed.connect (() => {
                 show_save_button ();
                 focus_mode_toolbar ();
+                show_statusbar ();
             });
 
             int x = settings.window_x;
@@ -340,6 +343,11 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
             toolbar.pack_start (save_button);
             save_button.visible = settings.show_save_button;
+        }
+
+        public void show_statusbar () {
+            var settings = AppSettings.get_default ();
+            statusbar.visible = settings.statusbar;
         }
     }
 }

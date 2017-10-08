@@ -21,19 +21,22 @@ using Granite;
 
 namespace Quilter {
     public class Widgets.StatusBar : Gtk.ActionBar {
-        public SourceView editor;
         public Gtk.Label wordcount_label;
 
         public StatusBar () {
-            wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (18);
-            update_wordcount ();
-            pack_start (wordcount_label);
+            wordcount_item ();
         }
 
         construct {
             var context = this.get_style_context ();
             context.add_class ("quilter-statusbar");
+        }
+
+        public void wordcount_item () {
+            wordcount_label = new Gtk.Label("");
+            wordcount_label.set_width_chars (18);
+            update_wordcount ();
+            pack_start (wordcount_label);
         }
 
         public void update_wordcount () {
@@ -44,7 +47,7 @@ namespace Quilter {
         public WordCount get_count() {
     		try {
     			var reg = new Regex("[\\s\\W]+", RegexCompileFlags.OPTIMIZE);
-    			string text = editor.buffer.text;
+    			string text = Widgets.SourceView.buffer.text;
     			string result = reg.replace (text, text.length, 0, " ");
 
     			return new WordCount(result.strip().split(" ").length, result.length);
@@ -54,7 +57,7 @@ namespace Quilter {
     	}
     }
 
-    public class WordCount {
+    public class Widgets.WordCount {
         public int words { get; private set; }
         public int chars { get; private set; }
 

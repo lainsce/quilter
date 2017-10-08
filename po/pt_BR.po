@@ -94,6 +94,14 @@ msgstr "Verificação de Ortografia"
 msgid "Enable Spellchecking:"
 msgstr "Habilitar Verificação de Ortografia:"
 
+#: src/Widgets/Preferences.vala:72
+msgid "Statusbar"
+msgstr "Barra de Estado"
+
+#: src/Widgets/Preferences.vala:73
+msgid "Show Statusbar:"
+msgstr "Mostrar a Barra de Estado:"
+
 #. Close button
 #: src/Widgets/Preferences.vala:71 src/Widgets/Cheatsheet.vala:48
 msgid "Close"

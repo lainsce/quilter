@@ -22,6 +22,7 @@ namespace Quilter.Widgets {
         Gtk.Switch dark_mode;
         Gtk.Switch use_custom_font;
         Gtk.Switch spellcheck;
+        Gtk.Switch statusbar;
         Gtk.Switch save_button;
         Gtk.FontButton select_font;
 
@@ -68,6 +69,11 @@ namespace Quilter.Widgets {
             spellcheck_label.set_halign (Gtk.Align.END);
             spellcheck = new SettingsSwitch ("spellcheck");
 
+            var statusbar_header = new SettingsHeader (_("Statusbar"));
+            var statusbar_label = new Gtk.Label (_("Show Statusbar:"));
+            statusbar_label.set_halign (Gtk.Align.END);
+            statusbar = new SettingsSwitch ("statusbar");
+
             var close_button = new Gtk.Button.with_label (_("Close"));
             close_button.clicked.connect (() => {this.destroy ();});
 
@@ -94,7 +100,11 @@ namespace Quilter.Widgets {
             main_grid.attach (spellcheck_label,  0, 8, 1, 1);
             main_grid.attach (spellcheck, 1, 8, 1, 1);
 
-            main_grid.attach (button_box, 0, 9, 4, 1);
+            main_grid.attach (statusbar_header,  0, 9, 1, 1);
+            main_grid.attach (statusbar_label,  0, 10, 1, 1);
+            main_grid.attach (statusbar, 1, 10, 1, 1);
+
+            main_grid.attach (button_box, 0, 11, 4, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
         }

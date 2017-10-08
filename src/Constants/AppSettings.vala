@@ -26,6 +26,7 @@ namespace Quilter {
         public bool use_system_font { get; set; }
         public bool show_save_button { get; set; }
         public bool spellcheck { get; set; }
+        public bool statusbar { get; set; }
         public string font { get; set; }
         public string last_file { get; set; }
         public string spellcheck_language { get; set; }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-04 23:09-0300\n"
+"POT-Creation-Date: 2017-10-08 10:54-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,80 +21,88 @@ msgstr ""
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:92
+#: src/MainWindow.vala:93
 msgid "New file"
 msgstr ""
 
-#: src/MainWindow.vala:102
+#: src/MainWindow.vala:103
 msgid "Save as…"
 msgstr ""
 
-#: src/MainWindow.vala:115 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:116 src/Services/DialogUtils.vala:58
 msgid "Save file"
 msgstr ""
 
-#: src/MainWindow.vala:128
+#: src/MainWindow.vala:129
 msgid "Open…"
 msgstr ""
 
-#: src/MainWindow.vala:141
+#: src/MainWindow.vala:142
 msgid "Settings"
 msgstr ""
 
-#: src/MainWindow.vala:145
+#: src/MainWindow.vala:146
 msgid "Markdown Cheatsheet"
 msgstr ""
 
-#: src/MainWindow.vala:152 src/Widgets/Preferences.vala:33
+#: src/MainWindow.vala:153 src/Widgets/Preferences.vala:34
 msgid "Preferences"
 msgstr ""
 
-#: src/MainWindow.vala:179
+#: src/MainWindow.vala:180
 msgid "Edit"
 msgstr ""
 
-#: src/MainWindow.vala:180
+#: src/MainWindow.vala:181
 msgid "Preview"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:41
+#: src/Widgets/StatusBar.vala:44
 msgid "Words: "
 msgstr ""
 
-#: src/Widgets/Preferences.vala:46
+#: src/Widgets/Preferences.vala:47
 msgid "Editor"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:47
+#: src/Widgets/Preferences.vala:48
 msgid "Enable Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:49
+#: src/Widgets/Preferences.vala:50
 msgid "Enable Dark Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:52
+#: src/Widgets/Preferences.vala:53
 msgid "Show the Save Button:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:55
+#: src/Widgets/Preferences.vala:56
 msgid "Font"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:56
+#: src/Widgets/Preferences.vala:57
 msgid "Custom font:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:66
+#: src/Widgets/Preferences.vala:67
 msgid "Spellcheck"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:67
+#: src/Widgets/Preferences.vala:68
 msgid "Enable Spellchecking:"
 msgstr ""
 
+#: src/Widgets/Preferences.vala:72
+msgid "Statusbar"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:73
+msgid "Show Statusbar:"
+msgstr ""
+
 #. Close button
-#: src/Widgets/Preferences.vala:71 src/Widgets/Cheatsheet.vala:48
+#: src/Widgets/Preferences.vala:77 src/Widgets/Cheatsheet.vala:48
 msgid "Close"
 msgstr ""
 
