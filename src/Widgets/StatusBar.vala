@@ -18,15 +18,15 @@
 */
 using Gtk;
 using Granite;
-
 namespace Quilter {
     public class Widgets.StatusBar : Gtk.ActionBar {
         public Gtk.Label wordcount_label;
-
         public MainWindow window;
 
         public StatusBar () {
             wordcount_item ();
+            darkmode_item ();
+            focusmode_item ();
         }
 
         construct {
@@ -44,6 +44,42 @@ namespace Quilter {
         public void update_wordcount () {
             var wc = get_count();
 		    wordcount_label.set_text((_("Words: ")) + wc.words.to_string());
+        }
+
+        public void darkmode_item () {
+            var darkmode_button = new Gtk.ToggleButton.with_label ((_("Dark Mode")));
+            darkmode_button.set_image (new Gtk.Image.from_icon_name ("weather-clear-night-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            darkmode_button.set_always_show_image (true);
+
+            var settings = AppSettings.get_default ();
+            darkmode_button.toggled.connect (() => {
+    			if (darkmode_button.active) {
+    				settings.dark_mode = true;
+    			} else {
+    				settings.dark_mode = false;
+    			}
+
+    		});
+
+            pack_end (darkmode_button);
+        }
+
+        public void focusmode_item () {
+            var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
+            focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            focusmode_button.set_always_show_image (true);
+
+            var settings = AppSettings.get_default ();
+            focusmode_button.toggled.connect (() => {
+    			if (focusmode_button.active) {
+    				settings.focus_mode = true;
+    			} else {
+    				settings.focus_mode = false;
+    			}
+
+    		});
+
+            pack_end (focusmode_button);
         }
 
         public WordCount get_count() {

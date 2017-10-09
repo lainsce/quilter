@@ -62,6 +62,14 @@ msgstr "Prévia"
 msgid "Words: "
 msgstr "Palavras: "
 
+#: src/Widgets/StatusBar.vala:50
+msgid "Dark Mode"
+msgstr "Modo Invertido"
+
+#: src/Widgets/StatusBar.vala:68
+msgid "Focus Mode"
+msgstr "Modo Foco"
+
 #: src/Widgets/Preferences.vala:49
 msgid "Editor"
 msgstr "Editor"

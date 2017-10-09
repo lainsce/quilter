@@ -55,17 +55,25 @@ msgstr "Vista"
 msgid "Words: "
 msgstr "Palabras: "
 
+#: src/Widgets/StatusBar.vala:50
+msgid "Dark Mode"
+msgstr "Modo Obscuro"
+
+#: src/Widgets/StatusBar.vala:68
+msgid "Focus Mode"
+msgstr "Modo Foco"
+
 #: src/Widgets/Preferences.vala:49
 msgid "Editor"
 msgstr "Editor"
 
 #: src/Widgets/Preferences.vala:50
 msgid "Enable Focus Mode:"
-msgstr "Habilitar Modo de Escritura"
+msgstr "Habilitar Modo Foco"
 
 #: src/Widgets/Preferences.vala:52
 msgid "Enable Dark Mode:"
-msgstr "Habilitar Tema Obscuro"
+msgstr "Habilitar Modo Obscuro"
 
 #: src/Widgets/Preferences.vala:55
 msgid "Show the Save Button:"

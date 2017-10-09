@@ -61,6 +61,14 @@ msgstr ""
 msgid "Words: "
 msgstr ""
 
+#: src/Widgets/StatusBar.vala:50
+msgid "Dark Mode"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:68
+msgid "Focus Mode"
+msgstr ""
+
 #: src/Widgets/Preferences.vala:49
 msgid "Editor"
 msgstr ""
