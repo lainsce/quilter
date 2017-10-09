@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-09 01:04-0300\n"
+"POT-Creation-Date: 2017-10-09 12:36-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,39 +21,39 @@ msgstr ""
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:97
+#: src/MainWindow.vala:163
 msgid "New file"
 msgstr ""
 
-#: src/MainWindow.vala:107
+#: src/MainWindow.vala:173
 msgid "Save as…"
 msgstr ""
 
-#: src/MainWindow.vala:120 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:186 src/Services/DialogUtils.vala:58
 msgid "Save file"
 msgstr ""
 
-#: src/MainWindow.vala:133
+#: src/MainWindow.vala:199
 msgid "Open…"
 msgstr ""
 
-#: src/MainWindow.vala:146
+#: src/MainWindow.vala:212
 msgid "Settings"
 msgstr ""
 
-#: src/MainWindow.vala:150
+#: src/MainWindow.vala:216
 msgid "Markdown Cheatsheet"
 msgstr ""
 
-#: src/MainWindow.vala:157 src/Widgets/Preferences.vala:34
+#: src/MainWindow.vala:223 src/Widgets/Preferences.vala:34
 msgid "Preferences"
 msgstr ""
 
-#: src/MainWindow.vala:184
+#: src/MainWindow.vala:250
 msgid "Edit"
 msgstr ""
 
-#: src/MainWindow.vala:185
+#: src/MainWindow.vala:251
 msgid "Preview"
 msgstr ""
 
@@ -118,95 +118,95 @@ msgstr ""
 msgid "Links & Special"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:47 src/Widgets/Cheatsheet.vala:128
+#: src/Widgets/Cheatsheet.vala:47 src/Widgets/Cheatsheet.vala:136
 msgid "Tables"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:68
+#: src/Widgets/Cheatsheet.vala:78
 msgid "Header"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:69
+#: src/Widgets/Cheatsheet.vala:79
 msgid "# Header 1"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:70
+#: src/Widgets/Cheatsheet.vala:80
 msgid "## Header 2"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:71
+#: src/Widgets/Cheatsheet.vala:81
 msgid "### Header 3"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:72
+#: src/Widgets/Cheatsheet.vala:82
 msgid "#### Header 4"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:73
+#: src/Widgets/Cheatsheet.vala:83
 msgid "##### Header 5"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:74
+#: src/Widgets/Cheatsheet.vala:84
 msgid "###### Header 6"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:76
+#: src/Widgets/Cheatsheet.vala:85
 msgid "Special Text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:77
+#: src/Widgets/Cheatsheet.vala:86
 msgid "** Bold text **"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:78
+#: src/Widgets/Cheatsheet.vala:87
 msgid "* Emphasized text *"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:79
+#: src/Widgets/Cheatsheet.vala:88
 msgid "` Code text `"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:80
+#: src/Widgets/Cheatsheet.vala:89
 msgid "> Quoting text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:81
+#: src/Widgets/Cheatsheet.vala:90
 msgid "~~Strikethrough text~~"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:105
+#: src/Widgets/Cheatsheet.vala:114
 msgid "Links"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:106
+#: src/Widgets/Cheatsheet.vala:115
 msgid "[Link Label](http://link.url.here.com)"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:107
+#: src/Widgets/Cheatsheet.vala:116
 msgid "![Image Label](http://image.url.here.com)"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:109
+#: src/Widgets/Cheatsheet.vala:117
 msgid "Special"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:110
+#: src/Widgets/Cheatsheet.vala:118
 msgid "```This is a code block```"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:111
+#: src/Widgets/Cheatsheet.vala:119
 msgid "--- ← This creates an horizontal rule"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:130
+#: src/Widgets/Cheatsheet.vala:138
 msgid "To make a column's content go to the left, change --- to :--- ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:131
+#: src/Widgets/Cheatsheet.vala:139
 msgid "To make a column's content centered, change --- to :---: ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:132
+#: src/Widgets/Cheatsheet.vala:140
 msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr ""
 

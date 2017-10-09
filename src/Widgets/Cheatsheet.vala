@@ -58,6 +58,16 @@ namespace Quilter.Widgets {
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
             get_action_area ().margin = 6;
+
+            this.key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.h, keycode)) {
+                        this.destroy ();
+                    }
+                }
+                return false;
+            });
         }
 
         private Gtk.Widget get_textstyle_grid () {
@@ -72,7 +82,6 @@ namespace Quilter.Widgets {
             var header_four_label = new Label (_("#### Header 4"));
             var header_five_label = new Label (_("##### Header 5"));
             var header_six_label = new Label (_("###### Header 6"));
-
             var font_header = new Header (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
             var emph_font_label = new Label (_("* Emphasized text *"));
@@ -105,7 +114,6 @@ namespace Quilter.Widgets {
             var link_header = new Header (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.here.com)"));
             var image_label = new Label (_("![Image Label](http://image.url.here.com)"));
-
             var special_header = new Header (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
             var hr_label = new Label (_("--- ← This creates an horizontal rule"));
@@ -171,6 +179,19 @@ namespace Quilter.Widgets {
                 halign = Gtk.Align.START;
                 margin_start = 6;
             }
+        }
+
+        protected bool match_keycode (int keyval, uint code) {
+            Gdk.KeymapKey [] keys;
+            Gdk.Keymap keymap = Gdk.Keymap.get_default ();
+            if (keymap.get_entries_for_keyval (keyval, out keys)) {
+                foreach (var key in keys) {
+                    if (code == key.keycode)
+                        return true;
+                    }
+                }
+
+            return false;
         }
     }
 }

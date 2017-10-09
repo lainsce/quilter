@@ -84,6 +84,62 @@ namespace Quilter {
 
             edit_view_content.changed.connect (schedule_timer);
             edit_view_content.changed.connect (statusbar.update_wordcount);
+
+            key_press_event.connect ((e) => {
+                uint keycode = e.hardware_keycode;
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.q, keycode)) {
+                        this.destroy ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.s, keycode)) {
+                        try {
+                            Services.FileManager.save ();
+                        } catch (Error e) {
+                            warning ("Unexpected error during open: " + e.message);
+                        }
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.o, keycode)) {
+                        try {
+                            Services.FileManager.open ();
+                        } catch (Error e) {
+                            warning ("Unexpected error during open: " + e.message);
+                        }
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.h, keycode)) {
+                        var cheatsheet_dialog = new Widgets.Cheatsheet (this);
+                        cheatsheet_dialog.show_all ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        Widgets.SourceView.buffer.undo ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.z, keycode)) {
+                        Widgets.SourceView.buffer.redo ();
+                    }
+                }
+                if (match_keycode (Gdk.Key.F11, keycode)) {
+                    is_fullscreen = !is_fullscreen;
+                }
+                if (match_keycode (Gdk.Key.F1, keycode)) {
+                    debug ("Press to change view...");
+                    if (stack.get_visible_child_name () == "preview_view") {
+                        stack.set_visible_child (edit_view);
+                    } else if (stack.get_visible_child_name () == "edit_view") {
+                        stack.set_visible_child (preview_view);
+                    }
+                    return true;
+                }
+                return false;
+            });
         }
 
         construct {
@@ -231,53 +287,6 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_titlebar (toolbar);
-
-            this.key_press_event.connect ((e) => {
-                uint keycode = e.hardware_keycode;
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.q, keycode)) {
-                        this.destroy ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.s, keycode)) {
-                        try {
-                            Services.FileManager.save ();
-                        } catch (Error e) {
-                            warning ("Unexpected error during open: " + e.message);
-                        }
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.o, keycode)) {
-                        try {
-                            Services.FileManager.open ();
-                        } catch (Error e) {
-                            warning ("Unexpected error during open: " + e.message);
-                        }
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.h, keycode)) {
-                        var cheatsheet_dialog = new Widgets.Cheatsheet (this);
-                        cheatsheet_dialog.show_all ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.SourceView.buffer.undo ();
-                    }
-                }
-                if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.SourceView.buffer.redo ();
-                    }
-                }
-                if (match_keycode (Gdk.Key.F11, keycode)) {
-                    is_fullscreen = !is_fullscreen;
-                }
-                return false;
-            });
         }
 
         protected bool match_keycode (int keyval, uint code) {
