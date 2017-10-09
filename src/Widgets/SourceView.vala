@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
-        public static Gtk.SourceBuffer buffer;
+        public static new Gtk.SourceBuffer buffer;
         public bool is_modified {get; set; default = false;}
         public File file;
         public WebView webview;
@@ -88,8 +88,6 @@ namespace Quilter.Widgets {
 
         construct {
             var settings = AppSettings.get_default ();
-            var context = this.get_style_context ();
-            context.add_class ("quilter-note");
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
             buffer = new Gtk.SourceBuffer.with_language (language);
@@ -97,10 +95,10 @@ namespace Quilter.Widgets {
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (on_text_modified);
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#4D4D4D");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#AAABAC");
-            blackfont = buffer.create_tag(null, "foreground", "#232629");
-            whitefont = buffer.create_tag(null, "foreground", "#eff0f1");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#222");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#BBB");
+            blackfont = buffer.create_tag(null, "foreground", "#000");
+            whitefont = buffer.create_tag(null, "foreground", "#FFF");
 
             spell = new GtkSpell.Checker ();
             spellcheck = settings.spellcheck;
@@ -234,18 +232,12 @@ namespace Quilter.Widgets {
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
-                buffer.remove_tag(whitefont, start, end);
                 return "quilter";
             } else {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
-                buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
             }
         }
@@ -276,9 +268,11 @@ namespace Quilter.Widgets {
                 if (!settings.dark_mode) {
                     buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.apply_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
                 } else {
                     buffer.apply_tag(darkgrayfont, start_sentence, end_sentence);
                     buffer.apply_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
                 }
             }
         }
