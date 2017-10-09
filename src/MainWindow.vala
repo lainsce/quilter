@@ -47,13 +47,16 @@ namespace Quilter {
          */
         private const int TIME_TO_REFRESH = 3 * 100;
 
-        private bool _is_fullscreen;
-    	public bool is_fullscreen {
-    		get { return _is_fullscreen; }
+        public bool is_fullscreen {
+            get {
+                var settings = AppSettings.get_default ();
+                return settings.fullscreen;
+            }
             set {
-                _is_fullscreen = value;
+                var settings = AppSettings.get_default ();
+                settings.fullscreen = value;
 
-                if (_is_fullscreen)
+                if (settings.fullscreen)
                     fullscreen ();
                 else
                     unfullscreen ();
@@ -69,6 +72,16 @@ namespace Quilter {
 
             schedule_timer ();
             statusbar.update_wordcount ();
+            show_statusbar ();
+            focus_mode_toolbar ();
+
+            var settings = AppSettings.get_default ();
+            settings.changed.connect (() => {
+                show_save_button ();
+                focus_mode_toolbar ();
+                show_statusbar ();
+            });
+
             edit_view_content.changed.connect (schedule_timer);
             edit_view_content.changed.connect (statusbar.update_wordcount);
         }
@@ -191,9 +204,9 @@ namespace Quilter {
             this.add (grid);
 
             view_mode = new Gtk.StackSwitcher ();
-            view_mode.set_stack (stack);
+            view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
-            view_mode.homogeneous = false;
+            view_mode.homogeneous = true;
 
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
@@ -203,14 +216,6 @@ namespace Quilter {
 
             toolbar.show_close_button = true;
             toolbar.show_all ();
-
-            focus_mode_toolbar ();
-
-            settings.changed.connect (() => {
-                show_save_button ();
-                focus_mode_toolbar ();
-                show_statusbar ();
-            });
 
             int x = settings.window_x;
             int y = settings.window_y;

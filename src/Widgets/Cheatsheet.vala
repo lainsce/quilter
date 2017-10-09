@@ -23,51 +23,47 @@ namespace Quilter.Widgets {
 
         public Cheatsheet (Gtk.Window? parent) {
             Object (
-                border_width: 10,
                 deletable: false,
                 resizable: false,
                 title: _("Cheatsheet"),
-                transient_for: parent
+                transient_for: parent,
+                destroy_with_parent: true,
+                window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
-            create_layout ();
         }
 
         construct {
             main_stack = new Gtk.Stack ();
+            main_stack.margin = 12;
+            main_stack.margin_top = 0;
             main_stackswitcher = new Gtk.StackSwitcher ();
-            main_stackswitcher.set_stack (main_stack);
-            main_stackswitcher.halign = Gtk.Align.CENTER;
-        }
+            main_stackswitcher.stack = main_stack;
+            main_stackswitcher.homogeneous = true;
+            main_stackswitcher.margin = 12;
+            main_stackswitcher.margin_top = 0;
 
-        private void create_layout () {
             this.main_stack.add_titled (get_textstyle_grid (), "textstyle", _("Text"));
             this.main_stack.add_titled (get_links_grid (), "links", _("Links & Special"));
             this.main_stack.add_titled (get_tables_grid (), "tables", _("Tables"));
 
             // Close button
-            var close_button = new Gtk.Button.with_label (_("Close"));
-            close_button.clicked.connect (() => {this.destroy ();});
-
-            var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
-            button_box.set_layout (Gtk.ButtonBoxStyle.END);
-            button_box.pack_end (close_button);
-            button_box.margin = 20;
-            button_box.margin_bottom = 0;
+            var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
+            ((Gtk.Button) close_button).clicked.connect (() => destroy ());
 
             // Pack everything into the dialog
             var main_grid = new Gtk.Grid ();
+            main_grid.margin_top = 0;
             main_grid.attach (this.main_stackswitcher, 0, 0, 1, 1);
             main_grid.attach (this.main_stack, 0, 1, 1, 1);
-            main_grid.attach (button_box, 0, 2, 1, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
+            get_action_area ().margin = 6;
         }
 
         private Gtk.Widget get_textstyle_grid () {
             var textstyle_grid = new Gtk.Grid ();
             textstyle_grid.row_spacing = 6;
             textstyle_grid.column_spacing = 12;
-            textstyle_grid.margin = 12;
 
             var header_header = new Header (_("Header"));
             var header_one_label = new Label (_("# Header 1"));
@@ -105,7 +101,6 @@ namespace Quilter.Widgets {
             var links_grid = new Gtk.Grid ();
             links_grid.row_spacing = 6;
             links_grid.column_spacing = 12;
-            links_grid.margin = 12;
 
             var link_header = new Header (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.here.com)"));
@@ -129,7 +124,6 @@ namespace Quilter.Widgets {
             var tables_grid = new Gtk.Grid ();
             tables_grid.row_spacing = 6;
             tables_grid.column_spacing = 12;
-            tables_grid.margin = 12;
 
             var table_header = new Header (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
@@ -166,7 +160,7 @@ namespace Quilter.Widgets {
         private class Label : Gtk.Label {
             public Label (string text) {
                 label = text;
-                halign = Gtk.Align.END;
+                halign = Gtk.Align.START;
                 margin_start = 12;
             }
         }
@@ -175,7 +169,7 @@ namespace Quilter.Widgets {
             public Text (string text) {
                 label = text;
                 halign = Gtk.Align.START;
-                margin_start = 12;
+                margin_start = 6;
             }
         }
     }

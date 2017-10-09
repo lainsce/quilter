@@ -32,17 +32,19 @@ namespace Quilter.Widgets {
                 deletable: false,
                 resizable: false,
                 title: _("Preferences"),
-                transient_for: parent
+                transient_for: parent,
+                destroy_with_parent: true,
+                window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
-            create_layout ();
         }
 
-        private void create_layout () {
+        construct {
             var main_settings = AppSettings.get_default ();
             var main_grid = new Gtk.Grid ();
             main_grid.row_spacing = 6;
             main_grid.column_spacing = 12;
             main_grid.margin = 12;
+            main_grid.margin_top = 0;
 
             var editor_header = new SettingsHeader (_("Editor"));
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
@@ -74,14 +76,8 @@ namespace Quilter.Widgets {
             statusbar_label.set_halign (Gtk.Align.END);
             statusbar = new SettingsSwitch ("statusbar");
 
-            var close_button = new Gtk.Button.with_label (_("Close"));
-            close_button.clicked.connect (() => {this.destroy ();});
-
-            var button_box = new Gtk.ButtonBox (Gtk.Orientation.HORIZONTAL);
-            button_box.set_layout (Gtk.ButtonBoxStyle.END);
-            button_box.pack_end (close_button);
-            button_box.margin = 12;
-            button_box.margin_bottom = 0;
+            var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
+            ((Gtk.Button) close_button).clicked.connect (() => destroy ());
 
             main_grid.attach (editor_header, 0, 1, 3, 1);
             main_grid.attach (save_button_label, 0, 2, 1, 1);
@@ -104,9 +100,8 @@ namespace Quilter.Widgets {
             main_grid.attach (statusbar_label,  0, 10, 1, 1);
             main_grid.attach (statusbar, 1, 10, 1, 1);
 
-            main_grid.attach (button_box, 0, 11, 4, 1);
-
             ((Gtk.Container) get_content_area ()).add (main_grid);
+            get_action_area ().margin = 6;
         }
 
         private class TitleHeader : Gtk.Label {

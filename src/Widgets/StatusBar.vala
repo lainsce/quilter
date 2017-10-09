@@ -23,6 +23,8 @@ namespace Quilter {
     public class Widgets.StatusBar : Gtk.ActionBar {
         public Gtk.Label wordcount_label;
 
+        public MainWindow window;
+
         public StatusBar () {
             wordcount_item ();
         }
@@ -34,7 +36,7 @@ namespace Quilter {
 
         public void wordcount_item () {
             wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (18);
+            wordcount_label.set_width_chars (6);
             update_wordcount ();
             pack_start (wordcount_label);
         }

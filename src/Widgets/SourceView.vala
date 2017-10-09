@@ -18,14 +18,15 @@
 */
 namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
-        public static new Gtk.SourceBuffer buffer;
-        public static bool is_modified;
+        public static Gtk.SourceBuffer buffer;
+        public bool is_modified {get; set; default = false;}
         public File file;
         public WebView webview;
         private string font;
         private GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
-        private Gtk.TextTag grayfont;
+        private Gtk.TextTag lightgrayfont;
+        private Gtk.TextTag darkgrayfont;
         private Gtk.TextTag whitefont;
 
         public signal void changed ();
@@ -84,11 +85,10 @@ namespace Quilter.Widgets {
                 warning ("Error: %s\n", e.message);
             }
 
-            if (settings.focus_mode) {
-                set_focused_text ();
-                buffer.notify["cursor-position"].connect  (() => {
-                    set_focused_text ();
-                });
+            if (settings.focus_mode == true) {
+                buffer.notify["cursor-position"].connect (set_focused_text);
+            } else {
+                buffer.notify["cursor-position"].disconnect (set_focused_text);
             }
         }
 
@@ -103,9 +103,10 @@ namespace Quilter.Widgets {
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (on_text_modified);
 
-            grayfont = buffer.create_tag(null, "foreground", "grey");
-            blackfont = buffer.create_tag(null, "foreground", "#222");
-            whitefont = buffer.create_tag(null, "foreground", "#FFF");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#4D4D4D");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#AAABAC");
+            blackfont = buffer.create_tag(null, "foreground", "#232629");
+            whitefont = buffer.create_tag(null, "foreground", "#eff0f1");
 
             spell = new GtkSpell.Checker ();
             spellcheck = settings.spellcheck;
@@ -136,6 +137,8 @@ namespace Quilter.Widgets {
             this.top_margin = 40;
             this.right_margin = 80;
             this.bottom_margin = 40;
+            this.set_pixels_above_lines(4);
+            this.set_pixels_inside_wrap(4);
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
@@ -147,9 +150,7 @@ namespace Quilter.Widgets {
             var active = menu.get_active () as Gtk.MenuItem;
 
             if (active == null) return null;
-
             var sub_menu = active.get_submenu () as Gtk.Menu;
-
             if (sub_menu != null) {
                 return sub_menu.get_active () as Gtk.MenuItem;
             }
@@ -200,7 +201,8 @@ namespace Quilter.Widgets {
             if (!settings.focus_mode) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
-                buffer.remove_tag(grayfont, start, end);
+                buffer.remove_tag(lightgrayfont, start, end);
+                buffer.remove_tag(darkgrayfont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
                 this.font = settings.font;
@@ -254,37 +256,34 @@ namespace Quilter.Widgets {
         }
 
         public void set_focused_text () {
-            Gtk.TextIter start, end;
             Gtk.TextIter cursor_iter;
+            Gtk.TextIter start, end;
             var settings = AppSettings.get_default ();
 
             buffer.get_bounds (out start, out end);
-            buffer.apply_tag(grayfont, start, end);
+
+            var cursor = buffer.get_insert ();
+            buffer.get_iter_at_mark (out cursor_iter, cursor);
+            buffer.apply_tag(lightgrayfont, start, end);
+            buffer.apply_tag(darkgrayfont, start, end);
             buffer.remove_tag(blackfont, start, end);
             buffer.remove_tag(whitefont, start, end);
 
-            var cursor = buffer.get_insert();
             if (cursor != null) {
-                buffer.get_iter_at_mark(out cursor_iter, cursor);
+                var start_sentence = cursor_iter;
+                if (cursor_iter != start)
+                    start_sentence.backward_lines (1);
 
                 var end_sentence = cursor_iter;
-                end_sentence.forward_sentence_end();
-
-                var end_line = cursor_iter;
-                end_line.forward_to_line_end();
-
-                var start_sentence = cursor_iter;
-                start_sentence.backward_sentence_start();
-
-                var comp = end_line.compare(end_sentence);
-                if (comp <= 0) {
-                    end_sentence = end_line;
-                }
+                if (cursor_iter != end)
+                    end_sentence.forward_lines (2);
 
                 if (!settings.dark_mode) {
-                    buffer.apply_tag(blackfont, start_sentence, end_line);
+                    buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
                 } else {
-                    buffer.apply_tag(whitefont, start_sentence, end_line);
+                    buffer.apply_tag(darkgrayfont, start_sentence, end_sentence);
+                    buffer.apply_tag(whitefont, start_sentence, end_sentence);
                 }
             }
         }

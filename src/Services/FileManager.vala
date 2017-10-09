@@ -18,6 +18,7 @@
 namespace Quilter.Services.FileManager {
     public File tmp_file;
     public MainWindow window;
+    public Widgets.SourceView view;
 
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
@@ -137,7 +138,7 @@ namespace Quilter.Services.FileManager {
             Widgets.SourceView.buffer.text = "";
         }
         settings.last_file = "New Document";
-        Widgets.SourceView.is_modified = false;
+        view.is_modified = false;
     }
 
     public void open () throws Error {
@@ -160,7 +161,7 @@ namespace Quilter.Services.FileManager {
             warning ("Unexpected error during open: " + e.message);
         }
 
-        Widgets.SourceView.is_modified = false;
+        view.is_modified = false;
         file = null;
     }
 
@@ -189,7 +190,7 @@ namespace Quilter.Services.FileManager {
         }
 
         file = null;
-        Widgets.SourceView.is_modified = false;
+        view.is_modified = false;
     }
 
     public void save_as () throws Error {
@@ -218,6 +219,6 @@ namespace Quilter.Services.FileManager {
         }
 
         file = null;
-        Widgets.SourceView.is_modified = false;
+        view.is_modified = false;
     }
 }

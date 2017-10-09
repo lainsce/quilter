@@ -18,196 +18,196 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "Language: pt_BR\n"
 
-#: src/MainWindow.vala:65
+#: src/MainWindow.vala:69
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:92
+#: src/MainWindow.vala:97
 msgid "New file"
 msgstr "Novo arquivo"
 
-#: src/MainWindow.vala:102
+#: src/MainWindow.vala:107
 msgid "Save as…"
 msgstr "Salvar como…"
 
-#: src/MainWindow.vala:115 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:120 src/Services/DialogUtils.vala:58
 msgid "Save file"
 msgstr "Salvar arquivo"
 
-#: src/MainWindow.vala:128
+#: src/MainWindow.vala:133
 msgid "Open…"
 msgstr "Abrir…"
 
-#: src/MainWindow.vala:141
+#: src/MainWindow.vala:146
 msgid "Settings"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:145
+#: src/MainWindow.vala:150
 msgid "Markdown Cheatsheet"
 msgstr "Cola de Markdown"
 
-#: src/MainWindow.vala:152 src/Widgets/Preferences.vala:33
+#: src/MainWindow.vala:157 src/Widgets/Preferences.vala:34
 msgid "Preferences"
 msgstr "Preferências"
 
-#: src/MainWindow.vala:179
+#: src/MainWindow.vala:184
 msgid "Edit"
 msgstr "Editor"
 
-#: src/MainWindow.vala:180
+#: src/MainWindow.vala:185
 msgid "Preview"
 msgstr "Prévia"
 
-#: src/Widgets/StatusBar.vala:41
+#: src/Widgets/StatusBar.vala:46
 msgid "Words: "
 msgstr "Palavras: "
 
-#: src/Widgets/Preferences.vala:46
+#: src/Widgets/Preferences.vala:49
 msgid "Editor"
 msgstr "Editor"
 
-#: src/Widgets/Preferences.vala:47
+#: src/Widgets/Preferences.vala:50
 msgid "Enable Focus Mode:"
 msgstr "Habilitar Modo Foco:"
 
-#: src/Widgets/Preferences.vala:49
+#: src/Widgets/Preferences.vala:52
 msgid "Enable Dark Mode:"
 msgstr "Habilitar Modo Invertido:"
 
-#: src/Widgets/Preferences.vala:52
+#: src/Widgets/Preferences.vala:55
 msgid "Show the Save Button:"
 msgstr "Mostrar o Botão de Salvar:"
 
-#: src/Widgets/Preferences.vala:55
+#: src/Widgets/Preferences.vala:58
 msgid "Font"
 msgstr "Fonte"
 
-#: src/Widgets/Preferences.vala:56
+#: src/Widgets/Preferences.vala:59
 msgid "Custom font:"
 msgstr "Fonte customizada:"
 
-#: src/Widgets/Preferences.vala:66
+#: src/Widgets/Preferences.vala:69
 msgid "Spellcheck"
 msgstr "Verificação de Ortografia"
 
-#: src/Widgets/Preferences.vala:67
+#: src/Widgets/Preferences.vala:70
 msgid "Enable Spellchecking:"
 msgstr "Habilitar Verificação de Ortografia:"
 
-#: src/Widgets/Preferences.vala:72
+#: src/Widgets/Preferences.vala:74
 msgid "Statusbar"
 msgstr "Barra de Estado"
 
-#: src/Widgets/Preferences.vala:73
+#: src/Widgets/Preferences.vala:75
 msgid "Show Statusbar:"
 msgstr "Mostrar a Barra de Estado:"
 
 #. Close button
-#: src/Widgets/Preferences.vala:71 src/Widgets/Cheatsheet.vala:48
+#: src/Widgets/Preferences.vala:79 src/Widgets/Cheatsheet.vala:50
 msgid "Close"
 msgstr "Fechar"
 
-#: src/Widgets/Cheatsheet.vala:29
+#: src/Widgets/Cheatsheet.vala:28
 msgid "Cheatsheet"
 msgstr "Cola"
 
-#: src/Widgets/Cheatsheet.vala:43
+#: src/Widgets/Cheatsheet.vala:45
 msgid "Text"
 msgstr "Texto"
 
-#: src/Widgets/Cheatsheet.vala:44
+#: src/Widgets/Cheatsheet.vala:46
 msgid "Links & Special"
 msgstr "Links e Especial"
 
-#: src/Widgets/Cheatsheet.vala:45 src/Widgets/Cheatsheet.vala:134
+#: src/Widgets/Cheatsheet.vala:47 src/Widgets/Cheatsheet.vala:128
 msgid "Tables"
 msgstr "Planilhas"
 
-#: src/Widgets/Cheatsheet.vala:72
+#: src/Widgets/Cheatsheet.vala:68
 msgid "Header"
 msgstr "Cabeçalho"
 
-#: src/Widgets/Cheatsheet.vala:73
+#: src/Widgets/Cheatsheet.vala:69
 msgid "# Header 1"
 msgstr "# Cabeçalho 1"
 
-#: src/Widgets/Cheatsheet.vala:74
+#: src/Widgets/Cheatsheet.vala:70
 msgid "## Header 2"
 msgstr "## Cabeçalho 2"
 
-#: src/Widgets/Cheatsheet.vala:75
+#: src/Widgets/Cheatsheet.vala:71
 msgid "### Header 3"
 msgstr "### Cabeçalho 3"
 
-#: src/Widgets/Cheatsheet.vala:76
+#: src/Widgets/Cheatsheet.vala:72
 msgid "#### Header 4"
 msgstr "#### Cabeçalho 4"
 
-#: src/Widgets/Cheatsheet.vala:77
+#: src/Widgets/Cheatsheet.vala:73
 msgid "##### Header 5"
 msgstr "##### Cabeçalho 5"
 
-#: src/Widgets/Cheatsheet.vala:78
+#: src/Widgets/Cheatsheet.vala:74
 msgid "###### Header 6"
 msgstr "###### Cabeçalho 6"
 
-#: src/Widgets/Cheatsheet.vala:80
+#: src/Widgets/Cheatsheet.vala:76
 msgid "Special Text"
 msgstr "Texto Especial"
 
-#: src/Widgets/Cheatsheet.vala:81
+#: src/Widgets/Cheatsheet.vala:77
 msgid "** Bold text **"
 msgstr "** Texto em Negrito **"
 
-#: src/Widgets/Cheatsheet.vala:82
+#: src/Widgets/Cheatsheet.vala:78
 msgid "* Emphasized text *"
 msgstr "* Texto em Itálico *"
 
-#: src/Widgets/Cheatsheet.vala:83
+#: src/Widgets/Cheatsheet.vala:79
 msgid "` Code text `"
 msgstr "` Texto de Código `"
 
-#: src/Widgets/Cheatsheet.vala:84
+#: src/Widgets/Cheatsheet.vala:80
 msgid "> Quoting text"
 msgstr "> Texto de Citação"
 
-#: src/Widgets/Cheatsheet.vala:85
+#: src/Widgets/Cheatsheet.vala:81
 msgid "~~Strikethrough text~~"
 msgstr "~~Texto Cortado~~"
 
-#: src/Widgets/Cheatsheet.vala:110
+#: src/Widgets/Cheatsheet.vala:105
 msgid "Links"
 msgstr "Links"
 
-#: src/Widgets/Cheatsheet.vala:111
+#: src/Widgets/Cheatsheet.vala:106
 msgid "[Link Label](http://link.url.here.com)"
 msgstr "[Título Link](http://aqui.a.url.com.br)"
 
-#: src/Widgets/Cheatsheet.vala:112
+#: src/Widgets/Cheatsheet.vala:107
 msgid "![Image Label](http://image.url.here.com)"
 msgstr "![Título Imagem](http://aqui.url.da.imagem.com.br)"
 
-#: src/Widgets/Cheatsheet.vala:114
+#: src/Widgets/Cheatsheet.vala:109
 msgid "Special"
 msgstr "Especial"
 
-#: src/Widgets/Cheatsheet.vala:115
+#: src/Widgets/Cheatsheet.vala:110
 msgid "```This is a code block```"
 msgstr "```Este é um bloco de código```"
 
-#: src/Widgets/Cheatsheet.vala:116
+#: src/Widgets/Cheatsheet.vala:111
 msgid "--- ← This creates an horizontal rule"
 msgstr "--- ← Isto cria uma linha divisora horizontal"
 
-#: src/Widgets/Cheatsheet.vala:136
+#: src/Widgets/Cheatsheet.vala:130
 msgid "To make a column's content go to the left, change --- to :--- ."
 msgstr "Para fazer o conteúdo da coluna ser à esquerda, mude --- para :--- ."
 
-#: src/Widgets/Cheatsheet.vala:137
+#: src/Widgets/Cheatsheet.vala:131
 msgid "To make a column's content centered, change --- to :---: ."
 msgstr "Para fazer o conteúdo da coluna ser centralizado, mude --- para :---: ."
 
-#: src/Widgets/Cheatsheet.vala:138
+#: src/Widgets/Cheatsheet.vala:132
 msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr "Para fazer o conteúdo da coluna ser à direita, mude --- para ---: ."
 
