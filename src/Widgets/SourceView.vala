@@ -84,12 +84,6 @@ namespace Quilter.Widgets {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
-
-            if (settings.focus_mode == true) {
-                buffer.notify["cursor-position"].connect (set_focused_text);
-            } else {
-                buffer.notify["cursor-position"].disconnect (set_focused_text);
-            }
         }
 
         construct {
@@ -208,8 +202,9 @@ namespace Quilter.Widgets {
                 this.font = settings.font;
                 use_default_font (settings.use_system_font);
                 this.override_font (Pango.FontDescription.from_string (this.font));
+                buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
-                set_focused_text ();
+                buffer.notify["cursor-position"].connect (set_focused_text);
                 this.font = "PT Mono 13";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }

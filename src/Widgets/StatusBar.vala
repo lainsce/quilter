@@ -55,8 +55,10 @@ namespace Quilter {
             darkmode_button.toggled.connect (() => {
     			if (darkmode_button.active) {
     				settings.dark_mode = true;
+                    darkmode_button.active = true;
     			} else {
     				settings.dark_mode = false;
+                    darkmode_button.active = false;
     			}
 
     		});
@@ -73,8 +75,10 @@ namespace Quilter {
             focusmode_button.toggled.connect (() => {
     			if (focusmode_button.active) {
     				settings.focus_mode = true;
+                    focusmode_button.active = true;
     			} else {
     				settings.focus_mode = false;
+                    focusmode_button.active = false;
     			}
 
     		});
