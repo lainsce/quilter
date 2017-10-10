@@ -159,8 +159,11 @@ namespace Quilter {
                     }
                 }
 
-                if (files.length > 0)
+                if (files.length > 0) {
                     Services.FileManager.open_from_outside (files, "");
+                    var file = files[0];
+                    window.toolbar.subtitle = file.get_path ();
+                }
             }
 
             return 0;

@@ -99,12 +99,12 @@ namespace Quilter.Services.FileManager {
         if (files.length > 0) {
             var file = files[0];
             string text;
+            var settings = AppSettings.get_default ();
+            settings.last_file = file.get_path ();
 
             try {
                 GLib.FileUtils.get_contents (file.get_path (), out text);
                 Widgets.SourceView.buffer.text = text;
-                var settings = AppSettings.get_default ();
-                settings.last_file = file.get_path ();
             } catch (Error e) {
                 warning ("Error: %s", e.message);
             }
