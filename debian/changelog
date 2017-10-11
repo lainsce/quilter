@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.3.9) xenial; urgency=low
+
+  * Add support for HiDPI icons.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 13 October 2017 17:35:00 -0300
+
 com.github.lainsce.quilter (1.3.8) xenial; urgency=low
 
   * Add buttons to toggle Focus Mode and Dark Mode on the Status-bar.
