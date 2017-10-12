@@ -8,6 +8,7 @@
     <description>
         <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
         <ul>
+            <li>Work on a story, one file at a time.</li>
             <li>Save your documents anywhere, even on existing files.</li>
             <li>Preview your story in the Preview Mode.</li>
             <li>Configure whether to have Focus Mode or not.</li>
@@ -28,6 +29,7 @@
                <p>Release: High Definition Stories</p>
                <ul>
                    <li>Add support for HiDPI icons.</li>
+                   <li>Resize icons to fit the elementary icon grid.</li>
                </ul>
            </description>
         </release>
