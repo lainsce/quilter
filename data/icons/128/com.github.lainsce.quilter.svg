@@ -30,8 +30,8 @@
      showguides="false"
      inkscape:guide-bbox="true"
      inkscape:zoom="3.816534"
-     inkscape:cx="8.7861675"
-     inkscape:cy="51.615065"
+     inkscape:cx="-28.289357"
+     inkscape:cy="49.518922"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -769,7 +769,7 @@
      d="m 110.49999,118.86137 -90.999989,0 0,-107.444287 90.999989,0 z" />
   <path
      inkscape:connector-curvature="0"
-     style="display:inline;opacity:0.3;fill:url(#linearGradient6954);fill-opacity:1;stroke:#000000;stroke-width:0.97134709;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     style="display:inline;opacity:1;fill:url(#linearGradient6954);fill-opacity:1;stroke:#000000;stroke-width:0.97134709;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.29803923"
      id="path4160-4"
      d="m 18.499929,10.483171 c 21.311062,0 93.000031,0.0065 93.000031,0.0065 l 1.1e-4,109.305999 c 0,0 -62.000099,0 -93.00014,0 0,-36.437665 0,-72.875313 0,-109.31296 z" />
   <rect
