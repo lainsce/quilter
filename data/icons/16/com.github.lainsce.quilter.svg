@@ -29,9 +29,9 @@
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
-     inkscape:zoom="16"
-     inkscape:cx="-28.3125"
-     inkscape:cy="4.5892979"
+     inkscape:zoom="32"
+     inkscape:cx="0.6362162"
+     inkscape:cy="6.8169884"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -42,6 +42,18 @@
   </sodipodi:namedview>
   <defs
      id="defs13988">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4241">
+      <stop
+         style="stop-color:#d4d4d4;stop-opacity:1;"
+         offset="0"
+         id="stop4243" />
+      <stop
+         style="stop-color:#abacae;stop-opacity:1"
+         offset="1"
+         id="stop4245" />
+    </linearGradient>
     <linearGradient
        id="linearGradient4245">
       <stop
@@ -579,6 +591,15 @@
        x2="7"
        y2="16"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4241"
+       id="linearGradient4247"
+       x1="7"
+       y1="1"
+       x2="7"
+       y2="4"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata13991">
@@ -656,17 +677,17 @@
      style="fill:#3689e6;fill-opacity:1;stroke:none;stroke-width:1.2976433;stroke-opacity:1"
      id="rect4265"
      width="1"
-     height="7"
+     height="9"
      x="11"
      y="5"
      ry="0" />
   <rect
-     style="fill:#d4d4d4;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     style="fill:url(#linearGradient4247);fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
      id="rect3436"
      width="12"
-     height="2"
+     height="3"
      x="1"
-     y="1" />
+     y="0.96875" />
   <rect
      style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9034636;stroke-opacity:1"
      id="rect4305-3-7-3"

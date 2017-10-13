@@ -30,8 +30,8 @@
      showguides="false"
      inkscape:guide-bbox="true"
      inkscape:zoom="17.567184"
-     inkscape:cx="-8.0661888"
-     inkscape:cy="9.9864754"
+     inkscape:cx="8.0718558"
+     inkscape:cy="20.915945"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -42,6 +42,18 @@
   </sodipodi:namedview>
   <defs
      id="defs13988">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4263">
+      <stop
+         style="stop-color:#d4d4d4;stop-opacity:1;"
+         offset="0"
+         id="stop4265" />
+      <stop
+         style="stop-color:#abacae;stop-opacity:1"
+         offset="1"
+         id="stop4267" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5742">
       <stop
@@ -687,6 +699,16 @@
        x2="17"
        y2="30"
        gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4263"
+       id="linearGradient4269"
+       x1="15"
+       y1="3"
+       x2="15"
+       y2="6"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.3341019,0,-1.098633)" />
   </defs>
   <metadata
      id="metadata13991">
@@ -798,10 +820,10 @@
      ry="0"
      transform="matrix(0.99999982,-5.9179534e-4,0.00119499,0.99999929,0,0)" />
   <rect
-     style="fill:#d4d4d4;fill-opacity:1;stroke:none"
+     style="fill:url(#linearGradient4269);fill-opacity:1;stroke:none"
      id="rect4255"
      width="22"
-     height="2.9982719"
+     height="4"
      x="5"
-     y="3.0161281" />
+     y="2.925189" />
 </svg>
