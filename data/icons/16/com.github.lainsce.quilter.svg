@@ -30,8 +30,8 @@
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:zoom="16"
-     inkscape:cx="-3.84474"
-     inkscape:cy="6.5892979"
+     inkscape:cx="-28.3125"
+     inkscape:cy="4.5892979"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -42,6 +42,17 @@
   </sodipodi:namedview>
   <defs
      id="defs13988">
+    <linearGradient
+       id="linearGradient4245">
+      <stop
+         id="stop4247"
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0" />
+      <stop
+         id="stop4249"
+         style="stop-color:#f0f0f0;stop-opacity:1"
+         offset="1" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5117">
       <stop
@@ -559,6 +570,15 @@
          style="stop-color:#dbdbdb;stop-opacity:1"
          id="stop3604" />
     </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4245"
+       id="linearGradient4243"
+       x1="7"
+       y1="0"
+       x2="7"
+       y2="16"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata13991">
@@ -595,50 +615,50 @@
      inkscape:connector-curvature="0"
      d="m 0.50271893,0.50271849 c 2.97771337,0 12.99454707,9.5365e-4 12.99454707,9.5365e-4 l 1.5e-5,14.99360886 c 0,0 -8.6630417,0 -12.99456219,0 0,-4.998188 0,-9.9963753 1.2e-7,-14.99456251 z"
      id="path4160-8"
-     style="display:inline;fill:#f0f0f0;fill-opacity:1;stroke:#000000;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.29803923;opacity:1" />
+     style="display:inline;fill:url(#linearGradient4243);fill-opacity:1;stroke:#000000;stroke-width:1.005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.29803923;opacity:1" />
   <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9214676;stroke-opacity:1"
+     style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9214676;stroke-opacity:1"
      id="rect4305"
      width="6"
      height="1"
      x="2"
-     y="4"
+     y="5"
      rx="0"
      ry="0" />
   <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.92341757;stroke-opacity:1"
+     style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.92341757;stroke-opacity:1"
      id="rect4305-3"
      width="7"
      height="1"
      x="2"
-     y="6"
+     y="7"
      rx="0"
      ry="0" />
   <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9034636;stroke-opacity:1"
+     style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9034636;stroke-opacity:1"
      id="rect4305-3-7"
      width="4"
      height="1"
      x="2"
-     y="7.9999995"
+     y="9"
      rx="0"
      ry="0" />
   <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.94027257;stroke-opacity:1"
+     style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.94027257;stroke-opacity:1"
      id="rect4305-5"
      width="7"
      height="1"
      x="2"
-     y="10"
+     y="11"
      rx="0"
      ry="0" />
   <rect
      style="fill:#3689e6;fill-opacity:1;stroke:none;stroke-width:1.2976433;stroke-opacity:1"
      id="rect4265"
      width="1"
-     height="5"
+     height="7"
      x="11"
-     y="6"
+     y="5"
      ry="0" />
   <rect
      style="fill:#d4d4d4;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -648,12 +668,12 @@
      x="1"
      y="1" />
   <rect
-     style="opacity:0.39800002;fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9214676;stroke-opacity:1"
-     id="rect4305-36"
-     width="6"
+     style="opacity:1;fill:#abacae;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.9034636;stroke-opacity:1"
+     id="rect4305-3-7-3"
+     width="4"
      height="1"
      x="2"
-     y="12"
+     y="13"
      rx="0"
      ry="0" />
 </svg>
