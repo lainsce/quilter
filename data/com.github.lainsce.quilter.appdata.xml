@@ -24,6 +24,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.0" date="2017-10-27">
+           <description>
+               <p>Release: Indication of Savin' Stories</p>
+               <ul>
+                   <li>Show that the file is unsaved/saved.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.3.9" date="2017-10-20">
            <description>
                <p>Release: High Definition Stories</p>

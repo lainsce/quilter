@@ -93,7 +93,10 @@ namespace Quilter.Widgets {
             buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
-            buffer.changed.connect (on_text_modified);
+            buffer.changed.connect (() => {
+                on_text_modified ();
+                Application.window.saved_indicator (false);
+            });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#222");
             lightgrayfont = buffer.create_tag(null, "foreground", "#BBB");

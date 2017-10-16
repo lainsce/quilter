@@ -96,6 +96,7 @@ namespace Quilter {
                     if (match_keycode (Gdk.Key.s, keycode)) {
                         try {
                             Services.FileManager.save ();
+                            saved_indicator (true);
                         } catch (Error e) {
                             warning ("Unexpected error during open: " + e.message);
                         }
@@ -175,6 +176,7 @@ namespace Quilter {
             save_as_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save_as ();
+                    saved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -188,6 +190,7 @@ namespace Quilter {
             save_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save ();
+                    saved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -362,6 +365,20 @@ namespace Quilter {
         public void show_statusbar () {
             var settings = AppSettings.get_default ();
             statusbar.visible = settings.statusbar;
+        }
+
+        public void saved_indicator (bool val) {
+            edit_view_content.is_modified = val;
+
+            string unsaved_identifier = "* ";
+
+            if (!val) {
+                if (!(unsaved_identifier in toolbar.subtitle)) {
+                    toolbar.subtitle = unsaved_identifier + toolbar.subtitle;
+                }
+            } else {
+                toolbar.subtitle = toolbar.subtitle.replace (unsaved_identifier, "");
+            }
         }
     }
 }
