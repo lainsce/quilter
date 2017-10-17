@@ -205,6 +205,7 @@ namespace Quilter.Widgets {
                 this.override_font (Pango.FontDescription.from_string (this.font));
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
+                set_focused_text ();
                 buffer.notify["cursor-position"].connect (set_focused_text);
                 this.font = "PT Mono 13";
                 this.override_font (Pango.FontDescription.from_string (this.font));
@@ -235,12 +236,18 @@ namespace Quilter.Widgets {
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(whitefont, start, end);
                 return "quilter";
             } else {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
             }
         }
