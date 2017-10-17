@@ -21,10 +21,15 @@ using Granite;
 namespace Quilter {
     public class Widgets.StatusBar : Gtk.ActionBar {
         public Gtk.Label wordcount_label;
+        public Gtk.Label readtimecount_label;
         public MainWindow window;
+
+        /* Average normal reading speed is 90 words per minute */
+        int WPM = 90;
 
         public StatusBar () {
             wordcount_item ();
+            readtimecount_item ();
             darkmode_item ();
             focusmode_item ();
         }
@@ -36,7 +41,7 @@ namespace Quilter {
 
         public void wordcount_item () {
             wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (6);
+            wordcount_label.set_width_chars (12);
             update_wordcount ();
             pack_start (wordcount_label);
         }
@@ -44,6 +49,19 @@ namespace Quilter {
         public void update_wordcount () {
             var wc = get_count();
 		    wordcount_label.set_text((_("Words: ")) + wc.words.to_string());
+        }
+
+        public void readtimecount_item () {
+            readtimecount_label = new Gtk.Label("");
+            readtimecount_label.set_width_chars (12);
+            update_readtimecount ();
+            pack_start (readtimecount_label);
+        }
+
+        public void update_readtimecount () {
+            var wc = get_count();
+            int rtc = (wc.words / WPM);
+		    readtimecount_label.set_text((_("Reading Time: ")) + rtc.to_string() + "m");
         }
 
         public void darkmode_item () {

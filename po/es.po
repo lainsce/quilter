@@ -55,11 +55,15 @@ msgstr "Vista"
 msgid "Words: "
 msgstr "Palabras: "
 
-#: src/Widgets/StatusBar.vala:50
+#: src/Widgets/StatusBar.vala:64
+msgid "Reading Time: "
+msgstr "Tiempo de Lectura: "
+
+#: src/Widgets/StatusBar.vala:68
 msgid "Dark Mode"
 msgstr "Modo Obscuro"
 
-#: src/Widgets/StatusBar.vala:68
+#: src/Widgets/StatusBar.vala:88
 msgid "Focus Mode"
 msgstr "Modo Foco"
 

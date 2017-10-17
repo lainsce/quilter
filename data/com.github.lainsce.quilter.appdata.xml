@@ -29,6 +29,7 @@
                <p>Release: Indication of Savin' Stories</p>
                <ul>
                    <li>Show that the file is unsaved/saved.</li>
+                   <li>Show how much reading time your story has.</li>
                </ul>
            </description>
         </release>

@@ -61,11 +61,15 @@ msgstr ""
 msgid "Words: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:50
-msgid "Dark Mode"
+#: src/Widgets/StatusBar.vala:64
+msgid "Reading Time: "
 msgstr ""
 
 #: src/Widgets/StatusBar.vala:68
+msgid "Dark Mode"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:88
 msgid "Focus Mode"
 msgstr ""
 
