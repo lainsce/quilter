@@ -68,7 +68,7 @@ namespace Quilter {
                     resizable: true,
                     title: _("Quilter"),
                     height_request: 800,
-                    width_request: 920);
+                    width_request: 900);
 
             schedule_timer ();
             statusbar.update_wordcount ();
