@@ -72,6 +72,7 @@ namespace Quilter {
 
             schedule_timer ();
             statusbar.update_wordcount ();
+            statusbar.update_readtimecount ();
             show_statusbar ();
             focus_mode_toolbar ();
 
@@ -82,8 +83,11 @@ namespace Quilter {
                 show_statusbar ();
             });
 
-            edit_view_content.changed.connect (schedule_timer);
-            edit_view_content.changed.connect (statusbar.update_wordcount);
+            edit_view_content.changed.connect (() => {
+                schedule_timer ();
+                statusbar.update_wordcount ();
+                statusbar.update_readtimecount ();
+            });
 
             key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
