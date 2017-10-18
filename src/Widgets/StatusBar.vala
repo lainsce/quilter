@@ -70,13 +70,17 @@ namespace Quilter {
             darkmode_button.set_always_show_image (true);
 
             var settings = AppSettings.get_default ();
+            if (settings.dark_mode == false) {
+                darkmode_button.set_active (false);
+            } else {
+                darkmode_button.set_active (settings.dark_mode);
+            }
+
             darkmode_button.toggled.connect (() => {
     			if (darkmode_button.active) {
     				settings.dark_mode = true;
-                    darkmode_button.active = true;
     			} else {
     				settings.dark_mode = false;
-                    darkmode_button.active = false;
     			}
 
     		});
@@ -90,13 +94,17 @@ namespace Quilter {
             focusmode_button.set_always_show_image (true);
 
             var settings = AppSettings.get_default ();
+            if (settings.focus_mode == false) {
+                focusmode_button.set_active (false);
+            } else {
+                focusmode_button.set_active (settings.focus_mode);
+            }
+
             focusmode_button.toggled.connect (() => {
     			if (focusmode_button.active) {
     				settings.focus_mode = true;
-                    focusmode_button.active = true;
     			} else {
     				settings.focus_mode = false;
-                    focusmode_button.active = false;
     			}
 
     		});

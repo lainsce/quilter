@@ -2,6 +2,7 @@ com.github.lainsce.quilter (1.4.0) xenial; urgency=low
 
   * Show that the file is saved/unsaved.
   * Count reading time.
+  * Real-time show Focus/Dark Modes are active.
 
  -- Lains <lainsce@airmail.cc>  Fri, 27 Oct 2017 17:40:00 -0300
 

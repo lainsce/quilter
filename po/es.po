@@ -63,7 +63,7 @@ msgstr "Tiempo de Lectura: "
 msgid "Dark Mode"
 msgstr "Modo Obscuro"
 
-#: src/Widgets/StatusBar.vala:88
+#: src/Widgets/StatusBar.vala:92
 msgid "Focus Mode"
 msgstr "Modo Foco"
 

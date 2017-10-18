@@ -69,7 +69,7 @@ msgstr ""
 msgid "Dark Mode"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:88
+#: src/Widgets/StatusBar.vala:92
 msgid "Focus Mode"
 msgstr ""
 
