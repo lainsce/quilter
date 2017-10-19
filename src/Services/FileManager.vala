@@ -112,35 +112,6 @@ namespace Quilter.Services.FileManager {
         return true;
     }
 
-    public void new_file () {
-        debug ("New button pressed.");
-        debug ("Buffer was modified. Asking user to save first.");
-        var settings = AppSettings.get_default ();
-        int wanna_save = Services.DialogUtils.display_save_confirm ();
-
-        if (wanna_save == Gtk.ResponseType.CANCEL ||
-            wanna_save == Gtk.ResponseType.DELETE_EVENT) {
-            debug ("User canceled save confirm. Aborting operation.");
-        }
-
-        if (wanna_save == Gtk.ResponseType.YES) {
-            debug ("Saving file before loading new file.");
-
-            try {
-                save ();
-            } catch (Error e) {
-                warning ("Unexpected error during save: " + e.message);
-            }
-        }
-
-        if (wanna_save == Gtk.ResponseType.NO) {
-            debug ("User cancelled the dialog. Remove document from Widgets.SourceView then.");
-            Widgets.SourceView.buffer.text = "";
-        }
-        settings.last_file = "New Document";
-        view.is_modified = false;
-    }
-
     public void open () throws Error {
         debug ("Open button pressed.");
         var settings = AppSettings.get_default ();
@@ -148,7 +119,6 @@ namespace Quilter.Services.FileManager {
 
         try {
             debug ("Opening file...");
-            save ();
             if (file == null) {
                 debug ("User cancelled operation. Aborting.");
             } else {

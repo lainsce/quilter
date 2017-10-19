@@ -168,9 +168,9 @@ namespace Quilter {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
-                Services.FileManager.new_file ();
-                toolbar.subtitle = "New Document";
-                file = null;
+                // New button pressed.
+                // Start the creation of a clean slate.
+                new_file ();
             });
 
             save_as_button = new Gtk.Button ();
@@ -383,6 +383,40 @@ namespace Quilter {
             } else {
                 toolbar.subtitle = toolbar.subtitle.replace (unsaved_identifier, "");
             }
+        }
+
+        public void new_file () {
+            debug ("New button pressed.");
+            debug ("Buffer was modified. Asking user to save first.");
+
+            if (edit_view_content.is_modified) {
+                var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
+                var result = dialog.run ();
+                dialog.destroy ();
+
+                if (result == Services.DialogUtils.DialogType.CANCEL) {
+                    debug ("User cancelled, don't do anything.");
+                } else if (result == Services.DialogUtils.DialogType.YES) {
+                    debug ("User saves the file.");
+
+                    try {
+                        Services.FileManager.save ();
+                    } catch (Error e) {
+                        warning ("Unexpected error during save: " + e.message);
+                    }
+                } else if (result == Services.DialogUtils.DialogType.NO) {
+                    debug ("User doesn't care about the file, shoot it to space.");
+
+                    edit_view_content.is_modified = false;
+                    file = null;
+                    Widgets.SourceView.buffer.text = "";
+                    toolbar.subtitle = "New Document";
+                } else {
+                    return;
+                }
+            }
+            Widgets.SourceView.buffer.text = "";
+            toolbar.subtitle = "New Document";
         }
     }
 }

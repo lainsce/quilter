@@ -16,9 +16,14 @@
  */
 
 namespace Quilter.Services.DialogUtils {
+    public enum DialogType {
+        YES,
+        NO,
+        CANCEL
+    }
+
     public Gtk.FileChooserDialog create_file_chooser (string title,
             Gtk.FileChooserAction action) {
-
         var chooser = new Gtk.FileChooserDialog (title, null, action);
 
         chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
@@ -66,22 +71,24 @@ namespace Quilter.Services.DialogUtils {
         return file;
     }
 
-    private int display_save_confirm () {
-        var dialog = new Gtk.MessageDialog (null, Gtk.DialogFlags.MODAL,
-                Gtk.MessageType.WARNING, Gtk.ButtonsType.NONE, "<b>" +
-                _("There are unsaved changes to the file. Do you want to save?") + "</b>" +
-                "\n\n" + _("If you don't save, changes will be lost forever."));
-        dialog.use_markup = true;
-        dialog.type_hint = Gdk.WindowTypeHint.DIALOG;
+    public class Dialog : Gtk.MessageDialog {
+        public Dialog.display_save_confirm (Gtk.Window parent) {
+            set_markup ("<b>" +
+                    _("There are unsaved changes to the file. Do you want to save?") + "</b>" +
+                    "\n\n" + _("If you don't save, changes will be lost forever."));
+            use_markup = true;
+            type_hint = Gdk.WindowTypeHint.DIALOG;
+            set_transient_for (parent);
 
-        var button = new Gtk.Button.with_label (_("Close without saving"));
-        button.show ();
-        dialog.add_action_widget (button, Gtk.ResponseType.NO);
-        dialog.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
-        dialog.add_button ("_Save", Gtk.ResponseType.YES);
-        dialog.set_default_response (Gtk.ResponseType.ACCEPT);
-        int response = dialog.run ();
-        dialog.destroy();
-        return response;
+            var button = new Gtk.Button.with_label (_("Close without saving"));
+            button.show ();
+            add_action_widget (button, DialogType.NO);
+            add_button ("_Cancel", DialogType.CANCEL);
+            add_button ("_Save", DialogType.YES);
+
+            var warning_image = new Gtk.Image.from_icon_name ("dialog-warning", Gtk.IconSize.DIALOG);
+            warning_image.show ();
+            set_image (warning_image);
+        }
     }
 }
