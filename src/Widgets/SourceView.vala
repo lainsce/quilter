@@ -99,7 +99,7 @@ namespace Quilter.Widgets {
             });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#222");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#BBB");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#888");
             blackfont = buffer.create_tag(null, "foreground", "#000");
             whitefont = buffer.create_tag(null, "foreground", "#FFF");
 
