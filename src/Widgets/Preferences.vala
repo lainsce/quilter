@@ -120,7 +120,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var margins_label = new SettingsLabel (_("Margins of text:"));
+            var margins_label = new SettingsLabel (_("Margins of Text:"));
             var margins_size = new Granite.Widgets.ModeButton ();
             margins_size.append_text (_("Small"));
             margins_size.append_text (_("Normal"));

@@ -1,8 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
-"POT-Creation-Date: 2017-10-22 01:08-0200\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-22 12:57-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,7 +115,7 @@ msgid "Large"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:123
-msgid "Margins of text:"
+msgid "Margins of Text:"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:184
