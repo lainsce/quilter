@@ -24,6 +24,15 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.1" date="2017-11-03">
+           <description>
+               <p>Release: Geometric Dreams</p>
+               <ul>
+                   <li>Set your margins in the Preferences.</li>
+                   <li>Set your text spacing in the Preferences.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.0" date="2017-10-27">
            <description>
                <p>Release: Indication Stories</p>

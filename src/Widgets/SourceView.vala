@@ -128,12 +128,8 @@ namespace Quilter.Widgets {
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.left_margin = 80;
             this.top_margin = 40;
-            this.right_margin = 80;
             this.bottom_margin = 40;
-            this.set_pixels_above_lines(4);
-            this.set_pixels_inside_wrap(4);
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
@@ -193,6 +189,15 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var settings = AppSettings.get_default ();
+            this.set_pixels_above_lines(settings.spacing.to_int());
+            this.set_pixels_inside_wrap(settings.spacing.to_int());
+            if (settings.margins == "") {
+                this.left_margin = 80;
+                this.right_margin = 80;
+            } else {
+                this.left_margin = settings.margins.to_int();
+                this.right_margin = settings.margins.to_int();
+            }
             if (!settings.focus_mode) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);

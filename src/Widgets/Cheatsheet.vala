@@ -38,6 +38,7 @@ namespace Quilter.Widgets {
             main_stack.margin_top = 0;
             main_stackswitcher = new Gtk.StackSwitcher ();
             main_stackswitcher.stack = main_stack;
+            main_stackswitcher.halign = Gtk.Align.CENTER;
             main_stackswitcher.homogeneous = true;
             main_stackswitcher.margin = 12;
             main_stackswitcher.margin_top = 0;

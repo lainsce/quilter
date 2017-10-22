@@ -1,14 +1,8 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.quilter package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-09 12:36-0300\n"
+"POT-Creation-Date: 2017-10-22 01:08-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,43 +15,43 @@ msgstr ""
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:163
+#: src/MainWindow.vala:168
 msgid "New file"
 msgstr ""
 
-#: src/MainWindow.vala:173
+#: src/MainWindow.vala:178
 msgid "Save as…"
 msgstr ""
 
-#: src/MainWindow.vala:186 src/Services/DialogUtils.vala:58
+#: src/MainWindow.vala:192 src/Services/DialogUtils.vala:63
 msgid "Save file"
 msgstr ""
 
-#: src/MainWindow.vala:199
+#: src/MainWindow.vala:206
 msgid "Open…"
 msgstr ""
 
-#: src/MainWindow.vala:212
+#: src/MainWindow.vala:219
 msgid "Settings"
 msgstr ""
 
-#: src/MainWindow.vala:216
+#: src/MainWindow.vala:223
 msgid "Markdown Cheatsheet"
 msgstr ""
 
-#: src/MainWindow.vala:223 src/Widgets/Preferences.vala:34
+#: src/MainWindow.vala:230 src/Widgets/Preferences.vala:36
 msgid "Preferences"
 msgstr ""
 
-#: src/MainWindow.vala:250
+#: src/MainWindow.vala:257
 msgid "Edit"
 msgstr ""
 
-#: src/MainWindow.vala:251
+#: src/MainWindow.vala:258
 msgid "Preview"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:46
+#: src/Widgets/StatusBar.vala:51
 msgid "Words: "
 msgstr ""
 
@@ -73,175 +67,203 @@ msgstr ""
 msgid "Focus Mode"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:49
+#: src/Widgets/Preferences.vala:54 src/Widgets/Preferences.vala:75
 msgid "Editor"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:50
-msgid "Enable Focus Mode:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:52
-msgid "Enable Dark Mode:"
-msgstr ""
-
 #: src/Widgets/Preferences.vala:55
-msgid "Show the Save Button:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:58
-msgid "Font"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:59
-msgid "Custom font:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:69
-msgid "Spellcheck"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:70
-msgid "Enable Spellchecking:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:74
-msgid "Statusbar"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:75
-msgid "Show Statusbar:"
+msgid "Interface"
 msgstr ""
 
 #. Close button
-#: src/Widgets/Preferences.vala:79 src/Widgets/Cheatsheet.vala:50
+#: src/Widgets/Preferences.vala:57 src/Widgets/Cheatsheet.vala:51
 msgid "Close"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:76
+msgid "Show the Save Button:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:78
+msgid "Enable Spellchecking:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:82
+msgid "Geometry"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:83
+msgid "Spacing of Text:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:85 src/Widgets/Preferences.vala:125
+msgid "Small"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:86 src/Widgets/Preferences.vala:126
+msgid "Normal"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:87 src/Widgets/Preferences.vala:127
+msgid "Large"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:123
+msgid "Margins of text:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:184
+msgid "Mode"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:185
+msgid "Enable Focus Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:187
+msgid "Enable Dark Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:190
+msgid "Font"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:191
+msgid "Custom font:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:201
+msgid "Statusbar"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:202
+msgid "Show Statusbar:"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:28
 msgid "Cheatsheet"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:45
+#: src/Widgets/Cheatsheet.vala:46
 msgid "Text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:46
+#: src/Widgets/Cheatsheet.vala:47
 msgid "Links & Special"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:47 src/Widgets/Cheatsheet.vala:136
+#: src/Widgets/Cheatsheet.vala:48 src/Widgets/Cheatsheet.vala:137
 msgid "Tables"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:78
+#: src/Widgets/Cheatsheet.vala:79
 msgid "Header"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:79
+#: src/Widgets/Cheatsheet.vala:80
 msgid "# Header 1"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:80
+#: src/Widgets/Cheatsheet.vala:81
 msgid "## Header 2"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:81
+#: src/Widgets/Cheatsheet.vala:82
 msgid "### Header 3"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:82
+#: src/Widgets/Cheatsheet.vala:83
 msgid "#### Header 4"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:83
+#: src/Widgets/Cheatsheet.vala:84
 msgid "##### Header 5"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:84
+#: src/Widgets/Cheatsheet.vala:85
 msgid "###### Header 6"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:85
+#: src/Widgets/Cheatsheet.vala:86
 msgid "Special Text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:86
+#: src/Widgets/Cheatsheet.vala:87
 msgid "** Bold text **"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:87
+#: src/Widgets/Cheatsheet.vala:88
 msgid "* Emphasized text *"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:88
+#: src/Widgets/Cheatsheet.vala:89
 msgid "` Code text `"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:89
+#: src/Widgets/Cheatsheet.vala:90
 msgid "> Quoting text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:90
+#: src/Widgets/Cheatsheet.vala:91
 msgid "~~Strikethrough text~~"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:114
+#: src/Widgets/Cheatsheet.vala:115
 msgid "Links"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:115
+#: src/Widgets/Cheatsheet.vala:116
 msgid "[Link Label](http://link.url.here.com)"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:116
+#: src/Widgets/Cheatsheet.vala:117
 msgid "![Image Label](http://image.url.here.com)"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:117
+#: src/Widgets/Cheatsheet.vala:118
 msgid "Special"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:118
+#: src/Widgets/Cheatsheet.vala:119
 msgid "```This is a code block```"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:119
+#: src/Widgets/Cheatsheet.vala:120
 msgid "--- ← This creates an horizontal rule"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:138
+#: src/Widgets/Cheatsheet.vala:139
 msgid "To make a column's content go to the left, change --- to :--- ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:139
+#: src/Widgets/Cheatsheet.vala:140
 msgid "To make a column's content centered, change --- to :---: ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:140
+#: src/Widgets/Cheatsheet.vala:141
 msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr ""
 
-#: src/Services/DialogUtils.vala:33
+#: src/Services/DialogUtils.vala:38
 msgid "Markdown files"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:38
+#: src/Services/DialogUtils.vala:43
 msgid "All files"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:46
+#: src/Services/DialogUtils.vala:51
 msgid "Open file"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:72
+#: src/Services/DialogUtils.vala:77
 msgid "There are unsaved changes to the file. Do you want to save?"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:73
+#: src/Services/DialogUtils.vala:78
 msgid "If you don't save, changes will be lost forever."
 msgstr ""
 
-#: src/Services/DialogUtils.vala:77
+#: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
 msgstr ""

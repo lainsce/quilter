@@ -31,6 +31,8 @@ namespace Quilter {
         public string font { get; set; }
         public string last_file { get; set; }
         public string spellcheck_language { get; set; }
+        public string spacing { get; set; }
+        public string margins { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {
