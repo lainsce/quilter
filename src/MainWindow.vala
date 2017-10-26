@@ -148,8 +148,6 @@ namespace Quilter {
         }
 
         construct {
-            var context = this.get_style_context ();
-            context.add_class ("quilter-window");
             toolbar = new Gtk.HeaderBar ();
             var settings = AppSettings.get_default ();
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
@@ -161,6 +159,7 @@ namespace Quilter {
             }
 
 			var header_context = toolbar.get_style_context ();
+            header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
 
             new_button = new Gtk.Button ();

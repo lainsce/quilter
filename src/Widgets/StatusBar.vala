@@ -34,11 +34,6 @@ namespace Quilter {
             focusmode_item ();
         }
 
-        construct {
-            var context = this.get_style_context ();
-            context.add_class ("quilter-statusbar");
-        }
-
         public void wordcount_item () {
             wordcount_label = new Gtk.Label("");
             wordcount_label.set_width_chars (12);
