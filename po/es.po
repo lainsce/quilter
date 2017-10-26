@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-10-25 23:47-0200\n"
+"POT-Creation-Date: 2017-10-26 18:55-0200\n"
 "PO-Revision-Date: 2017-10-01 9:00+PST\n"
 "Last-Translator: Felipe Escoto <felescoto95@hotmail.com>\n"
 "Language: es\n"
@@ -14,39 +14,39 @@ msgstr ""
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:168
+#: src/MainWindow.vala:167
 msgid "New file"
 msgstr "Nuevo Archivo"
 
-#: src/MainWindow.vala:178
+#: src/MainWindow.vala:177
 msgid "Save as…"
 msgstr "Guardar como…"
 
-#: src/MainWindow.vala:192 src/Services/DialogUtils.vala:63
+#: src/MainWindow.vala:191 src/Services/DialogUtils.vala:63
 msgid "Save file"
 msgstr "Guardar archivo"
 
-#: src/MainWindow.vala:206
+#: src/MainWindow.vala:205
 msgid "Open…"
 msgstr "Abrir…"
 
-#: src/MainWindow.vala:219
+#: src/MainWindow.vala:218
 msgid "Settings"
 msgstr "Ajustes"
 
-#: src/MainWindow.vala:223
+#: src/MainWindow.vala:222
 msgid "Markdown Cheatsheet"
 msgstr "Claves de Markdown"
 
-#: src/MainWindow.vala:230 src/Widgets/Preferences.vala:36
+#: src/MainWindow.vala:229 src/Widgets/Preferences.vala:36
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/MainWindow.vala:257
+#: src/MainWindow.vala:256
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:258
+#: src/MainWindow.vala:257
 msgid "Preview"
 msgstr "Vista"
 

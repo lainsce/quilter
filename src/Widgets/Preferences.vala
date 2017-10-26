@@ -89,13 +89,13 @@ namespace Quilter.Widgets {
             var spacing = main_settings.spacing;
 
             switch (spacing) {
-                case "2":
+                case 2:
                     spacing_size.selected = 0;
                     break;
-                case "4":
+                case 4:
                     spacing_size.selected = 1;
                     break;
-                case "6":
+                case 6:
                     spacing_size.selected = 2;
                     break;
                 default:
@@ -106,13 +106,13 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        main_settings.spacing = "2";
+                        main_settings.spacing = 2;
                         break;
                     case 1:
-                        main_settings.spacing = "4";
+                        main_settings.spacing = 4;
                         break;
                     case 2:
-                        main_settings.spacing = "6";
+                        main_settings.spacing = 6;
                         break;
                     case 3:
                         main_settings.spacing = spacing;
@@ -129,13 +129,13 @@ namespace Quilter.Widgets {
             var margins = main_settings.margins;
 
             switch (margins) {
-                case "2":
+                case 40:
                     margins_size.selected = 0;
                     break;
-                case "4":
+                case 80:
                     margins_size.selected = 1;
                     break;
-                case "6":
+                case 120:
                     margins_size.selected = 2;
                     break;
                 default:
@@ -146,13 +146,13 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = "40";
+                        main_settings.margins = 40;
                         break;
                     case 1:
-                        main_settings.margins = "80";
+                        main_settings.margins = 80;
                         break;
                     case 2:
-                        main_settings.margins = "120";
+                        main_settings.margins = 120;
                         break;
                     case 3:
                         main_settings.margins = margins;

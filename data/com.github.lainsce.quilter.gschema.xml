@@ -67,12 +67,12 @@
 			    <default>false</default>
 			    <summary>Whether Quilter should be fullscreen or not</summary>
         </key>
-        <key name="spacing" type="s">
-			    <default>'Medium'</default>
+        <key name="spacing" type="i">
+			    <default>4</default>
 			    <summary>The spacing on the Editor View's lines</summary>
         </key>
-        <key name="margins" type="s">
-			    <default>'Medium'</default>
+        <key name="margins" type="i">
+			    <default>80</default>
 			    <summary>The margins for the Editor View</summary>
         </key>
 		</schema>

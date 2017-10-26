@@ -17,22 +17,22 @@
 
 namespace Quilter {
     public class AppSettings : Granite.Services.Settings {
-        public int window_x { get; set; }
-        public int window_y { get; set; }
-        public int window_height { get; set; }
-        public int window_width { get; set; }
         public bool dark_mode { get; set; }
         public bool focus_mode { get; set; }
         public bool fullscreen { get; set; }
-        public bool use_system_font { get; set; }
         public bool show_save_button { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool use_system_font { get; set; }
+        public int margins { get; set; }
+        public int spacing { get; set; }
+        public int window_height { get; set; }
+        public int window_width { get; set; }
+        public int window_x { get; set; }
+        public int window_y { get; set; }
         public string font { get; set; }
         public string last_file { get; set; }
         public string spellcheck_language { get; set; }
-        public string spacing { get; set; }
-        public string margins { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

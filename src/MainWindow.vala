@@ -367,7 +367,7 @@ namespace Quilter {
 
         public void show_statusbar () {
             var settings = AppSettings.get_default ();
-            statusbar.visible = settings.statusbar;
+            statusbar.reveal_child = settings.statusbar;
         }
 
         public void saved_indicator (bool val) {

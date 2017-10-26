@@ -189,15 +189,11 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var settings = AppSettings.get_default ();
-            this.set_pixels_above_lines(settings.spacing.to_int());
-            this.set_pixels_inside_wrap(settings.spacing.to_int());
-            if (settings.margins == "") {
-                this.left_margin = 80;
-                this.right_margin = 80;
-            } else {
-                this.left_margin = settings.margins.to_int();
-                this.right_margin = settings.margins.to_int();
-            }
+            this.set_pixels_above_lines(settings.spacing);
+            this.set_pixels_inside_wrap(settings.spacing);
+            this.left_margin = settings.margins;
+            this.right_margin = settings.margins;
+
             if (!settings.focus_mode) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
