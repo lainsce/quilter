@@ -22,8 +22,8 @@ namespace Quilter.Widgets {
         public bool is_modified {get; set; default = false;}
         public File file;
         public WebView webview;
+        public GtkSpell.Checker spell = null;
         private string font;
-        private GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
@@ -53,6 +53,7 @@ namespace Quilter.Widgets {
                             last_language = language_list.first ().data;
                             spell.set_language (last_language);
                         }
+                        settings.changed.connect (spellcheck_enable);
                         spell.attach (this);
                     } catch (Error e) {
                         warning (e.message);
@@ -84,6 +85,19 @@ namespace Quilter.Widgets {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
+
+            this.populate_popup.connect ((menu) => {
+                menu.selection_done.connect (() => {
+                    var selected = get_selected (menu);
+
+                    if (selected != null) {
+                        try {
+                            spell.set_language (selected.label);
+                            settings.spellcheck_language = selected.label;
+                        } catch (Error e) {}
+                    }
+                });
+            });
         }
 
         construct {
@@ -102,23 +116,6 @@ namespace Quilter.Widgets {
             lightgrayfont = buffer.create_tag(null, "foreground", "#888");
             blackfont = buffer.create_tag(null, "foreground", "#000");
             whitefont = buffer.create_tag(null, "foreground", "#FFF");
-
-            spell = new GtkSpell.Checker ();
-            spellcheck = settings.spellcheck;
-            settings.changed.connect (spellcheck_enable);
-
-            this.populate_popup.connect ((menu) => {
-                menu.selection_done.connect (() => {
-                    var selected = get_selected (menu);
-
-                    if (selected != null) {
-                        try {
-                            spell.set_language (selected.label);
-                            settings.spellcheck_language = selected.label;
-                        } catch (Error e) {}
-                    }
-                });
-            });
 
             is_modified = false;
             Timeout.add_seconds (20, () => {

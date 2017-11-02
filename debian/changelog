@@ -1,4 +1,10 @@
-com.github.lainsce.quilter (1.4.0) xenial; urgency=low
+com.github.lainsce.quilter (1.4.2) xenial; urgency=low
+
+  * Fixed many minor bugs.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 10 Nov 2017 15:40:00 -0300
+
+com.github.lainsce.quilter (1.4.1) xenial; urgency=low
 
   * Set the margins on the edit view via Preferences.
   * Set the text spacing on the edit view via Preferences.

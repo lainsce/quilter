@@ -24,6 +24,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.2" date="2017-11-10">
+           <description>
+               <p>Release: Polishing The Inkwell</p>
+               <ul>
+                   <li>Fixed as many minor bugs as possible.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.1" date="2017-11-03">
            <description>
                <p>Release: Geometric Dreams</p>

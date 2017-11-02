@@ -43,9 +43,9 @@ namespace Quilter {
         private bool timer_scheduled = false;
 
         /*
-         * 3 * 100 equals one beat, three keypresses. The normal typing speed.
+         * 200ms equals two keypresses per beat. The average typing speed.
          */
-        private const int TIME_TO_REFRESH = 3 * 100;
+        private const int TIME_TO_REFRESH = 200;
 
         public bool is_fullscreen {
             get {
@@ -56,10 +56,11 @@ namespace Quilter {
                 var settings = AppSettings.get_default ();
                 settings.fullscreen = value;
 
-                if (settings.fullscreen)
+                if (settings.fullscreen) {
                     fullscreen ();
-                else
+                } else {
                     unfullscreen ();
+                }
             }
         }
 
@@ -78,7 +79,6 @@ namespace Quilter {
 
             var settings = AppSettings.get_default ();
             settings.changed.connect (() => {
-                show_save_button ();
                 focus_mode_toolbar ();
                 show_statusbar ();
             });
@@ -149,6 +149,7 @@ namespace Quilter {
 
         construct {
             toolbar = new Gtk.HeaderBar ();
+            toolbar.title = title;
             var settings = AppSettings.get_default ();
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
 
@@ -167,8 +168,6 @@ namespace Quilter {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
-                // New button pressed.
-                // Start the creation of a clean slate.
                 new_file ();
             });
 
@@ -273,6 +272,17 @@ namespace Quilter {
             toolbar.pack_start (new_button);
             toolbar.pack_start (open_button);
             toolbar.pack_start (save_as_button);
+
+            // This makes the save button show or not, and it's necessary as-is.
+            settings.changed.connect (() => {
+                if (settings.show_save_button) {
+                    toolbar.pack_start (save_button);
+                    save_button.visible = true;
+                } else {
+                    save_button.visible = false;
+                }
+            });
+
             toolbar.pack_end (menu_button);
             toolbar.pack_end (view_mode);
 
@@ -357,12 +367,6 @@ namespace Quilter {
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             }
-        }
-
-        public void show_save_button () {
-            var settings = AppSettings.get_default ();
-            toolbar.pack_start (save_button);
-            save_button.visible = settings.show_save_button;
         }
 
         public void show_statusbar () {
