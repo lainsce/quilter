@@ -154,7 +154,7 @@ namespace Quilter {
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
 
             if (settings.last_file != null) {
-                toolbar.subtitle = settings.last_file;
+                toolbar.subtitle = settings.subtitle;
             } else if (settings.last_file == @"$cache/temp") {
                 toolbar.subtitle = "New Document";
             }
@@ -182,7 +182,7 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                toolbar.subtitle = settings.last_file;
+                toolbar.subtitle = settings.subtitle;
             });
 
             save_button = new Gtk.Button ();
@@ -196,7 +196,7 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                toolbar.subtitle = settings.last_file;
+                toolbar.subtitle = settings.subtitle;
             });
 
             open_button = new Gtk.Button ();
@@ -209,7 +209,7 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                toolbar.subtitle = settings.last_file;
+                toolbar.subtitle = settings.subtitle;
             });
 
             menu_button = new Gtk.MenuButton ();
