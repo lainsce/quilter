@@ -32,7 +32,6 @@ namespace Quilter {
             program_name = "Quilter";
             exec_name = "com.github.lainsce.quilter";
             app_launcher = "com.github.lainsce.quilter";
-            app_icon = "com.github.lainsce.quilter";
 
             supported_mimetypes = {"text/markdown"};
             register_default_handler ();
@@ -161,8 +160,8 @@ namespace Quilter {
 
                 if (files.length > 0) {
                     Services.FileManager.open_from_outside (files, "");
-                    var file = files[0];
-                    window.toolbar.subtitle = file.get_path ();
+                    var settings = AppSettings.get_default ();
+                    window.toolbar.subtitle = settings.subtitle;
                 }
             }
 
