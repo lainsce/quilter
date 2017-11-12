@@ -4,11 +4,12 @@
 
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.quilter)
 
+[![Build Status](https://travis-ci.org/lainsce/quilter.svg?branch=master)](https://travis-ci.org/lainsce/quilter)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+
 ![Screenshot](data/images/shot-preview.png)
 
 ## License
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://scripts.sil.org/OFL), also copied there in full.
 

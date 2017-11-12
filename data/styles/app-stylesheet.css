@@ -1,5 +1,5 @@
-@define-color colorPrimary #EFF0F1;
-@define-color textColorPrimary #4D4D4D;
+@define-color colorPrimary #F5F5F5;
+@define-color textColorPrimary shade (@colorPrimary, 0.5);
 
 .quilter-toolbar {
     background-color: @colorPrimary;
