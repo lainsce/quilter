@@ -159,12 +159,13 @@ namespace Quilter {
             return map;
         }
 
-        private string process (string raw_mk) {
+        private string process () {
+            string text = Widgets.SourceView.buffer.text;
             string processed_mk;
-            process_frontmatter (raw_mk, out processed_mk);
-            // These codes mean, in order: Extra Footnote + Autolink + ``` code + Extra def lists + keep style + LaTeX support
-            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
-            mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+            process_frontmatter (text, out processed_mk);
+            // These codes mean, in order: Extra Footnote + Autolink + ``` code + Extra def lists + keep style
+            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
+            mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
 
             string result;
             mkd.get_document (out result);
@@ -173,17 +174,12 @@ namespace Quilter {
         }
 
         public void update_html_view () {
-            string text = Widgets.SourceView.buffer.text;
-
-            string html = "";
-            html += "<html><head>";
-            html += "<style>";
-            html += set_stylesheet ();
-            html += "</style>";
+            string html = "<!doctype html><meta charset=utf-8><head>";
+            html += "<style>" + set_stylesheet () + "</style>";
             html += "</head><body><div class=\"markdown-body\">";
-            html += process (text);
+            html += process ();
             html += "</div></body></html>";
-            this.load_html (html, "file://");
+            this.load_html (html, "file:///");
         }
     }
 }
