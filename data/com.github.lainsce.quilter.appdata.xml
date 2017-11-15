@@ -24,6 +24,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.3" date="2017-11-17">
+           <description>
+               <p>Release: Writing With Numbers</p>
+               <ul>
+                   <li>Added the option to show line numbers.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.2" date="2017-11-10">
            <description>
                <p>Release: Polishing The Inkwell</p>

@@ -68,6 +68,10 @@
 			    <default>true</default>
 			    <summary>Show (true) or Hide (false) the statusbar</summary>
         </key>
+		<key name="show-num-lines" type="b">
+			    <default>false</default>
+			    <summary>Show (true) or Hide (false) the line numbers</summary>
+        </key>
         <key name="fullscreen" type="b">
 			    <default>false</default>
 			    <summary>Whether Quilter should be fullscreen or not</summary>

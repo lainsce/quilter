@@ -190,6 +190,7 @@ namespace Quilter.Widgets {
             this.set_pixels_inside_wrap(settings.spacing);
             this.left_margin = settings.margins;
             this.right_margin = settings.margins;
+            this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {
                 Gtk.TextIter start, end;

@@ -20,13 +20,6 @@ namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
         private Gtk.Stack main_stack;
         private Gtk.StackSwitcher main_stackswitcher;
-        private Gtk.Switch focus_mode;
-        private Gtk.Switch dark_mode;
-        private Gtk.Switch use_custom_font;
-        private Gtk.Switch spellcheck;
-        private Gtk.Switch statusbar;
-        private Gtk.Switch save_button;
-        private Gtk.FontButton select_font;
 
         public Preferences (Gtk.Window? parent) {
             Object (
@@ -72,14 +65,14 @@ namespace Quilter.Widgets {
             editor_grid.row_spacing = 6;
             editor_grid.column_spacing = 12;
 
-            var editor_header = new SettingsHeader (_("Editor"));
-            var save_button_label = new SettingsLabel (_("Show the Save Button:"));
-            save_button = new SettingsSwitch ("show-save-button");
+            var editor_header = new Granite.HeaderLabel (_("Editor"));
+            var num_lines_label = new SettingsLabel (_("Show Line Numbers:"));
+            var num_lines_button = new SettingsSwitch ("show-num-lines");
             var spellcheck_label = new Gtk.Label (_("Enable Spellchecking:"));
             spellcheck_label.set_halign (Gtk.Align.END);
-            spellcheck = new SettingsSwitch ("spellcheck");
+            var spellcheck = new SettingsSwitch ("spellcheck");
 
-            var geo_header = new SettingsHeader (_("Geometry"));
+            var geo_header = new Granite.HeaderLabel (_("Geometry"));
             var spacing_label = new SettingsLabel (_("Spacing of Text:"));
             var spacing_size = new Granite.Widgets.ModeButton ();
             spacing_size.append_text (_("Small"));
@@ -161,8 +154,8 @@ namespace Quilter.Widgets {
             });
 
             editor_grid.attach (editor_header, 0, 1, 3, 1);
-            editor_grid.attach (save_button_label, 0, 2, 1, 1);
-            editor_grid.attach (save_button, 1, 2, 1, 1);
+            editor_grid.attach (num_lines_label, 0, 2, 1, 1);
+            editor_grid.attach (num_lines_button, 1, 2, 1, 1);
             editor_grid.attach (spellcheck_label,  0, 3, 1, 1);
             editor_grid.attach (spellcheck, 1, 3, 1, 1);
 
@@ -181,61 +174,52 @@ namespace Quilter.Widgets {
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
 
-            var mode_header = new SettingsHeader (_("Mode"));
-            var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
-            focus_mode = new SettingsSwitch ("focus-mode");
-            var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
-            dark_mode = new SettingsSwitch ("dark-mode");
+            var ui_header = new Granite.HeaderLabel (_("Interface"));
+            var save_button_label = new SettingsLabel (_("Show the Save Button:"));
+            var save_button = new SettingsSwitch ("show-save-button");
 
-            var font_header = new SettingsHeader (_("Font"));
+            var mode_header = new Granite.HeaderLabel (_("Mode"));
+            var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
+            var focus_mode = new SettingsSwitch ("focus-mode");
+            var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
+            var dark_mode = new SettingsSwitch ("dark-mode");
+
+            var font_header = new Granite.HeaderLabel (_("Font"));
             var use_custom_font_label = new SettingsLabel (_("Custom font:"));
-            use_custom_font = new Gtk.Switch ();
+            var use_custom_font = new Gtk.Switch ();
             use_custom_font.halign = Gtk.Align.START;
             main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
-            select_font = new Gtk.FontButton ();
+            var select_font = new Gtk.FontButton ();
             select_font.use_font = true;
             select_font.hexpand = true;
             main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
             main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
 
-            var statusbar_header = new SettingsHeader (_("Statusbar"));
+            var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
             var statusbar_label = new Gtk.Label (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
-            statusbar = new SettingsSwitch ("statusbar");
+            var statusbar = new SettingsSwitch ("statusbar");
 
-            interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 2, 1, 1);
-            interface_grid.attach (focus_mode, 1, 2, 1, 1);
-            interface_grid.attach (dark_mode_label, 0, 3, 1, 1);
-            interface_grid.attach (dark_mode, 1, 3, 1, 1);
+            interface_grid.attach (ui_header, 0, 1, 3, 1);
+            interface_grid.attach (save_button_label, 0, 2, 1, 1);
+            interface_grid.attach (save_button, 1, 2, 1, 1);
+            
+            interface_grid.attach (mode_header, 0, 4, 3, 1);
+            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
+            interface_grid.attach (focus_mode, 1, 5, 1, 1);
+            interface_grid.attach (dark_mode_label, 0, 6, 1, 1);
+            interface_grid.attach (dark_mode, 1, 6, 1, 1);
 
-            interface_grid.attach (font_header, 0, 4, 3, 1);
-            interface_grid.attach (use_custom_font_label , 0, 5, 1, 1);
-            interface_grid.attach (use_custom_font, 1, 5, 1, 1);
-            interface_grid.attach (select_font, 2, 5, 1, 1);
+            interface_grid.attach (font_header, 0, 7, 3, 1);
+            interface_grid.attach (use_custom_font_label , 0, 8, 1, 1);
+            interface_grid.attach (use_custom_font, 1, 8, 1, 1);
+            interface_grid.attach (select_font, 2, 8, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 6, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 7, 1, 1);
-            interface_grid.attach (statusbar, 1, 7, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 9, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 10, 1, 1);
+            interface_grid.attach (statusbar, 1, 10, 1, 1);
 
             return interface_grid;
-        }
-
-        private class TitleHeader : Gtk.Label {
-            public TitleHeader (string text) {
-                label = text;
-                this.margin_bottom = 6;
-                get_style_context ().add_class ("h2");
-                halign = Gtk.Align.START;
-            }
-        }
-
-        private class SettingsHeader : Gtk.Label {
-            public SettingsHeader (string text) {
-                label = text;
-                get_style_context ().add_class ("h4");
-                halign = Gtk.Align.START;
-            }
         }
 
         private class SettingsLabel : Gtk.Label {

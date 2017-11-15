@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-02 04:02-0200\n"
+"POT-Creation-Date: 2017-11-15 17:16-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Markdown Cheatsheet"
 msgstr ""
 
-#: src/MainWindow.vala:228 src/Widgets/Preferences.vala:36
+#: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
 msgid "Preferences"
 msgstr ""
 
@@ -73,76 +73,80 @@ msgstr ""
 msgid "Focus Mode"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:54 src/Widgets/Preferences.vala:75
+#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:68
 msgid "Editor"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:55
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:177
 msgid "Interface"
 msgstr ""
 
 #. Close button
-#: src/Widgets/Preferences.vala:57 src/Widgets/Cheatsheet.vala:51
+#: src/Widgets/Preferences.vala:50 src/Widgets/Cheatsheet.vala:51
 msgid "Close"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:76
-msgid "Show the Save Button:"
+#: src/Widgets/Preferences.vala:69
+msgid "Show Line Numbers:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:78
+#: src/Widgets/Preferences.vala:71
 msgid "Enable Spellchecking:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:82
+#: src/Widgets/Preferences.vala:75
 msgid "Geometry"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:83
+#: src/Widgets/Preferences.vala:76
 msgid "Spacing of Text:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:85 src/Widgets/Preferences.vala:125
+#: src/Widgets/Preferences.vala:78 src/Widgets/Preferences.vala:118
 msgid "Small"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:86 src/Widgets/Preferences.vala:126
+#: src/Widgets/Preferences.vala:79 src/Widgets/Preferences.vala:119
 msgid "Normal"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:87 src/Widgets/Preferences.vala:127
+#: src/Widgets/Preferences.vala:80 src/Widgets/Preferences.vala:120
 msgid "Large"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:123
+#: src/Widgets/Preferences.vala:116
 msgid "Margins of Text:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:184
+#: src/Widgets/Preferences.vala:178
+msgid "Show the Save Button:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:181
 msgid "Mode"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:185
+#: src/Widgets/Preferences.vala:182
 msgid "Enable Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:187
+#: src/Widgets/Preferences.vala:184
 msgid "Enable Dark Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:190
+#: src/Widgets/Preferences.vala:187
 msgid "Font"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:191
+#: src/Widgets/Preferences.vala:188
 msgid "Custom font:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:201
+#: src/Widgets/Preferences.vala:198
 msgid "Statusbar"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:202
+#: src/Widgets/Preferences.vala:199
 msgid "Show Statusbar:"
 msgstr ""
 
