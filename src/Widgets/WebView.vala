@@ -60,6 +60,15 @@ namespace Quilter {
             }
         }
 
+        private string set_highlight_stylesheet () {
+            var settings = AppSettings.get_default ();
+            if (settings.dark_mode) {
+                return "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-dark.min.css";
+            } else {
+                return "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css";
+            }
+        }
+
         private void connect_signals () {
             create.connect ((navigation_action) => {
                 launch_browser (navigation_action.get_request().get_uri ());
@@ -176,6 +185,9 @@ namespace Quilter {
         public void update_html_view () {
             string html = "<!doctype html><meta charset=utf-8><head>";
             html += "<style>" + set_stylesheet () + "</style>";
+            html += "<link rel=\"stylesheet\" href=\"" + set_highlight_stylesheet() + "\"/>";
+            html += "<script src=\"http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js\"></script>";
+            html += "<script>hljs.initHighlightingOnLoad();</script>";
             html += "</head><body><div class=\"markdown-body\">";
             html += process ();
             html += "</div></body></html>";
