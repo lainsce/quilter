@@ -43,3 +43,8 @@ install_data(
     join_paths('font', 'PTM55FT.ttf'),
     install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'pt-mono')
 )
+
+install_subdir(
+    'highlight.js',
+    install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
+)
