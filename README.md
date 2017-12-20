@@ -28,7 +28,9 @@ or
 Please make sure you have these dependencies first before building.
 
 ```bash
-granite
+valac
+libgranite-dev
+libgtkspell3-3-dev
 gtk+-3.0
 gtksourceview-3.0
 libwebkit2gtk-4.0-dev
@@ -42,6 +44,6 @@ Simply clone this repo, then:
 
 ```
 $ meson build && cd build
-$ mesonconf -Dprefix=/usr
+$ meson configure -Dprefix=/usr
 $ sudo ninja install
 ```

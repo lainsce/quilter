@@ -132,10 +132,11 @@ public class Quilter.Styles.quilter {
 
     pre {
       font-family: 'PT Mono', monospace;
-      background-color: #F0F0F0;
-      color: #4d4d4d;
-      padding: 1rem;
       text-align: left;
+    }
+
+    code {
+      padding: 1rem !important;
     }
 
     blockquote {

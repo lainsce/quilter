@@ -60,6 +60,15 @@ namespace Quilter {
             }
         }
 
+        private string set_highlight_stylesheet () {
+            var settings = AppSettings.get_default ();
+            if (settings.dark_mode) {
+                return Build.PKGDATADIR + "/highlight.js/styles/atom-one-dark.min.css";
+            } else {
+                return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
+            }
+        }
+
         private void connect_signals () {
             create.connect ((navigation_action) => {
                 launch_browser (navigation_action.get_request().get_uri ());
@@ -176,6 +185,12 @@ namespace Quilter {
         public void update_html_view () {
             string html = "<!doctype html><meta charset=utf-8><head>";
             html += "<style>" + set_stylesheet () + "</style>";
+
+            // Add highlight.js style and lib to page for code block syntax highlighting.
+            html += "<link rel=\"stylesheet\" href=\"" + set_highlight_stylesheet() + "\"/>";
+            html += "<script src=\"" + Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js\"></script>";
+            html += "<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>";
+
             html += "</head><body><div class=\"markdown-body\">";
             html += process ();
             html += "</div></body></html>";
