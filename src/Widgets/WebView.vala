@@ -63,7 +63,7 @@ namespace Quilter {
         private string set_highlight_stylesheet () {
             var settings = AppSettings.get_default ();
             if (settings.dark_mode) {
-                return Build.PKGDATADIR + "/highlight.js/styles/atom-one-dark.min.css";
+                return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
             } else {
                 return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
             }
@@ -172,9 +172,8 @@ namespace Quilter {
             string text = Widgets.SourceView.buffer.text;
             string processed_mk;
             process_frontmatter (text, out processed_mk);
-            // These codes mean, in order: Extra Footnote + Autolink + ``` code + Extra def lists + keep style
-            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
-            mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000);
+            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
 
             string result;
             mkd.get_document (out result);
@@ -184,13 +183,10 @@ namespace Quilter {
 
         public void update_html_view () {
             string html = "<!doctype html><meta charset=utf-8><head>";
-            html += "<style>" + set_stylesheet () + "</style>";
-
-            // Add highlight.js style and lib to page for code block syntax highlighting.
             html += "<link rel=\"stylesheet\" href=\"" + set_highlight_stylesheet() + "\"/>";
             html += "<script src=\"" + Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js\"></script>";
-            html += "<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>";
-
+            html += "<script>hljs.initHighlightingOnLoad();</script>";
+            html += "<style>" + set_stylesheet () + "</style>";
             html += "</head><body><div class=\"markdown-body\">";
             html += process ();
             html += "</div></body></html>";

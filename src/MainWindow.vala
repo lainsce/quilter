@@ -43,9 +43,9 @@ namespace Quilter {
         private bool timer_scheduled = false;
 
         /*
-         * 200ms equals two keypresses per beat. The average typing speed.
+         * 100ms equals one keypress per beat. Speedy.
          */
-        private const int TIME_TO_REFRESH = 200;
+        private const int TIME_TO_REFRESH = 100;
 
         public bool is_fullscreen {
             get {
