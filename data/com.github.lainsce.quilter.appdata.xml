@@ -24,6 +24,15 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.4" date="2018-01-05">
+           <description>
+               <p>Release: Highlight Your Path</p>
+               <ul>
+                   <li>In Preview Mode, your code block now have syntax higlighting</li>
+                   <li>Saving Files and Opening Files are now safer, with the subtitle always updating accordingly</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.3" date="2017-11-17">
            <description>
                <p>Release: Writing With Numbers</p>

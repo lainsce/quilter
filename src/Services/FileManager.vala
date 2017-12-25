@@ -141,6 +141,7 @@ namespace Quilter.Services.FileManager {
         debug ("Save button pressed.");
         var settings = AppSettings.get_default ();
         var file = File.new_for_path (settings.last_file);
+        settings.subtitle = file.get_basename ();
 
         if (file.query_exists ()) {
             try {
@@ -170,6 +171,7 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_save_dialog ();
         settings.last_file = file.get_path ();
+        settings.subtitle = file.get_basename ();
 
         try {
             debug ("Saving file...");

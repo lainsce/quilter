@@ -23,7 +23,7 @@ namespace Quilter.Widgets {
 
         public Preferences (Gtk.Window? parent) {
             Object (
-                border_width: 0,
+                border_width: 6,
                 deletable: false,
                 resizable: false,
                 title: _("Preferences"),
@@ -56,7 +56,6 @@ namespace Quilter.Widgets {
             main_grid.attach (this.main_stack, 0, 1, 1, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
-            get_action_area ().margin = 6;
         }
 
         private Gtk.Widget get_editor_grid () {
@@ -203,7 +202,7 @@ namespace Quilter.Widgets {
             interface_grid.attach (ui_header, 0, 1, 3, 1);
             interface_grid.attach (save_button_label, 0, 2, 1, 1);
             interface_grid.attach (save_button, 1, 2, 1, 1);
-            
+
             interface_grid.attach (mode_header, 0, 4, 3, 1);
             interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
             interface_grid.attach (focus_mode, 1, 5, 1, 1);

@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.4.4) xenial; urgency=low
+
+  * In Preview Mode, your code block now have syntax highlighting.
+  * Saving Files and Opening Files are now safer, with the subtitle always updating accordingly.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 05 Jan 2018 19:40:00 -0300
+
 com.github.lainsce.quilter (1.4.3) xenial; urgency=low
 
   * Added the option to show line numbers.

@@ -159,7 +159,7 @@ namespace Quilter {
                 toolbar.subtitle = "New Document";
             }
 
-			var header_context = toolbar.get_style_context ();
+			      var header_context = toolbar.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
 

@@ -23,6 +23,7 @@ namespace Quilter.Widgets {
 
         public Cheatsheet (Gtk.Window? parent) {
             Object (
+                border_width: 6,
                 deletable: false,
                 resizable: false,
                 title: _("Cheatsheet"),
@@ -58,7 +59,6 @@ namespace Quilter.Widgets {
             main_grid.attach (this.main_stack, 0, 1, 1, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
-            get_action_area ().margin = 6;
 
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
@@ -76,14 +76,14 @@ namespace Quilter.Widgets {
             textstyle_grid.row_spacing = 6;
             textstyle_grid.column_spacing = 12;
 
-            var header_header = new Header (_("Header"));
+            var header_header = new Granite.HeaderLabel (_("Header"));
             var header_one_label = new Label (_("# Header 1"));
             var header_two_label = new Label (_("## Header 2"));
             var header_three_label = new Label (_("### Header 3"));
             var header_four_label = new Label (_("#### Header 4"));
             var header_five_label = new Label (_("##### Header 5"));
             var header_six_label = new Label (_("###### Header 6"));
-            var font_header = new Header (_("Special Text"));
+            var font_header = new Granite.HeaderLabel (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
             var emph_font_label = new Label (_("* Emphasized text *"));
             var code_font_label = new Label (_("` Code text `"));
@@ -112,10 +112,10 @@ namespace Quilter.Widgets {
             links_grid.row_spacing = 6;
             links_grid.column_spacing = 12;
 
-            var link_header = new Header (_("Links"));
+            var link_header = new Granite.HeaderLabel (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.here.com)"));
             var image_label = new Label (_("![Image Label](http://image.url.here.com)"));
-            var special_header = new Header (_("Special"));
+            var special_header = new Granite.HeaderLabel (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
             var hr_label = new Label (_("--- ← This creates an horizontal rule"));
 
@@ -134,7 +134,7 @@ namespace Quilter.Widgets {
             tables_grid.row_spacing = 6;
             tables_grid.column_spacing = 12;
 
-            var table_header = new Header (_("Tables"));
+            var table_header = new Granite.HeaderLabel (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
             var table_explain_label = new Text (_("To make a column's content go to the left, change --- to :--- ."));
             var table_explain_label2 = new Text (_("To make a column's content centered, change --- to :---: ."));
@@ -147,23 +147,6 @@ namespace Quilter.Widgets {
             tables_grid.attach (table_explain_label3, 0, 4, 5, 1);
 
             return tables_grid;
-        }
-
-        private class TitleHeader : Gtk.Label {
-            public TitleHeader (string text) {
-                label = text;
-                this.margin_bottom = 6;
-                get_style_context ().add_class ("h3");
-                halign = Gtk.Align.START;
-            }
-        }
-
-        private class Header : Gtk.Label {
-            public Header (string text) {
-                label = text;
-                get_style_context ().add_class ("h4");
-                halign = Gtk.Align.START;
-            }
         }
 
         private class Label : Gtk.Label {
