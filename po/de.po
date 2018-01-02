@@ -1,0 +1,279 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-15 17:16-0200\n"
+"PO-Revision-Date: 2018-01-01 21:25+0100\n"
+"Last-Translator: Joerg Arnold <j.ar@mailbox.org>\n"
+"Language-Team: \n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/MainWindow.vala:70
+msgid "Quilter"
+msgstr "Quilter"
+
+#: src/MainWindow.vala:168
+msgid "New file"
+msgstr "Neue Datei"
+
+#: src/MainWindow.vala:176
+msgid "Save as…"
+msgstr "Speichern unter..."
+
+#: src/MainWindow.vala:190 src/Services/DialogUtils.vala:63
+msgid "Save file"
+msgstr "Speichern"
+
+#: src/MainWindow.vala:204
+msgid "Open…"
+msgstr "Öffnen..."
+
+#: src/MainWindow.vala:217
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: src/MainWindow.vala:221
+msgid "Markdown Cheatsheet"
+msgstr "Markdown Spickzettel"
+
+#: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: src/MainWindow.vala:255
+msgid "Edit"
+msgstr "Bearbeiten"
+
+#: src/MainWindow.vala:256
+msgid "Preview"
+msgstr "Vorschau"
+
+#: src/Widgets/StatusBar.vala:51
+msgid "Words: "
+msgstr "Wörter: "
+
+#: src/Widgets/StatusBar.vala:64
+msgid "Reading Time: "
+msgstr "Lesezeit: "
+
+#: src/Widgets/StatusBar.vala:68
+msgid "Dark Mode"
+msgstr "Dunkler Modus"
+
+#: src/Widgets/StatusBar.vala:92
+msgid "Focus Mode"
+msgstr "Fokus Modus"
+
+#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:68
+msgid "Editor"
+msgstr "Editor"
+
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:177
+msgid "Interface"
+msgstr "Oberfläche"
+
+#. Close button
+#: src/Widgets/Preferences.vala:50 src/Widgets/Cheatsheet.vala:51
+msgid "Close"
+msgstr "Schließen"
+
+#: src/Widgets/Preferences.vala:69
+msgid "Show Line Numbers:"
+msgstr "Zeige Zeilennummern:"
+
+#: src/Widgets/Preferences.vala:71
+msgid "Enable Spellchecking:"
+msgstr "Aktiviere Rechtschreibprüfung:"
+
+#: src/Widgets/Preferences.vala:75
+msgid "Geometry"
+msgstr "Geometrie"
+
+#: src/Widgets/Preferences.vala:76
+msgid "Spacing of Text:"
+msgstr "Textabstand:"
+
+#: src/Widgets/Preferences.vala:78 src/Widgets/Preferences.vala:118
+msgid "Small"
+msgstr "Klein"
+
+#: src/Widgets/Preferences.vala:79 src/Widgets/Preferences.vala:119
+msgid "Normal"
+msgstr "Normal"
+
+#: src/Widgets/Preferences.vala:80 src/Widgets/Preferences.vala:120
+msgid "Large"
+msgstr "Groß"
+
+#: src/Widgets/Preferences.vala:116
+msgid "Margins of Text:"
+msgstr "Seitenränder:"
+
+#: src/Widgets/Preferences.vala:178
+msgid "Show the Save Button:"
+msgstr "Zeige die Speichern-Schaltfläche:"
+
+#: src/Widgets/Preferences.vala:181
+msgid "Mode"
+msgstr "Modus"
+
+#: src/Widgets/Preferences.vala:182
+msgid "Enable Focus Mode:"
+msgstr "Aktiviere fokussierten Modus:"
+
+#: src/Widgets/Preferences.vala:184
+msgid "Enable Dark Mode:"
+msgstr "Aktiviere dunklen Modus:"
+
+#: src/Widgets/Preferences.vala:187
+msgid "Font"
+msgstr "Schriftart"
+
+#: src/Widgets/Preferences.vala:188
+msgid "Custom font:"
+msgstr "Benutzerdefinierte Schriftart:"
+
+#: src/Widgets/Preferences.vala:198
+msgid "Statusbar"
+msgstr "Statusleiste"
+
+#: src/Widgets/Preferences.vala:199
+msgid "Show Statusbar:"
+msgstr "Zeige Statusleiste:"
+
+#: src/Widgets/Cheatsheet.vala:28
+msgid "Cheatsheet"
+msgstr "Spickzettel"
+
+#: src/Widgets/Cheatsheet.vala:46
+msgid "Text"
+msgstr "Text"
+
+#: src/Widgets/Cheatsheet.vala:47
+msgid "Links & Special"
+msgstr "Hyperlinks & Spezielles"
+
+#: src/Widgets/Cheatsheet.vala:48 src/Widgets/Cheatsheet.vala:137
+msgid "Tables"
+msgstr "Tabellen"
+
+#: src/Widgets/Cheatsheet.vala:79
+msgid "Header"
+msgstr "Überschrift"
+
+#: src/Widgets/Cheatsheet.vala:80
+msgid "# Header 1"
+msgstr "# Überschrift 1"
+
+#: src/Widgets/Cheatsheet.vala:81
+msgid "## Header 2"
+msgstr "## Überschrift 2"
+
+#: src/Widgets/Cheatsheet.vala:82
+msgid "### Header 3"
+msgstr "### Überschrift 3"
+
+#: src/Widgets/Cheatsheet.vala:83
+msgid "#### Header 4"
+msgstr "#### Überschrift 4"
+
+#: src/Widgets/Cheatsheet.vala:84
+msgid "##### Header 5"
+msgstr "##### Überschrift 5"
+
+#: src/Widgets/Cheatsheet.vala:85
+msgid "###### Header 6"
+msgstr "###### Überschrift 6"
+
+#: src/Widgets/Cheatsheet.vala:86
+msgid "Special Text"
+msgstr "Spezieller Text"
+
+#: src/Widgets/Cheatsheet.vala:87
+msgid "** Bold text **"
+msgstr "** fetter Text **"
+
+#: src/Widgets/Cheatsheet.vala:88
+msgid "* Emphasized text *"
+msgstr "* kursiver Text *"
+
+#: src/Widgets/Cheatsheet.vala:89
+msgid "` Code text `"
+msgstr "` Inline-Quelltext `"
+
+#: src/Widgets/Cheatsheet.vala:90
+msgid "> Quoting text"
+msgstr "> Zitierter Text"
+
+#: src/Widgets/Cheatsheet.vala:91
+msgid "~~Strikethrough text~~"
+msgstr "~~durchgestrichener Text~~"
+
+#: src/Widgets/Cheatsheet.vala:115
+msgid "Links"
+msgstr "Hyperlinks"
+
+#: src/Widgets/Cheatsheet.vala:116
+msgid "[Link Label](http://link.url.here.com)"
+msgstr "[Hyperlink Name](http://Hyperlink.url.hier.de)"
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "![Image Label](http://image.url.here.com)"
+msgstr "![Bild Name](http://Bild.url.hier.de)"
+
+#: src/Widgets/Cheatsheet.vala:118
+msgid "Special"
+msgstr "Spezielles"
+
+#: src/Widgets/Cheatsheet.vala:119
+msgid "```This is a code block```"
+msgstr "```Dies ist ein Codeblock```"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "--- ← This creates an horizontal rule"
+msgstr "--- Dies erzeugt eine Horizontale Linie"
+
+#: src/Widgets/Cheatsheet.vala:139
+msgid "To make a column's content go to the left, change --- to :--- ."
+msgstr "Um den Inhalt einer Spalte linksbündig auszurichten, ändere --- zu :--- ."
+
+#: src/Widgets/Cheatsheet.vala:140
+msgid "To make a column's content centered, change --- to :---: ."
+msgstr "Um den Inhalt einer Spalte zu zentrieren, ändere --- zu :---: ."
+
+#: src/Widgets/Cheatsheet.vala:141
+msgid "To make a column's content go to the right, change --- to ---: ."
+msgstr "Um den Inhalt einer Spalte rechtsbündig auszurichten, ändere --- zu ---: ."
+
+#: src/Services/DialogUtils.vala:38
+msgid "Markdown files"
+msgstr "Markdown Dateien"
+
+#: src/Services/DialogUtils.vala:43
+msgid "All files"
+msgstr "Alle Dateien"
+
+#: src/Services/DialogUtils.vala:51
+msgid "Open file"
+msgstr "Öffne Datei"
+
+#: src/Services/DialogUtils.vala:77
+msgid "There are unsaved changes to the file. Do you want to save?"
+msgstr "Es gibt ungesicherte Änderungen in der Datei. Wollen Sie wirklich speichern?"
+
+#: src/Services/DialogUtils.vala:78
+msgid "If you don't save, changes will be lost forever."
+msgstr "Wenn Sie nicht speichern, gehen alle Änderungen für immer verloren."
+
+#: src/Services/DialogUtils.vala:83
+msgid "Close without saving"
+msgstr "Schließen ohne Speichern"
