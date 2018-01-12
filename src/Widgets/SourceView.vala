@@ -268,11 +268,11 @@ namespace Quilter.Widgets {
             if (cursor != null) {
                 var start_sentence = cursor_iter;
                 if (cursor_iter != start)
-                    start_sentence.backward_lines (1);
+                    start_sentence.backward_sentence_start ();
 
                 var end_sentence = cursor_iter;
                 if (cursor_iter != end)
-                    end_sentence.forward_lines (2);
+                    end_sentence.forward_sentence_end ();
 
                 if (!settings.dark_mode) {
                     buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
