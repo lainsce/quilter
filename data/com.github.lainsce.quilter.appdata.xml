@@ -24,6 +24,15 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.5" date="2018-01-13">
+           <description>
+               <p>Release: Focus Mode with a Glasses Push-up</p>
+               <ul>
+                   <li>In the Preferences, select if you want Focus Mode to highlight the sentence or the paragraph. (Contributed by Michał "wyhasany" Rowicki)</li>
+                   <li>Add Polish translation</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.4" date="2018-01-05">
            <description>
                <p>Release: Highlight Your Path</p>

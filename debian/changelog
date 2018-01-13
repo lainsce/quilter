@@ -1,5 +1,12 @@
 com.github.lainsce.quilter (1.4.4) xenial; urgency=low
 
+  * In the Preferences, select if you want Focus Mode to highlight the sentence or the paragraph. (Contributed by Michał "wyhasany" Rowicki)
+  * Add Polish translation
+
+ -- Lains <lainsce@airmail.cc>  Sat, 13 Jan 2018 19:40:00 -0300
+
+com.github.lainsce.quilter (1.4.4) xenial; urgency=low
+
   * In Preview Mode, your code block now have syntax highlighting.
   * Saving Files and Opening Files are now safer, with the subtitle always updating accordingly.
 
