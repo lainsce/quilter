@@ -182,6 +182,38 @@ namespace Quilter.Widgets {
             var focus_mode = new SettingsSwitch ("focus-mode");
             var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
             var dark_mode = new SettingsSwitch ("dark-mode");
+            var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
+            var focus_mode_type_size = new Granite.Widgets.ModeButton ();
+            focus_mode_type_size.append_text (_("Paragraph"));
+            focus_mode_type_size.append_text (_("Sentence"));
+
+            var focus_mode_type = main_settings.focus_mode_type;
+
+            switch (focus_mode_type) {
+                case FocusMode.PARAGRAPH:
+                    focus_mode_type_size.selected = 0;
+                    break;
+                case FocusMode.SENTENCE:
+                    focus_mode_type_size.selected = 1;
+                    break;
+                default:
+                    focus_mode_type_size.selected = 0;
+                    break;
+            }
+
+            focus_mode_type_size.mode_changed.connect (() => {
+                switch (focus_mode_type_size.selected) {
+                    case 0:
+                        main_settings.focus_mode_type = FocusMode.PARAGRAPH;
+                        break;
+                    case 1:
+                        main_settings.focus_mode_type = FocusMode.SENTENCE;
+                        break;
+                    case 2:
+                        main_settings.focus_mode_type = focus_mode_type;
+                        break;
+                }
+            });
 
             var font_header = new Granite.HeaderLabel (_("Font"));
             var use_custom_font_label = new SettingsLabel (_("Custom font:"));
@@ -208,15 +240,17 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode, 1, 5, 1, 1);
             interface_grid.attach (dark_mode_label, 0, 6, 1, 1);
             interface_grid.attach (dark_mode, 1, 6, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 7, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 7, 1, 1);
 
-            interface_grid.attach (font_header, 0, 7, 3, 1);
-            interface_grid.attach (use_custom_font_label , 0, 8, 1, 1);
-            interface_grid.attach (use_custom_font, 1, 8, 1, 1);
-            interface_grid.attach (select_font, 2, 8, 1, 1);
+            interface_grid.attach (font_header, 0, 8, 3, 1);
+            interface_grid.attach (use_custom_font_label , 0, 9, 1, 1);
+            interface_grid.attach (use_custom_font, 1, 9, 1, 1);
+            interface_grid.attach (select_font, 2, 9, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 9, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 10, 1, 1);
-            interface_grid.attach (statusbar, 1, 10, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 10, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 11, 1, 1);
+            interface_grid.attach (statusbar, 1, 11, 1, 1);
 
             return interface_grid;
         }

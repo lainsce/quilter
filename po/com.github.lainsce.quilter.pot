@@ -73,7 +73,7 @@ msgstr ""
 msgid "Focus Mode"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:68
+#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:67
 msgid "Editor"
 msgstr ""
 
@@ -277,3 +277,16 @@ msgstr ""
 #: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
 msgstr ""
+
+#: src/Widgets/Preferences.vala:185
+msgid "Type of Focus Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:187
+msgid "Sentence"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:188
+msgid "Paragraph"
+msgstr ""
+

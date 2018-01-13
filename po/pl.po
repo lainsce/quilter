@@ -277,3 +277,15 @@ msgstr "Jeśli nie zapiszesz, zmiany zostaną utracone na zawsze."
 #: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
 msgstr "Zamknij bez zapisywania"
+
+#: src/Widgets/Preferences.vala:185
+msgid "Type of Focus Mode:"
+msgstr "Typ Fokusa"
+
+#: src/Widgets/Preferences.vala:187
+msgid "Sentence"
+msgstr "Zdanie"
+
+#: src/Widgets/Preferences.vala:188
+msgid "Paragraph"
+msgstr "Paragraf"

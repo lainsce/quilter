@@ -267,13 +267,36 @@ namespace Quilter.Widgets {
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
-                if (cursor_iter != start)
-                    start_sentence.backward_lines (1);
+                var focus_type = settings.focus_mode_type;
+                if (cursor_iter != start) {
+                    switch (focus_type) {
+                        case FocusMode.PARAGRAPH:
+                            start_sentence.backward_lines (1);
+                            break;
+                        case FocusMode.SENTENCE:
+                            start_sentence.backward_sentence_start ();
+                            break;
+                        default:
+                            start_sentence.backward_lines (1);
+                            break;
+                    }
+                }
 
                 var end_sentence = cursor_iter;
-                if (cursor_iter != end)
-                    end_sentence.forward_lines (2);
+                if (cursor_iter != end) {
+                    switch (focus_type) {
+                        case FocusMode.PARAGRAPH:
+                            end_sentence.forward_lines (2);
+                            break;
+                        case FocusMode.SENTENCE:
+                            end_sentence.forward_sentence_end ();
+                            break;
+                        default:
+                            end_sentence.forward_lines (2);
+                            break;
+                    }
 
+                }
                 if (!settings.dark_mode) {
                     buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.apply_tag(blackfont, start_sentence, end_sentence);

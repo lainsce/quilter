@@ -274,3 +274,15 @@ msgstr "Si no lo guardas, tus cambios se perderán"
 #: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
 msgstr "Cerrar sin guardar"
+
+#: src/Widgets/Preferences.vala:185
+msgid "Type of Focus Mode:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:187
+msgid "Sentence"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:188
+msgid "Paragraph"
+msgstr ""

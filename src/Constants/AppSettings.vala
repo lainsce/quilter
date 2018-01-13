@@ -35,6 +35,7 @@ namespace Quilter {
         public string last_file { get; set; }
         public string subtitle { get; set; }
         public string spellcheck_language { get; set; }
+        public FocusMode focus_mode_type { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {
