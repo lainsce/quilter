@@ -4,7 +4,6 @@ import os
 import subprocess
 
 schemadir = os.path.join(os.environ['MESON_INSTALL_PREFIX'], 'share', 'glib-2.0', 'schemas')
-icondir = os.path.join(os.environ['MESON_INSTALL_PREFIX'], 'share', 'icons', 'hicolor')
 
 if not os.environ.get('DESTDIR'):
     print('Compiling gsettings schemas...')
@@ -12,9 +11,6 @@ if not os.environ.get('DESTDIR'):
 
     print('Recaching mimetype handlers...')
     subprocess.call(['update-desktop-database'], shell=False)
-
-    print('Rebuilding desktop icons cache...')
-    subprocess.call(['update-icon-caches', icondir], shell=False)
 
     print('Rebuilding font cache...')
     subprocess.call(['fc-cache -f'], shell=True)
