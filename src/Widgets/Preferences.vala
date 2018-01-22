@@ -65,8 +65,6 @@ namespace Quilter.Widgets {
             editor_grid.column_spacing = 12;
 
             var editor_header = new Granite.HeaderLabel (_("Editor"));
-            var num_lines_label = new SettingsLabel (_("Show Line Numbers:"));
-            var num_lines_button = new SettingsSwitch ("show-num-lines");
             var spellcheck_label = new Gtk.Label (_("Enable Spellchecking:"));
             spellcheck_label.set_halign (Gtk.Align.END);
             var spellcheck = new SettingsSwitch ("spellcheck");
@@ -152,11 +150,15 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var save_button_label = new SettingsLabel (_("Save files when changed:"));
+            var save_button = new SettingsSwitch ("autosave");
+
             editor_grid.attach (editor_header, 0, 1, 3, 1);
-            editor_grid.attach (num_lines_label, 0, 2, 1, 1);
-            editor_grid.attach (num_lines_button, 1, 2, 1, 1);
-            editor_grid.attach (spellcheck_label,  0, 3, 1, 1);
-            editor_grid.attach (spellcheck, 1, 3, 1, 1);
+            editor_grid.attach (spellcheck_label,  0, 2, 1, 1);
+            editor_grid.attach (spellcheck, 1, 2, 1, 1);
+            editor_grid.attach (save_button_label,  0, 3, 1, 1);
+            editor_grid.attach (save_button, 1, 3, 1, 1);
+
 
             editor_grid.attach (geo_header, 0, 4, 3, 1);
             editor_grid.attach (spacing_label, 0, 5, 1, 1);
@@ -173,15 +175,12 @@ namespace Quilter.Widgets {
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
 
-            var ui_header = new Granite.HeaderLabel (_("Interface"));
-            var save_button_label = new SettingsLabel (_("Show the Save Button:"));
-            var save_button = new SettingsSwitch ("show-save-button");
-
             var mode_header = new Granite.HeaderLabel (_("Mode"));
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
             var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
             var dark_mode = new SettingsSwitch ("dark-mode");
+
             var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
             var focus_mode_type_size = new Granite.Widgets.ModeButton ();
             focus_mode_type_size.append_text (_("Paragraph"));
@@ -226,31 +225,30 @@ namespace Quilter.Widgets {
             main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
             main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
 
+            var custom_font_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            custom_font_box.pack_start (use_custom_font, false, true, 0);
+            custom_font_box.pack_start (select_font, false, true, 0);
+
             var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
             var statusbar_label = new Gtk.Label (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
             var statusbar = new SettingsSwitch ("statusbar");
 
-            interface_grid.attach (ui_header, 0, 1, 3, 1);
-            interface_grid.attach (save_button_label, 0, 2, 1, 1);
-            interface_grid.attach (save_button, 1, 2, 1, 1);
+            interface_grid.attach (mode_header, 0, 1, 3, 1);
+            interface_grid.attach (focus_mode_label, 0, 2, 1, 1);
+            interface_grid.attach (focus_mode, 1, 2, 1, 1);
+            interface_grid.attach (dark_mode_label, 0, 3, 1, 1);
+            interface_grid.attach (dark_mode, 1, 3, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 4, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 4, 1, 1);
 
-            interface_grid.attach (mode_header, 0, 4, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
-            interface_grid.attach (focus_mode, 1, 5, 1, 1);
-            interface_grid.attach (dark_mode_label, 0, 6, 1, 1);
-            interface_grid.attach (dark_mode, 1, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 7, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 7, 1, 1);
+            interface_grid.attach (font_header, 0, 5, 3, 1);
+            interface_grid.attach (use_custom_font_label, 0, 6, 1, 1);
+            interface_grid.attach (custom_font_box, 1, 6, 1, 1);
 
-            interface_grid.attach (font_header, 0, 8, 3, 1);
-            interface_grid.attach (use_custom_font_label , 0, 9, 1, 1);
-            interface_grid.attach (use_custom_font, 1, 9, 1, 1);
-            interface_grid.attach (select_font, 2, 9, 1, 1);
-
-            interface_grid.attach (statusbar_header,  0, 10, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 11, 1, 1);
-            interface_grid.attach (statusbar, 1, 11, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
+            interface_grid.attach (statusbar, 1, 8, 1, 1);
 
             return interface_grid;
         }

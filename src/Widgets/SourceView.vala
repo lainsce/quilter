@@ -118,10 +118,13 @@ namespace Quilter.Widgets {
             whitefont = buffer.create_tag(null, "foreground", "#FFF");
 
             is_modified = false;
-            Timeout.add_seconds (20, () => {
-                on_text_modified ();
-                return true;
-            });
+
+            if (settings.autosave = true) {
+                Timeout.add_seconds (20, () => {
+                    on_text_modified ();
+                    return true;
+                });
+            }
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);

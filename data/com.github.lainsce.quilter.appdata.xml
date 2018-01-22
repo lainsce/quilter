@@ -24,6 +24,17 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.6" date="2018-01-26">
+           <description>
+               <p>Release: New Menu &amp; Fries</p>
+               <ul>
+                   <li>The main menu now houses the Dark/Focus Mode buttons previously shown on the statusbar.</li>
+                   <li>The statusbar now shows number of lines, deprecating the toggle in the preferences to show line numbers.</li>
+                   <li>Preferences Dialog had a reorganization of items.</li>
+                   <li>Disabling autosaving in preferences will make you save files manually now with the Save button.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.5" date="2018-01-13">
            <description>
                <p>Release: Focus Mode with a Glasses Push-up</p>
@@ -131,10 +142,6 @@
         <screenshot>
             <caption>Focus Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
-        </screenshot>
-        <screenshot>
-            <caption>Preview Mode</caption>
-            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
         </screenshot>
     </screenshots>
     <custom>

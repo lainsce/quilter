@@ -35,11 +35,11 @@
 				<summary>Use system font</summary>
 				<description>Whether Quilter should use the default system font</description>
 			</key>
-		<key name="show-save-button" type="b">
-				<default>false</default>
-				<summary>Show save button</summary>
-				<description>Whether Quilter should show a save button on the Toolbar</description>
-			</key>
+        <key name="autosave" type="b">
+            <default>true</default>
+            <summary>Autosave edited files</summary>
+            <description>Autosave edited files.</description>
+        </key>
 		<key name="font" type="s">
 				<default>'PT Mono 11'</default>
 				<summary>Preferred Font</summary>

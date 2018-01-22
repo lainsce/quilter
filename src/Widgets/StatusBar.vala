@@ -21,6 +21,7 @@ using Granite;
 namespace Quilter {
     public class Widgets.StatusBar : Gtk.Revealer {
         public Gtk.Label wordcount_label;
+        public Gtk.Label linecount_label;
         public Gtk.Label readtimecount_label;
         public MainWindow window;
         public Gtk.ActionBar actionbar;
@@ -31,9 +32,8 @@ namespace Quilter {
         public StatusBar () {
             actionbar = new Gtk.ActionBar ();
             wordcount_item ();
+            linecount_item ();
             readtimecount_item ();
-            darkmode_item ();
-            focusmode_item ();
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
@@ -41,7 +41,7 @@ namespace Quilter {
 
         public void wordcount_item () {
             wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (12);
+            wordcount_label.set_width_chars (10);
             update_wordcount ();
             actionbar.pack_start (wordcount_label);
         }
@@ -49,6 +49,18 @@ namespace Quilter {
         public void update_wordcount () {
             var wc = get_count();
 		    wordcount_label.set_text((_("Words: ")) + wc.words.to_string());
+        }
+
+        public void linecount_item () {
+            linecount_label = new Gtk.Label("");
+            linecount_label.set_width_chars (10);
+            update_linecount ();
+            actionbar.pack_start (linecount_label);
+        }
+
+        public void update_linecount () {
+            var lc = get_count();
+		    linecount_label.set_text((_("Lines: ")) + lc.lines.to_string());
         }
 
         public void readtimecount_item () {
@@ -59,78 +71,36 @@ namespace Quilter {
         }
 
         public void update_readtimecount () {
-            var wc = get_count();
-            int rtc = (wc.words / WPM);
-		    readtimecount_label.set_text((_("Reading Time: ")) + rtc.to_string() + "m");
-        }
-
-        public void darkmode_item () {
-            var darkmode_button = new Gtk.ToggleButton.with_label ((_("Dark Mode")));
-            darkmode_button.set_image (new Gtk.Image.from_icon_name ("weather-clear-night-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            darkmode_button.set_always_show_image (true);
-
-            var settings = AppSettings.get_default ();
-            if (settings.dark_mode == false) {
-                darkmode_button.set_active (false);
-            } else {
-                darkmode_button.set_active (settings.dark_mode);
-            }
-
-            darkmode_button.toggled.connect (() => {
-    			if (darkmode_button.active) {
-    				settings.dark_mode = true;
-    			} else {
-    				settings.dark_mode = false;
-    			}
-
-    		});
-
-            actionbar.pack_end (darkmode_button);
-        }
-
-        public void focusmode_item () {
-            var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
-            focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            focusmode_button.set_always_show_image (true);
-
-            var settings = AppSettings.get_default ();
-            if (settings.focus_mode == false) {
-                focusmode_button.set_active (false);
-            } else {
-                focusmode_button.set_active (settings.focus_mode);
-            }
-
-            focusmode_button.toggled.connect (() => {
-    			if (focusmode_button.active) {
-    				settings.focus_mode = true;
-    			} else {
-    				settings.focus_mode = false;
-    			}
-
-    		});
-
-            actionbar.pack_end (focusmode_button);
+            var rtc = get_count();
+            int rt = (rtc.words / WPM);
+		    readtimecount_label.set_text((_("Reading Time: ")) + rt.to_string() + "m");
         }
 
         public WordCount get_count() {
     		try {
     			var reg = new Regex("[\\s\\W]+", RegexCompileFlags.OPTIMIZE);
-    			string text = Widgets.SourceView.buffer.text;
+                var buffer = Widgets.SourceView.buffer;
+
+    			string text = buffer.text;
     			string result = reg.replace (text, text.length, 0, " ");
 
-    			return new WordCount(result.strip().split(" ").length, result.length);
+                var lines = buffer.get_line_count ();
+
+    			return new WordCount(result.strip().split(" ").length, lines,  result.length);
     		} catch (Error e) {
-    			return new WordCount(0, 0);
+    			return new WordCount(0, 0, 0);
     		}
     	}
     }
 
     public class Widgets.WordCount {
         public int words { get; private set; }
+        public int lines { get; private set; }
         public int chars { get; private set; }
 
-        public WordCount(int words, int chars) {
+        public WordCount(int words, int lines, int chars) {
             this.words = words;
+            this.lines = lines;
             this.chars = chars;
         }
     }

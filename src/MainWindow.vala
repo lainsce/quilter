@@ -27,7 +27,6 @@ namespace Quilter {
         public Widgets.WebView preview_view_content;
         public Widgets.StatusBar statusbar;
 
-        private Gtk.Menu menu;
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_button;
@@ -38,14 +37,25 @@ namespace Quilter {
         private Gtk.ScrolledWindow edit_view;
         private Gtk.ScrolledWindow preview_view;
         private Gtk.Grid grid;
-        private Widgets.Preferences preferences_dialog;
-        private Widgets.Cheatsheet cheatsheet_dialog;
         private bool timer_scheduled = false;
 
         /*
          * 100ms equals one keypress per beat. Speedy.
          */
         private const int TIME_TO_REFRESH = 100;
+
+        public SimpleActionGroup actions { get; construct; }
+
+        public const string ACTION_PREFIX = "win.";
+        public const string ACTION_CHEATSHEET = "action_cheatsheet";
+        public const string ACTION_PREFS = "action_preferences";
+
+        public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
+
+        private const GLib.ActionEntry[] action_entries = {
+            { ACTION_CHEATSHEET, action_cheatsheet },
+            { ACTION_PREFS, action_preferences }
+        };
 
         public bool is_fullscreen {
             get {
@@ -73,6 +83,7 @@ namespace Quilter {
 
             schedule_timer ();
             statusbar.update_wordcount ();
+            statusbar.update_linecount ();
             statusbar.update_readtimecount ();
             show_statusbar ();
             focus_mode_toolbar ();
@@ -86,6 +97,7 @@ namespace Quilter {
             edit_view_content.changed.connect (() => {
                 schedule_timer ();
                 statusbar.update_wordcount ();
+                statusbar.update_linecount ();
                 statusbar.update_readtimecount ();
             });
 
@@ -148,6 +160,10 @@ namespace Quilter {
         }
 
         construct {
+            actions = new SimpleActionGroup ();
+            actions.add_action_entries (action_entries, this);
+            insert_action_group ("win", actions);
+
             toolbar = new Gtk.HeaderBar ();
             toolbar.title = title;
             var settings = AppSettings.get_default ();
@@ -159,7 +175,7 @@ namespace Quilter {
                 toolbar.subtitle = "New Document";
             }
 
-			      var header_context = toolbar.get_style_context ();
+			var header_context = toolbar.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
 
@@ -212,34 +228,76 @@ namespace Quilter {
                 toolbar.subtitle = settings.subtitle;
             });
 
+            var cheatsheet = new Gtk.ModelButton ();
+            cheatsheet.text = (_("Markdown Cheatsheet"));
+            cheatsheet.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET;
+
+            var preferences = new Gtk.ModelButton ();
+            preferences.text = (_("Preferences"));
+            preferences.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_PREFS;
+
+            var darkmode_button = new Gtk.ToggleButton.with_label ((_("Dark Mode")));
+            darkmode_button.set_image (new Gtk.Image.from_icon_name ("weather-clear-night-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            darkmode_button.set_always_show_image (true);
+
+            if (settings.dark_mode == false) {
+                darkmode_button.set_active (false);
+            } else {
+                darkmode_button.set_active (settings.dark_mode);
+            }
+
+            darkmode_button.toggled.connect (() => {
+    			if (darkmode_button.active) {
+    				settings.dark_mode = true;
+    			} else {
+    				settings.dark_mode = false;
+    			}
+
+    		});
+
+            var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
+            focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            focusmode_button.set_always_show_image (true);
+
+            if (settings.focus_mode == false) {
+                focusmode_button.set_active (false);
+            } else {
+                focusmode_button.set_active (settings.focus_mode);
+            }
+
+            focusmode_button.toggled.connect (() => {
+    			if (focusmode_button.active) {
+    				settings.focus_mode = true;
+    			} else {
+    				settings.focus_mode = false;
+    			}
+
+    		});
+
+            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            buttonbox.pack_start (darkmode_button, false, true, 0);
+            buttonbox.pack_start (focusmode_button, false, true, 0);
+
+            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
+            var menu_grid = new Gtk.Grid ();
+            menu_grid.margin = 6;
+            menu_grid.row_spacing = 6;
+            menu_grid.column_spacing = 12;
+            menu_grid.orientation = Gtk.Orientation.VERTICAL;
+            menu_grid.add (buttonbox);
+            menu_grid.add (separator);
+            menu_grid.add (cheatsheet);
+            menu_grid.add (preferences);
+            menu_grid.show_all ();
+
+            var menu = new Gtk.Popover (null);
+            menu.add (menu_grid);
+
             menu_button = new Gtk.MenuButton ();
             menu_button.has_tooltip = true;
             menu_button.tooltip_text = (_("Settings"));
-
-            menu = new Gtk.Menu ();
-
-            var cheatsheet = new Gtk.MenuItem.with_label (_("Markdown Cheatsheet"));
-            cheatsheet.activate.connect (() => {
-                debug ("Cheatsheet button pressed.");
-                cheatsheet_dialog = new Widgets.Cheatsheet (this);
-                cheatsheet_dialog.show_all ();
-            });
-
-            var preferences = new Gtk.MenuItem.with_label (_("Preferences"));
-            preferences.activate.connect (() => {
-                debug ("Prefs button pressed.");
-                preferences_dialog = new Widgets.Preferences (this);
-                preferences_dialog.show_all ();
-            });
-
-            var separator = new Gtk.SeparatorMenuItem ();
-
-            menu.add (cheatsheet);
-            menu.add (separator);
-            menu.add (preferences);
-            menu.show_all ();
-
-            menu_button.popup = menu;
+            menu_button.popover = menu;
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.SourceView ();
@@ -275,11 +333,11 @@ namespace Quilter {
 
             // This makes the save button show or not, and it's necessary as-is.
             settings.changed.connect (() => {
-                if (settings.show_save_button) {
+                if (settings.autosave) {
+                    save_button.visible = false;
+                } else {
                     toolbar.pack_start (save_button);
                     save_button.visible = true;
-                } else {
-                    save_button.visible = false;
                 }
             });
 
@@ -337,6 +395,18 @@ namespace Quilter {
                 Services.FileManager.save_tmp_file ();
             }
             return false;
+        }
+
+        private void action_preferences () {
+            var dialog = new Widgets.Preferences (this);
+            dialog.set_modal (true);
+            dialog.show_all ();
+        }
+
+        private void action_cheatsheet () {
+            var dialog = new Widgets.Cheatsheet (this);
+            dialog.set_modal (true);
+            dialog.show_all ();
         }
 
         private void schedule_timer () {

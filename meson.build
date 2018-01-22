@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '1.4.5'
+    version: '1.4.6'
 )
 
 # Import main lib files
@@ -47,6 +47,8 @@ if libmarkdown.found() == false
 endif
 
 # Let's define our executable
+add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
+
 executable(
     meson.project_name(),
     'src/Application.vala',
@@ -74,9 +76,7 @@ executable(
         libmarkdown
     ],
     vala_args: [
-        meson.source_root() + '/vapi/config.vapi',
-        meson.source_root() + '/vapi/libmarkdown.vapi',
-        '--vapidir=' + meson.source_root() + '/vapi/',
+        meson.source_root() + '/vapi/config.vapi'
     ],
     install : true
 )

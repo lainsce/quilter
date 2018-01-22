@@ -1,4 +1,13 @@
-com.github.lainsce.quilter (1.4.4) xenial; urgency=low
+com.github.lainsce.quilter (1.4.6) xenial; urgency=low
+
+  * The main menu now houses the Dark/Focus Mode buttons previously shown on the statusbar.
+  * The statusbar now shows number of lines, deprecating the toggle in the preferences to show line numbers.
+  * Preferences Dialog had a reorganization of items.
+  * Disabling autosaving in preferences will make you save files manually now with the Save button.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 26 Jan 2018 12:40:00 -0300
+
+com.github.lainsce.quilter (1.4.5) xenial; urgency=low
 
   * In the Preferences, select if you want Focus Mode to highlight the sentence or the paragraph. (Contributed by Michał "wyhasany" Rowicki)
   * Add Polish translation

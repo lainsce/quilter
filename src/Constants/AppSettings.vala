@@ -21,7 +21,7 @@ namespace Quilter {
         public bool focus_mode { get; set; }
         public bool fullscreen { get; set; }
         public bool show_num_lines { get; set; }
-        public bool show_save_button { get; set; }
+        public bool autosave { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
         public bool use_system_font { get; set; }
