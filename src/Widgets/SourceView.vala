@@ -103,13 +103,13 @@ namespace Quilter.Widgets {
         construct {
             var settings = AppSettings.get_default ();
             var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/x-markdown");
+            var language = manager.guess_language (null, "text/markdown");
             buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (() => {
                 on_text_modified ();
-                Application.window.saved_indicator (false);
+                Application.window.unsaved_indicator (false);
             });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#222");
@@ -120,7 +120,7 @@ namespace Quilter.Widgets {
             is_modified = false;
 
             if (settings.autosave = true) {
-                Timeout.add_seconds (20, () => {
+                Timeout.add_seconds (10, () => {
                     on_text_modified ();
                     return true;
                 });
@@ -273,10 +273,10 @@ namespace Quilter.Widgets {
                 var focus_type = settings.focus_mode_type;
                 if (cursor_iter != start) {
                     switch (focus_type) {
-                        case FocusMode.PARAGRAPH:
+                        case 0:
                             start_sentence.backward_lines (1);
                             break;
-                        case FocusMode.SENTENCE:
+                        case 1:
                             start_sentence.backward_sentence_start ();
                             break;
                         default:
@@ -288,10 +288,10 @@ namespace Quilter.Widgets {
                 var end_sentence = cursor_iter;
                 if (cursor_iter != end) {
                     switch (focus_type) {
-                        case FocusMode.PARAGRAPH:
+                        case 0:
                             end_sentence.forward_lines (2);
                             break;
-                        case FocusMode.SENTENCE:
+                        case 1:
                             end_sentence.forward_sentence_end ();
                             break;
                         default:

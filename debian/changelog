@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.4.9) xenial; urgency=low
+
+  * Auto-save switch state is saved.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 02 Feb 2018 12:40:00 -0300
+
 com.github.lainsce.quilter (1.4.6) xenial; urgency=low
 
   * The main menu now houses the Dark/Focus Mode buttons previously shown on the statusbar.

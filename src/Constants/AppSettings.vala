@@ -25,6 +25,7 @@ namespace Quilter {
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
         public bool use_system_font { get; set; }
+        public int focus_mode_type { get; set; }
         public int margins { get; set; }
         public int spacing { get; set; }
         public int window_height { get; set; }
@@ -35,7 +36,6 @@ namespace Quilter {
         public string last_file { get; set; }
         public string subtitle { get; set; }
         public string spellcheck_language { get; set; }
-        public FocusMode focus_mode_type { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

@@ -112,7 +112,7 @@ namespace Quilter {
                     if (match_keycode (Gdk.Key.s, keycode)) {
                         try {
                             Services.FileManager.save ();
-                            saved_indicator (true);
+                            unsaved_indicator (true);
                         } catch (Error e) {
                             warning ("Unexpected error during open: " + e.message);
                         }
@@ -194,7 +194,7 @@ namespace Quilter {
             save_as_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save_as ();
-                    saved_indicator (true);
+                    unsaved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -208,7 +208,7 @@ namespace Quilter {
             save_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save ();
-                    saved_indicator (true);
+                    unsaved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -335,9 +335,11 @@ namespace Quilter {
             settings.changed.connect (() => {
                 if (settings.autosave) {
                     save_button.visible = false;
+                    settings.autosave = true;
                 } else {
                     toolbar.pack_start (save_button);
                     save_button.visible = true;
+                    settings.autosave = false;
                 }
             });
 
@@ -444,7 +446,7 @@ namespace Quilter {
             statusbar.reveal_child = settings.statusbar;
         }
 
-        public void saved_indicator (bool val) {
+        public void unsaved_indicator (bool val) {
             edit_view_content.is_modified = val;
 
             string unsaved_identifier = "* ";

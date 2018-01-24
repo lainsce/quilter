@@ -24,6 +24,16 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+        <release version="1.4.9" date="2018-02-02">
+           <description>
+               <p>Release: ???</p>
+               <ul>
+                   <li>The autosave switch in preferences now saves its last state.</li>
+                   <li>Fixed the changing of type of focus mode highlighting.</li>
+                   <li>Minor fixes.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.6" date="2018-01-26">
            <description>
                <p>Release: New Menu &amp; Fries</p>

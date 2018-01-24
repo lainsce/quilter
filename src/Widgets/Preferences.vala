@@ -189,10 +189,10 @@ namespace Quilter.Widgets {
             var focus_mode_type = main_settings.focus_mode_type;
 
             switch (focus_mode_type) {
-                case FocusMode.PARAGRAPH:
+                case 0:
                     focus_mode_type_size.selected = 0;
                     break;
-                case FocusMode.SENTENCE:
+                case 1:
                     focus_mode_type_size.selected = 1;
                     break;
                 default:
@@ -203,10 +203,10 @@ namespace Quilter.Widgets {
             focus_mode_type_size.mode_changed.connect (() => {
                 switch (focus_mode_type_size.selected) {
                     case 0:
-                        main_settings.focus_mode_type = FocusMode.PARAGRAPH;
+                        main_settings.focus_mode_type = 0;
                         break;
                     case 1:
-                        main_settings.focus_mode_type = FocusMode.SENTENCE;
+                        main_settings.focus_mode_type = 1;
                         break;
                     case 2:
                         main_settings.focus_mode_type = focus_mode_type;
