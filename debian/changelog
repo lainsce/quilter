@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.5.0) xenial; urgency=low
+
+  * New File button will not nuke any files now.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 10 Feb 2018 21:40:00 -0300
+
 com.github.lainsce.quilter (1.4.9) xenial; urgency=low
 
   * Auto-save switch state is saved.

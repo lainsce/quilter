@@ -16,12 +16,6 @@
  */
 
 namespace Quilter.Services.DialogUtils {
-    public enum DialogType {
-        YES,
-        NO,
-        CANCEL
-    }
-
     public Gtk.FileChooserDialog create_file_chooser (string title,
             Gtk.FileChooserAction action) {
         var chooser = new Gtk.FileChooserDialog (title, null, action);
@@ -82,9 +76,9 @@ namespace Quilter.Services.DialogUtils {
 
             var button = new Gtk.Button.with_label (_("Close without saving"));
             button.show ();
-            add_action_widget (button, DialogType.NO);
-            add_button ("_Cancel", DialogType.CANCEL);
-            add_button ("_Save", DialogType.YES);
+            add_action_widget (button, Gtk.ResponseType.NO);
+            add_button ("_Cancel", Gtk.ResponseType.CANCEL);
+            add_button ("_Save", Gtk.ResponseType.YES);
 
             var warning_image = new Gtk.Image.from_icon_name ("dialog-warning", Gtk.IconSize.DIALOG);
             warning_image.show ();

@@ -463,15 +463,16 @@ namespace Quilter {
         public void new_file () {
             debug ("New button pressed.");
             debug ("Buffer was modified. Asking user to save first.");
+            var settings = AppSettings.get_default ();
 
             if (edit_view_content.is_modified) {
                 var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
                 var result = dialog.run ();
                 dialog.destroy ();
 
-                if (result == Services.DialogUtils.DialogType.CANCEL) {
+                if (result == Gtk.ResponseType.CANCEL) {
                     debug ("User cancelled, don't do anything.");
-                } else if (result == Services.DialogUtils.DialogType.YES) {
+                } else if (result == Gtk.ResponseType.YES) {
                     debug ("User saves the file.");
 
                     try {
@@ -479,13 +480,16 @@ namespace Quilter {
                     } catch (Error e) {
                         warning ("Unexpected error during save: " + e.message);
                     }
-                } else if (result == Services.DialogUtils.DialogType.NO) {
+                } else if (result == Gtk.ResponseType.NO) {
                     debug ("User doesn't care about the file, shoot it to space.");
 
                     edit_view_content.is_modified = false;
-                    file = null;
+                    string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                    file = File.new_for_path (cache);
                     Widgets.SourceView.buffer.text = "";
                     toolbar.subtitle = "New Document";
+                    settings.last_file = file.get_path ();
+                    settings.subtitle = file.get_basename ();
                 } else {
                     return;
                 }
