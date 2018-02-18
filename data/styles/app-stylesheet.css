@@ -1,11 +1,6 @@
 @define-color colorPrimary #F5F5F5;
 @define-color textColorPrimary shade (@colorPrimary, 0.1);
 
-.quilter-toolbar {
-    background-color: @colorPrimary;
-    color: @textColorPrimary;
-}
-
 actionbar,
 .action-bar {
     border-top-color: transparent;

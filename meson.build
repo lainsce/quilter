@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '1.5.0'
+    version: '1.5.2'
 )
 
 # Import main lib files

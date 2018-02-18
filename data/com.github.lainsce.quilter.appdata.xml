@@ -32,6 +32,14 @@
                </ul>
            </description>
         </release>
+        <release version="1.5.2" date="2018-02-02">
+           <description>
+               <p>Release: Visual Standardization</p>
+               <ul>
+                   <li>The headerbar now respects the global theme in Normal and Dark modes.</li>
+               </ul>
+           </description>
+        </release>
         <release version="1.4.9" date="2018-02-02">
            <description>
                <p>Release: ???</p>
