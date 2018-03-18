@@ -80,9 +80,7 @@ namespace Quilter.Services.DialogUtils {
             add_button ("_Cancel", Gtk.ResponseType.CANCEL);
             add_button ("_Save", Gtk.ResponseType.YES);
 
-            var warning_image = new Gtk.Image.from_icon_name ("dialog-warning", Gtk.IconSize.DIALOG);
-            warning_image.show ();
-            set_image (warning_image);
+            message_type = Gtk.MessageType.WARNING;
         }
     }
 }

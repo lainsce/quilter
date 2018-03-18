@@ -167,31 +167,31 @@ msgid "Tables"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:79
-msgid "Header"
+msgid "Heading"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:80
-msgid "# Header 1"
+msgid "# Heading 1"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:81
-msgid "## Header 2"
+msgid "## Heading 2"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:82
-msgid "### Header 3"
+msgid "### Heading 3"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:83
-msgid "#### Header 4"
+msgid "#### Heading 4"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:84
-msgid "##### Header 5"
+msgid "##### Heading 5"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:85
-msgid "###### Header 6"
+msgid "###### Heading 6"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:86
@@ -239,7 +239,7 @@ msgid "```This is a code block```"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:120
-msgid "--- ← This creates an horizontal rule"
+msgid "--- ← This creates a horizontal rule"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:139

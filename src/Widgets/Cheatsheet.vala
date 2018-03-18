@@ -76,13 +76,13 @@ namespace Quilter.Widgets {
             textstyle_grid.row_spacing = 6;
             textstyle_grid.column_spacing = 12;
 
-            var header_header = new Granite.HeaderLabel (_("Header"));
-            var header_one_label = new Label (_("# Header 1"));
-            var header_two_label = new Label (_("## Header 2"));
-            var header_three_label = new Label (_("### Header 3"));
-            var header_four_label = new Label (_("#### Header 4"));
-            var header_five_label = new Label (_("##### Header 5"));
-            var header_six_label = new Label (_("###### Header 6"));
+            var header_header = new Granite.HeaderLabel (_("Heading"));
+            var header_one_label = new Label (_("# Heading 1"));
+            var header_two_label = new Label (_("## Heading 2"));
+            var header_three_label = new Label (_("### Heading 3"));
+            var header_four_label = new Label (_("#### Heading 4"));
+            var header_five_label = new Label (_("##### Heading 5"));
+            var header_six_label = new Label (_("###### Heading 6"));
             var font_header = new Granite.HeaderLabel (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
             var emph_font_label = new Label (_("* Emphasized text *"));
@@ -117,7 +117,7 @@ namespace Quilter.Widgets {
             var image_label = new Label (_("![Image Label](http://image.url.here.com)"));
             var special_header = new Granite.HeaderLabel (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
-            var hr_label = new Label (_("--- ← This creates an horizontal rule"));
+            var hr_label = new Label (_("--- ← This creates a horizontal rule"));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);

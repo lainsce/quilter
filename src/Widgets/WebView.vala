@@ -31,8 +31,9 @@ namespace Quilter {
             hexpand = true;
             var settingsweb = get_settings();
             settingsweb.enable_plugins = false;
-            settingsweb.enable_page_cache = true;
+            settingsweb.enable_page_cache = false;
             settingsweb.enable_developer_extras = false;
+            settingsweb.javascript_can_open_windows_automatically = false;
             web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 
             update_html_view ();
@@ -172,8 +173,8 @@ namespace Quilter {
             string text = Widgets.SourceView.buffer.text;
             string processed_mk;
             process_frontmatter (text, out processed_mk);
-            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
-        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000 + 0x00000008);
+            mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000 + 0x00000008);
 
             string result;
             mkd.get_document (out result);

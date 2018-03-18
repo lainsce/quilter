@@ -81,7 +81,6 @@ namespace Quilter {
                     height_request: 800,
                     width_request: 900);
 
-            schedule_timer ();
             statusbar.update_wordcount ();
             statusbar.update_linecount ();
             statusbar.update_readtimecount ();
@@ -412,7 +411,7 @@ namespace Quilter {
         }
 
         private void schedule_timer () {
-            if (!timer_scheduled) {
+            if (!timer_scheduled && edit_view_content.is_modified == true) {
                 Timeout.add (TIME_TO_REFRESH, render_func);
                 timer_scheduled = true;
             }
@@ -464,38 +463,60 @@ namespace Quilter {
             debug ("New button pressed.");
             debug ("Buffer was modified. Asking user to save first.");
             var settings = AppSettings.get_default ();
+            var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
+            dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.YES:
+                        debug ("User saves the file.");
+
+                        try {
+                            Services.FileManager.save ();
+                            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                            file = File.new_for_path (cache);
+                            Widgets.SourceView.buffer.text = "";
+                            toolbar.subtitle = "New Document";
+                            settings.last_file = file.get_path ();
+                            settings.subtitle = file.get_basename ();
+                        } catch (Error e) {
+                            warning ("Unexpected error during save: " + e.message);
+                        }
+                        break;
+                    case Gtk.ResponseType.NO:
+                        debug ("User doesn't care about the file, shoot it to space.");
+
+                        string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                        file = File.new_for_path (cache);
+                        Widgets.SourceView.buffer.text = "";
+                        toolbar.subtitle = "New Document";
+                        settings.last_file = file.get_path ();
+                        settings.subtitle = file.get_basename ();
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                        debug ("User cancelled, don't do anything.");
+                        break;
+                    case Gtk.ResponseType.DELETE_EVENT:
+                        debug ("User cancelled, don't do anything.");
+                        break;
+                }
+                dialog.destroy();
+            });
 
             if (edit_view_content.is_modified) {
-                var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
-                var result = dialog.run ();
-                dialog.destroy ();
-
-                if (result == Gtk.ResponseType.CANCEL) {
-                    debug ("User cancelled, don't do anything.");
-                } else if (result == Gtk.ResponseType.YES) {
-                    debug ("User saves the file.");
-
-                    try {
-                        Services.FileManager.save ();
-                    } catch (Error e) {
-                        warning ("Unexpected error during save: " + e.message);
-                    }
-                } else if (result == Gtk.ResponseType.NO) {
-                    debug ("User doesn't care about the file, shoot it to space.");
-
-                    edit_view_content.is_modified = false;
-                    string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
-                    file = File.new_for_path (cache);
-                    Widgets.SourceView.buffer.text = "";
-                    toolbar.subtitle = "New Document";
-                    settings.last_file = file.get_path ();
-                    settings.subtitle = file.get_basename ();
-                } else {
-                    return;
+                dialog.show ();
+                edit_view_content.is_modified = false;
+            } else {
+                try {
+                    Services.FileManager.save ();
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
                 }
+                string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                file = File.new_for_path (cache);
+                Widgets.SourceView.buffer.text = "";
+                toolbar.subtitle = "New Document";
+                settings.last_file = file.get_path ();
+                settings.subtitle = file.get_basename ();
             }
-            Widgets.SourceView.buffer.text = "";
-            toolbar.subtitle = "New Document";
         }
     }
 }

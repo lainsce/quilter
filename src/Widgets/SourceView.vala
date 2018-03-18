@@ -119,8 +119,8 @@ namespace Quilter.Widgets {
 
             is_modified = false;
 
-            if (settings.autosave = true) {
-                Timeout.add_seconds (10, () => {
+            if (settings.autosave = true && is_modified = true) {
+                Timeout.add (10000, () => {
                     on_text_modified ();
                     return true;
                 });
@@ -150,9 +150,7 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
-            if (!is_modified) {
-                is_modified = true;
-            } else {
+            if (is_modified) {
                 changed ();
                 Services.FileManager.save_work_file ();
                 is_modified = false;

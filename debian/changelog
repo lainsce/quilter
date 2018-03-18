@@ -1,3 +1,12 @@
+com.github.lainsce.quilter (1.5.3) xenial; urgency=low
+
+  * Preview Mode won't load rogue Javascript code.
+  * Preview Mode will also not autojump to the start of the scroll at any time.
+  * Header becomes Heading in the Cheatsheet.
+  * Fixed the Unsaved changes dialog still killing files when pressing the New File button.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 18 Mar 2018 15:34:00 -0300
+
 com.github.lainsce.quilter (1.5.2) xenial; urgency=low
 
   * The Headerbar respects the global theme.

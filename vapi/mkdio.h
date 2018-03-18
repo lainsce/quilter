@@ -86,8 +86,8 @@ void mkd_ref_prefix(MMIOT*, char*);
 #define MKD_NOPANTS	0x00000004	/* don't run smartypants() */
 #define MKD_NOHTML	0x00000008	/* don't allow raw html through AT ALL */
 #define MKD_STRICT	0x00000010	/* disable SUPERSCRIPT, RELAXED_EMPHASIS */
-#define MKD_TAGTEXT	0x00000020	/* process text inside an html tag; no
-					 * <em>, no <bold>, no html or [] expansion */
+#define MKD_TAGTEXT	0x00000020	/* process text inside an html tag; no 
+                                 * <em>, no <bold>, no html or [] expansion */
 #define MKD_NO_EXT	0x00000040	/* don't allow pseudo-protocols */
 #define MKD_NOEXT	MKD_NO_EXT	/* ^^^ (aliased for user convenience) */
 #define MKD_CDATA	0x00000080	/* generate code for xml ![CDATA[...]] */
@@ -107,9 +107,5 @@ void mkd_ref_prefix(MMIOT*, char*);
 #define MKD_EXTRA_FOOTNOTE 0x00200000	/* enable markdown extra-style footnotes */
 #define MKD_NOSTYLE	0x00400000	/* don't extract <style> blocks */
 #define MKD_EMBED	MKD_NOLINKS|MKD_NOIMAGE|MKD_TAGTEXT
-
-/* special flags for mkd_in() and mkd_string()
- */
-
 
 #endif/*_MKDIO_D*/
