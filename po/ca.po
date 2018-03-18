@@ -1,16 +1,22 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-15 17:16-0200\n"
-"PO-Revision-Date: 2018-03-17 15:16-0600\n"
-"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"PO-Revision-Date: 2018-03-17 15:54-0600\n"
 "Language-Team: \n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ca\n"
 
 #: src/MainWindow.vala:70
 msgid "Quilter"
@@ -18,55 +24,55 @@ msgstr "Quilter"
 
 #: src/MainWindow.vala:168
 msgid "New file"
-msgstr "Archivo nuevo"
+msgstr "Fitxer nou"
 
 #: src/MainWindow.vala:176
 msgid "Save as…"
-msgstr "Guardar como…"
+msgstr "Anomena i desa…"
 
 #: src/MainWindow.vala:190 src/Services/DialogUtils.vala:63
 msgid "Save file"
-msgstr "Guardar el archivo"
+msgstr "Desa el fitxer"
 
 #: src/MainWindow.vala:204
 msgid "Open…"
-msgstr "Abrir…"
+msgstr "Obre…"
 
 #: src/MainWindow.vala:217
 msgid "Settings"
-msgstr "Configuración"
+msgstr "Paràmetres"
 
 #: src/MainWindow.vala:221
 msgid "Markdown Cheatsheet"
-msgstr "Uso de Markdown"
+msgstr "Ús del Markdown"
 
 #: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
 msgid "Preferences"
-msgstr "Preferencias"
+msgstr "Preferències"
 
 #: src/MainWindow.vala:255
 msgid "Edit"
-msgstr "Editar"
+msgstr "Edita"
 
 #: src/MainWindow.vala:256
 msgid "Preview"
-msgstr "Previsualización"
+msgstr "Previsualitza"
 
 #: src/Widgets/StatusBar.vala:51
 msgid "Words: "
-msgstr "Palabras: "
+msgstr "Paraules: "
 
 #: src/Widgets/StatusBar.vala:64
 msgid "Reading Time: "
-msgstr "Tiempo de lectura: "
+msgstr "Temps de lectura: "
 
 #: src/Widgets/StatusBar.vala:68
 msgid "Dark Mode"
-msgstr "Modo oscuro"
+msgstr "Mode fosc"
 
 #: src/Widgets/StatusBar.vala:92
 msgid "Focus Mode"
-msgstr "Modo de concentración"
+msgstr "Mode de concentració"
 
 #: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:67
 msgid "Editor"
@@ -74,32 +80,32 @@ msgstr "Editor"
 
 #: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:177
 msgid "Interface"
-msgstr "Interfaz"
+msgstr "Interfície"
 
 #. Close button
 #: src/Widgets/Preferences.vala:50 src/Widgets/Cheatsheet.vala:51
 msgid "Close"
-msgstr "Cerrar"
+msgstr "Tanca"
 
 #: src/Widgets/Preferences.vala:69
 msgid "Show Line Numbers:"
-msgstr "Mostrar los números de renglones:"
+msgstr "Mostra els números de línia"
 
 #: src/Widgets/Preferences.vala:71
 msgid "Enable Spellchecking:"
-msgstr "Activar el corrector ortográfico:"
+msgstr "Habilita el corrector ortogràfic:"
 
 #: src/Widgets/Preferences.vala:75
 msgid "Geometry"
-msgstr "Geometría"
+msgstr "Geometria"
 
 #: src/Widgets/Preferences.vala:76
 msgid "Spacing of Text:"
-msgstr "Espaciado del texto:"
+msgstr "Espaiat del text:"
 
 #: src/Widgets/Preferences.vala:78 src/Widgets/Preferences.vala:118
 msgid "Small"
-msgstr "Pequeño"
+msgstr "Petit"
 
 #: src/Widgets/Preferences.vala:79 src/Widgets/Preferences.vala:119
 msgid "Normal"
@@ -107,123 +113,123 @@ msgstr "Normal"
 
 #: src/Widgets/Preferences.vala:80 src/Widgets/Preferences.vala:120
 msgid "Large"
-msgstr "Grande"
+msgstr "Gran"
 
 #: src/Widgets/Preferences.vala:116
 msgid "Margins of Text:"
-msgstr "Márgenes del texto:"
+msgstr "Marges del text:"
 
 #: src/Widgets/Preferences.vala:178
 msgid "Show the Save Button:"
-msgstr "Mostrar el botón Guardar:"
+msgstr "Mostra el botó Desa:"
 
 #: src/Widgets/Preferences.vala:181
 msgid "Mode"
-msgstr "Modo"
+msgstr "Mode"
 
 #: src/Widgets/Preferences.vala:182
 msgid "Enable Focus Mode:"
-msgstr "Activar el modo de concentración:"
+msgstr "Habilita el mode de concentració:"
 
 #: src/Widgets/Preferences.vala:184
 msgid "Enable Dark Mode:"
-msgstr "Activar el modo oscuro:"
+msgstr "Habilita el mode fosc:"
 
 #: src/Widgets/Preferences.vala:187
 msgid "Font"
-msgstr "Tipo de letra"
+msgstr "Tipus de lletra"
 
 #: src/Widgets/Preferences.vala:188
 msgid "Custom font:"
-msgstr "Tipo de letra personalizado:"
+msgstr "Tipus de lletra personalitzat:"
 
 #: src/Widgets/Preferences.vala:198
 msgid "Statusbar"
-msgstr "Barra de estado"
+msgstr "Barra d’estat"
 
 #: src/Widgets/Preferences.vala:199
 msgid "Show Statusbar:"
-msgstr "Mostrar la barra de estado:"
+msgstr "Mostra la barra d’estat:"
 
 #: src/Widgets/Cheatsheet.vala:28
 msgid "Cheatsheet"
-msgstr "Uso"
+msgstr "Ús"
 
 #: src/Widgets/Cheatsheet.vala:46
 msgid "Text"
-msgstr "Texto"
+msgstr "Text"
 
 #: src/Widgets/Cheatsheet.vala:47
 msgid "Links & Special"
-msgstr "Enlaces y texto especial"
+msgstr "Enllaços i text especial"
 
 #: src/Widgets/Cheatsheet.vala:48 src/Widgets/Cheatsheet.vala:137
 msgid "Tables"
-msgstr "Tablas"
+msgstr "Taules"
 
 #: src/Widgets/Cheatsheet.vala:79
 msgid "Header"
-msgstr "Títulos"
+msgstr "Encapçalament"
 
 #: src/Widgets/Cheatsheet.vala:80
 msgid "# Header 1"
-msgstr "# Título 1"
+msgstr "# Encapçalament 1"
 
 #: src/Widgets/Cheatsheet.vala:81
 msgid "## Header 2"
-msgstr "## Título 2"
+msgstr "## Encapçalament 2"
 
 #: src/Widgets/Cheatsheet.vala:82
 msgid "### Header 3"
-msgstr "### Título 3"
+msgstr "### Encapçalament 3"
 
 #: src/Widgets/Cheatsheet.vala:83
 msgid "#### Header 4"
-msgstr "#### Título 4"
+msgstr "#### Encapçalament 4"
 
 #: src/Widgets/Cheatsheet.vala:84
 msgid "##### Header 5"
-msgstr "##### Título 5"
+msgstr "##### Encapçalament 5"
 
 #: src/Widgets/Cheatsheet.vala:85
 msgid "###### Header 6"
-msgstr "###### Título 6"
+msgstr "###### Encapçalament 6"
 
 #: src/Widgets/Cheatsheet.vala:86
 msgid "Special Text"
-msgstr "Texto especial"
+msgstr "Text especial"
 
 #: src/Widgets/Cheatsheet.vala:87
 msgid "** Bold text **"
-msgstr "** Negritas **"
+msgstr "** Text en negreta **"
 
 #: src/Widgets/Cheatsheet.vala:88
 msgid "* Emphasized text *"
-msgstr "* Énfasis *"
+msgstr "* Text emfasitzat *"
 
 #: src/Widgets/Cheatsheet.vala:89
 msgid "` Code text `"
-msgstr "` Código `"
+msgstr "` Text de codi `"
 
 #: src/Widgets/Cheatsheet.vala:90
 msgid "> Quoting text"
-msgstr "> Cita"
+msgstr "> Text de citació"
 
 #: src/Widgets/Cheatsheet.vala:91
 msgid "~~Strikethrough text~~"
-msgstr "~~Tachado~~"
+msgstr "~~Text ratllat~~"
 
 #: src/Widgets/Cheatsheet.vala:115
 msgid "Links"
-msgstr "Enlaces"
+msgstr "Enllaços"
 
 #: src/Widgets/Cheatsheet.vala:116
 msgid "[Link Label](http://link.url.here.com)"
-msgstr "[Etiqueta del enlace](http://su-enlace.com)"
+msgstr "[Etiqueta de l’enllaç](http://url.del.lloc.com)"
 
 #: src/Widgets/Cheatsheet.vala:117
 msgid "![Image Label](http://image.url.here.com)"
-msgstr "![Etiqueta de la imagen](http://su-imagen.com)"
+msgstr "![Etiqueta de la imatge](http://url.de.la.imatge.com)"
 
 #: src/Widgets/Cheatsheet.vala:118
 msgid "Special"
@@ -231,56 +237,56 @@ msgstr "Especial"
 
 #: src/Widgets/Cheatsheet.vala:119
 msgid "```This is a code block```"
-msgstr "```Bloque de código```"
+msgstr "```Aquest és un bloc de codi```"
 
 #: src/Widgets/Cheatsheet.vala:120
 msgid "--- ← This creates an horizontal rule"
-msgstr "--- ← Línea horizontal"
+msgstr "--- ← Aquest crea una línia horitzontal"
 
 #: src/Widgets/Cheatsheet.vala:139
 msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "Para mover el contenido de una columna a la izquierda, cambie «---» a «:---»."
+msgstr "Per a fer que el contingut d’una columna s’aliniï a l’esquerra, canvieu «---» a «:---»."
 
 #: src/Widgets/Cheatsheet.vala:140
 msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Para centrar el contenido de la columna, cambie «---» a «:---:»."
+msgstr "Per a fer que el contingut d’una columna es centri, canvieu «---» a «:---:»."
 
 #: src/Widgets/Cheatsheet.vala:141
 msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "Para mover el contenido de la columna a la derecha, cambie «---» a «---:»."
+msgstr "Per a fer que el contingut d’una columna s’aliniï a la dreta, canvieu «---» a «---:»."
 
 #: src/Services/DialogUtils.vala:38
 msgid "Markdown files"
-msgstr "Archivos de Markdown"
+msgstr "Fitxers Markdown"
 
 #: src/Services/DialogUtils.vala:43
 msgid "All files"
-msgstr "Todos los archivos"
+msgstr "Tots els fitxers"
 
 #: src/Services/DialogUtils.vala:51
 msgid "Open file"
-msgstr "Abrir un archivo"
+msgstr "Obre un fitxer"
 
 #: src/Services/DialogUtils.vala:77
 msgid "There are unsaved changes to the file. Do you want to save?"
-msgstr "Hay cambios en el archivo que no se han guardado. ¿Quiere guardarlos?"
+msgstr "Hi ha canvis sense desar en aquest fitxer. Voleu desar-los?"
 
 #: src/Services/DialogUtils.vala:78
 msgid "If you don't save, changes will be lost forever."
-msgstr "Si no los guarda, los cambios se perderán permanentemente."
+msgstr "Si no els deseu, els canvis es perdran permanentment."
 
 #: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
-msgstr "Cerrar sin guardar"
+msgstr "Tanca sense desar"
 
 #: src/Widgets/Preferences.vala:185
 msgid "Type of Focus Mode:"
-msgstr "Tipo de modo de concentración:"
+msgstr "Tipus de mode de concentració:"
 
 #: src/Widgets/Preferences.vala:187
 msgid "Sentence"
-msgstr "Oración"
+msgstr "Oració"
 
 #: src/Widgets/Preferences.vala:188
 msgid "Paragraph"
-msgstr "Párrafo"
+msgstr "Paràgraf"
