@@ -1,9 +1,10 @@
 [Desktop Entry]
 Name=Quilter
 Comment=Focus on your writing
-Comment[pt_BR]=Foque na sua escrita
-Comment[es]=Foque en su escritura
+Comment[ca]=Concentreu-vos en la vostra escriptura
+Comment[es]=Concéntrese en su escritura
 Comment[pl]=Skup się na pisaniu
+Comment[pt_BR]=Foque-se na sua escrita
 Exec=com.github.lainsce.quilter %U
 Icon=com.github.lainsce.quilter
 Keywords=Text;Markdown;Editor;
