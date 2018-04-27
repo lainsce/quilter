@@ -78,8 +78,8 @@ namespace Quilter {
             Object (application: application,
                     resizable: true,
                     title: _("Quilter"),
-                    height_request: 800,
-                    width_request: 900);
+                    height_request: 600,
+                    width_request: 700);
 
             statusbar.update_wordcount ();
             statusbar.update_linecount ();
