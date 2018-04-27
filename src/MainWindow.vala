@@ -418,7 +418,13 @@ namespace Quilter {
         }
 
         private bool render_func () {
-            preview_view_content.update_html_view ();
+            if (edit_view_content.is_modified) {
+                preview_view_content.update_html_view ();
+                edit_view_content.is_modified = false;
+            } else {
+                edit_view_content.is_modified = true;
+            }
+
             timer_scheduled = false;
             return false;
         }

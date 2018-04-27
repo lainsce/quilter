@@ -154,6 +154,8 @@ namespace Quilter.Widgets {
                 changed ();
                 Services.FileManager.save_work_file ();
                 is_modified = false;
+            } else {
+                is_modified = true;
             }
         }
 

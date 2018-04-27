@@ -1,3 +1,10 @@
+com.github.lainsce.quilter (1.5.4) xenial; urgency=low
+
+  * Preview Mode will update only on changes in Edit Mode.
+  * Status bar will update always.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 27 Mar 2018 13:34:00 -0300
+
 com.github.lainsce.quilter (1.5.3) xenial; urgency=low
 
   * Preview Mode won't load rogue Javascript code.

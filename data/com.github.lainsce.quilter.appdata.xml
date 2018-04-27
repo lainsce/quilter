@@ -24,7 +24,16 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
-        <release version="1.5.3" date="2018-02-18">
+        <release version="1.5.4" date="2018-04-27">
+           <description>
+               <p>Release: Don't Blot Yourself</p>
+               <ul>
+                   <li>Preview Mode will only update on changes from Edit View.</li>
+                   <li>Statusbar will update always.</li>
+               </ul>
+           </description>
+        </release>
+        <release version="1.5.3" date="2018-03-18">
            <description>
                <p>Release: All-Around An Inker!</p>
                <ul>
@@ -36,7 +45,7 @@
                </ul>
            </description>
         </release>
-        <release version="1.5.2" date="2018-02-18">
+        <release version="1.5.2" date="2018-02-17">
            <description>
                <p>Release: Visual Standardization</p>
                <ul>
