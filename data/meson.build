@@ -45,6 +45,11 @@ install_data(
 )
 
 install_subdir(
-    'highlight.js',
+    'plugin/highlight.js',
+    install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
+)
+
+install_subdir(
+    'plugin/katex',
     install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
 )

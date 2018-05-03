@@ -89,6 +89,8 @@ namespace Quilter.Widgets {
             var code_font_label = new Label (_("` Code text `"));
             var quote_font_label = new Label (_("> Quoting text"));
             var strike_font_label = new Label (_("~~Strikethrough text~~"));
+            var latex_single_label = new Label (_("$Inline LaTeX Math$"));
+            var latex_double_label = new Label (_("$$LaTeX Display Math Style$$"));
 
             textstyle_grid.attach (header_header, 0, 0, 5, 1);
             textstyle_grid.attach (header_one_label, 0, 1, 3, 1);
@@ -103,6 +105,8 @@ namespace Quilter.Widgets {
             textstyle_grid.attach (code_font_label , 0, 10, 3, 1);
             textstyle_grid.attach (quote_font_label , 0, 11, 3, 1);
             textstyle_grid.attach (strike_font_label , 0, 12, 3, 1);
+            textstyle_grid.attach (latex_single_label , 0, 13, 3, 1);
+            textstyle_grid.attach (latex_double_label , 0, 14, 3, 1);
 
             return textstyle_grid;
         }

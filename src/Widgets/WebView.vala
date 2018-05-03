@@ -183,14 +183,30 @@ namespace Quilter {
         }
 
         public void update_html_view () {
-            string html = "<!doctype html><meta charset=utf-8><head>";
-            html += "<link rel=\"stylesheet\" href=\"" + set_highlight_stylesheet() + "\"/>";
-            html += "<script src=\"" + Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js\"></script>";
-            html += "<script>hljs.initHighlightingOnLoad();</script>";
-            html += "<style>" + set_stylesheet () + "</style>";
-            html += "</head><body><div class=\"markdown-body\">";
-            html += process ();
-            html += "</div></body></html>";
+            string highlight_stylesheet = set_highlight_stylesheet();
+            string stylesheet = set_stylesheet ();
+            string build = Build.PKGDATADIR;
+            string markdown = process ();
+            string html = """
+            <!doctype html>
+            <html>
+                <head>
+                    <meta charset=utf-8>
+                    <link rel="stylesheet" href=" %s "/>
+                    <script src=%s/highlight.js/lib/highlight.min.js"></script>
+                    <script>hljs.initHighlightingOnLoad();</script>
+                    <link rel="stylesheet" href="%s/katex/katex.css">
+                    <script src="%s/katex/katex.js"></script>
+                    <script src="%s/katex/katex-autorender.js"></script>
+                    <script>document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: true},{left: "\\[", right: "\\]", display: true},{left: "$", right: "$", display: false},{left: "\\(", right: "\\)", display: false}]});});</script>
+                    <style>%s</style>
+                </head>
+                <body>
+                    <div class="markdown-body">
+                        %s
+                    </div>
+                </body>
+            </html>""".printf(highlight_stylesheet, build, build, build, build, stylesheet, markdown);
             this.load_html (html, "file:///");
         }
     }
