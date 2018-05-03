@@ -73,7 +73,6 @@ public class Quilter.Styles.quilterdark {
     canvas,
     iframe,
     video,
-    svg,
     select,
     textarea {
       display: block;

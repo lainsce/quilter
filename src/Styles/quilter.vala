@@ -26,6 +26,9 @@ public class Quilter.Styles.quilter {
   public const string css="""
     html {
       font-size: 16px;
+      margin-left: 80px;
+      margin-right: 80px;
+      margin-top: 40px;
     }
 
     p {
@@ -36,7 +39,7 @@ public class Quilter.Styles.quilter {
     h1,
     h2,
     h3 {
-      margin: 0.755em 0;
+      margin: 0;
       font-style: bold;
     }
 
@@ -73,7 +76,6 @@ public class Quilter.Styles.quilter {
     canvas,
     iframe,
     video,
-    svg,
     select,
     textarea {
       display: block;
@@ -86,9 +88,6 @@ public class Quilter.Styles.quilter {
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: 400;
       line-height: 1.5;
-      margin-left: 80px;
-      margin-right: 80px;
-      margin-top: 40px;
       max-width: 100%;
       text-align: left;
       word-wrap: break-word;
