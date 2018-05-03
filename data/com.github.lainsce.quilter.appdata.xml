@@ -24,6 +24,14 @@
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
     <releases>
+      <release version="1.5.5" date="2018-05-04">
+         <description>
+             <p>Release: Maths? Hardly knew 'er!</p>
+             <ul>
+                 <li>Now you can add LaTeX equations with "$" or "$$" modes.</li>
+             </ul>
+         </description>
+      </release>
         <release version="1.5.4" date="2018-04-27">
            <description>
                <p>Release: Don't Blot Yourself</p>
