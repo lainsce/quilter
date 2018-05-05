@@ -36,7 +36,7 @@ public class Quilter.Styles.quilterdark {
     h1,
     h2,
     h3 {
-      margin: 0.755em 0;
+      margin: 0;
       font-style: bold;
     }
 

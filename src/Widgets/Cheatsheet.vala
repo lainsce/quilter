@@ -89,8 +89,6 @@ namespace Quilter.Widgets {
             var code_font_label = new Label (_("` Code text `"));
             var quote_font_label = new Label (_("> Quoting text"));
             var strike_font_label = new Label (_("~~Strikethrough text~~"));
-            var latex_single_label = new Label (_("$Inline LaTeX Math$"));
-            var latex_double_label = new Label (_("$$LaTeX Display Math Style$$"));
 
             textstyle_grid.attach (header_header, 0, 0, 5, 1);
             textstyle_grid.attach (header_one_label, 0, 1, 3, 1);
@@ -105,8 +103,6 @@ namespace Quilter.Widgets {
             textstyle_grid.attach (code_font_label , 0, 10, 3, 1);
             textstyle_grid.attach (quote_font_label , 0, 11, 3, 1);
             textstyle_grid.attach (strike_font_label , 0, 12, 3, 1);
-            textstyle_grid.attach (latex_single_label , 0, 13, 3, 1);
-            textstyle_grid.attach (latex_double_label , 0, 14, 3, 1);
 
             return textstyle_grid;
         }
@@ -122,6 +118,9 @@ namespace Quilter.Widgets {
             var special_header = new Granite.HeaderLabel (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
             var hr_label = new Label (_("--- ← This creates a horizontal rule"));
+            var latex_header = new Granite.HeaderLabel (N_("LaTeX"));
+            var latex_single_label = new Label (_("""\( Inline Math \)"""));
+            var latex_double_label = new Label (_("""\[ Display Math Style \]"""));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);
@@ -129,6 +128,9 @@ namespace Quilter.Widgets {
             links_grid.attach (special_header, 0, 3, 5, 1);
             links_grid.attach (codeblocks_label, 0, 4, 3, 1);
             links_grid.attach (hr_label, 0, 5, 3, 1);
+            links_grid.attach (latex_header, 0, 6, 5, 1);
+            links_grid.attach (latex_single_label , 0, 7, 3, 1);
+            links_grid.attach (latex_double_label , 0, 8, 3, 1);
 
             return links_grid;
         }
