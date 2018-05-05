@@ -852,6 +852,38 @@
   padding: 0 .3em;
 }
 
+.katex .delimsizing.size1 {
+    font-size: 0.7em;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.katex .delimsizing.size2 {
+    font-size: 0.7em;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.katex .delimsizing.size3 {
+    font-size: 0.7em;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.katex .delimsizing.size4 {
+    font-size: 0.7em;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.katex .delimsizing.mult .delim-size1>span {
+    font-size: 1.46em;
+}
+
+.katex .delimsizing.mult .delim-size4>span {
+    font-size: 1.46em;
+}
+
 .katex .fbox {
   border: .04em solid #000;
   box-sizing: border-box;

@@ -191,14 +191,14 @@ namespace Quilter {
             <!doctype html>
             <html>
                 <head>
-                    <meta charset=utf-8>
+                    <meta charset="utf-8">
                     <link rel="stylesheet" href=" %s "/>
-                    <script src=%s/highlight.js/lib/highlight.min.js"></script>
+                    <script src="%s/highlight.js/lib/highlight.min.js"></script>
                     <script>hljs.initHighlightingOnLoad();</script>
                     <link rel="stylesheet" href="%s/katex/katex.css">
                     <script src="%s/katex/katex.js"></script>
                     <script src="%s/katex/katex-autorender.js"></script>
-                    <script>document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.body, {delimiters: [{left: "$$", right: "$$", display: true},{left: "\\[", right: "\\]", display: true},{left: "$", right: "$", display: false},{left: "\\(", right: "\\)", display: false}]});});</script>
+                    <script>document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.getElementsByClassName("markdown-body")[0], {delimiters: [{left: "$$", right: "$$", display: true},{left: "\\[", right: "\\]", display: true},{left: "$", right: "$", display: false},{left: "\\(", right: "\\)", display: false}]});});</script>
                     <style>%s</style>
                 </head>
                 <body>
