@@ -1,0 +1,293 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+#
+# Ryo Nakano <ryonakaknock@gmail.com>, 2018.
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-15 17:16-0200\n"
+"PO-Revision-Date: 2018-05-15 19:16+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
+"Language-Team: Japanese <>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 2.0\n"
+
+#: src/MainWindow.vala:70
+msgid "Quilter"
+msgstr "Quilter"
+
+#: src/MainWindow.vala:168
+msgid "New file"
+msgstr "新しいファイル"
+
+#: src/MainWindow.vala:176
+msgid "Save as…"
+msgstr "名前を付けて保存…"
+
+#: src/MainWindow.vala:190 src/Services/DialogUtils.vala:63
+msgid "Save file"
+msgstr "ファイルを保存"
+
+#: src/MainWindow.vala:204
+msgid "Open…"
+msgstr "開く…"
+
+#: src/MainWindow.vala:217
+msgid "Settings"
+msgstr "設定"
+
+#: src/MainWindow.vala:221
+msgid "Markdown Cheatsheet"
+msgstr "Markdown チートシート"
+
+#: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
+msgid "Preferences"
+msgstr "設定"
+
+#: src/MainWindow.vala:255
+msgid "Edit"
+msgstr "編集"
+
+#: src/MainWindow.vala:256
+msgid "Preview"
+msgstr "プレビュー"
+
+#: src/Widgets/StatusBar.vala:51
+msgid "Words: "
+msgstr "単語数:"
+
+#: src/Widgets/StatusBar.vala:64
+msgid "Reading Time: "
+msgstr "読むのにかかる時間:"
+
+#: src/Widgets/StatusBar.vala:68
+msgid "Dark Mode"
+msgstr "ダークモード"
+
+#: src/Widgets/StatusBar.vala:92
+msgid "Focus Mode"
+msgstr "集中モード"
+
+#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:67
+msgid "Editor"
+msgstr "エディター"
+
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:177
+msgid "Interface"
+msgstr "インターフェース"
+
+#. Close button
+#: src/Widgets/Preferences.vala:50 src/Widgets/Cheatsheet.vala:51
+msgid "Close"
+msgstr "閉じる"
+
+#: src/Widgets/Preferences.vala:69
+msgid "Show Line Numbers:"
+msgstr "行番号を表示する:"
+
+#: src/Widgets/Preferences.vala:71
+msgid "Enable Spellchecking:"
+msgstr "スペルチェックを有効にする:"
+
+#: src/Widgets/Preferences.vala:75
+msgid "Geometry"
+msgstr "位置調整"
+
+#: src/Widgets/Preferences.vala:76
+msgid "Spacing of Text:"
+msgstr "テキストの行間:"
+
+#: src/Widgets/Preferences.vala:78 src/Widgets/Preferences.vala:118
+msgid "Small"
+msgstr "狭い"
+
+#: src/Widgets/Preferences.vala:79 src/Widgets/Preferences.vala:119
+msgid "Normal"
+msgstr "標準"
+
+#: src/Widgets/Preferences.vala:80 src/Widgets/Preferences.vala:120
+msgid "Large"
+msgstr "広い"
+
+#: src/Widgets/Preferences.vala:116
+msgid "Margins of Text:"
+msgstr "テキストの余白:"
+
+#: src/Widgets/Preferences.vala:178
+msgid "Show the Save Button:"
+msgstr "保存ボタンを表示する:"
+
+#: src/Widgets/Preferences.vala:181
+msgid "Mode"
+msgstr "モード"
+
+#: src/Widgets/Preferences.vala:182
+msgid "Enable Focus Mode:"
+msgstr "集中モードを有効にする:"
+
+#: src/Widgets/Preferences.vala:184
+msgid "Enable Dark Mode:"
+msgstr "ダークモードを有効にする:"
+
+#: src/Widgets/Preferences.vala:187
+msgid "Font"
+msgstr "フォント"
+
+#: src/Widgets/Preferences.vala:188
+msgid "Custom font:"
+msgstr "カスタムフォント:"
+
+#: src/Widgets/Preferences.vala:198
+msgid "Statusbar"
+msgstr "ステータスバー"
+
+#: src/Widgets/Preferences.vala:199
+msgid "Show Statusbar:"
+msgstr "ステータスバーを表示する:"
+
+#: src/Widgets/Cheatsheet.vala:28
+msgid "Cheatsheet"
+msgstr "チートシート"
+
+#: src/Widgets/Cheatsheet.vala:46
+msgid "Text"
+msgstr "テキスト"
+
+#: src/Widgets/Cheatsheet.vala:47
+msgid "Links & Special"
+msgstr "リンクと特殊なもの"
+
+#: src/Widgets/Cheatsheet.vala:48 src/Widgets/Cheatsheet.vala:137
+msgid "Tables"
+msgstr "テーブル"
+
+#: src/Widgets/Cheatsheet.vala:79
+msgid "Heading"
+msgstr "見出し"
+
+#: src/Widgets/Cheatsheet.vala:80
+msgid "# Heading 1"
+msgstr "# 見出し 1"
+
+#: src/Widgets/Cheatsheet.vala:81
+msgid "## Heading 2"
+msgstr "## 見出し 2"
+
+#: src/Widgets/Cheatsheet.vala:82
+msgid "### Heading 3"
+msgstr "### 見出し 3"
+
+#: src/Widgets/Cheatsheet.vala:83
+msgid "#### Heading 4"
+msgstr "#### 見出し 4"
+
+#: src/Widgets/Cheatsheet.vala:84
+msgid "##### Heading 5"
+msgstr "##### 見出し 5"
+
+#: src/Widgets/Cheatsheet.vala:85
+msgid "###### Heading 6"
+msgstr "###### 見出し 6"
+
+#: src/Widgets/Cheatsheet.vala:86
+msgid "Special Text"
+msgstr "特殊なテキスト"
+
+#: src/Widgets/Cheatsheet.vala:87
+msgid "** Bold text **"
+msgstr "** 太字 **"
+
+#: src/Widgets/Cheatsheet.vala:88
+msgid "* Emphasized text *"
+msgstr "* 強調 *"
+
+#: src/Widgets/Cheatsheet.vala:89
+msgid "` Code text `"
+msgstr "` コード `"
+
+#: src/Widgets/Cheatsheet.vala:90
+msgid "> Quoting text"
+msgstr "> 引用"
+
+#: src/Widgets/Cheatsheet.vala:91
+msgid "~~Strikethrough text~~"
+msgstr "~~ 打ち消し線 ~~"
+
+#: src/Widgets/Cheatsheet.vala:115
+msgid "Links"
+msgstr "リンク"
+
+#: src/Widgets/Cheatsheet.vala:116
+msgid "[Link Label](http://link.url.here.com)"
+msgstr "[リンクのラベル](http://link.url.here.com)"
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "![Image Label](http://image.url.here.com)"
+msgstr "![画像のラベル](http://image.url.here.com)"
+
+#: src/Widgets/Cheatsheet.vala:118
+msgid "Special"
+msgstr "特殊なもの"
+
+#: src/Widgets/Cheatsheet.vala:119
+msgid "```This is a code block```"
+msgstr "``` コードブロック ```"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "--- ← This creates a horizontal rule"
+msgstr "--- ← 水平線が作成されます"
+
+#: src/Widgets/Cheatsheet.vala:139
+msgid "To make a column's content go to the left, change --- to :--- ."
+msgstr "列の中身を左寄せするには、--- を :--- に変更します。"
+
+#: src/Widgets/Cheatsheet.vala:140
+msgid "To make a column's content centered, change --- to :---: ."
+msgstr "列の中身を中央寄せするには、--- を :---: に変更します。"
+
+#: src/Widgets/Cheatsheet.vala:141
+msgid "To make a column's content go to the right, change --- to ---: ."
+msgstr "列の中身を右寄せするには、--- を ---: に変更します。"
+
+#: src/Services/DialogUtils.vala:38
+msgid "Markdown files"
+msgstr "Markdow ファイル"
+
+#: src/Services/DialogUtils.vala:43
+msgid "All files"
+msgstr "すべてのファイル"
+
+#: src/Services/DialogUtils.vala:51
+msgid "Open file"
+msgstr "ファイルを開く"
+
+#: src/Services/DialogUtils.vala:77
+msgid "There are unsaved changes to the file. Do you want to save?"
+msgstr "ファイルに保存されていない変更があります。保存しますか？"
+
+#: src/Services/DialogUtils.vala:78
+msgid "If you don't save, changes will be lost forever."
+msgstr "保存しなければ、変更は破棄されます。"
+
+#: src/Services/DialogUtils.vala:83
+msgid "Close without saving"
+msgstr "保存せずに閉じる"
+
+#: src/Widgets/Preferences.vala:185
+msgid "Type of Focus Mode:"
+msgstr "集中モードの種類:"
+
+#: src/Widgets/Preferences.vala:187
+msgid "Sentence"
+msgstr "文"
+
+#: src/Widgets/Preferences.vala:188
+msgid "Paragraph"
+msgstr "段落"
+
+
