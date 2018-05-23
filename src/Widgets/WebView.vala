@@ -29,7 +29,6 @@ namespace Quilter {
             visible = true;
             vexpand = true;
             hexpand = true;
-            this.set_custom_charset ("utf-8"); // make Quilter show emoji & stuffs here.
             var settingsweb = get_settings();
             settingsweb.enable_plugins = false;
             settingsweb.enable_page_cache = false;
@@ -38,6 +37,7 @@ namespace Quilter {
             web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 
             update_html_view ();
+            this.set_custom_charset ("utf-8");
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_html_view);
             connect_signals ();

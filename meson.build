@@ -77,7 +77,7 @@ executable(
     ],
     vala_args: [
         meson.source_root() + '/vapi/config.vapi',
-        meson.source_root() + '/vapi/libmarkdown.vapi'
+        #meson.source_root() + '/vapi/libmarkdown.vapi'
     ],
     install : true
 )

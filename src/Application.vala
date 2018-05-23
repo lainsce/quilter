@@ -18,7 +18,7 @@
 *
 */
 namespace Quilter {
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
         private static bool print_cr = false;
         private static string _cwd;
 
@@ -29,9 +29,6 @@ namespace Quilter {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             flags |= ApplicationFlags.HANDLES_OPEN;
             application_id = "com.github.lainsce.quilter";
-            program_name = "Quilter";
-            exec_name = "com.github.lainsce.quilter";
-            app_launcher = "com.github.lainsce.quilter";
 
             supported_mimetypes = {"text/markdown"};
             register_default_handler ();
