@@ -54,10 +54,11 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-      <release version="1.5.7" date="2018-05-19">
+      <release version="1.5.7" date="2018-05-25">
          <description>
-             <p>Release: X</p>
+             <p>Release: A New Font &amp; Fries</p>
              <ul>
+                 <li>Enjoy the new Quilt font specially made for Quilter</li>
                  <li>X</li>
              </ul>
          </description>

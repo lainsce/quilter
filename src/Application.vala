@@ -74,7 +74,7 @@ namespace Quilter {
             }
 
             if (print_cr) {
-                stdout.printf ("Copyright 2017 Lains\n");
+                stdout.printf ("Copyright 2017-2018 Lains\n");
                 return 0;
             } else {
                 new_window ();

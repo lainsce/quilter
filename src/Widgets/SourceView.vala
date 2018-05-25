@@ -182,7 +182,7 @@ namespace Quilter.Widgets {
                 return;
             }
 
-            var default_font = "PT Mono 11";
+            var default_font = "Quilt Mono 11";
 
             this.font = default_font;
         }
@@ -209,7 +209,7 @@ namespace Quilter.Widgets {
             } else {
                 set_focused_text ();
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                this.font = "PT Mono 13";
+                this.font = "Quilt Mono 13";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 

@@ -26,9 +26,6 @@ public class Quilter.Styles.quilter {
   public const string css="""
     html {
       font-size: 16px;
-      margin-left: 80px;
-      margin-right: 80px;
-      margin-top: 40px;
     }
 
     p {
@@ -38,33 +35,46 @@ public class Quilter.Styles.quilter {
 
     h1,
     h2,
-    h3 {
-      margin: 0;
+    h3,
+    h4,
+    h5,
+    h6 {
       font-style: bold;
     }
 
     h1 {
       margin-top: 0;
+      margin-bottom: 1em;
       font-size: 2rem;
     }
 
     h2 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1.5rem;
     }
 
     h3 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1.25rem;
     }
 
     h4 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1rem;
     }
 
     h5 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: .875rem;
     }
 
     h6 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: .75rem;
     }
 
@@ -87,10 +97,12 @@ public class Quilter.Styles.quilter {
       background-color: #FCFCFC;
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: 400;
-      line-height: 1.5;
-      max-width: 100%;
+      line-height: 1.4rem;
+      margin-left: 80px;
+      margin-right: 80px;
+      margin-top: 40px;
+      max-width: 50rem;
       text-align: left;
-      word-wrap: break-word;
     }
 
     table {
@@ -130,7 +142,7 @@ public class Quilter.Styles.quilter {
     }
 
     code {
-      font-family: 'PT Mono', monospace;
+      font-family: 'Quilt Mono', monospace;
       text-align: left;
       padding: 1rem !important;
       border-radius: 5px;
@@ -138,17 +150,26 @@ public class Quilter.Styles.quilter {
 
     blockquote {
       margin: 0;
-      border-left: 5px solid #3daee9;
+      border-left: 5px solid #8d8d8d;
       font-style: italic;
       padding-left: .8rem;
       text-align: left;
     }
+    
+    blockquote > p {
+      color: #8d8d8d;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
 
-    ul,
-    ol,
-    li {
-      text-align: left;
-      color: #4d4d4d;
+    ul {
+      list-style: disc;
+    }
+  
+    ul, ol {
+      margin-left: -40px;
     }
   """;
 }

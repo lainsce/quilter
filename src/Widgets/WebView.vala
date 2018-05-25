@@ -34,10 +34,9 @@ namespace Quilter {
             settingsweb.enable_page_cache = false;
             settingsweb.enable_developer_extras = false;
             settingsweb.javascript_can_open_windows_automatically = false;
-            web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
 
-            update_html_view ();
             this.set_custom_charset ("utf-8");
+            update_html_view ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_html_view);
             connect_signals ();

@@ -40,8 +40,8 @@ install_data(
 )
 
 install_data(
-    join_paths('font', 'PTM55FT.ttf'),
-    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'pt-mono')
+    join_paths('font', 'QuiltMono.ttf'),
+    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )
 
 install_subdir(

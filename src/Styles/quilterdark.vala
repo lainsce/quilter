@@ -35,33 +35,46 @@ public class Quilter.Styles.quilterdark {
 
     h1,
     h2,
-    h3 {
-      margin: 0;
+    h3,
+    h4,
+    h5,
+    h6 {
       font-style: bold;
     }
 
     h1 {
       margin-top: 0;
+      margin-bottom: 1em;
       font-size: 2rem;
     }
 
     h2 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1.5rem;
     }
 
     h3 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1.25rem;
     }
 
     h4 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: 1rem;
     }
 
     h5 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: .875rem;
     }
 
     h6 {
+      margin-top: 0;
+      margin-bottom: 1em;
       font-size: .75rem;
     }
 
@@ -84,7 +97,7 @@ public class Quilter.Styles.quilterdark {
       background-color: #232629;
       font-family: 'Open Sans', Helvetica, sans-serif;
       font-weight: 400;
-      line-height: 1.5;
+      line-height: 1.4rem;
       margin-left: 80px;
       margin-right: 80px;
       margin-top: 40px;
@@ -129,7 +142,7 @@ public class Quilter.Styles.quilterdark {
     }
 
     code {
-      font-family: 'PT Mono', monospace;
+      font-family: 'Quilt Mono', monospace;
       text-align: left;
       padding: 1rem !important;
       border-radius: 5px;
@@ -137,17 +150,26 @@ public class Quilter.Styles.quilterdark {
 
     blockquote {
       margin: 0;
-      border-left: 5px solid #1d99f3;
+      border-left: 5px solid #7E8087;
       font-style: italic;
       padding-left: .8rem;
       text-align: left;
     }
-
-    ul,
-    ol,
-    li {
-      text-align: left;
+    
+    blockquote > p {
       color: #7E8087;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    ul {
+      list-style: disc;
+    }
+  
+    ul, ol {
+      margin-left: -40px;
     }
   """;
 }
