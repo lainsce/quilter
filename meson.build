@@ -61,6 +61,7 @@ executable(
     'src/Widgets/Cheatsheet.vala',
     'src/Styles/quilter.vala',
     'src/Styles/quilterdark.vala',
+    'src/Styles/quiltersepia.vala',
     'src/Constants/AppSettings.vala',
     'src/Services/FileManager.vala',
     'src/Services/DialogUtils.vala',

@@ -18,6 +18,7 @@
 namespace Quilter {
     public class AppSettings : Granite.Services.Settings {
         public bool dark_mode { get; set; }
+        public bool sepia_mode { get; set; }
         public bool focus_mode { get; set; }
         public bool fullscreen { get; set; }
         public bool show_num_lines { get; set; }

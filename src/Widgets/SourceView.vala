@@ -28,6 +28,8 @@ namespace Quilter.Widgets {
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
         private Gtk.TextTag whitefont;
+        private Gtk.TextTag sepiafont;
+        private Gtk.TextTag lightsepiafont;
 
         public signal void changed ();
 
@@ -112,10 +114,12 @@ namespace Quilter.Widgets {
                 Application.window.unsaved_indicator (false);
             });
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#222");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#333");
             lightgrayfont = buffer.create_tag(null, "foreground", "#888");
             blackfont = buffer.create_tag(null, "foreground", "#000");
             whitefont = buffer.create_tag(null, "foreground", "#FFF");
+            lightsepiafont = buffer.create_tag(null, "foreground", "#a18866");
+            sepiafont = buffer.create_tag(null, "foreground", "#2D1708");
 
             is_modified = false;
 
@@ -182,7 +186,7 @@ namespace Quilter.Widgets {
                 return;
             }
 
-            var default_font = "Quilt Mono 11";
+            var default_font = "Quilt Mono 12";
 
             this.font = default_font;
         }
@@ -200,6 +204,8 @@ namespace Quilter.Widgets {
                 buffer.get_bounds (out start, out end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(darkgrayfont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
                 this.font = settings.font;
@@ -209,7 +215,7 @@ namespace Quilter.Widgets {
             } else {
                 set_focused_text ();
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                this.font = "Quilt Mono 13";
+                this.font = "Quilt Mono 14";
                 this.override_font (Pango.FontDescription.from_string (this.font));
             }
 
@@ -233,25 +239,39 @@ namespace Quilter.Widgets {
 
         private string get_default_scheme () {
             var settings = AppSettings.get_default ();
-            if (!settings.dark_mode) {
-                var provider = new Gtk.CssProvider ();
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
-                buffer.remove_tag(whitefont, start, end);
-                return "quilter";
-            } else {
+            if (settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
+            } else if (settings.sepia_mode) {
+                var provider = new Gtk.CssProvider ();
+                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(whitefont, start, end);
+                buffer.remove_tag(blackfont, start, end);
+                return "quilter-sepia";
             }
+
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+            Gtk.TextIter start, end;
+            buffer.get_bounds (out start, out end);
+            buffer.remove_tag(whitefont, start, end);
+            buffer.remove_tag(lightsepiafont, start, end);
+            buffer.remove_tag(sepiafont, start, end);
+            return "quilter";
         }
 
         public void set_focused_text () {
@@ -263,10 +283,14 @@ namespace Quilter.Widgets {
 
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
-            buffer.apply_tag(lightgrayfont, start, end);
+
             buffer.apply_tag(darkgrayfont, start, end);
+            buffer.apply_tag(lightsepiafont, start, end);
+            buffer.apply_tag(lightgrayfont, start, end);
             buffer.remove_tag(blackfont, start, end);
             buffer.remove_tag(whitefont, start, end);
+            buffer.remove_tag(sepiafont, start, end);
+            
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
@@ -300,14 +324,24 @@ namespace Quilter.Widgets {
                     }
 
                 }
-                if (!settings.dark_mode) {
-                    buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
-                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
-                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
-                } else {
-                    buffer.apply_tag(darkgrayfont, start_sentence, end_sentence);
+                if (settings.dark_mode) {
                     buffer.apply_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(darkgrayfont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
+                } else if (settings.sepia_mode) {
+                    buffer.apply_tag(sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(darkgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                } else {
+                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                 }
             }
         }

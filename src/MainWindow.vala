@@ -159,6 +159,48 @@ namespace Quilter {
         }
 
         construct {
+            var css_provider = new Gtk.CssProvider();
+            string style = """.color-button {
+                border-radius: 50%;
+                box-shadow:
+                    inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+                    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+                    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+            }
+            
+            .color-button:focus {
+                border-color: @colorAccent;
+            }
+            
+            .color-dark {
+                background-color: #232629;
+                border-color: #131619;
+                color: #F5F5F5;
+            }
+            
+            .color-light {
+                background-color: #F5F5F5;
+                color: #232629;
+            }
+            
+            .color-sepia {
+                background-color: #F0E8DD;
+                color: #2D1708;
+            }""";
+
+
+            try {
+                css_provider.load_from_data(style, -1);
+            } catch (GLib.Error e) {
+                warning ("Failed to parse css style : %s", e.message);
+            }
+
+            Gtk.StyleContext.add_provider_for_screen (
+                Gdk.Screen.get_default (),
+                css_provider,
+                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            );
+
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
@@ -235,24 +277,50 @@ namespace Quilter {
             preferences.text = (_("Preferences"));
             preferences.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_PREFS;
 
-            var darkmode_button = new Gtk.ToggleButton.with_label ((_("Dark Mode")));
-            darkmode_button.set_image (new Gtk.Image.from_icon_name ("weather-clear-night-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            darkmode_button.set_always_show_image (true);
+            var color_button_light = new Gtk.Button.with_label ((N_("A")));
+            color_button_light.halign = Gtk.Align.CENTER;
+            color_button_light.height_request = 32;
+            color_button_light.width_request = 32;
+            color_button_light.tooltip_text = _("Light Mode");
 
-            if (settings.dark_mode == false) {
-                darkmode_button.set_active (false);
-            } else {
-                darkmode_button.set_active (settings.dark_mode);
-            }
+            var color_button_light_context = color_button_light.get_style_context ();
+            color_button_light_context.add_class ("color-button");
+            color_button_light_context.add_class ("color-light");
 
-            darkmode_button.toggled.connect (() => {
-    			if (darkmode_button.active) {
-    				settings.dark_mode = true;
-    			} else {
-    				settings.dark_mode = false;
-    			}
+            var color_button_sepia = new Gtk.Button.with_label ((N_("A")));
+            color_button_sepia.halign = Gtk.Align.CENTER;
+            color_button_sepia.height_request = 32;
+            color_button_sepia.width_request = 32;
+            color_button_sepia.tooltip_text = _("Sepia Mode");
 
-    		});
+            var color_button_sepia_context = color_button_sepia.get_style_context ();
+            color_button_sepia_context.add_class ("color-button");
+            color_button_sepia_context.add_class ("color-sepia");
+
+            var color_button_dark = new Gtk.Button.with_label ((N_("A")));
+            color_button_dark.halign = Gtk.Align.CENTER;
+            color_button_dark.height_request = 32;
+            color_button_dark.width_request = 32;
+            color_button_dark.tooltip_text = _("Dark Mode");
+
+            var color_button_dark_context = color_button_dark.get_style_context ();
+            color_button_dark_context.add_class ("color-button");
+            color_button_dark_context.add_class ("color-dark");
+
+            color_button_dark.clicked.connect (() => {
+                settings.dark_mode = true;
+                settings.sepia_mode = false;
+            });
+
+            color_button_sepia.clicked.connect (() => {
+                settings.sepia_mode = true;
+                settings.dark_mode = false;
+            });
+
+            color_button_light.clicked.connect (() => {
+                settings.dark_mode = false;
+                settings.sepia_mode = false;
+            });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
             focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -271,11 +339,15 @@ namespace Quilter {
     				settings.focus_mode = false;
     			}
 
-    		});
-
+            });
+            
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            buttonbox.pack_start (darkmode_button, false, true, 0);
-            buttonbox.pack_start (focusmode_button, false, true, 0);
+            buttonbox.pack_start (color_button_light, true, true, 0);
+            buttonbox.pack_start (color_button_sepia, true, true, 0);
+            buttonbox.pack_start (color_button_dark, true, true, 0);
+
+            var buttonbox2 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            buttonbox2.pack_start (focusmode_button, true, true, 0);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
@@ -285,6 +357,7 @@ namespace Quilter {
             menu_grid.column_spacing = 12;
             menu_grid.orientation = Gtk.Orientation.VERTICAL;
             menu_grid.add (buttonbox);
+            menu_grid.add (buttonbox2);
             menu_grid.add (separator);
             menu_grid.add (cheatsheet);
             menu_grid.add (preferences);

@@ -181,6 +181,8 @@ namespace Quilter.Widgets {
             var focus_mode = new SettingsSwitch ("focus-mode");
             var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
             var dark_mode = new SettingsSwitch ("dark-mode");
+            var sepia_mode_label = new SettingsLabel (_("Enable Sepia Mode:"));
+            var sepia_mode = new SettingsSwitch ("sepia-mode");
 
             var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
             var focus_mode_type_size = new Granite.Widgets.ModeButton ();
@@ -242,15 +244,16 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_size, 1, 3, 1, 1);
             interface_grid.attach (dark_mode_label, 0, 4, 1, 1);
             interface_grid.attach (dark_mode, 1, 4, 1, 1);
+            interface_grid.attach (sepia_mode_label, 0, 5, 1, 1);
+            interface_grid.attach (sepia_mode, 1, 5, 1, 1);
             
+            interface_grid.attach (font_header, 0, 6, 3, 1);
+            interface_grid.attach (use_custom_font_label, 0, 7, 1, 1);
+            interface_grid.attach (custom_font_box, 1, 7, 1, 1);
 
-            interface_grid.attach (font_header, 0, 5, 3, 1);
-            interface_grid.attach (use_custom_font_label, 0, 6, 1, 1);
-            interface_grid.attach (custom_font_box, 1, 6, 1, 1);
-
-            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
-            interface_grid.attach (statusbar, 1, 8, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 8, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
+            interface_grid.attach (statusbar, 1, 9, 1, 1);
 
             return interface_grid;
         }

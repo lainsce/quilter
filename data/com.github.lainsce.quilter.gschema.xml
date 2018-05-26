@@ -30,6 +30,11 @@
 				<summary>Dark Mode</summary>
 				<description>Whether Quilter should be in Dark Mode</description>
 			</key>
+		<key name="sepia-mode" type="b">
+				<default>false</default>
+				<summary>Sepia Mode</summary>
+				<description>Whether Quilter should be in Sepia Mode</description>
+			</key>
 		<key name="use-system-font" type="b">
 				<default>true</default>
 				<summary>Use system font</summary>

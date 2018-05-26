@@ -52,22 +52,27 @@ namespace Quilter {
 
         private string set_stylesheet () {
             var settings = AppSettings.get_default ();
-            if (!settings.dark_mode) {
-                string normal = Styles.quilter.css;
-                return normal;
-            } else {
+            if (settings.dark_mode) {
                 string dark = Styles.quilterdark.css;
                 return dark;
+            } else if (settings.sepia_mode) {
+                string sepia = Styles.quiltersepia.css;
+                return sepia;
             }
+
+            string normal = Styles.quilter.css;
+            return normal;
         }
 
         private string set_highlight_stylesheet () {
             var settings = AppSettings.get_default ();
             if (settings.dark_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
-            } else {
-                return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
+            } else if (settings.sepia_mode) {
+                return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
             }
+
+            return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
         }
 
         private string set_latex () {
