@@ -46,6 +46,7 @@ namespace Quilter.Widgets {
 
             this.main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
             this.main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
+            this.main_stack.add_titled (get_ext_grid (), "ext", _("Extensions"));
 
             var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
@@ -65,7 +66,7 @@ namespace Quilter.Widgets {
             editor_grid.column_spacing = 12;
 
             var editor_header = new Granite.HeaderLabel (_("Editor"));
-            var spellcheck_label = new Gtk.Label (_("Enable Spellchecking:"));
+            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
             spellcheck_label.set_halign (Gtk.Align.END);
             var spellcheck = new SettingsSwitch ("spellcheck");
 
@@ -175,7 +176,7 @@ namespace Quilter.Widgets {
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
 
-            var mode_header = new Granite.HeaderLabel (_("Mode"));
+            var mode_header = new Granite.HeaderLabel (_("Modes"));
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
             var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
@@ -230,17 +231,18 @@ namespace Quilter.Widgets {
             custom_font_box.pack_start (select_font, false, true, 0);
 
             var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
-            var statusbar_label = new Gtk.Label (_("Show Statusbar:"));
+            var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
             var statusbar = new SettingsSwitch ("statusbar");
 
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (focus_mode_label, 0, 2, 1, 1);
             interface_grid.attach (focus_mode, 1, 2, 1, 1);
-            interface_grid.attach (dark_mode_label, 0, 3, 1, 1);
-            interface_grid.attach (dark_mode, 1, 3, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 4, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 4, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 3, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 3, 1, 1);
+            interface_grid.attach (dark_mode_label, 0, 4, 1, 1);
+            interface_grid.attach (dark_mode, 1, 4, 1, 1);
+            
 
             interface_grid.attach (font_header, 0, 5, 3, 1);
             interface_grid.attach (use_custom_font_label, 0, 6, 1, 1);
@@ -251,6 +253,28 @@ namespace Quilter.Widgets {
             interface_grid.attach (statusbar, 1, 8, 1, 1);
 
             return interface_grid;
+        }
+
+        private Gtk.Widget get_ext_grid () {
+            var ext_grid = new Gtk.Grid ();
+            ext_grid.row_spacing = 6;
+            ext_grid.column_spacing = 12;
+
+            var ext_header = new Granite.HeaderLabel (_("Extensions"));
+            var latex_label = new SettingsLabel (_("Enable LaTeX:"));
+            latex_label.set_halign (Gtk.Align.END);
+            var latex = new SettingsSwitch ("latex");
+            var highlight_label = new SettingsLabel (_("Enable code highlight:"));
+            highlight_label.set_halign (Gtk.Align.END);
+            var highlight = new SettingsSwitch ("highlight");
+
+            ext_grid.attach (ext_header,  0, 1, 1, 1);
+            ext_grid.attach (latex_label,  0, 2, 1, 1);
+            ext_grid.attach (latex, 1, 2, 1, 1);
+            ext_grid.attach (highlight_label,  0, 3, 1, 1);
+            ext_grid.attach (highlight, 1, 3, 1, 1);
+
+            return ext_grid;
         }
 
         private class SettingsLabel : Gtk.Label {

@@ -24,6 +24,8 @@ namespace Quilter {
         public bool autosave { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool latex { get; set; }
+        public bool highlight { get; set; }
         public bool use_system_font { get; set; }
         public int focus_mode_type { get; set; }
         public int margins { get; set; }
