@@ -3,10 +3,10 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#eff0f1" background="#232629"/>
-  <style name="cursor"          foreground="#1d99f3"/>
+  <style name="text"            foreground="#C3C3C1" background="#151611"/>
+  <style name="cursor"          foreground="#0DBCEE"/>
   <style name="current-line"    background="#4D4D4D"/>
-  <style name="selection"       foreground="#fcfcfc" background="#1d99f3"/>
+  <style name="selection"       foreground="#C3C3C1" background="#0D89CC"/>
 
   <!-- Bold -->
   <style name="def:statement" bold="true"/>
@@ -15,25 +15,25 @@
   <style name="def:doc-comment-element" foreground="#7E8087" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#1d99f3"/>
-  <style name="def:underlined" foreground="#1d99f3"/>
+  <style name="def:comment" foreground="#0DBCEE"/>
+  <style name="def:underlined" foreground="#0DBCEE"/>
 
   <!-- Code -->
   <style name="def:identifier" foreground="#7E8087"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#fcfcfc"/>
+  <style name="def:note" foreground="#C3C3C1"/>
 
   <!-- Label -->
-  <style name="def:preprocessor" foreground="#eff0f1"/>
+  <style name="def:preprocessor" foreground="#C3C3C1"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#1d99f3"/>
-  <style name="def:constant" foreground="#1d99f3"/>
+  <style name="def:shebang" foreground="#0DBCEE"/>
+  <style name="def:constant" foreground="#0DBCEE"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#7E8087"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#fcfcfc" bold="true"/>
+  <style name="def:type" foreground="#C3C3C1" bold="true"/>
 </style-scheme>

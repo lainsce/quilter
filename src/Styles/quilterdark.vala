@@ -30,7 +30,7 @@ public class Quilter.Styles.quilterdark {
 
     p {
       font-size: 1rem;
-      color: #eff0f1;
+      color: #C3C3C1;
     }
 
     h1,
@@ -93,9 +93,9 @@ public class Quilter.Styles.quilterdark {
     }
 
     body {
-      color: #eff0f1;
-      background-color: #232629;
-      font-family: 'Open Sans', Helvetica, sans-serif;
+      color: #C3C3C1;
+      background-color: #151611;
+      font-family: 'Tinos', serif;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 80px;
@@ -114,17 +114,17 @@ public class Quilter.Styles.quilterdark {
 
     table th {
       font-weight: bold;
-      background-color: #3a4045;
+      background-color: #23241c;
     }
 
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #3a4045;
+      border: 1px solid #23241c;
     }
 
     table tr {
-      border-top: 1px solid #3a4045;
+      border-top: 1px solid #23241c;
     }
 
     img {
@@ -144,8 +144,8 @@ public class Quilter.Styles.quilterdark {
     code{
       display: inline-block;
       padding: 0 0.25rem;
-      background-color: #2F3337;
-      border: 1px solid #2F3337;
+      background-color: #23241c;
+      border: 1px solid #23241c;
       border-radius: 4px;
       font-family: 'Quilt Mono', monospace;
       font-weight: normal;
@@ -166,7 +166,7 @@ public class Quilter.Styles.quilterdark {
     }
     
     blockquote > p {
-      color: #7E8087;
+      color: inherit;
       margin-top: 20px;
       margin-bottom: 20px;
       padding-top: 20px;
@@ -179,6 +179,24 @@ public class Quilter.Styles.quilterdark {
   
     ul, ol {
       margin-left: -40px;
+    }
+
+    hr {
+      overflow: visible;
+      padding: 0;
+      border: none;
+      color: inherit;
+      text-align: center;
+    }
+    hr:after {
+      content: ".  .  .";
+      letter-spacing: .6em;
+      display: inline-block;
+      position: relative;
+      top: -0.3rem;
+      font-size: 1.65em;
+      padding: 0 0.25em;
+      background: inherit;
     }
   """;
 }

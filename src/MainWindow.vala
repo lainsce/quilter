@@ -174,21 +174,21 @@ namespace Quilter {
             }
             
             .color-dark {
-                background-color: #232629;
-                border: 1px solid #131619;
+                background-color: #151611;
+                border: 1px solid #151611;
             }
 
             .color-dark image {
-                color: #F5F5F5;
+                color: #C3C3C1;
                 -gtk-icon-shadow: 1px 1px transparent;
             }
             
             .color-light {
-                background-color: #F5F5F5;
+                background-color: #F9F9F9;
             }
 
             .color-light image {
-                color: #232629;
+                color: #191919;
                 -gtk-icon-shadow: 1px 1px transparent;
             }
             
@@ -341,6 +341,7 @@ namespace Quilter {
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
             focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             focusmode_button.set_always_show_image (true);
+            focusmode_button.tooltip_text = _("Enter focus mode");
 
             if (settings.focus_mode == false) {
                 focusmode_button.set_active (false);

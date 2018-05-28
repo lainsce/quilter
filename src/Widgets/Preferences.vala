@@ -154,18 +154,36 @@ namespace Quilter.Widgets {
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
 
+            var font_header = new Granite.HeaderLabel (_("Font"));
+            var use_custom_font_label = new SettingsLabel (_("Custom font:"));
+            var use_custom_font = new Gtk.Switch ();
+            use_custom_font.halign = Gtk.Align.START;
+            main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
+            var select_font = new Gtk.FontButton ();
+            select_font.use_font = true;
+            select_font.hexpand = true;
+            main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
+            main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
+
+            var custom_font_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            custom_font_box.pack_start (use_custom_font, false, true, 0);
+            custom_font_box.pack_start (select_font, false, true, 0);
+
             editor_grid.attach (editor_header, 0, 1, 3, 1);
             editor_grid.attach (spellcheck_label,  0, 2, 1, 1);
             editor_grid.attach (spellcheck, 1, 2, 1, 1);
             editor_grid.attach (save_button_label,  0, 3, 1, 1);
             editor_grid.attach (save_button, 1, 3, 1, 1);
 
-
             editor_grid.attach (geo_header, 0, 4, 3, 1);
             editor_grid.attach (spacing_label, 0, 5, 1, 1);
             editor_grid.attach (spacing_size, 1, 5, 1, 1);
             editor_grid.attach (margins_label, 0, 6, 1, 1);
             editor_grid.attach (margins_size, 1, 6, 1, 1);
+
+            editor_grid.attach (font_header, 0, 7, 3, 1);
+            editor_grid.attach (use_custom_font_label, 0, 8, 1, 1);
+            editor_grid.attach (custom_font_box, 1, 8, 1, 1);
 
             return editor_grid;
         }
@@ -217,21 +235,6 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var font_header = new Granite.HeaderLabel (_("Font"));
-            var use_custom_font_label = new SettingsLabel (_("Custom font:"));
-            var use_custom_font = new Gtk.Switch ();
-            use_custom_font.halign = Gtk.Align.START;
-            main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
-            var select_font = new Gtk.FontButton ();
-            select_font.use_font = true;
-            select_font.hexpand = true;
-            main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
-            main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
-
-            var custom_font_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            custom_font_box.pack_start (use_custom_font, false, true, 0);
-            custom_font_box.pack_start (select_font, false, true, 0);
-
             var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
             var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
@@ -246,14 +249,10 @@ namespace Quilter.Widgets {
             interface_grid.attach (dark_mode, 1, 4, 1, 1);
             interface_grid.attach (sepia_mode_label, 0, 5, 1, 1);
             interface_grid.attach (sepia_mode, 1, 5, 1, 1);
-            
-            interface_grid.attach (font_header, 0, 6, 3, 1);
-            interface_grid.attach (use_custom_font_label, 0, 7, 1, 1);
-            interface_grid.attach (custom_font_box, 1, 7, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 8, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
-            interface_grid.attach (statusbar, 1, 9, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 6, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 7, 1, 1);
+            interface_grid.attach (statusbar, 1, 7, 1, 1);
 
             return interface_grid;
         }

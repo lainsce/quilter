@@ -114,10 +114,10 @@ namespace Quilter.Widgets {
                 Application.window.unsaved_indicator (false);
             });
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#333");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#888");
-            blackfont = buffer.create_tag(null, "foreground", "#000");
-            whitefont = buffer.create_tag(null, "foreground", "#FFF");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#393939");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#636361");
+            blackfont = buffer.create_tag(null, "foreground", "#191919");
+            whitefont = buffer.create_tag(null, "foreground", "#C3C3C1");
             lightsepiafont = buffer.create_tag(null, "foreground", "#a18866");
             sepiafont = buffer.create_tag(null, "foreground", "#2D1708");
 
@@ -284,12 +284,19 @@ namespace Quilter.Widgets {
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
 
-            buffer.apply_tag(darkgrayfont, start, end);
-            buffer.apply_tag(lightsepiafont, start, end);
+            if (settings.dark_mode) {
+                buffer.apply_tag(darkgrayfont, start, end);
+                buffer.remove_tag(whitefont, start, end);
+            }
+
+            if (settings.sepia_mode) {
+                buffer.apply_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
+            }
+
             buffer.apply_tag(lightgrayfont, start, end);
             buffer.remove_tag(blackfont, start, end);
-            buffer.remove_tag(whitefont, start, end);
-            buffer.remove_tag(sepiafont, start, end);
+            
             
 
             if (cursor != null) {
@@ -335,6 +342,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
                     buffer.remove_tag(whitefont, start_sentence, end_sentence);
                     buffer.remove_tag(darkgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                 } else {
                     buffer.apply_tag(blackfont, start_sentence, end_sentence);

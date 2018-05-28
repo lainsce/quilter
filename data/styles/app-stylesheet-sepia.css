@@ -2,8 +2,13 @@
 @define-color textColorPrimary shade (@text_color, 0.9);
 
 .quilter-toolbar {
+    border-color: shade (@colorPrimary, 0.9);
     background: @colorPrimary;
     color: @textColorPrimary;
+    box-shadow:
+        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
+        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
+        inset 0 1px 0 0 alpha (shade (@colorPrimary, 1.4), 0.8);
 }
 
 actionbar,

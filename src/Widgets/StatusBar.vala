@@ -26,8 +26,8 @@ namespace Quilter {
         public MainWindow window;
         public Gtk.ActionBar actionbar;
 
-        /* Average normal reading speed is 90 words per minute */
-        int WPM = 90;
+        /* Average normal reading speed is 275 WPM */
+        int WPM = 275;
 
         public StatusBar () {
             actionbar = new Gtk.ActionBar ();
@@ -41,7 +41,7 @@ namespace Quilter {
 
         public void wordcount_item () {
             wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (10);
+            wordcount_label.set_width_chars (12);
             update_wordcount ();
             actionbar.pack_start (wordcount_label);
         }
@@ -53,7 +53,7 @@ namespace Quilter {
 
         public void linecount_item () {
             linecount_label = new Gtk.Label("");
-            linecount_label.set_width_chars (10);
+            linecount_label.set_width_chars (12);
             update_linecount ();
             actionbar.pack_start (linecount_label);
         }
