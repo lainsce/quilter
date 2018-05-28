@@ -2,8 +2,7 @@
   display: block;
   overflow-x: auto;
   padding: 0.5em;
-  color: #eff0f1;
-  background: #2F3337;
+  font-size: 1rem;
 }
 
 .hljs, .hljs-subst {

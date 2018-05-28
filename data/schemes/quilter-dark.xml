@@ -9,10 +9,10 @@
   <style name="selection"       foreground="#fcfcfc" background="#1d99f3"/>
 
   <!-- Bold -->
-  <style name="def:statement" foreground="#fcfcfc"  bold="true"/>
+  <style name="def:statement" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#D4D4D4" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#7E8087" italic="true"/>
 
   <!-- Links -->
   <style name="def:comment" foreground="#1d99f3"/>

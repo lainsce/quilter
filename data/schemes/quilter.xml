@@ -9,17 +9,17 @@
   <style name="selection"       foreground="#EAEAEA" background="#3daee9"/>
 
   <!-- Bold -->
-  <style name="def:statement" foreground="#232629"  bold="true"/>
+  <style name="def:statement" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#4d4d4d" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#B7B6B7" italic="true"/>
 
   <!-- Links -->
   <style name="def:comment" foreground="#3daee9"/>
   <style name="def:underlined" foreground="#3daee9"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#4d4d4d"/>
+  <style name="def:identifier" foreground="#B7B6B7"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#232629"/>
@@ -32,7 +32,7 @@
   <style name="def:constant" foreground="#3daee9"/>
 
   <!-- Backslash Escaping -->
-  <style name="def:special-char" foreground="#4d4d4d"/>
+  <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
   <style name="def:type" foreground="#232629" bold="true"/>

@@ -141,11 +141,20 @@ public class Quilter.Styles.quilter {
       color: #3daee9;
     }
 
-    code {
+    code{
+      display: inline-block;
+      padding: 0 0.25rem;
+      background-color: #E7E7E7;
+      border: 1px solid #E7E7E7;
+      border-radius: 4px;
       font-family: 'Quilt Mono', monospace;
-      text-align: left;
-      padding: 1rem !important;
-      border-radius: 5px;
+      font-weight: normal;
+    }
+
+    pre code{
+      display: block;
+      margin: 1rem auto;
+      overflow-x: scroll;
     }
 
     blockquote {
