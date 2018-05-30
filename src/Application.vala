@@ -147,11 +147,24 @@ namespace Quilter {
                         }
 
                         if (reason.length > 0) {
-                            warning ("%s", err_msg);
+                            msg = err_msg.printf ("<b>%s</b>".printf (file.get_path ()), reason);
                         }
 
                     } catch (Error e) {
                         warning (e.message);
+                    }
+
+                    // Notify the user that something happened.
+                    if (msg.length > 0) {
+                        var parent_window = get_last_window () as Gtk.Window;
+                        var dialog = new Gtk.MessageDialog.with_markup (parent_window,
+                            Gtk.DialogFlags.MODAL,
+                            Gtk.MessageType.ERROR,
+                            Gtk.ButtonsType.CLOSE,
+                            msg);
+                        dialog.run ();
+                        dialog.destroy ();
+                        dialog.close ();
                     }
                 }
 
@@ -163,6 +176,11 @@ namespace Quilter {
             }
 
             return 0;
+        }
+
+        public MainWindow? get_last_window () {
+            unowned List<weak Gtk.Window> windows = get_windows ();
+            return windows.length () > 0 ? windows.last ().data as MainWindow : null;
         }
 
         private static void register_default_handler () {
