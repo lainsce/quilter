@@ -114,17 +114,17 @@ public class Quilter.Styles.quiltersepia {
 
     table th {
       font-weight: bold;
-      background-color: #E8DCCB;
+      background-color: #e0d0b9;
     }
 
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #E8DCCB;
+      border: 1px solid #e0d0b9;
     }
 
     table tr {
-      border-top: 1px solid #E8DCCB;
+      border-top: 1px solid #e0d0b9;
     }
 
     img {
@@ -144,8 +144,8 @@ public class Quilter.Styles.quiltersepia {
     code{
       display: inline-block;
       padding: 0 0.25rem;
-      background-color: #E8DCCB;
-      border: 1px solid #E8DCCB;
+      background-color: #e0d0b9;
+      border: 1px solid #e0d0b9;
       border-radius: 4px;
       font-family: 'Quilt Mono', monospace;
       font-weight: normal;
@@ -155,6 +155,7 @@ public class Quilter.Styles.quiltersepia {
       display: block;
       margin: 1rem auto;
       overflow-x: scroll;
+      padding: 0.5em;
     }
 
     blockquote {
@@ -162,6 +163,7 @@ public class Quilter.Styles.quiltersepia {
       border-left: 5px solid #7e6e62;
       font-style: italic;
       padding-left: .8rem;
+      margin-left: .8rem;
       text-align: left;
     }
     
@@ -189,7 +191,7 @@ public class Quilter.Styles.quiltersepia {
       text-align: center;
     }
     hr:after {
-      content: ".  .  .";
+      content: "...";
       letter-spacing: .6em;
       display: inline-block;
       position: relative;

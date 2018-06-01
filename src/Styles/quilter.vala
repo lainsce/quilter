@@ -114,17 +114,17 @@ public class Quilter.Styles.quilter {
 
     table th {
       font-weight: bold;
-      background-color: #EAEAEA;
+      background-color: #dddddd;
     }
 
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #EAEAEA;
+      border: 1px solid #dddddd;
     }
 
     table tr {
-      border-top: 1px solid #EAEAEA;
+      border-top: 1px solid #dddddd;
     }
 
     img {
@@ -144,8 +144,8 @@ public class Quilter.Styles.quilter {
     code{
       display: inline-block;
       padding: 0 0.25rem;
-      background-color: #EAEAEA;
-      border: 1px solid #EAEAEA;
+      background-color: #dddddd;
+      border: 1px solid #dddddd;
       border-radius: 4px;
       font-family: 'Quilt Mono', monospace;
       font-weight: normal;
@@ -155,6 +155,7 @@ public class Quilter.Styles.quilter {
       display: block;
       margin: 1rem auto;
       overflow-x: scroll;
+      padding: 0.5em;
     }
 
     blockquote {
@@ -162,6 +163,7 @@ public class Quilter.Styles.quilter {
       border-left: 5px solid #8d8d8d;
       font-style: italic;
       padding-left: .8rem;
+      margin-left: .8rem;
       text-align: left;
     }
     
@@ -189,7 +191,7 @@ public class Quilter.Styles.quilter {
       text-align: center;
     }
     hr:after {
-      content: ".  .  .";
+      content: "...";
       letter-spacing: .6em;
       display: inline-block;
       position: relative;

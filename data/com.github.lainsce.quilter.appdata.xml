@@ -194,7 +194,7 @@
     </releases>
     <screenshots>
         <screenshot type="default">
-            <caption>Normal Mode</caption>
+            <caption>Light Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot.png</image>
         </screenshot>
         <screenshot>
@@ -208,6 +208,10 @@
         <screenshot>
             <caption>Focus Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Preview Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
         </screenshot>
     </screenshots>
     <custom>

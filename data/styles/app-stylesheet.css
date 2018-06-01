@@ -1,14 +1,12 @@
 @define-color colorPrimary #EFEFEF;
-@define-color textColorPrimary shade (@colorPrimary, 0.1);
+@define-color textColorPrimary #191919;
 
 .quilter-toolbar {
-    border-color: shade (@colorPrimary, 0.9);
+    border-bottom-color: transparent;
+    border-bottom-width: 1px;
     background: @colorPrimary;
     color: @textColorPrimary;
-    box-shadow:
-        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset 0 1px 0 0 alpha (shade (@colorPrimary, 1.4), 0.8);
+    box-shadow: 0 1px transparent inset;
 }
 
 actionbar,
@@ -16,8 +14,5 @@ actionbar,
     border-top-color: transparent;
     background: @colorPrimary;
     color: @textColorPrimary;
-    box-shadow:
-        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset -1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset 0 -1px 0 0 alpha (shade (@colorPrimary, 1.4), 0.8);
+    box-shadow: 0 1px transparent inset;
 }

@@ -155,6 +155,7 @@ public class Quilter.Styles.quilterdark {
       display: block;
       margin: 1rem auto;
       overflow-x: scroll;
+      padding: 0.5em;
     }
 
     blockquote {
@@ -162,6 +163,7 @@ public class Quilter.Styles.quilterdark {
       border-left: 5px solid #7E8087;
       font-style: italic;
       padding-left: .8rem;
+      margin-left: .8rem;
       text-align: left;
     }
     
@@ -189,7 +191,7 @@ public class Quilter.Styles.quilterdark {
       text-align: center;
     }
     hr:after {
-      content: ".  .  .";
+      content: "...";
       letter-spacing: .6em;
       display: inline-block;
       position: relative;

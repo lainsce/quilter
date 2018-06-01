@@ -160,22 +160,24 @@ namespace Quilter {
 
         construct {
             var css_provider = new Gtk.CssProvider();
-            string style = """button .color-button {
-                border-radius: 8px;
-                box-shadow:
-                    inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-                    inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-                    0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+            string style = """.color-button {
+                border-bottom-left-radius: 2px;
+                border-top-left-radius: 2px;
+                border-top-right-radius: 2px;
+                border-bottom-right-radius: 2px;
                 text-shadow: 1px 1px transparent;
+                background-image: none;
+                box-shadow: 0 1px transparent inset;
+                padding: 2px;
             }
             
-            button .color-button:focus {
+            .color-button:focus {
                 border-color: @colorAccent;
             }
             
             .color-dark {
                 background-color: #151611;
-                border: 1px solid #151611;
+                border: 1px solid #050601;
             }
 
             .color-dark image {
@@ -185,6 +187,7 @@ namespace Quilter {
             
             .color-light {
                 background-color: #F9F9F9;
+                border: 1px solid #BFBFBF;
             }
 
             .color-light image {
@@ -194,10 +197,11 @@ namespace Quilter {
             
             .color-sepia {
                 background-color: #F0E8DD;
+                border: 1px solid #d0b896;
             }
 
             .color-sepia image {
-                color: #2D1708;
+                color: #5D4738;
                 -gtk-icon-shadow: 1px 1px transparent;
             }""";
 
