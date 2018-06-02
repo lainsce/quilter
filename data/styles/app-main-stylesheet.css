@@ -1,0 +1,44 @@
+.color-button {
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    text-shadow: 1px 1px transparent;
+    background-image: none;
+    box-shadow: 0 1px transparent inset;
+    padding: 2px;
+}
+
+.color-button:focus {
+    border-color: @colorAccent;
+}
+
+.color-dark {
+    background-color: #151611;
+    border: 1px solid #050601;
+}
+
+.color-dark image {
+    color: #C3C3C1;
+    -gtk-icon-shadow: 1px 1px transparent;
+}
+
+.color-light {
+    background-color: #F9F9F9;
+    border: 1px solid #BFBFBF;
+}
+
+.color-light image {
+    color: #191919;
+    -gtk-icon-shadow: 1px 1px transparent;
+}
+
+.color-sepia {
+    background-color: #F0E8DD;
+    border: 1px solid #d0b896;
+}
+
+.color-sepia image {
+    color: #5D4738;
+    -gtk-icon-shadow: 1px 1px transparent;
+}

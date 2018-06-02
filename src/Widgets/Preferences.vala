@@ -62,6 +62,7 @@ namespace Quilter.Widgets {
         private Gtk.Widget get_editor_grid () {
             var main_settings = AppSettings.get_default ();
             var editor_grid = new Gtk.Grid ();
+            editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
             editor_grid.column_spacing = 12;
 
@@ -193,14 +194,75 @@ namespace Quilter.Widgets {
             var interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
+            interface_grid.orientation = Gtk.Orientation.VERTICAL;
+            interface_grid.set_column_homogeneous (false);
 
             var mode_header = new Granite.HeaderLabel (_("Modes"));
+            var color_button_light = new Gtk.Button ();
+            var color_button_light_icon = new Gtk.Image ();
+            color_button_light_icon.gicon = new ThemedIcon ("mode-change-symbolic");
+            color_button_light_icon.pixel_size = 48;
+            color_button_light.set_image (color_button_light_icon);
+            color_button_light.halign = Gtk.Align.CENTER;
+            color_button_light.height_request = 64;
+            color_button_light.width_request = 64;
+            color_button_light.tooltip_text = _("Light Mode");
+
+            var color_button_light_context = color_button_light.get_style_context ();
+            color_button_light_context.add_class ("color-button");
+            color_button_light_context.add_class ("color-light");
+
+            var color_button_light_text = new Gtk.Label (_("Light Mode"));
+
+            var color_button_sepia = new Gtk.Button ();
+            var color_button_sepia_icon = new Gtk.Image ();
+            color_button_sepia_icon.gicon = new ThemedIcon ("mode-change-symbolic");
+            color_button_sepia_icon.pixel_size = 48;
+            color_button_sepia.set_image (color_button_sepia_icon);
+            color_button_sepia.halign = Gtk.Align.CENTER;
+            color_button_sepia.height_request = 64;
+            color_button_sepia.width_request = 64;
+            color_button_sepia.tooltip_text = _("Sepia Mode");
+
+            var color_button_sepia_context = color_button_sepia.get_style_context ();
+            color_button_sepia_context.add_class ("color-button");
+            color_button_sepia_context.add_class ("color-sepia");
+
+            var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
+
+            var color_button_dark = new Gtk.Button ();
+            var color_button_dark_icon = new Gtk.Image ();
+            color_button_dark_icon.gicon = new ThemedIcon ("mode-change-symbolic");
+            color_button_dark_icon.pixel_size = 48;
+            color_button_dark.set_image (color_button_dark_icon);
+            color_button_dark.halign = Gtk.Align.CENTER;
+            color_button_dark.height_request = 64;
+            color_button_dark.width_request = 64;
+            color_button_dark.tooltip_text = _("Dark Mode");
+
+            var color_button_dark_context = color_button_dark.get_style_context ();
+            color_button_dark_context.add_class ("color-button");
+            color_button_dark_context.add_class ("color-dark");
+
+            var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
+
+            color_button_dark.clicked.connect (() => {
+                main_settings.dark_mode = true;
+                main_settings.sepia_mode = false;
+            });
+
+            color_button_sepia.clicked.connect (() => {
+                main_settings.sepia_mode = true;
+                main_settings.dark_mode = false;
+            });
+
+            color_button_light.clicked.connect (() => {
+                main_settings.dark_mode = false;
+                main_settings.sepia_mode = false;
+            });
+
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
-            var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
-            var dark_mode = new SettingsSwitch ("dark-mode");
-            var sepia_mode_label = new SettingsLabel (_("Enable Sepia Mode:"));
-            var sepia_mode = new SettingsSwitch ("sepia-mode");
 
             var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
             var focus_mode_type_size = new Granite.Widgets.ModeButton ();
@@ -240,25 +302,45 @@ namespace Quilter.Widgets {
             statusbar_label.set_halign (Gtk.Align.END);
             var statusbar = new SettingsSwitch ("statusbar");
 
-            interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 2, 1, 1);
-            interface_grid.attach (focus_mode, 1, 2, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 3, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 3, 1, 1);
-            interface_grid.attach (dark_mode_label, 0, 4, 1, 1);
-            interface_grid.attach (dark_mode, 1, 4, 1, 1);
-            interface_grid.attach (sepia_mode_label, 0, 5, 1, 1);
-            interface_grid.attach (sepia_mode, 1, 5, 1, 1);
+            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            buttonbox.halign = Gtk.Align.FILL;
+            buttonbox.hexpand = true;
+            buttonbox.set_homogeneous (true);
+            buttonbox.pack_start (color_button_light, true, true, 6);
+            buttonbox.pack_start (color_button_sepia, true, true, 6);
+            buttonbox.pack_start (color_button_dark, true, true, 6);
 
-            interface_grid.attach (statusbar_header,  0, 6, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 7, 1, 1);
-            interface_grid.attach (statusbar, 1, 7, 1, 1);
+            var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            textbox.halign = Gtk.Align.FILL;
+            textbox.hexpand = true;
+            textbox.set_homogeneous (true);
+            textbox.pack_start (color_button_light_text, true, true, 6);
+            textbox.pack_start (color_button_sepia_text, true, true, 6);
+            textbox.pack_start (color_button_dark_text, true, true, 6);
+
+            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            separator.hexpand = true;
+
+            interface_grid.attach (mode_header, 0, 1, 3, 1);
+            interface_grid.attach (buttonbox, 0, 2, 3, 1);
+            interface_grid.attach (textbox, 0, 3, 3, 1);
+            interface_grid.attach (separator, 0, 4, 3, 1);
+
+            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
+            interface_grid.attach (focus_mode, 1, 5, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
+
+            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
+            interface_grid.attach (statusbar, 1, 8, 1, 1);
 
             return interface_grid;
         }
 
         private Gtk.Widget get_ext_grid () {
             var ext_grid = new Gtk.Grid ();
+            ext_grid.orientation = Gtk.Orientation.VERTICAL;
             ext_grid.row_spacing = 6;
             ext_grid.column_spacing = 12;
 

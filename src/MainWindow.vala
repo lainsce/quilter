@@ -159,64 +159,9 @@ namespace Quilter {
         }
 
         construct {
-            var css_provider = new Gtk.CssProvider();
-            string style = """.color-button {
-                border-bottom-left-radius: 2px;
-                border-top-left-radius: 2px;
-                border-top-right-radius: 2px;
-                border-bottom-right-radius: 2px;
-                text-shadow: 1px 1px transparent;
-                background-image: none;
-                box-shadow: 0 1px transparent inset;
-                padding: 2px;
-            }
-            
-            .color-button:focus {
-                border-color: @colorAccent;
-            }
-            
-            .color-dark {
-                background-color: #151611;
-                border: 1px solid #050601;
-            }
-
-            .color-dark image {
-                color: #C3C3C1;
-                -gtk-icon-shadow: 1px 1px transparent;
-            }
-            
-            .color-light {
-                background-color: #F9F9F9;
-                border: 1px solid #BFBFBF;
-            }
-
-            .color-light image {
-                color: #191919;
-                -gtk-icon-shadow: 1px 1px transparent;
-            }
-            
-            .color-sepia {
-                background-color: #F0E8DD;
-                border: 1px solid #d0b896;
-            }
-
-            .color-sepia image {
-                color: #5D4738;
-                -gtk-icon-shadow: 1px 1px transparent;
-            }""";
-
-
-            try {
-                css_provider.load_from_data(style, -1);
-            } catch (GLib.Error e) {
-                warning ("Failed to parse css style : %s", e.message);
-            }
-
-            Gtk.StyleContext.add_provider_for_screen (
-                Gdk.Screen.get_default (),
-                css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-            );
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
