@@ -320,6 +320,8 @@ namespace Quilter.Widgets {
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             separator.hexpand = true;
+            separator.margin_top = 6;
+            separator.margin_bottom = 6;
 
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (buttonbox, 0, 2, 3, 1);
