@@ -206,7 +206,6 @@ namespace Quilter.Widgets {
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 64;
             color_button_light.width_request = 64;
-            color_button_light.tooltip_text = _("Light Mode");
 
             var color_button_light_context = color_button_light.get_style_context ();
             color_button_light_context.add_class ("color-button");
@@ -222,7 +221,6 @@ namespace Quilter.Widgets {
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 64;
             color_button_sepia.width_request = 64;
-            color_button_sepia.tooltip_text = _("Sepia Mode");
 
             var color_button_sepia_context = color_button_sepia.get_style_context ();
             color_button_sepia_context.add_class ("color-button");
@@ -238,7 +236,6 @@ namespace Quilter.Widgets {
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 64;
             color_button_dark.width_request = 64;
-            color_button_dark.tooltip_text = _("Dark Mode");
 
             var color_button_dark_context = color_button_dark.get_style_context ();
             color_button_dark_context.add_class ("color-button");
