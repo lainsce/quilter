@@ -12,5 +12,8 @@ if not os.environ.get('DESTDIR'):
     print('Recaching mimetype handlers...')
     subprocess.call(['update-desktop-database'], shell=False)
 
+    print('Rebuilding desktop icons cache...')
+    subprocess.call(['gtk-update-icon-cache', '-q -t -f', '/usr/share/icons/hicolor/'], shell=False)
+
     print('Rebuilding font cache...')
-    subprocess.call(['fc-cache -f'], shell=True)
+    subprocess.call(['fc-cache -f /usr/share/fonts/truetype/quilt/'], shell=True)
