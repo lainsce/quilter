@@ -195,4 +195,114 @@ namespace Quilter.Services.FileManager {
         file = null;
         view.is_modified = false;
     }
+
+    public static File? export_pdf (string? file_path = null) {
+        Widgets.Preview.get_instance ().update_html_view ();
+
+        File file;
+        if (file_path == null) {
+            file = get_file_from_user ();
+            if (!file.get_basename ().down ().has_suffix (".pdf")) {
+                file = File.new_for_path (file.get_path () + ".pdf");
+            }
+        } else {
+            file = File.new_for_path (file_path);
+        }
+
+        if (file == null) {
+          return null;
+        }
+
+        try {
+            write_file (file, "");
+        } catch (Error e) {
+            warning ("Could not write initial PDF file: %s", e.message);
+            return null;
+        }
+
+        var op = new WebKit.PrintOperation (Widgets.Preview.get_instance());
+        var psettings = new Gtk.PrintSettings ();
+        psettings.set_printer (_("Print to File"));
+
+
+        psettings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
+        op.set_print_settings (psettings);
+
+        op.print ();
+
+        return file;
+    }
+
+    public static void write_file (File file, string contents, bool overrite = false) throws Error {
+        if (file.query_exists () && overrite) {
+            file.delete ();
+        }
+
+        if (!file.query_exists ()) {
+            try {
+                file.create (FileCreateFlags.REPLACE_DESTINATION);
+            } catch (Error e) {
+                throw new Error (Quark.from_string (""), -1, "Could not write file: %s", e.message);
+            }
+        }
+
+        file.open_readwrite_async.begin (Priority.DEFAULT, null, (obj, res) => {
+            try {
+                var iostream = file.open_readwrite_async.end (res);
+                var ostream = iostream.output_stream;
+                ostream.write_all (contents.data, null);
+            } catch (Error e) {
+                warning ("Could not write file \"%s\": %s", file.get_basename (), e.message);
+            }
+        });
+    }
+
+    public static File? get_file_from_user (bool save_as_pdf = true) {
+        File? result = null;
+
+        string title = "";
+        Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
+        string accept_button_label = "";
+        List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
+
+        if (save_as_pdf) {
+            title =  _("Select destination PDF file");
+            chooser_action = Gtk.FileChooserAction.SAVE;
+            accept_button_label = _("Save");
+
+            var pdf_filter = new Gtk.FileFilter ();
+            pdf_filter.set_filter_name (_("PDF File"));
+
+            pdf_filter.add_mime_type ("application/pdf");
+            pdf_filter.add_pattern ("*.pdf");
+
+            filters.append (pdf_filter);
+        }
+
+        var all_filter = new Gtk.FileFilter ();
+        all_filter.set_filter_name (_("All Files"));
+        all_filter.add_pattern ("*");
+
+        filters.append (all_filter);
+
+        var dialog = new Gtk.FileChooserDialog (
+            title,
+            window,
+            chooser_action,
+            _("Cancel"), Gtk.ResponseType.CANCEL,
+            accept_button_label, Gtk.ResponseType.ACCEPT);
+
+
+        filters.@foreach ((filter) => {
+            dialog.add_filter (filter);
+        });
+
+        if (dialog.run () == Gtk.ResponseType.ACCEPT) {
+            result = dialog.get_file ();
+        }
+
+        dialog.close ();
+
+        return result;
+    }
 }

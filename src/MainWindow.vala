@@ -24,7 +24,7 @@ namespace Quilter {
         public Gtk.HeaderBar toolbar;
         public File file;
         public Widgets.SourceView edit_view_content;
-        public Widgets.WebView preview_view_content;
+        public Widgets.Preview preview_view_content;
         public Widgets.StatusBar statusbar;
 
         private Gtk.Button new_button;
@@ -43,12 +43,14 @@ namespace Quilter {
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_PREFS = "action_preferences";
+        public const string ACTION_EXPORT_PDF = "action_export_pdf";
 
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
             { ACTION_CHEATSHEET, action_cheatsheet },
-            { ACTION_PREFS, action_preferences }
+            { ACTION_PREFS, action_preferences },
+            { ACTION_EXPORT_PDF, action_export_pdf }
         };
 
         public bool is_fullscreen {
@@ -225,6 +227,26 @@ namespace Quilter {
                 toolbar.subtitle = settings.subtitle;
             });
 
+            var export_pdf = new Gtk.ModelButton ();
+            export_pdf.text = (_("Export to PDF…"));
+            export_pdf.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_PDF;
+
+            var share_menu_grid = new Gtk.Grid ();
+            share_menu_grid.margin = 6;
+            share_menu_grid.row_spacing = 6;
+            share_menu_grid.column_spacing = 12;
+            share_menu_grid.orientation = Gtk.Orientation.VERTICAL;
+            share_menu_grid.add (export_pdf);
+            share_menu_grid.show_all ();
+
+            var share_menu = new Gtk.Popover (null);
+            share_menu.add (share_menu_grid);
+
+            var share_app_menu = new Gtk.MenuButton ();
+            share_app_menu.image = new Gtk.Image.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
+            share_app_menu.tooltip_text = _("Export");
+            share_app_menu.popover = share_menu;
+
             var cheatsheet = new Gtk.ModelButton ();
             cheatsheet.text = (_("Markdown Cheatsheet"));
             cheatsheet.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET;
@@ -337,7 +359,7 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view_content = new Widgets.WebView (this);
+            preview_view_content = new Widgets.Preview ();
             preview_view.add (preview_view_content);
 
             stack = new Gtk.Stack ();
@@ -376,6 +398,7 @@ namespace Quilter {
             });
 
             toolbar.pack_end (menu_button);
+            toolbar.pack_end (share_app_menu);
             toolbar.pack_end (view_mode);
 
             toolbar.show_close_button = true;
@@ -443,10 +466,17 @@ namespace Quilter {
             dialog.show_all ();
         }
 
-        private void schedule_timer () {
-            if (edit_view_content.is_modified == true) {
+        private void action_export_pdf () {
+            Services.FileManager.export_pdf ();
+        }
+
+        private async void schedule_timer () {
+            Timeout.add (10, () => {
                 render_func ();
-            }
+                return false;
+            }, 
+            GLib.Priority.DEFAULT);
+            yield;
         }
 
         private bool render_func () {

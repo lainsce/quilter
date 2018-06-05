@@ -20,12 +20,11 @@
 using WebKit;
 
 namespace Quilter {
-    public class Widgets.WebView : WebKit.WebView {
-        public MainWindow parent_window;
+    public class Widgets.Preview : WebKit.WebView {
+        private static Preview? instance = null;
 
-        public WebView (MainWindow window) {
+        public Preview () {
             Object(user_content_manager: new UserContentManager());
-            parent_window = window;
             visible = true;
             vexpand = true;
             hexpand = true;
@@ -35,11 +34,18 @@ namespace Quilter {
             settingsweb.enable_developer_extras = false;
             settingsweb.javascript_can_open_windows_automatically = false;
 
-            this.set_custom_charset ("utf-8");
             update_html_view ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_html_view);
             connect_signals ();
+        }
+
+        public static Preview get_instance () {
+            if (instance == null) {
+                instance = new Widgets.Preview ();
+            }
+    
+            return instance;
         }
 
         protected override bool context_menu (
@@ -79,6 +85,16 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
             if (settings.latex) {
                 return Build.PKGDATADIR + "/katex/katex.js";
+            } else {
+                return "";
+            }
+        }
+
+        private string set_latex_user () {
+            var settings = AppSettings.get_default ();
+            if (settings.latex) {
+                this.set_custom_charset ("utf-8");
+                return Build.PKGDATADIR + "/katex/user.js";
             } else {
                 return "";
             }
@@ -209,6 +225,7 @@ namespace Quilter {
             string highlight_stylesheet = set_highlight_stylesheet();
             string highlight = set_highlight();
             string latex = set_latex();
+            string latexuser = set_latex_user ();
             string stylesheet = set_stylesheet ();
             string build = Build.PKGDATADIR;
             string markdown = process ();
@@ -222,7 +239,8 @@ namespace Quilter {
                     <script>hljs.initHighlightingOnLoad();</script>
                     <link rel="stylesheet" href="%s/katex/katex.css">
                     <script src="%s"></script>
-                    <script>document.addEventListener("DOMContentLoaded", function() {renderMathInElement(document.getElementsByClassName("markdown-body")[0], {delimiters: [{left: "\\[", right: "\\]", display: true},{left: "\\(", right: "\\)", display: false}]});});</script>
+                    <script src="%s/katex/auto.js"></script>
+                    <script src="%s"></script>
                     <style>%s</style>
                 </head>
                 <body>
@@ -230,7 +248,7 @@ namespace Quilter {
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight_stylesheet, highlight, build, latex, stylesheet, markdown);
+            </html>""".printf(highlight_stylesheet, highlight, build, latex, build, latexuser, stylesheet, markdown);
             this.load_html (html, "file:///");
         }
     }

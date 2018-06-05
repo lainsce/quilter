@@ -21,7 +21,7 @@ namespace Quilter.Widgets {
         public static new Gtk.SourceBuffer buffer;
         public bool is_modified {get; set; default = false;}
         public File file;
-        public WebView webview;
+        public Preview webview;
         public GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
