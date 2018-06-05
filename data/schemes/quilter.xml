@@ -12,14 +12,14 @@
   <style name="def:statement" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#B7B6B7" italic="true"/>
+  <style name="def:doc-comment-element" italic="true"/>
 
   <!-- Links -->
   <style name="def:comment" foreground="#11BCED"/>
   <style name="def:underlined" foreground="#11BCED"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#B7B6B7"/>
+  <style name="def:identifier" background="#F0F0F0" foreground="#191919"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#191919"/>

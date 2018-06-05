@@ -120,11 +120,11 @@ public class Quilter.Styles.quilter {
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #dddddd;
+      border: 1px solid #F0F0F0;
     }
 
     table tr {
-      border-top: 1px solid #dddddd;
+      border-top: 1px solid #F0F0F0;
     }
 
     img {
@@ -144,8 +144,8 @@ public class Quilter.Styles.quilter {
     code{
       display: inline-block;
       padding: 0 0.25rem;
-      background-color: #dddddd;
-      border: 1px solid #dddddd;
+      background-color: #F0F0F0;
+      border: 1px solid #F0F0F0;
       border-radius: 4px;
       font-family: 'Quilt Mono', monospace;
       font-weight: normal;
