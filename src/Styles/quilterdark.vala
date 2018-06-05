@@ -29,7 +29,7 @@ public class Quilter.Styles.quilterdark {
     }
 
     p {
-      font-size: 1rem;
+      font-size: 18px;
       color: #C3C3C1;
     }
 
@@ -177,6 +177,10 @@ public class Quilter.Styles.quilterdark {
 
     ul {
       list-style: disc;
+    }
+
+    ul>li {
+      font-size: 18px;
     }
   
     ul, ol {
