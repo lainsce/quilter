@@ -32,6 +32,7 @@ namespace Quilter {
         private Gtk.Button save_button;
         private Gtk.Button save_as_button;
         private Gtk.MenuButton menu_button;
+        private Gtk.MenuButton share_app_menu;
         private Gtk.Stack stack;
         private Gtk.StackSwitcher view_mode;
         private Gtk.ScrolledWindow edit_view;
@@ -242,8 +243,7 @@ namespace Quilter {
             var share_menu = new Gtk.Popover (null);
             share_menu.add (share_menu_grid);
 
-            var share_app_menu = new Gtk.MenuButton ();
-            share_app_menu.image = new Gtk.Image.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
+            share_app_menu = new Gtk.MenuButton ();
             share_app_menu.tooltip_text = _("Export");
             share_app_menu.popover = share_menu;
 
@@ -497,12 +497,14 @@ namespace Quilter {
                 save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as", Gtk.IconSize.LARGE_TOOLBAR));
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
+                share_app_menu.image = new Gtk.Image.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+                share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }
         }
 
