@@ -85,3 +85,15 @@
     color: #5D4738;
     -gtk-icon-shadow: 1px 1px transparent;
 }
+
+.small-text {
+    font-family: 'Quilt Mono';
+    font-size: 1.45rem;
+    font-kerning: normal;
+}
+
+.focus-text {
+    font-family: 'Quilt Mono';
+    font-size: 1.65rem;
+    font-kerning: normal;
+}

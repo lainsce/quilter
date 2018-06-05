@@ -23,7 +23,6 @@ namespace Quilter.Widgets {
         public File file;
         public WebView webview;
         public GtkSpell.Checker spell = null;
-        private string font;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
@@ -124,7 +123,7 @@ namespace Quilter.Widgets {
             is_modified = false;
 
             if (settings.autosave = true && is_modified = true) {
-                Timeout.add (10000, () => {
+                Timeout.add (1000, () => {
                     on_text_modified ();
                     return true;
                 });
@@ -181,16 +180,6 @@ namespace Quilter.Widgets {
             buffer.place_cursor (start);
         }
 
-        public void use_default_font (bool value) {
-            if (!value) {
-                return;
-            }
-
-            var default_font = "Quilt Mono 12";
-
-            this.font = default_font;
-        }
-
         private void update_settings () {
             var settings = AppSettings.get_default ();
             this.set_pixels_above_lines(settings.spacing);
@@ -208,15 +197,16 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
-                this.font = settings.font;
-                use_default_font (settings.use_system_font);
-                this.override_font (Pango.FontDescription.from_string (this.font));
+                var buffer_context = this.get_style_context ();
+                buffer_context.add_class ("small-text");
+                buffer_context.remove_class ("focus-text");
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
                 set_focused_text ();
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                this.font = "Quilt Mono 14";
-                this.override_font (Pango.FontDescription.from_string (this.font));
+                var buffer_context = this.get_style_context ();
+                buffer_context.add_class ("focus-text");
+                buffer_context.remove_class ("small-text");
             }
 
             set_scheme (get_default_scheme ());

@@ -20,6 +20,7 @@ namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
         private Gtk.Stack main_stack;
         private Gtk.StackSwitcher main_stackswitcher;
+        private MainWindow window;
 
         public Preferences (Gtk.Window? parent) {
             Object (
@@ -138,13 +139,25 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = 40;
+                        if (window.is_fullscreen) {
+                            main_settings.margins = 120;
+                        } else {
+                            main_settings.margins = 40;
+                        }
                         break;
                     case 1:
-                        main_settings.margins = 80;
+                        if (window.is_fullscreen) {
+                            main_settings.margins = 160;
+                        } else {
+                            main_settings.margins = 80;
+                        }
                         break;
                     case 2:
-                        main_settings.margins = 120;
+                        if (window.is_fullscreen) {
+                            main_settings.margins = 200;
+                        } else {
+                            main_settings.margins = 120;
+                        }
                         break;
                     case 3:
                         main_settings.margins = margins;
@@ -154,21 +167,6 @@ namespace Quilter.Widgets {
 
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
-
-            var font_header = new Granite.HeaderLabel (_("Font"));
-            var use_custom_font_label = new SettingsLabel (_("Custom font:"));
-            var use_custom_font = new Gtk.Switch ();
-            use_custom_font.halign = Gtk.Align.START;
-            main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
-            var select_font = new Gtk.FontButton ();
-            select_font.use_font = true;
-            select_font.hexpand = true;
-            main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
-            main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
-
-            var custom_font_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            custom_font_box.pack_start (use_custom_font, false, true, 0);
-            custom_font_box.pack_start (select_font, false, true, 0);
 
             editor_grid.attach (editor_header, 0, 1, 3, 1);
             editor_grid.attach (spellcheck_label,  0, 2, 1, 1);
@@ -181,10 +179,6 @@ namespace Quilter.Widgets {
             editor_grid.attach (spacing_size, 1, 5, 1, 1);
             editor_grid.attach (margins_label, 0, 6, 1, 1);
             editor_grid.attach (margins_size, 1, 6, 1, 1);
-
-            editor_grid.attach (font_header, 0, 7, 3, 1);
-            editor_grid.attach (use_custom_font_label, 0, 8, 1, 1);
-            editor_grid.attach (custom_font_box, 1, 8, 1, 1);
 
             return editor_grid;
         }

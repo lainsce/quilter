@@ -37,12 +37,6 @@ namespace Quilter {
         private Gtk.ScrolledWindow edit_view;
         private Gtk.ScrolledWindow preview_view;
         private Gtk.Grid grid;
-        private bool timer_scheduled = false;
-
-        /*
-         * 100ms equals one keypress per beat. Speedy.
-         */
-        private const int TIME_TO_REFRESH = 100;
 
         public SimpleActionGroup actions { get; construct; }
 
@@ -405,7 +399,7 @@ namespace Quilter {
 
         protected bool match_keycode (int keyval, uint code) {
             Gdk.KeymapKey [] keys;
-            Gdk.Keymap keymap = Gdk.Keymap.get_default ();
+            Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
             if (keymap.get_entries_for_keyval (keyval, out keys)) {
                 foreach (var key in keys) {
                     if (code == key.keycode)
@@ -450,9 +444,8 @@ namespace Quilter {
         }
 
         private void schedule_timer () {
-            if (!timer_scheduled && edit_view_content.is_modified == true) {
-                Timeout.add (TIME_TO_REFRESH, render_func);
-                timer_scheduled = true;
+            if (edit_view_content.is_modified == true) {
+                render_func ();
             }
         }
 
@@ -463,8 +456,6 @@ namespace Quilter {
             } else {
                 edit_view_content.is_modified = true;
             }
-
-            timer_scheduled = false;
             return false;
         }
 

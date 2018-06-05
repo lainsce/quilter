@@ -45,11 +45,6 @@
             <summary>Autosave edited files</summary>
             <description>Autosave edited files.</description>
         </key>
-		<key name="font" type="s">
-				<default>'Quilt Mono 11'</default>
-				<summary>Preferred Font</summary>
-				<description>Set the preferred font</description>
-		</key>
 		<key name="last-file" type="s">
 				<default>''</default>
 				<summary>Last opened file</summary>

@@ -54,14 +54,19 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-      <release version="1.5.7" date="2018-06-01">
+      <release version="1.5.7" date="2018-06-08">
          <description>
-             <p>Release: A New Font &amp; Fries</p>
-             <ul>
-                 <li>Enjoy the new Quilt font specially made for Quilter</li>
-                 <li>Extensions such as LaTeX and Code highlighting are now on-demand.</li>
-                 <li>X</li>
-             </ul>
+            <p>Release: Sepia &amp; Blues</p>
+            <ul>
+                <li>A new sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)<li>
+                <li>A new Mode between Light &amp; Dark, the Sepia Mode.</li>
+                <li>A new way to toggle between Modes in the Settings.</li>
+                <li>A redesign of the main menu.</li>
+                <li>Toggle Preview Mode's extensions in the Settings.</li>
+                <li>Fixed most of the internal logic to change between Modes.</li>
+                <li>Fixed fullscreen bug. (finally!)</li>
+                <li>Fixed the refresh rate of Preview Mode.</li>
+            </ul>
          </description>
       </release>
       <release version="1.5.6" date="2018-05-05">
