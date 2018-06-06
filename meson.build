@@ -53,6 +53,7 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/Widgets/HeaderBar.vala',
     'src/Widgets/SourceView.vala',
     'src/Widgets/WebView.vala',
     'src/Widgets/StatusBar.vala',

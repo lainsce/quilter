@@ -23,6 +23,7 @@ namespace Quilter {
         private static string _cwd;
 
         public static MainWindow window = null;
+        public Widgets.Headerbar toolbar;
         public static string[] supported_mimetypes;
 
         construct {
@@ -169,7 +170,7 @@ namespace Quilter {
                 if (files.length > 0) {
                     Services.FileManager.open_from_outside (files, "");
                     var settings = AppSettings.get_default ();
-                    window.toolbar.subtitle = settings.subtitle;
+                    toolbar.subtitle = settings.subtitle;
                 }
             }
 

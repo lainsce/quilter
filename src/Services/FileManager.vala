@@ -17,6 +17,7 @@
 
 namespace Quilter.Services.FileManager {
     public File tmp_file;
+    public File file;
     public MainWindow window;
     public Widgets.SourceView view;
 
@@ -95,6 +96,63 @@ namespace Quilter.Services.FileManager {
     }
 
     // File I/O
+    public void new_file () {
+        debug ("New button pressed.");
+        debug ("Buffer was modified. Asking user to save first.");
+        var settings = AppSettings.get_default ();
+        var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
+        dialog.response.connect ((response_id) => {
+            switch (response_id) {
+                case Gtk.ResponseType.YES:
+                    debug ("User saves the file.");
+
+                    try {
+                        Services.FileManager.save ();
+                        string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                        file = File.new_for_path (cache);
+                        Widgets.SourceView.buffer.text = "";
+                        settings.last_file = file.get_path ();
+                        settings.subtitle = file.get_basename ();
+                    } catch (Error e) {
+                        warning ("Unexpected error during save: " + e.message);
+                    }
+                    break;
+                case Gtk.ResponseType.NO:
+                    debug ("User doesn't care about the file, shoot it to space.");
+
+                    string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+                    file = File.new_for_path (cache);
+                    Widgets.SourceView.buffer.text = "";
+                    settings.last_file = file.get_path ();
+                    settings.subtitle = file.get_basename ();
+                    break;
+                case Gtk.ResponseType.CANCEL:
+                    debug ("User cancelled, don't do anything.");
+                    break;
+                case Gtk.ResponseType.DELETE_EVENT:
+                    debug ("User cancelled, don't do anything.");
+                    break;
+            }
+            dialog.destroy();
+        });
+
+        if (view.is_modified) {
+            dialog.show ();
+            view.is_modified = false;
+        } else {
+            try {
+                Services.FileManager.save ();
+            } catch (Error e) {
+                warning ("Unexpected error during save: " + e.message);
+            }
+            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
+            file = File.new_for_path (cache);
+            Widgets.SourceView.buffer.text = "";
+            settings.last_file = file.get_path ();
+            settings.subtitle = file.get_basename ();
+        }
+    }
+
     public bool open_from_outside (File[] files, string hint) {
         if (files.length > 0) {
             var file = files[0];
