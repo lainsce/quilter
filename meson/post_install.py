@@ -13,7 +13,7 @@ if not os.environ.get('DESTDIR'):
     subprocess.call(['update-desktop-database'], shell=False)
 
     print('Rebuilding desktop icons cache...')
-    subprocess.call(['gtk-update-icon-cache', '-q -t -f', '/usr/share/icons/hicolor/'], shell=False)
+    subprocess.call(['gtk-update-icon-cache', '/usr/share/icons/hicolor/'], shell=False)
 
     print('Rebuilding font cache...')
     subprocess.call(['fc-cache -f /usr/share/fonts/truetype/quilt/'], shell=True)

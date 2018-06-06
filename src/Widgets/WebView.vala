@@ -165,7 +165,6 @@ namespace Quilter {
 
             processed_mk = null;
 
-            // Parse frontmatter
             if (raw_mk.length > 4 && raw_mk[0:4] == "---\n") {
                 int i = 0;
                 bool valid_frontmatter = true;
@@ -174,14 +173,14 @@ namespace Quilter {
                 string line = "";
                 while (true) {
                     next_newline = raw_mk.index_of_char('\n', last_newline + 1);
-                    if (next_newline == -1) { // End of file
+                    if (next_newline == -1) {
                         valid_frontmatter = false;
                         break;
                     }
                     line = raw_mk[last_newline+1:next_newline];
                     last_newline = next_newline;
 
-                    if (line == "---") { // End of frontmatter
+                    if (line == "---") {
                         break;
                     }
 
@@ -189,7 +188,7 @@ namespace Quilter {
                     if (sep_index != -1) {
                         map += line[0:sep_index-1];
                         map += line[sep_index+1:line.length];
-                    } else { // No colon, invalid frontmatter
+                    } else {
                         valid_frontmatter = false;
                         break;
                     }
@@ -197,7 +196,7 @@ namespace Quilter {
                     i++;
                 }
 
-                if (valid_frontmatter) { // Strip frontmatter if it's a valid one
+                if (valid_frontmatter) {
                     processed_mk = raw_mk[last_newline:raw_mk.length];
                 }
             }

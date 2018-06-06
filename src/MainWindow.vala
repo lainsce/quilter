@@ -481,7 +481,7 @@ namespace Quilter {
             Services.ExportUtils.export_html ();
         }
 
-        private void schedule_timer () {
+        private async void schedule_timer () {
             Timeout.add (10, () => {
                 render_func ();
                 return false;

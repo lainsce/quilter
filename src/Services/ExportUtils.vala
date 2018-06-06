@@ -32,13 +32,6 @@ namespace Quilter.Services.ExportUtils {
 
         if (file == null) {
           return null;
-        } else {
-            try {
-                file.delete ();
-            } catch (Error e) {
-                warning ("Could not write HTML file: %s", e.message);
-                return null;
-            }
         }
 
         try {
@@ -146,9 +139,9 @@ namespace Quilter.Services.ExportUtils {
             accept_button_label, Gtk.ResponseType.ACCEPT);
 
 
-        filters.@foreach ((filter) => {
-            dialog.add_filter (filter);
-        });
+        dialog.add_filter (pdf_filter);
+        dialog.add_filter (all_filter);
+
 
         if (dialog.run () == Gtk.ResponseType.ACCEPT) {
             result = dialog.get_file ();
@@ -160,7 +153,9 @@ namespace Quilter.Services.ExportUtils {
     }
 
     public static File? get_html_from_user () {
-        File? result = null;
+        Widgets.Preview.get_instance ().update_html_view ();
+
+        File? result2 = null;
 
         string title = "";
         Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
@@ -184,7 +179,7 @@ namespace Quilter.Services.ExportUtils {
 
         filters.append (all_filter);
 
-        var dialog = new Gtk.FileChooserDialog (
+        var dialog2 = new Gtk.FileChooserDialog (
             title,
             window,
             chooser_action,
@@ -192,16 +187,15 @@ namespace Quilter.Services.ExportUtils {
             accept_button_label, Gtk.ResponseType.ACCEPT);
 
 
-        filters.@foreach ((filter) => {
-            dialog.add_filter (filter);
-        });
+        dialog2.add_filter (html_filter);
+        dialog2.add_filter (all_filter);
 
-        if (dialog.run () == Gtk.ResponseType.ACCEPT) {
-            result = dialog.get_file ();
+        if (dialog2.run () == Gtk.ResponseType.ACCEPT) {
+            result2 = dialog2.get_file ();
         }
 
-        dialog.close ();
+        dialog2.close ();
 
-        return result;
+        return result2;
     }
 }
