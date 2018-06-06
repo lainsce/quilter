@@ -22,6 +22,7 @@ using WebKit;
 namespace Quilter {
     public class Widgets.Preview : WebKit.WebView {
         private static Preview? instance = null;
+        public string html;
 
         public Preview () {
             Object(user_content_manager: new UserContentManager());
@@ -229,7 +230,7 @@ namespace Quilter {
             string stylesheet = set_stylesheet ();
             string build = Build.PKGDATADIR;
             string markdown = process ();
-            string html = """
+            html = """
             <!doctype html>
             <html>
                 <head>

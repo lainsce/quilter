@@ -64,6 +64,7 @@ executable(
     'src/Styles/quiltersepia.vala',
     'src/Constants/AppSettings.vala',
     'src/Services/FileManager.vala',
+    'src/Services/ExportUtils.vala',
     'src/Services/DialogUtils.vala',
     asresources,
     c_args: c_args,

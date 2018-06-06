@@ -57,11 +57,9 @@ namespace Quilter {
 
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
-
             var context = new OptionContext ("File");
             context.add_main_entries (entries, "com.github.lainsce.quilter");
             context.add_group (Gtk.get_option_group (true));
-
             int unclaimed_args;
 
             try {

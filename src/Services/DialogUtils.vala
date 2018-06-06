@@ -79,7 +79,6 @@ namespace Quilter.Services.DialogUtils {
             add_action_widget (button, Gtk.ResponseType.NO);
             add_button ("_Cancel", Gtk.ResponseType.CANCEL);
             add_button ("_Save", Gtk.ResponseType.YES);
-
             message_type = Gtk.MessageType.WARNING;
         }
     }

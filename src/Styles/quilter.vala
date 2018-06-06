@@ -101,7 +101,10 @@ public class Quilter.Styles.quilter {
       margin-left: 80px;
       margin-right: 80px;
       margin-top: 40px;
-      max-width: 50rem;
+      align-content: center;
+      align-items: center;
+      align-self: center;
+      display: inline-block;
       text-align: left;
     }
 
