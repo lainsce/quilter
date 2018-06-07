@@ -147,19 +147,12 @@ namespace Quilter {
 
             var toolbar = new Widgets.Headerbar ();
             toolbar.title = this.title;
+            toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
-
-            string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-
-            if (settings.last_file != null) {
-                toolbar.subtitle = settings.subtitle;
-            } else if (settings.last_file == @"$cache/temp") {
-                toolbar.subtitle = "New Document";
-            }
 
             statusbar = new Widgets.StatusBar ();
 

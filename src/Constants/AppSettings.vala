@@ -36,7 +36,6 @@ namespace Quilter {
         public int window_x { get; set; }
         public int window_y { get; set; }
         public string last_file { get; set; }
-        public string subtitle { get; set; }
         public string spellcheck_language { get; set; }
 
         private static AppSettings? instance;

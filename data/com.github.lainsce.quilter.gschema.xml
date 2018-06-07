@@ -50,11 +50,6 @@
 				<summary>Last opened file</summary>
 				<description>The last opened file in Quilter</description>
 		</key>
-		<key name="subtitle" type="s">
-				<default>''</default>
-				<summary>Last opened file markup for subtitle</summary>
-				<description>The last opened file in Quilter, for subtitle</description>
-		</key>
         <key name="spellcheck" type="b">
 			    <default>true</default>
 			    <summary>Enable spellcheck</summary>

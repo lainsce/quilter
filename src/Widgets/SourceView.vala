@@ -22,7 +22,6 @@ namespace Quilter.Widgets {
         public bool is_modified {get; set; default = false;}
         public File file;
         public Preview webview;
-        public Headerbar header;
         public GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
@@ -111,7 +110,6 @@ namespace Quilter.Widgets {
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (() => {
                 on_text_modified ();
-                header.unsaved_indicator (false);
             });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#393939");

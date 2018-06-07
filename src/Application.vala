@@ -169,8 +169,6 @@ namespace Quilter {
 
                 if (files.length > 0) {
                     Services.FileManager.open_from_outside (files, "");
-                    var settings = AppSettings.get_default ();
-                    toolbar.subtitle = settings.subtitle;
                 }
             }
 

@@ -56,7 +56,6 @@ namespace Quilter.Widgets {
 
             new_button.clicked.connect (() => {
                 Services.FileManager.new_file ();
-                this.subtitle = "New Document";
             });
 
             save_as_button = new Gtk.Button ();
@@ -66,11 +65,9 @@ namespace Quilter.Widgets {
             save_as_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save_as ();
-                    unsaved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                this.subtitle = settings.subtitle;
             });
 
             save_button = new Gtk.Button ();
@@ -80,11 +77,9 @@ namespace Quilter.Widgets {
             save_button.clicked.connect (() => {
                 try {
                     Services.FileManager.save ();
-                    unsaved_indicator (true);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                this.subtitle = settings.subtitle;
             });
 
             open_button = new Gtk.Button ();
@@ -97,7 +92,6 @@ namespace Quilter.Widgets {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
-                this.subtitle = settings.subtitle;
             });
 
             var export_pdf = new Gtk.ModelButton ();
@@ -289,20 +283,6 @@ namespace Quilter.Widgets {
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            }
-        }
-
-        public void unsaved_indicator (bool val) {
-            sourceview.is_modified = val;
-
-            string unsaved_identifier = "* ";
-
-            if (!val) {
-                if (!(unsaved_identifier in this.subtitle)) {
-                    this.subtitle = unsaved_identifier + this.subtitle;
-                }
-            } else {
-                this.subtitle = this.subtitle.replace (unsaved_identifier, "");
             }
         }
     }
