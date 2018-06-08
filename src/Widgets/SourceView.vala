@@ -28,6 +28,8 @@ namespace Quilter.Widgets {
         private Gtk.TextTag whitefont;
         private Gtk.TextTag sepiafont;
         private Gtk.TextTag lightsepiafont;
+        public Gtk.TextTag warning_tag;
+        public Gtk.TextTag error_tag;
 
         public signal void changed ();
 
@@ -118,6 +120,16 @@ namespace Quilter.Widgets {
             whitefont = buffer.create_tag(null, "foreground", "#C3C3C1");
             lightsepiafont = buffer.create_tag(null, "foreground", "#a18866");
             sepiafont = buffer.create_tag(null, "foreground", "#2D1708");
+
+            warning_tag = new Gtk.TextTag ("warning_bg");
+            warning_tag.underline = Pango.Underline.ERROR;
+            warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
+
+            error_tag = new Gtk.TextTag ("error_bg");
+            error_tag.underline = Pango.Underline.ERROR;
+
+            buffer.tag_table.add (error_tag);
+            buffer.tag_table.add (warning_tag);
 
             is_modified = false;
 

@@ -42,6 +42,15 @@ public class Quilter.Styles.quilter {
       font-style: bold;
     }
 
+    h1:first-of-type,
+    h2:first-of-type,
+    h3:first-of-type,
+    h4:first-of-type,
+    h5:first-of-type,
+    h6:first-of-type {
+      margin-top: 20px;
+    }
+
     h1 {
       margin-top: 1em;
       margin-bottom: 1em;
@@ -103,7 +112,7 @@ public class Quilter.Styles.quilter {
 
     body {
       color: #191919;
-      background-color: #FAFAFA;
+      background-color: #FFFFFF;
       font-family: 'Tinos', serif;
       font-weight: 400;
       line-height: 1.4rem;
