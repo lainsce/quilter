@@ -72,10 +72,16 @@ namespace Quilter.Services.ExportUtils {
         var psettings = new Gtk.PrintSettings ();
         psettings.set_printer (_("Print to File"));
 
+        var psize = new Gtk.PageSetup ();
+        // Ugliest hack in the planet to set the PDF properly since there's no page cuts feature
+        psize.set_bottom_margin (0.01, MM);
+        psize.set_right_margin (0.01, MM);
+        psize.set_left_margin (0.01, MM);
+        psize.set_top_margin (0.01, MM);
 
         psettings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
         op.set_print_settings (psettings);
-
+        op.set_page_setup (psize);
         op.print ();
 
         return file;

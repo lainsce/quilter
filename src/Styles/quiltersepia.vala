@@ -43,37 +43,45 @@ public class Quilter.Styles.quiltersepia {
     }
 
     h1 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: 2rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h2 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h3 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1.25rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h4 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1rem;
+      text-align: center;
     }
 
     h5 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: .875rem;
+      text-align: center;
     }
 
     h6 {
-      margin-top: 0;
+      margin-top: 1em;
       margin-bottom: 1em;
       font-size: .75rem;
     }
@@ -101,6 +109,7 @@ public class Quilter.Styles.quiltersepia {
       margin-left: 80px;
       margin-right: 80px;
       margin-top: 40px;
+      margin-bottom: 40px;
       align-content: center;
       align-items: center;
       align-self: center;
