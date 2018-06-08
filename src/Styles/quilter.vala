@@ -103,7 +103,7 @@ public class Quilter.Styles.quilter {
 
     body {
       color: #191919;
-      background-color: #F9F9F9;
+      background-color: #FAFAFA;
       font-family: 'Tinos', serif;
       font-weight: 400;
       line-height: 1.4rem;

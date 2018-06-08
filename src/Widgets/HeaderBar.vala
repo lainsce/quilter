@@ -18,12 +18,11 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Gtk.HeaderBar {
+        private static Headerbar? instance = null;
         public File file;
         public SourceView sourceview;
         public Preview preview;
-        public Gtk.Stack stack;
-        public Gtk.ScrolledWindow edit_view;
-        public Gtk.ScrolledWindow preview_view;
+        public MainWindow window;
 
         private Gtk.Button new_button;
         private Gtk.Button open_button;
@@ -45,6 +44,14 @@ namespace Quilter.Widgets {
             settings.changed.connect (() => {
                 focus_mode_toolbar ();
             });
+        }
+
+        public static Headerbar get_instance () {
+            if (instance == null) {
+                instance = new Widgets.Headerbar ();
+            }
+    
+            return instance;
         }
 
         private void build_ui () {
@@ -224,25 +231,6 @@ namespace Quilter.Widgets {
             menu_button.tooltip_text = (_("Settings"));
             menu_button.popover = menu;
 
-            edit_view = new Gtk.ScrolledWindow (null, null);
-            sourceview = new Widgets.SourceView ();
-            sourceview.monospace = true;
-            edit_view.add (sourceview);
-
-            preview_view = new Gtk.ScrolledWindow (null, null);
-            preview = new Widgets.Preview ();
-            preview_view.add (preview);
-
-            stack = new Gtk.Stack ();
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add_titled (edit_view, "edit_view", _("Edit"));
-            stack.add_titled (preview_view, "preview_view", _("Preview"));
-
-            var view_mode = new Gtk.StackSwitcher ();
-            view_mode.stack = stack;
-            view_mode.valign = Gtk.Align.CENTER;
-            view_mode.homogeneous = true;
-
             pack_start (new_button);
             pack_start (open_button);
             pack_start (save_as_button);
@@ -261,7 +249,6 @@ namespace Quilter.Widgets {
 
             pack_end (menu_button);
             pack_end (share_app_menu);
-            pack_end (view_mode);
 
             set_show_close_button (true);
             this.show_all ();

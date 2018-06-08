@@ -25,6 +25,9 @@ namespace Quilter {
         public Widgets.Headerbar toolbar;
         public Widgets.SourceView edit_view_content;
         public Widgets.Preview preview_view_content;
+        public Gtk.Stack stack;
+        public Gtk.ScrolledWindow edit_view;
+        public Gtk.ScrolledWindow preview_view;
         public Gtk.Grid grid;
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
@@ -128,10 +131,10 @@ namespace Quilter {
                 }
                 if (match_keycode (Gdk.Key.F1, keycode)) {
                     debug ("Press to change view...");
-                    if (toolbar.stack.get_visible_child_name () == "preview_view") {
-                        toolbar.stack.set_visible_child (toolbar.edit_view);
-                    } else if (toolbar.stack.get_visible_child_name () == "edit_view") {
-                        toolbar.stack.set_visible_child (toolbar.preview_view);
+                    if (this.stack.get_visible_child_name () == "preview_view") {
+                        this.stack.set_visible_child (this.edit_view);
+                    } else if (this.stack.get_visible_child_name () == "edit_view") {
+                        this.stack.set_visible_child (this.preview_view);
                     }
                     return true;
                 }
@@ -150,6 +153,27 @@ namespace Quilter {
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
 
+            edit_view = new Gtk.ScrolledWindow (null, null);
+            edit_view_content = new Widgets.SourceView ();
+            edit_view_content.monospace = true;
+            edit_view.add (edit_view_content);
+
+            preview_view = new Gtk.ScrolledWindow (null, null);
+            preview_view_content = new Widgets.Preview ();
+            preview_view.add (preview_view_content);
+
+            stack = new Gtk.Stack ();
+            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.add_titled (edit_view, "edit_view", _("Edit"));
+            stack.add_titled (preview_view, "preview_view", _("Preview"));
+
+            var view_mode = new Gtk.StackSwitcher ();
+            view_mode.stack = stack;
+            view_mode.valign = Gtk.Align.CENTER;
+            view_mode.homogeneous = true;
+
+            toolbar.pack_end (view_mode);
+
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
@@ -158,7 +182,7 @@ namespace Quilter {
 
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.add (toolbar.stack);
+            grid.add (stack);
             grid.add (statusbar);
             grid.show_all ();
             this.add (grid);
@@ -234,7 +258,7 @@ namespace Quilter {
         }
 
         private async void schedule_timer () {
-            Timeout.add (10, () => {
+            Timeout.add (100, () => {
                 render_func ();
                 return false;
             }, 
@@ -242,6 +266,7 @@ namespace Quilter {
         }
 
         private bool render_func () {
+            preview_view_content.update_html_view ();
             if (edit_view_content.is_modified) {
                 preview_view_content.update_html_view ();
                 edit_view_content.is_modified = false;
