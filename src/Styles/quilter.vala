@@ -109,8 +109,6 @@ public class Quilter.Styles.quilter {
       line-height: 1.4rem;
       margin-left: 80px;
       margin-right: 80px;
-      margin-top: 40px;
-      margin-bottom: 40px;
       align-content: center;
       align-items: center;
       align-self: center;

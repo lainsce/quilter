@@ -55,8 +55,56 @@ namespace Quilter {
 
                 if (settings.fullscreen) {
                     fullscreen ();
+                    settings.statusbar = false;
+                    var buffer_context = edit_view_content.get_style_context ();
+                    buffer_context.add_class ("full-text");
+                    buffer_context.remove_class ("small-text");
+
+                    var margins = settings.margins;
+                    switch (margins) {
+                        case 40:
+                            edit_view_content.left_margin = 120;
+                            edit_view_content.right_margin = 120;
+                            break;
+                        case 80:
+                            edit_view_content.left_margin = 160;
+                            edit_view_content.right_margin = 160;
+                            break;
+                        case 120:
+                            edit_view_content.left_margin = 200;
+                            edit_view_content.right_margin = 200;
+                            break;
+                        default:
+                            edit_view_content.left_margin = 120;
+                            edit_view_content.right_margin = 120;
+                            break;
+                    }
                 } else {
                     unfullscreen ();
+                    settings.statusbar = true;
+                    var buffer_context = edit_view_content.get_style_context ();
+                    buffer_context.add_class ("small-text");
+                    buffer_context.remove_class ("full-text");
+
+                    var margins = settings.margins;
+                    switch (margins) {
+                        case 40:
+                            edit_view_content.left_margin = settings.margins;
+                            edit_view_content.right_margin = settings.margins;
+                            break;
+                        case 80:
+                            edit_view_content.left_margin = settings.margins;
+                            edit_view_content.right_margin = settings.margins;
+                            break;
+                        case 120:
+                            edit_view_content.left_margin = settings.margins;
+                            edit_view_content.right_margin = settings.margins;
+                            break;
+                        default:
+                            edit_view_content.left_margin = settings.margins;
+                            edit_view_content.right_margin = settings.margins;
+                            break;
+                    }
                 }
             }
         }
@@ -79,7 +127,7 @@ namespace Quilter {
             });
 
             edit_view_content.changed.connect (() => {
-                schedule_timer ();
+                render_func ();
                 statusbar.update_wordcount ();
                 statusbar.update_linecount ();
                 statusbar.update_readtimecount ();
@@ -257,23 +305,11 @@ namespace Quilter {
             Services.ExportUtils.export_html ();
         }
 
-        private async void schedule_timer () {
-            Timeout.add (100, () => {
-                render_func ();
-                return false;
-            }, 
-            GLib.Priority.DEFAULT);
-        }
-
-        private bool render_func () {
-            preview_view_content.update_html_view ();
-            if (edit_view_content.is_modified) {
+        private void render_func () {
+            if (edit_view_content.is_modified == true) {
                 preview_view_content.update_html_view ();
                 edit_view_content.is_modified = false;
-            } else {
-                edit_view_content.is_modified = true;
             }
-            return false;
         }
 
         public void show_statusbar () {

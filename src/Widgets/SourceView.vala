@@ -21,7 +21,6 @@ namespace Quilter.Widgets {
         public static new Gtk.SourceBuffer buffer;
         public bool is_modified {get; set; default = false;}
         public File file;
-        public Preview webview;
         public GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
@@ -109,6 +108,7 @@ namespace Quilter.Widgets {
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (() => {
+                is_modified = true;
                 on_text_modified ();
             });
 
@@ -121,7 +121,7 @@ namespace Quilter.Widgets {
 
             is_modified = false;
 
-            if (settings.autosave = true && is_modified = true) {
+            if (settings.autosave == true) {
                 Timeout.add (10000, () => {
                     on_text_modified ();
                     Services.FileManager.save_work_file ();
@@ -131,8 +131,8 @@ namespace Quilter.Widgets {
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 40;
-            this.bottom_margin = 40;
+            this.top_margin = 20;
+            this.bottom_margin = 20;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
@@ -156,8 +156,6 @@ namespace Quilter.Widgets {
             if (is_modified) {
                 changed ();
                 is_modified = false;
-            } else {
-                is_modified = true;
             }
         }
 
@@ -285,8 +283,6 @@ namespace Quilter.Widgets {
 
             buffer.apply_tag(lightgrayfont, start, end);
             buffer.remove_tag(blackfont, start, end);
-            
-            
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;

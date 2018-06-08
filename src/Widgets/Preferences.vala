@@ -18,10 +18,6 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
-        private Gtk.Stack main_stack;
-        private Gtk.StackSwitcher main_stackswitcher;
-        private MainWindow window;
-
         public Preferences (Gtk.Window? parent) {
             Object (
                 border_width: 6,
@@ -35,27 +31,28 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            main_stack = new Gtk.Stack ();
+            var main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
             main_stack.margin_top = 0;
-            main_stackswitcher = new Gtk.StackSwitcher ();
+
+            var main_stackswitcher = new Gtk.StackSwitcher ();
             main_stackswitcher.stack = main_stack;
             main_stackswitcher.halign = Gtk.Align.CENTER;
             main_stackswitcher.homogeneous = true;
             main_stackswitcher.margin = 12;
             main_stackswitcher.margin_top = 0;
 
-            this.main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
-            this.main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
-            this.main_stack.add_titled (get_ext_grid (), "ext", _("Extensions"));
+            main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
+            main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
+            main_stack.add_titled (get_ext_grid (), "ext", _("Extensions"));
 
             var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
 
             var main_grid = new Gtk.Grid ();
             main_grid.margin_top = 0;
-            main_grid.attach (this.main_stackswitcher, 0, 0, 1, 1);
-            main_grid.attach (this.main_stack, 0, 1, 1, 1);
+            main_grid.attach (main_stackswitcher, 0, 0, 1, 1);
+            main_grid.attach (main_stack, 0, 1, 1, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
         }
@@ -139,25 +136,13 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        if (window.is_fullscreen) {
-                            main_settings.margins = 120;
-                        } else {
-                            main_settings.margins = 40;
-                        }
+                        main_settings.margins = 40;
                         break;
                     case 1:
-                        if (window.is_fullscreen) {
-                            main_settings.margins = 160;
-                        } else {
-                            main_settings.margins = 80;
-                        }
+                        main_settings.margins = 80;
                         break;
                     case 2:
-                        if (window.is_fullscreen) {
-                            main_settings.margins = 200;
-                        } else {
-                            main_settings.margins = 120;
-                        }
+                        main_settings.margins = 120;
                         break;
                     case 3:
                         main_settings.margins = margins;

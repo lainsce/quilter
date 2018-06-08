@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function latexify() {
+    setupExtras();
     renderMathInElement(document.getElementsByClassName("markdown-body")[0], {
         delimiters: [
             { left: "\\[", right: "\\]", display: true },
@@ -10,7 +11,7 @@ function latexify() {
         ],
         ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"]
     });
-    setupExtras();
+    
 }
 
 function setupExtras() {
@@ -23,11 +24,11 @@ function setupExtras() {
     inlineMath.parentNode.replaceChild(replaced, inlineMath);
   }
   var displayMathArray = document.querySelectorAll("script[type='math/tex; mode=display']");
-  for (var i = 0; i < displayMathArray.length; i++) {
-    var displayMath = displayMathArray[i];
-    var tex = displayMath.innerHTML;
-    var replaced = document.createElement("span");
-    replaced.innerHTML = katex.renderToString(tex.replace(/%.*/g, ''), { displayMode: true });
-    displayMath.parentNode.replaceChild(replaced, displayMath);
+  for (var j = 0; j < displayMathArray.length; j++) {
+    var displayMath = displayMathArray[j];
+    var texj = displayMath.innerHTML;
+    var replacedj = document.createElement("span");
+    replacedj.innerHTML = katex.renderToString(texj.replace(/%.*/g, ''), { displayMode: true });
+    displayMath.parentNode.replaceChild(replacedj, displayMath);
   }
 }

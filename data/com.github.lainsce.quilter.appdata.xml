@@ -65,6 +65,7 @@
                 <li>Toggle Preview Mode's extensions in the Settings.</li>
                 <li>Fixed most of the internal logic to change between Modes.</li>
                 <li>Fixed fullscreen bug. (finally!)</li>
+                <li>Margins when fullscreen reflect the ratio of those on non-fullscreen settings</li>
                 <li>Fixed the refresh rate of Preview Mode.</li>
             </ul>
          </description>
