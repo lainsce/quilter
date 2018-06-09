@@ -69,6 +69,15 @@ namespace Quilter {
             }
             edit_view_content.left_margin = m;
             edit_view_content.right_margin = m;
+
+            if (settings.last_file != "")
+            {
+                this.title = "Quilter: " + settings.last_file;
+            }
+            else
+            {
+                this.title = "Quilter";
+            }
         }
 
         public bool is_fullscreen {
