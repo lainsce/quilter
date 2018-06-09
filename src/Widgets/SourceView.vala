@@ -189,12 +189,15 @@ namespace Quilter.Widgets {
             buffer.place_cursor (start);
         }
 
+        public void dynamic_margins() {
+            Application.window.dynamic_margins();
+        }
+
         private void update_settings () {
             var settings = AppSettings.get_default ();
             this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
-            this.left_margin = settings.margins;
-            this.right_margin = settings.margins;
+            dynamic_margins();
             this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {

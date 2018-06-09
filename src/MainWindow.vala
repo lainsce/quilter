@@ -37,12 +37,39 @@ namespace Quilter {
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
+        // Margin Constants
+        public const int NARROW_MARGIN = 10;
+        public const int MEDIUM_MARGIN = 15;
+        public const int WIDE_MARGIN = 25;
+
         private const GLib.ActionEntry[] action_entries = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
             { ACTION_EXPORT_PDF, action_export_pdf },
             { ACTION_EXPORT_HTML, action_export_html }
         };
+
+        public void dynamic_margins() {
+            var settings = AppSettings.get_default ();
+            int w, h, m;
+            get_size (out w, out h);
+
+            var margins = settings.margins;
+            switch (margins) {
+                case NARROW_MARGIN:
+                    m = (int)(w * 0.1);
+                    break;
+                case WIDE_MARGIN:
+                    m = (int)(w * 0.25);
+                    break;
+                default:
+                case MEDIUM_MARGIN:
+                    m = (int)(w * 0.15);
+                    break;
+            }
+            edit_view_content.left_margin = m;
+            edit_view_content.right_margin = m;
+        }
 
         public bool is_fullscreen {
             get {
@@ -60,25 +87,7 @@ namespace Quilter {
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
 
-                    var margins = settings.margins;
-                    switch (margins) {
-                        case 40:
-                            edit_view_content.left_margin = 120;
-                            edit_view_content.right_margin = 120;
-                            break;
-                        case 80:
-                            edit_view_content.left_margin = 160;
-                            edit_view_content.right_margin = 160;
-                            break;
-                        case 120:
-                            edit_view_content.left_margin = 200;
-                            edit_view_content.right_margin = 200;
-                            break;
-                        default:
-                            edit_view_content.left_margin = 120;
-                            edit_view_content.right_margin = 120;
-                            break;
-                    }
+                    dynamic_margins();
                 } else {
                     unfullscreen ();
                     settings.statusbar = true;
@@ -86,25 +95,7 @@ namespace Quilter {
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
 
-                    var margins = settings.margins;
-                    switch (margins) {
-                        case 40:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        case 80:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        case 120:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        default:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                    }
+                    dynamic_margins();
                 }
             }
         }
@@ -245,6 +236,17 @@ namespace Quilter {
             }
             if (w != 0 && h != 0) {
                 this.resize (w, h);
+            }
+
+            // Dynamic resizing
+            configure_event.connect ((event) => {
+                dynamic_margins();
+            });
+
+            // Attempt to set taskbar icon
+            try {
+                this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", 48, 0);
+            } catch (Error e) {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;

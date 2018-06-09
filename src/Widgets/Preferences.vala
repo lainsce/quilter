@@ -119,13 +119,13 @@ namespace Quilter.Widgets {
             var margins = main_settings.margins;
 
             switch (margins) {
-                case 40:
+                case MainWindow.NARROW_MARGIN:
                     margins_size.selected = 0;
                     break;
-                case 80:
+                case MainWindow.MEDIUM_MARGIN:
                     margins_size.selected = 1;
                     break;
-                case 120:
+                case MainWindow.WIDE_MARGIN:
                     margins_size.selected = 2;
                     break;
                 default:
@@ -136,13 +136,13 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = 40;
+                        main_settings.margins = MainWindow.NARROW_MARGIN;
                         break;
                     case 1:
-                        main_settings.margins = 80;
+                        main_settings.margins = MainWindow.MEDIUM_MARGIN;
                         break;
                     case 2:
-                        main_settings.margins = 120;
+                        main_settings.margins = MainWindow.WIDE_MARGIN;
                         break;
                     case 3:
                         main_settings.margins = margins;
