@@ -17,7 +17,7 @@ Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://s
 
 Would you like to support the development of this app to new heights? Then:
 
-[Back my backer on Patreon](https://www.patreon.com/lainsce)
+[Be my backer on Patreon](https://www.patreon.com/lainsce)
 
 ## Dependencies
 
