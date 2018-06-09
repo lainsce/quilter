@@ -59,6 +59,10 @@
 			    <summary>Spell check language used</summary>
 			    <description>This must be the name of one of the installed languages</description>
         </key>
+		<key name="show-filename" type="b">
+			    <default>false</default>
+			    <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
+        </key>
         <key name="statusbar" type="b">
 			    <default>true</default>
 			    <summary>Show (true) or Hide (false) the statusbar</summary>

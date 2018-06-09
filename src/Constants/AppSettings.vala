@@ -16,6 +16,13 @@
  */
 
 namespace Quilter {
+    public class Constants {
+        // Margin Constants
+        public const int NARROW_MARGIN = 5;
+        public const int MEDIUM_MARGIN = 15;
+        public const int WIDE_MARGIN = 25;
+    }
+
     public class AppSettings : Granite.Services.Settings {
         public bool dark_mode { get; set; }
         public bool sepia_mode { get; set; }
@@ -25,6 +32,7 @@ namespace Quilter {
         public bool autosave { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool show_filename { get; set; }
         public bool latex { get; set; }
         public bool highlight { get; set; }
         public bool use_system_font { get; set; }

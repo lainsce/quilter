@@ -18,6 +18,7 @@
 */
 using Gtk;
 using Granite;
+using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
@@ -37,11 +38,6 @@ namespace Quilter {
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
-        // Margin Constants
-        public const int NARROW_MARGIN = 10;
-        public const int MEDIUM_MARGIN = 15;
-        public const int WIDE_MARGIN = 25;
-
         private const GLib.ActionEntry[] action_entries = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
@@ -51,31 +47,40 @@ namespace Quilter {
 
         public void dynamic_margins() {
             var settings = AppSettings.get_default ();
-            int w, h, m;
+            int w, h, m, p;
             get_size (out w, out h);
+
+            // If Quilter is Full Screen, add additional padding
+            p = (is_fullscreen) ? 5 : 0;
 
             var margins = settings.margins;
             switch (margins) {
-                case NARROW_MARGIN:
-                    m = (int)(w * 0.1);
+                case Constants.NARROW_MARGIN:
+                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
                     break;
-                case WIDE_MARGIN:
-                    m = (int)(w * 0.25);
+                case Constants.WIDE_MARGIN:
+                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
                     break;
                 default:
-                case MEDIUM_MARGIN:
-                    m = (int)(w * 0.15);
+                case Constants.MEDIUM_MARGIN:
+                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
                     break;
             }
+
+            // Update margins
             edit_view_content.left_margin = m;
             edit_view_content.right_margin = m;
 
-            if (settings.last_file != "")
-            {
-                this.title = "Quilter: " + settings.last_file;
-            }
-            else
-            {
+            // Update file name
+            if (settings.last_file != "" && settings.show_filename) {
+
+                // Trim off user's home directory if present
+                if (settings.last_file.has_prefix(Environment.get_home_dir())) {
+                    this.title = "Quilter: " + settings.last_file.replace(Environment.get_home_dir(), "~");
+                } else {
+                    this.title = "Quilter: " + settings.last_file;
+                }
+            } else {
                 this.title = "Quilter";
             }
         }
@@ -247,7 +252,8 @@ namespace Quilter {
                 this.resize (w, h);
             }
 
-            // Dynamic resizing
+            // Register for redrawing of window for handling margins and other
+            // redrawing
             configure_event.connect ((event) => {
                 dynamic_margins();
             });

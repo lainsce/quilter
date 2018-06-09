@@ -119,13 +119,13 @@ namespace Quilter.Widgets {
             var margins = main_settings.margins;
 
             switch (margins) {
-                case MainWindow.NARROW_MARGIN:
+                case Constants.NARROW_MARGIN:
                     margins_size.selected = 0;
                     break;
-                case MainWindow.MEDIUM_MARGIN:
+                case Constants.MEDIUM_MARGIN:
                     margins_size.selected = 1;
                     break;
-                case MainWindow.WIDE_MARGIN:
+                case Constants.WIDE_MARGIN:
                     margins_size.selected = 2;
                     break;
                 default:
@@ -136,13 +136,13 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = MainWindow.NARROW_MARGIN;
+                        main_settings.margins = Constants.NARROW_MARGIN;
                         break;
                     case 1:
-                        main_settings.margins = MainWindow.MEDIUM_MARGIN;
+                        main_settings.margins = Constants.MEDIUM_MARGIN;
                         break;
                     case 2:
-                        main_settings.margins = MainWindow.WIDE_MARGIN;
+                        main_settings.margins = Constants.WIDE_MARGIN;
                         break;
                     case 3:
                         main_settings.margins = margins;
@@ -273,6 +273,11 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var menubar_header = new Granite.HeaderLabel (_("Menubar"));
+            var menubar_filename_label = new SettingsLabel (_("Show Filename:"));
+            menubar_filename_label.set_halign (Gtk.Align.END);
+            var show_filename = new SettingsSwitch ("show-filename");
+
             var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
             var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
@@ -309,9 +314,13 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
             interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
-            interface_grid.attach (statusbar, 1, 8, 1, 1);
+            interface_grid.attach (menubar_header,  0, 7, 1, 1);
+            interface_grid.attach (menubar_filename_label,  0, 8, 1, 1);
+            interface_grid.attach (show_filename, 1, 8, 1, 1);
+
+            interface_grid.attach (statusbar_header,  0, 9, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 10, 1, 1);
+            interface_grid.attach (statusbar, 1, 10, 1, 1);
 
             return interface_grid;
         }
