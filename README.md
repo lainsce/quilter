@@ -9,16 +9,6 @@
 
 ![Screenshot](data/images/shot.png)
 
-## Differences from [lainsce/quilter](https://github.com/lainsce/quilter)
-
-### Dynamic Margins
-
-![Screenshot](data/images/shot-margins.png)
-
-### Non Generic App Icon...
-
-Fixed an issue with the icon not appearing in the taskbar on Xfce4.
-
 ## License
 
 Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://scripts.sil.org/OFL), also copied there in full.
@@ -27,7 +17,7 @@ Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://s
 
 Would you like to support the development of this app to new heights? Then:
 
-[Back the Original on Patreon](https://www.patreon.com/lainsce)
+[Back my backer on Patreon](https://www.patreon.com/lainsce)
 
 ## Dependencies
 
