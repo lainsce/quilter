@@ -100,17 +100,16 @@ namespace Quilter {
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
-
-                    dynamic_margins();
                 } else {
                     unfullscreen ();
                     settings.statusbar = true;
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
-
-                    dynamic_margins();
                 }
+
+                // Update margins
+                dynamic_margins();
             }
         }
 
