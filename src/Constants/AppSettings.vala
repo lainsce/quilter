@@ -23,7 +23,7 @@ namespace Quilter {
         public const int WIDE_MARGIN = 15;
 
         // Typewriter Position
-        public const double TYPEWRITER_POSITION = 0.65;
+        public const double TYPEWRITER_POSITION = 0.60;
     }
 
     public class AppSettings : Granite.Services.Settings {
