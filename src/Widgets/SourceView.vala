@@ -112,7 +112,6 @@ namespace Quilter.Widgets {
             buffer.changed.connect (() => {
                 is_modified = true;
                 on_text_modified ();
-                cursor_listener ();
             });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#393939");
