@@ -19,8 +19,8 @@ namespace Quilter {
     public class Constants {
         // Margin Constants
         public const int NARROW_MARGIN = 5;
-        public const int MEDIUM_MARGIN = 15;
-        public const int WIDE_MARGIN = 25;
+        public const int MEDIUM_MARGIN = 10;
+        public const int WIDE_MARGIN = 15;
     }
 
     public class AppSettings : Granite.Services.Settings {
@@ -36,6 +36,7 @@ namespace Quilter {
         public bool latex { get; set; }
         public bool highlight { get; set; }
         public bool use_system_font { get; set; }
+        public bool shown_view { get; set; }
         public int focus_mode_type { get; set; }
         public int margins { get; set; }
         public int spacing { get; set; }
@@ -45,6 +46,7 @@ namespace Quilter {
         public int window_y { get; set; }
         public string last_file { get; set; }
         public string spellcheck_language { get; set; }
+        public string preview_font { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

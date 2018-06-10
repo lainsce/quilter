@@ -273,15 +273,13 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var menubar_header = new Granite.HeaderLabel (_("Menubar"));
-            var menubar_filename_label = new SettingsLabel (_("Show Filename:"));
-            menubar_filename_label.set_halign (Gtk.Align.END);
-            var show_filename = new SettingsSwitch ("show-filename");
-
-            var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
+            var statusbar_header = new Granite.HeaderLabel (_("Headerbar & Statusbar"));
             var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
             var statusbar = new SettingsSwitch ("statusbar");
+            var show_file_label = new SettingsLabel (_("Show Working File:"));
+            show_file_label.set_halign (Gtk.Align.END);
+            var show_file = new SettingsSwitch ("show-filename");
 
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             buttonbox.halign = Gtk.Align.FILL;
@@ -314,18 +312,17 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
             interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
 
-            interface_grid.attach (menubar_header,  0, 7, 1, 1);
-            interface_grid.attach (menubar_filename_label,  0, 8, 1, 1);
-            interface_grid.attach (show_filename, 1, 8, 1, 1);
-
-            interface_grid.attach (statusbar_header,  0, 9, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 10, 1, 1);
-            interface_grid.attach (statusbar, 1, 10, 1, 1);
+            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
+            interface_grid.attach (statusbar, 1, 8, 1, 1);
+            interface_grid.attach (show_file_label,  0, 9, 1, 1);
+            interface_grid.attach (show_file, 1, 9, 1, 1);
 
             return interface_grid;
         }
 
         private Gtk.Widget get_ext_grid () {
+            var main_settings = AppSettings.get_default ();
             var ext_grid = new Gtk.Grid ();
             ext_grid.orientation = Gtk.Orientation.VERTICAL;
             ext_grid.row_spacing = 6;
@@ -339,11 +336,59 @@ namespace Quilter.Widgets {
             highlight_label.set_halign (Gtk.Align.END);
             var highlight = new SettingsSwitch ("highlight");
 
+            var preview_font_label = new SettingsLabel (_("Preview View Font:"));
+            var preview_font_type = new Granite.Widgets.ModeButton ();
+            preview_font_type.append_text (_("Serif"));
+            preview_font_type.append_text (_("Sans-Serif"));
+            preview_font_type.append_text (_("Monospace"));
+
+            var preview_font = main_settings.preview_font;
+
+            switch (preview_font) {
+                case "serif":
+                    debug ("Font is serif");
+                    preview_font_type.selected = 0;
+                    break;
+                case "sans":
+                    debug ("Font is sans");
+                    preview_font_type.selected = 1;
+                    break;
+                case "mono":
+                    debug ("Font is mono");
+                    preview_font_type.selected = 2;
+                    break;
+                default:
+                    preview_font_type.selected = 0;
+                    break;
+            }
+
+            preview_font_type.mode_changed.connect (() => {
+                switch (preview_font_type.selected) {
+                    case 0:
+                        debug ("Font is serif");
+                        main_settings.preview_font = "serif";
+                        break;
+                    case 1:
+                        debug ("Font is sans");
+                        main_settings.preview_font = "sans";
+                        break;
+                    case 2:
+                        debug ("Font is mono");
+                        main_settings.preview_font = "mono";
+                        break;
+                    case 3:
+                        main_settings.preview_font = preview_font;
+                        break;
+                }
+            });
+
             ext_grid.attach (ext_header,  0, 1, 1, 1);
             ext_grid.attach (latex_label,  0, 2, 1, 1);
             ext_grid.attach (latex, 1, 2, 1, 1);
             ext_grid.attach (highlight_label,  0, 3, 1, 1);
             ext_grid.attach (highlight, 1, 3, 1, 1);
+            ext_grid.attach (preview_font_label,  0, 4, 1, 1);
+            ext_grid.attach (preview_font_type, 1, 4, 1, 1);
 
             return ext_grid;
         }

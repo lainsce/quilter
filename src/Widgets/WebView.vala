@@ -71,6 +71,19 @@ namespace Quilter {
             return normal;
         }
 
+        private string set_font_stylesheet () {
+            var settings = AppSettings.get_default ();
+            if (settings.preview_font == "serif") {
+                return Build.PKGDATADIR + "/font/serif.css";
+            } else if (settings.preview_font == "sans") {
+                return Build.PKGDATADIR + "/font/sans.css";
+            } else if (settings.preview_font == "mono") {
+                return Build.PKGDATADIR + "/font/mono.css";
+            }
+
+            return Build.PKGDATADIR + "/font/serif.css";
+        }
+
         private string set_highlight_stylesheet () {
             var settings = AppSettings.get_default ();
             if (settings.dark_mode) {
@@ -226,6 +239,7 @@ namespace Quilter {
             string highlight = set_highlight();
             string latex = set_latex();
             string latexuser = set_latex_user ();
+            string font_stylesheet = set_font_stylesheet ();
             string stylesheet = set_stylesheet ();
             string build = Build.PKGDATADIR;
             string markdown = process ();
@@ -233,22 +247,23 @@ namespace Quilter {
             <!doctype html>
             <html>
                 <head>
-                    <meta charset="utf-8">
-                    <link rel="stylesheet" href=" %s "/>
-                    <script src="%s"></script>
+                    <meta charset=utf-8>
+                    <link rel=stylesheet href= %s />
+                    <script src=%s></script>
                     <script>hljs.initHighlightingOnLoad();</script>
-                    <link rel="stylesheet" href="%s/katex/katex.css">
-                    <script src="%s"></script>
-                    <script src="%s/katex/auto.js"></script>
-                    <script src="%s"></script>
+                    <link rel=stylesheet href=%s/katex/katex.css />
+                    <script src=%s></script>
+                    <script src=%s/katex/auto.js></script>
+                    <script src=%s></script>
+                    <link rel=stylesheet href=%s />
                     <style>%s</style>
                 </head>
                 <body>
-                    <div class="markdown-body">
+                    <div class=markdown-body>
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight_stylesheet, highlight, build, latex, build, latexuser, stylesheet, markdown);
+            </html>""".printf(highlight_stylesheet, highlight, build, latex, build, latexuser, font_stylesheet, stylesheet, markdown);
             this.load_html (html, "file:///");
         }
     }

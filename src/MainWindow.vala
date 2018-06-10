@@ -24,6 +24,7 @@ namespace Quilter {
     public class MainWindow : Gtk.Window {
         public Widgets.StatusBar statusbar;
         public Widgets.Headerbar toolbar;
+        public Gtk.MenuButton set_font_menu;
         public Widgets.SourceView edit_view_content;
         public Widgets.Preview preview_view_content;
         public Gtk.Stack stack;
@@ -36,13 +37,19 @@ namespace Quilter {
         public const string ACTION_PREFS = "action_preferences";
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_EXPORT_HTML = "action_export_html";
+        public const string ACTION_FONT_SERIF = "action_font_serif";
+        public const string ACTION_FONT_SANS = "action_font_sans";
+        public const string ACTION_FONT_MONO = "action_font_mono";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
             { ACTION_EXPORT_PDF, action_export_pdf },
-            { ACTION_EXPORT_HTML, action_export_html }
+            { ACTION_EXPORT_HTML, action_export_html },
+            { ACTION_FONT_SERIF, action_font_serif },
+            { ACTION_FONT_SANS, action_font_sans },
+            { ACTION_FONT_MONO, action_font_mono }
         };
 
         public void dynamic_margins() {
@@ -126,8 +133,20 @@ namespace Quilter {
             show_statusbar ();
 
             var settings = AppSettings.get_default ();
+            if (!settings.focus_mode) {
+                set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
+            } else {
+                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            }
+
             settings.changed.connect (() => {
                 show_statusbar ();
+
+                if (!settings.focus_mode) {
+                    set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
+                } else {
+                    set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                }
             });
 
             edit_view_content.changed.connect (() => {
@@ -205,6 +224,35 @@ namespace Quilter {
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
 
+            var set_font_sans = new Gtk.ModelButton ();
+            set_font_sans.text = (_("Sans-serif"));
+            set_font_sans.action_name = ACTION_PREFIX + ACTION_FONT_SANS;
+
+            var set_font_serif = new Gtk.ModelButton ();
+            set_font_serif.text = (_("Serif"));
+            set_font_serif.action_name = ACTION_PREFIX + ACTION_FONT_SERIF;
+
+            var set_font_mono = new Gtk.ModelButton ();
+            set_font_mono.text = (_("Monospace"));
+            set_font_mono.action_name = ACTION_PREFIX + ACTION_FONT_MONO;
+
+            var set_font_menu_grid = new Gtk.Grid ();
+            set_font_menu_grid.margin = 6;
+            set_font_menu_grid.row_spacing = 6;
+            set_font_menu_grid.column_spacing = 12;
+            set_font_menu_grid.orientation = Gtk.Orientation.VERTICAL;
+            set_font_menu_grid.add (set_font_sans);
+            set_font_menu_grid.add (set_font_serif);
+            set_font_menu_grid.add (set_font_mono);
+            set_font_menu_grid.show_all ();
+
+            var set_font_menu_pop = new Gtk.Popover (null);
+            set_font_menu_pop.add (set_font_menu_grid);
+
+            set_font_menu = new Gtk.MenuButton ();
+            set_font_menu.tooltip_text = _("Set Preview Font");
+            set_font_menu.popover = set_font_menu_pop;
+
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.SourceView ();
             edit_view_content.monospace = true;
@@ -223,6 +271,14 @@ namespace Quilter {
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
+
+            ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
+                show_font_button (false);
+            });
+            ((Gtk.RadioButton)(view_mode.get_children().last().data)).toggled.connect(() => {
+                toolbar.pack_end (set_font_menu);
+                show_font_button (true);
+            });
 
             toolbar.pack_end (view_mode);
 
@@ -244,6 +300,9 @@ namespace Quilter {
             int h = settings.window_height;
             int w = settings.window_width;
 
+            bool v = settings.shown_view;
+            set_font_menu.set_visible (v);
+
             if (x != -1 && y != -1) {
                 this.move (x, y);
             }
@@ -259,7 +318,7 @@ namespace Quilter {
 
             // Attempt to set taskbar icon
             try {
-                this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", 48, 0);
+                this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
             }
 
@@ -284,12 +343,14 @@ namespace Quilter {
             int x, y, w, h;
             get_position (out x, out y);
             get_size (out w, out h);
+            bool v = set_font_menu.get_visible ();
 
             var settings = AppSettings.get_default ();
             settings.window_x = x;
             settings.window_y = y;
             settings.window_width = w;
             settings.window_height = h;
+            settings.shown_view = v;
 
             if (settings.last_file != null) {
                 debug ("Saving working file...");
@@ -321,6 +382,21 @@ namespace Quilter {
             Services.ExportUtils.export_html ();
         }
 
+        private void action_font_serif () {
+            var settings = AppSettings.get_default ();
+            settings.preview_font = "serif";
+        }
+
+        private void action_font_sans () {
+            var settings = AppSettings.get_default ();
+            settings.preview_font = "sans";
+        }
+
+        private void action_font_mono () {
+            var settings = AppSettings.get_default ();
+            settings.preview_font = "mono";
+        }
+
         private void render_func () {
             if (edit_view_content.is_modified == true) {
                 preview_view_content.update_html_view ();
@@ -331,6 +407,10 @@ namespace Quilter {
         public void show_statusbar () {
             var settings = AppSettings.get_default ();
             statusbar.reveal_child = settings.statusbar;
+        }
+
+        public void show_font_button (bool v) {
+            set_font_menu.set_visible (v);
         }
     }
 }

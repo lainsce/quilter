@@ -20,6 +20,16 @@ install_data(
 )
 
 install_data(
+    join_paths('icons', '24', 'set-font.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '24x24', 'apps')
+)
+
+install_data(
+    join_paths('icons', '24', 'set-font.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '24x24@2', 'apps')
+)
+
+install_data(
     meson.project_name() + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
@@ -61,5 +71,10 @@ install_subdir(
 
 install_subdir(
     'plugin/katex',
+    install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
+)
+
+install_subdir(
+    'plugin/font',
     install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
 )
