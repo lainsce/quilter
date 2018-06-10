@@ -112,6 +112,7 @@ namespace Quilter.Widgets {
             buffer.changed.connect (() => {
                 is_modified = true;
                 on_text_modified ();
+                cursor_listener ();
             });
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#393939");
@@ -212,13 +213,17 @@ namespace Quilter.Widgets {
                 var buffer_context = this.get_style_context ();
                 buffer_context.add_class ("small-text");
                 buffer_context.remove_class ("focus-text");
-                buffer.notify["cursor-position"].disconnect (set_focused_text);
+                buffer.notify["cursor-position"].connect (cursor_listener);
             } else {
                 set_focused_text ();
-                buffer.notify["cursor-position"].connect (set_focused_text);
                 var buffer_context = this.get_style_context ();
                 buffer_context.add_class ("focus-text");
                 buffer_context.remove_class ("small-text");
+                buffer.notify["cursor-position"].disconnect (cursor_listener);
+            }
+
+            if (settings.typewriter_scrolling) {
+                Timeout.add(500, move_typewriter_scolling);
             }
 
             set_scheme (get_default_scheme ());
@@ -274,6 +279,25 @@ namespace Quilter.Widgets {
             buffer.remove_tag(lightsepiafont, start, end);
             buffer.remove_tag(sepiafont, start, end);
             return "quilter";
+        }
+
+        public void cursor_listener () {
+            var settings = AppSettings.get_default ();
+
+            if (settings.focus_mode) {
+                set_focused_text ();
+            }
+
+            move_typewriter_scolling ();
+        }
+
+        public bool move_typewriter_scolling () {
+            var settings = AppSettings.get_default ();
+            if (settings.typewriter_scrolling) {
+                var cursor = buffer.get_insert ();
+                this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
+            }
+            return settings.typewriter_scrolling;
         }
 
         public void set_focused_text () {

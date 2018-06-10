@@ -21,6 +21,9 @@ namespace Quilter {
         public const int NARROW_MARGIN = 5;
         public const int MEDIUM_MARGIN = 10;
         public const int WIDE_MARGIN = 15;
+
+        // Typewriter Position
+        public const double TYPEWRITER_POSITION = 0.65;
     }
 
     public class AppSettings : Granite.Services.Settings {
@@ -37,6 +40,7 @@ namespace Quilter {
         public bool highlight { get; set; }
         public bool use_system_font { get; set; }
         public bool shown_view { get; set; }
+        public bool typewriter_scrolling { get; set; }
         public int focus_mode_type { get; set; }
         public int margins { get; set; }
         public int spacing { get; set; }
