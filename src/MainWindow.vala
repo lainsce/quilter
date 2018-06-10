@@ -18,6 +18,7 @@
 */
 using Gtk;
 using Granite;
+using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.Window {
@@ -44,6 +45,46 @@ namespace Quilter {
             { ACTION_EXPORT_HTML, action_export_html }
         };
 
+        public void dynamic_margins() {
+            var settings = AppSettings.get_default ();
+            int w, h, m, p;
+            get_size (out w, out h);
+
+            // If Quilter is Full Screen, add additional padding
+            p = (is_fullscreen) ? 5 : 0;
+
+            var margins = settings.margins;
+            switch (margins) {
+                case Constants.NARROW_MARGIN:
+                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
+                    break;
+                case Constants.WIDE_MARGIN:
+                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
+                    break;
+                default:
+                case Constants.MEDIUM_MARGIN:
+                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                    break;
+            }
+
+            // Update margins
+            edit_view_content.left_margin = m;
+            edit_view_content.right_margin = m;
+
+            // Update file name
+            if (settings.last_file != "" && settings.show_filename) {
+
+                // Trim off user's home directory if present
+                if (settings.last_file.has_prefix(Environment.get_home_dir())) {
+                    this.title = "Quilter: " + settings.last_file.replace(Environment.get_home_dir(), "~");
+                } else {
+                    this.title = "Quilter: " + settings.last_file;
+                }
+            } else {
+                this.title = "Quilter";
+            }
+        }
+
         public bool is_fullscreen {
             get {
                 var settings = AppSettings.get_default ();
@@ -59,53 +100,16 @@ namespace Quilter {
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
-
-                    var margins = settings.margins;
-                    switch (margins) {
-                        case 40:
-                            edit_view_content.left_margin = 120;
-                            edit_view_content.right_margin = 120;
-                            break;
-                        case 80:
-                            edit_view_content.left_margin = 160;
-                            edit_view_content.right_margin = 160;
-                            break;
-                        case 120:
-                            edit_view_content.left_margin = 200;
-                            edit_view_content.right_margin = 200;
-                            break;
-                        default:
-                            edit_view_content.left_margin = 120;
-                            edit_view_content.right_margin = 120;
-                            break;
-                    }
                 } else {
                     unfullscreen ();
                     settings.statusbar = true;
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
-
-                    var margins = settings.margins;
-                    switch (margins) {
-                        case 40:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        case 80:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        case 120:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                        default:
-                            edit_view_content.left_margin = settings.margins;
-                            edit_view_content.right_margin = settings.margins;
-                            break;
-                    }
                 }
+
+                // Update margins
+                dynamic_margins();
             }
         }
 
@@ -245,6 +249,18 @@ namespace Quilter {
             }
             if (w != 0 && h != 0) {
                 this.resize (w, h);
+            }
+
+            // Register for redrawing of window for handling margins and other
+            // redrawing
+            configure_event.connect ((event) => {
+                dynamic_margins();
+            });
+
+            // Attempt to set taskbar icon
+            try {
+                this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", 48, 0);
+            } catch (Error e) {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;
