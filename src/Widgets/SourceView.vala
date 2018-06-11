@@ -144,8 +144,8 @@ namespace Quilter.Widgets {
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 20;
-            this.bottom_margin = 20;
+            this.top_margin = 40;
+            this.bottom_margin = 40;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
