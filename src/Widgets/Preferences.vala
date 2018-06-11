@@ -273,6 +273,10 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
+            typewriterscrolling_label.set_halign (Gtk.Align.END);
+            var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
+
             var statusbar_header = new Granite.HeaderLabel (_("Headerbar & Statusbar"));
             var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
@@ -312,11 +316,14 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
             interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
-            interface_grid.attach (statusbar, 1, 8, 1, 1);
-            interface_grid.attach (show_file_label,  0, 9, 1, 1);
-            interface_grid.attach (show_file, 1, 9, 1, 1);
+            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
+            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
+
+            interface_grid.attach (statusbar_header,  0, 8, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
+            interface_grid.attach (statusbar, 1, 9, 1, 1);
+            interface_grid.attach (show_file_label,  0, 10, 1, 1);
+            interface_grid.attach (show_file, 1, 10, 1, 1);
 
             return interface_grid;
         }

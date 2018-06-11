@@ -25,6 +25,11 @@
 				<summary>Focus Mode</summary>
 				<description>Whether Quilter should be in Focus Mode</description>
 			</key>
+	  <key name="typewriter-scrolling" type="b">
+				<default>false</default>
+				<summary>Typewriter Scrolling</summary>
+				<description>Whether Quilter should use Typewriter Scrolling</description>
+			</key>
 		<key name="dark-mode" type="b">
 				<default>false</default>
 				<summary>Dark Mode</summary>

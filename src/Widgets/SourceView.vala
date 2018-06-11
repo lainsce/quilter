@@ -20,6 +20,7 @@ namespace Quilter.Widgets {
     public class SourceView : Gtk.SourceView {
         public static new Gtk.SourceBuffer buffer;
         public bool is_modified {get; set; default = false;}
+        public bool should_scroll {get; set; default = false;}
         public File file;
         public GtkSpell.Checker spell = null;
         private Gtk.TextTag blackfont;
@@ -165,6 +166,7 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
+            should_scroll = true;
             if (is_modified) {
                 changed ();
                 is_modified = false;
@@ -215,10 +217,13 @@ namespace Quilter.Widgets {
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
                 set_focused_text ();
-                buffer.notify["cursor-position"].connect (set_focused_text);
                 var buffer_context = this.get_style_context ();
                 buffer_context.add_class ("focus-text");
                 buffer_context.remove_class ("small-text");
+                buffer.notify["cursor-position"].connect (set_focused_text);
+                if (settings.typewriter_scrolling) {
+                    Timeout.add(500, move_typewriter_scolling);
+                }
             }
 
             set_scheme (get_default_scheme ());
@@ -276,6 +281,16 @@ namespace Quilter.Widgets {
             return "quilter";
         }
 
+        public bool move_typewriter_scolling () {
+            var settings = AppSettings.get_default ();
+            if (should_scroll) {
+                var cursor = buffer.get_insert ();
+                this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
+                should_scroll = false;
+            }
+            return (settings.focus_mode && settings.typewriter_scrolling);
+        }
+
         public void set_focused_text () {
             Gtk.TextIter cursor_iter;
             Gtk.TextIter start, end;
@@ -298,6 +313,7 @@ namespace Quilter.Widgets {
 
             buffer.apply_tag(lightgrayfont, start, end);
             buffer.remove_tag(blackfont, start, end);
+            should_scroll = true;
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
