@@ -86,8 +86,8 @@ void mkd_ref_prefix(MMIOT*, char*);
 #define MKD_NOPANTS	0x00000004	/* don't run smartypants() */
 #define MKD_NOHTML	0x00000008	/* don't allow raw html through AT ALL */
 #define MKD_STRICT	0x00000010	/* disable SUPERSCRIPT, RELAXED_EMPHASIS */
-#define MKD_TAGTEXT	0x00000020	/* process text inside an html tag; no 
-                                 * <em>, no <bold>, no html or [] expansion */
+#define MKD_TAGTEXT	0x00000020	/* process text inside an html tag; no
+					 * <em>, no <bold>, no html or [] expansion */
 #define MKD_NO_EXT	0x00000040	/* don't allow pseudo-protocols */
 #define MKD_NOEXT	MKD_NO_EXT	/* ^^^ (aliased for user convenience) */
 #define MKD_CDATA	0x00000080	/* generate code for xml ![CDATA[...]] */
@@ -106,6 +106,13 @@ void mkd_ref_prefix(MMIOT*, char*);
 #define MKD_NODLIST	0x00100000	/* forbid definition lists */
 #define MKD_EXTRA_FOOTNOTE 0x00200000	/* enable markdown extra-style footnotes */
 #define MKD_NOSTYLE	0x00400000	/* don't extract <style> blocks */
-#define MKD_EMBED	MKD_NOLINKS|MKD_NOIMAGE|MKD_TAGTEXT
+#define MKD_NODLDISCOUNT 0x00800000	/* disable discount-style definition lists */
+#define	MKD_DLEXTRA	0x01000000	/* enable extra-style definition lists */
+#define MKD_FENCEDCODE	0x02000000	/* enabled fenced code blocks */
+#define MKD_IDANCHOR	0x04000000	/* use id= anchors for TOC links */
+#define MKD_GITHUBTAGS	0x08000000	/* allow dash and underscore in element names */
+#define MKD_URLENCODEDANCHOR 0x10000000 /* urlencode non-identifier chars instead of replacing with dots */
+#define MKD_LATEX	0x40000000	/* handle embedded LaTeX escapes */
+#define MKD_EXPLICITLIST 0x80000000	/* don't combine numbered/bulletted lists */
 
 #endif/*_MKDIO_D*/
