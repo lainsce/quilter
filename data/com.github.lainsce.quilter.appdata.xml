@@ -61,8 +61,11 @@
                 <li>A new sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)<li>
                 <li>A new Mode between Light &amp; Dark, the Sepia Mode.</li>
                 <li>A new way to toggle between Modes in the Settings.</li>
+                <li>Dynamargins: the three sizes now autofit for the window's size.</li>
                 <li>A redesign of the main menu.</li>
                 <li>Toggle Preview Mode's extensions in the Settings.</li>
+                <li>Change Preview Mode's font style on-the-fly and in Settings.</li>
+                <li>Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when editing.</li>
                 <li>Fixed most of the internal logic to change between Modes.</li>
                 <li>Fixed fullscreen bug. (finally!)</li>
                 <li>Margins when fullscreen reflect the ratio of those on non-fullscreen settings</li>

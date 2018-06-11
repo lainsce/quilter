@@ -200,14 +200,14 @@ namespace Quilter.Widgets {
     			}
 
             });
-            
-            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            buttonbox.pack_start (color_button_light, true, true, 6);
-            buttonbox.pack_start (color_button_sepia, true, true, 6);
-            buttonbox.pack_start (color_button_dark, true, true, 6);
+          
+            var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            colorbox.pack_start (color_button_light, true, true, 0);
+            colorbox.pack_start (color_button_sepia, true, true, 0);
+            colorbox.pack_start (color_button_dark, true, true, 0);
 
-            var buttonbox2 = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            buttonbox2.pack_start (focusmode_button, true, true, 6);
+            var modebox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            modebox.pack_start (focusmode_button, true, true, 6);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
@@ -216,8 +216,8 @@ namespace Quilter.Widgets {
             menu_grid.row_spacing = 6;
             menu_grid.column_spacing = 12;
             menu_grid.orientation = Gtk.Orientation.VERTICAL;
-            menu_grid.add (buttonbox);
-            menu_grid.add (buttonbox2);
+            menu_grid.add (colorbox);
+            menu_grid.add (modebox);
             menu_grid.add (separator);
             menu_grid.add (cheatsheet);
             menu_grid.add (preferences);
