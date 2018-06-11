@@ -58,7 +58,7 @@
          <description>
             <p>Release: Sepia &amp; Blues</p>
             <ul>
-                <li>A new sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)<li>
+                <li>A new sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)</li>
                 <li>A new Mode between Light &amp; Dark, the Sepia Mode.</li>
                 <li>A new way to toggle between Modes in the Settings.</li>
                 <li>Dynamargins: the three sizes now autofit for the window's size.</li>
