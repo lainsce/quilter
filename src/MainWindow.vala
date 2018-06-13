@@ -82,7 +82,7 @@ namespace Quilter {
             if (settings.typewriter_scrolling && settings.focus_mode) {
                 edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION));
             } else {
-                edit_view_content.bottom_margin = 0;
+                edit_view_content.bottom_margin = 40;
             }
 
             // Update file name
