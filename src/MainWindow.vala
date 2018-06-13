@@ -78,6 +78,13 @@ namespace Quilter {
             edit_view_content.left_margin = m;
             edit_view_content.right_margin = m;
 
+            // Update margins for typewriter scrolling
+            if (settings.typewriter_scrolling && settings.focus_mode) {
+                edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION));
+            } else {
+                edit_view_content.bottom_margin = 40;
+            }
+
             // Update file name
             if (settings.last_file != "" && settings.show_filename) {
 
