@@ -80,9 +80,12 @@ namespace Quilter {
 
             // Update margins for typewriter scrolling
             if (settings.typewriter_scrolling && settings.focus_mode) {
-                edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION));
+                int titlebar_h = this.get_titlebar().get_allocated_height();
+                edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
+                edit_view_content.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
                 edit_view_content.bottom_margin = 40;
+                edit_view_content.top_margin = 40;
             }
 
             // Update file name
