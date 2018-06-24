@@ -58,7 +58,12 @@ namespace Quilter {
             int initial = line_.index_of ("$$") + 2;
             int last = line_.index_of ("$$", initial);
             string subline = line_.substring (initial, last - initial);
-            build = build + "<img style=\"margin-top: 16px; margin-bottom: 16px;\" src=\"http://latex.codecogs.com/png.latex?" + subline + "\" border=\"0\"/>";
+            var settings = AppSettings.get_default ();
+            if (settings.dark_mode) {
+                build = build + "<img style=\"margin-top: 16px; margin-bottom: 16px;filter: invert(100%);\" src=\"http://latex.codecogs.com/png.latex?" + subline + "\" border=\"0\"/>";
+            } else {
+                build = build + "<img style=\"margin-top: 16px; margin-bottom: 16px;\" src=\"http://latex.codecogs.com/png.latex?" + subline + "\" border=\"0\"/>";
+            }
             return build;
         }
     }    
