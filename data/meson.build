@@ -70,11 +70,6 @@ install_subdir(
 )
 
 install_subdir(
-    'plugin/katex',
-    install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
-)
-
-install_subdir(
     'plugin/font',
     install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
 )

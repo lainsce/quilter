@@ -95,25 +95,6 @@ namespace Quilter {
             return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
         }
 
-        private string set_latex () {
-            var settings = AppSettings.get_default ();
-            if (settings.latex) {
-                return Build.PKGDATADIR + "/katex/katex.js";
-            } else {
-                return "";
-            }
-        }
-
-        private string set_latex_user () {
-            var settings = AppSettings.get_default ();
-            if (settings.latex) {
-                this.set_custom_charset ("utf-8");
-                return Build.PKGDATADIR + "/katex/user.js";
-            } else {
-                return "";
-            }
-        }
-
         private string set_highlight () {
             var settings = AppSettings.get_default ();
             if (settings.highlight) {
@@ -231,40 +212,61 @@ namespace Quilter {
             string result;
             mkd.get_document (out result);
 
-            return result;
+            string html = make_html (result);
+
+            return html;
         }
 
-        public void update_html_view () {
+        public string make_html (string result) {
             string highlight_stylesheet = set_highlight_stylesheet();
             string highlight = set_highlight();
-            string latex = set_latex();
-            string latexuser = set_latex_user ();
             string font_stylesheet = set_font_stylesheet ();
             string stylesheet = set_stylesheet ();
-            string build = Build.PKGDATADIR;
-            string markdown = process ();
+            string markdown = process_plugins (result);
             html = """
             <!doctype html>
             <html>
                 <head>
-                    <meta charset=utf-8>
-                    <link rel=stylesheet href= %s />
-                    <script src=%s></script>
+                    <meta charset="utf-8">
+                    <link rel="stylesheet" href="%s" />
+                    <script src="%s"></script>
                     <script>hljs.initHighlightingOnLoad();</script>
-                    <link rel=stylesheet href=%s/katex/katex.css />
-                    <script src=%s></script>
-                    <script src=%s/katex/auto.js></script>
-                    <script src=%s></script>
-                    <link rel=stylesheet href=%s />
-                    <style>%s</style>
+                    <link rel="stylesheet" href="%s" />
+                    <style>"%s"</style>
                 </head>
                 <body>
-                    <div class=markdown-body>
+                    <div class="markdown-body">
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight_stylesheet, highlight, build, latex, build, latexuser, font_stylesheet, stylesheet, markdown);
+            </html>""".printf(highlight_stylesheet, highlight, font_stylesheet, stylesheet, markdown);
+            return html;
+        }
+
+        public void update_html_view () {
+            process ();
             this.load_html (html, "file:///");
+        }
+
+        private string process_plugins (string raw_mk) {
+            var lines = raw_mk.split ("\n");
+            string build = "";
+            foreach (var line in lines) {
+                bool found = false;
+                foreach (var plugin in Plugins.PluginManager.get_instance ().get_plugs ()) {
+                    if (plugin.has_match (line)) {
+                        build = build + plugin.convert (line) + "\n";
+                        found = true;
+                        break;
+                    }
+                }
+    
+                if (!found) {
+                    build = build + line + "\n";
+                }
+            }
+    
+            return build;
         }
     }
 }
