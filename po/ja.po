@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-15 17:16-0200\n"
-"PO-Revision-Date: 2018-05-15 19:16+0900\n"
-"Last-Translator: Ryo Nakano <ryonakaknock@gmail.com>\n"
+"PO-Revision-Date: 2018-06-25 22:02+0900\n"
+"Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 2.0\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: src/MainWindow.vala:70
 msgid "Quilter"
@@ -59,11 +59,11 @@ msgstr "プレビュー"
 
 #: src/Widgets/StatusBar.vala:51
 msgid "Words: "
-msgstr "単語数:"
+msgstr "単語数: "
 
 #: src/Widgets/StatusBar.vala:64
 msgid "Reading Time: "
-msgstr "読むのにかかる時間:"
+msgstr "読むのにかかる時間: "
 
 #: src/Widgets/StatusBar.vala:68
 msgid "Dark Mode"
@@ -88,7 +88,7 @@ msgstr "閉じる"
 
 #: src/Widgets/Preferences.vala:69
 msgid "Show Line Numbers:"
-msgstr "行番号を表示する:"
+msgstr "行番号を表示:"
 
 #: src/Widgets/Preferences.vala:71
 msgid "Enable Spellchecking:"
@@ -120,7 +120,7 @@ msgstr "テキストの余白:"
 
 #: src/Widgets/Preferences.vala:178
 msgid "Show the Save Button:"
-msgstr "保存ボタンを表示する:"
+msgstr "保存ボタンを表示:"
 
 #: src/Widgets/Preferences.vala:181
 msgid "Mode"
@@ -148,7 +148,7 @@ msgstr "ステータスバー"
 
 #: src/Widgets/Preferences.vala:199
 msgid "Show Statusbar:"
-msgstr "ステータスバーを表示する:"
+msgstr "ステータスバーを表示:"
 
 #: src/Widgets/Cheatsheet.vala:28
 msgid "Cheatsheet"
@@ -289,5 +289,3 @@ msgstr "文"
 #: src/Widgets/Preferences.vala:188
 msgid "Paragraph"
 msgstr "段落"
-
-
