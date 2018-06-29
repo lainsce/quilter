@@ -1,7 +1,7 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 #
-# Ryo Nakano <ryonakaknock@gmail.com>, 2018.
+# Ryo Nakano <ryonakaknock3@gmail.com>, 2018.
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
