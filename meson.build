@@ -37,14 +37,9 @@ c_args = [
   '-w'
 ]
 
-cc = meson.get_compiler('c')
-
 # Find libMarkdown
-libmarkdown = dependency('libmarkdown', version: '>= 2.2.1', required: false)
-if libmarkdown.found() == false
-    cc = meson.get_compiler('c')
-    libmarkdown = cc.find_library('libmarkdown', required: true)
-endif
+cc = meson.get_compiler('c')
+libmarkdown = cc.find_library('libmarkdown', required: true)
 
 # Let's define our executable
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
@@ -83,7 +78,7 @@ executable(
     ],
     vala_args: [
         meson.source_root() + '/vapi/config.vapi',
-        #meson.source_root() + '/vapi/libmarkdown.vapi'
+        meson.source_root() + '/vapi/libmarkdown.vapi'
     ],
     install : true
 )
