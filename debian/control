@@ -11,8 +11,8 @@ Build-Depends: meson,
                libwebkit2gtk-4.0-dev,
                libmarkdown2-dev,
                libgtkspell3-3-dev
-
 Standards-Version: 3.9.3
+
 Package: com.github.lainsce.quilter
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
