@@ -22,9 +22,6 @@ namespace Quilter.Widgets {
         public Gtk.SearchEntry search_entry;
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
-        private Gtk.SourceSearchContext search_context = null;
-        private Gtk.SourceStyle srcstyle;
-        private Gtk.TextTag found_tag;
 
         public weak MainWindow window { get; construct; }
 
@@ -34,10 +31,6 @@ namespace Quilter.Widgets {
 
         construct {
             grid = new Gtk.Grid ();
-            grid.row_spacing = 6;
-            grid.column_spacing = 12;
-            grid.orientation = Gtk.Orientation.VERTICAL;
-
             search_entry_item ();
 
             var context = grid.get_style_context ();
@@ -45,13 +38,8 @@ namespace Quilter.Widgets {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             this.add (grid);
-
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            found_tag = EditView.buffer.create_tag(null, "background", "#787839");
-            srcstyle.apply (found_tag);
-            search_context = new Gtk.SourceSearchContext (text_buffer as Gtk.SourceBuffer, null);
-            search_context.match_style = srcstyle;
         }
 
         public void search_entry_item () {
@@ -75,13 +63,11 @@ namespace Quilter.Widgets {
         public bool search () {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            search_context.settings.regex_enabled = false;
+            text_view.search_context.settings.regex_enabled = false;
             var search_string = search_entry.text;
-            search_context.settings.search_text = search_string;
+            text_view.search_context.settings.search_text = search_string;
             bool case_sensitive = !((search_string.up () == search_string) || (search_string.down () == search_string));
-            search_context.settings.case_sensitive = case_sensitive;
-
-            search_context.highlight = false;
+            text_view.search_context.settings.case_sensitive = case_sensitive;
 
             if (text_buffer == null || text_buffer.text == "") {
                 debug ("Can't search anything in an inexistant buffer and/or without anything to search.");
@@ -93,9 +79,6 @@ namespace Quilter.Widgets {
                 return false;
             }
 
-            search_context.highlight = true;
-
-            // Determine the search entry color
             Gtk.TextIter? start_iter;
             text_buffer.get_iter_at_offset (out start_iter, text_buffer.cursor_position);
             bool found = (search_entry.text != "" && search_entry.text in this.text_buffer.text);
@@ -103,10 +86,8 @@ namespace Quilter.Widgets {
                 search_entry.get_style_context ().remove_class (Gtk.STYLE_CLASS_ERROR);
                 text_buffer.select_range (start_iter, start_iter);
                 text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
-            } else {
-                if (search_entry.text != "") {
-                    search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_ERROR);
-                }
+            } else if (search_entry.text != "") {
+                search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_ERROR);
             }
 
             return true;
