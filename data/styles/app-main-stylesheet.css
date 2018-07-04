@@ -123,3 +123,11 @@
     font-size: 1.65rem;
     letter-spacing: 2px;
 }
+
+.quilter-searchbar {
+    border-top-color: transparent;
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    box-shadow: 0 1px transparent inset;
+    padding: 6px;
+}

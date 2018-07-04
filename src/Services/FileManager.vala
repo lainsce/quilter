@@ -19,7 +19,7 @@ namespace Quilter.Services.FileManager {
     public File tmp_file;
     public File file;
     public MainWindow window;
-    public Widgets.SourceView view;
+    public Widgets.EditView view;
 
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
@@ -40,9 +40,9 @@ namespace Quilter.Services.FileManager {
             }
 
             Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
+            Widgets.EditView.buffer.get_bounds (out start, out end);
 
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+            string buffer = Widgets.EditView.buffer.get_text (start, end, true);
             uint8[] binbuffer = buffer.data;
 
             try {
@@ -83,9 +83,9 @@ namespace Quilter.Services.FileManager {
         }
 
         Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
+        Widgets.EditView.buffer.get_bounds (out start, out end);
 
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+        string buffer = Widgets.EditView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
         try {
@@ -110,7 +110,7 @@ namespace Quilter.Services.FileManager {
                         Services.FileManager.save ();
                         string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                         file = File.new_for_path (cache);
-                        Widgets.SourceView.buffer.text = "";
+                        Widgets.EditView.buffer.text = "";
                         settings.last_file = file.get_path ();
                         
                     } catch (Error e) {
@@ -122,7 +122,7 @@ namespace Quilter.Services.FileManager {
 
                     string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                     file = File.new_for_path (cache);
-                    Widgets.SourceView.buffer.text = "";
+                    Widgets.EditView.buffer.text = "";
                     settings.last_file = file.get_path ();
                     
                     break;
@@ -147,7 +147,7 @@ namespace Quilter.Services.FileManager {
             }
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
             file = File.new_for_path (cache);
-            Widgets.SourceView.buffer.text = "";
+            Widgets.EditView.buffer.text = "";
             settings.last_file = file.get_path ();
             
         }
@@ -163,7 +163,7 @@ namespace Quilter.Services.FileManager {
 
             try {
                 GLib.FileUtils.get_contents (file.get_path (), out text);
-                Widgets.SourceView.buffer.text = text;
+                Widgets.EditView.buffer.text = text;
             } catch (Error e) {
                 warning ("Error: %s", e.message);
             }
@@ -185,7 +185,7 @@ namespace Quilter.Services.FileManager {
             } else {
                 string text;
                 GLib.FileUtils.get_contents (file.get_path (), out text);
-                Widgets.SourceView.buffer.text = text;
+                Widgets.EditView.buffer.text = text;
             }
         } catch (Error e) {
             warning ("Unexpected error during open: " + e.message);
@@ -210,8 +210,8 @@ namespace Quilter.Services.FileManager {
         }
 
         Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+        Widgets.EditView.buffer.get_bounds (out start, out end);
+        string buffer = Widgets.EditView.buffer.get_text (start, end, true);
         uint8[] binbuffer = buffer.data;
 
         try {
@@ -241,8 +241,8 @@ namespace Quilter.Services.FileManager {
                 }
 
                 Gtk.TextIter start, end;
-                Widgets.SourceView.buffer.get_bounds (out start, out end);
-                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
+                Widgets.EditView.buffer.get_bounds (out start, out end);
+                string buffer = Widgets.EditView.buffer.get_text (start, end, true);
                 uint8[] binbuffer = buffer.data;
                 save_file (file, binbuffer);
             }

@@ -20,7 +20,7 @@ namespace Quilter.Widgets {
     public class Headerbar : Gtk.HeaderBar {
         private static Headerbar? instance = null;
         public File file;
-        public SourceView sourceview;
+        public EditView sourceview;
         public Preview preview;
         public MainWindow window;
 
@@ -28,6 +28,7 @@ namespace Quilter.Widgets {
         private Gtk.Button open_button;
         private Gtk.Button save_button;
         private Gtk.Button save_as_button;
+        public Gtk.ToggleButton search_button;
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton share_app_menu;
 
@@ -90,7 +91,7 @@ namespace Quilter.Widgets {
             });
 
             open_button = new Gtk.Button ();
-			      open_button.has_tooltip = true;
+			open_button.has_tooltip = true;
             open_button.tooltip_text = (_("Open…"));
 
             open_button.clicked.connect (() => {
@@ -99,6 +100,25 @@ namespace Quilter.Widgets {
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
+            });
+
+            search_button = new Gtk.ToggleButton ();
+            search_button.has_tooltip = true;
+            search_button.tooltip_text = _("Start search");
+
+            if (settings.searchbar == false) {
+                search_button.set_active (false);
+            } else {
+                search_button.set_active (settings.searchbar);
+            }
+
+            search_button.toggled.connect (() => {
+    			if (search_button.active) {
+    				settings.searchbar = true;
+    			} else {
+    				settings.searchbar = false;
+    			}
+
             });
 
             var export_pdf = new Gtk.ModelButton ();
@@ -249,6 +269,7 @@ namespace Quilter.Widgets {
 
             pack_end (menu_button);
             pack_end (share_app_menu);
+            pack_end (search_button);
 
             set_show_close_button (true);
             this.show_all ();
@@ -263,6 +284,7 @@ namespace Quilter.Widgets {
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open", Gtk.IconSize.LARGE_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu", Gtk.IconSize.LARGE_TOOLBAR));
                 share_app_menu.image = new Gtk.Image.from_icon_name ("document-export", Gtk.IconSize.LARGE_TOOLBAR);
+                search_button.set_image (new Gtk.Image.from_icon_name ("edit-find", Gtk.IconSize.LARGE_TOOLBAR));
             } else {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -270,6 +292,7 @@ namespace Quilter.Widgets {
                 open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
                 share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             }
         }
     }

@@ -82,6 +82,10 @@
 			    <default>true</default>
 			    <summary>Show (true) or Hide (false) the statusbar</summary>
         </key>
+		<key name="searchbar" type="b">
+			    <default>false</default>
+			    <summary>Show (true) or Hide (false) the searchbar</summary>
+        </key>
 		<key name="latex" type="b">
 			    <default>false</default>
 			    <summary>Use the LaTeX built-in extension</summary>

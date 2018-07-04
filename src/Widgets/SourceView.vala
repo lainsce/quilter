@@ -17,7 +17,8 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SourceView : Gtk.SourceView {
+    public class EditView : Gtk.SourceView {
+        private static EditView? instance = null;
         public static new Gtk.SourceBuffer buffer;
         public bool is_modified {get; set; default = false;}
         public bool should_scroll {get; set; default = false;}
@@ -33,6 +34,14 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
 
         public signal void changed ();
+
+        public static EditView get_instance () {
+            if (instance == null) {
+                instance = new Widgets.EditView ();
+            }
+    
+            return instance;
+        }
 
         public bool spellcheck {
             set {
@@ -67,7 +76,7 @@ namespace Quilter.Widgets {
             }
         }
 
-        public SourceView () {
+        public EditView () {
             update_settings ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_settings);

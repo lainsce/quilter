@@ -23,9 +23,10 @@ using Granite.Services;
 namespace Quilter {
     public class MainWindow : Gtk.Window {
         public Widgets.StatusBar statusbar;
+        public Widgets.SearchBar searchbar;
         public Widgets.Headerbar toolbar;
         public Gtk.MenuButton set_font_menu;
-        public Widgets.SourceView edit_view_content;
+        public Widgets.EditView edit_view_content;
         public Widgets.Preview preview_view_content;
         public Gtk.Stack stack;
         public Gtk.ScrolledWindow edit_view;
@@ -151,6 +152,7 @@ namespace Quilter {
 
             settings.changed.connect (() => {
                 show_statusbar ();
+                show_searchbar ();
 
                 if (!settings.focus_mode) {
                     set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
@@ -199,12 +201,12 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.SourceView.buffer.undo ();
+                        Widgets.EditView.buffer.undo ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.SourceView.buffer.redo ();
+                        Widgets.EditView.buffer.redo ();
                     }
                 }
                 if (match_keycode (Gdk.Key.F11, keycode)) {
@@ -264,7 +266,7 @@ namespace Quilter {
             set_font_menu.popover = set_font_menu_pop;
 
             edit_view = new Gtk.ScrolledWindow (null, null);
-            edit_view_content = new Widgets.SourceView ();
+            edit_view_content = new Widgets.EditView ();
             edit_view_content.monospace = true;
             edit_view.add (edit_view_content);
 
@@ -297,9 +299,11 @@ namespace Quilter {
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar ();
+            searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
+            grid.add (searchbar);
             grid.add (stack);
             grid.add (statusbar);
             grid.show_all ();
@@ -417,6 +421,11 @@ namespace Quilter {
         public void show_statusbar () {
             var settings = AppSettings.get_default ();
             statusbar.reveal_child = settings.statusbar;
+        }
+
+        public void show_searchbar () {
+            var settings = AppSettings.get_default ();
+            searchbar.reveal_child = settings.searchbar;
         }
 
         public void show_font_button (bool v) {

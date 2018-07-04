@@ -203,7 +203,7 @@ namespace Quilter {
         }
 
         private string process () {
-            string text = Widgets.SourceView.buffer.text;
+            string text = Widgets.EditView.buffer.text;
             string processed_mk;
             process_frontmatter (text, out processed_mk);
             var mkd = new Markdown.Document.gfm_format (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x04000000 + 0x00400000 + 0x10000000 + 0x40000000 + 0x00000008);

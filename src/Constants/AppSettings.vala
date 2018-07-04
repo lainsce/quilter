@@ -35,6 +35,7 @@ namespace Quilter {
         public bool autosave { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool searchbar { get; set; }
         public bool show_filename { get; set; }
         public bool latex { get; set; }
         public bool highlight { get; set; }

@@ -79,7 +79,7 @@ namespace Quilter {
         public WordCount get_count() {
     		try {
     			var reg = new Regex("[\\s\\W]+", RegexCompileFlags.OPTIMIZE);
-                var buffer = Widgets.SourceView.buffer;
+                var buffer = Widgets.EditView.buffer;
 
     			string text = buffer.text;
     			string result = reg.replace (text, text.length, 0, " ");
