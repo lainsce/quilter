@@ -7,6 +7,7 @@
   <style name="cursor"          foreground="#11BCED"/>
   <style name="current-line"    background="#eff0f1"/>
   <style name="selection"       foreground="#EAEAEA" background="#11BCED"/>
+  <style name="search-match"    foreground="#191919" background="#EDBC11"/>
 
   <!-- Bold -->
   <style name="def:statement" bold="true"/>

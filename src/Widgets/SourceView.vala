@@ -133,8 +133,6 @@ namespace Quilter.Widgets {
             lightsepiafont = buffer.create_tag(null, "foreground", "#a18866");
             sepiafont = buffer.create_tag(null, "foreground", "#2D1708");
 
-            sync_found_tags ();
-            notify["style-scheme"].connect (sync_found_tags);
             search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
             search_context.set_match_style (srcstyle);
 
@@ -166,11 +164,6 @@ namespace Quilter.Widgets {
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
-        }
-
-        private void sync_found_tags () {
-            var style_scheme = buffer.get_style_scheme ();
-            srcstyle = style_scheme.get_style ("search-match");
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {

@@ -194,6 +194,16 @@ namespace Quilter {
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.f, keycode)) {
+                        if (settings.searchbar == false) {
+                            settings.searchbar = true;
+                            searchbar.search_entry.grab_focus_without_selecting();
+                        } else {
+                            settings.searchbar = false;
+                        }
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.h, keycode)) {
                         var cheatsheet_dialog = new Widgets.Cheatsheet (this);
                         cheatsheet_dialog.show_all ();
