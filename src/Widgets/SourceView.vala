@@ -187,6 +187,28 @@ namespace Quilter.Widgets {
             }
         }
 
+        public bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
+            end_iter = start_iter;
+            bool found = search_context.forward2 (start_iter, out start_iter, out end_iter, null);
+            if (found) {
+                buffer.select_range (start_iter, end_iter);
+                this.scroll_to_iter (start_iter, 0, false, 0, 0);
+            }
+
+            return found;
+        }
+
+        public bool search_for_iter_backward (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
+            end_iter = start_iter;
+            bool found = search_context.backward2 (start_iter, out start_iter, out end_iter, null);
+            if (found) {
+                buffer.select_range (start_iter, end_iter);
+                this.scroll_to_iter (start_iter, 0, false, 0, 0);
+            }
+
+            return found;
+        }
+
         public void set_text (string text, bool opening = true) {
             if (opening) {
                 buffer.begin_not_undoable_action ();

@@ -31,7 +31,10 @@ namespace Quilter.Widgets {
 
         construct {
             grid = new Gtk.Grid ();
+            grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
             search_entry_item ();
+            search_previous_item ();
+            search_next_item ();
 
             var context = grid.get_style_context ();
             context.add_class ("quilter-searchbar");
@@ -60,6 +63,44 @@ namespace Quilter.Widgets {
             });
         }
 
+        public void search_previous_item () {
+            var tool_arrow_up = new Gtk.Button.from_icon_name ("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_up.clicked.connect (search_previous);
+            tool_arrow_up.tooltip_text = _("Search previous");
+            grid.add (tool_arrow_up);
+        }
+
+        public void search_previous () {
+            this.text_view = window.edit_view_content;
+            Gtk.TextIter? start_iter, end_iter;
+            if (text_buffer != null) {
+                text_buffer.get_selection_bounds (out start_iter, out end_iter);
+                if(!text_view.search_for_iter_backward (start_iter, out end_iter)) {
+                    text_buffer.get_end_iter (out start_iter);
+                    text_view.search_for_iter_backward (start_iter, out end_iter);
+                }
+            }
+        }
+
+        public void search_next_item () {
+            var tool_arrow_down = new Gtk.Button.from_icon_name ("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_down.clicked.connect (search_next);
+            tool_arrow_down.tooltip_text = _("Search next");
+            grid.add (tool_arrow_down);
+        }
+
+        public void search_next () {
+            this.text_view = window.edit_view_content;
+            Gtk.TextIter? start_iter, end_iter, end_iter_tmp;
+            if (text_buffer != null) {
+                text_buffer.get_selection_bounds (out start_iter, out end_iter);
+                if(!text_view.search_for_iter (end_iter, out end_iter_tmp)) {
+                    text_buffer.get_start_iter (out start_iter);
+                    text_view.search_for_iter (start_iter, out end_iter);
+                }
+            }
+        }
+
         public bool search () {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
@@ -85,7 +126,6 @@ namespace Quilter.Widgets {
             if (found) {
                 search_entry.get_style_context ().remove_class (Gtk.STYLE_CLASS_ERROR);
                 text_buffer.select_range (start_iter, start_iter);
-                text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
             } else if (search_entry.text != "") {
                 search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_ERROR);
             }
