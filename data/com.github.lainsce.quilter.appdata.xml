@@ -14,7 +14,9 @@
             <li>Preview your story in the Preview Mode.</li>
             <li>Configure whether to have Focus Mode or not.</li>
             <li>Configure whether to have Dark Mode or not.</li>
+            <li>Configure whether to have Sepia Mode or not.</li>
             <li>Fullscreen your writing area with F11.</li>
+            <li>Search anytime with the shortcut Ctrl + F</li>
             <li>Quit anytime with the shortcut Ctrl + Q</li>
         </ul>
     </description>
@@ -54,17 +56,17 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-      <release version="1.6.0" date="2018-06-22">
+      <release version="1.6.0" date="2018-07-20">
          <description>
             <p>Release: Sepia &amp; Blues</p>
             <ul>
-                <li>A new sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)</li>
+                <li>A new Sidebar, with the current document's Table of Contents as well as the 5 most recently opened documents for easy jumping. (thanks Robert San!)</li>
                 <li>A new Mode between Light &amp; Dark, the Sepia Mode.</li>
                 <li>A new way to toggle between Modes in the Settings.</li>
                 <li>Dynamargins: the three sizes now autofit for the window's size.</li>
                 <li>A redesign of the main menu.</li>
-                <li>Toggle Preview Mode's extensions in the Settings.</li>
-                <li>Change Preview Mode's font style on-the-fly and in Settings.</li>
+                <li>Search any term inside your document.</li>
+                <li>Change Preview Mode's font style on-the-fly.</li>
                 <li>Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when editing.</li>
                 <li>Fixed most of the internal logic to change between Modes.</li>
                 <li>Fixed fullscreen bug. (finally!)</li>
@@ -123,80 +125,6 @@
                <p>Release: New Sheets Won't Crumple Old Ones, part 2</p>
                <ul>
                    <li>The New File button will not purge old files.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.9" date="2018-02-02">
-           <description>
-               <p>Release: New Sheets Won't Crumple Old Ones, part 1</p>
-               <ul>
-                   <li>The autosave switch in preferences now saves its last state.</li>
-                   <li>Fixed the changing of type of focus mode highlighting.</li>
-                   <li>Minor fixes.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.6" date="2018-01-26">
-           <description>
-               <p>Release: New Menu &amp; Fries</p>
-               <ul>
-                   <li>The main menu now houses the Dark/Focus Mode buttons previously shown on the statusbar.</li>
-                   <li>The statusbar now shows number of lines, deprecating the toggle in the preferences to show line numbers.</li>
-                   <li>Preferences Dialog had a reorganization of items.</li>
-                   <li>Disabling autosaving in preferences will make you save files manually now with the Save button.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.5" date="2018-01-13">
-           <description>
-               <p>Release: Focus Mode with a Glasses Push-up</p>
-               <ul>
-                   <li>In the Preferences, select if you want Focus Mode to highlight the sentence or the paragraph. (Contributed by Michał "wyhasany" Rowicki)</li>
-                   <li>Add Polish translation</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.4" date="2018-01-05">
-           <description>
-               <p>Release: Highlight Your Path</p>
-               <ul>
-                   <li>In Preview Mode, your code block now have syntax higlighting</li>
-                   <li>Saving Files and Opening Files are now safer, with the subtitle always updating accordingly</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.3" date="2017-11-17">
-           <description>
-               <p>Release: Writing With Numbers</p>
-               <ul>
-                   <li>Added the option to show line numbers.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.2" date="2017-11-10">
-           <description>
-               <p>Release: Polishing The Inkwell</p>
-               <ul>
-                   <li>Fixed as many minor bugs as possible.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.1" date="2017-11-03">
-           <description>
-               <p>Release: Geometric Dreams</p>
-               <ul>
-                   <li>Set your margins in the Preferences.</li>
-                   <li>Set your text spacing in the Preferences.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.0" date="2017-10-27">
-           <description>
-               <p>Release: Indication Stories</p>
-               <ul>
-                   <li>Show that the file is unsaved/saved.</li>
-                   <li>Show that either Focus or Dark Mode are really active on the statusbar buttons.</li>
-                   <li>Show how much reading time your story has.</li>
                </ul>
            </description>
         </release>
