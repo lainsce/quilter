@@ -168,6 +168,9 @@ namespace Quilter.Widgets {
         }
 
         private Gtk.Widget get_interface_grid () {
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+
             var main_settings = AppSettings.get_default ();
             var interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
@@ -177,9 +180,7 @@ namespace Quilter.Widgets {
 
             var mode_header = new Granite.HeaderLabel (_("Modes"));
             var color_button_light = new Gtk.Button ();
-            var color_button_light_icon = new Gtk.Image ();
-            color_button_light_icon.gicon = new ThemedIcon ("mode-change-symbolic");
-            color_button_light_icon.pixel_size = 48;
+            var color_button_light_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
             color_button_light.set_image (color_button_light_icon);
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 64;
@@ -192,9 +193,7 @@ namespace Quilter.Widgets {
             var color_button_light_text = new Gtk.Label (_("Light Mode"));
 
             var color_button_sepia = new Gtk.Button ();
-            var color_button_sepia_icon = new Gtk.Image ();
-            color_button_sepia_icon.gicon = new ThemedIcon ("mode-change-symbolic");
-            color_button_sepia_icon.pixel_size = 48;
+            var color_button_sepia_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
             color_button_sepia.set_image (color_button_sepia_icon);
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 64;
@@ -207,9 +206,7 @@ namespace Quilter.Widgets {
             var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
 
             var color_button_dark = new Gtk.Button ();
-            var color_button_dark_icon = new Gtk.Image ();
-            color_button_dark_icon.gicon = new ThemedIcon ("mode-change-symbolic");
-            color_button_dark_icon.pixel_size = 48;
+            var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
             color_button_dark.set_image (color_button_dark_icon);
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 64;

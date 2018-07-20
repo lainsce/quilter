@@ -138,6 +138,9 @@ namespace Quilter {
                     height_request: 600,
                     width_request: 700);
 
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+
             statusbar.update_wordcount ();
             statusbar.update_linecount ();
             statusbar.update_readtimecount ();

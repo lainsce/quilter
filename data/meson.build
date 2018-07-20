@@ -15,21 +15,6 @@ foreach i : icon_sizes
 endforeach
 
 install_data(
-    join_paths('icons', 'symbolic', 'mode-change-symbolic.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
-)
-
-install_data(
-    join_paths('icons', '24', 'set-font.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '24x24', 'apps')
-)
-
-install_data(
-    join_paths('icons', '24', 'set-font.svg'),
-    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', '24x24@2', 'apps')
-)
-
-install_data(
     meson.project_name() + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
