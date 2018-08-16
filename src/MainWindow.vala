@@ -243,6 +243,9 @@ namespace Quilter {
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            var provider2 = new Gtk.CssProvider ();
+            provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             var toolbar = new Widgets.Headerbar ();
             toolbar.title = this.title;

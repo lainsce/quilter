@@ -22,27 +22,33 @@ namespace Quilter {
         public const int MEDIUM_MARGIN = 10;
         public const int WIDE_MARGIN = 15;
 
+        // Font Size Constants
+        public const int SMALL_FONT = 1;
+        public const int MEDIUM_FONT = 2;
+        public const int BIG_FONT = 3;
+
         // Typewriter Position
         public const double TYPEWRITER_POSITION = 0.50;
     }
 
     public class AppSettings : Granite.Services.Settings {
+        public bool autosave { get; set; }
         public bool dark_mode { get; set; }
-        public bool sepia_mode { get; set; }
         public bool focus_mode { get; set; }
         public bool fullscreen { get; set; }
+        public bool highlight { get; set; }
+        public bool latex { get; set; }
+        public bool searchbar { get; set; }
+        public bool sepia_mode { get; set; }
+        public bool show_filename { get; set; }
         public bool show_num_lines { get; set; }
-        public bool autosave { get; set; }
+        public bool shown_view { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
-        public bool searchbar { get; set; }
-        public bool show_filename { get; set; }
-        public bool latex { get; set; }
-        public bool highlight { get; set; }
-        public bool use_system_font { get; set; }
-        public bool shown_view { get; set; }
         public bool typewriter_scrolling { get; set; }
+        public bool use_system_font { get; set; }
         public int focus_mode_type { get; set; }
+        public int font_sizing { get; set; }
         public int margins { get; set; }
         public int spacing { get; set; }
         public int window_height { get; set; }
@@ -50,8 +56,8 @@ namespace Quilter {
         public int window_x { get; set; }
         public int window_y { get; set; }
         public string last_file { get; set; }
-        public string spellcheck_language { get; set; }
         public string preview_font { get; set; }
+        public string spellcheck_language { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

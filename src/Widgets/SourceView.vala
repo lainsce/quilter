@@ -41,7 +41,7 @@ namespace Quilter.Widgets {
             if (instance == null) {
                 instance = new Widgets.EditView ();
             }
-    
+
             return instance;
         }
 
@@ -233,6 +233,7 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var settings = AppSettings.get_default ();
+            var buffer_context = this.get_style_context ();
             this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
             dynamic_margins();
@@ -247,19 +248,31 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
-                var buffer_context = this.get_style_context ();
-                buffer_context.add_class ("small-text");
-                buffer_context.remove_class ("focus-text");
+                buffer_context.add_class ("medium-text");
+                buffer_context.remove_class ("big-text");
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
                 set_focused_text ();
-                var buffer_context = this.get_style_context ();
-                buffer_context.add_class ("focus-text");
-                buffer_context.remove_class ("small-text");
+                buffer_context.add_class ("big-text");
+                buffer_context.remove_class ("medium-text");
                 buffer.notify["cursor-position"].connect (set_focused_text);
                 if (settings.typewriter_scrolling) {
-                    Timeout.add(500, move_typewriter_scolling);
+                    Timeout.add(500, move_typewriter_scrolling);
                 }
+            }
+
+            if (settings.font_sizing == 1) {
+                buffer_context.add_class ("small-text");
+                buffer_context.remove_class ("medium-text");
+                buffer_context.remove_class ("big-text");
+            } else if (settings.font_sizing == 2) {
+                buffer_context.remove_class ("small-text");
+                buffer_context.add_class ("medium-text");
+                buffer_context.remove_class ("big-text");
+            } else if (settings.font_sizing == 3) {
+                buffer_context.remove_class ("small-text");
+                buffer_context.remove_class ("medium-text");
+                buffer_context.add_class ("big-text");
             }
 
             set_scheme (get_default_scheme ());
@@ -317,7 +330,7 @@ namespace Quilter.Widgets {
             return "quilter";
         }
 
-        public bool move_typewriter_scolling () {
+        public bool move_typewriter_scrolling () {
             var settings = AppSettings.get_default ();
             if (should_scroll) {
                 var cursor = buffer.get_insert ();

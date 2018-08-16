@@ -106,24 +106,6 @@
     -gtk-icon-shadow: 1px 1px transparent;
 }
 
-.small-text {
-    font-family: 'Quilt Mono';
-    font-size: 1.45rem;
-    letter-spacing: 2px;
-}
-
-.focus-text {
-    font-family: 'Quilt Mono';
-    font-size: 1.55rem;
-    letter-spacing: 2px;
-}
-
-.full-text {
-    font-family: 'Quilt Mono';
-    font-size: 1.65rem;
-    letter-spacing: 2px;
-}
-
 .quilter-searchbar {
     border-top-color: transparent;
     background: @colorPrimary;

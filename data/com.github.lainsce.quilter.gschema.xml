@@ -110,6 +110,10 @@
 			    <default>80</default>
 			    <summary>The margins for the Editor View</summary>
         </key>
+        <key name="font-sizing" type="i">
+			    <default>2</default>
+			    <summary>The font size for the Editor View</summary>
+        </key>
         <key name="focus-mode-type" type="i">
 			    <default>0</default>
 			    <summary>The type of Focus Mode</summary>

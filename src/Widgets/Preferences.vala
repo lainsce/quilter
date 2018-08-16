@@ -18,6 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
+
         public Preferences (Gtk.Window? parent) {
             Object (
                 border_width: 6,
@@ -149,6 +150,59 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var font_header = new Granite.HeaderLabel (_("Fonts & Type"));
+            var font_label = new SettingsLabel (_("Editor Font Size:"));
+            var font_size = new Granite.Widgets.ModeButton ();
+            font_size.append_text (_("Small"));
+            font_size.append_text (_("Normal"));
+            font_size.append_text (_("Large"));
+
+            var font_sizing = main_settings.font_sizing;
+
+            switch (font_sizing) {
+                case Constants.SMALL_FONT:
+                    font_size.selected = 0;
+                    break;
+                case Constants.MEDIUM_FONT:
+                    font_size.selected = 1;
+                    break;
+                case Constants.BIG_FONT:
+                    font_size.selected = 2;
+                    break;
+                default:
+                    font_size.selected = 1;
+                    break;
+            }
+
+            font_size.mode_changed.connect (() => {
+                switch (font_size.selected) {
+                    case 0:
+                        main_settings.font_sizing = Constants.SMALL_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                    case 1:
+                        main_settings.font_sizing = Constants.MEDIUM_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                    case 2:
+                        main_settings.font_sizing = Constants.BIG_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
+                        break;
+                    case 3:
+                        main_settings.font_sizing = font_sizing;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                }
+            });
+
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
 
@@ -163,6 +217,10 @@ namespace Quilter.Widgets {
             editor_grid.attach (spacing_size, 1, 5, 1, 1);
             editor_grid.attach (margins_label, 0, 6, 1, 1);
             editor_grid.attach (margins_size, 1, 6, 1, 1);
+
+            editor_grid.attach (font_header, 0, 7, 3, 1);
+            editor_grid.attach (font_label, 0, 8, 1, 1);
+            editor_grid.attach (font_size, 1, 8, 1, 1);
 
             return editor_grid;
         }
