@@ -20,6 +20,7 @@
 namespace Quilter {
     public class Application : Gtk.Application {
         private static bool print_cr = false;
+        private static bool open_view = false;
         private static string _cwd;
 
         public static MainWindow window = null;
@@ -53,6 +54,10 @@ namespace Quilter {
                 return;
             }
             window = new MainWindow (this);
+
+            if (open_view) {
+                window.stack.set_visible_child (window.preview_view);
+            }
             window.show_all ();
         }
 
@@ -169,6 +174,8 @@ namespace Quilter {
 
                 if (files.length > 0) {
                     Services.FileManager.open_from_outside (files, "");
+                } else {
+                    open_view = false;
                 }
             }
 
@@ -212,6 +219,7 @@ namespace Quilter {
 
         const OptionEntry[] entries = {
             { "copyright", 'v', 0, OptionArg.NONE, out print_cr, ("Print copyright info and exit"), null },
+            { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },
             { null }
         };
     }
