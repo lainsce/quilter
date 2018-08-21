@@ -331,7 +331,9 @@ namespace Quilter {
             int w = settings.window_width;
 
             bool v = settings.shown_view;
-            set_font_menu.set_visible (v);
+            if (v) {
+                this.stack.set_visible_child (this.preview_view);
+            }
 
             if (x != -1 && y != -1) {
                 this.move (x, y);
