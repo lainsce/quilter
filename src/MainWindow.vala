@@ -356,7 +356,11 @@ namespace Quilter {
             this.show_all ();
         }
 
+#if VALA_0_42
+        protected bool match_keycode (uint keyval, uint code) {
+#else
         protected bool match_keycode (int keyval, uint code) {
+#endif
             Gdk.KeymapKey [] keys;
             Gdk.Keymap keymap = Gdk.Keymap.get_for_display (Gdk.Display.get_default ());
             if (keymap.get_entries_for_keyval (keyval, out keys)) {
