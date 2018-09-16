@@ -39,7 +39,7 @@ c_args = [
 
 # Find libMarkdown
 cc = meson.get_compiler('c')
-libmarkdown = cc.find_library('libmarkdown', required: true)
+libmarkdown = cc.find_library('markdown', required: true)
 
 # Let's define our executable
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
@@ -85,7 +85,7 @@ executable(
 )
 
 # Add in a post install script
-meson.add_install_script('meson/post_install.py')
+meson.add_install_script('meson/post_install.py',  join_paths(get_option('prefix'), get_option('datadir')))
 
 # Add subfolders for Meson to look
 subdir('data')
