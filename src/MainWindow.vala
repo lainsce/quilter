@@ -41,6 +41,9 @@ namespace Quilter {
         public const string ACTION_FONT_SERIF = "action_font_serif";
         public const string ACTION_FONT_SANS = "action_font_sans";
         public const string ACTION_FONT_MONO = "action_font_mono";
+        public const string ACTION_TRACK_CHARS = "action_track_chars";
+        public const string ACTION_TRACK_WORDS = "action_track_words";
+        public const string ACTION_TRACK_LINES = "action_track_lines";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
@@ -50,7 +53,10 @@ namespace Quilter {
             { ACTION_EXPORT_HTML, action_export_html },
             { ACTION_FONT_SERIF, action_font_serif },
             { ACTION_FONT_SANS, action_font_sans },
-            { ACTION_FONT_MONO, action_font_mono }
+            { ACTION_FONT_MONO, action_font_mono },
+            { ACTION_TRACK_CHARS, action_track_chars },
+            { ACTION_TRACK_WORDS, action_track_words },
+            { ACTION_TRACK_LINES, action_track_lines }
         };
 
         public void dynamic_margins() {
@@ -141,12 +147,19 @@ namespace Quilter {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            statusbar.update_wordcount ();
-            statusbar.update_linecount ();
+            var settings = AppSettings.get_default ();
+
+            if (settings.track_type == "words") {
+                statusbar.update_wordcount ();
+            } else if (settings.track_type == "lines") {
+                statusbar.update_linecount ();
+            } else if (settings.track_type == "chars") {
+                statusbar.update_charcount ();
+            }
+
             statusbar.update_readtimecount ();
             show_statusbar ();
 
-            var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
@@ -156,6 +169,14 @@ namespace Quilter {
             settings.changed.connect (() => {
                 show_statusbar ();
                 show_searchbar ();
+
+                if (settings.track_type == "words") {
+                    statusbar.update_wordcount ();
+                } else if (settings.track_type == "lines") {
+                    statusbar.update_linecount ();
+                } else if (settings.track_type == "chars") {
+                    statusbar.update_charcount ();
+                }
 
                 if (!settings.focus_mode) {
                     set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
@@ -168,6 +189,7 @@ namespace Quilter {
                 render_func ();
                 statusbar.update_wordcount ();
                 statusbar.update_linecount ();
+                statusbar.update_charcount ();
                 statusbar.update_readtimecount ();
             });
 
@@ -253,15 +275,15 @@ namespace Quilter {
             this.set_titlebar (toolbar);
 
             var set_font_sans = new Gtk.ModelButton ();
-            set_font_sans.text = (_("Sans-serif"));
+            set_font_sans.text = (_("Set Sans-serif"));
             set_font_sans.action_name = ACTION_PREFIX + ACTION_FONT_SANS;
 
             var set_font_serif = new Gtk.ModelButton ();
-            set_font_serif.text = (_("Serif"));
+            set_font_serif.text = (_("Set Serif"));
             set_font_serif.action_name = ACTION_PREFIX + ACTION_FONT_SERIF;
 
             var set_font_mono = new Gtk.ModelButton ();
-            set_font_mono.text = (_("Monospace"));
+            set_font_mono.text = (_("Set Monospace"));
             set_font_mono.action_name = ACTION_PREFIX + ACTION_FONT_MONO;
 
             var set_font_menu_grid = new Gtk.Grid ();
@@ -431,6 +453,21 @@ namespace Quilter {
         private void action_font_mono () {
             var settings = AppSettings.get_default ();
             settings.preview_font = "mono";
+        }
+
+        private void action_track_chars () {
+            var settings = AppSettings.get_default ();
+            settings.track_type = "chars";
+        }
+
+        private void action_track_words () {
+            var settings = AppSettings.get_default ();
+            settings.track_type = "words";
+        }
+
+        private void action_track_lines () {
+            var settings = AppSettings.get_default ();
+            settings.track_type = "lines";
         }
 
         private void render_func () {

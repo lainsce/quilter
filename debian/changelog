@@ -1,3 +1,9 @@
+com.github.lainsce.quilter (1.6.2) xenial; urgency=low
+
+  * Button to track Chars/Words/Lines.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 21 Sep 2018 14:37:00 -0300
+
 com.github.lainsce.quilter (1.6.1) xenial; urgency=low
 
   * Preferences for the Edit View's Font Size.

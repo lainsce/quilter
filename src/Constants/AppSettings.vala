@@ -58,6 +58,7 @@ namespace Quilter {
         public string last_file { get; set; }
         public string preview_font { get; set; }
         public string spellcheck_language { get; set; }
+        public string track_type { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {

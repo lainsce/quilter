@@ -25,42 +25,82 @@ namespace Quilter {
         public Gtk.Label readtimecount_label;
         public MainWindow window;
         public Gtk.ActionBar actionbar;
+        public Gtk.MenuButton track_type_menu;
 
         /* Average normal reading speed is 275 WPM */
         int WPM = 275;
 
         public StatusBar () {
+            var settings = AppSettings.get_default ();
             actionbar = new Gtk.ActionBar ();
-            wordcount_item ();
-            linecount_item ();
+
+            track_type_menu_item ();
+
+            if (settings.track_type == "words") {
+                update_wordcount ();
+            } else if (settings.track_type == "lines") {
+                update_linecount ();
+            } else if (settings.track_type == "chars") {
+                update_charcount ();
+            }
+
             readtimecount_item ();
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
         }
 
-        public void wordcount_item () {
-            wordcount_label = new Gtk.Label("");
-            wordcount_label.set_width_chars (12);
-            update_wordcount ();
-            actionbar.pack_start (wordcount_label);
+        public void track_type_menu_item () {
+            var track_chars = new Gtk.ModelButton ();
+            track_chars.text = (_("Track Characters"));
+            track_chars.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_CHARS;
+
+            var track_words = new Gtk.ModelButton ();
+            track_words.text = (_("Track Words"));
+            track_words.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_WORDS;
+
+            var track_lines = new Gtk.ModelButton ();
+            track_lines.text = (_("Track Lines"));
+            track_lines.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_LINES;
+
+            var track_type_grid = new Gtk.Grid ();
+            track_type_grid.margin = 6;
+            track_type_grid.row_spacing = 6;
+            track_type_grid.column_spacing = 12;
+            track_type_grid.orientation = Gtk.Orientation.VERTICAL;
+            track_type_grid.add (track_chars);
+            track_type_grid.add (track_words);
+            track_type_grid.add (track_lines);
+            track_type_grid.show_all ();
+
+            var track_type_menu_pop = new Gtk.Popover (null);
+            track_type_menu_pop.add (track_type_grid);
+
+            track_type_menu = new Gtk.MenuButton ();
+            track_type_menu.tooltip_text = _("Set Preview Font");
+            track_type_menu.popover = track_type_menu_pop;
+            track_type_menu.label = "";
+
+            var menu_context = track_type_menu.get_style_context ();
+            menu_context.add_class ("quilter-menu");
+            menu_context.add_class (Gtk.STYLE_CLASS_FLAT);
+
+            actionbar.pack_start (track_type_menu);
         }
 
         public void update_wordcount () {
             var wc = get_count();
-		    wordcount_label.set_text((_("Words: ")) + wc.words.to_string());
-        }
-
-        public void linecount_item () {
-            linecount_label = new Gtk.Label("");
-            linecount_label.set_width_chars (12);
-            update_linecount ();
-            actionbar.pack_start (linecount_label);
+            track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
         }
 
         public void update_linecount () {
             var lc = get_count();
-		    linecount_label.set_text((_("Lines: ")) + lc.lines.to_string());
+            track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
+        }
+
+        public void update_charcount () {
+            var cc = get_count();
+            track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
         }
 
         public void readtimecount_item () {
@@ -86,7 +126,9 @@ namespace Quilter {
 
                 var lines = buffer.get_line_count ();
 
-    			return new WordCount(result.strip().split(" ").length, lines,  result.length);
+                var chars = result.length;
+
+    			return new WordCount(result.strip().split(" ").length, lines,  chars);
     		} catch (Error e) {
     			return new WordCount(0, 0, 0);
     		}

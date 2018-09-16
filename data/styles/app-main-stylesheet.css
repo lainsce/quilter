@@ -60,7 +60,7 @@
 }
 
 .color-light:focus {
-    border-color: #52ADF8;
+    border-color: #8ac9fc;
     box-shadow:
         inset 0 1px 0 0 alpha (#dddddd, 0.45),
         inset 0 -1px 0 0 alpha (#dddddd, 0.15),
@@ -112,4 +112,16 @@
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
     padding: 6px;
+}
+
+.quilter-menu {
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    border: 1px solid alpha (@textColorPrimary, 0.15);
+    background-image: none;
+    padding: 3px;
+}
+
+.quilter-menu:hover {
+    border: 1px solid alpha (@textColorPrimary, 0.35);
 }

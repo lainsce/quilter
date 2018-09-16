@@ -56,6 +56,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+      <release version="1.6.2" date="2018-09-21">
+        <description>
+           <p>Release: Track Your Stuff Up</p>
+           <ul>
+               <li>You can now set what to track in the document: Characters, Words, or Lines.</li>
+           </ul>
+        </description>
+     </release>
       <release version="1.6.1" date="2018-08-17">
         <description>
            <p>Release: Font Forgery</p>

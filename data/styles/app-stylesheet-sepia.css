@@ -16,3 +16,8 @@ actionbar,
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
+
+.quilter-menu:hover,
+.quilter-menu:backdrop:active {
+    background-color: alpha (#52ADF8, 0.35);
+}
