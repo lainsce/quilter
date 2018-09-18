@@ -56,6 +56,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+      <release version="1.6.6" date="2018-09-21">
+        <description>
+           <p>Release: Stylish Readable Stories</p>
+           <ul>
+               <li>All text passes a contrast check to be readable now.</li>
+           </ul>
+        </description>
+     </release>
       <release version="1.6.2" date="2018-09-21">
         <description>
            <p>Release: Track Your Stuff Up</p>

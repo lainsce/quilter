@@ -77,7 +77,7 @@ namespace Quilter {
             track_type_menu_pop.add (track_type_grid);
 
             track_type_menu = new Gtk.MenuButton ();
-            track_type_menu.tooltip_text = _("Set Preview Font");
+            track_type_menu.tooltip_text = _("Set Tracking Type");
             track_type_menu.popover = track_type_menu_pop;
             track_type_menu.label = "";
 

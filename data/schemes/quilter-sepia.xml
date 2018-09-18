@@ -4,9 +4,9 @@
   <_description>Emphasis on focus.</_description>
 
   <style name="text"            foreground="#3b3228" background="#f0e8dd"/>
-  <style name="cursor"          foreground="#0cd2de"/>
+  <style name="cursor"          foreground="#07747B"/>
   <style name="current-line"    background="#c1a073"/>
-  <style name="selection"       foreground="#3b3228" background="#0cd2de"/>
+  <style name="selection"       foreground="#3b3228" background="#07747B"/>
   <style name="search-match"    foreground="#3b3228" background="#ded20c"/>
 
   <!-- Bold -->
@@ -16,8 +16,8 @@
   <style name="def:doc-comment-element" foreground="#c1a073" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#0cd2de"/>
-  <style name="def:underlined" foreground="#0cd2de"/>
+  <style name="def:comment" foreground="#07747B"/>
+  <style name="def:underlined" foreground="#07747B"/>
 
   <!-- Code -->
   <style name="def:identifier" foreground="#c1a073"/>
@@ -29,8 +29,8 @@
   <style name="def:preprocessor" foreground="#3b3228"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#0cd2de"/>
-  <style name="def:constant" foreground="#0cd2de"/>
+  <style name="def:shebang" foreground="#07747B"/>
+  <style name="def:constant" foreground="#07747B"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#c1a073"/>

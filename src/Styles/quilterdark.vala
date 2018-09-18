@@ -26,10 +26,13 @@ public class Quilter.Styles.quilterdark {
   public const string css="""
     html {
       font-size: 16px;
+      width: 100%;
+      margin: 0 auto;
     }
 
     p {
       font-size: 18px;
+      width: 100%;
       color: #C3C3C1;
     }
 
@@ -117,10 +120,6 @@ public class Quilter.Styles.quilterdark {
       line-height: 1.4rem;
       margin-left: 80px;
       margin-right: 80px;
-      align-content: center;
-      align-items: center;
-      align-self: center;
-      display: inline-block;
       text-align: left;
     }
 
@@ -185,7 +184,7 @@ public class Quilter.Styles.quilterdark {
       margin-left: .8rem;
       text-align: left;
     }
-    
+
     blockquote > p {
       color: inherit;
       margin-top: 20px;
@@ -201,7 +200,7 @@ public class Quilter.Styles.quilterdark {
     ul>li {
       font-size: 18px;
     }
-  
+
     ul, ol {
       margin-left: -40px;
     }
