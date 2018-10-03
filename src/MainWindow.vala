@@ -38,25 +38,13 @@ namespace Quilter {
         public const string ACTION_PREFS = "action_preferences";
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_EXPORT_HTML = "action_export_html";
-        public const string ACTION_FONT_SERIF = "action_font_serif";
-        public const string ACTION_FONT_SANS = "action_font_sans";
-        public const string ACTION_FONT_MONO = "action_font_mono";
-        public const string ACTION_TRACK_CHARS = "action_track_chars";
-        public const string ACTION_TRACK_WORDS = "action_track_words";
-        public const string ACTION_TRACK_LINES = "action_track_lines";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
 
         private const GLib.ActionEntry[] action_entries = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
             { ACTION_EXPORT_PDF, action_export_pdf },
-            { ACTION_EXPORT_HTML, action_export_html },
-            { ACTION_FONT_SERIF, action_font_serif },
-            { ACTION_FONT_SANS, action_font_sans },
-            { ACTION_FONT_MONO, action_font_mono },
-            { ACTION_TRACK_CHARS, action_track_chars },
-            { ACTION_TRACK_WORDS, action_track_words },
-            { ACTION_TRACK_LINES, action_track_lines }
+            { ACTION_EXPORT_HTML, action_export_html }
         };
 
         public void dynamic_margins() {
@@ -149,16 +137,9 @@ namespace Quilter {
 
             var settings = AppSettings.get_default ();
 
-            if (settings.track_type == "words") {
-                statusbar.update_wordcount ();
-            } else if (settings.track_type == "lines") {
-                statusbar.update_linecount ();
-            } else if (settings.track_type == "chars") {
-                statusbar.update_charcount ();
-            }
-
-            statusbar.update_readtimecount ();
             show_statusbar ();
+            statusbar.update_readtimecount ();
+            update_count ();
 
             if (!settings.focus_mode) {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
@@ -169,14 +150,7 @@ namespace Quilter {
             settings.changed.connect (() => {
                 show_statusbar ();
                 show_searchbar ();
-
-                if (settings.track_type == "words") {
-                    statusbar.update_wordcount ();
-                } else if (settings.track_type == "lines") {
-                    statusbar.update_linecount ();
-                } else if (settings.track_type == "chars") {
-                    statusbar.update_charcount ();
-                }
+                update_count ();
 
                 if (!settings.focus_mode) {
                     set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
@@ -274,21 +248,25 @@ namespace Quilter {
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
 
-            var set_font_sans = new Gtk.ModelButton ();
-            set_font_sans.text = (_("Set Sans-serif"));
-            set_font_sans.action_name = ACTION_PREFIX + ACTION_FONT_SANS;
+            var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
+	        set_font_sans.toggled.connect (() => {
+	            settings.preview_font = "sans";
+	        });
 
-            var set_font_serif = new Gtk.ModelButton ();
-            set_font_serif.text = (_("Set Serif"));
-            set_font_serif.action_name = ACTION_PREFIX + ACTION_FONT_SERIF;
+	        var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
+	        set_font_serif.toggled.connect (() => {
+	            settings.preview_font = "serif";
+	        });
+	        set_font_serif.set_active (true);
 
-            var set_font_mono = new Gtk.ModelButton ();
-            set_font_mono.text = (_("Set Monospace"));
-            set_font_mono.action_name = ACTION_PREFIX + ACTION_FONT_MONO;
+	        var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
+	        set_font_mono.toggled.connect (() => {
+	            settings.preview_font = "mono";
+	        });
 
             var set_font_menu_grid = new Gtk.Grid ();
-            set_font_menu_grid.margin = 6;
-            set_font_menu_grid.row_spacing = 6;
+            set_font_menu_grid.margin = 12;
+            set_font_menu_grid.row_spacing = 12;
             set_font_menu_grid.column_spacing = 12;
             set_font_menu_grid.orientation = Gtk.Orientation.VERTICAL;
             set_font_menu_grid.add (set_font_sans);
@@ -420,6 +398,20 @@ namespace Quilter {
             return false;
         }
 
+        private void update_count () {
+            var settings = AppSettings.get_default ();
+            if (settings.track_type == "words") {
+                statusbar.update_wordcount ();
+                settings.track_type = "words";
+            } else if (settings.track_type == "lines") {
+                statusbar.update_linecount ();
+                settings.track_type = "lines";
+            } else if (settings.track_type == "chars") {
+                statusbar.update_charcount ();
+                settings.track_type = "chars";
+            }
+        }
+
         private void action_preferences () {
             var dialog = new Widgets.Preferences (this);
             dialog.set_modal (true);
@@ -438,36 +430,6 @@ namespace Quilter {
 
         private void action_export_html () {
             Services.ExportUtils.export_html ();
-        }
-
-        private void action_font_serif () {
-            var settings = AppSettings.get_default ();
-            settings.preview_font = "serif";
-        }
-
-        private void action_font_sans () {
-            var settings = AppSettings.get_default ();
-            settings.preview_font = "sans";
-        }
-
-        private void action_font_mono () {
-            var settings = AppSettings.get_default ();
-            settings.preview_font = "mono";
-        }
-
-        private void action_track_chars () {
-            var settings = AppSettings.get_default ();
-            settings.track_type = "chars";
-        }
-
-        private void action_track_words () {
-            var settings = AppSettings.get_default ();
-            settings.track_type = "words";
-        }
-
-        private void action_track_lines () {
-            var settings = AppSettings.get_default ();
-            settings.track_type = "lines";
         }
 
         private void render_func () {

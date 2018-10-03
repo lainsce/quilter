@@ -51,21 +51,27 @@ namespace Quilter {
         }
 
         public void track_type_menu_item () {
-            var track_chars = new Gtk.ModelButton ();
-            track_chars.text = (_("Track Characters"));
-            track_chars.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_CHARS;
+            var settings = AppSettings.get_default ();
 
-            var track_words = new Gtk.ModelButton ();
-            track_words.text = (_("Track Words"));
-            track_words.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_WORDS;
+            var track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
+	        track_chars.toggled.connect (() => {
+	            settings.track_type = "chars";
+	        });
 
-            var track_lines = new Gtk.ModelButton ();
-            track_lines.text = (_("Track Lines"));
-            track_lines.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TRACK_LINES;
+	        var track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
+	        track_words.toggled.connect (() => {
+	            settings.track_type = "words";
+	        });
+
+	        var track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
+	        track_lines.toggled.connect (() => {
+	            settings.track_type = "lines";
+	        });
+	        track_lines.set_active (true);
 
             var track_type_grid = new Gtk.Grid ();
-            track_type_grid.margin = 6;
-            track_type_grid.row_spacing = 6;
+            track_type_grid.margin = 12;
+            track_type_grid.row_spacing = 12;
             track_type_grid.column_spacing = 12;
             track_type_grid.orientation = Gtk.Orientation.VERTICAL;
             track_type_grid.add (track_chars);
