@@ -3,8 +3,6 @@
 @define-color accentColor #0DBCEE;
 
 .quilter-toolbar {
-    border-bottom-color: transparent;
-    border-bottom-width: 1px;
     background: @colorPrimary;
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
@@ -18,7 +16,6 @@
 }
 actionbar,
 .action-bar {
-    border-top-color: transparent;
     background: @colorPrimary;
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;

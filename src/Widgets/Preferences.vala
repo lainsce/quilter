@@ -338,9 +338,6 @@ namespace Quilter.Widgets {
             var searchbar_label = new SettingsLabel (_("Show Searchbar:"));
             searchbar_label.set_halign (Gtk.Align.END);
             var searchbar = new SettingsSwitch ("searchbar");
-            var show_file_label = new SettingsLabel (_("Show Working File:"));
-            show_file_label.set_halign (Gtk.Align.END);
-            var show_file = new SettingsSwitch ("show-filename");
 
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             buttonbox.halign = Gtk.Align.FILL;
@@ -381,8 +378,6 @@ namespace Quilter.Widgets {
             interface_grid.attach (statusbar, 1, 9, 1, 1);
             interface_grid.attach (searchbar_label,  0, 10, 1, 1);
             interface_grid.attach (searchbar, 1, 10, 1, 1);
-            interface_grid.attach (show_file_label,  0, 11, 1, 1);
-            interface_grid.attach (show_file, 1, 11, 1, 1);
 
             return interface_grid;
         }

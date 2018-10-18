@@ -19,7 +19,7 @@
 namespace Quilter.Widgets {
     public class SideBar : Gtk.Revealer {
         public Gtk.ListBox column;
-        public Gtk.ListBoxRow row;
+        public Widgets.SideBarBox row;
         public Widgets.EditView ev;
 
         public SideBar () {
@@ -32,33 +32,28 @@ namespace Quilter.Widgets {
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
-
-            row = new Gtk.ListBoxRow ();
-            var file_label = new Gtk.Label ("");
-            string file_path = settings.last_file[0];
-            file_label.label = file_path;
-            var file_grid = new Gtk.Grid ();
-            file_grid.hexpand = false;
-            file_grid.row_spacing = 6;
-            file_grid.margin = 12;
-            file_grid.attach (file_label, 0, 0, 1, 1);
-            row.add (file_grid);
-            row.hexpand = true;
-            row.show_all ();
-
+            add_task ();
             column.row_activated.connect (() => {
-                string text;
-                var file = File.new_for_path (file_path);
-                string filename = file.get_path ();
-                GLib.FileUtils.get_contents (filename, out text);
-                ev.set_text (text, true);
+                if (row.is_selected ()) {
+                    string text;
+                    string file_path = settings.last_file[0];
+                    var file = File.new_for_path (file_path);
+                    string filen = file.get_path ();
+                    GLib.FileUtils.get_contents (filen, out text);
+                    if (ev != null) {
+                        Widgets.EditView.buffer.text = text;
+                    }
+                }
             });
-
-            column.insert (row, 1);
             column.show_all ();
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.add (column);
+        }
+
+        public void add_task () {
+            var taskbox = new SideBarBox ();
+            column.insert (taskbox, -1);
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {

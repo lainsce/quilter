@@ -109,7 +109,8 @@ namespace Quilter {
                 }
 
                 // Update margins
-                dynamic_margins();
+                if (edit_view != null)
+                    dynamic_margins();
             }
         }
 
@@ -220,6 +221,15 @@ namespace Quilter {
                     }
                     return true;
                 }
+                if (match_keycode (Gdk.Key.F2, keycode)) {
+                    debug ("Press to change view...");
+                    if (settings.sidebar) {
+                        settings.sidebar = false;
+                    } else {
+                        settings.sidebar = true;
+                    }
+                    return true;
+                }
                 return false;
             });
         }
@@ -310,12 +320,16 @@ namespace Quilter {
             sidebar.set_size_request (200,-1);
             searchbar = new Widgets.SearchBar (this);
 
+            var main_pane = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            main_pane.add (sidebar);
+            main_pane.add (stack);
+
             grid = new Gtk.Grid ();
             grid.set_column_homogeneous (false);
+            grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (searchbar, 0, 0, 2, 1);
-            grid.attach (sidebar, 0, 1, 1, 1);
-            grid.attach (stack, 1, 1, 1, 1);
+            grid.attach (main_pane, 0, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
             this.add (grid);
@@ -340,7 +354,8 @@ namespace Quilter {
             // Register for redrawing of window for handling margins and other
             // redrawing
             configure_event.connect ((event) => {
-                dynamic_margins();
+                if (edit_view != null)
+                    dynamic_margins();
             });
 
             // Attempt to set taskbar icon
@@ -437,6 +452,7 @@ namespace Quilter {
 
         public void show_sidebar () {
             var settings = AppSettings.get_default ();
+            sidebar.visible = settings.sidebar;
             sidebar.reveal_child = settings.sidebar;
         }
 

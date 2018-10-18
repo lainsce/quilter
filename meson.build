@@ -57,6 +57,7 @@ executable(
     'src/Widgets/StatusBar.vala',
     'src/Widgets/SearchBar.vala',
     'src/Widgets/SideBar.vala',
+    'src/Widgets/SideBarBox.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
     'src/Styles/quilter.vala',

@@ -20,6 +20,7 @@ namespace Quilter.Services.FileManager {
     public File file;
     public MainWindow window;
     public Widgets.EditView view;
+    private string[] files;
 
     public void save_file (File file, uint8[] buffer) throws Error {
         var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
@@ -32,6 +33,8 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         string file_path = settings.last_file[0];
         var file = File.new_for_path (file_path);
+        files += file_path;
+        settings.last_file = files;
 
         if ( file.query_exists () ) {
             try {
@@ -100,7 +103,6 @@ namespace Quilter.Services.FileManager {
     public void new_file () {
         debug ("New button pressed.");
         debug ("Buffer was modified. Asking user to save first.");
-        var settings = AppSettings.get_default ();
         var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
         dialog.response.connect ((response_id) => {
             switch (response_id) {
@@ -112,7 +114,7 @@ namespace Quilter.Services.FileManager {
                         string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                         file = File.new_for_path (cache);
                         Widgets.EditView.buffer.text = "";
-                
+                        files += file.get_path ();
 
                     } catch (Error e) {
                         warning ("Unexpected error during save: " + e.message);
@@ -124,7 +126,7 @@ namespace Quilter.Services.FileManager {
                     string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                     file = File.new_for_path (cache);
                     Widgets.EditView.buffer.text = "";
-            
+
 
                     break;
                 case Gtk.ResponseType.CANCEL:
@@ -149,7 +151,7 @@ namespace Quilter.Services.FileManager {
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
             file = File.new_for_path (cache);
             Widgets.EditView.buffer.text = "";
-    
+
 
         }
     }
@@ -158,12 +160,10 @@ namespace Quilter.Services.FileManager {
         if (files.length > 0) {
             var file = files[0];
             string text;
-            var settings = AppSettings.get_default ();
-    
-
+            string file_path = file.get_path ();
 
             try {
-                GLib.FileUtils.get_contents (file.get_path (), out text);
+                GLib.FileUtils.get_contents (file_path, out text);
                 Widgets.EditView.buffer.text = text;
             } catch (Error e) {
                 warning ("Error: %s", e.message);
@@ -176,8 +176,9 @@ namespace Quilter.Services.FileManager {
         debug ("Open button pressed.");
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_open_dialog ();
-
-
+        string file_path = file.get_path ();
+        files += file_path;
+        settings.last_file = files;
 
         try {
             debug ("Opening file...");
@@ -198,10 +199,8 @@ namespace Quilter.Services.FileManager {
 
     public void save () throws Error {
         debug ("Save button pressed.");
-        var settings = AppSettings.get_default ();
-        string file_path = settings.last_file[0];
+        string file_path = files[0];
         var file = File.new_for_path (file_path);
-
 
         if (file.query_exists ()) {
             try {
@@ -228,10 +227,7 @@ namespace Quilter.Services.FileManager {
 
     public void save_as () throws Error {
         debug ("Save as button pressed.");
-        var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_save_dialog ();
-
-
 
         try {
             debug ("Saving file...");
