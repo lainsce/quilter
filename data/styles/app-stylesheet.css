@@ -1,5 +1,6 @@
 @define-color colorPrimary #EFEFEF;
 @define-color textColorPrimary #191919;
+@define-color accentColor #007D9E;
 
 .quilter-toolbar {
     border-bottom-color: transparent;
@@ -27,5 +28,5 @@ actionbar,
 
 .quilter-menu:hover,
 .quilter-menu:backdrop:active {
-    background-color: alpha (#8ac9fc, 0.35);
+    background-color: alpha (#007D9E, 0.35);
 }
