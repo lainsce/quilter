@@ -37,12 +37,16 @@ namespace Quilter.Widgets {
             string file_path = file;
             file_label.label = file_path;
 
+            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
+
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
             file_grid.row_spacing = 6;
+            file_grid.column_spacing = 6;
             file_grid.margin = 12;
-            file_grid.attach (file_name_label, 0, 0, 1, 1);
-            file_grid.attach (file_label, 0, 1, 1, 1);
+            file_grid.attach (file_icon, 0, 0, 1, 2);
+            file_grid.attach (file_name_label, 1, 0, 1, 1);
+            file_grid.attach (file_label, 1, 1, 1, 1);
 
             this.add (file_grid);
             this.hexpand = true;

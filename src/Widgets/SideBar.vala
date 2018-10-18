@@ -36,23 +36,28 @@ namespace Quilter.Widgets {
                 add_task (f);
             }
             column.row_selected.connect ((row) => {
-                string text;
-                string file_path = ((Widgets.SideBarBox)row).file_label.label;
-                var file = File.new_for_path (file_path);
-                string filename = file.get_path ();
                 try {
-                    GLib.FileUtils.get_contents (filename, out text);
-                    if (ev != null) {
-                        Widgets.EditView.buffer.text = text;
-                    }
+                    string text;
+                    string file_path = ((Widgets.SideBarBox)row).file_label.label;
+                    var file = File.new_for_path (file_path);
+                    GLib.FileUtils.get_contents (file.get_path (), out text);
+                    Widgets.EditView.buffer.text = text;
                 } catch {
 
                 }
             });
-            column.show_all ();
+            column.show ();
 
+            var grid = new Gtk.Grid ();
+            grid.add (column);
+            this.add (grid);
+
+            this.set_visible (false);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.add (column);
+        }
+
+        public SideBarBox get_task () {
+            return ((SideBarBox)row.is_selected ());
         }
 
         public void add_task (string file) {
