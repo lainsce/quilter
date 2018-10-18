@@ -19,6 +19,7 @@
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
         public Gtk.Label file_name_label;
+        public Gtk.Label file_label;
         public Gtk.Grid file_grid;
 
         public SideBarBox (string file) {
@@ -32,7 +33,7 @@ namespace Quilter.Widgets {
             string filename = GLib.Filename.display_basename (file_name);
             file_name_label.label = filename;
 
-            var file_label = new Gtk.Label ("");
+            file_label = new Gtk.Label ("");
             string file_path = file;
             file_label.label = file_path;
 
