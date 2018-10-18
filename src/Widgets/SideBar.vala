@@ -32,17 +32,23 @@ namespace Quilter.Widgets {
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
-            add_task ();
-            column.row_activated.connect (() => {
-                if (row.is_selected ()) {
-                    string text;
-                    string file_path = settings.last_file[0];
-                    var file = File.new_for_path (file_path);
-                    string filen = file.get_path ();
+            settings.changed.connect (() => {
+                foreach (string f in settings.last_file) {
+                    add_task (f);
+                }
+            });
+            column.row_selected.connect (() => {
+                string text;
+                string file_path = settings.last_file[0];
+                var file = File.new_for_path (file_path);
+                string filen = file.get_path ();
+                try {
                     GLib.FileUtils.get_contents (filen, out text);
-                    if (ev != null) {
-                        Widgets.EditView.buffer.text = text;
-                    }
+                } catch {
+
+                }
+                if (ev != null) {
+                    Widgets.EditView.buffer.text = text;
                 }
             });
             column.show_all ();
@@ -51,8 +57,8 @@ namespace Quilter.Widgets {
             this.add (column);
         }
 
-        public void add_task () {
-            var taskbox = new SideBarBox ();
+        public void add_task (string file) {
+            var taskbox = new SideBarBox (file);
             column.insert (taskbox, -1);
         }
 

@@ -33,8 +33,6 @@ namespace Quilter.Services.FileManager {
         var settings = AppSettings.get_default ();
         string file_path = settings.last_file[0];
         var file = File.new_for_path (file_path);
-        files += file_path;
-        settings.last_file = files;
 
         if ( file.query_exists () ) {
             try {
@@ -156,11 +154,14 @@ namespace Quilter.Services.FileManager {
         }
     }
 
-    public bool open_from_outside (File[] files, string hint) {
-        if (files.length > 0) {
-            var file = files[0];
+    public bool open_from_outside (File[] filess, string hint) {
+        var settings = AppSettings.get_default ();
+        if (filess.length > 0) {
+            var file = filess[0];
             string text;
             string file_path = file.get_path ();
+            files += file_path;
+            settings.last_file = files;
 
             try {
                 GLib.FileUtils.get_contents (file_path, out text);
