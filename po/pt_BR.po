@@ -279,12 +279,12 @@ msgstr "Fechar sem Salvar"
 
 #: src/Widgets/Preferences.vala:185
 msgid "Type of Focus Mode:"
-msgstr ""
+msgstr "Tipo do Modo Foco:"
 
 #: src/Widgets/Preferences.vala:187
 msgid "Sentence"
-msgstr ""
+msgstr "Sentença"
 
 #: src/Widgets/Preferences.vala:188
 msgid "Paragraph"
-msgstr ""
+msgstr "Parágrafo"
