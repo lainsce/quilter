@@ -30,7 +30,8 @@ namespace Quilter.Services.FileManager {
 
     private void save_work_file () {
         var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
+        string file_path = settings.last_file[0];
+        var file = File.new_for_path (file_path);
 
         if ( file.query_exists () ) {
             try {
@@ -111,8 +112,8 @@ namespace Quilter.Services.FileManager {
                         string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                         file = File.new_for_path (cache);
                         Widgets.EditView.buffer.text = "";
-                        settings.last_file = file.get_path ();
-                        
+                
+
                     } catch (Error e) {
                         warning ("Unexpected error during save: " + e.message);
                     }
@@ -123,8 +124,8 @@ namespace Quilter.Services.FileManager {
                     string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                     file = File.new_for_path (cache);
                     Widgets.EditView.buffer.text = "";
-                    settings.last_file = file.get_path ();
-                    
+            
+
                     break;
                 case Gtk.ResponseType.CANCEL:
                     debug ("User cancelled, don't do anything.");
@@ -148,8 +149,8 @@ namespace Quilter.Services.FileManager {
             string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
             file = File.new_for_path (cache);
             Widgets.EditView.buffer.text = "";
-            settings.last_file = file.get_path ();
-            
+    
+
         }
     }
 
@@ -158,8 +159,8 @@ namespace Quilter.Services.FileManager {
             var file = files[0];
             string text;
             var settings = AppSettings.get_default ();
-            settings.last_file = file.get_path ();
-            
+    
+
 
             try {
                 GLib.FileUtils.get_contents (file.get_path (), out text);
@@ -175,8 +176,8 @@ namespace Quilter.Services.FileManager {
         debug ("Open button pressed.");
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_open_dialog ();
-        settings.last_file = file.get_path ();
-        
+
+
 
         try {
             debug ("Opening file...");
@@ -198,8 +199,9 @@ namespace Quilter.Services.FileManager {
     public void save () throws Error {
         debug ("Save button pressed.");
         var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
-        
+        string file_path = settings.last_file[0];
+        var file = File.new_for_path (file_path);
+
 
         if (file.query_exists ()) {
             try {
@@ -228,8 +230,8 @@ namespace Quilter.Services.FileManager {
         debug ("Save as button pressed.");
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_save_dialog ();
-        settings.last_file = file.get_path ();
-        
+
+
 
         try {
             debug ("Saving file...");

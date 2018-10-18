@@ -45,6 +45,7 @@ namespace Quilter {
         public bool shown_view { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool sidebar { get; set; }
         public bool typewriter_scrolling { get; set; }
         public bool use_system_font { get; set; }
         public int focus_mode_type { get; set; }
@@ -55,7 +56,7 @@ namespace Quilter {
         public int window_width { get; set; }
         public int window_x { get; set; }
         public int window_y { get; set; }
-        public string last_file { get; set; }
+        public string[] last_file { get; set; }
         public string preview_font { get; set; }
         public string spellcheck_language { get; set; }
         public string track_type { get; set; }

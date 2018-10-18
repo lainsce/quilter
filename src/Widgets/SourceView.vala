@@ -85,7 +85,8 @@ namespace Quilter.Widgets {
 
             try {
                 string text;
-                var file = File.new_for_path (settings.last_file);
+                string file_path = settings.last_file[0];
+                var file = File.new_for_path (file_path);
 
                 if (file.query_exists ()) {
                     string filename = file.get_path ();

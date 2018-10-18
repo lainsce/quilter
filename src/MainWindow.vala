@@ -23,6 +23,7 @@ using Granite.Services;
 namespace Quilter {
     public class MainWindow : Gtk.Window {
         public Widgets.StatusBar statusbar;
+        public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
         public Widgets.Headerbar toolbar;
         public Gtk.MenuButton set_font_menu;
@@ -82,19 +83,6 @@ namespace Quilter {
                 edit_view_content.bottom_margin = 40;
                 edit_view_content.top_margin = 40;
             }
-
-            // Update file name
-            if (settings.last_file != "" && settings.show_filename) {
-
-                // Trim off user's home directory if present
-                if (settings.last_file.has_prefix(Environment.get_home_dir())) {
-                    this.title = "Quilter: " + settings.last_file.replace(Environment.get_home_dir(), "~");
-                } else {
-                    this.title = "Quilter: " + settings.last_file;
-                }
-            } else {
-                this.title = "Quilter";
-            }
         }
 
         public bool is_fullscreen {
@@ -138,6 +126,7 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
 
             show_statusbar ();
+            show_sidebar ();
             statusbar.update_readtimecount ();
             update_count ();
 
@@ -149,6 +138,7 @@ namespace Quilter {
 
             settings.changed.connect (() => {
                 show_statusbar ();
+                show_sidebar ();
                 show_searchbar ();
                 update_count ();
 
@@ -291,6 +281,7 @@ namespace Quilter {
             preview_view.add (preview_view_content);
 
             stack = new Gtk.Stack ();
+            stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             stack.add_titled (edit_view, "edit_view", _("Edit"));
             stack.add_titled (preview_view, "preview_view", _("Preview"));
@@ -315,13 +306,17 @@ namespace Quilter {
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar ();
+            sidebar = new Widgets.SideBar ();
+            sidebar.set_size_request (200,-1);
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
+            grid.set_column_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.add (searchbar);
-            grid.add (stack);
-            grid.add (statusbar);
+            grid.attach (searchbar, 0, 0, 2, 1);
+            grid.attach (sidebar, 0, 1, 1, 1);
+            grid.attach (stack, 1, 1, 1, 1);
+            grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
             this.add (grid);
 
@@ -387,11 +382,12 @@ namespace Quilter {
             settings.window_width = w;
             settings.window_height = h;
             settings.shown_view = v;
+            string file_path = settings.last_file[0];
 
             if (settings.last_file != null) {
                 debug ("Saving working file...");
                 Services.FileManager.save_work_file ();
-            } else if (settings.last_file == "New Document") {
+            } else if (file_path == "New Document") {
                 debug ("Saving cache...");
                 Services.FileManager.save_tmp_file ();
             }
@@ -437,6 +433,11 @@ namespace Quilter {
                 preview_view_content.update_html_view ();
                 edit_view_content.is_modified = false;
             }
+        }
+
+        public void show_sidebar () {
+            var settings = AppSettings.get_default ();
+            sidebar.reveal_child = settings.sidebar;
         }
 
         public void show_statusbar () {

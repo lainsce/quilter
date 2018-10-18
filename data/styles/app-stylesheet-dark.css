@@ -8,7 +8,13 @@
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
-
+.quilter-sidebar {
+    border-bottom-color: transparent;
+    border-bottom-width: 1px;
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    box-shadow: 0 1px transparent inset;
+}
 actionbar,
 .action-bar {
     border-top-color: transparent;
