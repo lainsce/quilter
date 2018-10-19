@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-18 17:56-0300\n"
-"PO-Revision-Date: 2018-10-18 20:59-0300\n"
+"PO-Revision-Date: 2018-10-18 21:07-0300\n"
 "Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
@@ -179,11 +179,11 @@ msgstr "Interface"
 
 #: src/Widgets/Preferences.vala:335
 msgid "Show Statusbar:"
-msgstr "Mostrar a Barra de Estado:"
+msgstr "Mostrar a Barra de Status:"
 
 #: src/Widgets/Preferences.vala:338
 msgid "Show Searchbar:"
-msgstr "Mostrar a Barra de Status:"
+msgstr "Mostrar a Barra de Pesquisa:"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
