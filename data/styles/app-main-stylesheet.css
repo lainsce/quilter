@@ -129,7 +129,7 @@ actionbar,
 }
 
 .quilter-sidebar-box {
-    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.25);
+    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.3);
     border-radius: 0 8px 8px 0;
     margin: 6px;
     margin-left: 0;
@@ -137,9 +137,11 @@ actionbar,
 }
 
 .quilter-sidebar-box:active,
-.quilter-sidebar-box:focus {
-    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.45);
+.quilter-sidebar-box:focus,
+.quilter-sidebar-box:selected {
+    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.6);
 }
+
 .quilter-sidebar-box:selected {
     color: @fg_color;
 }

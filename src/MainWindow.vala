@@ -33,6 +33,7 @@ namespace Quilter {
         public Gtk.ScrolledWindow edit_view;
         public Gtk.ScrolledWindow preview_view;
         public Gtk.Grid grid;
+        public Gtk.Grid main_pane;
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
@@ -320,16 +321,13 @@ namespace Quilter {
             sidebar.set_size_request (200,-1);
             searchbar = new Widgets.SearchBar (this);
 
-            var main_pane = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            main_pane.add (sidebar);
-            main_pane.add (stack);
-
             grid = new Gtk.Grid ();
             grid.set_column_homogeneous (false);
             grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (searchbar, 0, 0, 2, 1);
-            grid.attach (main_pane, 0, 1, 1, 1);
+            grid.attach (sidebar, 0, 1, 1, 1);
+            grid.attach (stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
             this.add (grid);
@@ -452,7 +450,6 @@ namespace Quilter {
 
         public void show_sidebar () {
             var settings = AppSettings.get_default ();
-            sidebar.visible = settings.sidebar;
             sidebar.reveal_child = settings.sidebar;
         }
 

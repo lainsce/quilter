@@ -19,30 +19,34 @@
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
         public Gtk.Label file_name_label;
+        public Gtk.Label file_label;
         public Gtk.Grid file_grid;
 
-        public SideBarBox () {
-            var settings = AppSettings.get_default ();
+        public SideBarBox (string file) {
             this.activatable = true;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
             file_name_label = new Gtk.Label ("");
             file_name_label.halign = Gtk.Align.START;
-            string file_name = settings.last_file[0];
+            string file_name = file;
             string filename = GLib.Filename.display_basename (file_name);
             file_name_label.label = filename;
 
-            var file_label = new Gtk.Label ("");
-            string file_path = settings.last_file[0];
+            file_label = new Gtk.Label ("");
+            string file_path = file;
             file_label.label = file_path;
+
+            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
             file_grid.row_spacing = 6;
+            file_grid.column_spacing = 6;
             file_grid.margin = 12;
-            file_grid.attach (file_name_label, 0, 0, 1, 1);
-            file_grid.attach (file_label, 0, 1, 1, 1);
+            file_grid.attach (file_icon, 0, 0, 1, 2);
+            file_grid.attach (file_name_label, 1, 0, 1, 1);
+            file_grid.attach (file_label, 1, 1, 1, 1);
 
             this.add (file_grid);
             this.hexpand = true;

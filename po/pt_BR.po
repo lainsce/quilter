@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 17:56-0300\n"
+"POT-Creation-Date: 2018-10-18 21:38-0300\n"
 "PO-Revision-Date: 2018-10-18 21:07-0300\n"
 "Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
 "Language-Team: \n"
@@ -13,31 +13,31 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: src/MainWindow.vala:120
+#: src/MainWindow.vala:121
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:251
+#: src/MainWindow.vala:252
 msgid "Use Sans-serif"
 msgstr "Usar Sans-serif"
 
-#: src/MainWindow.vala:256
+#: src/MainWindow.vala:257
 msgid "Use Serif"
 msgstr "Usar Serif"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:263
 msgid "Use Monospace"
 msgstr "Usar Monospace"
 
-#: src/MainWindow.vala:281
+#: src/MainWindow.vala:282
 msgid "Set Preview Font"
 msgstr "Prévia"
 
-#: src/MainWindow.vala:296
+#: src/MainWindow.vala:297
 msgid "Edit"
 msgstr "Editor"
 
-#: src/MainWindow.vala:297
+#: src/MainWindow.vala:298
 msgid "Preview"
 msgstr "Prévia"
 
@@ -291,7 +291,8 @@ msgstr "Para fazer o conteúdo da coluna ser à esquerda, mude --- para :--- ."
 
 #: src/Widgets/Cheatsheet.vala:144
 msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Para fazer o conteúdo da coluna ser centralizado, mude --- para :---: ."
+msgstr ""
+"Para fazer o conteúdo da coluna ser centralizado, mude --- para :---: ."
 
 #: src/Widgets/Cheatsheet.vala:145
 msgid "To make a column's content go to the right, change --- to ---: ."
