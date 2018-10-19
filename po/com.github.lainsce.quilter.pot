@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-15 17:16-0200\n"
+"POT-Creation-Date: 2018-10-18 17:56-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,152 +17,191 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:70
+#: src/MainWindow.vala:120
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:168
-msgid "New file"
-msgstr ""
-
-#: src/MainWindow.vala:176
-msgid "Save as…"
-msgstr ""
-
-#: src/MainWindow.vala:190 src/Services/DialogUtils.vala:63
-msgid "Save file"
-msgstr ""
-
-#: src/MainWindow.vala:204
-msgid "Open…"
-msgstr ""
-
-#: src/MainWindow.vala:217
-msgid "Settings"
-msgstr ""
-
-#: src/MainWindow.vala:221
-msgid "Markdown Cheatsheet"
-msgstr ""
-
-#: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
-msgid "Preferences"
-msgstr ""
-
-#: src/MainWindow.vala:255
-msgid "Edit"
+#: src/MainWindow.vala:251
+msgid "Use Sans-serif"
 msgstr ""
 
 #: src/MainWindow.vala:256
+msgid "Use Serif"
+msgstr ""
+
+#: src/MainWindow.vala:262
+msgid "Use Monospace"
+msgstr ""
+
+#: src/MainWindow.vala:281
+msgid "Set Preview Font"
+msgstr ""
+
+#: src/MainWindow.vala:296
+msgid "Edit"
+msgstr ""
+
+#: src/MainWindow.vala:297
 msgid "Preview"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:51
+#: src/Widgets/StatusBar.vala:40
+msgid "Show/Hide Sidebar"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:79
+msgid "Track Characters"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:84
+msgid "Track Words"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:89
+msgid "Track Lines"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:109
+msgid "Set Tracking Type"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:122
 msgid "Words: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:64
+#: src/Widgets/StatusBar.vala:127
+msgid "Lines: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:132
+msgid "Characters: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:145
 msgid "Reading Time: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:68
-msgid "Dark Mode"
+#: src/Widgets/Preferences.vala:27
+msgid "Preferences"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:92
-msgid "Focus Mode"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:47 src/Widgets/Preferences.vala:67
+#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:67
 msgid "Editor"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:177
+#: src/Widgets/Preferences.vala:47
 msgid "Interface"
 msgstr ""
 
 #. Close button
-#: src/Widgets/Preferences.vala:50 src/Widgets/Cheatsheet.vala:51
+#: src/Widgets/Preferences.vala:49 src/Widgets/Cheatsheet.vala:52
 msgid "Close"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:69
-msgid "Show Line Numbers:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:71
+#: src/Widgets/Preferences.vala:68
 msgid "Enable Spellchecking:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:75
+#: src/Widgets/Preferences.vala:72
 msgid "Geometry"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:76
+#: src/Widgets/Preferences.vala:73
 msgid "Spacing of Text:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:78 src/Widgets/Preferences.vala:118
+#: src/Widgets/Preferences.vala:75 src/Widgets/Preferences.vala:115
+#: src/Widgets/Preferences.vala:156
 msgid "Small"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:79 src/Widgets/Preferences.vala:119
+#: src/Widgets/Preferences.vala:76 src/Widgets/Preferences.vala:116
+#: src/Widgets/Preferences.vala:157
 msgid "Normal"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:80 src/Widgets/Preferences.vala:120
+#: src/Widgets/Preferences.vala:77 src/Widgets/Preferences.vala:117
+#: src/Widgets/Preferences.vala:158
 msgid "Large"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:116
+#: src/Widgets/Preferences.vala:113
 msgid "Margins of Text:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:178
-msgid "Show the Save Button:"
+#: src/Widgets/Preferences.vala:153
+msgid "Fonts & Type"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:181
-msgid "Mode"
+#: src/Widgets/Preferences.vala:154
+msgid "Editor Font Size:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:182
+#: src/Widgets/Preferences.vala:206
+msgid "Save files when changed:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:239
+msgid "Modes"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:251
+msgid "Light Mode"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:264
+msgid "Sepia Mode"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:277
+msgid "Dark Mode"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:294
 msgid "Enable Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:184
-msgid "Enable Dark Mode:"
+#: src/Widgets/Preferences.vala:297
+msgid "Type of Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:187
-msgid "Font"
+#: src/Widgets/Preferences.vala:299
+msgid "Paragraph"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:188
-msgid "Custom font:"
+#: src/Widgets/Preferences.vala:300
+msgid "Sentence"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:198
-msgid "Statusbar"
+#: src/Widgets/Preferences.vala:330
+msgid "Typewriter Scrolling:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:199
+#: src/Widgets/Preferences.vala:334
+msgid "User Interface"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:335
 msgid "Show Statusbar:"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:28
+#: src/Widgets/Preferences.vala:338
+msgid "Show Searchbar:"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:46
+#: src/Widgets/Cheatsheet.vala:47
 msgid "Text"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:47
+#: src/Widgets/Cheatsheet.vala:48
 msgid "Links & Special"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:48 src/Widgets/Cheatsheet.vala:137
+#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
 msgid "Tables"
 msgstr ""
 
@@ -242,51 +281,50 @@ msgstr ""
 msgid "--- ← This creates a horizontal rule"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:139
+#: src/Widgets/Cheatsheet.vala:121
+msgid "LaTeX"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:122
+msgid "$$ Math $$"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:143
 msgid "To make a column's content go to the left, change --- to :--- ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:140
+#: src/Widgets/Cheatsheet.vala:144
 msgid "To make a column's content centered, change --- to :---: ."
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:141
+#: src/Widgets/Cheatsheet.vala:145
 msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr ""
 
-#: src/Services/DialogUtils.vala:38
+#: src/Services/DialogUtils.vala:32
 msgid "Markdown files"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:43
+#: src/Services/DialogUtils.vala:37
 msgid "All files"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:51
+#: src/Services/DialogUtils.vala:45
 msgid "Open file"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:77
+#: src/Services/DialogUtils.vala:57
+msgid "Save file"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:71
 msgid "There are unsaved changes to the file. Do you want to save?"
 msgstr ""
 
-#: src/Services/DialogUtils.vala:78
+#: src/Services/DialogUtils.vala:72
 msgid "If you don't save, changes will be lost forever."
 msgstr ""
 
-#: src/Services/DialogUtils.vala:83
+#: src/Services/DialogUtils.vala:77
 msgid "Close without saving"
 msgstr ""
-
-#: src/Widgets/Preferences.vala:185
-msgid "Type of Focus Mode:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:187
-msgid "Sentence"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:188
-msgid "Paragraph"
-msgstr ""
-
