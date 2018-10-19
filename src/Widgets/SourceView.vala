@@ -85,7 +85,7 @@ namespace Quilter.Widgets {
 
             try {
                 string text;
-                string file_path = settings.last_file[0];
+                string file_path = settings.current_file;
                 var file = File.new_for_path (file_path);
 
                 if (file.query_exists ()) {
@@ -229,7 +229,7 @@ namespace Quilter.Widgets {
         }
 
         public void dynamic_margins() {
-            Application.window.dynamic_margins();
+            Application.win.dynamic_margins();
         }
 
         private void update_settings () {

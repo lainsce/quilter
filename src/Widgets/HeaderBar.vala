@@ -18,11 +18,10 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Gtk.HeaderBar {
-        private static Headerbar? instance = null;
         public File file;
         public EditView sourceview;
         public Preview preview;
-        public MainWindow window;
+        public MainWindow win;
 
         private Gtk.Button new_button;
         private Gtk.Button open_button;
@@ -32,7 +31,8 @@ namespace Quilter.Widgets {
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton share_app_menu;
 
-        public Headerbar () {
+        public Headerbar (MainWindow win) {
+            this.win = win;
             var header_context = this.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
@@ -45,14 +45,6 @@ namespace Quilter.Widgets {
             settings.changed.connect (() => {
                 focus_mode_toolbar ();
             });
-        }
-
-        public static Headerbar get_instance () {
-            if (instance == null) {
-                instance = new Widgets.Headerbar ();
-            }
-    
-            return instance;
         }
 
         private void build_ui () {
@@ -96,7 +88,7 @@ namespace Quilter.Widgets {
 
             open_button.clicked.connect (() => {
                 try {
-                    Services.FileManager.open ();
+                    Services.FileManager.open (this.win);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -220,7 +212,7 @@ namespace Quilter.Widgets {
     			}
 
             });
-          
+
             var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             colorbox.pack_start (color_button_light, true, true, 0);
             colorbox.pack_start (color_button_sepia, true, true, 0);

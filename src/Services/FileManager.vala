@@ -18,7 +18,7 @@
 namespace Quilter.Services.FileManager {
     public File tmp_file;
     public File file;
-    public MainWindow window;
+    public MainWindow win;
     public Widgets.EditView view;
     private string[] files;
 
@@ -31,7 +31,7 @@ namespace Quilter.Services.FileManager {
 
     private void save_work_file () {
         var settings = AppSettings.get_default ();
-        string file_path = settings.last_file[0];
+        string file_path = settings.current_file;
         var file = File.new_for_path (file_path);
 
         if ( file.query_exists () ) {
@@ -101,7 +101,7 @@ namespace Quilter.Services.FileManager {
     public void new_file () {
         debug ("New button pressed.");
         debug ("Buffer was modified. Asking user to save first.");
-        var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.window);
+        var dialog = new Services.DialogUtils.Dialog.display_save_confirm (Application.win);
         dialog.response.connect ((response_id) => {
             switch (response_id) {
                 case Gtk.ResponseType.YES:
@@ -109,10 +109,11 @@ namespace Quilter.Services.FileManager {
 
                     try {
                         Services.FileManager.save ();
+                        var settings = AppSettings.get_default ();
                         string cache = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter" + "/temp");
                         file = File.new_for_path (cache);
                         Widgets.EditView.buffer.text = "";
-                        files += file.get_path ();
+                        settings.current_file = file.get_path ();
 
                     } catch (Error e) {
                         warning ("Unexpected error during save: " + e.message);
@@ -154,14 +155,18 @@ namespace Quilter.Services.FileManager {
         }
     }
 
-    public bool open_from_outside (File[] filess, string hint) {
+    public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
         var settings = AppSettings.get_default ();
-        if (filess.length > 0) {
-            var file = filess[0];
+        if (ofiles.length > 0) {
+            var file = ofiles[0];
             string text;
             string file_path = file.get_path ();
+            settings.current_file = file_path;
             files += file_path;
-            settings.last_file = files;
+            settings.last_files = files;
+            if (win.sidebar != null) {
+                win.sidebar.add_file (file_path);
+            }
 
             try {
                 GLib.FileUtils.get_contents (file_path, out text);
@@ -173,13 +178,17 @@ namespace Quilter.Services.FileManager {
         return true;
     }
 
-    public void open () throws Error {
+    public void open (MainWindow win) throws Error {
         debug ("Open button pressed.");
         var settings = AppSettings.get_default ();
         var file = Services.DialogUtils.display_open_dialog ();
         string file_path = file.get_path ();
+        settings.current_file = file_path;
         files += file_path;
-        settings.last_file = files;
+        settings.last_files = files;
+        if (win.sidebar != null) {
+            win.sidebar.add_file (file_path);
+        }
 
         try {
             debug ("Opening file...");
@@ -200,7 +209,8 @@ namespace Quilter.Services.FileManager {
 
     public void save () throws Error {
         debug ("Save button pressed.");
-        string file_path = files[0];
+        var settings = AppSettings.get_default ();
+        string file_path = settings.current_file;
         var file = File.new_for_path (file_path);
 
         if (file.query_exists ()) {

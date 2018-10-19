@@ -49,43 +49,6 @@ namespace Quilter {
             { ACTION_EXPORT_HTML, action_export_html }
         };
 
-        public void dynamic_margins() {
-            var settings = AppSettings.get_default ();
-            int w, h, m, p;
-            get_size (out w, out h);
-
-            // If Quilter is Full Screen, add additional padding
-            p = (is_fullscreen) ? 5 : 0;
-
-            var margins = settings.margins;
-            switch (margins) {
-                case Constants.NARROW_MARGIN:
-                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
-                    break;
-                case Constants.WIDE_MARGIN:
-                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
-                    break;
-                default:
-                case Constants.MEDIUM_MARGIN:
-                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
-                    break;
-            }
-
-            // Update margins
-            edit_view_content.left_margin = m;
-            edit_view_content.right_margin = m;
-
-            // Update margins for typewriter scrolling
-            if (settings.typewriter_scrolling && settings.focus_mode) {
-                int titlebar_h = this.get_titlebar().get_allocated_height();
-                edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
-                edit_view_content.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
-            } else {
-                edit_view_content.bottom_margin = 40;
-                edit_view_content.top_margin = 40;
-            }
-        }
-
         public bool is_fullscreen {
             get {
                 var settings = AppSettings.get_default ();
@@ -110,8 +73,7 @@ namespace Quilter {
                 }
 
                 // Update margins
-                if (edit_view != null)
-                    dynamic_margins();
+                dynamic_margins ();
             }
         }
 
@@ -178,7 +140,7 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.o, keycode)) {
                         try {
-                            Services.FileManager.open ();
+                            Services.FileManager.open (this);
                         } catch (Error e) {
                             warning ("Unexpected error during open: " + e.message);
                         }
@@ -244,7 +206,7 @@ namespace Quilter {
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-            var toolbar = new Widgets.Headerbar ();
+            toolbar = new Widgets.Headerbar (this);
             toolbar.title = this.title;
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
@@ -317,8 +279,7 @@ namespace Quilter {
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar ();
-            sidebar = new Widgets.SideBar ();
-            sidebar.set_size_request (200,-1);
+            sidebar = new Widgets.SideBar (this);
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
@@ -352,8 +313,7 @@ namespace Quilter {
             // Register for redrawing of window for handling margins and other
             // redrawing
             configure_event.connect ((event) => {
-                if (edit_view != null)
-                    dynamic_margins();
+                dynamic_margins ();
             });
 
             // Attempt to set taskbar icon
@@ -395,9 +355,9 @@ namespace Quilter {
             settings.window_width = w;
             settings.window_height = h;
             settings.shown_view = v;
-            string file_path = settings.last_file[0];
+            string file_path = settings.current_file;
 
-            if (settings.last_file != null) {
+            if (settings.current_file != "") {
                 debug ("Saving working file...");
                 Services.FileManager.save_work_file ();
             } else if (file_path == "New Document") {
@@ -405,6 +365,45 @@ namespace Quilter {
                 Services.FileManager.save_tmp_file ();
             }
             return false;
+        }
+
+        public void dynamic_margins () {
+            var settings = AppSettings.get_default ();
+            int w, h, m, p;
+            get_size (out w, out h);
+
+            // If Quilter is Full Screen, add additional padding
+            p = (is_fullscreen) ? 5 : 0;
+
+            var margins = settings.margins;
+            switch (margins) {
+                case Constants.NARROW_MARGIN:
+                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
+                    break;
+                case Constants.WIDE_MARGIN:
+                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
+                    break;
+                default:
+                case Constants.MEDIUM_MARGIN:
+                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                    break;
+            }
+
+            if (edit_view_content != null) {
+                // Update margins
+                edit_view_content.left_margin = m;
+                edit_view_content.right_margin = m;
+
+                // Update margins for typewriter scrolling
+                if (settings.typewriter_scrolling && settings.focus_mode) {
+                    int titlebar_h = this.get_titlebar().get_allocated_height();
+                    edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
+                    edit_view_content.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
+                } else {
+                    edit_view_content.bottom_margin = 40;
+                    edit_view_content.top_margin = 40;
+                }
+            }
         }
 
         private void update_count () {
@@ -450,6 +449,7 @@ namespace Quilter {
 
         public void show_sidebar () {
             var settings = AppSettings.get_default ();
+            sidebar.set_visible (settings.sidebar);
             sidebar.reveal_child = settings.sidebar;
         }
 

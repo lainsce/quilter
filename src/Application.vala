@@ -23,7 +23,7 @@ namespace Quilter {
         private static bool open_view = false;
         private static string _cwd;
 
-        public static MainWindow window = null;
+        public static MainWindow win = null;
         public Widgets.Headerbar toolbar;
         public static string[] supported_mimetypes;
 
@@ -37,7 +37,7 @@ namespace Quilter {
         }
 
         protected override void activate () {
-            new_window ();
+            new_win ();
         }
 
         public static int main (string[] args) {
@@ -48,17 +48,17 @@ namespace Quilter {
             return app.run (args);
         }
 
-        public void new_window () {
-            if (window != null) {
-                window.present ();
+        public void new_win () {
+            if (win != null) {
+                win.present ();
                 return;
             }
-            window = new MainWindow (this);
+            win = new MainWindow (this);
 
             if (open_view) {
-                window.stack.set_visible_child (window.preview_view);
+                win.stack.set_visible_child (win.preview_view);
             }
-            window.show_all ();
+            win.show_all ();
         }
 
         protected override int command_line (ApplicationCommandLine command_line) {
@@ -81,7 +81,7 @@ namespace Quilter {
                 stdout.printf ("Copyright 2017-2018 Lains\n");
                 return 0;
             } else {
-                new_window ();
+                new_win ();
             }
 
             // Set Current Directory
@@ -160,8 +160,8 @@ namespace Quilter {
 
                     // Notify the user that something happened.
                     if (msg.length > 0) {
-                        var parent_window = get_last_window () as Gtk.Window;
-                        var dialog = new Gtk.MessageDialog.with_markup (parent_window,
+                        var parent_win = get_last_win () as Gtk.Window;
+                        var dialog = new Gtk.MessageDialog.with_markup (parent_win,
                             Gtk.DialogFlags.MODAL,
                             Gtk.MessageType.ERROR,
                             Gtk.ButtonsType.CLOSE,
@@ -173,7 +173,7 @@ namespace Quilter {
                 }
 
                 if (files.length > 0) {
-                    Services.FileManager.open_from_outside (files, "");
+                    Services.FileManager.open_from_outside (win, files, "");
                 } else {
                     open_view = false;
                 }
@@ -182,9 +182,9 @@ namespace Quilter {
             return 0;
         }
 
-        public MainWindow? get_last_window () {
-            unowned List<weak Gtk.Window> windows = get_windows ();
-            return windows.length () > 0 ? windows.last ().data as MainWindow : null;
+        public MainWindow? get_last_win () {
+            unowned List<weak Gtk.Window> wins = get_windows ();
+            return wins.length () > 0 ? wins.last ().data as MainWindow : null;
         }
 
         private static void register_default_handler () {

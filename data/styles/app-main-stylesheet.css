@@ -128,9 +128,21 @@ actionbar,
     border-right: 1px solid alpha (#000, 0.25);
 }
 
+.quilter-sidebar-button {
+    border-top: 1px solid alpha (#000, 0.25);
+    border-right: 1px solid alpha (#000, 0.25);
+    background: @colorPrimary;
+}
+
+.quilter-sidebar-button:active,
+.quilter-sidebar-button:selected {
+    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.6);
+}
+
 .quilter-sidebar-box {
     background: alpha (mix (@bg_color, @accentColor, 0.5), 0.3);
     border-radius: 0 8px 8px 0;
+    border-left: 3px solid alpha (mix (@bg_color, @accentColor, 0.5), 0.8);
     margin: 6px;
     margin-left: 0;
     margin-bottom: 0;
@@ -140,6 +152,7 @@ actionbar,
 .quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected {
     background: alpha (mix (@bg_color, @accentColor, 0.5), 0.6);
+    border-left: 3px solid @accentColor;
 }
 
 .quilter-sidebar-box:selected {

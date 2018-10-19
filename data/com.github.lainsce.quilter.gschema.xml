@@ -50,7 +50,12 @@
             <summary>Autosave edited files</summary>
             <description>Autosave edited files.</description>
         </key>
-		<key name="last-file" type="as">
+        <key name="current-file" type="s">
+				<default>''</default>
+				<summary>Current working file</summary>
+				<description>The c.w.f. in Quilter</description>
+		</key>
+		<key name="last-files" type="as">
 				<default>['']</default>
 				<summary>Last opened files</summary>
 				<description>The last opened files in Quilter</description>
