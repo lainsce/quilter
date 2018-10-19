@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-18 21:38-0300\n"
+"POT-Creation-Date: 2018-10-19 15:58-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:121
+#: src/MainWindow.vala:83
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:252
+#: src/MainWindow.vala:214
 msgid "Use Sans-serif"
 msgstr ""
 
-#: src/MainWindow.vala:257
+#: src/MainWindow.vala:219
 msgid "Use Serif"
 msgstr ""
 
-#: src/MainWindow.vala:263
+#: src/MainWindow.vala:225
 msgid "Use Monospace"
 msgstr ""
 
-#: src/MainWindow.vala:282
+#: src/MainWindow.vala:244
 msgid "Set Preview Font"
 msgstr ""
 
-#: src/MainWindow.vala:297
+#: src/MainWindow.vala:259
 msgid "Edit"
 msgstr ""
 
-#: src/MainWindow.vala:298
+#: src/MainWindow.vala:260
 msgid "Preview"
 msgstr ""
 
