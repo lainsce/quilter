@@ -23,6 +23,7 @@ namespace Quilter.Widgets {
         public Widgets.EditView ev;
         public MainWindow win;
         private string[] files;
+        public bool show_this {get; set; default = false;}
 
         public SideBar (MainWindow win) {
             this.win = win;
@@ -76,7 +77,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            column.show ();
+            column.show_all ();
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
@@ -86,6 +87,13 @@ namespace Quilter.Widgets {
             this.add (grid);
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+
+            show_this = false;
+            if (show_this) {
+                this.show_all ();
+            } else if (!show_this) {
+                this.hide ();
+            }
         }
 
         public SideBarBox get_file () {

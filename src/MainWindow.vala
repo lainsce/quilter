@@ -449,7 +449,7 @@ namespace Quilter {
 
         public void show_sidebar () {
             var settings = AppSettings.get_default ();
-            sidebar.set_visible (settings.sidebar);
+            sidebar.show_this = settings.sidebar;
             sidebar.reveal_child = settings.sidebar;
         }
 
