@@ -155,7 +155,7 @@ public class Quilter.Styles.quiltersepia {
     a:hover,
     a:focus,
     a:active {
-      color: #07747B;
+      color: #1a7b84;
     }
 
     code{

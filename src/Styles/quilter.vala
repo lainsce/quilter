@@ -114,8 +114,8 @@ public class Quilter.Styles.quilter {
     }
 
     body {
-      color: #191919;
-      background-color: #FFFFFF;
+      color: #333;
+      background-color: #FFF;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 80px;
@@ -156,7 +156,7 @@ public class Quilter.Styles.quilter {
     a:hover,
     a:focus,
     a:active {
-      color: #007D9E;
+      color: #0073c5;
     }
 
     code{

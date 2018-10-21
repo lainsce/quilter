@@ -127,12 +127,12 @@ namespace Quilter.Widgets {
                 on_text_modified ();
             });
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#393939");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#636361");
-            blackfont = buffer.create_tag(null, "foreground", "#191919");
-            whitefont = buffer.create_tag(null, "foreground", "#C3C3C1");
-            lightsepiafont = buffer.create_tag(null, "foreground", "#a18866");
-            sepiafont = buffer.create_tag(null, "foreground", "#2D1708");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#333");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#666");
+            blackfont = buffer.create_tag(null, "foreground", "#333");
+            whitefont = buffer.create_tag(null, "foreground", "#CCC");
+            lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
+            sepiafont = buffer.create_tag(null, "foreground", "#331100");
 
             search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
             search_context.set_match_style (srcstyle);

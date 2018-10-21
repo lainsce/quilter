@@ -3,11 +3,11 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#191919" background="#FAFAFA"/>
-  <style name="cursor"          foreground="#007D9E"/>
+  <style name="text"            foreground="#333" background="#FFF"/>
+  <style name="cursor"          foreground="#0073c5"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#EAEAEA" background="#007D9E"/>
-  <style name="search-match"    foreground="#191919" background="#EDBC11"/>
+  <style name="selection"       foreground="#EEE" background="#0073c5"/>
+  <style name="search-match"    foreground="#333" background="#EEAA00"/>
 
   <!-- Bold -->
   <style name="def:statement" bold="true"/>
@@ -16,25 +16,25 @@
   <style name="def:doc-comment-element" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#007D9E"/>
-  <style name="def:underlined" foreground="#007D9E"/>
+  <style name="def:comment" foreground="#0073c5"/>
+  <style name="def:underlined" foreground="#0073c5"/>
 
   <!-- Code -->
-  <style name="def:identifier" background="#F0F0F0" foreground="#191919"/>
+  <style name="def:identifier" background="#F0F0F0" foreground="#333"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#191919"/>
+  <style name="def:note" foreground="#333"/>
 
   <!-- Label -->
-  <style name="def:preprocessor" foreground="#191919"/>
+  <style name="def:preprocessor" foreground="#333"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#007D9E"/>
-  <style name="def:constant" foreground="#007D9E"/>
+  <style name="def:shebang" foreground="#0073c5"/>
+  <style name="def:constant" foreground="#0073c5"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#191919" bold="true"/>
+  <style name="def:type" foreground="#333" bold="true"/>
 </style-scheme>

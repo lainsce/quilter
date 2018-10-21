@@ -25,3 +25,24 @@ actionbar,
 .quilter-menu:backdrop:active {
     background-color: alpha (#0DBCEE, 0.35);
 }
+
+.quilter-sidebar-box:hover {
+    background: shade (@colorPrimary, 1.3);
+    color: @textColorPrimary;
+}
+
+.quilter-sidebar-box:active,
+.quilter-sidebar-box:focus,
+.quilter-sidebar-box:selected {
+    background: alpha (@accentColor, 0.12);
+}
+
+.quilter-sidebar-box:active:hover,
+.quilter-sidebar-box:focus:hover,
+.quilter-sidebar-box:selected:hover {
+    background: alpha (@accentColor, 0.22);
+}
+
+.quilter-sidebar-box:selected {
+    color: alpha(@accentColor, 0.88);
+}

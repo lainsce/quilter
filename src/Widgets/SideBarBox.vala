@@ -29,20 +29,22 @@ namespace Quilter.Widgets {
             this.win = win;
             this.file = file;
             this.activatable = true;
+            this.set_size_request (280,-1);
+            this.hexpand = false;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
             file_name_label = new Gtk.Label ("New Document");
             file_name_label.halign = Gtk.Align.START;
+            file_name_label.ellipsize = Pango.EllipsizeMode.END;
+            file_name_label.max_width_chars = 25;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
-            string file_name = this.file;
-            string filename = GLib.Filename.display_basename (file_name);
-            file_name_label.label = filename;
+            file_name_label.label = GLib.Filename.display_basename (this.file);
 
             file_label = new Gtk.Label ("~/new_document.md");
-            string file_path = this.file;
-            file_label.label = file_path;
+            file_label.halign = Gtk.Align.START;
+            file_label.label = this.file;
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
