@@ -71,13 +71,10 @@ namespace Quilter.Services.ExportUtils {
         var op = new WebKit.PrintOperation (Widgets.Preview.get_instance());
         var psettings = new Gtk.PrintSettings ();
         psettings.set_printer (_("Print to File"));
-        
+
         var psize = new Gtk.PaperSize(Gtk.PAPER_NAME_A4);
 		var psetup = new Gtk.PageSetup();
-        psetup.set_paper_size(psize);
-        // Ugliest hack in the planet to set the PDF properly in the page without Cairo:
-        psetup.set_bottom_margin (10.00, Gtk.Unit.MM);
-        psetup.set_top_margin (10.00, Gtk.Unit.MM);
+        psetup.set_paper_size_and_default_margins(psize);
 
         psettings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
         op.set_print_settings (psettings);

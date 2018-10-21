@@ -73,7 +73,8 @@ namespace Quilter {
                 }
 
                 // Update margins
-                dynamic_margins ();
+                if (this != null)
+                    dynamic_margins ();
             }
         }
 
@@ -268,11 +269,11 @@ namespace Quilter {
                 show_font_button (false);
             });
             ((Gtk.RadioButton)(view_mode.get_children().last().data)).toggled.connect(() => {
-                toolbar.pack_end (set_font_menu);
                 show_font_button (true);
             });
 
             toolbar.pack_end (view_mode);
+            toolbar.pack_end (set_font_menu);
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -313,7 +314,8 @@ namespace Quilter {
             // Register for redrawing of window for handling margins and other
             // redrawing
             configure_event.connect ((event) => {
-                dynamic_margins ();
+                if (this != null)
+                    dynamic_margins ();
             });
 
             // Attempt to set taskbar icon
@@ -370,7 +372,7 @@ namespace Quilter {
         public void dynamic_margins () {
             var settings = AppSettings.get_default ();
             int w, h, m, p;
-            get_size (out w, out h);
+            this.get_size (out w, out h);
 
             // If Quilter is Full Screen, add additional padding
             p = (is_fullscreen) ? 5 : 0;

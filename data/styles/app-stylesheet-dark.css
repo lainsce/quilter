@@ -23,7 +23,7 @@ actionbar,
 
 .quilter-menu:hover,
 .quilter-menu:backdrop:active {
-    background-color: alpha (#0DBCEE, 0.35);
+    background-color: alpha (@accentColor, 0.35);
 }
 
 .quilter-sidebar-box:hover {

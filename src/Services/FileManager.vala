@@ -239,6 +239,9 @@ namespace Quilter.Services.FileManager {
     public void save_as () throws Error {
         debug ("Save as button pressed.");
         var file = Services.DialogUtils.display_save_dialog ();
+        if (!file.get_basename ().down ().has_suffix (".md")) {
+            file = File.new_for_path (file.get_path () + ".md");
+        }
 
         try {
             debug ("Saving file...");

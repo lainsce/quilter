@@ -116,10 +116,10 @@ public class Quilter.Styles.quilter {
     body {
       color: #333;
       background-color: #FFF;
-      font-weight: 400;
       line-height: 1.4rem;
-      margin-left: 80px;
-      margin-right: 80px;
+      margin-left: 40px;
+      margin-right: 40px;
+      margin-top: 40px;
       text-align: left;
     }
 
