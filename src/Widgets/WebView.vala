@@ -232,6 +232,9 @@ namespace Quilter {
                     <script src="%s"></script>
                     <script>hljs.initHighlightingOnLoad();</script>
                     <link rel="stylesheet" href="%s" />
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css">
+                    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.js"></script>
+                    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
                     <style>"%s"</style>
                 </head>
                 <body>

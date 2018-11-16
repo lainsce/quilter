@@ -9,6 +9,10 @@
 
 ![Screenshot](data/images/shot.png)
 
+## Notice
+
+LaTeX functions need a stable internet connection.
+
 ## License
 
 Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://scripts.sil.org/OFL), also copied there in full.
