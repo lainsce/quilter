@@ -260,6 +260,8 @@ namespace Quilter {
             stack.add_titled (edit_view, "edit_view", _("Edit"));
             stack.add_titled (preview_view, "preview_view", _("Preview"));
 
+            stack.set_visible_child (this.edit_view);
+
             var view_mode = new Gtk.StackSwitcher ();
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;

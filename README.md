@@ -11,7 +11,7 @@
 
 ## Notice
 
-LaTeX functions need a stable internet connection.
+LaTeX functions need a stable internet connection. Quilter uses KaTeX via CDN to render them.
 
 ## License
 
