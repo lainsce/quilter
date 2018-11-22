@@ -38,6 +38,7 @@ namespace Quilter {
         public bool fullscreen { get; set; }
         public bool highlight { get; set; }
         public bool latex { get; set; }
+        public bool moon_mode { get; set; }
         public bool searchbar { get; set; }
         public bool sepia_mode { get; set; }
         public bool show_filename { get; set; }

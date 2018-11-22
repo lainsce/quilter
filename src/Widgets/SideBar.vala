@@ -31,9 +31,9 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             var sb_context = column.get_style_context ();
             sb_context.add_class ("quilter-sidebar");
-            column.hexpand = true;
+            column.hexpand = false;
             column.vexpand = true;
-            column.set_size_request (280,-1);
+            column.set_size_request (200,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -63,7 +63,7 @@ namespace Quilter.Widgets {
             var fcb_context = file_clean_button.get_style_context ();
             fcb_context.add_class ("quilter-sidebar-button");
             file_clean_button.vexpand = false;
-            file_clean_button.hexpand = true;
+            file_clean_button.hexpand = false;
             file_clean_button.valign = Gtk.Align.CENTER;
             file_clean_button.tooltip_text = "Clean files from Sidebar";
             var file_clean_button_style_context = file_clean_button.get_style_context ();
@@ -81,6 +81,7 @@ namespace Quilter.Widgets {
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
+            grid.set_size_request (200,-1);
             grid.attach (column, 0,0,1,1);
             grid.attach (file_clean_button, 0,1,1,1);
 

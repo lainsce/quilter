@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
 
-public class Quilter.Styles.quilterdark {
+public class Quilter.Styles.quiltermoon {
   public const string css="""
     html {
       font-size: 16px;
@@ -115,7 +115,7 @@ public class Quilter.Styles.quilterdark {
 
     body {
       color: #C3C3C1;
-      background-color: #151611;
+      background-color: #273445;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 40px;

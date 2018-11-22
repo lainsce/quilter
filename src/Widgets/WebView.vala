@@ -45,7 +45,7 @@ namespace Quilter {
             if (instance == null) {
                 instance = new Widgets.Preview ();
             }
-    
+
             return instance;
         }
 
@@ -64,6 +64,9 @@ namespace Quilter {
                 return dark;
             } else if (settings.sepia_mode) {
                 string sepia = Styles.quiltersepia.css;
+                return sepia;
+            } else if (settings.moon_mode) {
+                string sepia = Styles.quiltermoon.css;
                 return sepia;
             }
 
@@ -90,6 +93,8 @@ namespace Quilter {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
             } else if (settings.sepia_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
+            } else if (settings.moon_mode) {
+                return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             }
 
             return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
@@ -263,12 +268,12 @@ namespace Quilter {
                         break;
                     }
                 }
-    
+
                 if (!found) {
                     build = build + line + "\n";
                 }
             }
-    
+
             return build;
         }
     }

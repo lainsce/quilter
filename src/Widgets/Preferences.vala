@@ -263,6 +263,19 @@ namespace Quilter.Widgets {
 
             var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
 
+            var color_button_moon = new Gtk.Button ();
+            var color_button_moon_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
+            color_button_moon.set_image (color_button_moon_icon);
+            color_button_moon.halign = Gtk.Align.CENTER;
+            color_button_moon.height_request = 64;
+            color_button_moon.width_request = 64;
+
+            var color_button_moon_context = color_button_moon.get_style_context ();
+            color_button_moon_context.add_class ("color-button");
+            color_button_moon_context.add_class ("color-moon");
+
+            var color_button_moon_text = new Gtk.Label (_("Moon Mode"));
+
             var color_button_dark = new Gtk.Button ();
             var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
             color_button_dark.set_image (color_button_dark_icon);
@@ -278,17 +291,26 @@ namespace Quilter.Widgets {
 
             color_button_dark.clicked.connect (() => {
                 main_settings.dark_mode = true;
+                main_settings.moon_mode = false;
                 main_settings.sepia_mode = false;
             });
 
             color_button_sepia.clicked.connect (() => {
                 main_settings.sepia_mode = true;
+                main_settings.moon_mode = false;
+                main_settings.dark_mode = false;
+            });
+
+            color_button_moon.clicked.connect (() => {
+                main_settings.moon_mode = true;
+                main_settings.sepia_mode = false;
                 main_settings.dark_mode = false;
             });
 
             color_button_light.clicked.connect (() => {
                 main_settings.dark_mode = false;
                 main_settings.sepia_mode = false;
+                main_settings.moon_mode = false;
             });
 
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
@@ -345,6 +367,7 @@ namespace Quilter.Widgets {
             buttonbox.set_homogeneous (true);
             buttonbox.pack_start (color_button_light, true, true, 6);
             buttonbox.pack_start (color_button_sepia, true, true, 6);
+            buttonbox.pack_start (color_button_moon, true, true, 6);
             buttonbox.pack_start (color_button_dark, true, true, 6);
 
             var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -353,6 +376,7 @@ namespace Quilter.Widgets {
             textbox.set_homogeneous (true);
             textbox.pack_start (color_button_light_text, true, true, 6);
             textbox.pack_start (color_button_sepia_text, true, true, 6);
+            textbox.pack_start (color_button_moon_text, true, true, 6);
             textbox.pack_start (color_button_dark_text, true, true, 6);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);

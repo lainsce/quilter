@@ -106,6 +106,39 @@
     -gtk-icon-shadow: 1px 1px transparent;
 }
 
+.color-moon {
+    background-color: #273445;
+    border: 1px solid #606c81;
+    box-shadow:
+        inset 0 0 0 1px alpha (shade (#414e58, 1.4), 0.05),
+        inset 0 1px 0 0 alpha (#414e58, 0.45),
+        inset 0 -1px 0 0 alpha (#606c81, 0.15);
+    background-image:
+        linear-gradient(
+            to bottom,
+            transparent,
+            transparent 50%,
+            alpha (
+                #807452,
+                0.04
+            )
+        );
+}
+
+.color-moon:focus {
+    border-color: #4DBCEE;
+    box-shadow:
+        inset 0 1px 0 0 alpha (#414e58, 0.45),
+        inset 0 -1px 0 0 alpha (#414e58, 0.15),
+        0 0 0 1px alpha (#606c81, 0.25);
+    transition: all 100ms ease-out;
+}
+
+.color-moon image {
+    color: #C3C3C1;
+    -gtk-icon-shadow: 1px 1px transparent;
+}
+
 actionbar,
 .action-bar {
     border-top: 1px solid alpha (#000, 0.25);
@@ -143,7 +176,7 @@ actionbar,
 
 .quilter-sidebar-box {
     border-radius: 0 8px 8px 0;
-    margin: 6px;
+    margin: 5px;
     margin-left: 0;
     margin-bottom: 0;
 }

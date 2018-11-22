@@ -29,21 +29,25 @@ namespace Quilter.Widgets {
             this.win = win;
             this.file = file;
             this.activatable = true;
-            this.set_size_request (280,-1);
+            this.set_size_request (200,-1);
             this.hexpand = false;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
             file_name_label = new Gtk.Label ("New Document");
             file_name_label.halign = Gtk.Align.START;
+            file_name_label.hexpand = false;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
-            file_name_label.max_width_chars = 25;
+            file_name_label.max_width_chars = 27;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
             file_name_label.label = GLib.Filename.display_basename (this.file);
 
             file_label = new Gtk.Label ("~/new_document.md");
             file_label.halign = Gtk.Align.START;
+            file_label.ellipsize = Pango.EllipsizeMode.START;
+            file_label.max_width_chars = 27;
+            file_label.hexpand = false;
             file_label.label = this.file;
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
@@ -52,7 +56,7 @@ namespace Quilter.Widgets {
             file_grid.hexpand = false;
             file_grid.row_spacing = 6;
             file_grid.column_spacing = 6;
-            file_grid.margin = 12;
+            file_grid.margin = 10;
             file_grid.attach (file_icon, 0, 0, 1, 2);
             file_grid.attach (file_name_label, 1, 0, 1, 1);
             file_grid.attach (file_label, 1, 1, 1, 1);

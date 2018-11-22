@@ -40,6 +40,11 @@
 				<summary>Sepia Mode</summary>
 				<description>Whether Quilter should be in Sepia Mode</description>
 		</key>
+		<key name="moon-mode" type="b">
+				<default>false</default>
+				<summary>Moon Mode</summary>
+				<description>Whether Quilter should be in Moon Mode</description>
+		</key>
 		<key name="use-system-font" type="b">
 				<default>true</default>
 				<summary>Use system font</summary>
