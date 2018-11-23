@@ -45,6 +45,14 @@ namespace Quilter.Services.ExportUtils {
     }
 
     public static File? export_pdf (string? file_path = null) {
+        var settings = AppSettings.get_default ();
+
+        if (settings.dark_mode) {
+            settings.dark_mode = false;
+        } else if (settings.moon_mode) {
+            settings.moon_mode = false;
+        }
+
         Widgets.Preview.get_instance ().update_html_view ();
 
         File file;
@@ -80,6 +88,12 @@ namespace Quilter.Services.ExportUtils {
         op.set_print_settings (psettings);
         op.set_page_setup (psetup);
         op.print ();
+
+        if (settings.dark_mode == false) {
+            settings.dark_mode = true;
+        } else if (settings.moon_mode == false) {
+            settings.moon_mode = true;
+        }
 
         return file;
     }

@@ -186,7 +186,7 @@ namespace Quilter {
                     return true;
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.1, keycode)) {
+                    if (match_keycode (Gdk.Key.@1, keycode)) {
                         debug ("Press to change view...");
                         if (this.stack.get_visible_child_name () == "preview_view") {
                             this.stack.set_visible_child (this.edit_view);
@@ -206,7 +206,7 @@ namespace Quilter {
                     return true;
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.2, keycode)) {
+                    if (match_keycode (Gdk.Key.@2, keycode)) {
                         debug ("Press to change view...");
                         if (settings.sidebar) {
                             settings.sidebar = false;
@@ -214,6 +214,7 @@ namespace Quilter {
                             settings.sidebar = true;
                         }
                         return true;
+                    }
                 }
                 return false;
             });
