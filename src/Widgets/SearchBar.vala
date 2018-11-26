@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2018 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,8 +20,12 @@ namespace Quilter.Widgets {
     public class SearchBar : Gtk.Revealer {
         public Gtk.Grid grid;
         public Gtk.SearchEntry search_entry;
+        public Gtk.SearchEntry replace_entry;
+        private Gtk.Button replace_tool_button;
+        private Gtk.Button replace_all_tool_button;
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
+        private Gtk.SourceSearchContext search_context = null;
 
         public weak MainWindow window { get; construct; }
 
@@ -30,11 +34,27 @@ namespace Quilter.Widgets {
         }
 
         construct {
+            replace_entry = new Gtk.SearchEntry ();
+            replace_entry.hexpand = true;
+            replace_entry.placeholder_text = _("Replace with…");
+            replace_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-symbolic");
+            replace_entry.activate.connect (on_replace_entry_activate);
+
+            replace_tool_button = new Gtk.Button.with_label (_("Replace"));
+            replace_tool_button.clicked.connect (on_replace_entry_activate);
+
+            replace_all_tool_button = new Gtk.Button.with_label (_("Replace all"));
+            replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
+
             grid = new Gtk.Grid ();
+            grid.row_spacing = 6;
             grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
             search_entry_item ();
             search_previous_item ();
             search_next_item ();
+            grid.add (replace_entry);
+            grid.add (replace_tool_button);
+            grid.add (replace_all_tool_button);
 
             var context = grid.get_style_context ();
             context.add_class ("quilter-searchbar");
@@ -49,6 +69,7 @@ namespace Quilter.Widgets {
             search_entry = new Gtk.SearchEntry ();
             search_entry.hexpand = true;
             search_entry.placeholder_text = _("Find text…");
+            search_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
             grid.add (search_entry);
 
             var entry_path = new Gtk.WidgetPath ();
@@ -101,12 +122,71 @@ namespace Quilter.Widgets {
             }
         }
 
+        private void update_replace_tool_sensitivities (string search_text) {
+            replace_tool_button.sensitive = search_text != "";
+            replace_all_tool_button.sensitive = search_text != "";
+        }
+
+        private void on_replace_entry_activate () {
+            this.text_view = window.edit_view_content;
+            this.text_buffer = text_view.get_buffer ();
+            if (text_buffer == null) {
+                warning ("No valid buffer to replace");
+                return;
+            }
+
+            Gtk.TextIter? start_iter, end_iter;
+            text_buffer.get_iter_at_offset (out start_iter, text_buffer.cursor_position);
+
+            if (search_for_iter (start_iter, out end_iter)) {
+                string replace_string = replace_entry.text;
+                try {
+                    search_context.replace2 (start_iter, end_iter, replace_string, replace_string.length);
+                    update_replace_tool_sensitivities (search_entry.text);
+                    debug ("Replace \"%s\" with \"%s\"", search_entry.text, replace_entry.text);
+                } catch (Error e) {
+                    critical (e.message);
+                }
+            }
+        }
+
+        private void on_replace_all_entry_activate () {
+            this.text_view = window.edit_view_content;
+            this.text_buffer = text_view.get_buffer ();
+            if (text_buffer == null) {
+                debug ("No valid buffer to replace");
+                return;
+            }
+
+            string replace_string = replace_entry.text;
+            try {
+                search_context.replace_all (replace_string, replace_string.length);
+                update_replace_tool_sensitivities (search_entry.text);
+            } catch (Error e) {
+                critical (e.message);
+            }
+
+        }
+
+        private bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
+            end_iter = start_iter;
+            bool found = search_context.forward2 (start_iter, out start_iter, out end_iter, null);
+            if (found) {
+                text_buffer.select_range (start_iter, end_iter);
+                text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
+            }
+
+            return found;
+        }
+
         public bool search () {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            text_view.search_context.settings.regex_enabled = false;
             var search_string = search_entry.text;
-            text_view.search_context.settings.search_text = search_string;
+
+            this.search_context = new Gtk.SourceSearchContext (text_buffer as Gtk.SourceBuffer, null);
+            search_context.settings.regex_enabled = false;
+            search_context.settings.search_text = search_string;
             bool case_sensitive = !((search_string.up () == search_string) || (search_string.down () == search_string));
             text_view.search_context.settings.case_sensitive = case_sensitive;
 
@@ -134,3 +214,4 @@ namespace Quilter.Widgets {
         }
     }
 }
+

@@ -118,18 +118,24 @@ namespace Quilter {
         }
 
         public void update_wordcount () {
+            var settings = AppSettings.get_default ();
             var wc = get_count();
             track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
+            settings.track_type = "words";
         }
 
         public void update_linecount () {
+            var settings = AppSettings.get_default ();
             var lc = get_count();
             track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
+            settings.track_type = "lines";
         }
 
         public void update_charcount () {
+            var settings = AppSettings.get_default ();
             var cc = get_count();
             track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
+            settings.track_type = "chars";
         }
 
         public void readtimecount_item () {
