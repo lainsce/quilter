@@ -29,7 +29,7 @@ msgstr "Nouveau fichier"
 
 #: src/MainWindow.vala:176
 msgid "Save as…"
-msgstr "Enregistrer sous..."
+msgstr "Enregistrer sous…"
 
 #: src/MainWindow.vala:190 src/Services/DialogUtils.vala:63
 msgid "Save file"
@@ -61,11 +61,11 @@ msgstr "Prévisualisation"
 
 #: src/Widgets/StatusBar.vala:51
 msgid "Words: "
-msgstr "Mots : "
+msgstr "Mots :"
 
 #: src/Widgets/StatusBar.vala:64
 msgid "Reading Time: "
-msgstr "Temps de lecture : "
+msgstr "Temps de lecture :"
 
 #: src/Widgets/StatusBar.vala:68
 msgid "Dark Mode"
@@ -90,11 +90,11 @@ msgstr "Fermer"
 
 #: src/Widgets/Preferences.vala:69
 msgid "Show Line Numbers:"
-msgstr "Afficher les numéros de lignes"
+msgstr "Afficher les numéros de lignes :"
 
 #: src/Widgets/Preferences.vala:71
 msgid "Enable Spellchecking:"
-msgstr "Vérifier l'orthographe"
+msgstr "Vérifier l'orthographe :"
 
 #: src/Widgets/Preferences.vala:75
 msgid "Geometry"
@@ -118,11 +118,11 @@ msgstr "Grand"
 
 #: src/Widgets/Preferences.vala:116
 msgid "Margins of Text:"
-msgstr "Marges du texte : "
+msgstr "Marges du texte :"
 
 #: src/Widgets/Preferences.vala:178
 msgid "Show the Save Button:"
-msgstr "Afficher le bouton Enregistrer"
+msgstr "Afficher le bouton Enregistrer :"
 
 #: src/Widgets/Preferences.vala:181
 msgid "Mode"
@@ -242,7 +242,7 @@ msgstr "```Ceci est un bloc de code```"
 
 #: src/Widgets/Cheatsheet.vala:120
 msgid "--- ← This creates a horizontal rule"
-msgstr "--- ← TCeci créé une règle horizontale"
+msgstr "--- ← Ceci créée une règle horizontale"
 
 #: src/Widgets/Cheatsheet.vala:139
 msgid "To make a column's content go to the left, change --- to :--- ."
@@ -260,7 +260,7 @@ msgstr ""
 
 #: src/Services/DialogUtils.vala:38
 msgid "Markdown files"
-msgstr "Fichiers marqués"
+msgstr "Fichiers Markdown"
 
 #: src/Services/DialogUtils.vala:43
 msgid "All files"
@@ -268,11 +268,11 @@ msgstr "Tous les fichiers"
 
 #: src/Services/DialogUtils.vala:51
 msgid "Open file"
-msgstr "Ouvrir le fichier"
+msgstr "Ouvrir un fichier"
 
 #: src/Services/DialogUtils.vala:77
 msgid "There are unsaved changes to the file. Do you want to save?"
-msgstr "Il y a des cngement non enregistrés. Voulez-vous enregistrer ?"
+msgstr "Il y a des changement non enregistrés. Voulez-vous enregistrer ?"
 
 #: src/Services/DialogUtils.vala:78
 msgid "If you don't save, changes will be lost forever."
