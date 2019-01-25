@@ -612,10 +612,6 @@ msgstr ""
 msgid "Select destination PDF file"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:135
-msgid "Save"
-msgstr ""
-
 #: src/Services/ExportUtils.vala:138
 msgid "PDF File"
 msgstr ""
