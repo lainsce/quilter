@@ -73,8 +73,8 @@ msgid "Search anytime with the shortcut Ctrl + F"
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml:20
-msgid "Work on a story, one file at a time."
-msgstr "Quit anytime with the shortcut Ctrl + Q"
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr ""
 
 #: src/MainWindow.vala:137
 #: src/MainWindow.vala:146
