@@ -287,11 +287,11 @@ msgstr "Thème sombre"
 
 #: src/Widgets/Preferences.vala:316
 msgid "Enable Focus Mode:"
-msgstr "Activer le mode Concentration :"
+msgstr "Activer le mode concentration :"
 
 #: src/Widgets/Preferences.vala:319
 msgid "Type of Focus Mode:"
-msgstr "Type de mode Concentration :"
+msgstr "Type de mode concentration :"
 
 #: src/Widgets/Preferences.vala:321
 msgid "Paragraph"
@@ -586,7 +586,7 @@ msgstr "Si vous n'enregistrez pas, les changements seront perdus pour toujours."
 
 #: src/Services/DialogUtils.vala:77
 msgid "Close without saving"
-msgstr "Fermer sans sauvegarder"
+msgstr "Fermer sans enregistrer"
 
 #: src/Services/ExportUtils.vala:40
 msgid "Could not write HTML file: %s"
