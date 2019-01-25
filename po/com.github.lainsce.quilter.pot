@@ -278,7 +278,7 @@ msgid "Sepia Mode"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:277
-msgid "Sepia Mode"
+msgid "Moon Mode"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:290
