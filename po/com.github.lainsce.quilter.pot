@@ -17,32 +17,156 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:83
+#: src/MainWindow.vala:84
+#: data/com.github.lainsce.quilter.desktop:2
+#: data/com.github.lainsce.quilter.appdata.xml:6
 msgid "Quilter"
 msgstr ""
 
-#: src/MainWindow.vala:214
+#: data/com.github.lainsce.quilter.desktop:3
+#: data/com.github.lainsce.quilter.appdata.xml:7
+msgid "Focus on your writing"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.desktop:6
+msgid "Text;Markdown;LaTeX;Editor;"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:9
+msgid "Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:11
+msgid "Work on a story, one file at a time."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:12
+msgid "Write equations with the built-in LaTeX functions."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:13
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:14
+msgid "Preview your story in the Preview Mode."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:15
+msgid "Configure whether to have Focus Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:16
+msgid "Configure whether to have Dark Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:17
+msgid "Configure whether to have Sepia Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:18
+msgid "Fullscreen your writing area with F11."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:19
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml:20
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr ""
+
+#: src/MainWindow.vala:137
+#: src/MainWindow.vala:146
+#: src/Widgets/Headerbar.vala:69
+#: src/Widgets/Headerbar.vala:81
+#: src/Widgets/Headerbar.vala:93
+#: src/Services/FileManager.vala:203
+msgid "Unexpected error during open: "
+msgstr ""
+
+#: src/MainWindow.vala:237
 msgid "Use Sans-serif"
 msgstr ""
 
-#: src/MainWindow.vala:219
+#: src/MainWindow.vala:242
 msgid "Use Serif"
 msgstr ""
 
-#: src/MainWindow.vala:225
+#: src/MainWindow.vala:248
 msgid "Use Monospace"
 msgstr ""
 
-#: src/MainWindow.vala:244
+#: src/MainWindow.vala:267
 msgid "Set Preview Font"
 msgstr ""
 
-#: src/MainWindow.vala:259
+#: src/MainWindow.vala:282
 msgid "Edit"
 msgstr ""
 
-#: src/MainWindow.vala:260
+#: src/MainWindow.vala:283
 msgid "Preview"
+msgstr ""
+
+#: src/Application.vala:76
+msgid "ERROR: "
+msgstr ""
+
+#: src/Application.vala:81
+msgid "Copyright 2017-2018 Lains\n"
+msgstr ""
+
+#: src/Application.vala:108
+msgid "Maybe you do not have the necessary permissions."
+msgstr ""
+
+#: src/Application.vala:110
+msgid "Maybe the file path provided is not valid."
+msgstr ""
+
+#: src/Application.vala:112
+msgid "The location is read-only."
+msgstr ""
+
+#: src/Application.vala:114
+msgid "The parent directory doesn't exist."
+msgstr ""
+
+#: src/Application.vala:121
+msgid "File \"%s\" cannot be created.\n%s"
+msgstr ""
+
+#: src/Application.vala:131
+msgid "File \"%s\" cannot be opened.\n%s"
+msgstr ""
+
+#: src/Application.vala:140
+msgid "It is a mountable location."
+msgstr ""
+
+#: src/Application.vala:143
+msgid "It is a directory."
+msgstr ""
+
+#: src/Application.vala:146
+msgid "It is a \"special\" file such as a socket,\n fifo, block device, or character device."
+msgstr ""
+
+#: src/Application.vala:149
+msgid "It is an \"unknown\" file type."
+msgstr ""
+
+#: src/Application.vala:193
+msgid "AppInfo object not found for Quilter."
+msgstr ""
+
+#: src/Application.vala:221
+msgid "Print copyright info and exit"
+msgstr ""
+
+#: src/Application.vala:222
+msgid "Open document for preview"
 msgstr ""
 
 #: src/Widgets/StatusBar.vala:40
@@ -65,19 +189,19 @@ msgstr ""
 msgid "Set Tracking Type"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:122
+#: src/Widgets/StatusBar.vala:123
 msgid "Words: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:127
+#: src/Widgets/StatusBar.vala:130
 msgid "Lines: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:132
+#: src/Widgets/StatusBar.vala:137
 msgid "Characters: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:145
+#: src/Widgets/StatusBar.vala:151
 msgid "Reading Time: "
 msgstr ""
 
@@ -154,38 +278,42 @@ msgid "Sepia Mode"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:277
+msgid "Moon Mode"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:290
 msgid "Dark Mode"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:294
+#: src/Widgets/Preferences.vala:316
 msgid "Enable Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:297
+#: src/Widgets/Preferences.vala:319
 msgid "Type of Focus Mode:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:299
+#: src/Widgets/Preferences.vala:321
 msgid "Paragraph"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:300
+#: src/Widgets/Preferences.vala:322
 msgid "Sentence"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:330
+#: src/Widgets/Preferences.vala:352
 msgid "Typewriter Scrolling:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:334
+#: src/Widgets/Preferences.vala:356
 msgid "User Interface"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:335
+#: src/Widgets/Preferences.vala:357
 msgid "Show Statusbar:"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:338
+#: src/Widgets/Preferences.vala:360
 msgid "Show Searchbar:"
 msgstr ""
 
@@ -301,6 +429,137 @@ msgstr ""
 msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr ""
 
+#: src/Widgets/HeaderBar.vala:55
+msgid "New file"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:63
+msgid "Save as…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:75
+msgid "Save file"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:87
+msgid "Open…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:99
+msgid "Start search"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:117
+msgid "Export to PDF…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:121
+msgid "Export to HTML…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:137
+msgid "Export"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:141
+msgid "Markdown Cheatsheet"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:145
+msgid "Preferences"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:153
+msgid "Light Mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:164
+msgid "Sepia Mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:175
+msgid "Moon Mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:186
+msgid "Dark Mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:216
+msgid "Focus Mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:219
+msgid "Enter focus mode"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:264
+msgid "Settings"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:39
+msgid "Replace with…"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:43
+msgid "Replace"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:46
+msgid "Replace all"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:71
+msgid "Find text…"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:109
+msgid "Search next"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:134
+msgid "No valid buffer to replace"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:199
+msgid "No SourceView is associated with SearchManager!"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:68
+msgid "Clean files from Sidebar"
+msgstr ""
+
+#: src/Widgets/SideBarBox.vala:37
+msgid "New Document"
+msgstr ""
+
+#: src/Widgets/SideBarBox.vala:46
+msgid "~/new_document.md"
+msgstr ""
+
+#: src/Widgets/SourceView.vala:103
+#: src/Services/FileManager.vala:
+#: src/Services/FileManager.vala:66
+#: src/Services/FileManager.vala:82
+msgid "Error: %s\n"
+msgstr ""
+
+#: src/Widgets/WebView.vala:150
+msgid "No app to handle urls: %s"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:23
+msgid "_Cancel"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:25
+msgid "_Open"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:27
+msgid "_Save"
+msgstr ""
+
 #: src/Services/DialogUtils.vala:32
 msgid "Markdown files"
 msgstr ""
@@ -328,3 +587,75 @@ msgstr ""
 #: src/Services/DialogUtils.vala:77
 msgid "Close without saving"
 msgstr ""
+
+#: src/Services/ExportUtils.vala:40
+msgid "Could not write HTML file: %s"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:75
+msgid "Could not write initial PDF file: %s"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:81
+msgid "Print to File"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:110
+msgid "Could not write file: %s"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:110
+msgid "Could not write file \"%s\": %s"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:133
+msgid "Select destination PDF file"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:138
+msgid "PDF File"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:135
+#: src/Services/ExportUtils.vala:184
+msgid "Save"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:146
+#: src/Services/ExportUtils.vala:194
+msgid "All Files"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:155
+#: src/Services/ExportUtils.vala:203
+msgid "Cancel"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:182
+msgid "Select destination HTML file"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:187
+msgid "HTML File"
+msgstr ""
+
+#: src/Services/FileManager.vala:53
+#: src/Services/FileManager.vala:96
+msgid "Exception found: "
+msgstr ""
+
+#: src/Services/FileManager.vala:119
+#: src/Services/FileManager.vala:148
+#: src/Services/FileManager.vala:232
+#: src/Services/FileManager.vala:262
+msgid "Unexpected error during save: "
+msgstr ""
+
+#: src/Services/FileManager.vala:175
+msgid "Error: %s"
+msgstr ""
+
+#: src/Services/FileManager.vala:220
+msgid "Error: "
+msgstr ""
+
