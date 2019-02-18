@@ -112,6 +112,7 @@ namespace Quilter.Widgets {
         public void add_file (string file) {
             var filebox = new SideBarBox (this.win, file);
             column.insert (filebox, -1);
+            column.select_row (filebox);
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {

@@ -50,6 +50,7 @@ namespace Quilter.Widgets {
         private void build_ui () {
             set_title (null);
             var settings = AppSettings.get_default ();
+            set_subtitle (settings.current_file);
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
@@ -89,6 +90,7 @@ namespace Quilter.Widgets {
             open_button.clicked.connect (() => {
                 try {
                     Services.FileManager.open (this.win);
+                    set_subtitle (settings.current_file);
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
@@ -270,6 +272,7 @@ namespace Quilter.Widgets {
 
             // This makes the save button show or not, and it's necessary as-is.
             settings.changed.connect (() => {
+                set_subtitle (settings.current_file);
                 if (settings.autosave) {
                     save_button.visible = false;
                     settings.autosave = true;

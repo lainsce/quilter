@@ -1,9 +1,3 @@
-# French translations for com.github.lainsce.quilter package.
-# Copyright (C) 2019 THE  com.github.lainsce.quilter'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.quilter package.
-# NathanBnm, 2019.
-#
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
@@ -465,26 +459,6 @@ msgstr "Exporter"
 msgid "Markdown Cheatsheet"
 msgstr "Table des éléments"
 
-#: src/Widgets/HeaderBar.vala:145
-msgid "Preferences"
-msgstr "Préférences"
-
-#: src/Widgets/HeaderBar.vala:153
-msgid "Light Mode"
-msgstr "Thème clair"
-
-#: src/Widgets/HeaderBar.vala:164
-msgid "Sepia Mode"
-msgstr "Thème sepia"
-
-#: src/Widgets/HeaderBar.vala:175
-msgid "Moon Mode"
-msgstr "Thème lunaire"
-
-#: src/Widgets/HeaderBar.vala:186
-msgid "Dark Mode"
-msgstr "Thème sombre"
-
 #: src/Widgets/HeaderBar.vala:216
 msgid "Focus Mode"
 msgstr "Mode concentration"
@@ -571,10 +545,6 @@ msgstr "Tous les fichiers"
 #: src/Services/DialogUtils.vala:45
 msgid "Open file"
 msgstr "Ouvrir un fichier"
-
-#: src/Services/DialogUtils.vala:57
-msgid "Save file"
-msgstr "Enregistrer le fichier"
 
 #: src/Services/DialogUtils.vala:71
 msgid "There are unsaved changes to the file. Do you want to save?"

@@ -93,11 +93,11 @@ namespace Quilter.Widgets {
                 if (file.query_exists ()) {
                     string filename = file.get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    buffer.text = text;
                 } else {
                     string filename = Services.FileManager.setup_tmp_file ().get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    buffer.text = text;
                 }
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
@@ -185,8 +185,8 @@ namespace Quilter.Widgets {
         }
 
         public void on_text_modified () {
-            should_scroll = true;
             if (is_modified) {
+                should_scroll = true;
                 changed ();
                 is_modified = false;
             }
@@ -212,24 +212,6 @@ namespace Quilter.Widgets {
             }
 
             return found;
-        }
-
-        public void set_text (string text, bool opening = true) {
-            if (opening) {
-                buffer.begin_not_undoable_action ();
-                buffer.changed.disconnect (on_text_modified);
-            }
-
-            buffer.text = text;
-
-            if (opening) {
-                buffer.end_not_undoable_action ();
-                buffer.changed.connect (on_text_modified);
-            }
-
-            Gtk.TextIter? start = null;
-            buffer.get_start_iter (out start);
-            buffer.place_cursor (start);
         }
 
         public void dynamic_margins() {
