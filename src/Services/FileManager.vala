@@ -111,10 +111,9 @@ namespace Quilter.Services.FileManager {
 
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
         var settings = AppSettings.get_default ();
-        if (ofiles.length > 0) {
-            var file = ofiles[0];
+        foreach (File f in ofiles) {
             string text;
-            string file_path = file.get_path ();
+            string file_path = f.get_path ();
             settings.current_file = file_path;
             files += file_path;
             settings.last_files = files;

@@ -156,6 +156,7 @@ namespace Quilter.Widgets {
             buffer.tag_table.add (warning_tag);
 
             is_modified = false;
+            should_scroll = false;
 
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
