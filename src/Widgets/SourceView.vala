@@ -37,7 +37,7 @@ namespace Quilter.Widgets {
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
 
-        public signal void changed ();
+        public signal void bchanged ();
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -126,8 +126,12 @@ namespace Quilter.Widgets {
             buffer.set_max_undo_levels (20);
             buffer.changed.connect (() => {
                 is_modified = true;
-                on_text_modified ();
+                should_scroll = true;
+                bchanged ();
             });
+
+            if (settings.current_file == "No Documents Open")
+                buffer.text = "";
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
             lightgrayfont = buffer.create_tag(null, "foreground", "#777");
@@ -155,7 +159,7 @@ namespace Quilter.Widgets {
 
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
-                    on_text_modified ();
+                    is_modified = false;
                     try {
                         Services.FileManager.save ();
                     } catch (Error err) {
@@ -187,14 +191,6 @@ namespace Quilter.Widgets {
             }
 
             return null;
-        }
-
-        public void on_text_modified () {
-            if (is_modified) {
-                should_scroll = true;
-                changed ();
-                is_modified = false;
-            }
         }
 
         public bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {

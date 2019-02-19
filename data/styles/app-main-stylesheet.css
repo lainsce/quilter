@@ -166,7 +166,7 @@ actionbar,
     border-right: 1px solid alpha (#000, 0.25);
     background: @colorPrimary;
     border-radius: 0;
-    padding: 6px;
+    padding: 8px;
 }
 
 .quilter-sidebar-button:active,

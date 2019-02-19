@@ -18,7 +18,6 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Gtk.HeaderBar {
-        public File file;
         public EditView sourceview;
         public Preview preview;
         public MainWindow win;
@@ -56,7 +55,8 @@ namespace Quilter.Widgets {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
-                Services.FileManager.new_file ();
+                if (sourceview.is_modified)
+                    Services.FileManager.new_file ();
             });
 
             save_as_button = new Gtk.Button ();

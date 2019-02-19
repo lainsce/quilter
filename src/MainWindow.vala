@@ -114,7 +114,7 @@ namespace Quilter {
                 }
             });
 
-            edit_view_content.changed.connect (() => {
+            edit_view_content.bchanged.connect (() => {
                 render_func ();
                 update_count ();
             });

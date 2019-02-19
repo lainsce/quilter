@@ -34,7 +34,7 @@ namespace Quilter.Widgets {
             sb_context.add_class ("quilter-sidebar");
             column.hexpand = false;
             column.vexpand = true;
-            column.set_size_request (200,-1);
+            column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -50,15 +50,17 @@ namespace Quilter.Widgets {
             }
 
             column.row_selected.connect ((row) => {
-                try {
-                    string text;
-                    string file_path = ((Widgets.SideBarBox)row).file_label.label;
-                    settings.current_file = file_path;
-                    var file = File.new_for_path (file_path);
-                    GLib.FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.EditView.buffer.text = text;
-                } catch {
-
+                if ((Widgets.SideBarBox)row != null) {
+                    try {
+                        string text;
+                        string file_path = ((Widgets.SideBarBox)row).file_label.label;
+                        settings.current_file = file_path;
+                        var file = File.new_for_path (file_path);
+                        GLib.FileUtils.get_contents (file.get_path (), out text);
+                        Widgets.EditView.buffer.text = text;
+                    } catch (Error e) {
+                        warning ("Error: %s\n", e.message);
+                    }
                 }
             });
 
@@ -75,16 +77,19 @@ namespace Quilter.Widgets {
 
             file_clean_button.clicked.connect (() => {
                 settings.last_files = null;
-                foreach (var file in get_files ()) {
-                    file.delete_row ();
+                settings.current_file = "No Documents Open";
+                s_files.clear ();
+                foreach (Gtk.Widget item in column.get_children ()) {
+	                item.destroy ();
                 }
+                Widgets.EditView.buffer.text = "";
             });
 
             column.show_all ();
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
-            grid.set_size_request (200,-1);
+            grid.set_size_request (250,-1);
             grid.attach (column, 0,0,1,1);
             grid.attach (file_clean_button, 0,1,1,1);
 
