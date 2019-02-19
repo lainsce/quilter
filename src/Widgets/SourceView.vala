@@ -173,6 +173,7 @@ namespace Quilter.Widgets {
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
+            this.auto_indent = true;
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
