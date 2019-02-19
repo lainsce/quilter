@@ -27,6 +27,7 @@ namespace Quilter.Services.FileManager {
         long written = 0;
         while (written < buffer.length)
             written += output.write (buffer[written:buffer.length]);
+        output.close ();
     }
 
     private void save_work_file () {

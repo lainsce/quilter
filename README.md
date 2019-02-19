@@ -30,9 +30,8 @@ Please make sure you have these dependencies first before building.
 ```bash
 valac
 libgranite-dev
-libgtkspell3-3-dev
 gtk+-3.0
-gtksourceview-3.0
+gtksourceview-3.0-dev
 libwebkit2gtk-4.0-dev
 libmarkdown2-dev
 libgtkspell3-3-dev

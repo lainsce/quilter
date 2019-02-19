@@ -23,6 +23,7 @@ namespace Quilter.Widgets {
         public Widgets.EditView ev;
         public MainWindow win;
         private string[] files;
+        private Gee.LinkedList<SideBarBox> s_files;
         public bool show_this {get; set; default = false;}
 
         public SideBar (MainWindow win) {
@@ -44,6 +45,8 @@ namespace Quilter.Widgets {
             foreach (var file in get_files ()) {
                 files += file.file_label.label;
                 settings.last_files = files;
+                if (file.file_label.label == settings.current_file)
+                    column.select_row (file);
             }
 
             column.row_selected.connect ((row) => {
@@ -101,18 +104,19 @@ namespace Quilter.Widgets {
             return ((SideBarBox)row.is_selected ());
         }
 
-        public Gee.ArrayList<SideBarBox> get_files () {
-            var files = new Gee.ArrayList<SideBarBox> ();
+        public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
-	            files.add ((SideBarBox)item);
+	            s_files.add ((SideBarBox)item);
             }
-            return files;
+            return s_files;
         }
 
         public void add_file (string file) {
+            var settings = AppSettings.get_default ();
             var filebox = new SideBarBox (this.win, file);
-            column.insert (filebox, -1);
-            column.select_row (filebox);
+            column.insert (filebox, 1);
+            if (filebox.file_label.label == settings.current_file)
+                column.select_row (filebox);
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
