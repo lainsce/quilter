@@ -116,10 +116,7 @@ namespace Quilter {
 
             edit_view_content.changed.connect (() => {
                 render_func ();
-                statusbar.update_wordcount ();
-                statusbar.update_linecount ();
-                statusbar.update_charcount ();
-                statusbar.update_readtimecount ();
+                update_count ();
             });
 
             key_press_event.connect ((e) => {
@@ -385,7 +382,11 @@ namespace Quilter {
 
             if (settings.current_file != "") {
                 debug ("Saving working file...");
-                Services.FileManager.save_work_file ();
+                try {
+                    Services.FileManager.save ();
+                } catch (Error err) {
+                    print ("Error writing file: " + err.message);
+                }
             } else if (file_path == "New Document") {
                 debug ("Saving cache...");
                 Services.FileManager.save_tmp_file ();

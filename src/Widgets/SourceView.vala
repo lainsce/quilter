@@ -156,7 +156,11 @@ namespace Quilter.Widgets {
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
                     on_text_modified ();
-                    Services.FileManager.save_work_file ();
+                    try {
+                        Services.FileManager.save ();
+                    } catch (Error err) {
+                        print ("Error writing file: " + err.message);
+                    }
                     return true;
                 });
             }
