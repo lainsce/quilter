@@ -388,7 +388,7 @@ namespace Quilter {
                 } catch (Error err) {
                     print ("Error writing file: " + err.message);
                 }
-            } else if (file_path == "New Document") {
+            } else if (file_path == "No Open Files") {
                 debug ("Saving cache...");
                 Services.FileManager.save_tmp_file ();
             }

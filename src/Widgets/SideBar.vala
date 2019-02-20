@@ -23,7 +23,8 @@ namespace Quilter.Widgets {
         public Widgets.EditView ev;
         public MainWindow win;
         private string[] files;
-        private Gee.LinkedList<SideBarBox> s_files;
+        public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
+        public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}
 
         public SideBar (MainWindow win) {
@@ -45,16 +46,19 @@ namespace Quilter.Widgets {
             foreach (var file in get_files ()) {
                 files += file.file_label.label;
                 settings.last_files = files;
-                if (file.file_label.label == settings.current_file)
+                if (file.file_label.label == settings.current_file) {
                     column.select_row (file);
+                }
             }
 
             column.row_selected.connect ((row) => {
-                if ((Widgets.SideBarBox)row != null) {
+                if (((Widgets.SideBarBox)row) != null) {
                     try {
                         string text;
                         string file_path = ((Widgets.SideBarBox)row).file_label.label;
                         settings.current_file = file_path;
+                        if (settings.current_file == cache)
+                                settings.current_file = "No Documents Open";
                         var file = File.new_for_path (file_path);
                         GLib.FileUtils.get_contents (file.get_path (), out text);
                         Widgets.EditView.buffer.text = text;
@@ -76,13 +80,7 @@ namespace Quilter.Widgets {
             file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
 
             file_clean_button.clicked.connect (() => {
-                settings.last_files = null;
-                settings.current_file = "No Documents Open";
-                s_files.clear ();
-                foreach (Gtk.Widget item in column.get_children ()) {
-	                item.destroy ();
-                }
-                Widgets.EditView.buffer.text = "";
+                clean_all ();
             });
 
             column.show_all ();
@@ -111,7 +109,8 @@ namespace Quilter.Widgets {
 
         public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
-	            s_files.add ((SideBarBox)item);
+                if (s_files != null)
+	                s_files.add ((SideBarBox)item);
             }
             return s_files;
         }
@@ -120,8 +119,14 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             var filebox = new SideBarBox (this.win, file);
             column.insert (filebox, 1);
-            if (filebox.file_label.label == settings.current_file)
+            if (filebox.file_label.label == settings.current_file) {
                 column.select_row (filebox);
+            } else if (filebox.file_label.label == cache) {
+                filebox.file_name_label.label = "New Document";
+                column.select_row (filebox);
+                files += cache;
+                settings.last_files = files;
+            }
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
@@ -132,6 +137,18 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
+        }
+
+        public void clean_all () {
+            var settings = AppSettings.get_default ();
+            settings.last_files = null;
+            settings.current_file = "No Documents Open";
+            if (s_files != null)
+                s_files.clear ();
+            foreach (Gtk.Widget item in column.get_children ()) {
+	            item.destroy ();
+            }
+            Widgets.EditView.buffer.text = "";
         }
     }
 }

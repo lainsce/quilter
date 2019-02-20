@@ -57,49 +57,6 @@ namespace Quilter.Services.FileManager {
     }
 
     // File I/O
-    public void new_file () {
-        debug ("New button pressed.");
-        debug ("Buffer was modified. Asking user to save first.");
-        string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
-
-        var dialog = new Granite.MessageDialog.with_image_from_icon_name (
-            "Do you want to save?",
-            "There are unsaved changes to the file. If you don't save, changes will be lost forever.",
-            "dialog-information",
-            Gtk.ButtonsType.CANCEL
-        );
-
-        dialog.add_button ("Save", Gtk.ResponseType.YES);
-        dialog.add_button ("Close without Saving", Gtk.ResponseType.NO);
-
-        if (Widgets.EditView.buffer.get_modified () == true) {
-            dialog.transient_for = win;
-            dialog.show_all ();
-            Widgets.EditView.buffer.set_modified (false);
-
-            if (dialog.run () == Gtk.ResponseType.YES) {
-                debug ("User saves the file.");
-
-                try {
-                    Services.FileManager.save_as ();
-                    var settings = AppSettings.get_default ();
-                    file = File.new_for_path (cache);
-                    settings.current_file = "No Documents Open";
-
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            } else if (dialog.run () == Gtk.ResponseType.NO) {
-                debug ("User doesn't care about the file, shoot it to space.");
-
-                var settings = AppSettings.get_default ();
-                file = File.new_for_path (cache);
-                settings.current_file = "No Documents Open";
-            }
-        }
-        dialog.destroy();
-    }
-
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
         var settings = AppSettings.get_default ();
         foreach (File f in ofiles) {
@@ -172,6 +129,9 @@ namespace Quilter.Services.FileManager {
     public void save_as () throws Error {
         debug ("Save as button pressed.");
         var file = Services.DialogUtils.display_save_dialog ();
+        if (!file.get_basename ().down ().has_suffix (".md")) {
+                file = File.new_for_path (file.get_path () + ".md");
+        }
         string file_path = file.get_path ();
 
         try {
