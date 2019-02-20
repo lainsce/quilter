@@ -59,8 +59,11 @@
         <release version="1.7.0" date="2019-02-22">
          <description>
             <p>Release: Visually Stunning</p>
+            <p>Quilter received a visual upgrade, and also an awesome backend tuneup.</p>
             <ul>
-                <li>Quilter received a visual upgrade, and also an awesome backend tuneup.</li>
+                <li>- Rewrote all Sidebar functions</li>
+                <li>- Removed LaTeX because it was lagging the app...</li>
+                <li>- All File Management functions rewritten from scratch!</li>
             </ul>
          </description>
         </release>
