@@ -64,22 +64,4 @@ namespace Quilter.Services.DialogUtils {
         chooser.destroy();
         return file;
     }
-
-    public class Dialog : Gtk.MessageDialog {
-        public Dialog.display_save_confirm (Gtk.Window parent) {
-            set_markup ("<b>" +
-                    _("There are unsaved changes to the file. Do you want to save?") + "</b>" +
-                    "\n\n" + _("If you don't save, changes will be lost forever."));
-            use_markup = true;
-            type_hint = Gdk.WindowTypeHint.DIALOG;
-            set_transient_for (parent);
-
-            var button = new Gtk.Button.with_label (_("Close without saving"));
-            button.show ();
-            add_action_widget (button, Gtk.ResponseType.NO);
-            add_button ("_Cancel", Gtk.ResponseType.CANCEL);
-            add_button ("_Save", Gtk.ResponseType.YES);
-            message_type = Gtk.MessageType.WARNING;
-        }
-    }
 }

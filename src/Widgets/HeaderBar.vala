@@ -55,8 +55,7 @@ namespace Quilter.Widgets {
             new_button.tooltip_text = (_("New file"));
 
             new_button.clicked.connect (() => {
-                if (sourceview.is_modified)
-                    Services.FileManager.new_file ();
+                Services.FileManager.new_file ();
             });
 
             save_as_button = new Gtk.Button ();

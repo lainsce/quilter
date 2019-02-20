@@ -232,17 +232,15 @@ namespace Quilter {
             string result;
             mkd.get_document (out result);
 
-            string html = make_html (result);
-
-            return html;
+            return result;
         }
 
-        public string make_html (string result) {
+        public void update_html_view () {
             string highlight_stylesheet = set_highlight_stylesheet();
             string highlight = set_highlight();
             string font_stylesheet = set_font_stylesheet ();
             string stylesheet = set_stylesheet ();
-            string markdown = process_plugins (result);
+            string markdown = process ();
             html = """
             <!doctype html>
             <html>
@@ -260,33 +258,7 @@ namespace Quilter {
                     </div>
                 </body>
             </html>""".printf(highlight_stylesheet, highlight, font_stylesheet, stylesheet, markdown);
-            return html;
-        }
-
-        public void update_html_view () {
-            process ();
             this.load_html (html, "file:///");
-        }
-
-        private string process_plugins (string raw_mk) {
-            var lines = raw_mk.split ("\n");
-            string build = "";
-            foreach (var line in lines) {
-                bool found = false;
-                foreach (var plugin in Plugins.PluginManager.get_instance ().get_plugs ()) {
-                    if (plugin.has_match (line)) {
-                        build = build + plugin.convert (line) + "\n";
-                        found = true;
-                        break;
-                    }
-                }
-
-                if (!found) {
-                    build = build + line + "\n";
-                }
-            }
-
-            return build;
         }
     }
 }

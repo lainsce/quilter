@@ -96,9 +96,9 @@ namespace Quilter.Widgets {
             Gtk.TextIter? start_iter, end_iter;
             if (text_buffer != null) {
                 text_buffer.get_selection_bounds (out start_iter, out end_iter);
-                if(!text_view.search_for_iter_backward (start_iter, out end_iter)) {
+                if(!search_for_iter_backward (start_iter, out end_iter)) {
                     text_buffer.get_end_iter (out start_iter);
-                    text_view.search_for_iter_backward (start_iter, out end_iter);
+                    search_for_iter_backward (start_iter, out end_iter);
                 }
             }
         }
@@ -115,9 +115,9 @@ namespace Quilter.Widgets {
             Gtk.TextIter? start_iter, end_iter, end_iter_tmp;
             if (text_buffer != null) {
                 text_buffer.get_selection_bounds (out start_iter, out end_iter);
-                if(!text_view.search_for_iter (end_iter, out end_iter_tmp)) {
+                if(!search_for_iter (end_iter, out end_iter_tmp)) {
                     text_buffer.get_start_iter (out start_iter);
-                    text_view.search_for_iter (start_iter, out end_iter);
+                    search_for_iter (start_iter, out end_iter);
                 }
             }
         }
@@ -179,6 +179,17 @@ namespace Quilter.Widgets {
             return found;
         }
 
+        public bool search_for_iter_backward (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
+            end_iter = start_iter;
+            bool found = search_context.backward2 (start_iter, out start_iter, out end_iter, null);
+            if (found) {
+                text_buffer.select_range (start_iter, end_iter);
+                text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
+            }
+
+            return found;
+        }
+
         public bool search () {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
@@ -214,4 +225,3 @@ namespace Quilter.Widgets {
         }
     }
 }
-
