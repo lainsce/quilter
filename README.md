@@ -47,4 +47,4 @@ sudo ninja install
 
 Arch Linux users can find Quilter under the name [quilter-git](https://aur.archlinux.org/packages/quilter-git/) in the **AUR**:
 
-`$ pikaur -S quilter-git`
+`$ <aur_helper> -S quilter-git`
