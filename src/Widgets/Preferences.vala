@@ -45,6 +45,7 @@ namespace Quilter.Widgets {
 
             main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
             main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
+            main_stack.add_titled (get_extensions_grid (), "extensions", _("Extensions"));
 
             var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
@@ -63,11 +64,6 @@ namespace Quilter.Widgets {
             editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
             editor_grid.column_spacing = 12;
-
-            var editor_header = new Granite.HeaderLabel (_("Editor"));
-            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
-            spellcheck_label.set_halign (Gtk.Align.END);
-            var spellcheck = new SettingsSwitch ("spellcheck");
 
             var geo_header = new Granite.HeaderLabel (_("Geometry"));
             var spacing_label = new SettingsLabel (_("Spacing of Text:"));
@@ -203,20 +199,19 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var edit_header = new Granite.HeaderLabel (_("Editor"));
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
+            
+            editor_grid.attach (edit_header,  0, 0, 1, 1);
+            editor_grid.attach (save_button_label,  0, 1, 1, 1);
+            editor_grid.attach (save_button, 1, 1, 1, 1);
 
-            editor_grid.attach (editor_header, 0, 1, 3, 1);
-            editor_grid.attach (spellcheck_label,  0, 2, 1, 1);
-            editor_grid.attach (spellcheck, 1, 2, 1, 1);
-            editor_grid.attach (save_button_label,  0, 3, 1, 1);
-            editor_grid.attach (save_button, 1, 3, 1, 1);
-
-            editor_grid.attach (geo_header, 0, 4, 3, 1);
-            editor_grid.attach (spacing_label, 0, 5, 1, 1);
-            editor_grid.attach (spacing_size, 1, 5, 1, 1);
-            editor_grid.attach (margins_label, 0, 6, 1, 1);
-            editor_grid.attach (margins_size, 1, 6, 1, 1);
+            editor_grid.attach (geo_header, 0, 3, 3, 1);
+            editor_grid.attach (spacing_label, 0, 4, 1, 1);
+            editor_grid.attach (spacing_size, 1, 4, 1, 1);
+            editor_grid.attach (margins_label, 0, 5, 1, 1);
+            editor_grid.attach (margins_size, 1, 5, 1, 1);
 
             editor_grid.attach (font_header, 0, 7, 3, 1);
             editor_grid.attach (font_label, 0, 8, 1, 1);
@@ -404,6 +399,31 @@ namespace Quilter.Widgets {
             interface_grid.attach (searchbar, 1, 10, 1, 1);
 
             return interface_grid;
+        }
+
+        private Gtk.Widget get_extensions_grid () {
+            var ext_grid = new Gtk.Grid ();
+            ext_grid.row_spacing = 6;
+            ext_grid.column_spacing = 12;
+            ext_grid.orientation = Gtk.Orientation.VERTICAL;
+            ext_grid.set_column_homogeneous (false);
+
+            var ext_header = new Granite.HeaderLabel (_("Extensions"));
+
+            var highlight_label = new SettingsLabel (_("Enable Code Highlighting:"));
+            var highlight = new SettingsSwitch ("highlight");
+            highlight.hexpand = true;
+
+            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
+            var spellcheck = new SettingsSwitch ("spellcheck");
+
+            ext_grid.attach (ext_header,  0, 0, 1, 1);
+            ext_grid.attach (highlight_label, 0, 1, 1, 1);
+            ext_grid.attach (highlight, 2, 1, 1, 1);
+            ext_grid.attach (spellcheck_label, 0, 2, 1, 1);
+            ext_grid.attach (spellcheck, 2, 2, 1, 1);
+
+            return ext_grid;
         }
 
         private class SettingsLabel : Gtk.Label {

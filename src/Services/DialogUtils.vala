@@ -14,12 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
 namespace Quilter.Services.DialogUtils {
     public Gtk.FileChooserDialog create_file_chooser (string title,
             Gtk.FileChooserAction action) {
         var chooser = new Gtk.FileChooserDialog (title, null, action);
-
         chooser.add_button ("_Cancel", Gtk.ResponseType.CANCEL);
         if (action == Gtk.FileChooserAction.OPEN) {
             chooser.add_button ("_Open", Gtk.ResponseType.ACCEPT);
@@ -27,17 +25,14 @@ namespace Quilter.Services.DialogUtils {
             chooser.add_button ("_Save", Gtk.ResponseType.ACCEPT);
             chooser.set_do_overwrite_confirmation (true);
         }
-
         var filter1 = new Gtk.FileFilter ();
         filter1.set_filter_name (_("Markdown files"));
         filter1.add_pattern ("*.md");
         chooser.add_filter (filter1);
-
         var filter = new Gtk.FileFilter ();
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
         chooser.add_filter (filter);
-
         return chooser;
     }
 
@@ -45,10 +40,8 @@ namespace Quilter.Services.DialogUtils {
         var chooser = create_file_chooser (_("Open file"),
                 Gtk.FileChooserAction.OPEN);
         File file = null;
-
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();
-
         chooser.destroy();
         return file;
     }
@@ -57,29 +50,28 @@ namespace Quilter.Services.DialogUtils {
         var chooser = create_file_chooser (_("Save file"),
                 Gtk.FileChooserAction.SAVE);
         File file = null;
-
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();
-
         chooser.destroy();
         return file;
     }
 
-    public class Dialog : Gtk.MessageDialog {
-        public Dialog.display_save_confirm (Gtk.Window parent) {
-            set_markup ("<b>" +
-                    _("There are unsaved changes to the file. Do you want to save?") + "</b>" +
-                    "\n\n" + _("If you don't save, changes will be lost forever."));
-            use_markup = true;
-            type_hint = Gdk.WindowTypeHint.DIALOG;
-            set_transient_for (parent);
-
-            var button = new Gtk.Button.with_label (_("Close without saving"));
-            button.show ();
-            add_action_widget (button, Gtk.ResponseType.NO);
-            add_button ("_Cancel", Gtk.ResponseType.CANCEL);
-            add_button ("_Save", Gtk.ResponseType.YES);
-            message_type = Gtk.MessageType.WARNING;
+    public class Dialog : Granite.MessageDialog {
+        public MainWindow win;
+        public Dialog () {
+            Object (
+                image_icon: new ThemedIcon ("dialog-information"),
+                primary_text: _("Save Open File?"),
+                secondary_text: _("There are unsaved changes to the file. If you don't save, changes will be lost forever.")
+            );
+        }
+        construct {
+            string explanation;
+            var save = add_button (_("Save"), Gtk.ResponseType.OK);
+            var cws = add_button (_("Close Without Saving"), Gtk.ResponseType.NO);
+            var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
+            cancel.clicked.connect (() => { destroy (); });
+            this.show_all ();
         }
     }
 }

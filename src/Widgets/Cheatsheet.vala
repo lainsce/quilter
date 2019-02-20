@@ -118,8 +118,6 @@ namespace Quilter.Widgets {
             var special_header = new Granite.HeaderLabel (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
             var hr_label = new Label (_("--- ← This creates a horizontal rule"));
-            var latex_header = new Granite.HeaderLabel (N_("LaTeX"));
-            var latex_label = new Label (_("""$$ Math $$"""));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);
@@ -127,8 +125,6 @@ namespace Quilter.Widgets {
             links_grid.attach (special_header, 0, 3, 5, 1);
             links_grid.attach (codeblocks_label, 0, 4, 3, 1);
             links_grid.attach (hr_label, 0, 5, 3, 1);
-            links_grid.attach (latex_header, 0, 6, 5, 1);
-            links_grid.attach (latex_label , 0, 7, 3, 1);
 
             return links_grid;
         }

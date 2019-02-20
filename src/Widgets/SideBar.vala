@@ -23,6 +23,8 @@ namespace Quilter.Widgets {
         public Widgets.EditView ev;
         public MainWindow win;
         private string[] files;
+        public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
+        public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}
 
         public SideBar (MainWindow win) {
@@ -33,7 +35,7 @@ namespace Quilter.Widgets {
             sb_context.add_class ("quilter-sidebar");
             column.hexpand = false;
             column.vexpand = true;
-            column.set_size_request (200,-1);
+            column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -44,18 +46,25 @@ namespace Quilter.Widgets {
             foreach (var file in get_files ()) {
                 files += file.file_label.label;
                 settings.last_files = files;
+                if (file.file_label.label == settings.current_file) {
+                    column.select_row (file);
+                }
             }
 
             column.row_selected.connect ((row) => {
-                try {
-                    string text;
-                    string file_path = ((Widgets.SideBarBox)row).file_label.label;
-                    settings.current_file = file_path;
-                    var file = File.new_for_path (file_path);
-                    GLib.FileUtils.get_contents (file.get_path (), out text);
-                    Widgets.EditView.buffer.text = text;
-                } catch {
-
+                if (((Widgets.SideBarBox)row) != null) {
+                    try {
+                        string text;
+                        string file_path = ((Widgets.SideBarBox)row).file_label.label;
+                        settings.current_file = file_path;
+                        if (settings.current_file == cache)
+                                settings.current_file = "No Documents Open";
+                        var file = File.new_for_path (file_path);
+                        GLib.FileUtils.get_contents (file.get_path (), out text);
+                        Widgets.EditView.buffer.text = text;
+                    } catch (Error e) {
+                        warning ("Error: %s\n", e.message);
+                    }
                 }
             });
 
@@ -71,17 +80,14 @@ namespace Quilter.Widgets {
             file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
 
             file_clean_button.clicked.connect (() => {
-                settings.last_files = null;
-                foreach (var file in get_files ()) {
-                    file.delete_row ();
-                }
+                clean_all ();
             });
 
             column.show_all ();
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
-            grid.set_size_request (200,-1);
+            grid.set_size_request (250,-1);
             grid.attach (column, 0,0,1,1);
             grid.attach (file_clean_button, 0,1,1,1);
 
@@ -101,17 +107,26 @@ namespace Quilter.Widgets {
             return ((SideBarBox)row.is_selected ());
         }
 
-        public Gee.ArrayList<SideBarBox> get_files () {
-            var files = new Gee.ArrayList<SideBarBox> ();
+        public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
-	            files.add ((SideBarBox)item);
+                if (s_files != null)
+	                s_files.add ((SideBarBox)item);
             }
-            return files;
+            return s_files;
         }
 
         public void add_file (string file) {
+            var settings = AppSettings.get_default ();
             var filebox = new SideBarBox (this.win, file);
-            column.insert (filebox, -1);
+            column.insert (filebox, 1);
+            if (filebox.file_label.label == settings.current_file) {
+                column.select_row (filebox);
+            } else if (filebox.file_label.label == cache) {
+                filebox.file_name_label.label = "New Document";
+                column.select_row (filebox);
+                files += cache;
+                settings.last_files = files;
+            }
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
@@ -122,6 +137,18 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
+        }
+
+        public void clean_all () {
+            var settings = AppSettings.get_default ();
+            settings.last_files = null;
+            settings.current_file = "No Documents Open";
+            if (s_files != null)
+                s_files.clear ();
+            foreach (Gtk.Widget item in column.get_children ()) {
+	            item.destroy ();
+            }
+            Widgets.EditView.buffer.text = "";
         }
     }
 }

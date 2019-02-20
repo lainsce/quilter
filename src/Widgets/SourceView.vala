@@ -20,7 +20,6 @@ namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
         private static EditView? instance = null;
         public static new Gtk.SourceBuffer buffer;
-        public bool is_modified {get; set; default = false;}
         public bool should_scroll {get; set; default = false;}
         public File file;
         public GtkSpell.Checker spell = null;
@@ -36,8 +35,6 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
-
-        public signal void changed ();
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -69,7 +66,6 @@ namespace Quilter.Widgets {
                             last_language = language_list.first ().data;
                             spell.set_language (last_language);
                         }
-                        settings.changed.connect (spellcheck_enable);
                         spell.attach (this);
                     } catch (Error e) {
                         warning (e.message);
@@ -93,11 +89,11 @@ namespace Quilter.Widgets {
                 if (file.query_exists ()) {
                     string filename = file.get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    buffer.text = text;
                 } else {
                     string filename = Services.FileManager.setup_tmp_file ().get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    buffer.text = text;
                 }
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
@@ -124,10 +120,28 @@ namespace Quilter.Widgets {
             buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
+
+            this.set_buffer (buffer);
+            this.set_wrap_mode (Gtk.WrapMode.WORD);
+            this.top_margin = 40;
+            this.bottom_margin = 40;
+            this.expand = true;
+            this.has_focus = true;
+            this.set_tab_width (4);
+            this.set_insert_spaces_instead_of_tabs (true);
+            this.auto_indent = true;
+
+            buffer.set_modified (false);
+            should_scroll = false;
+
             buffer.changed.connect (() => {
-                is_modified = true;
-                on_text_modified ();
+                buffer.set_modified (true);
+                should_scroll = true;
             });
+
+            if (settings.current_file == "No Documents Open") {
+                buffer.text = "";
+            }
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
             lightgrayfont = buffer.create_tag(null, "foreground", "#777");
@@ -144,31 +158,27 @@ namespace Quilter.Widgets {
             warning_tag = new Gtk.TextTag ("warning_bg");
             warning_tag.underline = Pango.Underline.ERROR;
             warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
-
             error_tag = new Gtk.TextTag ("error_bg");
             error_tag.underline = Pango.Underline.ERROR;
-
             buffer.tag_table.add (error_tag);
             buffer.tag_table.add (warning_tag);
-
-            is_modified = false;
+            if (settings.spellcheck != false) {
+                spellcheck = settings.spellcheck;
+            } else {
+                spellcheck = settings.spellcheck;
+            }
 
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
-                    on_text_modified ();
-                    Services.FileManager.save_work_file ();
+                    try {
+                        Services.FileManager.save ();
+                        buffer.set_modified (false);
+                    } catch (Error err) {
+                        print ("Error writing file: " + err.message);
+                    }
                     return true;
                 });
             }
-
-            this.set_buffer (buffer);
-            this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 40;
-            this.bottom_margin = 40;
-            this.expand = true;
-            this.has_focus = true;
-            this.set_tab_width (4);
-            this.set_insert_spaces_instead_of_tabs (true);
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -184,64 +194,12 @@ namespace Quilter.Widgets {
             return null;
         }
 
-        public void on_text_modified () {
-            should_scroll = true;
-            if (is_modified) {
-                changed ();
-                is_modified = false;
-            }
-        }
-
-        public bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
-            end_iter = start_iter;
-            bool found = search_context.forward2 (start_iter, out start_iter, out end_iter, null);
-            if (found) {
-                buffer.select_range (start_iter, end_iter);
-                this.scroll_to_iter (start_iter, 0, false, 0, 0);
-            }
-
-            return found;
-        }
-
-        public bool search_for_iter_backward (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
-            end_iter = start_iter;
-            bool found = search_context.backward2 (start_iter, out start_iter, out end_iter, null);
-            if (found) {
-                buffer.select_range (start_iter, end_iter);
-                this.scroll_to_iter (start_iter, 0, false, 0, 0);
-            }
-
-            return found;
-        }
-
-        public void set_text (string text, bool opening = true) {
-            if (opening) {
-                buffer.begin_not_undoable_action ();
-                buffer.changed.disconnect (on_text_modified);
-            }
-
-            buffer.text = text;
-
-            if (opening) {
-                buffer.end_not_undoable_action ();
-                buffer.changed.connect (on_text_modified);
-            }
-
-            Gtk.TextIter? start = null;
-            buffer.get_start_iter (out start);
-            buffer.place_cursor (start);
-        }
-
-        public void dynamic_margins() {
-            Application.win.dynamic_margins();
-        }
-
         private void update_settings () {
             var settings = AppSettings.get_default ();
             var buffer_context = this.get_style_context ();
             this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
-            dynamic_margins();
+            Application.win.dynamic_margins();
             this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {
@@ -281,15 +239,6 @@ namespace Quilter.Widgets {
             }
 
             set_scheme (get_default_scheme ());
-        }
-
-        private void spellcheck_enable () {
-            var settings = AppSettings.get_default ();
-            if (settings.spellcheck != false) {
-                spellcheck = settings.spellcheck;
-            } else {
-                spellcheck = settings.spellcheck;
-            }
         }
 
         public void set_scheme (string id) {

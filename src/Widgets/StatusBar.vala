@@ -90,7 +90,7 @@ namespace Quilter {
 	        track_lines.toggled.connect (() => {
 	            settings.track_type = "lines";
 	        });
-	        track_lines.set_active (true);
+	        track_words.set_active (true);
 
             var track_type_grid = new Gtk.Grid ();
             track_type_grid.margin = 12;

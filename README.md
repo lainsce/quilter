@@ -9,10 +9,6 @@
 
 ![Screenshot](data/images/shot.png)
 
-## Notice
-
-LaTeX functions need a stable internet connection. Quilter uses KaTeX via CDN to render them.
-
 ## License
 
 Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://scripts.sil.org/OFL), also copied there in full.
@@ -30,9 +26,8 @@ Please make sure you have these dependencies first before building.
 ```bash
 valac
 libgranite-dev
-libgtkspell3-3-dev
 gtk+-3.0
-gtksourceview-3.0
+gtksourceview-3.0-dev
 libwebkit2gtk-4.0-dev
 libmarkdown2-dev
 libgtkspell3-3-dev
@@ -52,4 +47,4 @@ sudo ninja install
 
 Arch Linux users can find Quilter under the name [quilter-git](https://aur.archlinux.org/packages/quilter-git/) in the **AUR**:
 
-`$ pikaur -S quilter-git`
+`$ <aur_helper> -S quilter-git`

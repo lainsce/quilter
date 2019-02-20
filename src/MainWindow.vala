@@ -92,7 +92,6 @@ namespace Quilter {
 
             show_statusbar ();
             show_sidebar ();
-            statusbar.update_readtimecount ();
             update_count ();
 
             if (!settings.focus_mode) {
@@ -114,12 +113,9 @@ namespace Quilter {
                 }
             });
 
-            edit_view_content.changed.connect (() => {
+            Widgets.EditView.buffer.changed.connect (() => {
                 render_func ();
-                statusbar.update_wordcount ();
-                statusbar.update_linecount ();
-                statusbar.update_charcount ();
-                statusbar.update_readtimecount ();
+                update_count ();
             });
 
             key_press_event.connect ((e) => {
@@ -289,6 +285,8 @@ namespace Quilter {
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
 
+            show_font_button (false);
+
             ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
                 show_font_button (false);
             });
@@ -385,8 +383,12 @@ namespace Quilter {
 
             if (settings.current_file != "") {
                 debug ("Saving working file...");
-                Services.FileManager.save_work_file ();
-            } else if (file_path == "New Document") {
+                try {
+                    Services.FileManager.save ();
+                } catch (Error err) {
+                    print ("Error writing file: " + err.message);
+                }
+            } else if (file_path == "No Open Files") {
                 debug ("Saving cache...");
                 Services.FileManager.save_tmp_file ();
             }
@@ -467,9 +469,9 @@ namespace Quilter {
         }
 
         private void render_func () {
-            if (edit_view_content.is_modified == true) {
+            if (Widgets.EditView.buffer.get_modified () == true) {
                 preview_view_content.update_html_view ();
-                edit_view_content.is_modified = false;
+                Widgets.EditView.buffer.set_modified (false);
             }
         }
 
