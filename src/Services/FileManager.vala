@@ -89,8 +89,8 @@ namespace Quilter.Services.FileManager {
         settings.current_file = file_path;
         files += file_path;
         settings.last_files = files;
-        if (win.sidebar != null) {
-            win.sidebar.add_file (settings.current_file);
+        if (win.sidebar != null && !(settings.current_file in settings.last_files)) {
+            win.sidebar.add_file (file_path);
         }
         try {
             debug ("Opening file...");

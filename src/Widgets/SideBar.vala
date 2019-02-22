@@ -80,7 +80,7 @@ namespace Quilter.Widgets {
             file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
 
             file_clean_button.clicked.connect (() => {
-                clean_all ();
+                clean_all_check ();
             });
 
             column.show_all ();
@@ -109,7 +109,7 @@ namespace Quilter.Widgets {
 
         public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
-                if (s_files != null)
+                if (files != null)
 	                s_files.add ((SideBarBox)item);
             }
             return s_files;
@@ -123,6 +123,7 @@ namespace Quilter.Widgets {
                 column.select_row (filebox);
             } else if (filebox.file_label.label == cache) {
                 filebox.file_name_label.label = "New Document";
+                filebox.file_label.label = "";
                 column.select_row (filebox);
                 files += cache;
                 settings.last_files = files;
@@ -146,9 +147,44 @@ namespace Quilter.Widgets {
             if (s_files != null)
                 s_files.clear ();
             foreach (Gtk.Widget item in column.get_children ()) {
-	            item.destroy ();
+                item.destroy ();
             }
             Widgets.EditView.buffer.text = "";
+        }
+
+        public void clean_all_check () {
+            var dialog = new Services.DialogUtils.ClearDialog ();
+                dialog.transient_for = win;
+
+                dialog.response.connect ((response_id) => {
+                    switch (response_id) {
+                        case Gtk.ResponseType.OK:
+                            var settings = AppSettings.get_default ();
+                            settings.last_files = null;
+                            settings.current_file = "No Documents Open";
+                            if (s_files != null)
+                                s_files.clear ();
+                            foreach (Gtk.Widget item in column.get_children ()) {
+	                            item.destroy ();
+                            }
+                            Widgets.EditView.buffer.text = "";
+                            dialog.close ();
+                            break;
+                        case Gtk.ResponseType.NO:
+                        case Gtk.ResponseType.CANCEL:
+                        case Gtk.ResponseType.CLOSE:
+                        case Gtk.ResponseType.DELETE_EVENT:
+                            dialog.close ();
+                            break;
+                        default:
+                            assert_not_reached ();
+                    }
+                });
+
+
+                if (Widgets.EditView.buffer.get_modified() == true) {
+                    dialog.run ();
+                }
         }
     }
 }

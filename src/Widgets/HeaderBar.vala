@@ -80,8 +80,7 @@ namespace Quilter.Widgets {
                             Widgets.EditView.buffer.set_modified (false);
                             if (win.sidebar != null)
                                 win.sidebar.clean_all ();
-
-                            win.sidebar.add_file (cache);
+                                win.sidebar.add_file (cache);
                             if (this.subtitle == cache)
                                 this.subtitle = "No Documents Open";
                             dialog.close ();

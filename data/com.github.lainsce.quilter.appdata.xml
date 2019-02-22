@@ -56,6 +56,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.6.8" date="2019-03-01">
+         <description>
+            <p>Release: Kodachrome Selector</p>
+            <ul>
+                <li>Open files without adding duplicate entries, and clear sidbar is you really need to (it has a confirm dialog).</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.7.0" date="2019-02-22">
          <description>
             <p>Release: Visually Stunning</p>
