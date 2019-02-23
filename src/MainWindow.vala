@@ -93,6 +93,7 @@ namespace Quilter {
             show_statusbar ();
             show_sidebar ();
             update_count ();
+            show_font_button (false);
 
             if (!settings.focus_mode) {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
@@ -284,9 +285,8 @@ namespace Quilter {
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
-
-            show_font_button (false);
-
+            
+            ((Gtk.RadioButton)(view_mode.get_children().first().data)).set_active (true);
             ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
                 show_font_button (false);
             });
@@ -332,6 +332,10 @@ namespace Quilter {
             if (w != 0 && h != 0) {
                 this.resize (w, h);
             }
+
+            if (settings.current_file == "")
+                Services.FileManager.setup_tmp_file ();
+                toolbar.set_subtitle ("No Documents Open");
 
             // Register for redrawing of window for handling margins and other
             // redrawing
@@ -492,7 +496,7 @@ namespace Quilter {
         }
 
         public void show_font_button (bool v) {
-            set_font_menu.set_visible (v);
+            set_font_menu.visible = v;
         }
     }
 }

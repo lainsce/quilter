@@ -50,9 +50,13 @@ namespace Quilter.Widgets {
             set_title (null);
             var settings = AppSettings.get_default ();
             string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
-            set_subtitle (settings.current_file);
-            if (this.subtitle == cache)
-                this.subtitle = "No Documents Open";
+            if (this.subtitle != cache) {
+                set_subtitle (settings.current_file);
+            } else if (this.subtitle != cache) {
+                set_subtitle ("No Documents Open");
+            } else if (settings.current_file == null) {
+                set_subtitle ("No Documents Open");
+            }
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
@@ -71,18 +75,30 @@ namespace Quilter.Widgets {
                                 warning ("Unexpected error during save: " + e.message);
                             }
                             Widgets.EditView.buffer.set_modified (false);
+                            if (this.subtitle != cache) {
+                                set_subtitle (settings.current_file);
+                            } else if (this.subtitle != cache) {
+                                set_subtitle ("No Documents Open");
+                            } else if (settings.current_file == null) {
+                                set_subtitle ("No Documents Open");
+                            }
                             dialog.close ();
                             break;
                         case Gtk.ResponseType.NO:
                             debug ("User doesn't care about the file, shoot it to space.");
                             Services.FileManager.file = File.new_for_path (cache);
-                            settings.current_file = "No Documents Open";
+                            settings.current_file = cache;
                             Widgets.EditView.buffer.set_modified (false);
+                            if (this.subtitle != cache) {
+                                set_subtitle (settings.current_file);
+                            } else if (this.subtitle != cache) {
+                                set_subtitle ("No Documents Open");
+                            } else if (settings.current_file == null) {
+                                set_subtitle ("No Documents Open");
+                            }
                             if (win.sidebar != null)
                                 win.sidebar.clean_all ();
                                 win.sidebar.add_file (cache);
-                            if (this.subtitle == cache)
-                                this.subtitle = "No Documents Open";
                             dialog.close ();
                             break;
                         case Gtk.ResponseType.CANCEL:
@@ -132,7 +148,7 @@ namespace Quilter.Widgets {
             open_button.clicked.connect (() => {
                 try {
                     Services.FileManager.open (this.win);
-                    set_subtitle (settings.current_file);
+                    this.subtitle = settings.current_file;
                 } catch (Error e) {
                     warning ("Unexpected error during open: " + e.message);
                 }
