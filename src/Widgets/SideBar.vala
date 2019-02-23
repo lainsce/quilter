@@ -20,6 +20,7 @@ namespace Quilter.Widgets {
     public class SideBar : Gtk.Revealer {
         public Gtk.ListBox column;
         public Widgets.SideBarBox row;
+        public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
         public MainWindow win;
         private string[] files;
@@ -37,50 +38,56 @@ namespace Quilter.Widgets {
             sb_context.add_class ("quilter-sidebar");
             column.hexpand = false;
             column.vexpand = true;
-            column.set_size_request (250,-1);
+            column.set_size_request (280,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
-            foreach (string f in settings.last_files) {
-                add_file (f);
+
+            if (settings.current_file == "") {
+                filebox = new SideBarBox (this.win, "");
+                column.insert (filebox, 1);
+                filebox.file_name_label.label = "New Document";
+                filebox.file_label.label = "New File";
+                column.select_row (filebox);
+            } else {
+                foreach (string f in settings.last_files) {
+                    add_file (f);
+                }
             }
 
             foreach (var file in get_files ()) {
                 files += file.file_label.label;
                 settings.last_files = files;
-                if (file.file_label.label == settings.current_file) {
+                if (file.file_label.label in settings.current_file) {
                     column.select_row (file);
                 }
             }
 
             column.row_selected.connect ((row) => {
                 if (((Widgets.SideBarBox)row) != null) {
+<<<<<<< HEAD
                     row_selected ((Widgets.SideBarBox)row);
+=======
+                    try {
+                        string text;
+                        string file_path = ((Widgets.SideBarBox)row).file_label.label;
+                        settings.current_file = file_path;
+                        var file = File.new_for_path (file_path);
+                        GLib.FileUtils.get_contents (file.get_path (), out text);
+                        Widgets.EditView.buffer.text = text;
+                    } catch (Error e) {
+                        warning ("Error: %s\n", e.message);
+                    }
+>>>>>>> 16cf4edb7848c22b072c18ea312616f9dfcec941
                 }
-            });
-
-            var file_clean_button = new Gtk.Button ();
-            var fcb_context = file_clean_button.get_style_context ();
-            fcb_context.add_class ("quilter-sidebar-button");
-            file_clean_button.vexpand = false;
-            file_clean_button.hexpand = false;
-            file_clean_button.valign = Gtk.Align.CENTER;
-            file_clean_button.tooltip_text = "Clean files from Sidebar";
-            var file_clean_button_style_context = file_clean_button.get_style_context ();
-            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-
-            file_clean_button.clicked.connect (() => {
-                clean_all_check ();
             });
 
             column.show_all ();
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
-            grid.set_size_request (250,-1);
+            grid.set_size_request (280,-1);
             grid.attach (column, 0,0,1,1);
-            grid.attach (file_clean_button, 0,1,1,1);
 
             this.add (grid);
 
@@ -94,10 +101,6 @@ namespace Quilter.Widgets {
             }
         }
 
-        public SideBarBox get_file () {
-            return ((SideBarBox)row.is_selected ());
-        }
-
         public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
                 if (files != null)
@@ -105,19 +108,30 @@ namespace Quilter.Widgets {
             }
             return s_files;
         }
+        
+        public GLib.List<unowned SideBarBox> get_rows () {
+            return (GLib.List<unowned SideBarBox>) column.get_children ();
+        }
+        public unowned SideBarBox? get_selected_row () {
+            return (SideBarBox) column.get_selected_row ();
+        }
 
         public void add_file (string file) {
             var settings = AppSettings.get_default ();
-            var filebox = new SideBarBox (this.win, file);
+            filebox = new SideBarBox (this.win, file);
             column.insert (filebox, 1);
-            if (filebox.file_label.label == settings.current_file) {
-                column.select_row (filebox);
-            } else if (filebox.file_label.label == cache) {
+            column.select_row (filebox);
+            if (settings.current_file == cache) {
                 filebox.file_name_label.label = "New Document";
-                filebox.file_label.label = "";
+                filebox.file_label.label = "New File";
                 column.select_row (filebox);
                 files += cache;
                 settings.last_files = files;
+            }
+            if (settings.current_file == "") {
+                filebox.file_name_label.label = "New Document";
+                filebox.file_label.label = "New File";
+                column.select_row (filebox);
             }
         }
 
@@ -129,53 +143,6 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
-        }
-
-        public void clean_all () {
-            var settings = AppSettings.get_default ();
-            settings.last_files = null;
-            settings.current_file = "No Documents Open";
-            if (s_files != null)
-                s_files.clear ();
-            foreach (Gtk.Widget item in column.get_children ()) {
-                item.destroy ();
-            }
-            Widgets.EditView.buffer.text = "";
-        }
-
-        public void clean_all_check () {
-            var dialog = new Services.DialogUtils.ClearDialog ();
-                dialog.transient_for = win;
-
-                dialog.response.connect ((response_id) => {
-                    switch (response_id) {
-                        case Gtk.ResponseType.OK:
-                            var settings = AppSettings.get_default ();
-                            settings.last_files = null;
-                            settings.current_file = "No Documents Open";
-                            if (s_files != null)
-                                s_files.clear ();
-                            foreach (Gtk.Widget item in column.get_children ()) {
-	                            item.destroy ();
-                            }
-                            Widgets.EditView.buffer.text = "";
-                            dialog.close ();
-                            break;
-                        case Gtk.ResponseType.NO:
-                        case Gtk.ResponseType.CANCEL:
-                        case Gtk.ResponseType.CLOSE:
-                        case Gtk.ResponseType.DELETE_EVENT:
-                            dialog.close ();
-                            break;
-                        default:
-                            assert_not_reached ();
-                    }
-                });
-
-
-                if (Widgets.EditView.buffer.get_modified() == true) {
-                    dialog.run ();
-                }
         }
     }
 }

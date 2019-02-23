@@ -21,6 +21,7 @@ namespace Quilter.Services.FileManager {
     public MainWindow win;
     public Widgets.EditView view;
     private string[] files;
+    private string cache;
 
     private static string? cache;
     public static string get_cache_path () {
@@ -41,16 +42,8 @@ namespace Quilter.Services.FileManager {
 
     public File setup_tmp_file () {
         debug ("Setupping cache...");
-        string cache_path = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
-        var cache_folder = File.new_for_path (cache_path);
-        if (!cache_folder.query_exists ()) {
-            try {
-                cache_folder.make_directory_with_parents ();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-        }
-        tmp_file = cache_folder.get_child ("temp.md");
+        cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
+        tmp_file = File.new_for_path (cache);
         return tmp_file;
     }
 

@@ -166,12 +166,25 @@ actionbar,
     border-right: 1px solid alpha (#000, 0.25);
     background: @colorPrimary;
     border-radius: 0;
-    padding: 8px;
+    padding: 4px;
 }
 
 .quilter-sidebar-button:active,
 .quilter-sidebar-button:selected {
     background: alpha (mix (@bg_color, @accentColor, 0.5), 0.88);
+}
+
+.quilter-task-button {
+    border: 1px solid alpha (#000, 0.25);
+    background: transparent;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.quilter-task-button:active,
+.quilter-task-button:selected {
+    color: #222;
+    -gtk-icon-shadow: 1px 1px transparent;
 }
 
 .quilter-sidebar-box {

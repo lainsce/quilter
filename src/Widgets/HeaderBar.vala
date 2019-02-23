@@ -53,11 +53,14 @@ namespace Quilter.Widgets {
         private void build_ui () {
             set_title (null);
             var settings = AppSettings.get_default ();
-
             string cache = FileManager.get_cache_path ();
-            set_subtitle (settings.current_file);
-            if (this.subtitle == cache)
-                this.subtitle = "No Documents Open";
+            if (this.subtitle != cache) {
+                set_subtitle (settings.current_file);
+            } else if (this.subtitle != cache) {
+                set_subtitle ("No Documents Open");
+            } else if (settings.current_file == null) {
+                set_subtitle ("No Documents Open");
+            }
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
@@ -76,6 +79,11 @@ namespace Quilter.Widgets {
                                 warning ("Unexpected error during save: " + e.message);
                             }
                             Widgets.EditView.buffer.set_modified (false);
+                            if (this.subtitle != cache) {
+                                set_subtitle ("No Documents Open");
+                            } else if (settings.current_file == null || settings.current_file == cache) {
+                                set_subtitle ("No Documents Open");
+                            }
                             dialog.close ();
                             break;
                         case Gtk.ResponseType.NO:
@@ -83,8 +91,12 @@ namespace Quilter.Widgets {
                             Services.FileManager.file = File.new_for_path (cache);
                             settings.current_file = cache;
                             Widgets.EditView.buffer.set_modified (false);
+                            if (this.subtitle != cache) {
+                                set_subtitle ("No Documents Open");
+                            } else if (settings.current_file == null || settings.current_file == cache) {
+                                set_subtitle ("No Documents Open");
+                            }
                             if (win.sidebar != null)
-                                win.sidebar.clean_all ();
                                 win.sidebar.add_file (cache);
                             //  if (this.subtitle == cache)
                             this.subtitle = "No Documents Open";
