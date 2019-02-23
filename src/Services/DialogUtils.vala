@@ -73,21 +73,4 @@ namespace Quilter.Services.DialogUtils {
             this.show_all ();
         }
     }
-
-    public class ClearDialog : Granite.MessageDialog {
-        public MainWindow win;
-        public ClearDialog () {
-            Object (
-                image_icon: new ThemedIcon ("dialog-warning"),
-                primary_text: _("Clear All Content?"),
-                secondary_text: _("Do you want to revert to a clean slate? All files and content will be saved and removed!")
-            );
-        }
-        construct {
-            var save = add_button (_("Clear All"), Gtk.ResponseType.OK);
-            var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
-            cancel.clicked.connect (() => { destroy (); });
-            this.show_all ();
-        }
-    }
 }

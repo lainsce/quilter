@@ -76,10 +76,8 @@ namespace Quilter.Widgets {
                             }
                             Widgets.EditView.buffer.set_modified (false);
                             if (this.subtitle != cache) {
-                                set_subtitle (settings.current_file);
-                            } else if (this.subtitle != cache) {
                                 set_subtitle ("No Documents Open");
-                            } else if (settings.current_file == null) {
+                            } else if (settings.current_file == null || settings.current_file == cache) {
                                 set_subtitle ("No Documents Open");
                             }
                             dialog.close ();
@@ -90,14 +88,11 @@ namespace Quilter.Widgets {
                             settings.current_file = cache;
                             Widgets.EditView.buffer.set_modified (false);
                             if (this.subtitle != cache) {
-                                set_subtitle (settings.current_file);
-                            } else if (this.subtitle != cache) {
                                 set_subtitle ("No Documents Open");
-                            } else if (settings.current_file == null) {
+                            } else if (settings.current_file == null || settings.current_file == cache) {
                                 set_subtitle ("No Documents Open");
                             }
                             if (win.sidebar != null)
-                                win.sidebar.clean_all ();
                                 win.sidebar.add_file (cache);
                             dialog.close ();
                             break;

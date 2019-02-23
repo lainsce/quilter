@@ -80,16 +80,12 @@ namespace Quilter.Services.FileManager {
         string file_path = file.get_path ();
         string text;
         cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
-
         settings.current_file = file_path;
         files += file_path;
         settings.last_files = files;
-
-        foreach (Gtk.Widget item in win.sidebar.column.get_children ()) {
-            item.destroy ();
+        if (win.sidebar != null) {
+            win.sidebar.add_file (file_path);
         }
-        win.sidebar.add_file (file_path);
-
         if (settings.current_file == cache || settings.current_file == "" || settings.current_file == "New File") {
             foreach (Gtk.Widget item in win.sidebar.column.get_children ()) {
                 item.destroy ();

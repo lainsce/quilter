@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
             sb_context.add_class ("quilter-sidebar");
             column.hexpand = false;
             column.vexpand = true;
-            column.set_size_request (250,-1);
+            column.set_size_request (280,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -76,28 +76,12 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var file_clean_button = new Gtk.Button ();
-            var fcb_context = file_clean_button.get_style_context ();
-            fcb_context.add_class ("quilter-sidebar-button");
-            file_clean_button.vexpand = false;
-            file_clean_button.hexpand = false;
-            file_clean_button.valign = Gtk.Align.CENTER;
-            file_clean_button.tooltip_text = "Clean files from Sidebar";
-            var file_clean_button_style_context = file_clean_button.get_style_context ();
-            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-
-            file_clean_button.clicked.connect (() => {
-                clean_all_check ();
-            });
-
             column.show_all ();
 
             var grid = new Gtk.Grid ();
             grid.hexpand = false;
-            grid.set_size_request (250,-1);
+            grid.set_size_request (280,-1);
             grid.attach (column, 0,0,1,1);
-            grid.attach (file_clean_button, 0,1,1,1);
 
             this.add (grid);
 
@@ -117,6 +101,13 @@ namespace Quilter.Widgets {
 	                s_files.add ((SideBarBox)item);
             }
             return s_files;
+        }
+        
+        public GLib.List<unowned SideBarBox> get_rows () {
+            return (GLib.List<unowned SideBarBox>) column.get_children ();
+        }
+        public unowned SideBarBox? get_selected_row () {
+            return (SideBarBox) column.get_selected_row ();
         }
 
         public void add_file (string file) {
@@ -146,46 +137,6 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
-        }
-
-        public void clean_all () {
-            var settings = AppSettings.get_default ();
-            settings.last_files = null;
-            settings.current_file = cache;
-            if (s_files != null)
-                s_files.clear ();
-            foreach (Gtk.Widget item in column.get_children ()) {
-                item.destroy ();
-            }
-            Widgets.EditView.buffer.text = "";
-            add_file(cache);
-        }
-
-        public void clean_all_check () {
-            var dialog = new Services.DialogUtils.ClearDialog ();
-                dialog.transient_for = win;
-
-                dialog.response.connect ((response_id) => {
-                    switch (response_id) {
-                        case Gtk.ResponseType.OK:
-                            clean_all ();
-                            dialog.close ();
-                            break;
-                        case Gtk.ResponseType.NO:
-                        case Gtk.ResponseType.CANCEL:
-                        case Gtk.ResponseType.CLOSE:
-                        case Gtk.ResponseType.DELETE_EVENT:
-                            dialog.close ();
-                            break;
-                        default:
-                            assert_not_reached ();
-                    }
-                });
-
-
-                if (Widgets.EditView.buffer.get_modified() == true) {
-                    dialog.run ();
-                }
         }
     }
 }
