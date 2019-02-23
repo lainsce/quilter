@@ -65,20 +65,7 @@ namespace Quilter.Widgets {
 
             column.row_selected.connect ((row) => {
                 if (((Widgets.SideBarBox)row) != null) {
-<<<<<<< HEAD
                     row_selected ((Widgets.SideBarBox)row);
-=======
-                    try {
-                        string text;
-                        string file_path = ((Widgets.SideBarBox)row).file_label.label;
-                        settings.current_file = file_path;
-                        var file = File.new_for_path (file_path);
-                        GLib.FileUtils.get_contents (file.get_path (), out text);
-                        Widgets.EditView.buffer.text = text;
-                    } catch (Error e) {
-                        warning ("Error: %s\n", e.message);
-                    }
->>>>>>> 16cf4edb7848c22b072c18ea312616f9dfcec941
                 }
             });
 
