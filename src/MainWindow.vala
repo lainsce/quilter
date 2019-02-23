@@ -136,11 +136,7 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.o, keycode)) {
-                        try {
-                            Services.FileManager.open (this);
-                        } catch (Error e) {
-                            warning ("Unexpected error during open: " + e.message);
-                        }
+                        on_open ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -226,6 +222,9 @@ namespace Quilter {
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             toolbar = new Widgets.Headerbar (this);
+            toolbar.open.connect (on_open);
+            toolbar.save.connect (on_save);
+            toolbar.save_as.connect (on_save_as);
             toolbar.title = this.title;
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
@@ -303,6 +302,7 @@ namespace Quilter {
 
             statusbar = new Widgets.StatusBar ();
             sidebar = new Widgets.SideBar (this);
+            sidebar.row_selected.connect (on_sidebar_row_selected);
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
@@ -493,6 +493,47 @@ namespace Quilter {
 
         public void show_font_button (bool v) {
             set_font_menu.set_visible (v);
+        }
+
+        private void on_open () {
+            try {
+                string contents;
+                string path = Services.FileManager.open (out contents);
+
+                edit_view_content.text = contents;
+                sidebar.add_file (path);
+            } catch (Error e) {
+                warning ("Unexpected error during open: " + e.message);
+            }
+        }
+
+        private void on_save () {
+            try {
+                Services.FileManager.save ();
+            } catch (Error e) {
+                warning ("Unexpected error during open: " + e.message);
+            }
+        }
+
+        private void on_save_as () {
+            try {
+                Services.FileManager.save_as (edit_view_content.text);
+                edit_view_content.modified = false;
+            } catch (Error e) {
+                warning ("Unexpected error during open: " + e.message);
+            }
+        }
+
+        private void on_sidebar_row_selected (Widgets.SideBarBox box) {
+            string file_path = box.file_label.label;
+            AppSettings.get_default ().current_file = file_path;
+
+            var file = File.new_for_path (file_path);
+
+            string text;
+            GLib.FileUtils.get_contents (file.get_path (), out text);
+
+            edit_view_content.text = text;
         }
     }
 }

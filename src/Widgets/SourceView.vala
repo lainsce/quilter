@@ -76,6 +76,23 @@ namespace Quilter.Widgets {
             }
         }
 
+        public string text {
+            owned get {
+                return buffer.text;
+            }
+
+            set {
+                buffer.text = value;
+                buffer.set_modified (false);
+            }
+        }
+
+        public bool modified {
+            set {
+                buffer.set_modified (value);
+            }
+        }
+
         public EditView () {
             update_settings ();
             var settings = AppSettings.get_default ();

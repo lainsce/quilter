@@ -27,6 +27,8 @@ namespace Quilter.Widgets {
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}
 
+        public signal void row_selected (Widgets.SideBarBox box);
+
         public SideBar (MainWindow win) {
             this.win = win;
             var settings = AppSettings.get_default ();
@@ -53,18 +55,7 @@ namespace Quilter.Widgets {
 
             column.row_selected.connect ((row) => {
                 if (((Widgets.SideBarBox)row) != null) {
-                    try {
-                        string text;
-                        string file_path = ((Widgets.SideBarBox)row).file_label.label;
-                        settings.current_file = file_path;
-                        if (settings.current_file == cache)
-                                settings.current_file = "No Documents Open";
-                        var file = File.new_for_path (file_path);
-                        GLib.FileUtils.get_contents (file.get_path (), out text);
-                        Widgets.EditView.buffer.text = text;
-                    } catch (Error e) {
-                        warning ("Error: %s\n", e.message);
-                    }
+                    row_selected ((Widgets.SideBarBox)row);
                 }
             });
 

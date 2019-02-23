@@ -22,9 +22,18 @@ namespace Quilter.Services.FileManager {
     public Widgets.EditView view;
     private string[] files;
 
-    public void save_file (string path) throws Error {
+    private static string? cache;
+    public static string get_cache_path () {
+        if (cache == null) {
+            cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
+        }
+
+        return cache;
+    }
+
+    public void save_file (string path, string contents) throws Error {
         try {
-            GLib.FileUtils.set_contents (path, Widgets.EditView.buffer.text);
+            GLib.FileUtils.set_contents (path, contents);
         } catch (Error err) {
             print ("Error writing file: " + err.message);
         }
@@ -50,7 +59,7 @@ namespace Quilter.Services.FileManager {
         string file_path = tmp_file.get_path ();
         debug ("Saving cache...");
         try {
-            save_file (file_path);
+            //  save_file (file_path);
         } catch (Error e) {
             warning ("Exception found: "+ e.message);
         }
@@ -80,31 +89,10 @@ namespace Quilter.Services.FileManager {
         return true;
     }
 
-    public void open (MainWindow win) throws Error {
-        debug ("Open button pressed.");
-        var settings = AppSettings.get_default ();
+    public static string open (out string contents) {
         var file = Services.DialogUtils.display_open_dialog ();
-        string file_path = file.get_path ();
-        string text;
-        settings.current_file = file_path;
-        files += file_path;
-        settings.last_files = files;
-        if (win.sidebar != null && !(settings.current_file in settings.last_files)) {
-            win.sidebar.add_file (file_path);
-        }
-        try {
-            debug ("Opening file...");
-            if (file == null) {
-                debug ("User cancelled operation. Aborting.");
-            } else {
-                GLib.FileUtils.get_contents (file.get_path (), out text);
-                Widgets.EditView.buffer.text = text;
-                Widgets.EditView.buffer.set_modified (false);
-                file = null;
-            }
-        } catch (Error e) {
-            warning ("Unexpected error during open: " + e.message);
-        }
+        GLib.FileUtils.get_contents (file.get_path (), out contents);
+        return file.get_path ();
     }
 
     public void save () throws Error {
@@ -117,7 +105,7 @@ namespace Quilter.Services.FileManager {
             if (file == null) {
                 debug ("User cancelled operation. Aborting.");
             } else {
-                save_file (file_path);
+                //  save_file (file_path);
                 file = null;
                 Widgets.EditView.buffer.set_modified (false);
             }
@@ -126,25 +114,26 @@ namespace Quilter.Services.FileManager {
         }
     }
 
-    public void save_as () throws Error {
+    public void save_as (string contents) throws Error {
         debug ("Save as button pressed.");
         var file = Services.DialogUtils.display_save_dialog ();
         if (!file.get_basename ().down ().has_suffix (".md")) {
-                file = File.new_for_path (file.get_path () + ".md");
+            file = File.new_for_path (file.get_path () + ".md");
         }
-        string file_path = file.get_path ();
+
+        string path = file.get_path ();
 
         try {
             debug ("Saving file...");
             if (file == null) {
                 debug ("User cancelled operation. Aborting.");
             } else {
-                save_file (file_path);
+                save_file (path, contents);
                 file = null;
-                Widgets.EditView.buffer.set_modified (false);
             }
         } catch (Error e) {
             warning ("Unexpected error during save: " + e.message);
+            throw e;
         }
     }
 }
