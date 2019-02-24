@@ -70,7 +70,6 @@ namespace Quilter.Services.DialogUtils {
             var cws = add_button (_("Close Without Saving"), Gtk.ResponseType.NO);
             var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
             cancel.clicked.connect (() => { destroy (); });
-            this.show_all ();
         }
     }
 }

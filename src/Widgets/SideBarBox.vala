@@ -19,14 +19,42 @@
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
         public MainWindow win;
-        public Gtk.Label file_name_label;
-        public Gtk.Label file_label;
+        private Gtk.Label file_name_label;
+        private Gtk.Label file_label;
         public Gtk.Grid file_grid;
         public SideBar sb;
-        public string file;
-        public SideBarBox (MainWindow win, string file) {
+
+        private string? _path;
+        public new string? path {
+            owned get {
+                return _path;
+            }
+            set {
+                _path = value;
+                if (_path == Services.FileManager.get_cache_path ()) {
+                    file_name_label.label = "New Document";
+                    file_label.label = "New File";
+                } else {
+                    file_name_label.label = Path.get_basename (_path);
+                    file_label.label = path;
+                }
+            }
+        }
+
+        public string title {
+            owned get {
+                if (path != Services.FileManager.get_cache_path ()) {
+                    return file_label.label;
+                } else {
+                    return "New File";
+                }
+            }
+        }
+
+        public signal void save_as ();
+
+        public SideBarBox (MainWindow win, string? path) {
             this.win = win;
-            this.file = file;
             this.activatable = true;
             this.set_size_request (180,-1);
             this.hexpand = false;
@@ -39,13 +67,11 @@ namespace Quilter.Widgets {
             file_name_label.max_width_chars = 27;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
-            file_name_label.label = GLib.Filename.display_basename (this.file);
             file_label = new Gtk.Label ("~/new_document.md");
             file_label.halign = Gtk.Align.START;
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
             file_label.hexpand = false;
-            file_label.label = this.file;
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
             var file_remove_button = new Gtk.Button();
             var file_remove_button_c = file_remove_button.get_style_context ();
@@ -77,7 +103,8 @@ namespace Quilter.Widgets {
                         case Gtk.ResponseType.OK:
                             debug ("User saves the file.");
                             try {
-                                Services.FileManager.save_as ();
+                                //  Services.FileManager.save_as ();
+                                save_as ();
                             } catch (Error e) {
                                 warning ("Unexpected error during save: " + e.message);
                             }
@@ -108,6 +135,8 @@ namespace Quilter.Widgets {
             this.add (file_grid);
             this.hexpand = true;
             this.show_all ();
+
+            this.path = path;
         }
         public void delete_row () {
             this.destroy ();

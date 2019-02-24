@@ -90,29 +90,8 @@ namespace Quilter {
 
             var settings = AppSettings.get_default ();
 
-            show_statusbar ();
-            show_sidebar ();
-            update_count ();
-            show_font_button (false);
-
-            if (!settings.focus_mode) {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
-            } else {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            }
-
-            settings.changed.connect (() => {
-                show_statusbar ();
-                show_sidebar ();
-                show_searchbar ();
-                update_count ();
-
-                if (!settings.focus_mode) {
-                    set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
-                } else {
-                    set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-                }
-            });
+            settings.changed.connect (on_settings_changed);
+            on_settings_changed ();
 
             Widgets.EditView.buffer.changed.connect (() => {
                 render_func ();
@@ -129,7 +108,7 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.s, keycode)) {
                         try {
-                            Services.FileManager.save ();
+                            on_save ();
                         } catch (Error e) {
                             warning ("Unexpected error during open: " + e.message);
                         }
@@ -226,6 +205,7 @@ namespace Quilter {
             toolbar.open.connect (on_open);
             toolbar.save.connect (on_save);
             toolbar.save_as.connect (on_save_as);
+            toolbar.create_new.connect (on_create_new);
             toolbar.title = this.title;
             toolbar.has_subtitle = false;
             this.set_titlebar (toolbar);
@@ -265,6 +245,7 @@ namespace Quilter {
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView ();
+            edit_view_content.save.connect (() => on_save ());
             edit_view_content.monospace = true;
             edit_view.add (edit_view_content);
 
@@ -303,6 +284,7 @@ namespace Quilter {
             statusbar = new Widgets.StatusBar ();
             sidebar = new Widgets.SideBar (this);
             sidebar.row_selected.connect (on_sidebar_row_selected);
+            sidebar.save_as.connect (() => on_save_as ());
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
@@ -333,10 +315,8 @@ namespace Quilter {
                 this.resize (w, h);
             }
 
-            if (settings.current_file == "")
-                Services.FileManager.setup_tmp_file ();
-                toolbar.set_subtitle ("No Documents Open");
-
+            update_title ();
+            on_sidebar_row_selected (sidebar.get_selected_row ());
             // Register for redrawing of window for handling margins and other
             // redrawing
             configure_event.connect ((event) => {
@@ -385,17 +365,14 @@ namespace Quilter {
             settings.shown_view = v;
             string file_path = settings.current_file;
 
-            if (settings.current_file != "") {
-                debug ("Saving working file...");
-                try {
-                    Services.FileManager.save ();
-                } catch (Error err) {
-                    print ("Error writing file: " + err.message);
-                }
-            } else if (file_path == "No Open Files") {
-                debug ("Saving cache...");
-                Services.FileManager.save_tmp_file ();
+            string[] files = {};
+            foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
+                files += row.path;
             }
+
+            settings.last_files = files;
+
+            on_save ();
             return false;
         }
 
@@ -499,6 +476,75 @@ namespace Quilter {
             set_font_menu.visible = v;
         }
 
+        private void update_title () {
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                    toolbar.set_subtitle (row.title);
+                //      if (row.file_label.label == Services.FileManager.get_cache_path ()) {
+                //      toolbar.set_subtitle ("New Document");
+                //  } else {
+                //      toolbar.set_subtitle (row.file_label.label);
+                //  }
+            } else {
+                toolbar.set_subtitle ("No Documents Open");
+            }
+        }
+
+        private void on_settings_changed () {
+            show_statusbar ();
+            show_sidebar ();
+            show_searchbar ();
+            update_count ();
+
+            var settings = AppSettings.get_default ();
+            if (!settings.focus_mode) {
+                set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
+            } else {
+                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            }
+        }
+
+        private void on_create_new () {
+            print ("CRETEA NEW\n");
+            var dialog = new Services.DialogUtils.Dialog ();
+            dialog.transient_for = this;
+
+            dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                        debug ("User saves the file.");
+                        unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+                        if (row != null && row.path != null) {
+                            on_save ();
+                        } else {
+                            on_save_as ();
+                        }
+
+                        edit_view_content.modified = false;
+                        dialog.close ();
+                        break;
+                    case Gtk.ResponseType.NO:
+                        edit_view_content.modified = false;
+                        dialog.close ();
+                        break;
+                    case Gtk.ResponseType.CANCEL:
+                    case Gtk.ResponseType.CLOSE:
+                    case Gtk.ResponseType.DELETE_EVENT:
+                        dialog.close ();
+                        return;
+                    default:
+                        assert_not_reached ();
+                }
+            });
+
+
+            if (edit_view_content.modified) {
+                dialog.run ();
+            }
+
+            sidebar.add_file (Services.FileManager.get_cache_path ());
+        }
+
         private void on_open () {
             try {
                 string contents;
@@ -512,10 +558,10 @@ namespace Quilter {
         }
 
         private void on_save () {
-            try {
-                Services.FileManager.save ();
-            } catch (Error e) {
-                warning ("Unexpected error during open: " + e.message);
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                Services.FileManager.save_file (row.path ?? Services.FileManager.get_cache_path (), edit_view_content.text);
+                edit_view_content.modified = false;
             }
         }
 
@@ -528,16 +574,21 @@ namespace Quilter {
             }
         }
 
-        private void on_sidebar_row_selected (Widgets.SideBarBox box) {
-            string file_path = box.file_label.label;
-            AppSettings.get_default ().current_file = file_path;
+        private void on_sidebar_row_selected (Widgets.SideBarBox? box) {
+            if (box != null) {
+                string file_path = box.path;
+                AppSettings.get_default ().current_file = file_path;
 
-            var file = File.new_for_path (file_path);
+                var file = File.new_for_path (file_path);
 
-            string text;
-            GLib.FileUtils.get_contents (file.get_path (), out text);
+                string text;
+                GLib.FileUtils.get_contents (file.get_path (), out text);
 
-            edit_view_content.text = text;
+                edit_view_content.text = text;
+                edit_view_content.modified = false;
+            }
+
+            update_title ();
         }
     }
 }

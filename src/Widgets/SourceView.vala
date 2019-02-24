@@ -83,7 +83,6 @@ namespace Quilter.Widgets {
 
             set {
                 buffer.text = value;
-                buffer.set_modified (false);
             }
         }
 
@@ -91,7 +90,13 @@ namespace Quilter.Widgets {
             set {
                 buffer.set_modified (value);
             }
+
+            get {
+                return buffer.get_modified ();
+            }
         }
+
+        public signal void save ();
 
         public EditView () {
             update_settings ();
@@ -108,8 +113,8 @@ namespace Quilter.Widgets {
                     GLib.FileUtils.get_contents (filename, out text);
                     buffer.text = text;
                 } else {
-                    string filename = Services.FileManager.setup_tmp_file ().get_path ();
-                    GLib.FileUtils.get_contents (filename, out text);
+                    Services.FileManager.save_tmp_file ();
+                    GLib.FileUtils.get_contents (Services.FileManager.get_cache_path (), out text);
                     buffer.text = text;
                 }
             } catch (Error e) {
@@ -188,7 +193,7 @@ namespace Quilter.Widgets {
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
                     try {
-                        Services.FileManager.save ();
+                        save ();
                         buffer.set_modified (false);
                     } catch (Error err) {
                         print ("Error writing file: " + err.message);

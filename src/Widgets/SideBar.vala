@@ -28,6 +28,7 @@ namespace Quilter.Widgets {
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}
 
+        public signal void save_as ();
         public signal void row_selected (Widgets.SideBarBox box);
 
         public SideBar (MainWindow win) {
@@ -44,22 +45,15 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
 
             if (settings.current_file == "") {
-                filebox = new SideBarBox (this.win, "");
+                filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
-                filebox.file_name_label.label = "New Document";
-                filebox.file_label.label = "New File";
                 column.select_row (filebox);
-            } else {
-                foreach (string f in settings.last_files) {
-                    add_file (f);
-                }
             }
 
-            foreach (var file in get_files ()) {
-                files += file.file_label.label;
-                settings.last_files = files;
-                if (file.file_label.label in settings.current_file) {
-                    column.select_row (file);
+            foreach (string f in settings.last_files) {
+                var row = add_file (f);
+                if (settings.current_file == f) {
+                    column.select_row (row);
                 }
             }
 
@@ -103,23 +97,14 @@ namespace Quilter.Widgets {
             return (SideBarBox) column.get_selected_row ();
         }
 
-        public void add_file (string file) {
+        public SideBarBox add_file (string file) {
             var settings = AppSettings.get_default ();
-            filebox = new SideBarBox (this.win, file);
+            var filebox = new SideBarBox (this.win, file);
+            filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
             column.select_row (filebox);
-            if (settings.current_file == cache) {
-                filebox.file_name_label.label = "New Document";
-                filebox.file_label.label = "New File";
-                column.select_row (filebox);
-                files += cache;
-                settings.last_files = files;
-            }
-            if (settings.current_file == "") {
-                filebox.file_name_label.label = "New Document";
-                filebox.file_label.label = "New File";
-                column.select_row (filebox);
-            }
+
+            return filebox;
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {
