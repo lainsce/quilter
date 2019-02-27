@@ -22,6 +22,11 @@ namespace Quilter.Widgets {
         public Preview preview;
         public MainWindow win;
 
+        public signal void open ();
+        public signal void save_as ();
+        public signal void save ();
+        public signal void create_new ();
+
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_button;
@@ -49,7 +54,7 @@ namespace Quilter.Widgets {
         private void build_ui () {
             set_title (null);
             var settings = AppSettings.get_default ();
-            string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
+            string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
                 set_subtitle (settings.current_file);
             } else if (this.subtitle != cache) {
@@ -61,94 +66,25 @@ namespace Quilter.Widgets {
             new_button.has_tooltip = true;
             new_button.tooltip_text = (_("New file"));
 
-            new_button.clicked.connect (() => {
-                var dialog = new Services.DialogUtils.Dialog ();
-                dialog.transient_for = win;
-
-                dialog.response.connect ((response_id) => {
-                    switch (response_id) {
-                        case Gtk.ResponseType.OK:
-                            debug ("User saves the file.");
-                            try {
-                                Services.FileManager.save_as ();
-                            } catch (Error e) {
-                                warning ("Unexpected error during save: " + e.message);
-                            }
-                            Widgets.EditView.buffer.set_modified (false);
-                            if (this.subtitle != cache) {
-                                set_subtitle ("No Documents Open");
-                            } else if (settings.current_file == null || settings.current_file == cache) {
-                                set_subtitle ("No Documents Open");
-                            }
-                            dialog.close ();
-                            break;
-                        case Gtk.ResponseType.NO:
-                            debug ("User doesn't care about the file, shoot it to space.");
-                            Services.FileManager.file = File.new_for_path (cache);
-                            settings.current_file = cache;
-                            Widgets.EditView.buffer.set_modified (false);
-                            if (this.subtitle != cache) {
-                                set_subtitle ("No Documents Open");
-                            } else if (settings.current_file == null || settings.current_file == cache) {
-                                set_subtitle ("No Documents Open");
-                            }
-                            if (win.sidebar != null)
-                                win.sidebar.add_file (cache);
-                            dialog.close ();
-                            break;
-                        case Gtk.ResponseType.CANCEL:
-                        case Gtk.ResponseType.CLOSE:
-                        case Gtk.ResponseType.DELETE_EVENT:
-                            dialog.close ();
-                            break;
-                        default:
-                            assert_not_reached ();
-                    }
-                });
-
-
-                if (Widgets.EditView.buffer.get_modified() == true) {
-                    dialog.run ();
-                }
-            });
+            new_button.clicked.connect (() => create_new ());
 
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
             save_as_button.tooltip_text = (_("Save as…"));
 
-            save_as_button.clicked.connect (() => {
-                try {
-                    Services.FileManager.save_as ();
-                } catch (Error e) {
-                    warning ("Unexpected error during open: " + e.message);
-                }
-            });
+            save_as_button.clicked.connect (() => save_as ());
 
             save_button = new Gtk.Button ();
             save_button.has_tooltip = true;
             save_button.tooltip_text = (_("Save file"));
 
-            save_button.clicked.connect (() => {
-                try {
-                    Services.FileManager.save ();
-                } catch (Error e) {
-                    warning ("Unexpected error during open: " + e.message);
-                }
-            });
+            save_button.clicked.connect (() => save ());
 
             open_button = new Gtk.Button ();
 			open_button.has_tooltip = true;
             open_button.tooltip_text = (_("Open…"));
 
-            open_button.clicked.connect (() => {
-                try {
-                    Services.FileManager.open (this.win);
-                    this.subtitle = settings.current_file;
-                } catch (Error e) {
-                    warning ("Unexpected error during open: " + e.message);
-                }
-            });
-
+            open_button.clicked.connect (() => open ());
             search_button = new Gtk.ToggleButton ();
             search_button.has_tooltip = true;
             search_button.tooltip_text = _("Start search");
@@ -325,7 +261,6 @@ namespace Quilter.Widgets {
 
             // This makes the save button show or not, and it's necessary as-is.
             settings.changed.connect (() => {
-                set_subtitle (settings.current_file);
                 if (settings.autosave) {
                     save_button.visible = false;
                     settings.autosave = true;
