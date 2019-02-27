@@ -56,6 +56,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.7.4" date="2019-03-01">
+         <description>
+            <p>Release: VHS Tape Mixer</p>
+            <ul>
+                <li>Reworked a lot of the internals so actions don't kill files. [Adam Bieńkowski - &at;donadigo]</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.7.3" date="2019-03-01">
          <description>
             <p>Release: Betamax Tracker</p>
@@ -77,9 +85,9 @@
             <p>Release: Visually Stunning</p>
             <p>Quilter received a visual upgrade, and also an awesome backend tuneup.</p>
             <ul>
-                <li>- Rewrote all Sidebar functions</li>
-                <li>- Removed LaTeX because it was lagging the app...</li>
-                <li>- All File Management functions rewritten from scratch!</li>
+                <li>Rewrote all Sidebar functions</li>
+                <li>Removed LaTeX because it was lagging the app...</li>
+                <li>All File Management functions rewritten from scratch!</li>
             </ul>
          </description>
         </release>

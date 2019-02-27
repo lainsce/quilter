@@ -52,7 +52,7 @@ namespace Quilter.Widgets {
 
             foreach (string f in settings.last_files) {
                 var row = add_file (f);
-                if (settings.current_file == f) {
+                if (f == settings.current_file) {
                     column.select_row (row);
                 }
             }
@@ -89,7 +89,7 @@ namespace Quilter.Widgets {
             }
             return s_files;
         }
-        
+
         public GLib.List<unowned SideBarBox> get_rows () {
             return (GLib.List<unowned SideBarBox>) column.get_children ();
         }
@@ -98,11 +98,9 @@ namespace Quilter.Widgets {
         }
 
         public SideBarBox add_file (string file) {
-            var settings = AppSettings.get_default ();
             var filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
-            column.select_row (filebox);
 
             return filebox;
         }

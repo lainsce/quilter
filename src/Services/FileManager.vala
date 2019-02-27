@@ -72,8 +72,12 @@ namespace Quilter.Services.FileManager {
     }
 
     public static string open (out string contents) {
-        var file = Services.DialogUtils.display_open_dialog ();
-        GLib.FileUtils.get_contents (file.get_path (), out contents);
+        try {
+            var file = Services.DialogUtils.display_open_dialog ();
+            GLib.FileUtils.get_contents (file.get_path (), out contents);
+        } catch (Error e) {
+            warning ("Error: %s", e.message);
+        }
         return file.get_path ();
     }
 

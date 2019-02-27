@@ -107,11 +107,7 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.s, keycode)) {
-                        try {
-                            on_save ();
-                        } catch (Error e) {
-                            warning ("Unexpected error during open: " + e.message);
-                        }
+                        on_save ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -265,7 +261,7 @@ namespace Quilter {
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
-            
+
             ((Gtk.RadioButton)(view_mode.get_children().first().data)).set_active (true);
             ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
                 show_font_button (false);
@@ -363,7 +359,6 @@ namespace Quilter {
             settings.window_width = w;
             settings.window_height = h;
             settings.shown_view = v;
-            string file_path = settings.current_file;
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -371,6 +366,7 @@ namespace Quilter {
             }
 
             settings.last_files = files;
+            set_prev_workfile ();
 
             on_save ();
             return false;
@@ -479,14 +475,16 @@ namespace Quilter {
         private void update_title () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
-                    toolbar.set_subtitle (row.title);
-                //      if (row.file_label.label == Services.FileManager.get_cache_path ()) {
-                //      toolbar.set_subtitle ("New Document");
-                //  } else {
-                //      toolbar.set_subtitle (row.file_label.label);
-                //  }
+                toolbar.set_subtitle (row.title);
             } else {
                 toolbar.set_subtitle ("No Documents Open");
+            }
+        }
+
+        private void set_prev_workfile () {
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                AppSettings.get_default ().current_file = row.title;
             }
         }
 
@@ -546,22 +544,22 @@ namespace Quilter {
         }
 
         private void on_open () {
-            try {
-                string contents;
-                string path = Services.FileManager.open (out contents);
+            string contents;
+            string path = Services.FileManager.open (out contents);
 
-                edit_view_content.text = contents;
-                sidebar.add_file (path);
-            } catch (Error e) {
-                warning ("Unexpected error during open: " + e.message);
-            }
+            edit_view_content.text = contents;
+            sidebar.add_file (path);
         }
 
         private void on_save () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
-                Services.FileManager.save_file (row.path ?? Services.FileManager.get_cache_path (), edit_view_content.text);
-                edit_view_content.modified = false;
+                try {
+                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_cache_path (), edit_view_content.text);
+                    edit_view_content.modified = false;
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
             }
         }
 
@@ -576,16 +574,20 @@ namespace Quilter {
 
         private void on_sidebar_row_selected (Widgets.SideBarBox? box) {
             if (box != null) {
-                string file_path = box.path;
-                AppSettings.get_default ().current_file = file_path;
+                try {
+                    string file_path = box.path;
+                    AppSettings.get_default ().current_file = file_path;
 
-                var file = File.new_for_path (file_path);
+                    var file = File.new_for_path (file_path);
 
-                string text;
-                GLib.FileUtils.get_contents (file.get_path (), out text);
+                    string text;
+                    GLib.FileUtils.get_contents (file.get_path (), out text);
 
-                edit_view_content.text = text;
-                edit_view_content.modified = false;
+                    edit_view_content.text = text;
+                    edit_view_content.modified = false;
+                } catch (Error e) {
+                    warning ("Unexpected error during selection: " + e.message);
+                }
             }
 
             update_title ();

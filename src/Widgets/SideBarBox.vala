@@ -60,14 +60,14 @@ namespace Quilter.Widgets {
             this.hexpand = false;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
-            file_name_label = new Gtk.Label ("New Document");
+            file_name_label = new Gtk.Label ("");
             file_name_label.halign = Gtk.Align.START;
             file_name_label.hexpand = false;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
             file_name_label.max_width_chars = 27;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
-            file_label = new Gtk.Label ("~/new_document.md");
+            file_label = new Gtk.Label ("");
             file_label.halign = Gtk.Align.START;
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
@@ -102,12 +102,7 @@ namespace Quilter.Widgets {
                     switch (response_id) {
                         case Gtk.ResponseType.OK:
                             debug ("User saves the file.");
-                            try {
-                                //  Services.FileManager.save_as ();
-                                save_as ();
-                            } catch (Error e) {
-                                warning ("Unexpected error during save: " + e.message);
-                            }
+                            save_as ();
                             this.destroy ();
                             dialog.close ();
                             Widgets.EditView.buffer.text = "";
@@ -130,6 +125,11 @@ namespace Quilter.Widgets {
                 });
                 if (Widgets.EditView.buffer.get_modified() == true) {
                     dialog.run ();
+                } else {
+                    this.destroy ();
+                    Widgets.EditView.buffer.text = "";
+                    Services.FileManager.file = null;
+                    win.toolbar.set_subtitle ("No Documents Open");
                 }
             });
             this.add (file_grid);
