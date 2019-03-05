@@ -85,6 +85,7 @@ namespace Quilter.Widgets {
             open_button.tooltip_text = (_("Open…"));
 
             open_button.clicked.connect (() => open ());
+
             search_button = new Gtk.ToggleButton ();
             search_button.has_tooltip = true;
             search_button.tooltip_text = _("Start search");

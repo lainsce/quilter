@@ -503,7 +503,6 @@ namespace Quilter {
         }
 
         private void on_create_new () {
-            print ("CRETEA NEW\n");
             var dialog = new Services.DialogUtils.Dialog ();
             dialog.transient_for = this;
 
