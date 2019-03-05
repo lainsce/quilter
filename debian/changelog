@@ -1,4 +1,10 @@
-com.github.lainsce.quilter (1.7.1) xenial; urgency=low
+com.github.lainsce.quilter (1.7.5) xenial; urgency=low
+
+  * Some opening file tuneups.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 08 Mar 2019 17:37:00 -0300
+
+com.github.lainsce.quilter (1.7.4) xenial; urgency=low
 
   * Some fixes and tuneups.
 

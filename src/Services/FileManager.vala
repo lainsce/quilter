@@ -73,7 +73,11 @@ namespace Quilter.Services.FileManager {
 
     public static string open (out string contents) {
         try {
-            var file = Services.DialogUtils.display_open_dialog ();
+            var chooser = Services.DialogUtils.create_file_chooser (_("Open file"),
+                    Gtk.FileChooserAction.OPEN);
+            if (chooser.run () == Gtk.ResponseType.ACCEPT)
+                file = chooser.get_file ();
+            chooser.destroy();
             GLib.FileUtils.get_contents (file.get_path (), out contents);
         } catch (Error e) {
             warning ("Error: %s", e.message);
@@ -83,7 +87,11 @@ namespace Quilter.Services.FileManager {
 
     public void save_as (string contents) throws Error {
         debug ("Save as button pressed.");
-        var file = Services.DialogUtils.display_save_dialog ();
+        var chooser = Services.DialogUtils.create_file_chooser (_("Save file"),
+                Gtk.FileChooserAction.SAVE);
+        if (chooser.run () == Gtk.ResponseType.ACCEPT)
+            file = chooser.get_file ();
+        chooser.destroy();
         if (!file.get_basename ().down ().has_suffix (".md")) {
             file = File.new_for_path (file.get_path () + ".md");
         }
