@@ -3,37 +3,38 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#232629" background="#FCFCFC"/>
-  <style name="cursor"          foreground="#3daee9"/>
+  <style name="text"            foreground="#333" background="#FFF"/>
+  <style name="cursor"          foreground="#0073c5"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#EAEAEA" background="#3daee9"/>
+  <style name="selection"       foreground="#EEE" background="#0073c5"/>
+  <style name="search-match"    foreground="#333" background="#EEAA00"/>
 
   <!-- Bold -->
-  <style name="def:statement" foreground="#232629"  bold="true"/>
+  <style name="def:statement" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#4d4d4d" italic="true"/>
+  <style name="def:doc-comment-element" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#3daee9"/>
-  <style name="def:underlined" foreground="#3daee9"/>
+  <style name="def:comment" foreground="#0073c5"/>
+  <style name="def:underlined" foreground="#0073c5"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#4d4d4d"/>
+  <style name="def:identifier" background="#F0F0F0" foreground="#333"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#232629"/>
+  <style name="def:note" foreground="#333"/>
 
   <!-- Label -->
-  <style name="def:preprocessor" foreground="#232629"/>
+  <style name="def:preprocessor" foreground="#333"/>
 
   <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#3daee9"/>
-  <style name="def:constant" foreground="#3daee9"/>
+  <style name="def:shebang" foreground="#0073c5"/>
+  <style name="def:constant" foreground="#0073c5"/>
 
   <!-- Backslash Escaping -->
-  <style name="def:special-char" foreground="#4d4d4d"/>
+  <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#232629" bold="true"/>
+  <style name="def:type" foreground="#333" bold="true"/>
 </style-scheme>

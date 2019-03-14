@@ -1,13 +1,50 @@
-@define-color colorPrimary #F5F5F5;
-@define-color textColorPrimary shade (@colorPrimary, 0.1);
+@define-color colorPrimary #EEE;
+@define-color textColorPrimary #333;
+@define-color accentColor #0073c5;
+
+.quilter-toolbar {
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    box-shadow: 0 1px transparent inset;
+}
+
+.quilter-sidebar {
+    border-bottom-color: transparent;
+    border-bottom-width: 1px;
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    box-shadow: 0 1px transparent inset;
+}
 
 actionbar,
 .action-bar {
-    border-top-color: transparent;
     background: @colorPrimary;
     color: @textColorPrimary;
-    box-shadow:
-        inset 1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset -1px 0 0 0 alpha (shade (@colorPrimary, 1.4), 0.6),
-        inset 0 -1px 0 0 alpha (shade (@colorPrimary, 1.4), 0.8);
+    box-shadow: 0 1px transparent inset;
+}
+
+.quilter-menu:hover,
+.quilter-menu:backdrop:active {
+    background-color: alpha (@accentColor, 0.35);
+}
+
+.quilter-sidebar-box:hover {
+    background: shade (@colorPrimary, 0.95);
+    color: @textColorPrimary;
+}
+
+.quilter-sidebar-box:active,
+.quilter-sidebar-box:focus,
+.quilter-sidebar-box:selected {
+    background: alpha (@accentColor, 0.12);
+}
+
+.quilter-sidebar-box:active:hover,
+.quilter-sidebar-box:focus:hover,
+.quilter-sidebar-box:selected:hover {
+    background: alpha (@accentColor, 0.22);
+}
+
+.quilter-sidebar-box:selected {
+    color: @accentColor;
 }

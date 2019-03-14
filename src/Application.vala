@@ -18,27 +18,26 @@
 *
 */
 namespace Quilter {
-    public class Application : Granite.Application {
+    public class Application : Gtk.Application {
         private static bool print_cr = false;
+        private static bool open_view = false;
         private static string _cwd;
 
-        public static MainWindow window = null;
+        public static MainWindow win = null;
+        public Widgets.Headerbar toolbar;
         public static string[] supported_mimetypes;
 
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             flags |= ApplicationFlags.HANDLES_OPEN;
             application_id = "com.github.lainsce.quilter";
-            program_name = "Quilter";
-            exec_name = "com.github.lainsce.quilter";
-            app_launcher = "com.github.lainsce.quilter";
 
             supported_mimetypes = {"text/markdown"};
             register_default_handler ();
         }
 
         protected override void activate () {
-            new_window ();
+            new_win ();
         }
 
         public static int main (string[] args) {
@@ -49,22 +48,27 @@ namespace Quilter {
             return app.run (args);
         }
 
-        public void new_window () {
-            if (window != null) {
-                window.present ();
+        public void new_win () {
+            if (win != null) {
+                win.present ();
                 return;
             }
-            window = new MainWindow (this);
-            window.show_all ();
+            win = new MainWindow (this);
+
+            if (open_view) {
+                win.stack.set_visible_child (win.preview_view);
+                open_view = false;
+            } else {
+                win.stack.set_visible_child (win.edit_view);
+            }
+            win.show_all ();
         }
 
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
-
             var context = new OptionContext ("File");
             context.add_main_entries (entries, "com.github.lainsce.quilter");
             context.add_group (Gtk.get_option_group (true));
-
             int unclaimed_args;
 
             try {
@@ -77,10 +81,10 @@ namespace Quilter {
             }
 
             if (print_cr) {
-                stdout.printf ("Copyright 2017 Lains\n");
+                stdout.printf ("Copyright 2017-2018 Lains\n");
                 return 0;
             } else {
-                new_window ();
+                new_win ();
             }
 
             // Set Current Directory
@@ -150,22 +154,40 @@ namespace Quilter {
                         }
 
                         if (reason.length > 0) {
-                            warning ("%s", err_msg);
+                            msg = err_msg.printf ("<b>%s</b>".printf (file.get_path ()), reason);
                         }
 
                     } catch (Error e) {
                         warning (e.message);
                     }
+
+                    // Notify the user that something happened.
+                    if (msg.length > 0) {
+                        var parent_win = get_last_win () as Gtk.Window;
+                        var dialog = new Gtk.MessageDialog.with_markup (parent_win,
+                            Gtk.DialogFlags.MODAL,
+                            Gtk.MessageType.ERROR,
+                            Gtk.ButtonsType.CLOSE,
+                            msg);
+                        dialog.run ();
+                        dialog.destroy ();
+                        dialog.close ();
+                    }
                 }
 
                 if (files.length > 0) {
-                    Services.FileManager.open_from_outside (files, "");
-                    var settings = AppSettings.get_default ();
-                    window.toolbar.subtitle = settings.subtitle;
+                    Services.FileManager.open_from_outside (win, files, "");
+                } else {
+                    open_view = false;
                 }
             }
 
             return 0;
+        }
+
+        public MainWindow? get_last_win () {
+            unowned List<weak Gtk.Window> wins = get_windows ();
+            return wins.length () > 0 ? wins.last ().data as MainWindow : null;
         }
 
         private static void register_default_handler () {
@@ -200,6 +222,7 @@ namespace Quilter {
 
         const OptionEntry[] entries = {
             { "copyright", 'v', 0, OptionArg.NONE, out print_cr, ("Print copyright info and exit"), null },
+            { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },
             { null }
         };
     }

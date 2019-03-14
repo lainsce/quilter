@@ -9,11 +9,14 @@
         <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
         <ul>
             <li>Work on a story, one file at a time.</li>
+            <li>Write equations with the built-in LaTeX functions.</li>
             <li>Save your documents anywhere, even on existing files.</li>
             <li>Preview your story in the Preview Mode.</li>
             <li>Configure whether to have Focus Mode or not.</li>
             <li>Configure whether to have Dark Mode or not.</li>
+            <li>Configure whether to have Sepia Mode or not.</li>
             <li>Fullscreen your writing area with F11.</li>
+            <li>Search anytime with the shortcut Ctrl + F</li>
             <li>Quit anytime with the shortcut Ctrl + Q</li>
         </ul>
     </description>
@@ -23,8 +26,175 @@
     <developer_name>Lains</developer_name>
     <url type="homepage">https://github.com/lainsce/quilter/</url>
     <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
+    <content_rating type="oars-1.1">
+        <content_attribute id="violence-cartoon">none</content_attribute>
+        <content_attribute id="violence-fantasy">none</content_attribute>
+        <content_attribute id="violence-realistic">none</content_attribute>
+        <content_attribute id="violence-bloodshed">none</content_attribute>
+        <content_attribute id="violence-sexual">none</content_attribute>
+        <content_attribute id="violence-desecration">none</content_attribute>
+        <content_attribute id="violence-slavery">none</content_attribute>
+        <content_attribute id="violence-worship">none</content_attribute>
+        <content_attribute id="drugs-alcohol">none</content_attribute>
+        <content_attribute id="drugs-narcotics">none</content_attribute>
+        <content_attribute id="drugs-tobacco">none</content_attribute>
+        <content_attribute id="sex-nudity">none</content_attribute>
+        <content_attribute id="sex-themes">none</content_attribute>
+        <content_attribute id="sex-homosexuality">none</content_attribute>
+        <content_attribute id="sex-prostitution">none</content_attribute>
+        <content_attribute id="sex-adultery">none</content_attribute>
+        <content_attribute id="sex-appearance">none</content_attribute>
+        <content_attribute id="language-profanity">none</content_attribute>
+        <content_attribute id="language-humor">none</content_attribute>
+        <content_attribute id="language-discrimination">none</content_attribute>
+        <content_attribute id="social-chat">none</content_attribute>
+        <content_attribute id="social-info">none</content_attribute>
+        <content_attribute id="social-audio">none</content_attribute>
+        <content_attribute id="social-location">none</content_attribute>
+        <content_attribute id="social-contacts">none</content_attribute>
+        <content_attribute id="money-purchasing">none</content_attribute>
+        <content_attribute id="money-gambling">none</content_attribute>
+    </content_rating>
     <releases>
-        <release version="1.5.2" date="2018-02-02">
+        <release version="1.7.5" date="2019-03-08">
+         <description>
+            <p>Release: DVD Cleaner</p>
+            <ul>
+                <li>Fixed: Opening files should never fail now.</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.7.4" date="2019-03-01">
+         <description>
+            <p>Release: VHS Tape Mixer</p>
+            <ul>
+                <li>Reworked a lot of the internals so actions don't kill files. [Adam Bieńkowski - &at;donadigo]</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.7.3" date="2019-03-01">
+         <description>
+            <p>Release: Betamax Tracker</p>
+            <ul>
+                <li>Some UX redefinition in the sidebar, to avoid complicating it.</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.7.2" date="2019-03-01">
+         <description>
+            <p>Release: Kodachrome Selector</p>
+            <ul>
+                <li>Open files without adding duplicate entries, and clear sidbar is you really need to (it has a confirm dialog).</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.7.0" date="2019-02-22">
+         <description>
+            <p>Release: Visually Stunning</p>
+            <p>Quilter received a visual upgrade, and also an awesome backend tuneup.</p>
+            <ul>
+                <li>Rewrote all Sidebar functions</li>
+                <li>Removed LaTeX because it was lagging the app...</li>
+                <li>All File Management functions rewritten from scratch!</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.6.8" date="2018-10-19">
+         <description>
+            <p>Release: Side Serve Sheets</p>
+            <ul>
+                <li>After <b>5 months</b>, the Sidebar has appeared. Track your recent stories files there, or hide it. Your choice.</li>
+            </ul>
+         </description>
+        </release>
+      <release version="1.6.7" date="2018-10-12">
+       <description>
+          <p>Release: Choice Looks Better</p>
+          <ul>
+              <li>All tracking choices as well as preview font choices are better shown.</li>
+          </ul>
+       </description>
+      </release>
+      <release version="1.6.6" date="2018-09-21">
+        <description>
+           <p>Release: Stylish Readable Stories</p>
+           <ul>
+               <li>All text passes a contrast check to be readable now.</li>
+           </ul>
+        </description>
+     </release>
+      <release version="1.6.2" date="2018-09-21">
+        <description>
+           <p>Release: Track Your Stuff Up</p>
+           <ul>
+               <li>You can now set what to track in the document: Characters, Words, or Lines.</li>
+           </ul>
+        </description>
+     </release>
+      <release version="1.6.1" date="2018-08-17">
+        <description>
+           <p>Release: Font Forgery</p>
+           <ul>
+               <li>You can now set the font size for Edit View in the Preferences.</li>
+           </ul>
+        </description>
+     </release>
+      <release version="1.6.0" date="2018-07-20">
+         <description>
+            <p>Release: Sepia &amp; Blues</p>
+            <ul>
+                <li>A new Mode between Light &amp; Dark, the Sepia Mode.</li>
+                <li>A new way to toggle between Modes in the Settings.</li>
+                <li>Dynamargins: the three sizes now autofit for the window's size.</li>
+                <li>A redesign of the main menu.</li>
+                <li>Search any term inside your document.</li>
+                <li>Change Preview Mode's font style on-the-fly.</li>
+                <li>Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when editing.</li>
+                <li>Fixed most of the internal logic to change between Modes.</li>
+                <li>Fixed fullscreen bug. (finally!)</li>
+                <li>Margins when fullscreen reflect the ratio of those on non-fullscreen settings</li>
+                <li>Fixed the refresh rate of Preview Mode.</li>
+            </ul>
+         </description>
+      </release>
+      <release version="1.5.6" date="2018-05-05">
+         <description>
+             <p>Release: Unreleased Bump</p>
+             <ul>
+                 <li>Intentionally left blank.</li>
+             </ul>
+         </description>
+      </release>
+      <release version="1.5.5" date="2018-05-04">
+         <description>
+             <p>Release: Maths? Hardly knew 'er!</p>
+             <ul>
+                 <li>Now you can add LaTeX equations with "$" or "$$" modes.</li>
+             </ul>
+         </description>
+      </release>
+        <release version="1.5.4" date="2018-04-27">
+           <description>
+               <p>Release: Don't Blot Yourself</p>
+               <ul>
+                   <li>Preview Mode will only update on changes from Edit View.</li>
+                   <li>Statusbar will update always.</li>
+               </ul>
+           </description>
+        </release>
+        <release version="1.5.3" date="2018-03-18">
+           <description>
+               <p>Release: All-Around An Inker!</p>
+               <ul>
+                   <li>Preview Mode won't load rogue Javascript code.</li>
+                   <li>Preview Mode will also not autojump to the start of the scroll at any time.</li>
+                   <li>Header becomes Heading in the Cheatsheet.</li>
+                   <li>Fixed the Unsaved changes dialog still killing files when pressing the New File button.</li>
+                   <li>New Translations for: Dutch, Catalan &amp; Spanish.</li>
+               </ul>
+           </description>
+        </release>
+        <release version="1.5.2" date="2018-02-17">
            <description>
                <p>Release: Visual Standardization</p>
                <ul>
@@ -40,126 +210,15 @@
                </ul>
            </description>
         </release>
-        <release version="1.4.9" date="2018-02-02">
-           <description>
-               <p>Release: New Sheets Won't Crumple Old Ones, part 1</p>
-               <ul>
-                   <li>The autosave switch in preferences now saves its last state.</li>
-                   <li>Fixed the changing of type of focus mode highlighting.</li>
-                   <li>Minor fixes.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.6" date="2018-01-26">
-           <description>
-               <p>Release: New Menu &amp; Fries</p>
-               <ul>
-                   <li>The main menu now houses the Dark/Focus Mode buttons previously shown on the statusbar.</li>
-                   <li>The statusbar now shows number of lines, deprecating the toggle in the preferences to show line numbers.</li>
-                   <li>Preferences Dialog had a reorganization of items.</li>
-                   <li>Disabling autosaving in preferences will make you save files manually now with the Save button.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.5" date="2018-01-13">
-           <description>
-               <p>Release: Focus Mode with a Glasses Push-up</p>
-               <ul>
-                   <li>In the Preferences, select if you want Focus Mode to highlight the sentence or the paragraph. (Contributed by Michał "wyhasany" Rowicki)</li>
-                   <li>Add Polish translation</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.4" date="2018-01-05">
-           <description>
-               <p>Release: Highlight Your Path</p>
-               <ul>
-                   <li>In Preview Mode, your code block now have syntax higlighting</li>
-                   <li>Saving Files and Opening Files are now safer, with the subtitle always updating accordingly</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.3" date="2017-11-17">
-           <description>
-               <p>Release: Writing With Numbers</p>
-               <ul>
-                   <li>Added the option to show line numbers.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.2" date="2017-11-10">
-           <description>
-               <p>Release: Polishing The Inkwell</p>
-               <ul>
-                   <li>Fixed as many minor bugs as possible.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.1" date="2017-11-03">
-           <description>
-               <p>Release: Geometric Dreams</p>
-               <ul>
-                   <li>Set your margins in the Preferences.</li>
-                   <li>Set your text spacing in the Preferences.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.4.0" date="2017-10-27">
-           <description>
-               <p>Release: Indication Stories</p>
-               <ul>
-                   <li>Show that the file is unsaved/saved.</li>
-                   <li>Show that either Focus or Dark Mode are really active on the statusbar buttons.</li>
-                   <li>Show how much reading time your story has.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.3.9" date="2017-10-20">
-           <description>
-               <p>Release: High Definition Stories</p>
-               <ul>
-                   <li>Add support for HiDPI icons.</li>
-                   <li>Resize icons to fit the elementary icon grid.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.3.8" date="2017-10-13">
-           <description>
-               <p>Release: Dark Focus</p>
-               <ul>
-                   <li>Add buttons to toggle Focus Mode and Dark Mode on the statusbar.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.3.7" date="2017-10-09">
-           <description>
-               <p>Release: Small Fixes</p>
-               <ul>
-                   <li>Only small fixes in the app to have consistent design.</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.3.6" date="2017-10-08">
-           <description>
-               <p>Release: When in Doubt, Hide your Status</p>
-               <ul>
-                   <li>Added a switch on the Preferences to show or hide the Statusbar in the current session</li>
-               </ul>
-           </description>
-        </release>
-        <release version="1.3.5" date="2017-10-01">
-            <description>
-                <p>Release: Focus pocus!</p>
-                <ul>
-                    <li>The Focus Mode now has a better way of showing focus on the text</li>
-                </ul>
-            </description>
-        </release>
     </releases>
     <screenshots>
         <screenshot type="default">
-            <caption>Normal Mode</caption>
+            <caption>Light Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Sepia Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-sepia.png</image>
         </screenshot>
         <screenshot>
             <caption>Dark Mode</caption>
@@ -169,9 +228,14 @@
             <caption>Focus Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
         </screenshot>
+        <screenshot>
+            <caption>Preview Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
+        </screenshot>
     </screenshots>
     <custom>
         <value key="x-appcenter-color-primary">#b8d2e2</value>
         <value key="x-appcenter-color-primary-text">#333333</value>
+        <value key="x-appcenter-suggested-price">10</value>
     </custom>
 </component>

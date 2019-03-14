@@ -35,16 +35,31 @@ install_data(
 )
 
 install_data(
+    join_paths('schemes', 'quilter-sepia.xml'),
+    install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
+)
+
+install_data(
     join_paths('schemes', 'quilter-dark.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
 )
 
 install_data(
-    join_paths('font', 'PTM55FT.ttf'),
-    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'pt-mono')
+    join_paths('schemes', 'quilter-moon.xml'),
+    install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
+)
+
+install_data(
+    join_paths('font', 'QuiltMono.ttf'),
+    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )
 
 install_subdir(
-    'highlight.js',
+    'plugin/highlight.js',
+    install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
+)
+
+install_subdir(
+    'plugin/font',
     install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])
 )

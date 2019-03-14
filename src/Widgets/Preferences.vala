@@ -18,8 +18,6 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
-        private Gtk.Stack main_stack;
-        private Gtk.StackSwitcher main_stackswitcher;
 
         public Preferences (Gtk.Window? parent) {
             Object (
@@ -34,26 +32,28 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            main_stack = new Gtk.Stack ();
+            var main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
             main_stack.margin_top = 0;
-            main_stackswitcher = new Gtk.StackSwitcher ();
+
+            var main_stackswitcher = new Gtk.StackSwitcher ();
             main_stackswitcher.stack = main_stack;
             main_stackswitcher.halign = Gtk.Align.CENTER;
             main_stackswitcher.homogeneous = true;
             main_stackswitcher.margin = 12;
             main_stackswitcher.margin_top = 0;
 
-            this.main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
-            this.main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
+            main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
+            main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
+            main_stack.add_titled (get_extensions_grid (), "extensions", _("Extensions"));
 
             var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
 
             var main_grid = new Gtk.Grid ();
             main_grid.margin_top = 0;
-            main_grid.attach (this.main_stackswitcher, 0, 0, 1, 1);
-            main_grid.attach (this.main_stack, 0, 1, 1, 1);
+            main_grid.attach (main_stackswitcher, 0, 0, 1, 1);
+            main_grid.attach (main_stack, 0, 1, 1, 1);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
         }
@@ -61,13 +61,9 @@ namespace Quilter.Widgets {
         private Gtk.Widget get_editor_grid () {
             var main_settings = AppSettings.get_default ();
             var editor_grid = new Gtk.Grid ();
+            editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
             editor_grid.column_spacing = 12;
-
-            var editor_header = new Granite.HeaderLabel (_("Editor"));
-            var spellcheck_label = new Gtk.Label (_("Enable Spellchecking:"));
-            spellcheck_label.set_halign (Gtk.Align.END);
-            var spellcheck = new SettingsSwitch ("spellcheck");
 
             var geo_header = new Granite.HeaderLabel (_("Geometry"));
             var spacing_label = new SettingsLabel (_("Spacing of Text:"));
@@ -119,13 +115,13 @@ namespace Quilter.Widgets {
             var margins = main_settings.margins;
 
             switch (margins) {
-                case 40:
+                case Constants.NARROW_MARGIN:
                     margins_size.selected = 0;
                     break;
-                case 80:
+                case Constants.MEDIUM_MARGIN:
                     margins_size.selected = 1;
                     break;
-                case 120:
+                case Constants.WIDE_MARGIN:
                     margins_size.selected = 2;
                     break;
                 default:
@@ -136,13 +132,13 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = 40;
+                        main_settings.margins = Constants.NARROW_MARGIN;
                         break;
                     case 1:
-                        main_settings.margins = 80;
+                        main_settings.margins = Constants.MEDIUM_MARGIN;
                         break;
                     case 2:
-                        main_settings.margins = 120;
+                        main_settings.margins = Constants.WIDE_MARGIN;
                         break;
                     case 3:
                         main_settings.margins = margins;
@@ -150,36 +146,170 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var font_header = new Granite.HeaderLabel (_("Fonts & Type"));
+            var font_label = new SettingsLabel (_("Editor Font Size:"));
+            var font_size = new Granite.Widgets.ModeButton ();
+            font_size.append_text (_("Small"));
+            font_size.append_text (_("Normal"));
+            font_size.append_text (_("Large"));
+
+            var font_sizing = main_settings.font_sizing;
+
+            switch (font_sizing) {
+                case Constants.SMALL_FONT:
+                    font_size.selected = 0;
+                    break;
+                case Constants.MEDIUM_FONT:
+                    font_size.selected = 1;
+                    break;
+                case Constants.BIG_FONT:
+                    font_size.selected = 2;
+                    break;
+                default:
+                    font_size.selected = 1;
+                    break;
+            }
+
+            font_size.mode_changed.connect (() => {
+                switch (font_size.selected) {
+                    case 0:
+                        main_settings.font_sizing = Constants.SMALL_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                    case 1:
+                        main_settings.font_sizing = Constants.MEDIUM_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                    case 2:
+                        main_settings.font_sizing = Constants.BIG_FONT;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
+                        break;
+                    case 3:
+                        main_settings.font_sizing = font_sizing;
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
+                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
+                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
+                        break;
+                }
+            });
+
+            var edit_header = new Granite.HeaderLabel (_("Editor"));
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
+            
+            editor_grid.attach (edit_header,  0, 0, 1, 1);
+            editor_grid.attach (save_button_label,  0, 1, 1, 1);
+            editor_grid.attach (save_button, 1, 1, 1, 1);
 
-            editor_grid.attach (editor_header, 0, 1, 3, 1);
-            editor_grid.attach (spellcheck_label,  0, 2, 1, 1);
-            editor_grid.attach (spellcheck, 1, 2, 1, 1);
-            editor_grid.attach (save_button_label,  0, 3, 1, 1);
-            editor_grid.attach (save_button, 1, 3, 1, 1);
+            editor_grid.attach (geo_header, 0, 3, 3, 1);
+            editor_grid.attach (spacing_label, 0, 4, 1, 1);
+            editor_grid.attach (spacing_size, 1, 4, 1, 1);
+            editor_grid.attach (margins_label, 0, 5, 1, 1);
+            editor_grid.attach (margins_size, 1, 5, 1, 1);
 
-
-            editor_grid.attach (geo_header, 0, 4, 3, 1);
-            editor_grid.attach (spacing_label, 0, 5, 1, 1);
-            editor_grid.attach (spacing_size, 1, 5, 1, 1);
-            editor_grid.attach (margins_label, 0, 6, 1, 1);
-            editor_grid.attach (margins_size, 1, 6, 1, 1);
+            editor_grid.attach (font_header, 0, 7, 3, 1);
+            editor_grid.attach (font_label, 0, 8, 1, 1);
+            editor_grid.attach (font_size, 1, 8, 1, 1);
 
             return editor_grid;
         }
 
         private Gtk.Widget get_interface_grid () {
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+
             var main_settings = AppSettings.get_default ();
             var interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
+            interface_grid.orientation = Gtk.Orientation.VERTICAL;
+            interface_grid.set_column_homogeneous (false);
 
-            var mode_header = new Granite.HeaderLabel (_("Mode"));
+            var mode_header = new Granite.HeaderLabel (_("Modes"));
+            var color_button_light = new Gtk.Button ();
+            var color_button_light_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
+            color_button_light.set_image (color_button_light_icon);
+            color_button_light.halign = Gtk.Align.CENTER;
+            color_button_light.height_request = 64;
+            color_button_light.width_request = 64;
+
+            var color_button_light_context = color_button_light.get_style_context ();
+            color_button_light_context.add_class ("color-button");
+            color_button_light_context.add_class ("color-light");
+
+            var color_button_light_text = new Gtk.Label (_("Light Mode"));
+
+            var color_button_sepia = new Gtk.Button ();
+            var color_button_sepia_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
+            color_button_sepia.set_image (color_button_sepia_icon);
+            color_button_sepia.halign = Gtk.Align.CENTER;
+            color_button_sepia.height_request = 64;
+            color_button_sepia.width_request = 64;
+
+            var color_button_sepia_context = color_button_sepia.get_style_context ();
+            color_button_sepia_context.add_class ("color-button");
+            color_button_sepia_context.add_class ("color-sepia");
+
+            var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
+
+            var color_button_moon = new Gtk.Button ();
+            var color_button_moon_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
+            color_button_moon.set_image (color_button_moon_icon);
+            color_button_moon.halign = Gtk.Align.CENTER;
+            color_button_moon.height_request = 64;
+            color_button_moon.width_request = 64;
+
+            var color_button_moon_context = color_button_moon.get_style_context ();
+            color_button_moon_context.add_class ("color-button");
+            color_button_moon_context.add_class ("color-moon");
+
+            var color_button_moon_text = new Gtk.Label (_("Moon Mode"));
+
+            var color_button_dark = new Gtk.Button ();
+            var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
+            color_button_dark.set_image (color_button_dark_icon);
+            color_button_dark.halign = Gtk.Align.CENTER;
+            color_button_dark.height_request = 64;
+            color_button_dark.width_request = 64;
+
+            var color_button_dark_context = color_button_dark.get_style_context ();
+            color_button_dark_context.add_class ("color-button");
+            color_button_dark_context.add_class ("color-dark");
+
+            var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
+
+            color_button_dark.clicked.connect (() => {
+                main_settings.dark_mode = true;
+                main_settings.moon_mode = false;
+                main_settings.sepia_mode = false;
+            });
+
+            color_button_sepia.clicked.connect (() => {
+                main_settings.sepia_mode = true;
+                main_settings.moon_mode = false;
+                main_settings.dark_mode = false;
+            });
+
+            color_button_moon.clicked.connect (() => {
+                main_settings.moon_mode = true;
+                main_settings.sepia_mode = false;
+                main_settings.dark_mode = false;
+            });
+
+            color_button_light.clicked.connect (() => {
+                main_settings.dark_mode = false;
+                main_settings.sepia_mode = false;
+                main_settings.moon_mode = false;
+            });
+
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
-            var dark_mode_label = new SettingsLabel (_("Enable Dark Mode:"));
-            var dark_mode = new SettingsSwitch ("dark-mode");
 
             var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
             var focus_mode_type_size = new Granite.Widgets.ModeButton ();
@@ -214,43 +344,86 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var font_header = new Granite.HeaderLabel (_("Font"));
-            var use_custom_font_label = new SettingsLabel (_("Custom font:"));
-            var use_custom_font = new Gtk.Switch ();
-            use_custom_font.halign = Gtk.Align.START;
-            main_settings.schema.bind ("use-system-font", use_custom_font, "active", SettingsBindFlags.INVERT_BOOLEAN);
-            var select_font = new Gtk.FontButton ();
-            select_font.use_font = true;
-            select_font.hexpand = true;
-            main_settings.schema.bind ("font", select_font, "font-name", SettingsBindFlags.DEFAULT);
-            main_settings.schema.bind ("use-system-font", select_font, "sensitive", SettingsBindFlags.INVERT_BOOLEAN);
+            var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
+            typewriterscrolling_label.set_halign (Gtk.Align.END);
+            var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
 
-            var custom_font_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            custom_font_box.pack_start (use_custom_font, false, true, 0);
-            custom_font_box.pack_start (select_font, false, true, 0);
-
-            var statusbar_header = new Granite.HeaderLabel (_("Statusbar"));
-            var statusbar_label = new Gtk.Label (_("Show Statusbar:"));
+            var ui_header = new Granite.HeaderLabel (_("User Interface"));
+            var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
             statusbar_label.set_halign (Gtk.Align.END);
             var statusbar = new SettingsSwitch ("statusbar");
+            var searchbar_label = new SettingsLabel (_("Show Searchbar:"));
+            searchbar_label.set_halign (Gtk.Align.END);
+            var searchbar = new SettingsSwitch ("searchbar");
+
+            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            buttonbox.halign = Gtk.Align.FILL;
+            buttonbox.hexpand = true;
+            buttonbox.set_homogeneous (true);
+            buttonbox.pack_start (color_button_light, true, true, 6);
+            buttonbox.pack_start (color_button_sepia, true, true, 6);
+            buttonbox.pack_start (color_button_moon, true, true, 6);
+            buttonbox.pack_start (color_button_dark, true, true, 6);
+
+            var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            textbox.halign = Gtk.Align.FILL;
+            textbox.hexpand = true;
+            textbox.set_homogeneous (true);
+            textbox.pack_start (color_button_light_text, true, true, 6);
+            textbox.pack_start (color_button_sepia_text, true, true, 6);
+            textbox.pack_start (color_button_moon_text, true, true, 6);
+            textbox.pack_start (color_button_dark_text, true, true, 6);
+
+            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            separator.hexpand = true;
+            separator.margin_top = 6;
+            separator.margin_bottom = 6;
 
             interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 2, 1, 1);
-            interface_grid.attach (focus_mode, 1, 2, 1, 1);
-            interface_grid.attach (dark_mode_label, 0, 3, 1, 1);
-            interface_grid.attach (dark_mode, 1, 3, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 4, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 4, 1, 1);
+            interface_grid.attach (buttonbox, 0, 2, 3, 1);
+            interface_grid.attach (textbox, 0, 3, 3, 1);
+            interface_grid.attach (separator, 0, 4, 3, 1);
 
-            interface_grid.attach (font_header, 0, 5, 3, 1);
-            interface_grid.attach (use_custom_font_label, 0, 6, 1, 1);
-            interface_grid.attach (custom_font_box, 1, 6, 1, 1);
+            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
+            interface_grid.attach (focus_mode, 1, 5, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
 
-            interface_grid.attach (statusbar_header,  0, 7, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 8, 1, 1);
-            interface_grid.attach (statusbar, 1, 8, 1, 1);
+            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
+            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
+
+            interface_grid.attach (ui_header,  0, 8, 1, 1);
+            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
+            interface_grid.attach (statusbar, 1, 9, 1, 1);
+            interface_grid.attach (searchbar_label,  0, 10, 1, 1);
+            interface_grid.attach (searchbar, 1, 10, 1, 1);
 
             return interface_grid;
+        }
+
+        private Gtk.Widget get_extensions_grid () {
+            var ext_grid = new Gtk.Grid ();
+            ext_grid.row_spacing = 6;
+            ext_grid.column_spacing = 12;
+            ext_grid.orientation = Gtk.Orientation.VERTICAL;
+            ext_grid.set_column_homogeneous (false);
+
+            var ext_header = new Granite.HeaderLabel (_("Extensions"));
+
+            var highlight_label = new SettingsLabel (_("Enable Code Highlighting:"));
+            var highlight = new SettingsSwitch ("highlight");
+            highlight.hexpand = true;
+
+            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
+            var spellcheck = new SettingsSwitch ("spellcheck");
+
+            ext_grid.attach (ext_header,  0, 0, 1, 1);
+            ext_grid.attach (highlight_label, 0, 1, 1, 1);
+            ext_grid.attach (highlight, 2, 1, 1, 1);
+            ext_grid.attach (spellcheck_label, 0, 2, 1, 1);
+            ext_grid.attach (spellcheck, 2, 2, 1, 1);
+
+            return ext_grid;
         }
 
         private class SettingsLabel : Gtk.Label {

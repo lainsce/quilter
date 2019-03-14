@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '1.5.2'
+    version: '1.7.5'
 )
 
 # Import main lib files
@@ -37,14 +37,9 @@ c_args = [
   '-w'
 ]
 
-cc = meson.get_compiler('c')
-
 # Find libMarkdown
-libmarkdown = dependency('libmarkdown', version: '>= 2.2.1', required: false)
-if libmarkdown.found() == false
-    cc = meson.get_compiler('c')
-    libmarkdown = cc.find_library('libmarkdown', required: true)
-endif
+cc = meson.get_compiler('c')
+libmarkdown = cc.find_library('markdown', required: true)
 
 # Let's define our executable
 add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
@@ -53,15 +48,22 @@ executable(
     meson.project_name(),
     'src/Application.vala',
     'src/MainWindow.vala',
+    'src/Widgets/HeaderBar.vala',
     'src/Widgets/SourceView.vala',
     'src/Widgets/WebView.vala',
     'src/Widgets/StatusBar.vala',
+    'src/Widgets/SearchBar.vala',
+    'src/Widgets/SideBar.vala',
+    'src/Widgets/SideBarBox.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
     'src/Styles/quilter.vala',
     'src/Styles/quilterdark.vala',
+    'src/Styles/quiltermoon.vala',
+    'src/Styles/quiltersepia.vala',
     'src/Constants/AppSettings.vala',
     'src/Services/FileManager.vala',
+    'src/Services/ExportUtils.vala',
     'src/Services/DialogUtils.vala',
     asresources,
     c_args: c_args,
@@ -82,7 +84,7 @@ executable(
 )
 
 # Add in a post install script
-meson.add_install_script('meson/post_install.py')
+meson.add_install_script('meson/post_install.py',  join_paths(get_option('prefix'), get_option('datadir')))
 
 # Add subfolders for Meson to look
 subdir('data')

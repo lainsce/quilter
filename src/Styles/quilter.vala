@@ -26,44 +26,78 @@ public class Quilter.Styles.quilter {
   public const string css="""
     html {
       font-size: 16px;
+      width: 100%;
+      margin: 0 auto;
     }
 
     p {
-      font-size: 1rem;
-      color: #232629;
+      font-size: 18px;
+      width: 100%;
+      color: #191919;
     }
 
     h1,
     h2,
-    h3 {
-      margin: 0.755em 0;
+    h3,
+    h4,
+    h5,
+    h6 {
       font-style: bold;
     }
 
+    h1:first-of-type,
+    h2:first-of-type,
+    h3:first-of-type,
+    h4:first-of-type,
+    h5:first-of-type,
+    h6:first-of-type {
+      margin-top: 20px;
+    }
+
     h1 {
-      margin-top: 0;
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: 2rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h2 {
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h3 {
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: 1.25rem;
+      text-align: center;
+      text-transform: uppercase;
     }
 
     h4 {
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: 1rem;
+      text-align: center;
     }
 
     h5 {
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: .875rem;
+      text-align: center;
     }
 
     h6 {
+      margin-top: 1em;
+      margin-bottom: 1em;
       font-size: .75rem;
     }
+
 
     small {
       font-size: .7em;
@@ -73,7 +107,6 @@ public class Quilter.Styles.quilter {
     canvas,
     iframe,
     video,
-    svg,
     select,
     textarea {
       display: block;
@@ -81,17 +114,13 @@ public class Quilter.Styles.quilter {
     }
 
     body {
-      color: #232629;
-      background-color: #FCFCFC;
-      font-family: 'Open Sans', Helvetica, sans-serif;
-      font-weight: 400;
-      line-height: 1.5;
-      margin-left: 80px;
-      margin-right: 80px;
+      color: #333;
+      background-color: #FFF;
+      line-height: 1.4rem;
+      margin-left: 40px;
+      margin-right: 40px;
       margin-top: 40px;
-      max-width: 100%;
       text-align: left;
-      word-wrap: break-word;
     }
 
     table {
@@ -103,17 +132,17 @@ public class Quilter.Styles.quilter {
 
     table th {
       font-weight: bold;
-      background-color: #E7E7E7;
+      background-color: #dddddd;
     }
 
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #EAEAEA;
+      border: 1px solid #F0F0F0;
     }
 
     table tr {
-      border-top: 1px solid #EAEAEA;
+      border-top: 1px solid #F0F0F0;
     }
 
     img {
@@ -127,29 +156,71 @@ public class Quilter.Styles.quilter {
     a:hover,
     a:focus,
     a:active {
-      color: #3daee9;
+      color: #0073c5;
     }
 
-    code {
-      font-family: 'PT Mono', monospace;
-      text-align: left;
-      padding: 1rem !important;
-      border-radius: 5px;
+    code{
+      display: inline-block;
+      padding: 0 0.25rem;
+      background-color: #F0F0F0;
+      border: 1px solid #F0F0F0;
+      border-radius: 4px;
+      font-family: 'Quilt Mono', monospace;
+      font-weight: normal;
+    }
+
+    pre code{
+      display: block;
+      margin: 1rem auto;
+      overflow-x: scroll;
+      padding: 0.5em;
     }
 
     blockquote {
       margin: 0;
-      border-left: 5px solid #3daee9;
+      border-left: 5px solid #8d8d8d;
       font-style: italic;
       padding-left: .8rem;
+      margin-left: .8rem;
       text-align: left;
     }
 
-    ul,
-    ol,
-    li {
-      text-align: left;
-      color: #4d4d4d;
+    blockquote > p {
+      color: inherit;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+
+    ul {
+      list-style: disc;
+    }
+
+    ul>li {
+      font-size: 18px;
+    }
+
+    ul, ol {
+      margin-left: -40px;
+    }
+
+    hr {
+      overflow: visible;
+      padding: 0;
+      border: none;
+      color: inherit;
+      text-align: center;
+    }
+    hr:after {
+      content: "...";
+      letter-spacing: .6em;
+      display: inline-block;
+      position: relative;
+      top: -0.3rem;
+      font-size: 1.65em;
+      padding: 0 0.25em;
+      background: inherit;
     }
   """;
 }

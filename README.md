@@ -19,10 +19,6 @@ Would you like to support the development of this app to new heights? Then:
 
 [Be my backer on Patreon](https://www.patreon.com/lainsce)
 
-or
-
-[Buy me a coffee on Kofi](https://ko-fi.com/C1C169U6)
-
 ## Dependencies
 
 Please make sure you have these dependencies first before building.
@@ -30,11 +26,11 @@ Please make sure you have these dependencies first before building.
 ```bash
 valac
 libgranite-dev
-libgtkspell3-3-dev
 gtk+-3.0
-gtksourceview-3.0
+gtksourceview-3.0-dev
 libwebkit2gtk-4.0-dev
 libmarkdown2-dev
+libgtkspell3-3-dev
 meson
 ```
 
@@ -42,8 +38,13 @@ meson
 
 Simply clone this repo, then:
 
+```bash
+meson build --prefix=/usr && cd build
+sudo ninja install
 ```
-$ meson build && cd build
-$ meson configure -Dprefix=/usr
-$ sudo ninja install
-```
+
+## Arch Linux
+
+Arch Linux users can find Quilter under the name [quilter-git](https://aur.archlinux.org/packages/quilter-git/) in the **AUR**:
+
+`$ <aur_helper> -S quilter-git`

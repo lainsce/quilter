@@ -17,95 +17,53 @@
 
 namespace Quilter.Services.FileManager {
     public File tmp_file;
-    public MainWindow window;
-    public Widgets.SourceView view;
+    public File file;
+    public MainWindow win;
+    public Widgets.EditView view;
+    private string[] files;
 
-    public void save_file (File file, uint8[] buffer) throws Error {
-        var output = new DataOutputStream (file.create(FileCreateFlags.REPLACE_DESTINATION));
-        long written = 0;
-        while (written < buffer.length)
-            written += output.write (buffer[written:buffer.length]);
-    }
-
-    private void save_work_file () {
-        var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
-
-        if ( file.query_exists () ) {
-            try {
-                file.delete ();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-
-            Gtk.TextIter start, end;
-            Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-            string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-            uint8[] binbuffer = buffer.data;
-
-            try {
-                save_file (file, binbuffer);
-            } catch (Error e) {
-                warning ("Exception found: "+ e.message);
-            }
-        }
-    }
-
-    public File setup_tmp_file () {
-        debug ("Setupping cache...");
-        string cache_path = Path.build_filename (Environment.get_user_cache_dir (), "com.github.lainsce.quilter");
-        var cache_folder = File.new_for_path (cache_path);
-        if (!cache_folder.query_exists ()) {
-            try {
-                cache_folder.make_directory_with_parents ();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
+    private static string? cache;
+    public static string get_cache_path () {
+        if (cache == null) {
+            cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
         }
 
-        tmp_file = cache_folder.get_child ("temp");
-        return tmp_file;
+        return cache;
     }
 
-    private void save_tmp_file () {
-        setup_tmp_file ();
-
-        debug ("Saving cache...");
-        if ( tmp_file.query_exists () ) {
-            try {
-                tmp_file.delete();
-            } catch (Error e) {
-                warning ("Error: %s\n", e.message);
-            }
-
-        }
-
-        Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-        uint8[] binbuffer = buffer.data;
-
+    public void save_file (string path, string contents) throws Error {
         try {
-            save_file (tmp_file, binbuffer);
+            GLib.FileUtils.set_contents (path, contents);
+        } catch (Error err) {
+            print ("Error writing file: " + err.message);
+        }
+    }
+    public void save_tmp_file (string contents = "") {
+        debug ("Saving cache...");
+        try {
+            save_file (get_cache_path (), contents);
         } catch (Error e) {
             warning ("Exception found: "+ e.message);
         }
     }
 
     // File I/O
-    public bool open_from_outside (File[] files, string hint) {
-        if (files.length > 0) {
-            var file = files[0];
+    public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
+        var settings = AppSettings.get_default ();
+        foreach (File f in ofiles) {
             string text;
-            var settings = AppSettings.get_default ();
-            settings.last_file = file.get_path ();
-            settings.subtitle = file.get_basename ();
-
+            string file_path = f.get_path ();
+            settings.current_file = file_path;
+            files += file_path;
+            settings.last_files = files;
+            if (win.sidebar != null) {
+                win.sidebar.add_file (file_path);
+            }
             try {
-                GLib.FileUtils.get_contents (file.get_path (), out text);
-                Widgets.SourceView.buffer.text = text;
+                GLib.FileUtils.get_contents (file_path, out text);
+                Widgets.EditView.buffer.text = text;
+                Widgets.EditView.buffer.set_modified (false);
+                file = null;
             } catch (Error e) {
                 warning ("Error: %s", e.message);
             }
@@ -113,86 +71,44 @@ namespace Quilter.Services.FileManager {
         return true;
     }
 
-    public void open () throws Error {
-        debug ("Open button pressed.");
-        var settings = AppSettings.get_default ();
-        var file = Services.DialogUtils.display_open_dialog ();
-        settings.last_file = file.get_path ();
-        settings.subtitle = file.get_basename ();
-
+    public static string open (out string contents) {
         try {
-            debug ("Opening file...");
-            if (file == null) {
-                debug ("User cancelled operation. Aborting.");
-            } else {
-                string text;
-                GLib.FileUtils.get_contents (file.get_path (), out text);
-                Widgets.SourceView.buffer.text = text;
-            }
+            var chooser = Services.DialogUtils.create_file_chooser (_("Open file"),
+                    Gtk.FileChooserAction.OPEN);
+            if (chooser.run () == Gtk.ResponseType.ACCEPT)
+                file = chooser.get_file ();
+            chooser.destroy();
+            GLib.FileUtils.get_contents (file.get_path (), out contents);
         } catch (Error e) {
-            warning ("Unexpected error during open: " + e.message);
+            warning ("Error: %s", e.message);
         }
-
-        view.is_modified = false;
-        file = null;
+        return file.get_path ();
     }
 
-    public void save () throws Error {
-        debug ("Save button pressed.");
-        var settings = AppSettings.get_default ();
-        var file = File.new_for_path (settings.last_file);
-        settings.subtitle = file.get_basename ();
-
-        if (file.query_exists ()) {
-            try {
-                file.delete ();
-            } catch (Error e) {
-                warning ("Error: " + e.message);
-            }
-        }
-
-        Gtk.TextIter start, end;
-        Widgets.SourceView.buffer.get_bounds (out start, out end);
-        string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-        uint8[] binbuffer = buffer.data;
-
-        try {
-            save_file (file, binbuffer);
-        } catch (Error e) {
-            warning ("Unexpected error during save: " + e.message);
-        }
-
-        file = null;
-        view.is_modified = false;
-    }
-
-    public void save_as () throws Error {
+    public void save_as (string contents) throws Error {
         debug ("Save as button pressed.");
-        var settings = AppSettings.get_default ();
-        var file = Services.DialogUtils.display_save_dialog ();
-        settings.last_file = file.get_path ();
-        settings.subtitle = file.get_basename ();
+        var chooser = Services.DialogUtils.create_file_chooser (_("Save file"),
+                Gtk.FileChooserAction.SAVE);
+        if (chooser.run () == Gtk.ResponseType.ACCEPT)
+            file = chooser.get_file ();
+        chooser.destroy();
+        if (!file.get_basename ().down ().has_suffix (".md")) {
+            file = File.new_for_path (file.get_path () + ".md");
+        }
+
+        string path = file.get_path ();
 
         try {
             debug ("Saving file...");
             if (file == null) {
                 debug ("User cancelled operation. Aborting.");
             } else {
-                if (file.query_exists ()) {
-                    file.delete ();
-                }
-
-                Gtk.TextIter start, end;
-                Widgets.SourceView.buffer.get_bounds (out start, out end);
-                string buffer = Widgets.SourceView.buffer.get_text (start, end, true);
-                uint8[] binbuffer = buffer.data;
-                save_file (file, binbuffer);
+                save_file (path, contents);
+                file = null;
             }
         } catch (Error e) {
             warning ("Unexpected error during save: " + e.message);
+            throw e;
         }
-
-        file = null;
-        view.is_modified = false;
     }
 }

@@ -20,25 +20,33 @@
 using WebKit;
 
 namespace Quilter {
-    public class Widgets.WebView : WebKit.WebView {
-        public MainWindow parent_window;
+    public class Widgets.Preview : WebKit.WebView {
+        private static Preview? instance = null;
+        public string html;
 
-        public WebView (MainWindow window) {
+        public Preview () {
             Object(user_content_manager: new UserContentManager());
-            parent_window = window;
             visible = true;
             vexpand = true;
             hexpand = true;
             var settingsweb = get_settings();
             settingsweb.enable_plugins = false;
-            settingsweb.enable_page_cache = true;
+            settingsweb.enable_page_cache = false;
             settingsweb.enable_developer_extras = false;
-            web_context.set_cache_model(WebKit.CacheModel.DOCUMENT_VIEWER);
+            settingsweb.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_html_view);
             connect_signals ();
+        }
+
+        public static Preview get_instance () {
+            if (instance == null) {
+                instance = new Widgets.Preview ();
+            }
+
+            return instance;
         }
 
         protected override bool context_menu (
@@ -51,21 +59,53 @@ namespace Quilter {
 
         private string set_stylesheet () {
             var settings = AppSettings.get_default ();
-            if (!settings.dark_mode) {
-                string normal = Styles.quilter.css;
-                return normal;
-            } else {
+            if (settings.dark_mode) {
                 string dark = Styles.quilterdark.css;
                 return dark;
+            } else if (settings.sepia_mode) {
+                string sepia = Styles.quiltersepia.css;
+                return sepia;
+            } else if (settings.moon_mode) {
+                string sepia = Styles.quiltermoon.css;
+                return sepia;
             }
+
+            string normal = Styles.quilter.css;
+            return normal;
+        }
+
+        private string set_font_stylesheet () {
+            var settings = AppSettings.get_default ();
+            if (settings.preview_font == "serif") {
+                return Build.PKGDATADIR + "/font/serif.css";
+            } else if (settings.preview_font == "sans") {
+                return Build.PKGDATADIR + "/font/sans.css";
+            } else if (settings.preview_font == "mono") {
+                return Build.PKGDATADIR + "/font/mono.css";
+            }
+
+            return Build.PKGDATADIR + "/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
             var settings = AppSettings.get_default ();
             if (settings.dark_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
+            } else if (settings.sepia_mode) {
+                return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
+            } else if (settings.moon_mode) {
+                return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
+            }
+
+            return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
+        }
+
+        private string set_highlight () {
+            var settings = AppSettings.get_default ();
+            if (settings.highlight) {
+                return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
             } else {
-                return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
+                return "";
             }
         }
 
@@ -124,7 +164,6 @@ namespace Quilter {
 
             processed_mk = null;
 
-            // Parse frontmatter
             if (raw_mk.length > 4 && raw_mk[0:4] == "---\n") {
                 int i = 0;
                 bool valid_frontmatter = true;
@@ -133,14 +172,14 @@ namespace Quilter {
                 string line = "";
                 while (true) {
                     next_newline = raw_mk.index_of_char('\n', last_newline + 1);
-                    if (next_newline == -1) { // End of file
+                    if (next_newline == -1) {
                         valid_frontmatter = false;
                         break;
                     }
                     line = raw_mk[last_newline+1:next_newline];
                     last_newline = next_newline;
 
-                    if (line == "---") { // End of frontmatter
+                    if (line == "---") {
                         break;
                     }
 
@@ -148,7 +187,7 @@ namespace Quilter {
                     if (sep_index != -1) {
                         map += line[0:sep_index-1];
                         map += line[sep_index+1:line.length];
-                    } else { // No colon, invalid frontmatter
+                    } else {
                         valid_frontmatter = false;
                         break;
                     }
@@ -156,7 +195,7 @@ namespace Quilter {
                     i++;
                 }
 
-                if (valid_frontmatter) { // Strip frontmatter if it's a valid one
+                if (valid_frontmatter) {
                     processed_mk = raw_mk[last_newline:raw_mk.length];
                 }
             }
@@ -169,11 +208,26 @@ namespace Quilter {
         }
 
         private string process () {
-            string text = Widgets.SourceView.buffer.text;
+            string text = Widgets.EditView.buffer.text;
             string processed_mk;
             process_frontmatter (text, out processed_mk);
-            var mkd = new Markdown.Document (processed_mk.data, 0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
-        mkd.compile (0x00200000 + 0x00004000 + 0x02000000 + 0x01000000 + 0x00400000 + 0x40000000);
+            var mkd = new Markdown.Document.gfm_format (processed_mk.data, 
+                                                        0x00200000 +
+                                                        0x00004000 +
+                                                        0x02000000 +
+                                                        0x01000000 +
+                                                        0x04000000 +
+                                                        0x00400000 +
+                                                        0x10000000 +
+                                                        0x40000000);
+            mkd.compile (0x00200000 +
+                         0x00004000 +
+                         0x02000000 +
+                         0x01000000 +
+                         0x04000000 +
+                         0x00400000 +
+                         0x10000000 +
+                         0x40000000);
 
             string result;
             mkd.get_document (out result);
@@ -182,14 +236,28 @@ namespace Quilter {
         }
 
         public void update_html_view () {
-            string html = "<!doctype html><meta charset=utf-8><head>";
-            html += "<link rel=\"stylesheet\" href=\"" + set_highlight_stylesheet() + "\"/>";
-            html += "<script src=\"" + Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js\"></script>";
-            html += "<script>hljs.initHighlightingOnLoad();</script>";
-            html += "<style>" + set_stylesheet () + "</style>";
-            html += "</head><body><div class=\"markdown-body\">";
-            html += process ();
-            html += "</div></body></html>";
+            string highlight_stylesheet = set_highlight_stylesheet();
+            string highlight = set_highlight();
+            string font_stylesheet = set_font_stylesheet ();
+            string stylesheet = set_stylesheet ();
+            string markdown = process ();
+            html = """
+            <!doctype html>
+            <html>
+                <head>
+                    <meta charset="utf-8">
+                    <link rel="stylesheet" href="%s" />
+                    <script src="%s"></script>
+                    <script>hljs.initHighlightingOnLoad();</script>
+                    <link rel="stylesheet" href="%s" />
+                    <style>"%s"</style>
+                </head>
+                <body>
+                    <div class="markdown-body">
+                        %s
+                    </div>
+                </body>
+            </html>""".printf(highlight_stylesheet, highlight, font_stylesheet, stylesheet, markdown);
             this.load_html (html, "file:///");
         }
     }

@@ -1,3 +1,85 @@
+com.github.lainsce.quilter (1.7.5) xenial; urgency=low
+
+  * Some opening file tuneups.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 08 Mar 2019 17:37:00 -0300
+
+com.github.lainsce.quilter (1.7.4) xenial; urgency=low
+
+  * Some fixes and tuneups.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 01 Mar 2019 17:37:00 -0300
+
+com.github.lainsce.quilter (1.7.0) xenial; urgency=low
+
+  * Sidebar backend tuneup and visual upgrade!
+
+ -- Lains <lainsce@airmail.cc>  Fri, 22 Feb 2018 17:37:00 -0300
+
+com.github.lainsce.quilter (1.6.8) xenial; urgency=low
+
+  * Finally the Sidebar!
+
+ -- Lains <lainsce@airmail.cc>  Fri, 19 Oct 2018 17:37:00 -0300
+
+com.github.lainsce.quilter (1.6.7) xenial; urgency=low
+
+  * Some radiobuttons for choices of font & tracking type.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 10 Oct 2018 14:37:00 -0300
+
+com.github.lainsce.quilter (1.6.6) xenial; urgency=low
+
+  * Some styling fixes to pass WCAG AA.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 21 Sep 2018 14:37:00 -0300
+
+com.github.lainsce.quilter (1.6.2) xenial; urgency=low
+
+  * Button to track Chars/Words/Lines.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 21 Sep 2018 14:37:00 -0300
+
+com.github.lainsce.quilter (1.6.1) xenial; urgency=low
+
+  * Preferences for the Edit View's Font Size.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 17 Aug 2018 14:37:00 -0300
+
+com.github.lainsce.quilter (1.6.0) xenial; urgency=low
+
+  * Too many changes to put here.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 20 Jul 2018 10:37:00 -0300
+
+com.github.lainsce.quilter (1.5.6) xenial; urgency=low
+
+  * Unreleased bump.
+
+ -- Lains <lainsce@airmail.cc>  Sat, 5 May 2018 10:37:00 -0300
+
+com.github.lainsce.quilter (1.5.5) xenial; urgency=low
+
+  * LaTeX Math support.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 4 May 2018 13:37:00 -0300
+
+com.github.lainsce.quilter (1.5.4) xenial; urgency=low
+
+  * Preview Mode will update only on changes in Edit Mode.
+  * Status bar will update always.
+
+ -- Lains <lainsce@airmail.cc>  Fri, 27 Mar 2018 13:34:00 -0300
+
+com.github.lainsce.quilter (1.5.3) xenial; urgency=low
+
+  * Preview Mode won't load rogue Javascript code.
+  * Preview Mode will also not autojump to the start of the scroll at any time.
+  * Header becomes Heading in the Cheatsheet.
+  * Fixed the Unsaved changes dialog still killing files when pressing the New File button.
+
+ -- Lains <lainsce@airmail.cc>  Sun, 18 Mar 2018 15:34:00 -0300
+
 com.github.lainsce.quilter (1.5.2) xenial; urgency=low
 
   * The Headerbar respects the global theme.

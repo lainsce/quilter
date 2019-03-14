@@ -17,19 +17,32 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SourceView : Gtk.SourceView {
+    public class EditView : Gtk.SourceView {
+        private static EditView? instance = null;
         public static new Gtk.SourceBuffer buffer;
-        public bool is_modified {get; set; default = false;}
+        public bool should_scroll {get; set; default = false;}
         public File file;
-        public WebView webview;
         public GtkSpell.Checker spell = null;
-        private string font;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
         private Gtk.TextTag whitefont;
+        private Gtk.TextTag sepiafont;
+        private Gtk.TextTag lightsepiafont;
+        private Gtk.TextTag moonfont;
+        private Gtk.TextTag lightmoonfont;
+        public Gtk.TextTag warning_tag;
+        public Gtk.TextTag error_tag;
+        public Gtk.SourceSearchContext search_context = null;
+        public Gtk.SourceStyle srcstyle = null;
 
-        public signal void changed ();
+        public static EditView get_instance () {
+            if (instance == null) {
+                instance = new Widgets.EditView ();
+            }
+
+            return instance;
+        }
 
         public bool spellcheck {
             set {
@@ -53,7 +66,6 @@ namespace Quilter.Widgets {
                             last_language = language_list.first ().data;
                             spell.set_language (last_language);
                         }
-                        settings.changed.connect (spellcheck_enable);
                         spell.attach (this);
                     } catch (Error e) {
                         warning (e.message);
@@ -64,23 +76,46 @@ namespace Quilter.Widgets {
             }
         }
 
-        public SourceView () {
+        public string text {
+            owned get {
+                return buffer.text;
+            }
+
+            set {
+                buffer.text = value;
+            }
+        }
+
+        public bool modified {
+            set {
+                buffer.set_modified (value);
+            }
+
+            get {
+                return buffer.get_modified ();
+            }
+        }
+
+        public signal void save ();
+
+        public EditView () {
             update_settings ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_settings);
 
             try {
                 string text;
-                var file = File.new_for_path (settings.last_file);
+                string file_path = settings.current_file;
+                var file = File.new_for_path (file_path);
 
                 if (file.query_exists ()) {
                     string filename = file.get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    buffer.text = text;
                 } else {
-                    string filename = Services.FileManager.setup_tmp_file ().get_path ();
-                    GLib.FileUtils.get_contents (filename, out text);
-                    set_text (text, true);
+                    Services.FileManager.save_tmp_file ();
+                    GLib.FileUtils.get_contents (Services.FileManager.get_cache_path (), out text);
+                    buffer.text = text;
                 }
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
@@ -107,24 +142,6 @@ namespace Quilter.Widgets {
             buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
-            buffer.changed.connect (() => {
-                on_text_modified ();
-                Application.window.unsaved_indicator (false);
-            });
-
-            darkgrayfont = buffer.create_tag(null, "foreground", "#222");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#888");
-            blackfont = buffer.create_tag(null, "foreground", "#000");
-            whitefont = buffer.create_tag(null, "foreground", "#FFF");
-
-            is_modified = false;
-
-            if (settings.autosave = true) {
-                Timeout.add_seconds (10, () => {
-                    on_text_modified ();
-                    return true;
-                });
-            }
 
             this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
@@ -134,6 +151,56 @@ namespace Quilter.Widgets {
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
+            this.auto_indent = true;
+
+            buffer.set_modified (false);
+            should_scroll = false;
+
+            buffer.changed.connect (() => {
+                buffer.set_modified (true);
+                should_scroll = true;
+            });
+
+            if (settings.current_file == "No Documents Open") {
+                buffer.text = "";
+            }
+
+            darkgrayfont = buffer.create_tag(null, "foreground", "#888");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#777");
+            blackfont = buffer.create_tag(null, "foreground", "#333");
+            whitefont = buffer.create_tag(null, "foreground", "#CCC");
+            lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
+            sepiafont = buffer.create_tag(null, "foreground", "#331100");
+            lightmoonfont = buffer.create_tag(null, "foreground", "#939699");
+            moonfont = buffer.create_tag(null, "foreground", "#C3C6C9");
+
+            search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
+            search_context.set_match_style (srcstyle);
+
+            warning_tag = new Gtk.TextTag ("warning_bg");
+            warning_tag.underline = Pango.Underline.ERROR;
+            warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
+            error_tag = new Gtk.TextTag ("error_bg");
+            error_tag.underline = Pango.Underline.ERROR;
+            buffer.tag_table.add (error_tag);
+            buffer.tag_table.add (warning_tag);
+            if (settings.spellcheck != false) {
+                spellcheck = settings.spellcheck;
+            } else {
+                spellcheck = settings.spellcheck;
+            }
+
+            if (settings.autosave == true) {
+                Timeout.add (10000, () => {
+                    try {
+                        save ();
+                        buffer.set_modified (false);
+                    } catch (Error err) {
+                        print ("Error writing file: " + err.message);
+                    }
+                    return true;
+                });
+            }
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -149,50 +216,12 @@ namespace Quilter.Widgets {
             return null;
         }
 
-        public void on_text_modified () {
-            if (!is_modified) {
-                is_modified = true;
-            } else {
-                changed ();
-                Services.FileManager.save_work_file ();
-                is_modified = false;
-            }
-        }
-
-        public void set_text (string text, bool opening = true) {
-            if (opening) {
-                buffer.begin_not_undoable_action ();
-                buffer.changed.disconnect (on_text_modified);
-            }
-
-            buffer.text = text;
-
-            if (opening) {
-                buffer.end_not_undoable_action ();
-                buffer.changed.connect (on_text_modified);
-            }
-
-            Gtk.TextIter? start = null;
-            buffer.get_start_iter (out start);
-            buffer.place_cursor (start);
-        }
-
-        public void use_default_font (bool value) {
-            if (!value) {
-                return;
-            }
-
-            var default_font = "PT Mono 11";
-
-            this.font = default_font;
-        }
-
         private void update_settings () {
             var settings = AppSettings.get_default ();
+            var buffer_context = this.get_style_context ();
             this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
-            this.left_margin = settings.margins;
-            this.right_margin = settings.margins;
+            Application.win.dynamic_margins();
             this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {
@@ -200,29 +229,38 @@ namespace Quilter.Widgets {
                 buffer.get_bounds (out start, out end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(darkgrayfont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
-                this.font = settings.font;
-                use_default_font (settings.use_system_font);
-                this.override_font (Pango.FontDescription.from_string (this.font));
+                buffer_context.add_class ("medium-text");
+                buffer_context.remove_class ("big-text");
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
             } else {
                 set_focused_text ();
+                buffer_context.add_class ("big-text");
+                buffer_context.remove_class ("medium-text");
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                this.font = "PT Mono 13";
-                this.override_font (Pango.FontDescription.from_string (this.font));
+                if (settings.typewriter_scrolling) {
+                    Timeout.add(500, move_typewriter_scrolling);
+                }
+            }
+
+            if (settings.font_sizing == 1) {
+                buffer_context.add_class ("small-text");
+                buffer_context.remove_class ("medium-text");
+                buffer_context.remove_class ("big-text");
+            } else if (settings.font_sizing == 2) {
+                buffer_context.remove_class ("small-text");
+                buffer_context.add_class ("medium-text");
+                buffer_context.remove_class ("big-text");
+            } else if (settings.font_sizing == 3) {
+                buffer_context.remove_class ("small-text");
+                buffer_context.remove_class ("medium-text");
+                buffer_context.add_class ("big-text");
             }
 
             set_scheme (get_default_scheme ());
-        }
-
-        private void spellcheck_enable () {
-            var settings = AppSettings.get_default ();
-            if (settings.spellcheck != false) {
-                spellcheck = settings.spellcheck;
-            } else {
-                spellcheck = settings.spellcheck;
-            }
         }
 
         public void set_scheme (string id) {
@@ -233,25 +271,60 @@ namespace Quilter.Widgets {
 
         private string get_default_scheme () {
             var settings = AppSettings.get_default ();
-            if (!settings.dark_mode) {
-                var provider = new Gtk.CssProvider ();
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
-                buffer.remove_tag(whitefont, start, end);
-                return "quilter";
-            } else {
+            if (settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
+            } else if (settings.sepia_mode) {
+                var provider = new Gtk.CssProvider ();
+                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(whitefont, start, end);
+                buffer.remove_tag(blackfont, start, end);
+                return "quilter-sepia";
+            } else if (settings.moon_mode) {
+                var provider = new Gtk.CssProvider ();
+                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-moon.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
+                buffer.remove_tag(blackfont, start, end);
+                return "quilter-moon";
             }
+
+            var provider = new Gtk.CssProvider ();
+            provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+            Gtk.TextIter start, end;
+            buffer.get_bounds (out start, out end);
+            buffer.remove_tag(whitefont, start, end);
+            buffer.remove_tag(lightsepiafont, start, end);
+            buffer.remove_tag(sepiafont, start, end);
+            return "quilter";
+        }
+
+        public bool move_typewriter_scrolling () {
+            var settings = AppSettings.get_default ();
+            if (should_scroll) {
+                var cursor = buffer.get_insert ();
+                this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
+                should_scroll = false;
+            }
+            return (settings.focus_mode && settings.typewriter_scrolling);
         }
 
         public void set_focused_text () {
@@ -263,10 +336,34 @@ namespace Quilter.Widgets {
 
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
-            buffer.apply_tag(lightgrayfont, start, end);
-            buffer.apply_tag(darkgrayfont, start, end);
-            buffer.remove_tag(blackfont, start, end);
-            buffer.remove_tag(whitefont, start, end);
+
+            if (settings.dark_mode) {
+                buffer.apply_tag(darkgrayfont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(lightgrayfont, start, end);
+                buffer.remove_tag(lightmoonfont, start, end);
+                buffer.remove_tag(whitefont, start, end);
+            } else if (settings.sepia_mode) {
+                buffer.remove_tag(darkgrayfont, start, end);
+                buffer.apply_tag(lightsepiafont, start, end);
+                buffer.remove_tag(lightgrayfont, start, end);
+                buffer.remove_tag(lightmoonfont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
+            } else if (settings.moon_mode) {
+                buffer.remove_tag(darkgrayfont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(lightgrayfont, start, end);
+                buffer.apply_tag(lightmoonfont, start, end);
+                buffer.remove_tag(moonfont, start, end);
+            } else {
+                buffer.remove_tag(darkgrayfont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.apply_tag(lightgrayfont, start, end);
+                buffer.remove_tag(lightmoonfont, start, end);
+                buffer.remove_tag(blackfont, start, end);
+            }
+
+            should_scroll = true;
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
@@ -300,14 +397,42 @@ namespace Quilter.Widgets {
                     }
 
                 }
-                if (!settings.dark_mode) {
-                    buffer.apply_tag(lightgrayfont, start_sentence, end_sentence);
-                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
-                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
-                } else {
-                    buffer.apply_tag(darkgrayfont, start_sentence, end_sentence);
-                    buffer.apply_tag(whitefont, start_sentence, end_sentence);
+                if (settings.dark_mode) {
+                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.apply_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(moonfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
+                } else if (settings.sepia_mode) {
+                    buffer.apply_tag(sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(moonfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
+                } else if (settings.moon_mode) {
+                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.apply_tag(moonfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
+                } else {
+                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
+                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag(moonfont, start_sentence, end_sentence);
+                    buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
                 }
             }
         }

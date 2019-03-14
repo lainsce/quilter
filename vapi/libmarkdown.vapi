@@ -6,7 +6,7 @@ namespace Markdown {
     public class Document {
 
         [CCode (cname = "mkd_string")]
-        public Document (uint8[] data, int flag = 0);
+        public Document.format (uint8[] data, int flag = 0);
 
         [CCode (cname = "gfm_string")]
         public Document.gfm_format (uint8[] data, int flag = 0);

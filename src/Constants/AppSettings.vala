@@ -16,26 +16,51 @@
  */
 
 namespace Quilter {
+    public class Constants {
+        // Margin Constants
+        public const int NARROW_MARGIN = 2;
+        public const int MEDIUM_MARGIN = 5;
+        public const int WIDE_MARGIN = 10;
+
+        // Font Size Constants
+        public const int SMALL_FONT = 1;
+        public const int MEDIUM_FONT = 2;
+        public const int BIG_FONT = 3;
+
+        // Typewriter Position
+        public const double TYPEWRITER_POSITION = 0.50;
+    }
+
     public class AppSettings : Granite.Services.Settings {
+        public bool autosave { get; set; }
         public bool dark_mode { get; set; }
         public bool focus_mode { get; set; }
         public bool fullscreen { get; set; }
+        public bool highlight { get; set; }
+        public bool moon_mode { get; set; }
+        public bool searchbar { get; set; }
+        public bool sepia_mode { get; set; }
+        public bool show_filename { get; set; }
         public bool show_num_lines { get; set; }
-        public bool autosave { get; set; }
+        public bool shown_view { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
+        public bool sidebar { get; set; }
+        public bool typewriter_scrolling { get; set; }
         public bool use_system_font { get; set; }
         public int focus_mode_type { get; set; }
+        public int font_sizing { get; set; }
         public int margins { get; set; }
         public int spacing { get; set; }
         public int window_height { get; set; }
         public int window_width { get; set; }
         public int window_x { get; set; }
         public int window_y { get; set; }
-        public string font { get; set; }
-        public string last_file { get; set; }
-        public string subtitle { get; set; }
+        public string current_file { get; set; }
+        public string[] last_files { get; set; }
+        public string preview_font { get; set; }
         public string spellcheck_language { get; set; }
+        public string track_type { get; set; }
 
         private static AppSettings? instance;
         public static unowned AppSettings get_default () {
