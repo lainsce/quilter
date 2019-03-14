@@ -8,12 +8,12 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-11-15 17:16-0200\n"
-"PO-Revision-Date: 2018-02-25 17:34+0100\n"
+"PO-Revision-Date: 2019-03-14 20:44+0100\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.1.1\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: nl_NL\n"
@@ -44,7 +44,7 @@ msgstr "Instellingen"
 
 #: src/MainWindow.vala:221
 msgid "Markdown Cheatsheet"
-msgstr "Markdown-cheatsheet"
+msgstr "Markdown-uitleg"
 
 #: src/MainWindow.vala:228 src/Widgets/Preferences.vala:29
 msgid "Preferences"
@@ -89,7 +89,7 @@ msgstr "Sluiten"
 
 #: src/Widgets/Preferences.vala:69
 msgid "Show Line Numbers:"
-msgstr "Regelnummers weergeven:"
+msgstr "Regelnummers tonen:"
 
 #: src/Widgets/Preferences.vala:71
 msgid "Enable Spellchecking:"
@@ -121,7 +121,7 @@ msgstr "Tekstafmetingen:"
 
 #: src/Widgets/Preferences.vala:178
 msgid "Show the Save Button:"
-msgstr "Opslaan-knop weergeven:"
+msgstr "Knop 'Opslaan' tonen:"
 
 #: src/Widgets/Preferences.vala:181
 msgid "Mode"
@@ -149,11 +149,11 @@ msgstr "Statusbalk"
 
 #: src/Widgets/Preferences.vala:199
 msgid "Show Statusbar:"
-msgstr "Statusbalk weergeven:"
+msgstr "Statusbalk tonen:"
 
 #: src/Widgets/Cheatsheet.vala:28
 msgid "Cheatsheet"
-msgstr "Cheatsheet"
+msgstr "Uitleg"
 
 #: src/Widgets/Cheatsheet.vala:46
 msgid "Text"
@@ -269,11 +269,11 @@ msgstr "Bestand openen"
 
 #: src/Services/DialogUtils.vala:77
 msgid "There are unsaved changes to the file. Do you want to save?"
-msgstr "Er zijn niet-opgeslagen wijzigingen in het bestand. Wilt u deze nu opslaan?"
+msgstr "Er zijn niet-opgeslagen wijzigingen aan het bestand. Wil je deze nu opslaan?"
 
 #: src/Services/DialogUtils.vala:78
 msgid "If you don't save, changes will be lost forever."
-msgstr "Als u deze niet opslaat, dan gaan ze permanent verloren."
+msgstr "Als je deze niet opslaat, dan gaan ze permanent verloren."
 
 #: src/Services/DialogUtils.vala:83
 msgid "Close without saving"
@@ -281,7 +281,7 @@ msgstr "Sluiten zonder opslaan"
 
 #: src/Widgets/Preferences.vala:185
 msgid "Type of Focus Mode:"
-msgstr "Type focusmodus:"
+msgstr "Soort focusmodus:"
 
 #: src/Widgets/Preferences.vala:187
 msgid "Sentence"
