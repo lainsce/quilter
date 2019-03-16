@@ -101,6 +101,7 @@ namespace Quilter.Widgets {
             var filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
+            column.select_row (filebox);
 
             return filebox;
         }

@@ -56,6 +56,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.7.6" date="2019-03-16">
+         <description>
+            <p>Release: Blu-ray Encoder</p>
+            <ul>
+                <li>Fixed: When adding files to sidebar, actually select them.</li>
+                <li>Updated: Dutch Translation</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.7.5" date="2019-03-08">
          <description>
             <p>Release: DVD Cleaner</p>
