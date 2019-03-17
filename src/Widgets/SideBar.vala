@@ -27,6 +27,10 @@ namespace Quilter.Widgets {
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
         private Gtk.StackSwitcher stackswitcher;
+        public Gtk.ListStore store;
+        private Gtk.TreeIter root1;
+        private Gtk.TreeIter root2;
+        private Gtk.TreeIter root3;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -101,41 +105,75 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (280,-1);
-            files_grid.attach (column, 0,0,1,1);
-
+            files_grid.set_size_request (280, -1);
+            files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
-
             return files_grid;
         }
 
         public Gtk.Widget sidebar_outline () {
+            var settings = AppSettings.get_default ();
             var view = new Gtk.TreeView ();
             view.expand = true;
             view.headers_visible = false;
             view.margin_top = 6;
-            var store = new Gtk.TreeStore (1, typeof (string));
+            store = new Gtk.ListStore (1, typeof (string));
             view.set_model (store);
-            view.insert_column_with_attributes (-1, "Outline", new Gtk.CellRendererText (), "text", 0, null);
-            Gtk.TreeIter root;
+            var crt = new Gtk.CellRendererText ();
+            crt.font = "Open Sans Bold 11";
+            var tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
+            tvc.set_spacing (6);
+            view.append_column (tvc);
 
-            // TODO: Append to root with regex all occurences of headers
-            //       and style them accordingly.
+            get_file_contents_as_items ();
 
-            store.append (out root, null);
-            store.set (root, 0, "# TO-DO (YEAR 19)", -1);
-
-            store.append (out root, null);
-            store.set (root, 0, "    ## MONTH G", -1);
+            settings.changed.connect (() => {
+                store.clear ();
+                get_file_contents_as_items ();
+            });
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
-            outline_grid.set_size_request (280,-1);
-            outline_grid.attach (view, 0,0,1,1);
-
+            outline_grid.set_size_request (280, -1);
+            outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
-
             return outline_grid;
+        }
+
+        public void get_file_contents_as_items () {
+            var settings = AppSettings.get_default ();
+            try {
+                var reg1 = new Regex("(?<header1>(?<!\\#)\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
+                var reg2 = new Regex("(?<header2>(?<!\\#)\\#\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
+                var reg3 = new Regex("(?<header3>(?<!\\#)\\#\\#\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
+                string buffer = "";
+                GLib.FileUtils.get_contents (settings.current_file, out buffer, null);
+
+                GLib.MatchInfo mi1;
+                GLib.MatchInfo mi2;
+                GLib.MatchInfo mi3;
+
+                if (reg1.match (buffer, 0, out mi1)) {
+                    do {
+                        store.insert (out root1, -1);
+                        store.set (root1, 0, mi1.fetch_named("header1"), -1);
+                    } while (mi1.next ());
+                }
+                if (reg2.match (buffer, 0, out mi2)) {
+                    do {
+                        store.insert (out root2, 1);
+                        store.set (root2, 0, "\t" + mi2.fetch_named("header2"), -1);
+                    } while (mi2.next ());
+                }
+                if (reg3.match (buffer, 0, out mi3)) {
+                    do {
+                        store.insert (out root3, 2);
+                        store.set (root3, 0, "\t\t" + mi3.fetch_named("header3"), -1);
+                    } while (mi3.next ());
+                }
+            } catch (GLib.Error e) {
+                GLib.error ("Unable to read file: %s", e.message);
+            }
         }
 
         public Gee.LinkedList<SideBarBox> get_files () {
