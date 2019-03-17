@@ -14,6 +14,12 @@
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
+.quilter-sidebar list,
+.quilter-sidebar treeview.view {
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    box-shadow: 0 1px transparent inset;
+}
 actionbar,
 .action-bar {
     background: @colorPrimary;

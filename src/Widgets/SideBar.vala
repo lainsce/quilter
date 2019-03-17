@@ -23,6 +23,10 @@ namespace Quilter.Widgets {
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
         public MainWindow win;
+        public Gtk.Grid files_grid;
+        public Gtk.Grid outline_grid;
+        public Gtk.Stack stack;
+        private Gtk.StackSwitcher stackswitcher;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -33,10 +37,40 @@ namespace Quilter.Widgets {
 
         public SideBar (MainWindow win) {
             this.win = win;
+
+            stack = new Gtk.Stack ();
+            stackswitcher = new Gtk.StackSwitcher ();
+            var s_context = stackswitcher.get_style_context ();
+            s_context.add_class ("linked");
+            stackswitcher.halign = Gtk.Align.FILL;
+            stackswitcher.homogeneous = true;
+            stackswitcher.margin = 4;
+            stackswitcher.stack = stack;
+            stack.add_titled (sidebar_files_list (), "files", _("Files"));
+            stack.add_titled (sidebar_outline (), "outline", _("Outline"));
+
+            var grid = new Gtk.Grid ();
+            var g_context = grid.get_style_context ();
+            g_context.add_class ("quilter-sidebar");
+            grid.margin_top = 0;
+            grid.attach (stackswitcher, 0, 0, 1, 1);
+            grid.attach (stack, 0, 1, 1, 1);
+
+            this.add (grid);
+
+            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+
+            show_this = false;
+            if (show_this) {
+                this.show_all ();
+            } else if (!show_this) {
+                this.hide ();
+            }
+        }
+
+        public Gtk.Widget sidebar_files_list () {
             var settings = AppSettings.get_default ();
             column = new Gtk.ListBox ();
-            var sb_context = column.get_style_context ();
-            sb_context.add_class ("quilter-sidebar");
             column.hexpand = false;
             column.vexpand = true;
             column.set_size_request (280,-1);
@@ -65,21 +99,43 @@ namespace Quilter.Widgets {
 
             column.show_all ();
 
-            var grid = new Gtk.Grid ();
-            grid.hexpand = false;
-            grid.set_size_request (280,-1);
-            grid.attach (column, 0,0,1,1);
+            files_grid = new Gtk.Grid ();
+            files_grid.hexpand = false;
+            files_grid.set_size_request (280,-1);
+            files_grid.attach (column, 0,0,1,1);
 
-            this.add (grid);
+            files_grid.show_all ();
 
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+            return files_grid;
+        }
 
-            show_this = false;
-            if (show_this) {
-                this.show_all ();
-            } else if (!show_this) {
-                this.hide ();
-            }
+        public Gtk.Widget sidebar_outline () {
+            var view = new Gtk.TreeView ();
+            view.expand = true;
+            view.headers_visible = false;
+            view.margin_top = 6;
+            var store = new Gtk.TreeStore (1, typeof (string));
+            view.set_model (store);
+            view.insert_column_with_attributes (-1, "Outline", new Gtk.CellRendererText (), "text", 0, null);
+            Gtk.TreeIter root;
+
+            // TODO: Append to root with regex all occurences of headers
+            //       and style them accordingly.
+
+            store.append (out root, null);
+            store.set (root, 0, "# TO-DO (YEAR 19)", -1);
+
+            store.append (out root, null);
+            store.set (root, 0, "    ## MONTH G", -1);
+
+            outline_grid = new Gtk.Grid ();
+            outline_grid.hexpand = false;
+            outline_grid.set_size_request (280,-1);
+            outline_grid.attach (view, 0,0,1,1);
+
+            outline_grid.show_all ();
+
+            return outline_grid;
         }
 
         public Gee.LinkedList<SideBarBox> get_files () {

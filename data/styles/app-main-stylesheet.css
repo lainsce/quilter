@@ -161,6 +161,10 @@ actionbar,
     border-right: 1px solid alpha (#000, 0.25);
 }
 
+.quilter-sidebar button.radio {
+    border-radius: 0;
+}
+
 .quilter-sidebar-button {
     border-top: 1px solid alpha (#000, 0.25);
     border-right: 1px solid alpha (#000, 0.25);
