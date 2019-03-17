@@ -9,7 +9,6 @@
         <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
         <ul>
             <li>Work on a story, one file at a time.</li>
-            <li>Write equations with the built-in LaTeX functions.</li>
             <li>Save your documents anywhere, even on existing files.</li>
             <li>Preview your story in the Preview Mode.</li>
             <li>Configure whether to have Focus Mode or not.</li>
@@ -56,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.8.0" date="2019-04-12">
+         <description>
+            <p>Release: File Eyeliner</p>
+            <ul>
+                <li>Added: File outline in the sidebar.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.7.6" date="2019-03-16">
          <description>
             <p>Release: Blu-ray Encoder</p>

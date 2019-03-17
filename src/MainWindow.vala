@@ -96,6 +96,8 @@ namespace Quilter {
             Widgets.EditView.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
+                sidebar.store.clear ();
+                sidebar.get_file_contents_as_items ();
             });
 
             key_press_event.connect ((e) => {
