@@ -99,6 +99,7 @@ namespace Quilter {
                 sidebar.store.clear ();
                 if (settings.current_file != "") {
                     sidebar.get_file_contents_as_items ();
+                    sidebar.view.expand_all ();
                 }
             });
 

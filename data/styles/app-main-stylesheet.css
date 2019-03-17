@@ -159,7 +159,14 @@ actionbar,
 
 .quilter-sidebar {
     border-right: 1px solid alpha (#000, 0.25);
+    margin: 0px;
 }
+
+.quilter-sidebar list,
+.quilter-sidebar treeview.view {
+    border: 1px solid transparent;
+}
+
 
 .quilter-sidebar button.radio {
     border-radius: 0;
@@ -170,7 +177,7 @@ actionbar,
     border-right: 1px solid alpha (#000, 0.25);
     background: @colorPrimary;
     border-radius: 0;
-    padding: 4px;
+    padding: 2px;
 }
 
 .quilter-sidebar-button:active,
@@ -193,9 +200,10 @@ actionbar,
 
 .quilter-sidebar-box {
     border-radius: 0 8px 8px 0;
-    margin: 5px;
+    margin: 3px;
     margin-left: 0;
     margin-bottom: 0;
+    border: 1px solid transparent;
 }
 
 .quilter-menu {

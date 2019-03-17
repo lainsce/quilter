@@ -27,10 +27,12 @@ namespace Quilter.Widgets {
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
         private Gtk.StackSwitcher stackswitcher;
-        public Gtk.ListStore store;
-        private Gtk.TreeIter root1;
-        private Gtk.TreeIter root2;
-        private Gtk.TreeIter root3;
+        public Gtk.TreeStore store;
+        public Gtk.TreeView view;
+        public Gtk.TreeViewColumn tvc;
+        private Gtk.TreeIter root;
+        private Gtk.TreeIter subheader;
+        private Gtk.TreeIter section;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -48,14 +50,17 @@ namespace Quilter.Widgets {
             s_context.add_class ("linked");
             stackswitcher.halign = Gtk.Align.FILL;
             stackswitcher.homogeneous = true;
-            stackswitcher.margin = 4;
+            stackswitcher.margin = 0;
             stackswitcher.stack = stack;
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
+            stack.child_set_property (files_grid, "icon-name", "folder-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
+            stack.child_set_property (outline_grid, "icon-name", "format-justify-left-symbolic");
 
             var grid = new Gtk.Grid ();
             var g_context = grid.get_style_context ();
             g_context.add_class ("quilter-sidebar");
+            g_context.add_class (Gtk.STYLE_CLASS_SIDEBAR);
             grid.margin_top = 0;
             grid.attach (stackswitcher, 0, 0, 1, 1);
             grid.attach (stack, 0, 1, 1, 1);
@@ -113,26 +118,30 @@ namespace Quilter.Widgets {
 
         public Gtk.Widget sidebar_outline () {
             var settings = AppSettings.get_default ();
-            var view = new Gtk.TreeView ();
+            view = new Gtk.TreeView ();
             view.expand = true;
             view.headers_visible = false;
             view.margin_top = 6;
-            store = new Gtk.ListStore (1, typeof (string));
+            store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
             var crt = new Gtk.CellRendererText ();
-            crt.font = "Open Sans Bold 11";
-            var tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
+            crt.font = "Open Sans 11";
+            tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
             tvc.set_spacing (6);
+            tvc.set_sort_column_id (0);
+            tvc.set_sort_order (Gtk.SortType.DESCENDING);
             view.append_column (tvc);
 
             if (settings.current_file != "") {
                 get_file_contents_as_items ();
+                view.expand_all ();
             }
 
             settings.changed.connect (() => {
                 store.clear ();
                 if (settings.current_file != "") {
                     get_file_contents_as_items ();
+                    view.expand_all ();
                 }
             });
 
@@ -159,20 +168,20 @@ namespace Quilter.Widgets {
 
                 if (reg1.match (buffer, 0, out mi1)) {
                     do {
-                        store.insert (out root1, -1);
-                        store.set (root1, 0, mi1.fetch_named("header1"), -1);
+                        store.insert (out root, null, -1);
+                        store.set (root, 0, mi1.fetch_named("header1"), -1);
                     } while (mi1.next ());
                 }
                 if (reg2.match (buffer, 0, out mi2)) {
                     do {
-                        store.insert (out root2, 1);
-                        store.set (root2, 0, "\t" + mi2.fetch_named("header2"), -1);
+                        store.insert (out subheader, root, -1);
+                        store.set (subheader, 0, mi2.fetch_named("header2"), -1);
                     } while (mi2.next ());
                 }
                 if (reg3.match (buffer, 0, out mi3)) {
                     do {
-                        store.insert (out root3, 2);
-                        store.set (root3, 0, "\t\t" + mi3.fetch_named("header3"), -1);
+                        store.insert (out section, subheader, -1);
+                        store.set (section, 0, mi3.fetch_named("header3"), -1);
                     } while (mi3.next ());
                 }
             } catch (GLib.Error e) {

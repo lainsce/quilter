@@ -72,7 +72,7 @@ namespace Quilter.Widgets {
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
             file_label.hexpand = false;
-            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
+            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.LARGE_TOOLBAR);
             var file_remove_button = new Gtk.Button();
             var file_remove_button_c = file_remove_button.get_style_context ();
             file_remove_button_c.add_class ("flat");
@@ -88,9 +88,9 @@ namespace Quilter.Widgets {
             file_remove_button.tooltip_text = (_("Remove File"));
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
-            file_grid.row_spacing = 6;
-            file_grid.column_spacing = 10;
-            file_grid.margin = 10;
+            file_grid.row_spacing = 3;
+            file_grid.column_spacing = 6;
+            file_grid.margin = 6;
             file_grid.attach (file_icon, 0, 0, 1, 2);
             file_grid.attach (file_name_label, 1, 0, 1, 1);
             file_grid.attach (file_label, 1, 1, 1, 1);
