@@ -97,7 +97,9 @@ namespace Quilter {
                 render_func ();
                 update_count ();
                 sidebar.store.clear ();
-                sidebar.get_file_contents_as_items ();
+                if (settings.current_file != "") {
+                    sidebar.get_file_contents_as_items ();
+                }
             });
 
             key_press_event.connect ((e) => {
@@ -541,6 +543,7 @@ namespace Quilter {
                 dialog.run ();
             }
 
+            Services.FileManager.get_cache_path ();
             sidebar.add_file (Services.FileManager.get_cache_path ());
         }
 

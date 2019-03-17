@@ -125,11 +125,15 @@ namespace Quilter.Widgets {
             tvc.set_spacing (6);
             view.append_column (tvc);
 
-            get_file_contents_as_items ();
+            if (settings.current_file != "") {
+                get_file_contents_as_items ();
+            }
 
             settings.changed.connect (() => {
                 store.clear ();
-                get_file_contents_as_items ();
+                if (settings.current_file != "") {
+                    get_file_contents_as_items ();
+                }
             });
 
             outline_grid = new Gtk.Grid ();

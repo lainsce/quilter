@@ -51,6 +51,8 @@ namespace Quilter.Services.ExportUtils {
             settings.dark_mode = false;
         } else if (settings.moon_mode) {
             settings.moon_mode = false;
+        } else if (settings.sepia_mode) {
+            settings.sepia_mode = false;
         }
 
         Widgets.Preview.get_instance ().update_html_view ();
@@ -93,6 +95,8 @@ namespace Quilter.Services.ExportUtils {
             settings.dark_mode = true;
         } else if (settings.moon_mode == false) {
             settings.moon_mode = true;
+        } else if (settings.sepia_mode) {
+            settings.sepia_mode = true;
         }
 
         return file;
