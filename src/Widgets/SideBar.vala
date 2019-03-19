@@ -33,6 +33,9 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
+        private Gtk.TreeIter subsection;
+        private Gtk.TreeIter subsubsection;
+        private Gtk.TreeIter paragraph;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -53,7 +56,7 @@ namespace Quilter.Widgets {
             stackswitcher.margin = 0;
             stackswitcher.stack = stack;
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
-            stack.child_set_property (files_grid, "icon-name", "folder-symbolic");
+            stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "format-justify-left-symbolic");
 
@@ -120,6 +123,7 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             view = new Gtk.TreeView ();
             view.expand = true;
+            view.hexpand = false;
             view.headers_visible = false;
             view.margin_top = 6;
             store = new Gtk.TreeStore (1, typeof (string));
@@ -147,6 +151,7 @@ namespace Quilter.Widgets {
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
+            outline_grid.vexpand = false;
             outline_grid.set_size_request (280, -1);
             outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
@@ -156,33 +161,34 @@ namespace Quilter.Widgets {
         public void get_file_contents_as_items () {
             var settings = AppSettings.get_default ();
             try {
-                var reg1 = new Regex("(?<header1>(?<!\\#)\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
-                var reg2 = new Regex("(?<header2>(?<!\\#)\\#\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
-                var reg3 = new Regex("(?<header3>(?<!\\#)\\#\\#\\#\\s.+)", RegexCompileFlags.OPTIMIZE);
+                var reg = new Regex("(?<header>\\#{1,6})\\s(?<text>.+)");
                 string buffer = "";
                 GLib.FileUtils.get_contents (settings.current_file, out buffer, null);
+                GLib.MatchInfo match;
 
-                GLib.MatchInfo mi1;
-                GLib.MatchInfo mi2;
-                GLib.MatchInfo mi3;
 
-                if (reg1.match (buffer, 0, out mi1)) {
+                if (reg.match (buffer, 0, out match)) {
                     do {
-                        store.insert (out root, null, -1);
-                        store.set (root, 0, mi1.fetch_named("header1"), -1);
-                    } while (mi1.next ());
-                }
-                if (reg2.match (buffer, 0, out mi2)) {
-                    do {
-                        store.insert (out subheader, root, -1);
-                        store.set (subheader, 0, mi2.fetch_named("header2"), -1);
-                    } while (mi2.next ());
-                }
-                if (reg3.match (buffer, 0, out mi3)) {
-                    do {
-                        store.insert (out section, subheader, -1);
-                        store.set (section, 0, mi3.fetch_named("header3"), -1);
-                    } while (mi3.next ());
+                        if (match.fetch_named ("header") == "#") {
+                            store.insert (out root, null, -1);
+                            store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        } else if (match.fetch_named ("header") == "##") {
+                            store.insert (out subheader, root, -1);
+                            store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        } else if (match.fetch_named ("header") == "###") {
+                            store.insert (out section, subheader, -1);
+                            store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        } else if (match.fetch_named ("header") == "####") {
+                            store.insert (out subsection, section, -1);
+                            store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        } else if (match.fetch_named ("header") == "#####") {
+                            store.insert (out subsubsection, subsection, -1);
+                            store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        } else if (match.fetch_named ("header") == "######") {
+                            store.insert (out paragraph, subsubsection, -1);
+                            store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                        }
+                    } while (match.next ());
                 }
             } catch (GLib.Error e) {
                 GLib.error ("Unable to read file: %s", e.message);
