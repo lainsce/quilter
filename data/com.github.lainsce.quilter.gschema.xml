@@ -85,9 +85,9 @@
 			    <summary>Enable spellcheck</summary>
         </key>
         <key name="spellcheck-language" type="s">
-			    <default>""</default>
+			    <default>"en"</default>
 			    <summary>Spell check language used</summary>
-			    <description>This must be the name of one of the installed languages</description>
+			    <description>This must be the name of one of the installed languages, by default the fallback</description>
         </key>
 		<key name="show-filename" type="b">
 			    <default>false</default>

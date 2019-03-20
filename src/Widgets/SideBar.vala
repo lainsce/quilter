@@ -22,6 +22,7 @@ namespace Quilter.Widgets {
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
+        public Widgets.SearchBar seb;
         public MainWindow win;
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
@@ -30,12 +31,14 @@ namespace Quilter.Widgets {
         public Gtk.TreeStore store;
         public Gtk.TreeView view;
         public Gtk.TreeViewColumn tvc;
+        public Gtk.CellRendererText crt;
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private Gtk.TreeIter subsection;
         private Gtk.TreeIter subsubsection;
         private Gtk.TreeIter paragraph;
+        private GLib.File file;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -126,17 +129,18 @@ namespace Quilter.Widgets {
             view.hexpand = false;
             view.headers_visible = false;
             view.margin_top = 6;
+            view.set_activate_on_single_click (true);
             store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
-            var crt = new Gtk.CellRendererText ();
+            crt = new Gtk.CellRendererText ();
             crt.font = "Open Sans 11";
             tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
             tvc.set_spacing (6);
             tvc.set_sort_column_id (0);
             tvc.set_sort_order (Gtk.SortType.DESCENDING);
             view.append_column (tvc);
-
             if (settings.current_file != "") {
+                store.clear ();
                 get_file_contents_as_items ();
                 view.expand_all ();
             }
@@ -160,38 +164,43 @@ namespace Quilter.Widgets {
 
         public void get_file_contents_as_items () {
             var settings = AppSettings.get_default ();
-            try {
-                var reg = new Regex("(?<header>\\#{1,6})\\s(?<text>.+)");
-                string buffer = "";
-                GLib.FileUtils.get_contents (settings.current_file, out buffer, null);
-                GLib.MatchInfo match;
+            file = GLib.File.new_for_path (settings.current_file);
+            if (!file.query_exists ()) {
+                 store.insert (out root, null, -1);
+                 store.set (root, 0, "No File", -1);
+            } else if (file.query_exists ()) {
+                try {
+                    var reg = new Regex("(?<header>\\#{1,6})\\s(?<text>.+)");
+                    string buffer = "";
+                    GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
+                    GLib.MatchInfo match;
 
-
-                if (reg.match (buffer, 0, out match)) {
-                    do {
-                        if (match.fetch_named ("header") == "#") {
-                            store.insert (out root, null, -1);
-                            store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        } else if (match.fetch_named ("header") == "##") {
-                            store.insert (out subheader, root, -1);
-                            store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        } else if (match.fetch_named ("header") == "###") {
-                            store.insert (out section, subheader, -1);
-                            store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        } else if (match.fetch_named ("header") == "####") {
-                            store.insert (out subsection, section, -1);
-                            store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        } else if (match.fetch_named ("header") == "#####") {
-                            store.insert (out subsubsection, subsection, -1);
-                            store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        } else if (match.fetch_named ("header") == "######") {
-                            store.insert (out paragraph, subsubsection, -1);
-                            store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                        }
-                    } while (match.next ());
+                    if (reg.match (buffer, 0, out match)) {
+                        do {
+                            if (match.fetch_named ("header") == "#") {
+                                store.insert (out root, null, -1);
+                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            } else if (match.fetch_named ("header") == "##") {
+                                store.insert (out subheader, root, -1);
+                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            } else if (match.fetch_named ("header") == "###") {
+                                store.insert (out section, subheader, -1);
+                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            } else if (match.fetch_named ("header") == "####") {
+                                store.insert (out subsection, section, -1);
+                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            } else if (match.fetch_named ("header") == "#####") {
+                                store.insert (out subsubsection, subsection, -1);
+                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            } else if (match.fetch_named ("header") == "######") {
+                                store.insert (out paragraph, subsubsection, -1);
+                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                            }
+                        } while (match.next ());
+                    }
+                } catch (GLib.Error e) {
+                    GLib.error ("ERR: %s", e.message);
                 }
-            } catch (GLib.Error e) {
-                GLib.error ("Unable to read file: %s", e.message);
             }
         }
 
@@ -211,10 +220,13 @@ namespace Quilter.Widgets {
         }
 
         public SideBarBox add_file (string file) {
-            var filebox = new SideBarBox (this.win, file);
-            filebox.save_as.connect (() => save_as ());
-            column.insert (filebox, 1);
-            column.select_row (filebox);
+            GLib.File gfile = GLib.File.new_for_path (file);
+            if (gfile.query_exists ()) {
+                var filebox = new SideBarBox (this.win, gfile.get_path());
+                filebox.save_as.connect (() => save_as ());
+                column.insert (filebox, 1);
+                column.select_row (filebox);
+            }
 
             return filebox;
         }

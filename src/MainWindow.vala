@@ -72,9 +72,7 @@ namespace Quilter {
                     buffer_context.remove_class ("full-text");
                 }
 
-                // Update margins
-                if (this != null)
-                    dynamic_margins ();
+                edit_view_content.dynamic_margins ();
             }
         }
 
@@ -245,7 +243,7 @@ namespace Quilter {
             set_font_menu.popover = set_font_menu_pop;
 
             edit_view = new Gtk.ScrolledWindow (null, null);
-            edit_view_content = new Widgets.EditView ();
+            edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
             edit_view_content.monospace = true;
             edit_view.add (edit_view_content);
@@ -267,16 +265,15 @@ namespace Quilter {
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
 
-            ((Gtk.RadioButton)(view_mode.get_children().first().data)).set_active (true);
+            toolbar.pack_end (view_mode);
+            show_font_button (false);
             ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
                 show_font_button (false);
             });
             ((Gtk.RadioButton)(view_mode.get_children().last().data)).toggled.connect(() => {
                 show_font_button (true);
+                toolbar.pack_end (set_font_menu);
             });
-
-            toolbar.pack_end (view_mode);
-            toolbar.pack_end (set_font_menu);
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -318,14 +315,7 @@ namespace Quilter {
 
             update_title ();
             on_sidebar_row_selected (sidebar.get_selected_row ());
-            // Register for redrawing of window for handling margins and other
-            // redrawing
-            configure_event.connect ((event) => {
-                if (this != null)
-                    dynamic_margins ();
-            });
 
-            // Attempt to set taskbar icon
             try {
                 this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
@@ -375,45 +365,6 @@ namespace Quilter {
 
             on_save ();
             return false;
-        }
-
-        public void dynamic_margins () {
-            var settings = AppSettings.get_default ();
-            int w, h, m, p;
-            this.get_size (out w, out h);
-
-            // If Quilter is Full Screen, add additional padding
-            p = (is_fullscreen) ? 5 : 0;
-
-            var margins = settings.margins;
-            switch (margins) {
-                case Constants.NARROW_MARGIN:
-                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
-                    break;
-                case Constants.WIDE_MARGIN:
-                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
-                    break;
-                default:
-                case Constants.MEDIUM_MARGIN:
-                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
-                    break;
-            }
-
-            if (edit_view_content != null) {
-                // Update margins
-                edit_view_content.left_margin = m;
-                edit_view_content.right_margin = m;
-
-                // Update margins for typewriter scrolling
-                if (settings.typewriter_scrolling && settings.focus_mode) {
-                    int titlebar_h = this.get_titlebar().get_allocated_height();
-                    edit_view_content.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
-                    edit_view_content.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
-                } else {
-                    edit_view_content.bottom_margin = 40;
-                    edit_view_content.top_margin = 40;
-                }
-            }
         }
 
         private void update_count () {
@@ -498,6 +449,7 @@ namespace Quilter {
             show_sidebar ();
             show_searchbar ();
             update_count ();
+            edit_view_content.dynamic_margins ();
 
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {

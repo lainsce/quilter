@@ -25,7 +25,7 @@ namespace Quilter.Widgets {
         private Gtk.Button replace_all_tool_button;
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
-        private Gtk.SourceSearchContext search_context = null;
+        public Gtk.SourceSearchContext search_context = null;
 
         public weak MainWindow window { get; construct; }
 

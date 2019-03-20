@@ -56,7 +56,7 @@ namespace Quilter.Services.FileManager {
             settings.current_file = file_path;
             files += file_path;
             settings.last_files = files;
-            if (win.sidebar != null) {
+            if (win.sidebar != null && f != null) {
                 win.sidebar.add_file (file_path);
             }
             try {

@@ -18,11 +18,12 @@
 */
 namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
+        public MainWindow window;
         private static EditView? instance = null;
         public static new Gtk.SourceBuffer buffer;
         public bool should_scroll {get; set; default = false;}
         public File file;
-        public GtkSpell.Checker spell = null;
+        public GtkSpell.Checker spell;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
@@ -38,42 +39,10 @@ namespace Quilter.Widgets {
 
         public static EditView get_instance () {
             if (instance == null) {
-                instance = new Widgets.EditView ();
+                instance = new Widgets.EditView (Application.win);
             }
 
             return instance;
-        }
-
-        public bool spellcheck {
-            set {
-                if (value) {
-                    try {
-                        var settings = AppSettings.get_default ();
-                        var last_language = settings.spellcheck_language;
-                        bool language_set = false;
-                        var language_list = GtkSpell.Checker.get_language_list ();
-                        foreach (var element in language_list) {
-                            if (last_language == element) {
-                                language_set = true;
-                                spell.set_language (last_language);
-                                break;
-                            }
-                        }
-
-                        if (language_list.length () == 0) {
-                            spell.set_language (null);
-                        } else if (!language_set) {
-                            last_language = language_list.first ().data;
-                            spell.set_language (last_language);
-                        }
-                        spell.attach (this);
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else {
-                    spell.detach ();
-                }
-            }
         }
 
         public string text {
@@ -98,7 +67,8 @@ namespace Quilter.Widgets {
 
         public signal void save ();
 
-        public EditView () {
+        public EditView (MainWindow window) {
+            this.window = window;
             update_settings ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_settings);
@@ -184,10 +154,33 @@ namespace Quilter.Widgets {
             error_tag.underline = Pango.Underline.ERROR;
             buffer.tag_table.add (error_tag);
             buffer.tag_table.add (warning_tag);
+
             if (settings.spellcheck != false) {
-                spellcheck = settings.spellcheck;
+                try {
+                    spell = new GtkSpell.Checker ();
+                    var lang_dict = settings.spellcheck_language;
+                    var language_list = GtkSpell.Checker.get_language_list ();
+                    foreach (var element in language_list) {
+                        if (lang_dict == element) {
+                            spell.set_language (lang_dict);
+                            break;
+                        }
+                    }
+                    if (language_list.length () == 0) {
+                        spell.set_language (null);
+                    } else {
+                        spell.set_language (lang_dict);
+                    }
+                    spell.attach (this);
+                } catch (Error e) {
+                    warning (e.message);
+                }
             } else {
-                spellcheck = settings.spellcheck;
+                try {
+                    spell.detach ();
+                } catch (Error e) {
+                    warning (e.message);
+                }
             }
 
             if (settings.autosave == true) {
@@ -221,7 +214,7 @@ namespace Quilter.Widgets {
             var buffer_context = this.get_style_context ();
             this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
-            Application.win.dynamic_margins();
+            dynamic_margins();
             this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {
@@ -261,6 +254,40 @@ namespace Quilter.Widgets {
             }
 
             set_scheme (get_default_scheme ());
+        }
+        
+        public void dynamic_margins () {
+            var settings = AppSettings.get_default ();
+            int w, h, m, p;
+            window.get_size (out w, out h);
+
+            p = (window.is_fullscreen) ? 5 : 0;
+
+            var margins = settings.margins;
+            switch (margins) {
+                case Constants.NARROW_MARGIN:
+                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
+                    break;
+                case Constants.WIDE_MARGIN:
+                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
+                    break;
+                default:
+                case Constants.MEDIUM_MARGIN:
+                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                    break;
+            }
+
+            this.left_margin = m;
+            this.right_margin = m;
+
+            if (settings.typewriter_scrolling && settings.focus_mode) {
+                int titlebar_h = window.get_titlebar().get_allocated_height();
+                this.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
+                this.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
+            } else {
+                this.bottom_margin = 40;
+                this.top_margin = 40;
+            }
         }
 
         public void set_scheme (string id) {

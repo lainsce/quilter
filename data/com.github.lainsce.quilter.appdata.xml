@@ -55,6 +55,18 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.8.1" date="2019-04-12">
+         <description>
+            <p>Release: Fixes and Gizmos</p>
+            <ul>
+                <li>Fixes: Outline crashes the app if no file found.</li>
+                <li>Fixes: Outline items were not clickable</li>
+                <li>Fixes: App crashes if new document button is pushed when no files are in the sidebar.</li>
+                <li>Fixes: App fails to launch if file in sidebar no longer exists.</li>
+                <li>Fixes: App doesn't check spelling.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.8.0" date="2019-04-12">
          <description>
             <p>Release: File Eyeliner</p>
