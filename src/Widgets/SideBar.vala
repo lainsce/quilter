@@ -170,7 +170,7 @@ namespace Quilter.Widgets {
                  store.set (root, 0, "No File", -1);
             } else if (file.query_exists ()) {
                 try {
-                    var reg = new Regex("(?<header>\\#{1,6})\\s(?<text>.+)");
+                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.+)");
                     string buffer = "";
                     GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                     GLib.MatchInfo match;
