@@ -95,7 +95,7 @@
          <description>
             <p>Release: VHS Tape Mixer</p>
             <ul>
-                <li>Reworked a lot of the internals so actions don't kill files. [Adam Bieńkowski - &at;donadigo]</li>
+                <li>Reworked a lot of the internals so actions don't kill files. [Adam Bieńkowski - @donadigo]</li>
             </ul>
          </description>
         </release>
@@ -121,7 +121,7 @@
             <p>Quilter received a visual upgrade, and also an awesome backend tuneup.</p>
             <ul>
                 <li>Rewrote all Sidebar functions</li>
-                <li>Removed LaTeX because it was lagging the app...</li>
+                <li>Removed LaTeX because it was lagging the app…</li>
                 <li>All File Management functions rewritten from scratch!</li>
             </ul>
          </description>

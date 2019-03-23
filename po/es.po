@@ -1,8 +1,14 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-19 15:58-0500\n"
+"POT-Creation-Date: 2019-03-23 17:39+0100\n"
 "PO-Revision-Date: 2018-10-19 15:58-0500\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -12,177 +18,34 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: src/MainWindow.vala:83
+#: src/MainWindow.vala:82 data/com.github.lainsce.quilter.appdata.xml.in:6
+#: data/com.github.lainsce.quilter.desktop.in:3
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:214
+#: src/MainWindow.vala:212
 msgid "Use Sans-serif"
 msgstr "Palo seco"
 
-#: src/MainWindow.vala:219
+#: src/MainWindow.vala:217
 msgid "Use Serif"
 msgstr "Remates"
 
-#: src/MainWindow.vala:225
+#: src/MainWindow.vala:223
 msgid "Use Monospace"
 msgstr "Anchura fija"
 
-#: src/MainWindow.vala:244
+#: src/MainWindow.vala:242
 msgid "Set Preview Font"
 msgstr "Establecer tipo de letra de previsualización"
 
-#: src/MainWindow.vala:259
+#: src/MainWindow.vala:258
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:260
+#: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Previsualización"
-
-#: src/Widgets/StatusBar.vala:40
-msgid "Show/Hide Sidebar"
-msgstr "Mostrar u ocultar barra de estado"
-
-#: src/Widgets/StatusBar.vala:79
-msgid "Track Characters"
-msgstr "Seguimiento de caracteres"
-
-#: src/Widgets/StatusBar.vala:84
-msgid "Track Words"
-msgstr "Seguimiento de palabras"
-
-#: src/Widgets/StatusBar.vala:89
-msgid "Track Lines"
-msgstr "Seguimiento de renglones"
-
-#: src/Widgets/StatusBar.vala:109
-msgid "Set Tracking Type"
-msgstr "Establecer tipo de seguimiento"
-
-#: src/Widgets/StatusBar.vala:122
-msgid "Words: "
-msgstr "Palabras: "
-
-#: src/Widgets/StatusBar.vala:127
-msgid "Lines: "
-msgstr "Renglones: "
-
-#: src/Widgets/StatusBar.vala:132
-msgid "Characters: "
-msgstr "Caracteres: "
-
-#: src/Widgets/StatusBar.vala:145
-msgid "Reading Time: "
-msgstr "Tiempo de lectura: "
-
-#: src/Widgets/Preferences.vala:27
-msgid "Preferences"
-msgstr "Preferencias"
-
-#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:67
-msgid "Editor"
-msgstr "Editor"
-
-#: src/Widgets/Preferences.vala:47
-msgid "Interface"
-msgstr "Interfaz"
-
-#. Close button
-#: src/Widgets/Preferences.vala:49 src/Widgets/Cheatsheet.vala:52
-msgid "Close"
-msgstr "Cerrar"
-
-#: src/Widgets/Preferences.vala:68
-msgid "Enable Spellchecking:"
-msgstr "Activar el corrector ortográfico:"
-
-#: src/Widgets/Preferences.vala:72
-msgid "Geometry"
-msgstr "Geometría"
-
-#: src/Widgets/Preferences.vala:73
-msgid "Spacing of Text:"
-msgstr "Espaciado del texto:"
-
-#: src/Widgets/Preferences.vala:75 src/Widgets/Preferences.vala:115
-#: src/Widgets/Preferences.vala:156
-msgid "Small"
-msgstr "Pequeño"
-
-#: src/Widgets/Preferences.vala:76 src/Widgets/Preferences.vala:116
-#: src/Widgets/Preferences.vala:157
-msgid "Normal"
-msgstr "Normal"
-
-#: src/Widgets/Preferences.vala:77 src/Widgets/Preferences.vala:117
-#: src/Widgets/Preferences.vala:158
-msgid "Large"
-msgstr "Grande"
-
-#: src/Widgets/Preferences.vala:113
-msgid "Margins of Text:"
-msgstr "Márgenes del texto:"
-
-#: src/Widgets/Preferences.vala:153
-msgid "Fonts & Type"
-msgstr "Tipo de letra"
-
-#: src/Widgets/Preferences.vala:154
-msgid "Editor Font Size:"
-msgstr "Tamaño de letra del editor:"
-
-#: src/Widgets/Preferences.vala:206
-msgid "Save files when changed:"
-msgstr "Guardar archivos al modificarlos:"
-
-#: src/Widgets/Preferences.vala:239
-msgid "Modes"
-msgstr "Modos"
-
-#: src/Widgets/Preferences.vala:251
-msgid "Light Mode"
-msgstr "Modo claro"
-
-#: src/Widgets/Preferences.vala:264
-msgid "Sepia Mode"
-msgstr "Modo sepia"
-
-#: src/Widgets/Preferences.vala:277
-msgid "Dark Mode"
-msgstr "Modo oscuro"
-
-#: src/Widgets/Preferences.vala:294
-msgid "Enable Focus Mode:"
-msgstr "Activar el modo de concentración:"
-
-#: src/Widgets/Preferences.vala:297
-msgid "Type of Focus Mode:"
-msgstr "Tipo de modo de concentración:"
-
-#: src/Widgets/Preferences.vala:299
-msgid "Paragraph"
-msgstr "Párrafo"
-
-#: src/Widgets/Preferences.vala:300
-msgid "Sentence"
-msgstr "Oración"
-
-#: src/Widgets/Preferences.vala:330
-msgid "Typewriter Scrolling:"
-msgstr "Desplazamiento de máquina de escribir:"
-
-#: src/Widgets/Preferences.vala:334
-msgid "User Interface"
-msgstr "Interfaz de usuario"
-
-#: src/Widgets/Preferences.vala:335
-msgid "Show Statusbar:"
-msgstr "Mostrar la barra de estado:"
-
-#: src/Widgets/Preferences.vala:338
-msgid "Show Searchbar:"
-msgstr "Mostrar la barra de búsqueda:"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -196,9 +59,14 @@ msgstr "Texto"
 msgid "Links & Special"
 msgstr "Enlaces y texto especial"
 
-#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
+#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:137
 msgid "Tables"
 msgstr "Tablas"
+
+#. Close button
+#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
+msgid "Close"
+msgstr "Cerrar"
 
 #: src/Widgets/Cheatsheet.vala:79
 msgid "Heading"
@@ -276,71 +144,661 @@ msgstr "```Bloque de código```"
 msgid "--- ← This creates a horizontal rule"
 msgstr "--- ← Línea horizontal"
 
-#: src/Widgets/Cheatsheet.vala:121
-msgid "LaTeX"
-msgstr "LaTeX"
-
-#: src/Widgets/Cheatsheet.vala:122
-msgid "$$ Math $$"
-msgstr "$$ Matemáticas $$"
-
-#: src/Widgets/Cheatsheet.vala:143
+#: src/Widgets/Cheatsheet.vala:139
 msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "Para mover el contenido de una columna a la izquierda, cambie «---» a «:---»."
+msgstr ""
+"Para mover el contenido de una columna a la izquierda, cambie «---» a «:---»."
 
-#: src/Widgets/Cheatsheet.vala:144
+#: src/Widgets/Cheatsheet.vala:140
 msgid "To make a column's content centered, change --- to :---: ."
 msgstr "Para centrar el contenido de la columna, cambie «---» a «:---:»."
 
-#: src/Widgets/Cheatsheet.vala:145
+#: src/Widgets/Cheatsheet.vala:141
 msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "Para mover el contenido de la columna a la derecha, cambie «---» a «---:»."
+msgstr ""
+"Para mover el contenido de la columna a la derecha, cambie «---» a «---:»."
 
-#: src/Services/DialogUtils.vala:32
-msgid "Markdown files"
-msgstr "Archivos de Markdown"
+#: src/Widgets/HeaderBar.vala:67
+msgid "New file"
+msgstr "Archivo nuevo"
 
-#: src/Services/DialogUtils.vala:37
-msgid "All files"
-msgstr "Todos los archivos"
+#: src/Widgets/HeaderBar.vala:73
+msgid "Save as…"
+msgstr "Guardar como…"
 
-#: src/Services/DialogUtils.vala:45
-msgid "Open file"
-msgstr "Abrir un archivo"
-
-#: src/Services/DialogUtils.vala:57
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
 msgid "Save file"
 msgstr "Guardar el archivo"
 
-#: src/Services/DialogUtils.vala:71
-msgid "There are unsaved changes to the file. Do you want to save?"
-msgstr "Hay cambios en el archivo que no se han guardado. ¿Quiere guardarlos?"
+#: src/Widgets/HeaderBar.vala:85
+msgid "Open…"
+msgstr "Abrir…"
 
-#: src/Services/DialogUtils.vala:72
-msgid "If you don't save, changes will be lost forever."
+#: src/Widgets/HeaderBar.vala:91
+msgid "Start search"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:109
+msgid "Export to PDF…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:113
+msgid "Export to HTML…"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:129
+msgid "Export"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:133
+msgid "Markdown Cheatsheet"
+msgstr "Uso de Markdown"
+
+#: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
+#: data/com.github.lainsce.quilter.appdata.xml.in:243
+msgid "Light Mode"
+msgstr "Modo claro"
+
+#: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
+#: data/com.github.lainsce.quilter.appdata.xml.in:247
+msgid "Sepia Mode"
+msgstr "Modo sepia"
+
+#: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
+#, fuzzy
+msgid "Moon Mode"
+msgstr "Modo de concentración"
+
+#: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
+#: data/com.github.lainsce.quilter.appdata.xml.in:251
+msgid "Dark Mode"
+msgstr "Modo oscuro"
+
+#: src/Widgets/HeaderBar.vala:208
+#: data/com.github.lainsce.quilter.appdata.xml.in:255
+msgid "Focus Mode"
+msgstr "Modo de concentración"
+
+#: src/Widgets/HeaderBar.vala:211
+#, fuzzy
+msgid "Enter focus mode"
+msgstr "Activar el modo de concentración:"
+
+#: src/Widgets/HeaderBar.vala:256
+msgid "Settings"
+msgstr "Configuración"
+
+#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:202
+msgid "Editor"
+msgstr "Editor"
+
+#: src/Widgets/Preferences.vala:47
+msgid "Interface"
+msgstr "Interfaz"
+
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
+msgid "Extensions"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:68
+msgid "Geometry"
+msgstr "Geometría"
+
+#: src/Widgets/Preferences.vala:69
+msgid "Spacing of Text:"
+msgstr "Espaciado del texto:"
+
+#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
+#: src/Widgets/Preferences.vala:152
+msgid "Small"
+msgstr "Pequeño"
+
+#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
+#: src/Widgets/Preferences.vala:153
+msgid "Normal"
+msgstr "Normal"
+
+#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
+#: src/Widgets/Preferences.vala:154
+msgid "Large"
+msgstr "Grande"
+
+#: src/Widgets/Preferences.vala:109
+msgid "Margins of Text:"
+msgstr "Márgenes del texto:"
+
+#: src/Widgets/Preferences.vala:149
+msgid "Fonts & Type"
+msgstr "Tipo de letra"
+
+#: src/Widgets/Preferences.vala:150
+msgid "Editor Font Size:"
+msgstr "Tamaño de letra del editor:"
+
+#: src/Widgets/Preferences.vala:203
+msgid "Save files when changed:"
+msgstr "Guardar archivos al modificarlos:"
+
+#: src/Widgets/Preferences.vala:234
+msgid "Modes"
+msgstr "Modos"
+
+#: src/Widgets/Preferences.vala:311
+msgid "Enable Focus Mode:"
+msgstr "Activar el modo de concentración:"
+
+#: src/Widgets/Preferences.vala:314
+msgid "Type of Focus Mode:"
+msgstr "Tipo de modo de concentración:"
+
+#: src/Widgets/Preferences.vala:316
+msgid "Paragraph"
+msgstr "Párrafo"
+
+#: src/Widgets/Preferences.vala:317
+msgid "Sentence"
+msgstr "Oración"
+
+#: src/Widgets/Preferences.vala:347
+msgid "Typewriter Scrolling:"
+msgstr "Desplazamiento de máquina de escribir:"
+
+#: src/Widgets/Preferences.vala:351
+msgid "User Interface"
+msgstr "Interfaz de usuario"
+
+#: src/Widgets/Preferences.vala:352
+msgid "Show Statusbar:"
+msgstr "Mostrar la barra de estado:"
+
+#: src/Widgets/Preferences.vala:355
+msgid "Show Searchbar:"
+msgstr "Mostrar la barra de búsqueda:"
+
+#: src/Widgets/Preferences.vala:413
+#, fuzzy
+msgid "Enable Code Highlighting:"
+msgstr "Activar el corrector ortográfico:"
+
+#: src/Widgets/Preferences.vala:417
+msgid "Enable Spellchecking:"
+msgstr "Activar el corrector ortográfico:"
+
+#: src/Widgets/SearchBar.vala:39
+msgid "Replace with…"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:43
+msgid "Replace"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:46
+msgid "Replace all"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:71
+msgid "Find text…"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:90
+msgid "Search previous"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:109
+msgid "Search next"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:61
+msgid "Files"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:63
+msgid "Outline"
+msgstr ""
+
+#: src/Widgets/SideBarBox.vala:88
+msgid "Remove File"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:40
+msgid "Show/Hide Sidebar"
+msgstr "Mostrar u ocultar barra de estado"
+
+#: src/Widgets/StatusBar.vala:79
+msgid "Track Characters"
+msgstr "Seguimiento de caracteres"
+
+#: src/Widgets/StatusBar.vala:84
+msgid "Track Words"
+msgstr "Seguimiento de palabras"
+
+#: src/Widgets/StatusBar.vala:89
+msgid "Track Lines"
+msgstr "Seguimiento de renglones"
+
+#: src/Widgets/StatusBar.vala:109
+msgid "Set Tracking Type"
+msgstr "Establecer tipo de seguimiento"
+
+#: src/Widgets/StatusBar.vala:123
+msgid "Words: "
+msgstr "Palabras: "
+
+#: src/Widgets/StatusBar.vala:130
+msgid "Lines: "
+msgstr "Renglones: "
+
+#: src/Widgets/StatusBar.vala:137
+msgid "Characters: "
+msgstr "Caracteres: "
+
+#: src/Widgets/StatusBar.vala:151
+msgid "Reading Time: "
+msgstr "Tiempo de lectura: "
+
+#: src/Services/DialogUtils.vala:29
+msgid "Markdown files"
+msgstr "Archivos de Markdown"
+
+#: src/Services/DialogUtils.vala:33
+msgid "All files"
+msgstr "Todos los archivos"
+
+#: src/Services/DialogUtils.vala:44
+#, fuzzy
+msgid "Save Open File?"
+msgstr "Abrir un archivo"
+
+#: src/Services/DialogUtils.vala:45
+#, fuzzy
+msgid ""
+"There are unsaved changes to the file. If you don't save, changes will be "
+"lost forever."
 msgstr "Si no los guarda, los cambios se perderán permanentemente."
 
-#: src/Services/DialogUtils.vala:77
-msgid "Close without saving"
+#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
+#: src/Services/ExportUtils.vala:188
+#, fuzzy
+msgid "Save"
+msgstr "Guardar el archivo"
+
+#: src/Services/DialogUtils.vala:50
+#, fuzzy
+msgid "Close Without Saving"
 msgstr "Cerrar sin guardar"
 
-#~ msgid "New file"
-#~ msgstr "Archivo nuevo"
+#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
+#: src/Services/ExportUtils.vala:207
+msgid "Cancel"
+msgstr ""
 
-#~ msgid "Save as…"
-#~ msgstr "Guardar como…"
+#: src/Services/ExportUtils.vala:83
+msgid "Print to File"
+msgstr ""
 
-#~ msgid "Open…"
-#~ msgstr "Abrir…"
+#: src/Services/ExportUtils.vala:137
+msgid "Select destination PDF file"
+msgstr ""
 
-#~ msgid "Settings"
-#~ msgstr "Configuración"
+#: src/Services/ExportUtils.vala:142
+msgid "PDF File"
+msgstr ""
 
-#~ msgid "Markdown Cheatsheet"
-#~ msgstr "Uso de Markdown"
+#: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
+#, fuzzy
+msgid "All Files"
+msgstr "Todos los archivos"
 
-#~ msgid "Focus Mode"
-#~ msgstr "Modo de concentración"
+#: src/Services/ExportUtils.vala:186
+msgid "Select destination HTML file"
+msgstr ""
+
+#: src/Services/ExportUtils.vala:191
+msgid "HTML File"
+msgstr ""
+
+#: src/Services/FileManager.vala:76
+msgid "Open file"
+msgstr "Abrir un archivo"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:7
+#: data/com.github.lainsce.quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:9
+msgid ""
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:11
+msgid "Work on a story, one file at a time."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:25
+msgid "Lains"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:60
+msgid "Release: Fixes and Gizmos"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:62
+msgid "Fixes: Outline crashes the app if no file found."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:63
+msgid ""
+"Fixes: App crashes if new document button is pushed when no files are in the "
+"sidebar."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:64
+msgid "Fixes: App fails to launch if file in sidebar no longer exists."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:65
+msgid "Fixes: App doesn't check spelling."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:71
+msgid "Release: File Eyeliner"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:73
+msgid "Added: File outline in the sidebar."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:79
+msgid "Release: Blu-ray Encoder"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:81
+msgid "Fixed: When adding files to sidebar, actually select them."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:82
+msgid "Updated: Dutch Translation"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:88
+msgid "Release: DVD Cleaner"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:90
+msgid "Fixed: Opening files should never fail now."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:96
+msgid "Release: VHS Tape Mixer"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:98
+msgid ""
+"Reworked a lot of the internals so actions don't kill files. [Adam "
+"Bieńkowski - @donadigo]"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:104
+msgid "Release: Betamax Tracker"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:106
+msgid "Some UX redefinition in the sidebar, to avoid complicating it."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:112
+msgid "Release: Kodachrome Selector"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:114
+msgid ""
+"Open files without adding duplicate entries, and clear sidbar is you really "
+"need to (it has a confirm dialog)."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:120
+msgid "Release: Visually Stunning"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:121
+msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:123
+msgid "Rewrote all Sidebar functions"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:124
+msgid "Removed LaTeX because it was lagging the app…"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:125
+msgid "All File Management functions rewritten from scratch!"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:131
+msgid "Release: Side Serve Sheets"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:133
+msgid "5 months"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:139
+msgid "Release: Choice Looks Better"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:141
+msgid "All tracking choices as well as preview font choices are better shown."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:147
+msgid "Release: Stylish Readable Stories"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:149
+msgid "All text passes a contrast check to be readable now."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:155
+msgid "Release: Track Your Stuff Up"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:157
+msgid ""
+"You can now set what to track in the document: Characters, Words, or Lines."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:163
+msgid "Release: Font Forgery"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:165
+msgid "You can now set the font size for Edit View in the Preferences."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:171
+msgid "Release: Sepia &amp; Blues"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:173
+msgid "A new Mode between Light &amp; Dark, the Sepia Mode."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:174
+msgid "A new way to toggle between Modes in the Settings."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:175
+msgid "Dynamargins: the three sizes now autofit for the window's size."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:176
+msgid "A redesign of the main menu."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:177
+msgid "Search any term inside your document."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:178
+msgid "Change Preview Mode's font style on-the-fly."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:179
+msgid ""
+"Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when "
+"editing."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:180
+msgid "Fixed most of the internal logic to change between Modes."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:181
+msgid "Fixed fullscreen bug. (finally!)"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:182
+msgid ""
+"Margins when fullscreen reflect the ratio of those on non-fullscreen settings"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:183
+msgid "Fixed the refresh rate of Preview Mode."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:189
+msgid "Release: Unreleased Bump"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:191
+msgid "Intentionally left blank."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:197
+msgid "Release: Maths? Hardly knew 'er!"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:199
+msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:205
+msgid "Release: Don't Blot Yourself"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:207
+msgid "Preview Mode will only update on changes from Edit View."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:208
+msgid "Statusbar will update always."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:214
+msgid "Release: All-Around An Inker!"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:216
+msgid "Preview Mode won't load rogue Javascript code."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:217
+msgid ""
+"Preview Mode will also not autojump to the start of the scroll at any time."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:218
+msgid "Header becomes Heading in the Cheatsheet."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:219
+msgid ""
+"Fixed the Unsaved changes dialog still killing files when pressing the New "
+"File button."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:220
+msgid "New Translations for: Dutch, Catalan &amp; Spanish."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:226
+msgid "Release: Visual Standardization"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:228
+msgid "The headerbar now respects the global theme in Normal and Dark modes."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:234
+msgid "Release: New Sheets Won't Crumple Old Ones, part 2"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:236
+msgid "The New File button will not purge old files."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:259
+#, fuzzy
+msgid "Preview Mode"
+msgstr "Previsualización"
+
+#: data/com.github.lainsce.quilter.desktop.in:6
+msgid "com.github.lainsce.quilter"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.desktop.in:7
+msgid "Text;Markdown;LaTeX;Editor;"
+msgstr ""
+
+#~ msgid "LaTeX"
+#~ msgstr "LaTeX"
+
+#~ msgid "$$ Math $$"
+#~ msgstr "$$ Matemáticas $$"
+
+#~ msgid "There are unsaved changes to the file. Do you want to save?"
+#~ msgstr ""
+#~ "Hay cambios en el archivo que no se han guardado. ¿Quiere guardarlos?"
 
 #~ msgid "Show Line Numbers:"
 #~ msgstr "Mostrar los números de renglones:"
