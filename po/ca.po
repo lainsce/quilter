@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2018-10-19 16:08-0500\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -47,6 +47,12 @@ msgstr "Edita"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Previsualitza"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -363,6 +369,11 @@ msgstr ""
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
 msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Tots els fitxers"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
@@ -793,30 +804,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr ""
-
-#~ msgid "LaTeX"
-#~ msgstr "LaTeX"
-
-#~ msgid "$$ Math $$"
-#~ msgstr "$$ Matemàtiques $$"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr "Hi ha canvis sense desar en aquest fitxer. Voleu desar-los?"
-
-#~ msgid "Show Line Numbers:"
-#~ msgstr "Mostra els números de línia"
-
-#~ msgid "Show the Save Button:"
-#~ msgstr "Mostra el botó Desa:"
-
-#~ msgid "Enable Dark Mode:"
-#~ msgstr "Habilita el mode fosc:"
-
-#~ msgid "Font"
-#~ msgstr "Tipus de lletra"
-
-#~ msgid "Custom font:"
-#~ msgstr "Tipus de lletra personalitzat:"
-
-#~ msgid "Statusbar"
-#~ msgstr "Barra d’estat"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2017-11-09 19:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -48,6 +48,12 @@ msgstr "Modifica"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Anteprima"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -373,6 +379,11 @@ msgstr ""
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
 msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Tutti i file"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
@@ -803,24 +814,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr ""
-
-#~ msgid "Show Line Numbers:"
-#~ msgstr "Mostra il Numero de las Lineas:"
-
-#~ msgid "Show the Save Button:"
-#~ msgstr "Mostra il tasto Salva"
-
-#~ msgid "Enable Dark Mode:"
-#~ msgstr "Attiva tema scuro"
-
-#~ msgid "Font"
-#~ msgstr "Font"
-
-#~ msgid "Custom font:"
-#~ msgstr "Font personalizzato"
-
-#~ msgid "Statusbar"
-#~ msgstr "Barra di stato"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr "Ci sono modifiche non salvate. Vuoi salvare?"

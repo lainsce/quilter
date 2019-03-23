@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -45,6 +45,12 @@ msgstr "Modifier"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Aperçu"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr "Aucun document ouvert"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -189,7 +195,7 @@ msgstr "Exporter"
 
 #: src/Widgets/HeaderBar.vala:133
 msgid "Markdown Cheatsheet"
-msgstr "Table des éléments"
+msgstr "Table des éléments Markdown"
 
 #: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
 msgid "Preferences"
@@ -217,11 +223,11 @@ msgstr "Thème sombre"
 #: src/Widgets/HeaderBar.vala:208
 #: data/com.github.lainsce.quilter.appdata.xml.in:255
 msgid "Focus Mode"
-msgstr "Mode concentration"
+msgstr "Mode zen"
 
 #: src/Widgets/HeaderBar.vala:211
 msgid "Enter focus mode"
-msgstr "Entrer en mode concentration"
+msgstr "Entrer en mode zen"
 
 #: src/Widgets/HeaderBar.vala:256
 msgid "Settings"
@@ -237,7 +243,7 @@ msgstr "Interface"
 
 #: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
 msgid "Extensions"
-msgstr ""
+msgstr "Extensions"
 
 #: src/Widgets/Preferences.vala:68
 msgid "Geometry"
@@ -284,11 +290,11 @@ msgstr "Thèmes"
 
 #: src/Widgets/Preferences.vala:311
 msgid "Enable Focus Mode:"
-msgstr "Activer le mode concentration :"
+msgstr "Activer le mode zen :"
 
 #: src/Widgets/Preferences.vala:314
 msgid "Type of Focus Mode:"
-msgstr "Type de mode concentration :"
+msgstr "Type de mode zen :"
 
 #: src/Widgets/Preferences.vala:316
 msgid "Paragraph"
@@ -317,7 +323,7 @@ msgstr "Afficher la barre de recherche :"
 #: src/Widgets/Preferences.vala:413
 #, fuzzy
 msgid "Enable Code Highlighting:"
-msgstr "Activer la vérification d'orthographe :"
+msgstr "Activer la coloration du code :"
 
 #: src/Widgets/Preferences.vala:417
 msgid "Enable Spellchecking:"
@@ -355,11 +361,16 @@ msgstr "Tous les fichiers"
 
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
-msgstr ""
+msgstr "Aperçu"
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Aucun fichier"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
-msgstr ""
+msgstr "Supprimer le fichier"
 
 #: src/Widgets/StatusBar.vala:40
 msgid "Show/Hide Sidebar"
@@ -408,7 +419,7 @@ msgstr "Tous les fichiers"
 #: src/Services/DialogUtils.vala:44
 #, fuzzy
 msgid "Save Open File?"
-msgstr "Enregistrer le fichier"
+msgstr "Enregistrer le fichier ouvert ?"
 
 #: src/Services/DialogUtils.vala:45
 #, fuzzy
@@ -416,7 +427,8 @@ msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
 msgstr ""
-"Si vous n'enregistrez pas, les changements seront perdus pour toujours."
+"Il y a des modifications non sauvegardées dans le fichier. Si vous "
+"n'enregistrez pas, les changements seront perdus pour toujours."
 
 #: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
 #: src/Services/ExportUtils.vala:188
@@ -451,11 +463,11 @@ msgstr "Tous les fichiers"
 
 #: src/Services/ExportUtils.vala:186
 msgid "Select destination HTML file"
-msgstr ""
+msgstr "Sélectionnez l'emplacement de destination du fichier HTML"
 
 #: src/Services/ExportUtils.vala:191
 msgid "HTML File"
-msgstr "Sélectionnez l'emplacement de destination du fichier HTML"
+msgstr "Fichier HTML"
 
 #: src/Services/FileManager.vala:76
 msgid "Open file"
@@ -513,7 +525,7 @@ msgstr "Quittez à tout moment avec le raccourci Ctrl + Q"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:25
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
 msgid "Release: Fixes and Gizmos"
@@ -788,131 +800,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr "Texte;Markdown;LaTeX;Éditeur;"
-
-#~ msgid "Write equations with the built-in LaTeX functions."
-#~ msgstr "Écrivez des équations avec les fonctions LaTeX intégrées."
-
-#~ msgid "Unexpected error during open: "
-#~ msgstr "Erreur inattendue lors de l'ouverture de : "
-
-#~ msgid "ERROR: "
-#~ msgstr "ERREUR : "
-
-#~ msgid "Copyright 2017-2018 Lains\n"
-#~ msgstr "Copyright 2017-2018 Lains\n"
-
-#~ msgid "Maybe you do not have the necessary permissions."
-#~ msgstr "Vous n'avez peut-être pas les permissions nécessaires."
-
-#~ msgid "Maybe the file path provided is not valid."
-#~ msgstr "Peut-être que le chemin d'accès fourni n'est pas valide."
-
-#~ msgid "The location is read-only."
-#~ msgstr "L'emplacement est en lecture seule."
-
-#~ msgid "The parent directory doesn't exist."
-#~ msgstr "Le dossier parent n'existe pas."
-
-#~ msgid ""
-#~ "File \"%s\" cannot be created.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible de créer le fichier « %s ».\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "File \"%s\" cannot be opened.\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Impossible d'ouvrir le fichier « %s ».\n"
-#~ "%s"
-
-#~ msgid "It is a mountable location."
-#~ msgstr "C'est un emplacement montable."
-
-#~ msgid "It is a directory."
-#~ msgstr "C'est un dossier."
-
-#~ msgid ""
-#~ "It is a \"special\" file such as a socket,\n"
-#~ " fifo, block device, or character device."
-#~ msgstr ""
-#~ "C'est un fichier « spécial » tel qu'un socket,\n"
-#~ " fifo, un block device, ou un character device."
-
-#~ msgid "It is an \"unknown\" file type."
-#~ msgstr "C'est un fichier de type « inconnu »."
-
-#~ msgid "AppInfo object not found for Quilter."
-#~ msgstr "L'objet AppInfo n'a pas été trouvé pour Quilter."
-
-#~ msgid "Print copyright info and exit"
-#~ msgstr "Afficher les informations sur les droits d'auteur et quitter"
-
-#~ msgid "Open document for preview"
-#~ msgstr "Ouvrir le document pour aperçu"
-
-#~ msgid "LaTeX"
-#~ msgstr "LaTeX"
-
-#~ msgid "$$ Math $$"
-#~ msgstr "$$ Math $$"
-
-#~ msgid "No valid buffer to replace"
-#~ msgstr "Aucun tampon valide à remplacer"
-
-#~ msgid "No SourceView is associated with SearchManager!"
-#~ msgstr "Aucune SourceView n'est associée à SearchManager !"
-
-#~ msgid "Clean files from Sidebar"
-#~ msgstr "Effacer les fichiers de la barre latérale"
-
-#~ msgid "New Document"
-#~ msgstr "Nouveau document"
-
-#~ msgid "~/new_document.md"
-#~ msgstr "~/nouveau_document.md"
-
-#~ msgid "Error: %s\n"
-#~ msgstr "Erreur : %s\n"
-
-#~ msgid "No app to handle urls: %s"
-#~ msgstr "Pas d'application pour gérer les urls : %s"
-
-#~ msgid "_Cancel"
-#~ msgstr "_Annuler"
-
-#~ msgid "_Open"
-#~ msgstr "_Ouvrir"
-
-#~ msgid "_Save"
-#~ msgstr "_Enregistrer"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr ""
-#~ "Il y a des modifications non sauvegardées dans le fichier. Voulez-vous "
-#~ "enregistrer ?"
-
-#~ msgid "Could not write HTML file: %s"
-#~ msgstr "Impossible d'enregistrer le fichier HTML : %s"
-
-#~ msgid "Could not write initial PDF file: %s"
-#~ msgstr "Impossible d'enregistrer le fichier PDF initial : %s"
-
-#~ msgid "Could not write file: %s"
-#~ msgstr "Impossible d'enregistrer le fichier : %s"
-
-#~ msgid "Could not write file \"%s\": %s"
-#~ msgstr "Impossible d'enregistrer le fichier « %s » : %s"
-
-#~ msgid "Exception found: "
-#~ msgstr "Exception trouvée : "
-
-#~ msgid "Unexpected error during save: "
-#~ msgstr "Erreur inattendue lors de l'enregistrement : "
-
-#~ msgid "Error: %s"
-#~ msgstr "Erreur : %s"
-
-#~ msgid "Error: "
-#~ msgstr "Erreur : "

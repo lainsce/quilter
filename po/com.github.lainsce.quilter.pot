@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,6 +44,12 @@ msgstr ""
 
 #: src/MainWindow.vala:259
 msgid "Preview"
+msgstr ""
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
@@ -352,6 +358,10 @@ msgstr ""
 
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+msgid "No File"
 msgstr ""
 
 #: src/Widgets/SideBarBox.vala:88

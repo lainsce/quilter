@@ -167,7 +167,7 @@ namespace Quilter.Widgets {
             file = GLib.File.new_for_path (settings.current_file);
             if (!file.query_exists ()) {
                  store.insert (out root, null, -1);
-                 store.set (root, 0, "No File", -1);
+                 store.set (root, 0, _("No File"), -1);
             } else if (file.query_exists ()) {
                 try {
                     var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.+)");

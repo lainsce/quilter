@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2019-03-14 20:44+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
@@ -48,6 +48,12 @@ msgstr "Bewerken"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Voorbeeld"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -371,6 +377,11 @@ msgstr ""
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
 msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Alle bestanden"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
@@ -801,26 +812,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr ""
-
-#~ msgid "Show Line Numbers:"
-#~ msgstr "Regelnummers tonen:"
-
-#~ msgid "Show the Save Button:"
-#~ msgstr "Knop 'Opslaan' tonen:"
-
-#~ msgid "Enable Dark Mode:"
-#~ msgstr "Donkere modus inschakelen:"
-
-#~ msgid "Font"
-#~ msgstr "Lettertype"
-
-#~ msgid "Custom font:"
-#~ msgstr "Aangepast lettertype:"
-
-#~ msgid "Statusbar"
-#~ msgstr "Statusbalk"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr ""
-#~ "Er zijn niet-opgeslagen wijzigingen aan het bestand. Wil je deze nu "
-#~ "opslaan?"

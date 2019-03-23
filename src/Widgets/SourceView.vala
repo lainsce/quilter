@@ -131,7 +131,7 @@ namespace Quilter.Widgets {
                 should_scroll = true;
             });
 
-            if (settings.current_file == "No Documents Open") {
+            if (settings.current_file == (_("No Documents Open"))) {
                 buffer.text = "";
             }
 

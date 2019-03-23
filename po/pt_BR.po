@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2018-10-18 21:07-0300\n"
 "Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
 "Language-Team: \n"
@@ -47,6 +47,12 @@ msgstr "Editor"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Prévia"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -359,6 +365,11 @@ msgstr ""
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
 msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Todos os arquivos"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
@@ -789,30 +800,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr ""
-
-#~ msgid "LaTeX"
-#~ msgstr "LaTeX"
-
-#~ msgid "$$ Math $$"
-#~ msgstr "$$ Math $$"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr "Há mudanças sem salvar. Deseja salvá-las?"
-
-#~ msgid "Show Line Numbers:"
-#~ msgstr "Mostrar Número das Linhas:"
-
-#~ msgid "Show the Save Button:"
-#~ msgstr "Mostrar o Botão de Salvar:"
-
-#~ msgid "Enable Dark Mode:"
-#~ msgstr "Habilitar Modo Invertido:"
-
-#~ msgid "Font"
-#~ msgstr "Fonte"
-
-#~ msgid "Custom font:"
-#~ msgstr "Fonte customizada:"
-
-#~ msgid "Statusbar"
-#~ msgstr "Barra de Estado"

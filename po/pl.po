@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:39+0100\n"
+"POT-Creation-Date: 2019-03-23 17:56+0100\n"
 "PO-Revision-Date: 2018-01-11 23:01+0100\n"
 "Last-Translator: Michał Rowicki <mirowicki@gmail.com>\n"
 "Language-Team:\n"
@@ -46,6 +46,12 @@ msgstr "Edycja"
 #: src/MainWindow.vala:259
 msgid "Preview"
 msgstr "Podgląd"
+
+#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -369,6 +375,11 @@ msgstr ""
 #: src/Widgets/SideBar.vala:63
 msgid "Outline"
 msgstr ""
+
+#: src/Widgets/SideBar.vala:170
+#, fuzzy
+msgid "No File"
+msgstr "Wszystkie pliki"
 
 #: src/Widgets/SideBarBox.vala:88
 msgid "Remove File"
@@ -799,24 +810,3 @@ msgstr ""
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;LaTeX;Editor;"
 msgstr ""
-
-#~ msgid "Show Line Numbers:"
-#~ msgstr "Pokaż Numery Linii:"
-
-#~ msgid "Show the Save Button:"
-#~ msgstr "Pokazuj Przycisk Zapisz:"
-
-#~ msgid "Enable Dark Mode:"
-#~ msgstr "Włącz Tryb Ciemny:"
-
-#~ msgid "Font"
-#~ msgstr "Czcionka"
-
-#~ msgid "Custom font:"
-#~ msgstr "Niestandardowa czcionka:"
-
-#~ msgid "Statusbar"
-#~ msgstr "Pasek stanu"
-
-#~ msgid "There are unsaved changes to the file. Do you want to save?"
-#~ msgstr "W pliku są niezapisane zmiany. Czy chcesz zapisać?"

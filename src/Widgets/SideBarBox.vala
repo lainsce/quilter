@@ -129,7 +129,7 @@ namespace Quilter.Widgets {
                     this.destroy ();
                     Widgets.EditView.buffer.text = "";
                     Services.FileManager.file = null;
-                    win.toolbar.set_subtitle ("No Documents Open");
+                    win.toolbar.set_subtitle (_("No Documents Open"));
                 }
             });
             this.add (file_grid);
