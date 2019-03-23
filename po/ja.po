@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # Ryo Nakano <ryonakaknock3@gmail.com>, 2018.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:56+0100\n"
+"POT-Creation-Date: 2019-03-23 18:02+0100\n"
 "PO-Revision-Date: 2018-06-25 22:02+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
@@ -37,7 +36,6 @@ msgid "Use Monospace"
 msgstr ""
 
 #: src/MainWindow.vala:242
-#, fuzzy
 msgid "Set Preview Font"
 msgstr "プレビュー"
 
@@ -211,12 +209,10 @@ msgstr ""
 
 #: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
 #: data/com.github.lainsce.quilter.appdata.xml.in:247
-#, fuzzy
 msgid "Sepia Mode"
 msgstr "ダークモード"
 
 #: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
-#, fuzzy
 msgid "Moon Mode"
 msgstr "集中モード"
 
@@ -231,7 +227,6 @@ msgid "Focus Mode"
 msgstr "集中モード"
 
 #: src/Widgets/HeaderBar.vala:211
-#, fuzzy
 msgid "Enter focus mode"
 msgstr "集中モードを有効にする:"
 
@@ -291,7 +286,6 @@ msgid "Save files when changed:"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:234
-#, fuzzy
 msgid "Modes"
 msgstr "モード"
 
@@ -316,7 +310,6 @@ msgid "Typewriter Scrolling:"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:351
-#, fuzzy
 msgid "User Interface"
 msgstr "インターフェース"
 
@@ -325,12 +318,10 @@ msgid "Show Statusbar:"
 msgstr "ステータスバーを表示:"
 
 #: src/Widgets/Preferences.vala:355
-#, fuzzy
 msgid "Show Searchbar:"
 msgstr "ステータスバーを表示:"
 
 #: src/Widgets/Preferences.vala:413
-#, fuzzy
 msgid "Enable Code Highlighting:"
 msgstr "スペルチェックを有効にする:"
 
@@ -371,7 +362,6 @@ msgid "Outline"
 msgstr ""
 
 #: src/Widgets/SideBar.vala:170
-#, fuzzy
 msgid "No File"
 msgstr "すべてのファイル"
 
@@ -424,12 +414,10 @@ msgid "All files"
 msgstr "すべてのファイル"
 
 #: src/Services/DialogUtils.vala:44
-#, fuzzy
 msgid "Save Open File?"
 msgstr "ファイルを保存"
 
 #: src/Services/DialogUtils.vala:45
-#, fuzzy
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -437,12 +425,10 @@ msgstr "保存しなければ、変更は破棄されます。"
 
 #: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
 #: src/Services/ExportUtils.vala:188
-#, fuzzy
 msgid "Save"
 msgstr "ファイルを保存"
 
 #: src/Services/DialogUtils.vala:50
-#, fuzzy
 msgid "Close Without Saving"
 msgstr "保存せずに閉じる"
 
@@ -464,7 +450,6 @@ msgid "PDF File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
-#, fuzzy
 msgid "All Files"
 msgstr "すべてのファイル"
 
@@ -793,7 +778,6 @@ msgid "The New File button will not purge old files."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:259
-#, fuzzy
 msgid "Preview Mode"
 msgstr "プレビュー"
 

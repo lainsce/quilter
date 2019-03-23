@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:56+0100\n"
+"POT-Creation-Date: 2019-03-23 18:02+0100\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -321,7 +320,6 @@ msgid "Show Searchbar:"
 msgstr "Afficher la barre de recherche :"
 
 #: src/Widgets/Preferences.vala:413
-#, fuzzy
 msgid "Enable Code Highlighting:"
 msgstr "Activer la coloration du code :"
 
@@ -346,7 +344,6 @@ msgid "Find text…"
 msgstr "Rechercher…"
 
 #: src/Widgets/SearchBar.vala:90
-#, fuzzy
 msgid "Search previous"
 msgstr "Rechercher le suivant"
 
@@ -355,7 +352,6 @@ msgid "Search next"
 msgstr "Rechercher le suivant"
 
 #: src/Widgets/SideBar.vala:61
-#, fuzzy
 msgid "Files"
 msgstr "Tous les fichiers"
 
@@ -364,7 +360,6 @@ msgid "Outline"
 msgstr "Aperçu"
 
 #: src/Widgets/SideBar.vala:170
-#, fuzzy
 msgid "No File"
 msgstr "Aucun fichier"
 
@@ -417,12 +412,10 @@ msgid "All files"
 msgstr "Tous les fichiers"
 
 #: src/Services/DialogUtils.vala:44
-#, fuzzy
 msgid "Save Open File?"
 msgstr "Enregistrer le fichier ouvert ?"
 
 #: src/Services/DialogUtils.vala:45
-#, fuzzy
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -436,7 +429,6 @@ msgid "Save"
 msgstr "Enregistrer"
 
 #: src/Services/DialogUtils.vala:50
-#, fuzzy
 msgid "Close Without Saving"
 msgstr "Fermer sans enregistrer"
 
@@ -789,7 +781,6 @@ msgid "The New File button will not purge old files."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:259
-#, fuzzy
 msgid "Preview Mode"
 msgstr "Aperçu"
 

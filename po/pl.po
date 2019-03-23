@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:56+0100\n"
+"POT-Creation-Date: 2019-03-23 18:02+0100\n"
 "PO-Revision-Date: 2018-01-11 23:01+0100\n"
 "Last-Translator: Michał Rowicki <mirowicki@gmail.com>\n"
 "Language-Team:\n"
@@ -35,7 +34,6 @@ msgid "Use Monospace"
 msgstr ""
 
 #: src/MainWindow.vala:242
-#, fuzzy
 msgid "Set Preview Font"
 msgstr "Podgląd"
 
@@ -75,37 +73,30 @@ msgid "Close"
 msgstr "Zamknij"
 
 #: src/Widgets/Cheatsheet.vala:79
-#, fuzzy
 msgid "Heading"
 msgstr "Nagłówek"
 
 #: src/Widgets/Cheatsheet.vala:80
-#, fuzzy
 msgid "# Heading 1"
 msgstr "# Nagłówek 1"
 
 #: src/Widgets/Cheatsheet.vala:81
-#, fuzzy
 msgid "## Heading 2"
 msgstr "## Nagłówek 2"
 
 #: src/Widgets/Cheatsheet.vala:82
-#, fuzzy
 msgid "### Heading 3"
 msgstr "### Nagłówek 3"
 
 #: src/Widgets/Cheatsheet.vala:83
-#, fuzzy
 msgid "#### Heading 4"
 msgstr "#### Nagłówek 4"
 
 #: src/Widgets/Cheatsheet.vala:84
-#, fuzzy
 msgid "##### Heading 5"
 msgstr "##### Nagłówek 5"
 
 #: src/Widgets/Cheatsheet.vala:85
-#, fuzzy
 msgid "###### Heading 6"
 msgstr "###### Nagłówek 6"
 
@@ -154,7 +145,6 @@ msgid "```This is a code block```"
 msgstr "```To jest blok kodu```"
 
 #: src/Widgets/Cheatsheet.vala:120
-#, fuzzy
 msgid "--- ← This creates a horizontal rule"
 msgstr "--- ← To jest linia horyzontalna"
 
@@ -217,12 +207,10 @@ msgstr ""
 
 #: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
 #: data/com.github.lainsce.quilter.appdata.xml.in:247
-#, fuzzy
 msgid "Sepia Mode"
 msgstr "Tryb Ciemny"
 
 #: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
-#, fuzzy
 msgid "Moon Mode"
 msgstr "Tryb Fokusu"
 
@@ -237,7 +225,6 @@ msgid "Focus Mode"
 msgstr "Tryb Fokusu"
 
 #: src/Widgets/HeaderBar.vala:211
-#, fuzzy
 msgid "Enter focus mode"
 msgstr "Włącz Tryb Fokusu:"
 
@@ -297,7 +284,6 @@ msgid "Save files when changed:"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:234
-#, fuzzy
 msgid "Modes"
 msgstr "Tryb"
 
@@ -322,7 +308,6 @@ msgid "Typewriter Scrolling:"
 msgstr ""
 
 #: src/Widgets/Preferences.vala:351
-#, fuzzy
 msgid "User Interface"
 msgstr "Interfejs"
 
@@ -331,12 +316,10 @@ msgid "Show Statusbar:"
 msgstr "Pokaż pasek stanu:"
 
 #: src/Widgets/Preferences.vala:355
-#, fuzzy
 msgid "Show Searchbar:"
 msgstr "Pokaż pasek stanu:"
 
 #: src/Widgets/Preferences.vala:413
-#, fuzzy
 msgid "Enable Code Highlighting:"
 msgstr "Włącz Sprawdzanie Pisowni"
 
@@ -377,7 +360,6 @@ msgid "Outline"
 msgstr ""
 
 #: src/Widgets/SideBar.vala:170
-#, fuzzy
 msgid "No File"
 msgstr "Wszystkie pliki"
 
@@ -430,12 +412,10 @@ msgid "All files"
 msgstr "Wszystkie pliki"
 
 #: src/Services/DialogUtils.vala:44
-#, fuzzy
 msgid "Save Open File?"
 msgstr "Zapisz plik"
 
 #: src/Services/DialogUtils.vala:45
-#, fuzzy
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -443,12 +423,10 @@ msgstr "Jeśli nie zapiszesz, zmiany zostaną utracone na zawsze."
 
 #: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
 #: src/Services/ExportUtils.vala:188
-#, fuzzy
 msgid "Save"
 msgstr "Zapisz plik"
 
 #: src/Services/DialogUtils.vala:50
-#, fuzzy
 msgid "Close Without Saving"
 msgstr "Zamknij bez zapisywania"
 
@@ -470,7 +448,6 @@ msgid "PDF File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
-#, fuzzy
 msgid "All Files"
 msgstr "Wszystkie pliki"
 
@@ -799,7 +776,6 @@ msgid "The New File button will not purge old files."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:259
-#, fuzzy
 msgid "Preview Mode"
 msgstr "Podgląd"
 

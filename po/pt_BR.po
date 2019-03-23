@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:56+0100\n"
+"POT-Creation-Date: 2019-03-23 18:02+0100\n"
 "PO-Revision-Date: 2018-10-18 21:07-0300\n"
 "Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
 "Language-Team: \n"
@@ -215,7 +214,6 @@ msgid "Sepia Mode"
 msgstr "Modo Sépia"
 
 #: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
-#, fuzzy
 msgid "Moon Mode"
 msgstr "Modo Foco"
 
@@ -230,7 +228,6 @@ msgid "Focus Mode"
 msgstr "Modo Foco"
 
 #: src/Widgets/HeaderBar.vala:211
-#, fuzzy
 msgid "Enter focus mode"
 msgstr "Habilitar Modo Foco:"
 
@@ -326,7 +323,6 @@ msgid "Show Searchbar:"
 msgstr "Mostrar a Barra de Pesquisa:"
 
 #: src/Widgets/Preferences.vala:413
-#, fuzzy
 msgid "Enable Code Highlighting:"
 msgstr "Habilitar Verificação de Ortografia:"
 
@@ -367,7 +363,6 @@ msgid "Outline"
 msgstr ""
 
 #: src/Widgets/SideBar.vala:170
-#, fuzzy
 msgid "No File"
 msgstr "Todos os arquivos"
 
@@ -420,12 +415,10 @@ msgid "All files"
 msgstr "Todos os arquivos"
 
 #: src/Services/DialogUtils.vala:44
-#, fuzzy
 msgid "Save Open File?"
 msgstr "Abrir arquivo"
 
 #: src/Services/DialogUtils.vala:45
-#, fuzzy
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -433,12 +426,10 @@ msgstr "Se não salvar, as mudanças se perderão para sempre."
 
 #: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
 #: src/Services/ExportUtils.vala:188
-#, fuzzy
 msgid "Save"
 msgstr "Salvar arquivo"
 
 #: src/Services/DialogUtils.vala:50
-#, fuzzy
 msgid "Close Without Saving"
 msgstr "Fechar sem Salvar"
 
@@ -460,7 +451,6 @@ msgid "PDF File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
-#, fuzzy
 msgid "All Files"
 msgstr "Todos os arquivos"
 
@@ -789,7 +779,6 @@ msgid "The New File button will not purge old files."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:259
-#, fuzzy
 msgid "Preview Mode"
 msgstr "Prévia"
 

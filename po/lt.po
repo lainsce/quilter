@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # Moo, 2018.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 17:56+0100\n"
+"POT-Creation-Date: 2019-03-23 18:02+0100\n"
 "PO-Revision-Date: 2018-11-23 15:40+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: \n"
@@ -166,7 +165,6 @@ msgid "To make a column's content go to the right, change --- to ---: ."
 msgstr "Norėdami, kad stulpelio turinys būtų dešinėje, pakeiskite --- į ---: ."
 
 #: src/Widgets/HeaderBar.vala:67
-#, fuzzy
 msgid "New file"
 msgstr "Atverti failą"
 
@@ -199,7 +197,6 @@ msgid "Export"
 msgstr ""
 
 #: src/Widgets/HeaderBar.vala:133
-#, fuzzy
 msgid "Markdown Cheatsheet"
 msgstr "Kodų lapas"
 
@@ -228,12 +225,10 @@ msgstr "Tamsi veiksena"
 
 #: src/Widgets/HeaderBar.vala:208
 #: data/com.github.lainsce.quilter.appdata.xml.in:255
-#, fuzzy
 msgid "Focus Mode"
 msgstr "Įjungti susitelkimo veikseną:"
 
 #: src/Widgets/HeaderBar.vala:211
-#, fuzzy
 msgid "Enter focus mode"
 msgstr "Įjungti susitelkimo veikseną:"
 
@@ -329,7 +324,6 @@ msgid "Show Searchbar:"
 msgstr "Rodyti paieškos juostą:"
 
 #: src/Widgets/Preferences.vala:413
-#, fuzzy
 msgid "Enable Code Highlighting:"
 msgstr "Įjungti rašybos tikrinimą:"
 
@@ -370,7 +364,6 @@ msgid "Outline"
 msgstr ""
 
 #: src/Widgets/SideBar.vala:170
-#, fuzzy
 msgid "No File"
 msgstr "Visi failai"
 
@@ -423,12 +416,10 @@ msgid "All files"
 msgstr "Visi failai"
 
 #: src/Services/DialogUtils.vala:44
-#, fuzzy
 msgid "Save Open File?"
 msgstr "Atverti failą"
 
 #: src/Services/DialogUtils.vala:45
-#, fuzzy
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -436,12 +427,10 @@ msgstr "Jeigu neįrašysite, pakeitimai bus negrįžtamai prarasti."
 
 #: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
 #: src/Services/ExportUtils.vala:188
-#, fuzzy
 msgid "Save"
 msgstr "Įrašyti failą"
 
 #: src/Services/DialogUtils.vala:50
-#, fuzzy
 msgid "Close Without Saving"
 msgstr "Užverti neįrašant"
 
@@ -463,7 +452,6 @@ msgid "PDF File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
-#, fuzzy
 msgid "All Files"
 msgstr "Visi failai"
 
@@ -792,7 +780,6 @@ msgid "The New File button will not purge old files."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:259
-#, fuzzy
 msgid "Preview Mode"
 msgstr "Peržiūra"
 
