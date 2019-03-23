@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 18:02+0100\n"
+"POT-Creation-Date: 2019-03-23 18:33+0100\n"
 "PO-Revision-Date: 2017-11-09 19:36+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -592,7 +592,7 @@ msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:114
 msgid ""
-"Open files without adding duplicate entries, and clear sidbar is you really "
+"Open files without adding duplicate entries, and clear sidebar is you really "
 "need to (it has a confirm dialog)."
 msgstr ""
 
