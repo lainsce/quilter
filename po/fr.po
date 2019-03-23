@@ -345,7 +345,7 @@ msgstr "Rechercher…"
 
 #: src/Widgets/SearchBar.vala:90
 msgid "Search previous"
-msgstr "Rechercher le suivant"
+msgstr "Rechercher le précédent"
 
 #: src/Widgets/SearchBar.vala:109
 msgid "Search next"
