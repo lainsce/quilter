@@ -126,7 +126,7 @@ namespace Quilter.Widgets {
             links_grid.attach (special_header, 0, 3, 5, 1);
             links_grid.attach (codeblocks_label, 0, 4, 3, 1);
             links_grid.attach (hr_label, 0, 5, 3, 1);
-            links_grid.attach (latex_label, 0, 5, 3, 1);
+            links_grid.attach (latex_label, 0, 6, 3, 1);
 
             return links_grid;
         }
