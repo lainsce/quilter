@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '1.8.1'
+    version: '1.8.2'
 )
 
 # Import main lib files
@@ -57,6 +57,9 @@ executable(
     'src/Widgets/SideBarBox.vala',
     'src/Widgets/Preferences.vala',
     'src/Widgets/Cheatsheet.vala',
+    'src/Plugins/PluginManager.vala',
+    'src/Plugins/Plugin.vala',
+    'src/Plugins/Math.vala',
     'src/Styles/quilter.vala',
     'src/Styles/quilterdark.vala',
     'src/Styles/quiltermoon.vala',

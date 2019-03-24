@@ -109,6 +109,10 @@
 			    <default>false</default>
 			    <summary>Use the Code Highlight built-in extension</summary>
         </key>
+	  <key name="latex" type="b">
+			    <default>false</default>
+			    <summary>Use the Latex built-in extension</summary>
+        </key>
 		<key name="show-num-lines" type="b">
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the line numbers</summary>

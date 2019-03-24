@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.8.2" date="2019-04-15">
+         <description>
+            <p>Release: LaTeX is BaCK</p>
+            <ul>
+                <li>Added: LaTeX text with $$...$$. 'Nuff said.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.8.1" date="2019-04-12">
          <description>
             <p>Release: Fixes and Gizmos</p>

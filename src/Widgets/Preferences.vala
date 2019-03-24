@@ -417,11 +417,16 @@ namespace Quilter.Widgets {
             var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
 
+            var latex_label = new SettingsLabel (_("Enable LaTeX:"));
+            var latex = new SettingsSwitch ("latex");
+
             ext_grid.attach (ext_header,  0, 0, 1, 1);
             ext_grid.attach (highlight_label, 0, 1, 1, 1);
             ext_grid.attach (highlight, 2, 1, 1, 1);
             ext_grid.attach (spellcheck_label, 0, 2, 1, 1);
             ext_grid.attach (spellcheck, 2, 2, 1, 1);
+            ext_grid.attach (latex_label, 0, 3, 1, 1);
+            ext_grid.attach (latex, 2, 3, 1, 1);
 
             return ext_grid;
         }

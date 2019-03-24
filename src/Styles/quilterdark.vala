@@ -147,7 +147,6 @@ public class Quilter.Styles.quilterdark {
     }
 
     img {
-      border-radius: .5rem;
       height: auto;
       margin: 0 auto;
     }

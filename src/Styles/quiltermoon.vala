@@ -147,7 +147,6 @@ public class Quilter.Styles.quiltermoon {
     }
 
     img {
-      border-radius: .5rem;
       height: auto;
       margin: 0 auto;
     }
