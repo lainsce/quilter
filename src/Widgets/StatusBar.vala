@@ -36,7 +36,7 @@ namespace Quilter {
 
             var side_button = new Gtk.ToggleButton ();
             side_button.has_tooltip = true;
-            side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             side_button.tooltip_text = _("Show/Hide Sidebar");
 
             if (settings.sidebar == false) {
