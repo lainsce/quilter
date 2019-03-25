@@ -57,9 +57,9 @@
     <releases>
         <release version="1.8.2" date="2019-04-15">
          <description>
-            <p>Release: LaTeX is BaCK</p>
+            <p>Release: Magic Files</p>
             <ul>
-                <li>Added: LaTeX text with $$...$$. 'Nuff said.</li>
+                <li>Added: When a user types a path to a file or image, it appears in Preview.</li>
             </ul>
          </description>
         </release>
