@@ -433,7 +433,7 @@ namespace Quilter {
             if (row != null) {
                 toolbar.set_subtitle (row.title);
             } else {
-                toolbar.set_subtitle ("No Documents Open");
+                toolbar.set_subtitle (_("No Documents Open"));
             }
         }
 
