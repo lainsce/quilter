@@ -58,9 +58,9 @@ namespace Quilter.Widgets {
             if (this.subtitle != cache) {
                 set_subtitle (settings.current_file);
             } else if (this.subtitle != cache) {
-                set_subtitle ("No Documents Open");
+                set_subtitle (_("No Documents Open"));
             } else if (settings.current_file == null) {
-                set_subtitle ("No Documents Open");
+                set_subtitle (_("No Documents Open"));
             }
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
