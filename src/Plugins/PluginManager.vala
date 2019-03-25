@@ -39,13 +39,8 @@ namespace Quilter {
         }
 
         private void load_plugins () {
-            // TODO: Load dynamically from plugins directory
-            var settings = AppSettings.get_default ();
-            if (settings.latex) {
-                plug_list += new Math ();
-            } else {
-                return;
-            }
+            plug_list += new Image ();
+            plug_list += new Filep ();
         }
 
         public List<Plugin> get_plugs () {

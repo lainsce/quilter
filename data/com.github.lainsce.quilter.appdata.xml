@@ -59,7 +59,7 @@
          <description>
             <p>Release: Magic Files</p>
             <ul>
-                <li>Added: When a user types a path to a file or image, it appears in Preview.</li>
+                <li>Added: When a user types a path with either % ... % or : ... : to a file or image respectively, it is embedded, and is in Preview.</li>
             </ul>
          </description>
         </release>
