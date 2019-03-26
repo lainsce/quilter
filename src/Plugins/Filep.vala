@@ -57,31 +57,35 @@ public class Quilter.Filep : Plugins.Plugin {
 
         File file = File.new_for_path (subline);
 
-        if (file.query_exists()) {
-            GLib.FileUtils.get_contents(subline, out text);
-            var mkd = new Markdown.Document.gfm_format (text.data,
-                                                        0x00004000 +
-                                                        0x00200000 +
-                                                        0x00400000 +
-                                                        0x02000000 +
-                                                        0x01000000 +
-                                                        0x04000000 +
-                                                        0x10000000 +
-                                                        0x40000000);
-            mkd.compile (0x00004000 +
-                         0x00200000 +
-                         0x00400000 +
-                         0x02000000 +
-                         0x01000000 +
-                         0x04000000 +
-                         0x10000000 +
-                         0x40000000);
+        try {
+            if (file.query_exists()) {
+                GLib.FileUtils.get_contents(subline, out text);
+                var mkd = new Markdown.Document.gfm_format (text.data,
+                                                            0x00004000 +
+                                                            0x00200000 +
+                                                            0x00400000 +
+                                                            0x02000000 +
+                                                            0x01000000 +
+                                                            0x04000000 +
+                                                            0x10000000 +
+                                                            0x40000000);
+                mkd.compile (0x00004000 +
+                             0x00200000 +
+                             0x00400000 +
+                             0x02000000 +
+                             0x01000000 +
+                             0x04000000 +
+                             0x10000000 +
+                             0x40000000);
 
-            string result;
-            mkd.get_document (out result);
+                string result;
+                mkd.get_document (out result);
 
-            build = build + result;
-            return build;
+                build = build + result;
+                return build;
+            }
+        } catch (Error e) {
+            warning ("Error: %s", e.message);
         }
 
         return "No file.";

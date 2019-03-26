@@ -87,6 +87,9 @@ namespace Quilter {
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
             var settings = AppSettings.get_default ();
+            // Ensure the file used in the init is cache and exists
+            Services.FileManager.get_cache_path ();
+            settings.current_file = Services.FileManager.get_cache_path ();
 
             settings.changed.connect (on_settings_changed);
             on_settings_changed ();
@@ -384,12 +387,14 @@ namespace Quilter {
         private void action_preferences () {
             var dialog = new Widgets.Preferences (this);
             dialog.set_modal (true);
+            dialog.transient_for = this;
             dialog.show_all ();
         }
 
         private void action_cheatsheet () {
             var dialog = new Widgets.Cheatsheet (this);
             dialog.set_modal (true);
+            dialog.transient_for = this;
             dialog.show_all ();
         }
 
@@ -440,7 +445,8 @@ namespace Quilter {
         private void set_prev_workfile () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
-                AppSettings.get_default ().current_file = row.title;
+                var settings = AppSettings.get_default ();
+                settings.current_file = row.title;
             }
         }
 
@@ -533,7 +539,8 @@ namespace Quilter {
             if (box != null) {
                 try {
                     string file_path = box.path;
-                    AppSettings.get_default ().current_file = file_path;
+                    var settings = AppSettings.get_default ();
+                    settings.current_file = file_path;
 
                     var file = File.new_for_path (file_path);
 

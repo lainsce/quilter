@@ -97,8 +97,6 @@ namespace Quilter.Widgets {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
-            } else if (settings.current_file != "") {
-                column.select_row (get_selected_row ());
             }
 
             foreach (string f in settings.last_files) {
@@ -225,6 +223,7 @@ namespace Quilter.Widgets {
             var filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
+            column.select_row (filebox);
 
             return filebox;
         }

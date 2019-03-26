@@ -21,7 +21,11 @@
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
-
+.quilter-sidebar image,
+.quilter-task-button image {
+    color: @textColorPrimary;
+    -gtk-icon-shadow: 1px 1px transparent;
+}
 actionbar,
 .action-bar {
     background: @colorPrimary;
