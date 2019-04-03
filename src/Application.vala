@@ -186,7 +186,7 @@ namespace Quilter {
         }
 
         public MainWindow? get_last_win () {
-            unowned List<weak Gtk.Window> wins = get_windows ();
+            unowned List<Gtk.Window> wins = get_windows ();
             return wins.length () > 0 ? wins.last ().data as MainWindow : null;
         }
 
