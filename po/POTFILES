@@ -12,5 +12,3 @@ src/Widgets/WebView.vala
 src/Services/DialogUtils.vala
 src/Services/ExportUtils.vala
 src/Services/FileManager.vala
-data/com.github.lainsce.quilter.appdata.xml.in
-data/com.github.lainsce.quilter.desktop.in

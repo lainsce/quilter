@@ -1,13 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# French translations for com.github.lainsce.quilter package.
+# Copyright (C) 2019 THE om.github.lainsce.quilter'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# NathanBnm, 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-23 18:33+0100\n"
+"POT-Creation-Date: 2019-03-27 21:50+0100\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -16,36 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:82 data/com.github.lainsce.quilter.appdata.xml.in:6
-#: data/com.github.lainsce.quilter.desktop.in:3
+#: src/MainWindow.vala:82
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:212
+#: src/MainWindow.vala:215
 msgid "Use Sans-serif"
 msgstr "Utiliser Sans-serif"
 
-#: src/MainWindow.vala:217
+#: src/MainWindow.vala:220
 msgid "Use Serif"
 msgstr "Utiliser Serif"
 
-#: src/MainWindow.vala:223
+#: src/MainWindow.vala:226
 msgid "Use Monospace"
 msgstr "Utiliser Monospace"
 
-#: src/MainWindow.vala:242
+#: src/MainWindow.vala:245
 msgid "Set Preview Font"
 msgstr "Définir la police d'aperçu"
 
-#: src/MainWindow.vala:258
+#: src/MainWindow.vala:261
 msgid "Edit"
 msgstr "Modifier"
 
-#: src/MainWindow.vala:259
+#: src/MainWindow.vala:262
 msgid "Preview"
 msgstr "Aperçu"
 
-#: src/MainWindow.vala:436 src/Widgets/HeaderBar.vala:61
+#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
 #: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
 #: src/Widgets/SourceView.vala:134
 msgid "No Documents Open"
@@ -63,7 +62,7 @@ msgstr "Texte"
 msgid "Links & Special"
 msgstr "Liens et Spécial"
 
-#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:137
+#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
 msgid "Tables"
 msgstr "Tableaux"
 
@@ -102,7 +101,7 @@ msgstr "###### Titre 6"
 
 #: src/Widgets/Cheatsheet.vala:86
 msgid "Special Text"
-msgstr "Effet de texte"
+msgstr "Effets de texte"
 
 #: src/Widgets/Cheatsheet.vala:87
 msgid "** Bold text **"
@@ -145,20 +144,28 @@ msgid "```This is a code block```"
 msgstr "```Ceci est un bloc de code```"
 
 #: src/Widgets/Cheatsheet.vala:120
-msgid "--- ← This creates a horizontal rule"
-msgstr "--- ← Ceci créée une règle horizontale"
+msgid "This creates a horizontal rule → ---"
+msgstr "Ceci créée un séparateur horizontal → ---"
 
-#: src/Widgets/Cheatsheet.vala:139
+#: src/Widgets/Cheatsheet.vala:121
+msgid "This embeds a local image → : Folder/Image.png :"
+msgstr "Ceci inclut une image locale → : Dossier/Image.png :"
+
+#: src/Widgets/Cheatsheet.vala:122
+msgid "This embeds a local Markdown file → % Folder/File.md %"
+msgstr "Ceci inclut un fichier Markdown local → % Dossier/Fichier.md %"
+
+#: src/Widgets/Cheatsheet.vala:143
 msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "Pour aligner le contenu de la colonne à gauche, changer --- en :--- ."
+msgstr "Pour aligner le contenu de la colonne à gauche, modifiez --- en :--- ."
 
-#: src/Widgets/Cheatsheet.vala:140
+#: src/Widgets/Cheatsheet.vala:144
 msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Pour aligner le contenu au centre, changer --- en :---: ."
+msgstr "Pour aligner le contenu au centre, modifiez --- en :---: ."
 
-#: src/Widgets/Cheatsheet.vala:141
+#: src/Widgets/Cheatsheet.vala:145
 msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "Pour aligner le contenu de la colonne à droite, changer --- en ---: ."
+msgstr "Pour aligner le contenu de la colonne à droite, modifiez --- en ---: ."
 
 #: src/Widgets/HeaderBar.vala:67
 msgid "New file"
@@ -201,12 +208,10 @@ msgid "Preferences"
 msgstr "Préférences"
 
 #: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
-#: data/com.github.lainsce.quilter.appdata.xml.in:243
 msgid "Light Mode"
 msgstr "Thème clair"
 
 #: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
-#: data/com.github.lainsce.quilter.appdata.xml.in:247
 msgid "Sepia Mode"
 msgstr "Thème sepia"
 
@@ -215,12 +220,10 @@ msgid "Moon Mode"
 msgstr "Thème lunaire"
 
 #: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
-#: data/com.github.lainsce.quilter.appdata.xml.in:251
 msgid "Dark Mode"
 msgstr "Thème sombre"
 
 #: src/Widgets/HeaderBar.vala:208
-#: data/com.github.lainsce.quilter.appdata.xml.in:255
 msgid "Focus Mode"
 msgstr "Mode zen"
 
@@ -464,374 +467,3 @@ msgstr "Fichier HTML"
 #: src/Services/FileManager.vala:76
 msgid "Open file"
 msgstr "Ouvrir un fichier"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:7
-#: data/com.github.lainsce.quilter.desktop.in:4
-msgid "Focus on your writing"
-msgstr "Concentrez-vous sur votre écriture"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:9
-msgid ""
-"Focus on your writing and write beautiful solid stories with the Focus Mode "
-"in tow in this Markdown editor"
-msgstr ""
-"Concentrez-vous sur votre écriture et écrivez de belles histoires solides "
-"avec le mode Concentration dans cet éditeur Markdown"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:11
-msgid "Work on a story, one file at a time."
-msgstr "Travaillez sur une histoire, un fichier à la fois."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:12
-msgid "Save your documents anywhere, even on existing files."
-msgstr ""
-"Sauvegardez vos documents n'importe où, même sur des fichiers existants."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:13
-msgid "Preview your story in the Preview Mode."
-msgstr "Prévisualisez votre histoire en mode Prévisualisation."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:14
-msgid "Configure whether to have Focus Mode or not."
-msgstr "Configurez si le mode Concentration doit être activé ou non."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:15
-msgid "Configure whether to have Dark Mode or not."
-msgstr "Configurez si le mode sombre doit être activé ou non."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:16
-msgid "Configure whether to have Sepia Mode or not."
-msgstr "Configurez si le mode sepia doit être activé ou non."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:17
-msgid "Fullscreen your writing area with F11."
-msgstr "Affichez votre zone d'écriture en plein écran avec F11."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:18
-msgid "Search anytime with the shortcut Ctrl + F"
-msgstr "Recherchez à tout moment avec le raccourci Ctrl + F"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:19
-msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr "Quittez à tout moment avec le raccourci Ctrl + Q"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:25
-msgid "Lains"
-msgstr "Lains"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:60
-msgid "Release: Fixes and Gizmos"
-msgstr "Version : Correction et gadgets"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:62
-msgid "Fixes: Outline crashes the app if no file found."
-msgstr ""
-"Corrections : L'aperçu plante l'application si aucun fichier n'est trouvé."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:63
-msgid ""
-"Fixes: App crashes if new document button is pushed when no files are in the "
-"sidebar."
-msgstr ""
-"Corrections : L'application se ferme brutalement si le bouton Nouveau "
-"document est appuyé alors qu'il n'y a aucun fichier dans la barre latérale."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:64
-msgid "Fixes: App fails to launch if file in sidebar no longer exists."
-msgstr ""
-"Corrections : L'application ne se lance pas si le fichier dans la barre "
-"latérale n'existe plus."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:65
-msgid "Fixes: App doesn't check spelling."
-msgstr "Corrections : L'application ne vérifie pas l'orthographe."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:71
-msgid "Release: File Eyeliner"
-msgstr "Version : Fichier Eyeliner"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:73
-msgid "Added: File outline in the sidebar."
-msgstr "Ajouté : Aperçu du fichier dans la barre latérale."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:79
-msgid "Release: Blu-ray Encoder"
-msgstr "Version : Encodeur Blu-Ray"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:81
-msgid "Fixed: When adding files to sidebar, actually select them."
-msgstr ""
-"Corrigé : Lorsque vous ajoutez des fichiers à la barre latérale, "
-"sélectionnez-les."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:82
-msgid "Updated: Dutch Translation"
-msgstr "Mise à jour : Traduction en néerlandais"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:88
-msgid "Release: DVD Cleaner"
-msgstr "Version : Nettoyeur de DVD"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:90
-msgid "Fixed: Opening files should never fail now."
-msgstr ""
-"Corrigé : L'ouverture des fichiers ne devrait jamais échouer maintenant."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:96
-msgid "Release: VHS Tape Mixer"
-msgstr "Version : Mélangeur de cassettes VHS"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:98
-msgid ""
-"Reworked a lot of the internals so actions don't kill files. [Adam "
-"Bieńkowski - @donadigo]"
-msgstr ""
-"Il a refait beaucoup de travail en interne pour que les actions ne "
-"suppriment pas les fichiers. [Adam Bieńkowski - @donadigo]"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:104
-msgid "Release: Betamax Tracker"
-msgstr "Version : Traqueur Betamax"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:106
-msgid "Some UX redefinition in the sidebar, to avoid complicating it."
-msgstr ""
-"Révision de l'interface graphique de la barre latérale, pour éviter de la "
-"compliquer."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:112
-msgid "Release: Kodachrome Selector"
-msgstr "Version : Sélecteur de Kodachrome"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:114
-#, fuzzy
-msgid ""
-"Open files without adding duplicate entries, and clear sidebar is you really "
-"need to (it has a confirm dialog)."
-msgstr ""
-"Ouvrez les fichiers sans ajouter d'entrées en double, et videz la barre "
-"latérale si vous en avez vraiment besoin (il y a une boîte de dialogue de "
-"confirmation)."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:120
-msgid "Release: Visually Stunning"
-msgstr "Version : Visuellement époustouflant"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:121
-msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
-msgstr ""
-"Quilter a reçu une mise à jour visuelle, ainsi qu'une mise au point "
-"impressionnante du traitement."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:123
-msgid "Rewrote all Sidebar functions"
-msgstr "Réécriture de toutes les fonctions de la barre latérale"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:124
-msgid "Removed LaTeX because it was lagging the app…"
-msgstr "Suppression de LaTeX car cela ralentissait l'application…"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:125
-msgid "All File Management functions rewritten from scratch!"
-msgstr ""
-"Toutes les fonctions de gestion de fichiers ont été réécrites à partir de "
-"zéro !"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:131
-msgid "Release: Side Serve Sheets"
-msgstr "Version : Feuilles de service latérales"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:133
-msgid "5 months"
-msgstr "5 mois"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:139
-msgid "Release: Choice Looks Better"
-msgstr "Version : Les choix on l'air meilleurs"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:141
-msgid "All tracking choices as well as preview font choices are better shown."
-msgstr ""
-"Tous les choix de suivi ainsi que les choix de polices de prévisualisation "
-"sont mieux affichés."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:147
-msgid "Release: Stylish Readable Stories"
-msgstr "Version : Histoires lisibles et élégantes"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:149
-msgid "All text passes a contrast check to be readable now."
-msgstr "Tout le texte passe désormais un test de contraste pour être lisible."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:155
-msgid "Release: Track Your Stuff Up"
-msgstr "Version : Suivez votre travail"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:157
-msgid ""
-"You can now set what to track in the document: Characters, Words, or Lines."
-msgstr ""
-"Vous pouvez maintenant définir ce qu'il faut suivre dans le document : "
-"Nombre de caractères, mots ou lignes."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:163
-msgid "Release: Font Forgery"
-msgstr "Version : Forge de police"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:165
-msgid "You can now set the font size for Edit View in the Preferences."
-msgstr ""
-"Vous pouvez maintenant définir la taille de police de la vue Modifier dans "
-"les Préférences."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:171
-msgid "Release: Sepia &amp; Blues"
-msgstr "Version : Bleu sépia"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:173
-msgid "A new Mode between Light &amp; Dark, the Sepia Mode."
-msgstr ""
-"Un nouveau thème entre le thème clair et le thème sombre, le thème sépia."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:174
-msgid "A new way to toggle between Modes in the Settings."
-msgstr "Une nouvelle façon de passer d'un mode à l'autre dans les Paramètres."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:175
-msgid "Dynamargins: the three sizes now autofit for the window's size."
-msgstr ""
-"Marges dynamiques : les trois tailles s'adaptent automatiquement à la taille "
-"de la fenêtre."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:176
-msgid "A redesign of the main menu."
-msgstr "Une refonte du menu principal."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:177
-msgid "Search any term inside your document."
-msgstr "Recherchez n'importe quel mot dans votre document."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:178
-msgid "Change Preview Mode's font style on-the-fly."
-msgstr "Modifiez le style de police du mode Aperçu à la volée."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:179
-msgid ""
-"Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when "
-"editing."
-msgstr ""
-"Basculez le mode d'écriture de type pour une utilisation en mode zen : "
-"Imitez une machine à écrire lors de votre travail."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:180
-msgid "Fixed most of the internal logic to change between Modes."
-msgstr ""
-"Correction de la plupart de la logique interne pour passer d'un mode à "
-"l'autre."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:181
-msgid "Fixed fullscreen bug. (finally!)"
-msgstr "Correction du bug du plein écran. (enfin !)"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:182
-msgid ""
-"Margins when fullscreen reflect the ratio of those on non-fullscreen settings"
-msgstr ""
-"Les marges en plein écran reflètent le rapport entre les réglages en mode "
-"plein écran et ceux en mode normal."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:183
-msgid "Fixed the refresh rate of Preview Mode."
-msgstr "Correction de la fréquence de rafraîchissement du mode Aperçu."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:189
-msgid "Release: Unreleased Bump"
-msgstr "Version : Version non sortie"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:191
-msgid "Intentionally left blank."
-msgstr "Intentionnellement laissé vide."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:197
-msgid "Release: Maths? Hardly knew 'er!"
-msgstr "Version : Les maths ? J'ignorais à peine ce que c'était !"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:199
-msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
-msgstr ""
-"Vous pouvez désormais ajouter des éuqations LaTeX avec les modes « $ » ou « $"
-"$ »."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:205
-msgid "Release: Don't Blot Yourself"
-msgstr "Version : Ne t'efface pas toi-même"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:207
-msgid "Preview Mode will only update on changes from Edit View."
-msgstr "Le mode Aperçu ne sera mis à jour qu'à partir de la vue Modifier."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:208
-msgid "Statusbar will update always."
-msgstr "La barre d'état se met désormais à jour en permanence."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:214
-msgid "Release: All-Around An Inker!"
-msgstr "Version : Un encreur tout terrain !"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:216
-msgid "Preview Mode won't load rogue Javascript code."
-msgstr "Le mode Aperçu ne chargera pas le code Javascript malveillant."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:217
-msgid ""
-"Preview Mode will also not autojump to the start of the scroll at any time."
-msgstr ""
-"Le mode Aperçu ne permet pas non plus de passer automatiquement au début du "
-"défilement à tout moment."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:218
-msgid "Header becomes Heading in the Cheatsheet."
-msgstr "L'en-tête devient un titre dans le tableau des éléments."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:219
-msgid ""
-"Fixed the Unsaved changes dialog still killing files when pressing the New "
-"File button."
-msgstr ""
-"Correction de la boîte de dialogue Changements non sauvegardés qui "
-"supprimait encore les fichiers en appuyant sur le bouton Nouveau fichier."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:220
-msgid "New Translations for: Dutch, Catalan &amp; Spanish."
-msgstr "Nouvelles traductions pour : néerlandais, catalan et espagnol."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:226
-msgid "Release: Visual Standardization"
-msgstr "Version : Standardisation visuelle"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:228
-msgid "The headerbar now respects the global theme in Normal and Dark modes."
-msgstr ""
-"La barre supérieure respecte maintenant le thème global dans les modes "
-"Normal et Sombre."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:234
-msgid "Release: New Sheets Won't Crumple Old Ones, part 2"
-msgstr ""
-"Version : Les nouvelles feuilles ne froisseront pas les anciennes, partie 2"
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:236
-msgid "The New File button will not purge old files."
-msgstr "Le bouton Nouveau fichier ne supprimera pas les anciens fichiers."
-
-#: data/com.github.lainsce.quilter.appdata.xml.in:259
-msgid "Preview Mode"
-msgstr "Mode Aperçu"
-
-#: data/com.github.lainsce.quilter.desktop.in:6
-msgid "com.github.lainsce.quilter"
-msgstr "com.github.lainsce.quilter"
-
-#: data/com.github.lainsce.quilter.desktop.in:7
-msgid "Text;Markdown;LaTeX;Editor;"
-msgstr "Texte;Markdown;LaTeX;Éditeur;"
