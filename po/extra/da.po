@@ -1,0 +1,421 @@
+# Danish translations
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# Siigdev, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 14:35+0100\n"
+"PO-Revision-Date: 2019-04-09 14:43+0100\n"
+"Last-Translator: Siigdev\n"
+"Language-Team: \n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:6
+#: data/com.github.lainsce.quilter.desktop.in:3
+msgid "Quilter"
+msgstr "Quilter"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:7
+#: data/com.github.lainsce.quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr "Fokuser på din skrivning"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:9
+msgid ""
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
+msgstr ""
+"Fokuser på din skrivning og skriv smukke dybdegående historier med fokus temaet "
+"i samarbejde med denne Markdown editor"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:11
+msgid "Work on a story, one file at a time."
+msgstr "Arbejd på en historie, en fil af gangen"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
+"Gem dine dokumenter hvor som helst, selv i eksisterende filer."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Forhåndsvis din historie i forhåndsvisningstilstand."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Konfigurer om du vil have fokus tilstand eller ikke."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Konfigurer om du vil have mørk tilstand eller ikke."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Konfigurer om du vil have sepia tilstand eller ikke."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "Gør skriveområdet til fuld skærm med F11."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Søg på ethvert tidspunkt med genvejen Ctrl + F"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Luk på ethvert tidspunkt med genvejen Ctrl + Q"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:25
+msgid "Lains"
+msgstr "Lains"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:60
+msgid "Release: Magic Files"
+msgstr "Version : Magiske filer"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:62
+msgid ""
+"Added: When a user types a path with either % ... % or : ... : to a file or "
+"image respectively, it is embedded, and is in Preview."
+msgstr ""
+"Tilføjet: Når en bruger skriver en sti med enten % ... % or : ... : til en fil eller "
+"billede bliver det indsat i forhåndsvisningen "
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:68
+msgid "Release: Fixes and Gizmos"
+msgstr "Udgivelse : Fixes og gadgets"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:70
+msgid "Fixes: Outline crashes the app if no file found."
+msgstr ""
+"Fixes: Crash oversigt når en fil ikke findes."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:71
+msgid ""
+"Fixes: App crashes if new document button is pushed when no files are in the "
+"sidebar."
+msgstr ""
+"Fixes: Appen crasher når der trykkes på nyt dokument knappen og"
+"ingen filer er i sidebaren."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:72
+msgid "Fixes: App fails to launch if file in sidebar no longer exists."
+msgstr ""
+"Fixes: Appen kan ikke åbne hvis filen i sidebaren ikke eksisterer "
+"længere."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:73
+msgid "Fixes: App doesn't check spelling."
+msgstr "Fixes: Appen checker ikke stavefejl."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:79
+msgid "Release: File Eyeliner"
+msgstr "Udgivelse: Filviser"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:81
+msgid "Added: File outline in the sidebar."
+msgstr "Tilføjet: Fil oversigt i sidebaren"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:87
+msgid "Release: Blu-ray Encoder"
+msgstr "Udgivelse: Blu-ray Encoder"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:89
+msgid "Fixed: When adding files to sidebar, actually select them."
+msgstr ""
+"Fixet: Når der tilføjes filer til sidebarne, så skal de vælges."
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:90
+msgid "Updated: Dutch Translation"
+msgstr "Opdateret: Hollandsk oversættelse"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:96
+msgid "Release: DVD Cleaner"
+msgstr "Udgivelse: DVD Cleaner"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:98
+msgid "Fixed: Opening files should never fail now."
+msgstr ""
+"Fixet: Åbning af filer burde aldrig fejle nu."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:104
+msgid "Release: VHS Tape Mixer"
+msgstr "Udgivelse: VHS Tape Mixer"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:106
+msgid ""
+"Reworked a lot of the internals so actions don't kill files. [Adam "
+"Bieńkowski - @donadigo]"
+msgstr ""
+"Omarbejdet en masse indre funktionalitet så handlinger ikke "
+"kan ødelægge filer. [Adam Bieńkowski - @donadigo]"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:112
+msgid "Release: Betamax Tracker"
+msgstr "Udgivelse: Betamax Tracker"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:114
+msgid "Some UX redefinition in the sidebar, to avoid complicating it."
+msgstr ""
+"Nogle UX omrokeringer i sidebaren for ikke at komplicere den. "
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:120
+msgid "Release: Kodachrome Selector"
+msgstr "Udgivelse: Kodachrome Selector"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:122
+#, fuzzy
+msgid ""
+"Open files without adding duplicate entries, and clear sidebar is you really "
+"need to (it has a confirm dialog)."
+msgstr ""
+"Åben filer uden at tilføje duplikationer, og fjern elementer i sidebaren "
+"hvis det virkelig ønskes (det har en accepter dialog)."
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:128
+msgid "Release: Visually Stunning"
+msgstr "Udgivelse: Forbedring af det visuelle"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:129
+msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
+msgstr ""
+"Quilter har fået en visuel opgradering, og også en opgradering af det "
+"bagvedlæggende."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:131
+msgid "Rewrote all Sidebar functions"
+msgstr "Omskrevet alle sidebar funktioner"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:132
+msgid "Removed LaTeX because it was lagging the app…"
+msgstr "Fjernet LaTeX da det forårsagede lag…"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:133
+msgid "All File Management functions rewritten from scratch!"
+msgstr ""
+"Alle filhåndterings-funktioner er nu helt omskrevet!"
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:139
+msgid "Release: Side Serve Sheets"
+msgstr "Udgivelse: Side Serve Sheets"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:141
+msgid "5 months"
+msgstr "5 måneder"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:147
+msgid "Release: Choice Looks Better"
+msgstr "Udgivelse: Valg ser bedre ud"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:149
+msgid "All tracking choices as well as preview font choices are better shown."
+msgstr ""
+"Alle sporings-valg og forhåndsvisnings font-valg er nu bedre vist "
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:155
+msgid "Release: Stylish Readable Stories"
+msgstr "Udgivelse: Stylede læsbare historier"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:157
+msgid "All text passes a contrast check to be readable now."
+msgstr "Alt text føres igennem et kontrasttjek for at gøre det læsbart."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:163
+msgid "Release: Track Your Stuff Up"
+msgstr "Udgivelse: Track Your Stuff Up"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:165
+msgid ""
+"You can now set what to track in the document: Characters, Words, or Lines."
+msgstr ""
+"Du kan nu angive hvad du ønsker at spore i dokumentet: Karakterer, ord  "
+"eller linjer."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:171
+msgid "Release: Font Forgery"
+msgstr "Udgivelse : Skrifttype redigering"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:173
+msgid "You can now set the font size for Edit View in the Preferences."
+msgstr ""
+"Du kan nu angive skriftstørrelsen for redigering i præferencer."
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:179
+msgid "Release: Sepia &amp; Blues"
+msgstr "Udgivelse : Blå sepia"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:181
+msgid "A new Mode between Light &amp; Dark, the Sepia Mode."
+msgstr ""
+"En ny tilstand mellem mørk og lys - Sepia."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:182
+msgid "A new way to toggle between Modes in the Settings."
+msgstr "Et ny måde at skifte mellem tilstande i indstillinger."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:183
+msgid "Dynamargins: the three sizes now autofit for the window's size."
+msgstr ""
+"Dynamargins: De tre størrelser passer nu automatisk til vinduets størrelse "
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:184
+msgid "A redesign of the main menu."
+msgstr "Visuel omrokering af main menuen."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:185
+msgid "Search any term inside your document."
+msgstr "Søg på ethvert udtryk i dit dokument."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:186
+msgid "Change Preview Mode's font style on-the-fly."
+msgstr "Skift forhåndsvisningstilstandens skrifttype mens du er igang."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:187
+msgid ""
+"Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when "
+"editing."
+msgstr ""
+"Vælg skrivemaskine tilstand til brug med fokus tilstand: Efterlign "
+"en skrivemaskine når du skriver."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:188
+msgid "Fixed most of the internal logic to change between Modes."
+msgstr ""
+"Redigering af det bagvedlæggende logik for at skifte mellem tilstande"
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:189
+msgid "Fixed fullscreen bug. (finally!)"
+msgstr "Fixet fejl i fuld skærm. (endelig!)"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:190
+msgid ""
+"Margins when fullscreen reflect the ratio of those on non-fullscreen settings"
+msgstr ""
+"Margin i fuld skærm reflekterer nu dem fra ikke-fuld skærm indstillingerne"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:191
+msgid "Fixed the refresh rate of Preview Mode."
+msgstr "Fixet opdateringstiden i forhåndsvisningstilstand"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:197
+msgid "Release: Unreleased Bump"
+msgstr "Udgivelse: Unreleased Bump"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:199
+msgid "Intentionally left blank."
+msgstr "Med vilje blank."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:205
+msgid "Release: Maths? Hardly knew 'er!"
+msgstr "Udgivelse: Matematik? Kender det ikke!"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:207
+msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
+msgstr ""
+"Du kan nu tilføje LaTeX formler med \"$\" or \"$$\" modes."
+
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:213
+msgid "Release: Don't Blot Yourself"
+msgstr "Udgivelse: Blot ikke dig selv"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:215
+msgid "Preview Mode will only update on changes from Edit View."
+msgstr "Forhåndsvisningstilstand vil kun opdatere ved ændringer"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:216
+msgid "Statusbar will update always."
+msgstr "Statusbaren vil altid opdatere."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:222
+msgid "Release: All-Around An Inker!"
+msgstr "Udgivelse: Lidt rundt omkring!"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:224
+msgid "Preview Mode won't load rogue Javascript code."
+msgstr "Forhåndsvisnings tilstand vil ikke loade Javascript kode."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:225
+msgid ""
+"Preview Mode will also not autojump to the start of the scroll at any time."
+msgstr ""
+"Forhåndsvisnings tilstand vil heller ikke altid hoppe til starten af scroll"
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:226
+msgid "Header becomes Heading in the Cheatsheet."
+msgstr "Headeren bliver til en overskrift i snydearket."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:227
+msgid ""
+"Fixed the Unsaved changes dialog still killing files when pressing the New "
+"File button."
+msgstr ""
+"Fixet at dialogen for ugemte ændringer sletter filer når Ny Fil knappen"
+"trykkes."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:228
+msgid "New Translations for: Dutch, Catalan &amp; Spanish."
+msgstr "Nye oversættelser for: Hollandsk, catalan og spansk"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:234
+msgid "Release: Visual Standardization"
+msgstr "Udgivelse: Visuel standardisering"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:236
+msgid "The headerbar now respects the global theme in Normal and Dark modes."
+msgstr ""
+"Headerbaren følger nu det globale tema i normal og mørk tilstand "
+""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:242
+msgid "Release: New Sheets Won't Crumple Old Ones, part 2"
+msgstr ""
+"Udgivelse: Nye sider vil ikke ødelægge de gamle, part 2"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:244
+msgid "The New File button will not purge old files."
+msgstr "Den nye fil knap vil ikke slette gamle filer."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:251
+msgid "Light Mode"
+msgstr "Lys tilstand"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:255
+msgid "Sepia Mode"
+msgstr "Sepia tilstand"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:259
+msgid "Dark Mode"
+msgstr "Mørk tilstand"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:263
+msgid "Focus Mode"
+msgstr "Fokus tilstand "
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:267
+msgid "Preview Mode"
+msgstr "Forhåndsvisnings tilstand"
+
+#: data/com.github.lainsce.quilter.desktop.in:6
+msgid "com.github.lainsce.quilter"
+msgstr "com.github.lainsce.quilter"
+
+#: data/com.github.lainsce.quilter.desktop.in:7
+msgid "Text;Markdown;LaTeX;Editor;"
+msgstr "Tekst;Markdown;LaTeX;Editor;"

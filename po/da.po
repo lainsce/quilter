@@ -1,0 +1,469 @@
+# Danish translations for com.github.lainsce.quilter package.
+# Copyright (C) 2019 THE om.github.lainsce.quilter'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# Siigdev, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-04-09 21:50+0100\n"
+"PO-Revision-Date: 2019-04-09 21:30+0100\n"
+"Last-Translator: Siigdev\n"
+"Language-Team: \n"
+"Language: da\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/MainWindow.vala:82
+msgid "Quilter"
+msgstr "Quilter"
+
+#: src/MainWindow.vala:215
+msgid "Use Sans-serif"
+msgstr "Brug Sans-serif"
+
+#: src/MainWindow.vala:220
+msgid "Use Serif"
+msgstr "Brug Serif"
+
+#: src/MainWindow.vala:226
+msgid "Use Monospace"
+msgstr "Brug Monospace"
+
+#: src/MainWindow.vala:245
+msgid "Set Preview Font"
+msgstr "Indstil forhåndsvisnings-font"
+
+#: src/MainWindow.vala:261
+msgid "Edit"
+msgstr "Rediger"
+
+#: src/MainWindow.vala:262
+msgid "Preview"
+msgstr "Forhåndsvisning"
+
+#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
+#: src/Widgets/SourceView.vala:134
+msgid "No Documents Open"
+msgstr "Ingen dokumenter åbne"
+
+#: src/Widgets/Cheatsheet.vala:29
+msgid "Cheatsheet"
+msgstr "Snydeark"
+
+#: src/Widgets/Cheatsheet.vala:47
+msgid "Text"
+msgstr "Tekst"
+
+#: src/Widgets/Cheatsheet.vala:48
+msgid "Links & Special"
+msgstr "Links og specialiter"
+
+#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
+msgid "Tables"
+msgstr "Tabeller"
+
+#. Close button
+#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
+msgid "Close"
+msgstr "Luk"
+
+#: src/Widgets/Cheatsheet.vala:79
+msgid "Heading"
+msgstr "Titel"
+
+#: src/Widgets/Cheatsheet.vala:80
+msgid "# Heading 1"
+msgstr "# Titel 1"
+
+#: src/Widgets/Cheatsheet.vala:81
+msgid "## Heading 2"
+msgstr "## Titel 2"
+
+#: src/Widgets/Cheatsheet.vala:82
+msgid "### Heading 3"
+msgstr "### Titel 3"
+
+#: src/Widgets/Cheatsheet.vala:83
+msgid "#### Heading 4"
+msgstr "#### Titel 4"
+
+#: src/Widgets/Cheatsheet.vala:84
+msgid "##### Heading 5"
+msgstr "##### Titel 5"
+
+#: src/Widgets/Cheatsheet.vala:85
+msgid "###### Heading 6"
+msgstr "###### Titel 6"
+
+#: src/Widgets/Cheatsheet.vala:86
+msgid "Special Text"
+msgstr "Specieltekst"
+
+#: src/Widgets/Cheatsheet.vala:87
+msgid "** Bold text **"
+msgstr "** Fed skrift **"
+
+#: src/Widgets/Cheatsheet.vala:88
+msgid "* Emphasized text *"
+msgstr "* Understreget skrift *"
+
+#: src/Widgets/Cheatsheet.vala:89
+msgid "` Code text `"
+msgstr "` Kode tekst `"
+
+#: src/Widgets/Cheatsheet.vala:90
+msgid "> Quoting text"
+msgstr "> Citeret tekst"
+
+#: src/Widgets/Cheatsheet.vala:91
+msgid "~~Strikethrough text~~"
+msgstr "~~Gennemstreget skrift~~"
+
+#: src/Widgets/Cheatsheet.vala:115
+msgid "Links"
+msgstr "Links"
+
+#: src/Widgets/Cheatsheet.vala:116
+msgid "[Link Label](http://link.url.here.com)"
+msgstr "[Link etiket](http://link.url.her.com)"
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "![Image Label](http://image.url.here.com)"
+msgstr "![Billede etiket](http://billede.url.her.com)"
+
+#: src/Widgets/Cheatsheet.vala:118
+msgid "Special"
+msgstr "Specielle"
+
+#: src/Widgets/Cheatsheet.vala:119
+msgid "```This is a code block```"
+msgstr "```Dette er en blok af kode```"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "This creates a horizontal rule → ---"
+msgstr "Dette er en horisontal linje → ---"
+
+#: src/Widgets/Cheatsheet.vala:121
+msgid "This embeds a local image → : Folder/Image.png :"
+msgstr "Dette indsætter et lokalt billede → : Mappe/Billede.png :"
+
+#: src/Widgets/Cheatsheet.vala:122
+msgid "This embeds a local Markdown file → % Folder/File.md %"
+msgstr "Dette indsætter en lokal Markdown fil → % Mappe/Fil.md %"
+
+#: src/Widgets/Cheatsheet.vala:143
+msgid "To make a column's content go to the left, change --- to :--- ."
+msgstr "For at sætte indholdet i en kolonne til venstre, skift --- til :--- ."
+
+#: src/Widgets/Cheatsheet.vala:144
+msgid "To make a column's content centered, change --- to :---: ."
+msgstr "For at sætte indholdet i en kolonne i midten, skift --- til :---: ."
+
+#: src/Widgets/Cheatsheet.vala:145
+msgid "To make a column's content go to the right, change --- to ---: ."
+msgstr "For at sætte indholdet i en kolonne til højre, skift --- til ---: ."
+
+#: src/Widgets/HeaderBar.vala:67
+msgid "New file"
+msgstr "Ny fil"
+
+#: src/Widgets/HeaderBar.vala:73
+msgid "Save as…"
+msgstr "Gem som…"
+
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
+msgid "Save file"
+msgstr "Gem fil"
+
+#: src/Widgets/HeaderBar.vala:85
+msgid "Open…"
+msgstr "Åben…"
+
+#: src/Widgets/HeaderBar.vala:91
+msgid "Start search"
+msgstr "Start søgning"
+
+#: src/Widgets/HeaderBar.vala:109
+msgid "Export to PDF…"
+msgstr "Eksporter til PDF…"
+
+#: src/Widgets/HeaderBar.vala:113
+msgid "Export to HTML…"
+msgstr "Eksporter til HTML…"
+
+#: src/Widgets/HeaderBar.vala:129
+msgid "Export"
+msgstr "Eksporter"
+
+#: src/Widgets/HeaderBar.vala:133
+msgid "Markdown Cheatsheet"
+msgstr "Markdown Snydeark"
+
+#: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
+msgid "Preferences"
+msgstr "Præferencer"
+
+#: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
+msgid "Light Mode"
+msgstr "Lyst tilstand"
+
+#: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
+msgid "Sepia Mode"
+msgstr "Sepia tilstand"
+
+#: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
+msgid "Moon Mode"
+msgstr "Måne tilstand"
+
+#: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
+msgid "Dark Mode"
+msgstr "Mørkt tilstand"
+
+#: src/Widgets/HeaderBar.vala:208
+msgid "Focus Mode"
+msgstr "fokus tilstand"
+
+#: src/Widgets/HeaderBar.vala:211
+msgid "Enter focus mode"
+msgstr "Skift til fokus tilstand"
+
+#: src/Widgets/HeaderBar.vala:256
+msgid "Settings"
+msgstr "Indstillinger"
+
+#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:202
+msgid "Editor"
+msgstr "Editor"
+
+#: src/Widgets/Preferences.vala:47
+msgid "Interface"
+msgstr "Grænseflade"
+
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
+msgid "Extensions"
+msgstr "Udvidelser"
+
+#: src/Widgets/Preferences.vala:68
+msgid "Geometry"
+msgstr "Geometri"
+
+#: src/Widgets/Preferences.vala:69
+msgid "Spacing of Text:"
+msgstr "Afstand på tekst:"
+
+#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
+#: src/Widgets/Preferences.vala:152
+msgid "Small"
+msgstr "Lille"
+
+#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
+#: src/Widgets/Preferences.vala:153
+msgid "Normal"
+msgstr "Normal"
+
+#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
+#: src/Widgets/Preferences.vala:154
+msgid "Large"
+msgstr "Stor"
+
+#: src/Widgets/Preferences.vala:109
+msgid "Margins of Text:"
+msgstr "Margin på tekst:"
+
+#: src/Widgets/Preferences.vala:149
+msgid "Fonts & Type"
+msgstr "Skrift indstillinger"
+
+#: src/Widgets/Preferences.vala:150
+msgid "Editor Font Size:"
+msgstr "Editor skriftstørrelse"
+
+#: src/Widgets/Preferences.vala:203
+msgid "Save files when changed:"
+msgstr "Gem filer når de er ændret:"
+
+#: src/Widgets/Preferences.vala:234
+msgid "Modes"
+msgstr "Tilstande"
+
+#: src/Widgets/Preferences.vala:311
+msgid "Enable Focus Mode:"
+msgstr "Skift til fokus tilstand:"
+
+#: src/Widgets/Preferences.vala:314
+msgid "Type of Focus Mode:"
+msgstr "Type af fokus tilstand:"
+
+#: src/Widgets/Preferences.vala:316
+msgid "Paragraph"
+msgstr "Afsnit"
+
+#: src/Widgets/Preferences.vala:317
+msgid "Sentence"
+msgstr "Sætning"
+
+#: src/Widgets/Preferences.vala:347
+msgid "Typewriter Scrolling:"
+msgstr "Skrivemaskine Scroll:"
+
+#: src/Widgets/Preferences.vala:351
+msgid "User Interface"
+msgstr "Brugergrænseflade"
+
+#: src/Widgets/Preferences.vala:352
+msgid "Show Statusbar:"
+msgstr "Vis statusbaren:"
+
+#: src/Widgets/Preferences.vala:355
+msgid "Show Searchbar:"
+msgstr "Vis søgelinjen:"
+
+#: src/Widgets/Preferences.vala:413
+msgid "Enable Code Highlighting:"
+msgstr "Aktiver kode highlights:"
+
+#: src/Widgets/Preferences.vala:417
+msgid "Enable Spellchecking:"
+msgstr "Aktiver stavekontrol:"
+
+#: src/Widgets/SearchBar.vala:39
+msgid "Replace with…"
+msgstr "Erstat med…"
+
+#: src/Widgets/SearchBar.vala:43
+msgid "Replace"
+msgstr "Erstat"
+
+#: src/Widgets/SearchBar.vala:46
+msgid "Replace all"
+msgstr "Erstat alle"
+
+#: src/Widgets/SearchBar.vala:71
+msgid "Find text…"
+msgstr "Find tekst…"
+
+#: src/Widgets/SearchBar.vala:90
+msgid "Search previous"
+msgstr "Søg foregående"
+
+#: src/Widgets/SearchBar.vala:109
+msgid "Search next"
+msgstr "Søg næste"
+
+#: src/Widgets/SideBar.vala:61
+msgid "Files"
+msgstr "Filer"
+
+#: src/Widgets/SideBar.vala:63
+msgid "Outline"
+msgstr "Oversigt"
+
+#: src/Widgets/SideBar.vala:170
+msgid "No File"
+msgstr "Ingen fil"
+
+#: src/Widgets/SideBarBox.vala:88
+msgid "Remove File"
+msgstr "Slet fil"
+
+#: src/Widgets/StatusBar.vala:40
+msgid "Show/Hide Sidebar"
+msgstr "Vis/Gem sidebaren"
+
+#: src/Widgets/StatusBar.vala:79
+msgid "Track Characters"
+msgstr "Spor tegn"
+
+#: src/Widgets/StatusBar.vala:84
+msgid "Track Words"
+msgstr "Spor ord"
+
+#: src/Widgets/StatusBar.vala:89
+msgid "Track Lines"
+msgstr "Spor linjer"
+
+#: src/Widgets/StatusBar.vala:109
+msgid "Set Tracking Type"
+msgstr "Sæt sporingstype"
+
+#: src/Widgets/StatusBar.vala:123
+msgid "Words: "
+msgstr "Ord : "
+
+#: src/Widgets/StatusBar.vala:130
+msgid "Lines: "
+msgstr "Linjer : "
+
+#: src/Widgets/StatusBar.vala:137
+msgid "Characters: "
+msgstr "Tegn: "
+
+#: src/Widgets/StatusBar.vala:151
+msgid "Reading Time: "
+msgstr "Læsetid: "
+
+#: src/Services/DialogUtils.vala:29
+msgid "Markdown files"
+msgstr "Markdown filer"
+
+#: src/Services/DialogUtils.vala:33
+msgid "All files"
+msgstr "Alle filer"
+
+#: src/Services/DialogUtils.vala:44
+msgid "Save Open File?"
+msgstr "Gem den åbne fil?"
+
+#: src/Services/DialogUtils.vala:45
+msgid ""
+"There are unsaved changes to the file. If you don't save, changes will be "
+"lost forever."
+msgstr ""
+"Der er ugemte ændringer i filen. Hvis du ikke gemmer, vil ændringerne være "
+"tabt for altid."
+
+#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
+#: src/Services/ExportUtils.vala:188
+msgid "Save"
+msgstr "Gem"
+
+#: src/Services/DialogUtils.vala:50
+msgid "Close Without Saving"
+msgstr "Luk uden at gemme"
+
+#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
+#: src/Services/ExportUtils.vala:207
+msgid "Cancel"
+msgstr "Annuller"
+
+#: src/Services/ExportUtils.vala:83
+msgid "Print to File"
+msgstr "Print til fil"
+
+#: src/Services/ExportUtils.vala:137
+msgid "Select destination PDF file"
+msgstr "Vælg destination for PDF fil"
+
+#: src/Services/ExportUtils.vala:142
+msgid "PDF File"
+msgstr "PDF fil"
+
+#: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
+msgid "All Files"
+msgstr "Alle filer"
+
+#: src/Services/ExportUtils.vala:186
+msgid "Select destination HTML file"
+msgstr "Vælg destination for HTML fil"
+
+#: src/Services/ExportUtils.vala:191
+msgid "HTML File"
+msgstr "HTML fil"
+
+#: src/Services/FileManager.vala:76
+msgid "Open file"
+msgstr "Åben fil"
