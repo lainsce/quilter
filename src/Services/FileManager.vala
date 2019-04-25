@@ -26,6 +26,14 @@ namespace Quilter.Services.FileManager {
     public static string get_cache_path () {
         if (cache == null) {
             cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
+            try {
+            	string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
+            	File cachedir = File.new_for_path (cachedirpath);
+                cachedir.make_directory_with_parents ();
+                FileUtils.set_contents (cache, "");
+            } catch (Error err) {
+                print ("Error writing file: " + err.message);
+            }
         }
 
         return cache;

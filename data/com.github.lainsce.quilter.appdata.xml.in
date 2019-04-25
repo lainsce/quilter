@@ -8,7 +8,7 @@
     <description>
         <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
         <ul>
-            <li>Work on a story, one file at a time.</li>
+            <li>Work on a story, one file displayed at a time, many files sidebar'd.</li>
             <li>Save your documents anywhere, even on existing files.</li>
             <li>Preview your story in the Preview Mode.</li>
             <li>Configure whether to have Focus Mode or not.</li>
@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+	<release version="1.8.4" date="2019-04-26">
+         <description>
+            <p>Release: Minor Fixes</p>
+            <ul>
+                <li>Fixed: cache was not being made, resulting in multiple file loss afterwards with many operations.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.8.2" date="2019-04-15">
          <description>
             <p>Release: Magic Files</p>

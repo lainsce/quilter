@@ -1,94 +1,95 @@
 {
-	"app-id": "com.github.lainsce.quilter",
-	"base": "io.elementary.BaseApp",
-	"base-version": "juno",
-	"runtime": "org.gnome.Platform",
-	"sdk": "org.gnome.Sdk",
-	"runtime-version": "3.32",
-	"command": "com.github.lainsce.quilter",
-	"rename-icon": "com.github.lainsce.quilter",
-	"finish-args": [
-		"--filesystem=home",
-
-		"--socket=wayland",
-		"--socket=x11",
-
-		"--own-name=com.github.lainsce.quilter",
-		"--talk-name=org.gtk.vfs",
-		"--talk-name=org.gtk.vfs.*",
-		"--talk-name=org.gnome.SettingsDaemon",
-
-		"--filesystem=xdg-run/dconf",
-		"--filesystem=xdg-config/dconf:ro",
-		"--talk-name=ca.desrt.dconf",
-		"--env=DCONF_USER_CONFIG_DIR=.config/dconf"
-	],
-	"cleanup": [
-		"/include",
-		"/lib/pkgconfig",
-		"/share/vala",
-		"/man",
-		"*.a",
-		"*.la"
-	],
-	"modules": [
-		{
-			"name": "gtksourceview",
-			"config-opts": [
-				"--disable-gtk-doc"
-			],
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.8.tar.xz",
-					"sha256": "1e9bb8ff190db705deb916dd23ff681f0e8803aec407bf0fd64c7e615ac436fe"
-				}
-			]
-		},
-		{
-			"name": "gtkspell",
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://sourceforge.net/projects/gtkspell/files/3.0.10/gtkspell3-3.0.10.tar.xz",
-					"sha256": "b040f63836b347eb344f5542443dc254621805072f7141d49c067ecb5a375732"
-				}
-			]
-		},
-		{
-			"name": "discount",
-			"config-opts": [
-				"--shared",
-				"--with-fenced-code",
-				"--pkg-config"
-			],
-			"cleanup": [
-				"/bin"
-			],
-			"sources": [
-				{
-					"type": "archive",
-					"url": "http://www.pell.portland.or.us/~orc/Code/discount/discount-2.2.4.tar.bz2",
-					"sha256": "74fd1e3cc2b4eacf7325d3fd89df38b589db60d5dd0f4f14a0115f7da5e230a5"
-				},
-				{
-					"type": "shell",
-					"commands": [
-						"ln -s configure.sh configure"
-					]
-				}
-			]
-		},
-		{
-			"name": "quilter",
-			"buildsystem": "meson",
-			"sources": [
-				{
-					"type": "archive",
-					"url": "https://github.com/lainsce/quilter/archive/1.8.3.zip",
-					"sha256": "bd4c8b5f319d98b10c06dd2fb6dc7bebd4aaf964c55543bb48da14034e4d6f4a"
-				}
-			]
-		}
-	]
+    "app-id" : "com.github.lainsce.quilter",
+    "base" : "io.elementary.BaseApp",
+    "base-version" : "juno",
+    "runtime" : "org.gnome.Platform",
+    "sdk" : "org.gnome.Sdk",
+    "runtime-version" : "3.32",
+    "command" : "com.github.lainsce.quilter",
+    "rename-icon" : "com.github.lainsce.quilter",
+    "finish-args" : [
+        "--filesystem=home",
+        "--socket=wayland",
+        "--socket=x11",
+        "--own-name=com.github.lainsce.quilter",
+        "--talk-name=org.gtk.vfs",
+        "--talk-name=org.gtk.vfs.*",
+        "--talk-name=org.gnome.SettingsDaemon",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=xdg-config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
+    ],
+    "cleanup" : [
+        "/include",
+        "/lib/pkgconfig",
+        "/share/vala",
+        "/man",
+        "*.a",
+        "*.la"
+    ],
+    "modules" : [
+        {
+            "name" : "gtksourceview",
+            "config-opts" : [
+                "--disable-gtk-doc"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://download.gnome.org/sources/gtksourceview/3.24/gtksourceview-3.24.8.tar.xz",
+                    "sha256" : "1e9bb8ff190db705deb916dd23ff681f0e8803aec407bf0fd64c7e615ac436fe"
+                }
+            ]
+        },
+        {
+            "name" : "gtkspell",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://sourceforge.net/projects/gtkspell/files/3.0.10/gtkspell3-3.0.10.tar.xz",
+                    "sha256" : "b040f63836b347eb344f5542443dc254621805072f7141d49c067ecb5a375732"
+                }
+            ]
+        },
+        {
+            "name" : "discount",
+            "config-opts" : [
+                "--shared",
+                "--with-fenced-code",
+                "--pkg-config"
+            ],
+            "cleanup" : [
+                "/bin"
+            ],
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "http://www.pell.portland.or.us/~orc/Code/discount/discount-2.2.4.tar.bz2",
+                    "sha256" : "74fd1e3cc2b4eacf7325d3fd89df38b589db60d5dd0f4f14a0115f7da5e230a5"
+                },
+                {
+                    "type" : "shell",
+                    "commands" : [
+                        "ln -s configure.sh configure"
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "quilter",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "archive",
+                    "url" : "https://github.com/lainsce/quilter/archive/1.8.3.zip",
+                    "sha256" : "bd4c8b5f319d98b10c06dd2fb6dc7bebd4aaf964c55543bb48da14034e4d6f4a"
+                }
+            ]
+        }
+    ],
+    "build-options" : {
+        "env" : {
+        }
+    }
 }
