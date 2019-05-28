@@ -58,6 +58,7 @@ namespace Quilter.Widgets {
         public bool modified {
             set {
                 buffer.set_modified (value);
+                should_scroll = value;
             }
 
             get {
@@ -82,10 +83,12 @@ namespace Quilter.Widgets {
                     string filename = file.get_path ();
                     GLib.FileUtils.get_contents (filename, out text);
                     buffer.text = text;
+                    modified = false;
                 } else {
                     Services.FileManager.save_tmp_file ();
                     GLib.FileUtils.get_contents (Services.FileManager.get_cache_path (), out text);
                     buffer.text = text;
+                    modified = false;
                 }
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
@@ -123,16 +126,15 @@ namespace Quilter.Widgets {
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
 
-            buffer.set_modified (false);
-            should_scroll = false;
+            modified = false;
 
             buffer.changed.connect (() => {
-                buffer.set_modified (true);
-                should_scroll = true;
+                modified = true;
             });
 
-            if (settings.current_file == (_("No Documents Open"))) {
+            if (settings.current_file == "") {
                 buffer.text = "";
+                modified = false;
             }
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
@@ -187,7 +189,7 @@ namespace Quilter.Widgets {
                 Timeout.add (10000, () => {
                     try {
                         save ();
-                        buffer.set_modified (false);
+                        modified = false;
                     } catch (Error err) {
                         print ("Error writing file: " + err.message);
                     }
@@ -255,7 +257,7 @@ namespace Quilter.Widgets {
 
             set_scheme (get_default_scheme ());
         }
-        
+
         public void dynamic_margins () {
             var settings = AppSettings.get_default ();
             int w, h, m, p;

@@ -22,7 +22,7 @@ namespace Quilter.Widgets {
         private Gtk.Label file_name_label;
         private Gtk.Label file_label;
         public Gtk.Grid file_grid;
-        public SideBar sb;
+        public EditView ev;
 
         private string? _path;
         public new string? path {
@@ -60,6 +60,7 @@ namespace Quilter.Widgets {
             this.hexpand = false;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
+
             file_name_label = new Gtk.Label ("");
             file_name_label.halign = Gtk.Align.START;
             file_name_label.hexpand = false;
@@ -67,12 +68,15 @@ namespace Quilter.Widgets {
             file_name_label.max_width_chars = 27;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
+
             file_label = new Gtk.Label ("");
             file_label.halign = Gtk.Align.START;
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
             file_label.hexpand = false;
+
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.LARGE_TOOLBAR);
+
             var file_remove_button = new Gtk.Button();
             var file_remove_button_c = file_remove_button.get_style_context ();
             file_remove_button_c.add_class ("flat");
@@ -86,6 +90,7 @@ namespace Quilter.Widgets {
             file_remove_button.halign = Gtk.Align.END;
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic",Gtk.IconSize.BUTTON));
             file_remove_button.tooltip_text = (_("Remove File"));
+
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
             file_grid.row_spacing = 3;
@@ -95,24 +100,31 @@ namespace Quilter.Widgets {
             file_grid.attach (file_name_label, 1, 0, 1, 1);
             file_grid.attach (file_label, 1, 1, 1, 1);
             file_grid.attach (file_remove_button, 2, 0, 1, 2);
+
             file_remove_button.clicked.connect (() => {
-                var dialog = new Services.DialogUtils.Dialog ();
+                var dialog = new Services.DialogUtils.Dialog2 ();
                 dialog.transient_for = win;
                 dialog.response.connect ((response_id) => {
                     switch (response_id) {
                         case Gtk.ResponseType.OK:
                             debug ("User saves the file.");
                             save_as ();
-                            this.destroy ();
+                            delete_row ();
                             dialog.close ();
                             Widgets.EditView.buffer.text = "";
+                            Widgets.EditView.buffer.set_modified (false);
                             Services.FileManager.file = null;
+                            win.toolbar.set_subtitle (_("No Documents Open"));
+                            Widgets.SideBar.get_instance ().store.clear ();
                             break;
                         case Gtk.ResponseType.NO:
-                            this.destroy ();
+                            delete_row ();
                             dialog.close ();
                             Widgets.EditView.buffer.text = "";
+                            Widgets.EditView.buffer.set_modified (false);
                             Services.FileManager.file = null;
+                            win.toolbar.set_subtitle (_("No Documents Open"));
+                            Widgets.SideBar.get_instance ().store.clear ();
                             break;
                         case Gtk.ResponseType.CANCEL:
                         case Gtk.ResponseType.CLOSE:
@@ -123,19 +135,19 @@ namespace Quilter.Widgets {
                             assert_not_reached ();
                     }
                 });
-                if (Widgets.EditView.buffer.get_modified() == true) {
+                if (Widgets.EditView.buffer.get_modified () == true) {
                     dialog.run ();
-                } else {
-                    this.destroy ();
+                } else if (Widgets.EditView.buffer.get_modified () == false) {
+                    delete_row ();
                     Widgets.EditView.buffer.text = "";
                     Services.FileManager.file = null;
                     win.toolbar.set_subtitle (_("No Documents Open"));
                 }
             });
+
             this.add (file_grid);
             this.hexpand = true;
             this.show_all ();
-
             this.path = path;
         }
         public void delete_row () {

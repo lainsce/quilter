@@ -39,6 +39,7 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subsubsection;
         private Gtk.TreeIter paragraph;
         private GLib.File file;
+        private Gtk.Label no_files;
         private string[] files;
         public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -47,8 +48,25 @@ namespace Quilter.Widgets {
         public signal void save_as ();
         public signal void row_selected (Widgets.SideBarBox box);
 
+        private static SideBar? instance = null;
+        public static SideBar get_instance () {
+            if (instance == null) {
+                instance = new Widgets.SideBar (Application.win);
+            }
+
+            return instance;
+        }
+
         public SideBar (MainWindow win) {
             this.win = win;
+
+            no_files = new Gtk.Label (_("No files…"));
+            no_files.halign = Gtk.Align.CENTER;
+            var no_files_style_context = no_files.get_style_context ();
+            no_files_style_context.add_class ("h2");
+            no_files.sensitive = false;
+            no_files.margin = 12;
+            no_files.show_all ();
 
             stack = new Gtk.Stack ();
             stackswitcher = new Gtk.StackSwitcher ();
@@ -62,6 +80,9 @@ namespace Quilter.Widgets {
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "format-justify-left-symbolic");
+
+            get_file_contents_as_items ();
+            view.expand_all ();
 
             var grid = new Gtk.Grid ();
             var g_context = grid.get_style_context ();
@@ -86,12 +107,13 @@ namespace Quilter.Widgets {
         public Gtk.Widget sidebar_files_list () {
             var settings = AppSettings.get_default ();
             column = new Gtk.ListBox ();
-            column.hexpand = false;
+            column.hexpand = true;
             column.vexpand = true;
             column.set_size_request (280,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
+            column.set_placeholder (no_files);
 
             if (settings.current_file == "") {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
@@ -139,6 +161,9 @@ namespace Quilter.Widgets {
             tvc.set_sort_column_id (0);
             tvc.set_sort_order (Gtk.SortType.DESCENDING);
             view.append_column (tvc);
+
+            store.clear ();
+
             if (settings.current_file != "") {
                 store.clear ();
                 get_file_contents_as_items ();
@@ -165,10 +190,7 @@ namespace Quilter.Widgets {
         public void get_file_contents_as_items () {
             var settings = AppSettings.get_default ();
             file = GLib.File.new_for_path (settings.current_file);
-            if (!file.query_exists ()) {
-                 store.insert (out root, null, -1);
-                 store.set (root, 0, _("No File"), -1);
-            } else if (file.query_exists ()) {
+            if (file.query_exists ()) {
                 try {
                     var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.+)");
                     string buffer = "";

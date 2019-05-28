@@ -91,14 +91,30 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
             settings.current_file = Services.FileManager.get_cache_path ();
 
+            sidebar.store.clear ();
+            sidebar.get_file_contents_as_items ();
+            sidebar.view.expand_all ();
+            if (settings.current_file == "" || toolbar.get_subtitle () == (_("No Documents Open"))) {
+                Widgets.EditView.buffer.text = "";
+            }
+
             settings.changed.connect (on_settings_changed);
             on_settings_changed ();
 
             Widgets.EditView.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
-                sidebar.store.clear ();
+
                 if (settings.current_file != "") {
+                    sidebar.store.clear ();
+                    sidebar.get_file_contents_as_items ();
+                    sidebar.view.expand_all ();
+                } else {
+                    Services.FileManager.get_cache_path ();
+                    sidebar.add_file (Services.FileManager.get_cache_path ());
+                    settings.current_file = Services.FileManager.get_cache_path ();
+                    Widgets.EditView.buffer.text = "";
+                    sidebar.view.expand_all ();
                     sidebar.get_file_contents_as_items ();
                     sidebar.view.expand_all ();
                 }
@@ -463,6 +479,20 @@ namespace Quilter {
             } else {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }
+
+            if (settings.current_file != "") {
+                sidebar.store.clear ();
+                sidebar.get_file_contents_as_items ();
+                sidebar.view.expand_all ();
+            } else {
+                Services.FileManager.get_cache_path ();
+                sidebar.add_file (Services.FileManager.get_cache_path ());
+                settings.current_file = Services.FileManager.get_cache_path ();
+                Widgets.EditView.buffer.text = "";
+                sidebar.store.clear ();
+                sidebar.get_file_contents_as_items ();
+                sidebar.view.expand_all ();
+            }
         }
 
         private void on_create_new () {
@@ -549,6 +579,9 @@ namespace Quilter {
 
                     edit_view_content.text = text;
                     edit_view_content.modified = false;
+                    sidebar.store.clear ();
+                    sidebar.get_file_contents_as_items ();
+                    sidebar.view.expand_all ();
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }

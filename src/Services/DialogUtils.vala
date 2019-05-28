@@ -52,4 +52,21 @@ namespace Quilter.Services.DialogUtils {
             cancel.clicked.connect (() => { destroy (); });
         }
     }
+
+    public class Dialog2 : Granite.MessageDialog {
+        public MainWindow win;
+        public Dialog2 () {
+            Object (
+                image_icon: new ThemedIcon ("dialog-information"),
+                primary_text: _("Remove File from Sidebar?"),
+                secondary_text: _("By removing this file from the Sidebar, you will lose any changes made if not saved. Otherwise, it will only be removed.")
+            );
+        }
+        construct {
+            var save = add_button (_("Save"), Gtk.ResponseType.OK);
+            var cws = add_button (_("Remove Without Saving"), Gtk.ResponseType.NO);
+            var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
+            cancel.clicked.connect (() => { destroy (); });
+        }
+    }
 }

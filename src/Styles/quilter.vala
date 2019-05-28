@@ -66,7 +66,6 @@ public class Quilter.Styles.quilter {
       margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1.5rem;
-      text-align: center;
       text-transform: uppercase;
     }
 
@@ -74,22 +73,18 @@ public class Quilter.Styles.quilter {
       margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1.25rem;
-      text-align: center;
-      text-transform: uppercase;
     }
 
     h4 {
       margin-top: 1em;
       margin-bottom: 1em;
       font-size: 1rem;
-      text-align: center;
     }
 
     h5 {
       margin-top: 1em;
       margin-bottom: 1em;
       font-size: .875rem;
-      text-align: center;
     }
 
     h6 {

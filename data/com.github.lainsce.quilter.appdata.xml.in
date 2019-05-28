@@ -55,7 +55,16 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-	<release version="1.8.4" date="2019-04-26">
+        <release version="1.8.5" date="2019-05-31">
+         <description>
+            <p>Release: Minor Fixes</p>
+            <ul>
+                <li>Fixed: Various Sidebar fixes for safety of your files.</li>
+                <li>Other: Minor fixes in styling.</li>
+            </ul>
+         </description>
+        </release>
+	    <release version="1.8.4" date="2019-04-26">
          <description>
             <p>Release: Minor Fixes</p>
             <ul>
