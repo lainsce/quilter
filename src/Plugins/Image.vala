@@ -20,7 +20,7 @@
 */
 
 public class Quilter.Image : Plugins.Plugin {
-    private PatternSpec spec = new PatternSpec ("*:*:*");
+    private PatternSpec spec = new PatternSpec ("*|*|*");
 
     construct {}
 

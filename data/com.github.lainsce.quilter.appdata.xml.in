@@ -57,6 +57,14 @@
     <releases>
         <release version="1.8.6" date="2019-06-03">
          <description>
+            <p>Release: Did Anyone Say Minor Fixes?</p>
+            <ul>
+                <li>Fixed: Local image syntax wrongly picked up with links or two : in succession.</li>
+            </ul>
+         </description>
+        </release>
+        <release version="1.8.6" date="2019-06-03">
+         <description>
             <p>Release: Even MORE Minor Fixes</p>
             <ul>
                 <li>Other tiny fixes with the sidebar.</li>
