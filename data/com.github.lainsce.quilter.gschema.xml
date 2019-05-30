@@ -61,7 +61,7 @@
 				<description>The c.w.f. in Quilter</description>
 		</key>
 		<key name="last-files" type="as">
-				<default>['']</default>
+				<default>[]</default>
 				<summary>Last opened files</summary>
 				<description>The last opened files in Quilter</description>
 		</key>

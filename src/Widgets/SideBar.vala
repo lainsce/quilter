@@ -58,6 +58,7 @@ namespace Quilter.Widgets {
         }
 
         public SideBar (MainWindow win) {
+            var settings = AppSettings.get_default ();
             this.win = win;
 
             no_files = new Gtk.Label (_("No files…"));
@@ -81,8 +82,10 @@ namespace Quilter.Widgets {
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "format-justify-left-symbolic");
 
-            get_file_contents_as_items ();
-            view.expand_all ();
+            if (settings.current_file != "") {
+                get_file_contents_as_items ();
+                view.expand_all ();
+            }
 
             var grid = new Gtk.Grid ();
             var g_context = grid.get_style_context ();
