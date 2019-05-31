@@ -69,8 +69,8 @@ namespace Quilter.Services.FileManager {
             }
             try {
                 GLib.FileUtils.get_contents (file_path, out text);
-                Widgets.EditView.buffer.text = text;
-                Widgets.EditView.buffer.set_modified (false);
+                win.edit_view_content.buffer.text = text;
+                win.edit_view_content.buffer.set_modified (false);
                 file = null;
             } catch (Error e) {
                 warning ("Error: %s", e.message);

@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.9.0" date="2019-05-30">
+         <description>
+            <p>Release: I Said Fixes!</p>
+            <ul>
+                <li>Fixed: Backend technical confusion with files.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.8.7" date="2019-05-30">
          <description>
             <p>Release: Did Anyone Say Minor Fixes?</p>

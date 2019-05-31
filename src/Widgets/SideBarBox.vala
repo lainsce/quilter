@@ -111,8 +111,8 @@ namespace Quilter.Widgets {
                             save_as ();
                             delete_row ();
                             dialog.close ();
-                            Widgets.EditView.buffer.text = "";
-                            Widgets.EditView.buffer.set_modified (false);
+                            win.edit_view_content.buffer.text = "";
+                            win.edit_view_content.buffer.set_modified (false);
                             Services.FileManager.file = null;
                             win.toolbar.set_subtitle (_("No Documents Open"));
                             Widgets.SideBar.get_instance ().store.clear ();
@@ -120,8 +120,8 @@ namespace Quilter.Widgets {
                         case Gtk.ResponseType.NO:
                             delete_row ();
                             dialog.close ();
-                            Widgets.EditView.buffer.text = "";
-                            Widgets.EditView.buffer.set_modified (false);
+                            win.edit_view_content.buffer.text = "";
+                            win.edit_view_content.buffer.set_modified (false);
                             Services.FileManager.file = null;
                             win.toolbar.set_subtitle (_("No Documents Open"));
                             Widgets.SideBar.get_instance ().store.clear ();
@@ -135,11 +135,11 @@ namespace Quilter.Widgets {
                             assert_not_reached ();
                     }
                 });
-                if (Widgets.EditView.buffer.get_modified () == true) {
+                if (win.edit_view_content.buffer.get_modified () == true) {
                     dialog.run ();
-                } else if (Widgets.EditView.buffer.get_modified () == false) {
+                } else if (win.edit_view_content.buffer.get_modified () == false) {
                     delete_row ();
-                    Widgets.EditView.buffer.text = "";
+                    win.edit_view_content.buffer.text = "";
                     Services.FileManager.file = null;
                     win.toolbar.set_subtitle (_("No Documents Open"));
                 }

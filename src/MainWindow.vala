@@ -95,13 +95,13 @@ namespace Quilter {
             sidebar.get_file_contents_as_items ();
             sidebar.view.expand_all ();
             if (settings.current_file == "" || toolbar.get_subtitle () == (_("No Documents Open"))) {
-                Widgets.EditView.buffer.text = "";
+                edit_view_content.buffer.text = "";
             }
 
             settings.changed.connect (on_settings_changed);
             on_settings_changed ();
 
-            Widgets.EditView.buffer.changed.connect (() => {
+            edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
 
@@ -113,7 +113,7 @@ namespace Quilter {
                     Services.FileManager.get_cache_path ();
                     sidebar.add_file (Services.FileManager.get_cache_path ());
                     settings.current_file = Services.FileManager.get_cache_path ();
-                    Widgets.EditView.buffer.text = "";
+                    edit_view_content.buffer.text = "";
                     sidebar.view.expand_all ();
                     sidebar.get_file_contents_as_items ();
                     sidebar.view.expand_all ();
@@ -155,12 +155,12 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.EditView.buffer.undo ();
+                        edit_view_content.buffer.undo ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
-                        Widgets.EditView.buffer.redo ();
+                        edit_view_content.buffer.redo ();
                     }
                 }
                 if (match_keycode (Gdk.Key.F11, keycode)) {
@@ -268,7 +268,7 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view_content = new Widgets.Preview ();
+            preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
 
             stack = new Gtk.Stack ();
@@ -298,7 +298,7 @@ namespace Quilter {
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
 
-            statusbar = new Widgets.StatusBar ();
+            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
@@ -341,7 +341,7 @@ namespace Quilter {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;
-            this.show_all ();
+            //this.show_all ();
         }
 
 #if VALA_0_42
@@ -423,9 +423,9 @@ namespace Quilter {
         }
 
         private void render_func () {
-            if (Widgets.EditView.buffer.get_modified () == true) {
+            if (edit_view_content.buffer.get_modified () == true) {
                 preview_view_content.update_html_view ();
-                Widgets.EditView.buffer.set_modified (false);
+                edit_view_content.buffer.set_modified (false);
             }
         }
 
@@ -488,7 +488,7 @@ namespace Quilter {
                 Services.FileManager.get_cache_path ();
                 sidebar.add_file (Services.FileManager.get_cache_path ());
                 settings.current_file = Services.FileManager.get_cache_path ();
-                Widgets.EditView.buffer.text = "";
+                edit_view_content.buffer.text = "";
                 sidebar.store.clear ();
                 sidebar.get_file_contents_as_items ();
                 sidebar.view.expand_all ();

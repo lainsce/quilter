@@ -26,11 +26,13 @@ namespace Quilter {
         public MainWindow window;
         public Gtk.ActionBar actionbar;
         public Gtk.MenuButton track_type_menu;
+        public Gtk.SourceBuffer buf;
 
         /* Average normal reading speed is 275 WPM */
         int WPM = 275;
 
-        public StatusBar () {
+        public StatusBar (Gtk.SourceBuffer buf) {
+            this.buf = buf;
             var settings = AppSettings.get_default ();
             actionbar = new Gtk.ActionBar ();
 
@@ -154,12 +156,11 @@ namespace Quilter {
         public WordCount get_count() {
     		try {
     			var reg = new Regex("[\\s\\W]+", RegexCompileFlags.OPTIMIZE);
-                var buffer = Widgets.EditView.buffer;
 
-    			string text = buffer.text;
+    			string text = buf.text;
     			string result = reg.replace (text, text.length, 0, " ");
 
-                var lines = buffer.get_line_count ();
+                var lines = buf.get_line_count ();
 
                 var chars = result.length;
 

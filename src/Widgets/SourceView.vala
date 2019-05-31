@@ -20,7 +20,6 @@ namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
         public MainWindow window;
         private static EditView? instance = null;
-        public static new Gtk.SourceBuffer buffer;
         public bool should_scroll {get; set; default = false;}
         public File file;
         public GtkSpell.Checker spell;
@@ -36,6 +35,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
+        public new Gtk.SourceBuffer buffer;
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -255,7 +255,9 @@ namespace Quilter.Widgets {
                 buffer_context.add_class ("big-text");
             }
 
-            set_scheme (get_default_scheme ());
+            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
+            var style = style_manager.get_scheme (get_default_scheme ());
+            buffer.set_style_scheme (style);
         }
 
         public void dynamic_margins () {
@@ -290,12 +292,6 @@ namespace Quilter.Widgets {
                 this.bottom_margin = 40;
                 this.top_margin = 40;
             }
-        }
-
-        public void set_scheme (string id) {
-            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
-            var style = style_manager.get_scheme (id);
-            buffer.set_style_scheme (style);
         }
 
         private string get_default_scheme () {

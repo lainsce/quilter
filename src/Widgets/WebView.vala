@@ -19,16 +19,26 @@
 */
 using WebKit;
 
-namespace Quilter {
-    public class Widgets.Preview : WebKit.WebView {
+namespace Quilter.Widgets {
+    public class Preview : WebKit.WebView {
         private static Preview? instance = null;
         public string html;
+        public Gtk.SourceBuffer buf;
 
-        public Preview () {
+        public static Preview get_instance () {
+            if (instance == null) {
+                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content.buffer);
+            }
+
+            return instance;
+        }
+
+        public Preview (MainWindow window, Gtk.SourceBuffer buf) {
             Object(user_content_manager: new UserContentManager());
             visible = true;
             vexpand = true;
             hexpand = true;
+            this.buf = buf;
             var settingsweb = get_settings();
             settingsweb.enable_plugins = false;
             settingsweb.enable_page_cache = false;
@@ -39,14 +49,6 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_html_view);
             connect_signals ();
-        }
-
-        public static Preview get_instance () {
-            if (instance == null) {
-                instance = new Widgets.Preview ();
-            }
-
-            return instance;
         }
 
         protected override bool context_menu (
@@ -208,10 +210,9 @@ namespace Quilter {
         }
 
         private string process () {
-            string text = Widgets.EditView.buffer.text;
             string processed_mk;
-            process_frontmatter (text, out processed_mk);
-            var mkd = new Markdown.Document.gfm_format (processed_mk.data, 
+            process_frontmatter (buf.text, out processed_mk);
+            var mkd = new Markdown.Document.gfm_format (processed_mk.data,
                                                         0x00004000 +
                                                         0x00200000 +
                                                         0x00400000 +
