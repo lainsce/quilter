@@ -1,5 +1,5 @@
 # French translations for com.github.lainsce.quilter package.
-# Copyright (C) 2019 THE om.github.lainsce.quilter'S COPYRIGHT HOLDER
+# Copyright (C) 2019 THE com.github.lainsce.quilter'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
 # NathanBnm, 2019.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-27 21:50+0100\n"
+"POT-Creation-Date: 2019-06-04 21:06+0200\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -20,35 +20,35 @@ msgstr ""
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:215
+#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
+#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+msgid "No Documents Open"
+msgstr "Aucun document ouvert"
+
+#: src/MainWindow.vala:231
 msgid "Use Sans-serif"
 msgstr "Utiliser Sans-serif"
 
-#: src/MainWindow.vala:220
+#: src/MainWindow.vala:236
 msgid "Use Serif"
 msgstr "Utiliser Serif"
 
-#: src/MainWindow.vala:226
+#: src/MainWindow.vala:242
 msgid "Use Monospace"
 msgstr "Utiliser Monospace"
 
-#: src/MainWindow.vala:245
+#: src/MainWindow.vala:261
 msgid "Set Preview Font"
 msgstr "Définir la police d'aperçu"
 
-#: src/MainWindow.vala:261
+#: src/MainWindow.vala:277
 msgid "Edit"
 msgstr "Modifier"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:278
 msgid "Preview"
 msgstr "Aperçu"
-
-#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
-#: src/Widgets/SourceView.vala:134
-msgid "No Documents Open"
-msgstr "Aucun document ouvert"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -148,8 +148,8 @@ msgid "This creates a horizontal rule → ---"
 msgstr "Ceci créée un séparateur horizontal → ---"
 
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → : Folder/Image.png :"
-msgstr "Ceci inclut une image locale → : Dossier/Image.png :"
+msgid "This embeds a local image → | Folder/Image.png |"
+msgstr "Ceci inclut une image locale → | Dossier/Image.png |"
 
 #: src/Widgets/Cheatsheet.vala:122
 msgid "This embeds a local Markdown file → % Folder/File.md %"
@@ -175,7 +175,7 @@ msgstr "Nouveau fichier"
 msgid "Save as…"
 msgstr "Enregistrer sous…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
 msgid "Save file"
 msgstr "Enregistrer le fichier"
 
@@ -354,55 +354,55 @@ msgstr "Rechercher le précédent"
 msgid "Search next"
 msgstr "Rechercher le suivant"
 
-#: src/Widgets/SideBar.vala:61
+#: src/Widgets/SideBar.vala:64
+msgid "No files…"
+msgstr "Aucun fichier…"
+
+#: src/Widgets/SideBar.vala:80
 msgid "Files"
 msgstr "Tous les fichiers"
 
-#: src/Widgets/SideBar.vala:63
+#: src/Widgets/SideBar.vala:82
 msgid "Outline"
 msgstr "Aperçu"
 
-#: src/Widgets/SideBar.vala:170
-msgid "No File"
-msgstr "Aucun fichier"
-
-#: src/Widgets/SideBarBox.vala:88
+#: src/Widgets/SideBarBox.vala:92
 msgid "Remove File"
 msgstr "Supprimer le fichier"
 
-#: src/Widgets/StatusBar.vala:40
+#: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
 msgstr "Afficher/Masquer la barre latérale"
 
-#: src/Widgets/StatusBar.vala:79
+#: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
 msgstr "Suivi des caractères"
 
-#: src/Widgets/StatusBar.vala:84
+#: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
 msgstr "Suivi des mots"
 
-#: src/Widgets/StatusBar.vala:89
+#: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
 msgstr "Suivi des lignes"
 
-#: src/Widgets/StatusBar.vala:109
+#: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
 msgstr "Définir le type de suivi"
 
-#: src/Widgets/StatusBar.vala:123
+#: src/Widgets/StatusBar.vala:125
 msgid "Words: "
 msgstr "Mots : "
 
-#: src/Widgets/StatusBar.vala:130
+#: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
 msgstr "Lignes : "
 
-#: src/Widgets/StatusBar.vala:137
+#: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
 msgstr "Caractères : "
 
-#: src/Widgets/StatusBar.vala:151
+#: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
 msgstr "Temps de lecture : "
 
@@ -426,8 +426,8 @@ msgstr ""
 "Il y a des modifications non sauvegardées dans le fichier. Si vous "
 "n'enregistrez pas, les changements seront perdus pour toujours."
 
-#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
-#: src/Services/ExportUtils.vala:188
+#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
+#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -435,14 +435,28 @@ msgstr "Enregistrer"
 msgid "Close Without Saving"
 msgstr "Fermer sans enregistrer"
 
-#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
-#: src/Services/ExportUtils.vala:207
+#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
+#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
 msgid "Cancel"
 msgstr "Annuler"
 
+#: src/Services/DialogUtils.vala:61
+msgid "Remove File from Sidebar?"
+msgstr "Supprimer le fichier de la barre latérale ?"
+
+#: src/Services/DialogUtils.vala:62
+msgid ""
+"By removing this file from the Sidebar, you will lose any changes made if "
+"not saved. Otherwise, it will only be removed."
+msgstr "En supprimant ce fichier de la barre latérale, vous perdrez toutes les modifications apportées si elles ne sont pas enregistrées. Dans le cas contraire, il sera simplement supprimé."
+
+#: src/Services/DialogUtils.vala:67
+msgid "Remove Without Saving"
+msgstr "Supprimer sans enregistrer"
+
 #: src/Services/ExportUtils.vala:83
 msgid "Print to File"
-msgstr "Imprimer comme fichier"
+msgstr "Imprimer dans un fichier"
 
 #: src/Services/ExportUtils.vala:137
 msgid "Select destination PDF file"
@@ -464,6 +478,6 @@ msgstr "Sélectionnez l'emplacement de destination du fichier HTML"
 msgid "HTML File"
 msgstr "Fichier HTML"
 
-#: src/Services/FileManager.vala:76
+#: src/Services/FileManager.vala:84
 msgid "Open file"
 msgstr "Ouvrir un fichier"

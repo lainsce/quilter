@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-27 21:50+0100\n"
+"POT-Creation-Date: 2019-06-04 21:06+0200\n"
 "PO-Revision-Date: 2019-03-14 20:44+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
@@ -22,35 +22,35 @@ msgstr ""
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:215
+#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
+#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+msgid "No Documents Open"
+msgstr ""
+
+#: src/MainWindow.vala:231
 msgid "Use Sans-serif"
 msgstr ""
 
-#: src/MainWindow.vala:220
+#: src/MainWindow.vala:236
 msgid "Use Serif"
 msgstr ""
 
-#: src/MainWindow.vala:226
+#: src/MainWindow.vala:242
 msgid "Use Monospace"
 msgstr ""
 
-#: src/MainWindow.vala:245
+#: src/MainWindow.vala:261
 msgid "Set Preview Font"
 msgstr "Voorbeeld"
 
-#: src/MainWindow.vala:261
+#: src/MainWindow.vala:277
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:278
 msgid "Preview"
 msgstr "Voorbeeld"
-
-#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
-#: src/Widgets/SourceView.vala:134
-msgid "No Documents Open"
-msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -151,7 +151,7 @@ msgid "This creates a horizontal rule → ---"
 msgstr "--- ← Dit creëert een horizontale regel"
 
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → : Folder/Image.png :"
+msgid "This embeds a local image → | Folder/Image.png |"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:122
@@ -178,7 +178,7 @@ msgstr "Nieuw bestand"
 msgid "Save as…"
 msgstr "Opslaan als…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
 msgid "Save file"
 msgstr "Bestand opslaan"
 
@@ -357,55 +357,56 @@ msgstr ""
 msgid "Search next"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:61
+#: src/Widgets/SideBar.vala:64
+#, fuzzy
+msgid "No files…"
+msgstr "Nieuw bestand"
+
+#: src/Widgets/SideBar.vala:80
 msgid "Files"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:63
+#: src/Widgets/SideBar.vala:82
 msgid "Outline"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:170
-msgid "No File"
-msgstr "Alle bestanden"
-
-#: src/Widgets/SideBarBox.vala:88
+#: src/Widgets/SideBarBox.vala:92
 msgid "Remove File"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:40
+#: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:79
+#: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:84
+#: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:89
+#: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:109
+#: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:123
+#: src/Widgets/StatusBar.vala:125
 msgid "Words: "
 msgstr "Woorden: "
 
-#: src/Widgets/StatusBar.vala:130
+#: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:137
+#: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:151
+#: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
 msgstr "Leestijd: "
 
@@ -427,8 +428,8 @@ msgid ""
 "lost forever."
 msgstr "Als je deze niet opslaat, dan gaan ze permanent verloren."
 
-#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
-#: src/Services/ExportUtils.vala:188
+#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
+#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
 msgid "Save"
 msgstr "Bestand opslaan"
 
@@ -436,10 +437,25 @@ msgstr "Bestand opslaan"
 msgid "Close Without Saving"
 msgstr "Sluiten zonder opslaan"
 
-#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
-#: src/Services/ExportUtils.vala:207
+#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
+#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
 msgid "Cancel"
 msgstr ""
+
+#: src/Services/DialogUtils.vala:61
+msgid "Remove File from Sidebar?"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:62
+msgid ""
+"By removing this file from the Sidebar, you will lose any changes made if "
+"not saved. Otherwise, it will only be removed."
+msgstr ""
+
+#: src/Services/DialogUtils.vala:67
+#, fuzzy
+msgid "Remove Without Saving"
+msgstr "Sluiten zonder opslaan"
 
 #: src/Services/ExportUtils.vala:83
 msgid "Print to File"
@@ -465,6 +481,9 @@ msgstr ""
 msgid "HTML File"
 msgstr ""
 
-#: src/Services/FileManager.vala:76
+#: src/Services/FileManager.vala:84
 msgid "Open file"
 msgstr "Bestand openen"
+
+#~ msgid "No File"
+#~ msgstr "Alle bestanden"

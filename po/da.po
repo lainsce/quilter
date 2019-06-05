@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-04-09 21:50+0100\n"
+"POT-Creation-Date: 2019-06-04 21:06+0200\n"
 "PO-Revision-Date: 2019-04-09 21:30+0100\n"
 "Last-Translator: Siigdev\n"
 "Language-Team: \n"
@@ -20,35 +20,35 @@ msgstr ""
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:215
+#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
+#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+msgid "No Documents Open"
+msgstr "Ingen dokumenter åbne"
+
+#: src/MainWindow.vala:231
 msgid "Use Sans-serif"
 msgstr "Brug Sans-serif"
 
-#: src/MainWindow.vala:220
+#: src/MainWindow.vala:236
 msgid "Use Serif"
 msgstr "Brug Serif"
 
-#: src/MainWindow.vala:226
+#: src/MainWindow.vala:242
 msgid "Use Monospace"
 msgstr "Brug Monospace"
 
-#: src/MainWindow.vala:245
+#: src/MainWindow.vala:261
 msgid "Set Preview Font"
 msgstr "Indstil forhåndsvisnings-font"
 
-#: src/MainWindow.vala:261
+#: src/MainWindow.vala:277
 msgid "Edit"
 msgstr "Rediger"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:278
 msgid "Preview"
 msgstr "Forhåndsvisning"
-
-#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
-#: src/Widgets/SourceView.vala:134
-msgid "No Documents Open"
-msgstr "Ingen dokumenter åbne"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -148,7 +148,8 @@ msgid "This creates a horizontal rule → ---"
 msgstr "Dette er en horisontal linje → ---"
 
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → : Folder/Image.png :"
+#, fuzzy
+msgid "This embeds a local image → | Folder/Image.png |"
 msgstr "Dette indsætter et lokalt billede → : Mappe/Billede.png :"
 
 #: src/Widgets/Cheatsheet.vala:122
@@ -175,7 +176,7 @@ msgstr "Ny fil"
 msgid "Save as…"
 msgstr "Gem som…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
 msgid "Save file"
 msgstr "Gem fil"
 
@@ -354,55 +355,56 @@ msgstr "Søg foregående"
 msgid "Search next"
 msgstr "Søg næste"
 
-#: src/Widgets/SideBar.vala:61
+#: src/Widgets/SideBar.vala:64
+#, fuzzy
+msgid "No files…"
+msgstr "Ny fil"
+
+#: src/Widgets/SideBar.vala:80
 msgid "Files"
 msgstr "Filer"
 
-#: src/Widgets/SideBar.vala:63
+#: src/Widgets/SideBar.vala:82
 msgid "Outline"
 msgstr "Oversigt"
 
-#: src/Widgets/SideBar.vala:170
-msgid "No File"
-msgstr "Ingen fil"
-
-#: src/Widgets/SideBarBox.vala:88
+#: src/Widgets/SideBarBox.vala:92
 msgid "Remove File"
 msgstr "Slet fil"
 
-#: src/Widgets/StatusBar.vala:40
+#: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
 msgstr "Vis/Gem sidebaren"
 
-#: src/Widgets/StatusBar.vala:79
+#: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
 msgstr "Spor tegn"
 
-#: src/Widgets/StatusBar.vala:84
+#: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
 msgstr "Spor ord"
 
-#: src/Widgets/StatusBar.vala:89
+#: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
 msgstr "Spor linjer"
 
-#: src/Widgets/StatusBar.vala:109
+#: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
 msgstr "Sæt sporingstype"
 
-#: src/Widgets/StatusBar.vala:123
+#: src/Widgets/StatusBar.vala:125
 msgid "Words: "
 msgstr "Ord : "
 
-#: src/Widgets/StatusBar.vala:130
+#: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
 msgstr "Linjer : "
 
-#: src/Widgets/StatusBar.vala:137
+#: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
 msgstr "Tegn: "
 
-#: src/Widgets/StatusBar.vala:151
+#: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
 msgstr "Læsetid: "
 
@@ -426,8 +428,8 @@ msgstr ""
 "Der er ugemte ændringer i filen. Hvis du ikke gemmer, vil ændringerne være "
 "tabt for altid."
 
-#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
-#: src/Services/ExportUtils.vala:188
+#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
+#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
 msgid "Save"
 msgstr "Gem"
 
@@ -435,10 +437,26 @@ msgstr "Gem"
 msgid "Close Without Saving"
 msgstr "Luk uden at gemme"
 
-#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
-#: src/Services/ExportUtils.vala:207
+#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
+#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
 msgid "Cancel"
 msgstr "Annuller"
+
+#: src/Services/DialogUtils.vala:61
+#, fuzzy
+msgid "Remove File from Sidebar?"
+msgstr "Slet fil"
+
+#: src/Services/DialogUtils.vala:62
+msgid ""
+"By removing this file from the Sidebar, you will lose any changes made if "
+"not saved. Otherwise, it will only be removed."
+msgstr ""
+
+#: src/Services/DialogUtils.vala:67
+#, fuzzy
+msgid "Remove Without Saving"
+msgstr "Luk uden at gemme"
 
 #: src/Services/ExportUtils.vala:83
 msgid "Print to File"
@@ -464,6 +482,9 @@ msgstr "Vælg destination for HTML fil"
 msgid "HTML File"
 msgstr "HTML fil"
 
-#: src/Services/FileManager.vala:76
+#: src/Services/FileManager.vala:84
 msgid "Open file"
 msgstr "Åben fil"
+
+#~ msgid "No File"
+#~ msgstr "Ingen fil"
