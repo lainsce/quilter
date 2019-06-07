@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-27 21:50+0100\n"
+"POT-Creation-Date: 2019-06-04 21:06+0200\n"
 "PO-Revision-Date: 2018-10-19 15:58-0500\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -21,35 +21,35 @@ msgstr ""
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:215
+#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
+#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+msgid "No Documents Open"
+msgstr ""
+
+#: src/MainWindow.vala:231
 msgid "Use Sans-serif"
 msgstr "Palo seco"
 
-#: src/MainWindow.vala:220
+#: src/MainWindow.vala:236
 msgid "Use Serif"
 msgstr "Remates"
 
-#: src/MainWindow.vala:226
+#: src/MainWindow.vala:242
 msgid "Use Monospace"
 msgstr "Anchura fija"
 
-#: src/MainWindow.vala:245
+#: src/MainWindow.vala:261
 msgid "Set Preview Font"
 msgstr "Establecer tipo de letra de previsualización"
 
-#: src/MainWindow.vala:261
+#: src/MainWindow.vala:277
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:262
+#: src/MainWindow.vala:278
 msgid "Preview"
 msgstr "Previsualización"
-
-#: src/MainWindow.vala:441 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:132
-#: src/Widgets/SourceView.vala:134
-msgid "No Documents Open"
-msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
@@ -150,7 +150,7 @@ msgid "This creates a horizontal rule → ---"
 msgstr "--- ← Línea horizontal"
 
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → : Folder/Image.png :"
+msgid "This embeds a local image → | Folder/Image.png |"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:122
@@ -179,7 +179,7 @@ msgstr "Archivo nuevo"
 msgid "Save as…"
 msgstr "Guardar como…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:90
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
 msgid "Save file"
 msgstr "Guardar el archivo"
 
@@ -358,55 +358,56 @@ msgstr ""
 msgid "Search next"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:61
+#: src/Widgets/SideBar.vala:64
+#, fuzzy
+msgid "No files…"
+msgstr "Archivo nuevo"
+
+#: src/Widgets/SideBar.vala:80
 msgid "Files"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:63
+#: src/Widgets/SideBar.vala:82
 msgid "Outline"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:170
-msgid "No File"
-msgstr "Todos los archivos"
-
-#: src/Widgets/SideBarBox.vala:88
+#: src/Widgets/SideBarBox.vala:92
 msgid "Remove File"
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:40
+#: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
 msgstr "Mostrar u ocultar barra de estado"
 
-#: src/Widgets/StatusBar.vala:79
+#: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
 msgstr "Seguimiento de caracteres"
 
-#: src/Widgets/StatusBar.vala:84
+#: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
 msgstr "Seguimiento de palabras"
 
-#: src/Widgets/StatusBar.vala:89
+#: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
 msgstr "Seguimiento de renglones"
 
-#: src/Widgets/StatusBar.vala:109
+#: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
 msgstr "Establecer tipo de seguimiento"
 
-#: src/Widgets/StatusBar.vala:123
+#: src/Widgets/StatusBar.vala:125
 msgid "Words: "
 msgstr "Palabras: "
 
-#: src/Widgets/StatusBar.vala:130
+#: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
 msgstr "Renglones: "
 
-#: src/Widgets/StatusBar.vala:137
+#: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
 msgstr "Caracteres: "
 
-#: src/Widgets/StatusBar.vala:151
+#: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
 msgstr "Tiempo de lectura: "
 
@@ -428,8 +429,8 @@ msgid ""
 "lost forever."
 msgstr "Si no los guarda, los cambios se perderán permanentemente."
 
-#: src/Services/DialogUtils.vala:49 src/Services/ExportUtils.vala:139
-#: src/Services/ExportUtils.vala:188
+#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
+#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
 msgid "Save"
 msgstr "Guardar el archivo"
 
@@ -437,10 +438,25 @@ msgstr "Guardar el archivo"
 msgid "Close Without Saving"
 msgstr "Cerrar sin guardar"
 
-#: src/Services/DialogUtils.vala:51 src/Services/ExportUtils.vala:159
-#: src/Services/ExportUtils.vala:207
+#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
+#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
 msgid "Cancel"
 msgstr ""
+
+#: src/Services/DialogUtils.vala:61
+msgid "Remove File from Sidebar?"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:62
+msgid ""
+"By removing this file from the Sidebar, you will lose any changes made if "
+"not saved. Otherwise, it will only be removed."
+msgstr ""
+
+#: src/Services/DialogUtils.vala:67
+#, fuzzy
+msgid "Remove Without Saving"
+msgstr "Cerrar sin guardar"
 
 #: src/Services/ExportUtils.vala:83
 msgid "Print to File"
@@ -466,6 +482,9 @@ msgstr ""
 msgid "HTML File"
 msgstr ""
 
-#: src/Services/FileManager.vala:76
+#: src/Services/FileManager.vala:84
 msgid "Open file"
 msgstr "Abrir un archivo"
+
+#~ msgid "No File"
+#~ msgstr "Todos los archivos"
