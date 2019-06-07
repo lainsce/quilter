@@ -48,3 +48,9 @@ sudo ninja install
 Arch Linux users can find Quilter under the name [quilter-git](https://aur.archlinux.org/packages/quilter-git/) in the **AUR**:
 
 `$ <aur_helper> -S quilter-git`
+
+## Fedora
+
+Fedora users can find Quilter under the name [quilter](https://src.fedoraproject.org/rpms/quilter) in official repository:
+
+`$ sudo dnf install quilter`
