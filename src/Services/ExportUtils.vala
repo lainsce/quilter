@@ -46,13 +46,17 @@ namespace Quilter.Services.ExportUtils {
 
     public static File? export_pdf (string? file_path = null) {
         var settings = AppSettings.get_default ();
+        int type_of_mode = 0;
 
         if (settings.dark_mode) {
             settings.dark_mode = false;
+            type_of_mode = 1;
         } else if (settings.moon_mode) {
             settings.moon_mode = false;
+            type_of_mode = 2;
         } else if (settings.sepia_mode) {
             settings.sepia_mode = false;
+            type_of_mode = 3;
         }
 
         Widgets.Preview.get_instance ().update_html_view ();
@@ -91,12 +95,15 @@ namespace Quilter.Services.ExportUtils {
         op.set_page_setup (psetup);
         op.print ();
 
-        if (settings.dark_mode == false) {
+        if (type_of_mode == 1) {
             settings.dark_mode = true;
-        } else if (settings.moon_mode == false) {
+            type_of_mode = 0;
+        } else if (type_of_mode == 2) {
             settings.moon_mode = true;
-        } else if (settings.sepia_mode) {
+            type_of_mode = 0;
+        } else if (type_of_mode == 3) {
             settings.sepia_mode = true;
+            type_of_mode = 0;
         }
 
         return file;

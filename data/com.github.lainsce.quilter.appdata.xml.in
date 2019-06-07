@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.9.1" date="2019-06-08">
+         <description>
+            <p>Release: Export without Errors</p>
+            <ul>
+                <li>Fixed: Exports to PDF while in other modes visual glitches.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.9.0" date="2019-05-30">
          <description>
             <p>Release: I Said Fixes!</p>
