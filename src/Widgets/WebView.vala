@@ -213,6 +213,8 @@ namespace Quilter.Widgets {
             string processed_mk;
             process_frontmatter (buf.text, out processed_mk);
             var mkd = new Markdown.Document.gfm_format (processed_mk.data,
+                                                        0x00001000 +
+                                                        0x00002000 +
                                                         0x00004000 +
                                                         0x00200000 +
                                                         0x00400000 +
@@ -221,7 +223,9 @@ namespace Quilter.Widgets {
                                                         0x04000000 +
                                                         0x10000000 +
                                                         0x40000000);
-            mkd.compile (0x00004000 +
+            mkd.compile (0x00001000 +
+                         0x00002000 +
+                         0x00004000 +
                          0x00200000 +
                          0x00400000 +
                          0x02000000 +

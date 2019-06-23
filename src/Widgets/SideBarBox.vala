@@ -77,20 +77,6 @@ namespace Quilter.Widgets {
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.LARGE_TOOLBAR);
 
-            var file_remove_button = new Gtk.Button();
-            var file_remove_button_c = file_remove_button.get_style_context ();
-            file_remove_button_c.add_class ("flat");
-            file_remove_button_c.add_class ("quilter-task-button");
-            file_remove_button_c.add_class ("color-button");
-            file_remove_button.has_focus = false;
-            file_remove_button.has_tooltip = true;
-            file_remove_button.valign = Gtk.Align.CENTER;
-            file_remove_button.hexpand = true;
-            file_remove_button.set_size_request (24,24);
-            file_remove_button.halign = Gtk.Align.END;
-            file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic",Gtk.IconSize.BUTTON));
-            file_remove_button.tooltip_text = (_("Remove File"));
-
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
             file_grid.row_spacing = 3;
@@ -99,59 +85,11 @@ namespace Quilter.Widgets {
             file_grid.attach (file_icon, 0, 0, 1, 2);
             file_grid.attach (file_name_label, 1, 0, 1, 1);
             file_grid.attach (file_label, 1, 1, 1, 1);
-            file_grid.attach (file_remove_button, 2, 0, 1, 2);
-
-            file_remove_button.clicked.connect (() => {
-                var dialog = new Services.DialogUtils.Dialog2 ();
-                dialog.transient_for = win;
-                dialog.response.connect ((response_id) => {
-                    switch (response_id) {
-                        case Gtk.ResponseType.OK:
-                            debug ("User saves the file.");
-                            save_as ();
-                            delete_row ();
-                            dialog.close ();
-                            win.edit_view_content.buffer.text = "";
-                            win.edit_view_content.buffer.set_modified (false);
-                            Services.FileManager.file = null;
-                            win.toolbar.set_subtitle (_("No Documents Open"));
-                            Widgets.SideBar.get_instance ().store.clear ();
-                            break;
-                        case Gtk.ResponseType.NO:
-                            delete_row ();
-                            dialog.close ();
-                            win.edit_view_content.buffer.text = "";
-                            win.edit_view_content.buffer.set_modified (false);
-                            Services.FileManager.file = null;
-                            win.toolbar.set_subtitle (_("No Documents Open"));
-                            Widgets.SideBar.get_instance ().store.clear ();
-                            break;
-                        case Gtk.ResponseType.CANCEL:
-                        case Gtk.ResponseType.CLOSE:
-                        case Gtk.ResponseType.DELETE_EVENT:
-                            dialog.close ();
-                            break;
-                        default:
-                            assert_not_reached ();
-                    }
-                });
-                if (win.edit_view_content.buffer.get_modified () == true) {
-                    dialog.run ();
-                } else if (win.edit_view_content.buffer.get_modified () == false) {
-                    delete_row ();
-                    win.edit_view_content.buffer.text = "";
-                    Services.FileManager.file = null;
-                    win.toolbar.set_subtitle (_("No Documents Open"));
-                }
-            });
 
             this.add (file_grid);
             this.hexpand = true;
             this.show_all ();
             this.path = path;
-        }
-        public void delete_row () {
-            this.destroy ();
         }
     }
 }

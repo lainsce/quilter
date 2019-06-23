@@ -195,10 +195,6 @@ public class Quilter.Styles.quilter {
       font-size: 18px;
     }
 
-    ul, ol {
-      margin-left: -40px;
-    }
-
     hr {
       overflow: visible;
       padding: 0;

@@ -196,10 +196,6 @@ public class Quilter.Styles.quiltermoon {
       font-size: 18px;
     }
 
-    ul, ol {
-      margin-left: -40px;
-    }
-
     hr {
       overflow: visible;
       padding: 0;

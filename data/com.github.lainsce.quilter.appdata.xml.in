@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.9.2" date="2019-06-28">
+         <description>
+            <p>Release: Sidebar File Cleaner-o-matic</p>
+            <ul>
+                <li>Added: "Remove All Files" button on the sidebar, this way, no files will be harmed with the old close file buttons.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.9.1" date="2019-06-08">
          <description>
             <p>Release: Export without Errors</p>

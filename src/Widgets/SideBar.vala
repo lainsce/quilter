@@ -137,12 +137,33 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var file_clean_button = new Gtk.Button ();
+            var fcb_context = file_clean_button.get_style_context ();
+            fcb_context.add_class ("quilter-sidebar-button");
+            file_clean_button.always_show_image = true;
+            file_clean_button.vexpand = false;
+            file_clean_button.hexpand = false;
+            file_clean_button.valign = Gtk.Align.CENTER;
+            file_clean_button.tooltip_text = "Removes files from the Sidebar, leaving it empty again.\nNo files will be saved however!";
+            file_clean_button.set_label (_("Remove All Files"));
+            var file_clean_button_style_context = file_clean_button.get_style_context ();
+            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+
+            file_clean_button.clicked.connect (() => {
+                delete_row ();
+                win.edit_view_content.buffer.text = "";
+                Services.FileManager.file = null;
+                win.toolbar.set_subtitle (_("No Documents Open"));
+            });
+
             column.show_all ();
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
             files_grid.set_size_request (280, -1);
             files_grid.attach (column, 0, 0, 1, 1);
+            files_grid.attach (file_clean_button, 0, 1, 1, 1);
             files_grid.show_all ();
             return files_grid;
         }
@@ -251,6 +272,12 @@ namespace Quilter.Widgets {
             column.select_row (filebox);
 
             return filebox;
+        }
+
+        public void delete_row () {
+            foreach (Gtk.Widget item in column.get_children ()) {
+                item.destroy ();
+            }
         }
 
         public int list_sort (Gtk.ListBoxRow first_row, Gtk.ListBoxRow second_row) {

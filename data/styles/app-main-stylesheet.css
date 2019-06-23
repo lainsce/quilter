@@ -174,10 +174,13 @@ actionbar,
 
 .quilter-sidebar-button {
     border-top: 1px solid alpha (#000, 0.25);
-    border-right: 1px solid alpha (#000, 0.25);
     background: @colorPrimary;
     border-radius: 0;
-    padding: 2px;
+    padding: 4px;
+}
+
+.quilter-sidebar-button:hover {
+    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.58);
 }
 
 .quilter-sidebar-button:active,
