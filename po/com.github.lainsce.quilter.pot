@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 21:06+0200\n"
+"POT-Creation-Date: 2019-06-28 18:11+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,8 +22,7 @@ msgid "Quilter"
 msgstr ""
 
 #: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
-#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
 msgid "No Documents Open"
 msgstr ""
 
@@ -367,8 +366,8 @@ msgstr ""
 msgid "Outline"
 msgstr ""
 
-#: src/Widgets/SideBarBox.vala:92
-msgid "Remove File"
+#: src/Widgets/SideBar.vala:148
+msgid "Remove All Files"
 msgstr ""
 
 #: src/Widgets/StatusBar.vala:42
@@ -426,7 +425,7 @@ msgid ""
 msgstr ""
 
 #: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
-#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
+#: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
 msgid "Save"
 msgstr ""
 
@@ -435,7 +434,7 @@ msgid "Close Without Saving"
 msgstr ""
 
 #: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
-#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
+#: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
 msgid "Cancel"
 msgstr ""
 
@@ -453,27 +452,27 @@ msgstr ""
 msgid "Remove Without Saving"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:83
+#: src/Services/ExportUtils.vala:87
 msgid "Print to File"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:137
+#: src/Services/ExportUtils.vala:144
 msgid "Select destination PDF file"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:142
+#: src/Services/ExportUtils.vala:149
 msgid "PDF File"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
+#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
 msgid "All Files"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:186
+#: src/Services/ExportUtils.vala:193
 msgid "Select destination HTML file"
 msgstr ""
 
-#: src/Services/ExportUtils.vala:191
+#: src/Services/ExportUtils.vala:198
 msgid "HTML File"
 msgstr ""
 
