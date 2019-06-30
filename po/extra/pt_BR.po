@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 21:09+0200\n"
+"POT-Creation-Date: 2019-06-28 18:12+0200\n"
 "PO-Revision-Date: 2018-10-18 21:07-0300\n"
 "Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
 "Language-Team: \n"
@@ -75,175 +75,193 @@ msgid "Lains"
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
-msgid "Release: I Said Fixes!"
+msgid "Release: Sidebar File Cleaner-o-matic"
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:62
-msgid "Fixed: Backend technical confusion with files."
+msgid ""
+"Added: \"Remove All Files\" button on the sidebar, this way, no files will "
+"be harmed with the old close file buttons."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:68
-msgid "Release: Did Anyone Say Minor Fixes?"
+msgid "Release: Export without Errors"
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:70
+msgid "Fixed: Exports to PDF while in other modes visual glitches."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:76
+msgid "Release: I Said Fixes!"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:78
+msgid "Fixed: Backend technical confusion with files."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:84
+msgid "Release: Did Anyone Say Minor Fixes?"
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:86
 msgid ""
 "Fixed: Local image syntax wrongly picked up with links or two : in "
 "succession."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:76
+#: data/com.github.lainsce.quilter.appdata.xml.in:92
 msgid "Release: Even MORE Minor Fixes"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:78
+#: data/com.github.lainsce.quilter.appdata.xml.in:94
 msgid "Other tiny fixes with the sidebar."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:84
-#: data/com.github.lainsce.quilter.appdata.xml.in:93
+#: data/com.github.lainsce.quilter.appdata.xml.in:100
+#: data/com.github.lainsce.quilter.appdata.xml.in:109
 msgid "Release: Minor Fixes"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:86
+#: data/com.github.lainsce.quilter.appdata.xml.in:102
 msgid "Fixed: Various Sidebar fixes for safety of your files."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:87
+#: data/com.github.lainsce.quilter.appdata.xml.in:103
 msgid "Other: Minor fixes in styling."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:95
+#: data/com.github.lainsce.quilter.appdata.xml.in:111
 msgid ""
 "Fixed: cache was not being made, resulting in multiple file loss afterwards "
 "with many operations."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:101
+#: data/com.github.lainsce.quilter.appdata.xml.in:117
 msgid "Release: Magic Files"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:103
+#: data/com.github.lainsce.quilter.appdata.xml.in:119
 msgid ""
 "Added: When a user types a path with either % ... % or : ... : to a file or "
 "image respectively, it is embedded, and is in Preview."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:109
+#: data/com.github.lainsce.quilter.appdata.xml.in:125
 msgid "Release: Fixes and Gizmos"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:111
+#: data/com.github.lainsce.quilter.appdata.xml.in:127
 msgid "Fixes: Outline crashes the app if no file found."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:112
+#: data/com.github.lainsce.quilter.appdata.xml.in:128
 msgid ""
 "Fixes: App crashes if new document button is pushed when no files are in the "
 "sidebar."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:113
+#: data/com.github.lainsce.quilter.appdata.xml.in:129
 msgid "Fixes: App fails to launch if file in sidebar no longer exists."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:114
+#: data/com.github.lainsce.quilter.appdata.xml.in:130
 msgid "Fixes: App doesn't check spelling."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:120
+#: data/com.github.lainsce.quilter.appdata.xml.in:136
 msgid "Release: File Eyeliner"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:122
+#: data/com.github.lainsce.quilter.appdata.xml.in:138
 msgid "Added: File outline in the sidebar."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:128
+#: data/com.github.lainsce.quilter.appdata.xml.in:144
 msgid "Release: Blu-ray Encoder"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:130
+#: data/com.github.lainsce.quilter.appdata.xml.in:146
 msgid "Fixed: When adding files to sidebar, actually select them."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:131
+#: data/com.github.lainsce.quilter.appdata.xml.in:147
 msgid "Updated: Dutch Translation"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:137
+#: data/com.github.lainsce.quilter.appdata.xml.in:153
 msgid "Release: DVD Cleaner"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:139
+#: data/com.github.lainsce.quilter.appdata.xml.in:155
 msgid "Fixed: Opening files should never fail now."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:145
+#: data/com.github.lainsce.quilter.appdata.xml.in:161
 msgid "Release: VHS Tape Mixer"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:147
+#: data/com.github.lainsce.quilter.appdata.xml.in:163
 msgid ""
 "Reworked a lot of the internals so actions don't kill files. [Adam "
 "Bieńkowski - @donadigo]"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:153
+#: data/com.github.lainsce.quilter.appdata.xml.in:169
 msgid "Release: Betamax Tracker"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:155
+#: data/com.github.lainsce.quilter.appdata.xml.in:171
 msgid "Some UX redefinition in the sidebar, to avoid complicating it."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:161
+#: data/com.github.lainsce.quilter.appdata.xml.in:177
 msgid "Release: Kodachrome Selector"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:163
+#: data/com.github.lainsce.quilter.appdata.xml.in:179
 msgid ""
 "Open files without adding duplicate entries, and clear sidebar is you really "
 "need to (it has a confirm dialog)."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:169
+#: data/com.github.lainsce.quilter.appdata.xml.in:185
 msgid "Release: Visually Stunning"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:170
+#: data/com.github.lainsce.quilter.appdata.xml.in:186
 msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:172
+#: data/com.github.lainsce.quilter.appdata.xml.in:188
 msgid "Rewrote all Sidebar functions"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:173
+#: data/com.github.lainsce.quilter.appdata.xml.in:189
 msgid "Removed LaTeX because it was lagging the app…"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:174
+#: data/com.github.lainsce.quilter.appdata.xml.in:190
 msgid "All File Management functions rewritten from scratch!"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:181
+#: data/com.github.lainsce.quilter.appdata.xml.in:197
 msgid "Light Mode"
 msgstr "Modo Claro"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:185
+#: data/com.github.lainsce.quilter.appdata.xml.in:201
 msgid "Sepia Mode"
 msgstr "Modo Sépia"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:189
+#: data/com.github.lainsce.quilter.appdata.xml.in:205
 msgid "Dark Mode"
 msgstr "Modo Escuro"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:193
+#: data/com.github.lainsce.quilter.appdata.xml.in:209
 msgid "Focus Mode"
 msgstr "Modo Foco"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:197
+#: data/com.github.lainsce.quilter.appdata.xml.in:213
 msgid "Preview Mode"
 msgstr "Prévia"
 
@@ -252,5 +270,5 @@ msgid "com.github.lainsce.quilter"
 msgstr ""
 
 #: data/com.github.lainsce.quilter.desktop.in:7
-msgid "Text;Markdown;LaTeX;Editor;"
+msgid "Text;Markdown;Editor;"
 msgstr ""

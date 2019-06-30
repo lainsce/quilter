@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 21:06+0200\n"
+"POT-Creation-Date: 2019-06-28 18:11+0200\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
 "Last-Translator: NathanBnm\n"
 "Language-Team: Français\n"
@@ -21,8 +21,7 @@ msgid "Quilter"
 msgstr "Quilter"
 
 #: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
-#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
 msgid "No Documents Open"
 msgstr "Aucun document ouvert"
 
@@ -366,9 +365,9 @@ msgstr "Tous les fichiers"
 msgid "Outline"
 msgstr "Aperçu"
 
-#: src/Widgets/SideBarBox.vala:92
-msgid "Remove File"
-msgstr "Supprimer le fichier"
+#: src/Widgets/SideBar.vala:148
+msgid "Remove All Files"
+msgstr "Supprimer tous les fichier"
 
 #: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
@@ -427,7 +426,7 @@ msgstr ""
 "n'enregistrez pas, les changements seront perdus pour toujours."
 
 #: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
-#: src/Services/ExportUtils.vala:139 src/Services/ExportUtils.vala:188
+#: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
 msgid "Save"
 msgstr "Enregistrer"
 
@@ -436,7 +435,7 @@ msgid "Close Without Saving"
 msgstr "Fermer sans enregistrer"
 
 #: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
-#: src/Services/ExportUtils.vala:159 src/Services/ExportUtils.vala:207
+#: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -448,33 +447,36 @@ msgstr "Supprimer le fichier de la barre latérale ?"
 msgid ""
 "By removing this file from the Sidebar, you will lose any changes made if "
 "not saved. Otherwise, it will only be removed."
-msgstr "En supprimant ce fichier de la barre latérale, vous perdrez toutes les modifications apportées si elles ne sont pas enregistrées. Dans le cas contraire, il sera simplement supprimé."
+msgstr ""
+"En supprimant ce fichier de la barre latérale, vous perdrez toutes les "
+"modifications apportées si elles ne sont pas enregistrées. Dans le cas "
+"contraire, il sera simplement supprimé."
 
 #: src/Services/DialogUtils.vala:67
 msgid "Remove Without Saving"
 msgstr "Supprimer sans enregistrer"
 
-#: src/Services/ExportUtils.vala:83
+#: src/Services/ExportUtils.vala:87
 msgid "Print to File"
 msgstr "Imprimer dans un fichier"
 
-#: src/Services/ExportUtils.vala:137
+#: src/Services/ExportUtils.vala:144
 msgid "Select destination PDF file"
 msgstr "Sélectionnez l'emplacement de destination du fichier PDF"
 
-#: src/Services/ExportUtils.vala:142
+#: src/Services/ExportUtils.vala:149
 msgid "PDF File"
 msgstr "Fichier PDF"
 
-#: src/Services/ExportUtils.vala:150 src/Services/ExportUtils.vala:198
+#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: src/Services/ExportUtils.vala:186
+#: src/Services/ExportUtils.vala:193
 msgid "Select destination HTML file"
 msgstr "Sélectionnez l'emplacement de destination du fichier HTML"
 
-#: src/Services/ExportUtils.vala:191
+#: src/Services/ExportUtils.vala:198
 msgid "HTML File"
 msgstr "Fichier HTML"
 

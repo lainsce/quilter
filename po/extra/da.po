@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-04 21:09+0200\n"
+"POT-Creation-Date: 2019-06-28 18:12+0200\n"
 "PO-Revision-Date: 2019-04-09 14:43+0100\n"
 "Last-Translator: Siigdev\n"
 "Language-Team: \n"
@@ -77,58 +77,78 @@ msgstr "Lains"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
 #, fuzzy
-msgid "Release: I Said Fixes!"
-msgstr "Version : Magiske filer"
+msgid "Release: Sidebar File Cleaner-o-matic"
+msgstr "Udgivelse: Filviser"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:62
-msgid "Fixed: Backend technical confusion with files."
+msgid ""
+"Added: \"Remove All Files\" button on the sidebar, this way, no files will "
+"be harmed with the old close file buttons."
 msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:68
+#, fuzzy
+msgid "Release: Export without Errors"
+msgstr "Udgivelse: Blot ikke dig selv"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:70
+msgid "Fixed: Exports to PDF while in other modes visual glitches."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:76
+#, fuzzy
+msgid "Release: I Said Fixes!"
+msgstr "Version : Magiske filer"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:78
+msgid "Fixed: Backend technical confusion with files."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:84
 msgid "Release: Did Anyone Say Minor Fixes?"
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:70
+#: data/com.github.lainsce.quilter.appdata.xml.in:86
 msgid ""
 "Fixed: Local image syntax wrongly picked up with links or two : in "
 "succession."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:76
+#: data/com.github.lainsce.quilter.appdata.xml.in:92
 #, fuzzy
 msgid "Release: Even MORE Minor Fixes"
 msgstr "Version : Magiske filer"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:78
+#: data/com.github.lainsce.quilter.appdata.xml.in:94
 #, fuzzy
 msgid "Other tiny fixes with the sidebar."
 msgstr "Tilføjet: Fil oversigt i sidebaren"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:84
-#: data/com.github.lainsce.quilter.appdata.xml.in:93
+#: data/com.github.lainsce.quilter.appdata.xml.in:100
+#: data/com.github.lainsce.quilter.appdata.xml.in:109
 #, fuzzy
 msgid "Release: Minor Fixes"
 msgstr "Version : Magiske filer"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:86
+#: data/com.github.lainsce.quilter.appdata.xml.in:102
 msgid "Fixed: Various Sidebar fixes for safety of your files."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:87
+#: data/com.github.lainsce.quilter.appdata.xml.in:103
 msgid "Other: Minor fixes in styling."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:95
+#: data/com.github.lainsce.quilter.appdata.xml.in:111
 msgid ""
 "Fixed: cache was not being made, resulting in multiple file loss afterwards "
 "with many operations."
 msgstr ""
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:101
+#: data/com.github.lainsce.quilter.appdata.xml.in:117
 msgid "Release: Magic Files"
 msgstr "Version : Magiske filer"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:103
+#: data/com.github.lainsce.quilter.appdata.xml.in:119
 msgid ""
 "Added: When a user types a path with either % ... % or : ... : to a file or "
 "image respectively, it is embedded, and is in Preview."
@@ -136,15 +156,15 @@ msgstr ""
 "Tilføjet: Når en bruger skriver en sti med enten % ... % or : ... : til en "
 "fil eller billede bliver det indsat i forhåndsvisningen "
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:109
+#: data/com.github.lainsce.quilter.appdata.xml.in:125
 msgid "Release: Fixes and Gizmos"
 msgstr "Udgivelse : Fixes og gadgets"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:111
+#: data/com.github.lainsce.quilter.appdata.xml.in:127
 msgid "Fixes: Outline crashes the app if no file found."
 msgstr "Fixes: Crash oversigt når en fil ikke findes."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:112
+#: data/com.github.lainsce.quilter.appdata.xml.in:128
 msgid ""
 "Fixes: App crashes if new document button is pushed when no files are in the "
 "sidebar."
@@ -152,48 +172,48 @@ msgstr ""
 "Fixes: Appen crasher når der trykkes på nyt dokument knappen ogingen filer "
 "er i sidebaren."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:113
+#: data/com.github.lainsce.quilter.appdata.xml.in:129
 msgid "Fixes: App fails to launch if file in sidebar no longer exists."
 msgstr ""
 "Fixes: Appen kan ikke åbne hvis filen i sidebaren ikke eksisterer længere."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:114
+#: data/com.github.lainsce.quilter.appdata.xml.in:130
 msgid "Fixes: App doesn't check spelling."
 msgstr "Fixes: Appen checker ikke stavefejl."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:120
+#: data/com.github.lainsce.quilter.appdata.xml.in:136
 msgid "Release: File Eyeliner"
 msgstr "Udgivelse: Filviser"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:122
+#: data/com.github.lainsce.quilter.appdata.xml.in:138
 msgid "Added: File outline in the sidebar."
 msgstr "Tilføjet: Fil oversigt i sidebaren"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:128
+#: data/com.github.lainsce.quilter.appdata.xml.in:144
 msgid "Release: Blu-ray Encoder"
 msgstr "Udgivelse: Blu-ray Encoder"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:130
+#: data/com.github.lainsce.quilter.appdata.xml.in:146
 msgid "Fixed: When adding files to sidebar, actually select them."
 msgstr "Fixet: Når der tilføjes filer til sidebarne, så skal de vælges."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:131
+#: data/com.github.lainsce.quilter.appdata.xml.in:147
 msgid "Updated: Dutch Translation"
 msgstr "Opdateret: Hollandsk oversættelse"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:137
+#: data/com.github.lainsce.quilter.appdata.xml.in:153
 msgid "Release: DVD Cleaner"
 msgstr "Udgivelse: DVD Cleaner"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:139
+#: data/com.github.lainsce.quilter.appdata.xml.in:155
 msgid "Fixed: Opening files should never fail now."
 msgstr "Fixet: Åbning af filer burde aldrig fejle nu."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:145
+#: data/com.github.lainsce.quilter.appdata.xml.in:161
 msgid "Release: VHS Tape Mixer"
 msgstr "Udgivelse: VHS Tape Mixer"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:147
+#: data/com.github.lainsce.quilter.appdata.xml.in:163
 msgid ""
 "Reworked a lot of the internals so actions don't kill files. [Adam "
 "Bieńkowski - @donadigo]"
@@ -201,19 +221,19 @@ msgstr ""
 "Omarbejdet en masse indre funktionalitet så handlinger ikke kan ødelægge "
 "filer. [Adam Bieńkowski - @donadigo]"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:153
+#: data/com.github.lainsce.quilter.appdata.xml.in:169
 msgid "Release: Betamax Tracker"
 msgstr "Udgivelse: Betamax Tracker"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:155
+#: data/com.github.lainsce.quilter.appdata.xml.in:171
 msgid "Some UX redefinition in the sidebar, to avoid complicating it."
 msgstr "Nogle UX omrokeringer i sidebaren for ikke at komplicere den. "
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:161
+#: data/com.github.lainsce.quilter.appdata.xml.in:177
 msgid "Release: Kodachrome Selector"
 msgstr "Udgivelse: Kodachrome Selector"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:163
+#: data/com.github.lainsce.quilter.appdata.xml.in:179
 #, fuzzy
 msgid ""
 "Open files without adding duplicate entries, and clear sidebar is you really "
@@ -222,45 +242,45 @@ msgstr ""
 "Åben filer uden at tilføje duplikationer, og fjern elementer i sidebaren "
 "hvis det virkelig ønskes (det har en accepter dialog)."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:169
+#: data/com.github.lainsce.quilter.appdata.xml.in:185
 msgid "Release: Visually Stunning"
 msgstr "Udgivelse: Forbedring af det visuelle"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:170
+#: data/com.github.lainsce.quilter.appdata.xml.in:186
 msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
 msgstr ""
 "Quilter har fået en visuel opgradering, og også en opgradering af det "
 "bagvedlæggende."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:172
+#: data/com.github.lainsce.quilter.appdata.xml.in:188
 msgid "Rewrote all Sidebar functions"
 msgstr "Omskrevet alle sidebar funktioner"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:173
+#: data/com.github.lainsce.quilter.appdata.xml.in:189
 msgid "Removed LaTeX because it was lagging the app…"
 msgstr "Fjernet LaTeX da det forårsagede lag…"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:174
+#: data/com.github.lainsce.quilter.appdata.xml.in:190
 msgid "All File Management functions rewritten from scratch!"
 msgstr "Alle filhåndterings-funktioner er nu helt omskrevet!"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:181
+#: data/com.github.lainsce.quilter.appdata.xml.in:197
 msgid "Light Mode"
 msgstr "Lys tilstand"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:185
+#: data/com.github.lainsce.quilter.appdata.xml.in:201
 msgid "Sepia Mode"
 msgstr "Sepia tilstand"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:189
+#: data/com.github.lainsce.quilter.appdata.xml.in:205
 msgid "Dark Mode"
 msgstr "Mørk tilstand"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:193
+#: data/com.github.lainsce.quilter.appdata.xml.in:209
 msgid "Focus Mode"
 msgstr "Fokus tilstand "
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:197
+#: data/com.github.lainsce.quilter.appdata.xml.in:213
 msgid "Preview Mode"
 msgstr "Forhåndsvisnings tilstand"
 
@@ -269,7 +289,8 @@ msgid "com.github.lainsce.quilter"
 msgstr "com.github.lainsce.quilter"
 
 #: data/com.github.lainsce.quilter.desktop.in:7
-msgid "Text;Markdown;LaTeX;Editor;"
+#, fuzzy
+msgid "Text;Markdown;Editor;"
 msgstr "Tekst;Markdown;LaTeX;Editor;"
 
 #~ msgid "Release: Side Serve Sheets"
@@ -364,9 +385,6 @@ msgstr "Tekst;Markdown;LaTeX;Editor;"
 
 #~ msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
 #~ msgstr "Du kan nu tilføje LaTeX formler med \"$\" or \"$$\" modes."
-
-#~ msgid "Release: Don't Blot Yourself"
-#~ msgstr "Udgivelse: Blot ikke dig selv"
 
 #~ msgid "Preview Mode will only update on changes from Edit View."
 #~ msgstr "Forhåndsvisningstilstand vil kun opdatere ved ændringer"

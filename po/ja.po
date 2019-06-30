@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-09 11:09+0900\n"
+"POT-Creation-Date: 2019-06-28 18:11+0200\n"
 "PO-Revision-Date: 2019-06-09 11:34+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
@@ -23,8 +23,7 @@ msgid "Quilter"
 msgstr "Quilter"
 
 #: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBarBox.vala:117
-#: src/Widgets/SideBarBox.vala:126 src/Widgets/SideBarBox.vala:144
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
 msgid "No Documents Open"
 msgstr "開いているドキュメントはありません"
 
@@ -368,8 +367,9 @@ msgstr "ファイル"
 msgid "Outline"
 msgstr "アウトライン"
 
-#: src/Widgets/SideBarBox.vala:92
-msgid "Remove File"
+#: src/Widgets/SideBar.vala:148
+#, fuzzy
+msgid "Remove All Files"
 msgstr "ファイルを削除"
 
 #: src/Widgets/StatusBar.vala:42
