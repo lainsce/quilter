@@ -154,20 +154,13 @@ namespace Quilter {
         }
 
         public WordCount get_count() {
-    		try {
-    			var reg = new Regex("[\\s\\W]+", RegexCompileFlags.OPTIMIZE);
+    		Gtk.TextIter start, end;
+            buf.get_bounds (out start, out end);
+            var lines = buf.get_line_count ();
+            var chars = buf.get_text (start, end, false).length;
+            var words = buf.get_text (start, end, false).strip().split(" ").length;
 
-    			string text = buf.text;
-    			string result = reg.replace (text, text.length, 0, " ");
-
-                var lines = buf.get_line_count ();
-
-                var chars = result.length;
-
-    			return new WordCount(result.strip().split(" ").length, lines,  chars);
-    		} catch (Error e) {
-    			return new WordCount(0, 0, 0);
-    		}
+    		return new WordCount(words, lines, chars);
     	}
     }
 

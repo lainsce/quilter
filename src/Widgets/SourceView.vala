@@ -35,7 +35,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
-        public new Gtk.SourceBuffer buffer;
+        public unowned Gtk.SourceBuffer buffer;
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -70,6 +70,12 @@ namespace Quilter.Widgets {
 
         public EditView (MainWindow window) {
             this.window = window;
+            var manager = Gtk.SourceLanguageManager.get_default ();
+            var language = manager.guess_language (null, "text/markdown");
+            var buffer = new Gtk.SourceBuffer.with_language (language);
+            this.buffer = buffer;
+            set_buffer (buffer);
+
             update_settings ();
             var settings = AppSettings.get_default ();
             settings.changed.connect (update_settings);
@@ -110,13 +116,8 @@ namespace Quilter.Widgets {
 
         construct {
             var settings = AppSettings.get_default ();
-            var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/markdown");
-            buffer = new Gtk.SourceBuffer.with_language (language);
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (20);
-
-            this.set_buffer (buffer);
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
             this.bottom_margin = 40;

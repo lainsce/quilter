@@ -572,10 +572,12 @@ namespace Quilter {
                     var settings = AppSettings.get_default ();
                     settings.current_file = file_path;
 
-                    var file = File.new_for_path (file_path);
-
                     string text;
-                    GLib.FileUtils.get_contents (file.get_path (), out text);
+                    GLib.FileUtils.get_contents (file_path, out text);
+
+                    if (edit_view_content.modified) {
+                        Services.FileManager.save_file (file_path, text);
+                    }
 
                     edit_view_content.text = text;
                     edit_view_content.modified = false;
