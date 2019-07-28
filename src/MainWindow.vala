@@ -532,7 +532,12 @@ namespace Quilter {
                 dialog.run ();
             }
 
+            debug ("Creating new document");
+            on_save ();
             sidebar.add_file (Services.FileManager.get_temp_document_path ());
+            edit_view_content.text = "";
+            edit_view_content.modified = true;
+            on_save ();
         }
 
         private void on_open () {
