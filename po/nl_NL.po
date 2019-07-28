@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-28 18:11+0200\n"
-"PO-Revision-Date: 2019-03-14 20:44+0100\n"
+"PO-Revision-Date: 2019-07-28 21:34+0200\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.1.1\n"
+"X-Generator: Poedit 2.2.3\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: src/MainWindow.vala:82
@@ -25,23 +25,23 @@ msgstr "Quilter"
 #: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
 #: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
 msgid "No Documents Open"
-msgstr ""
+msgstr "Geen documenten geopend"
 
 #: src/MainWindow.vala:231
 msgid "Use Sans-serif"
-msgstr ""
+msgstr "Schreefloos lettertype gebruiken"
 
 #: src/MainWindow.vala:236
 msgid "Use Serif"
-msgstr ""
+msgstr "Lettertype met schreef gebruiken"
 
 #: src/MainWindow.vala:242
 msgid "Use Monospace"
-msgstr ""
+msgstr "Lettertype met vaste breedte gebruiken"
 
 #: src/MainWindow.vala:261
 msgid "Set Preview Font"
-msgstr "Voorbeeld"
+msgstr "Voorbeeldlettertype instellen"
 
 #: src/MainWindow.vala:277
 msgid "Edit"
@@ -130,44 +130,43 @@ msgstr "Links"
 
 #: src/Widgets/Cheatsheet.vala:116
 msgid "[Link Label](http://link.url.here.com)"
-msgstr "[Link Label](http://link.url.hier.nl)"
+msgstr "[Linklabel](http://link.url.hier.nl)"
 
 #: src/Widgets/Cheatsheet.vala:117
 msgid "![Image Label](http://image.url.here.com)"
-msgstr "![Image Label](http://afbeeldings.url.hier.nl)"
+msgstr "![Afbeeldingslabel](http://afbeeldings.url.hier.nl)"
 
 #: src/Widgets/Cheatsheet.vala:118
 msgid "Special"
-msgstr "Speciale tekst"
+msgstr "Speciaal"
 
 #: src/Widgets/Cheatsheet.vala:119
 msgid "```This is a code block```"
 msgstr "```Dit is een codeblok```"
 
 #: src/Widgets/Cheatsheet.vala:120
-#, fuzzy
 msgid "This creates a horizontal rule → ---"
-msgstr "--- ← Dit creëert een horizontale regel"
+msgstr "Dit creëert een horizontale regel: → ---"
 
 #: src/Widgets/Cheatsheet.vala:121
 msgid "This embeds a local image → | Folder/Image.png |"
-msgstr ""
+msgstr "Dit sluit een lokale afbeelding in: | Folder/Image.png |"
 
 #: src/Widgets/Cheatsheet.vala:122
 msgid "This embeds a local Markdown file → % Folder/File.md %"
-msgstr ""
+msgstr "Dit sluit een lokaal Markdown-bestand in: → % Folder/File.md %"
 
 #: src/Widgets/Cheatsheet.vala:143
 msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "Kolominhoud naar links verplaatsen: wijzig --- in :--- ."
+msgstr "Verplaats de kolominhoud naar links: verander --- in :--- ."
 
 #: src/Widgets/Cheatsheet.vala:144
 msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Kolominhoud centreren: wijzig --- in :---: ."
+msgstr "Centreer de kolominhoud: verander --- in :---: ."
 
 #: src/Widgets/Cheatsheet.vala:145
 msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "Kolominhoud naar rechts verplaatsen: wijzig --- to ---: ."
+msgstr "Verplaats de kolominhoud naar rechts: verander --- in ---: ."
 
 #: src/Widgets/HeaderBar.vala:67
 msgid "New file"
@@ -187,19 +186,19 @@ msgstr "Openen…"
 
 #: src/Widgets/HeaderBar.vala:91
 msgid "Start search"
-msgstr ""
+msgstr "Zoekopdracht starten"
 
 #: src/Widgets/HeaderBar.vala:109
 msgid "Export to PDF…"
-msgstr ""
+msgstr "Exporteren naar PDF…"
 
 #: src/Widgets/HeaderBar.vala:113
 msgid "Export to HTML…"
-msgstr ""
+msgstr "Exporteren naar HTML…"
 
 #: src/Widgets/HeaderBar.vala:129
 msgid "Export"
-msgstr ""
+msgstr "Exporteren"
 
 #: src/Widgets/HeaderBar.vala:133
 msgid "Markdown Cheatsheet"
@@ -211,7 +210,7 @@ msgstr "Voorkeuren"
 
 #: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
 msgid "Light Mode"
-msgstr ""
+msgstr "Lichte modus"
 
 #: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
 msgid "Sepia Mode"
@@ -231,7 +230,7 @@ msgstr "Focusmodus"
 
 #: src/Widgets/HeaderBar.vala:211
 msgid "Enter focus mode"
-msgstr "Focusmodus inschakelen:"
+msgstr "Focusmodus inschakelen"
 
 #: src/Widgets/HeaderBar.vala:256
 msgid "Settings"
@@ -247,7 +246,7 @@ msgstr "Uiterlijk"
 
 #: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
 msgid "Extensions"
-msgstr ""
+msgstr "Extensies"
 
 #: src/Widgets/Preferences.vala:68
 msgid "Geometry"
@@ -255,7 +254,7 @@ msgstr "Afmetingen"
 
 #: src/Widgets/Preferences.vala:69
 msgid "Spacing of Text:"
-msgstr "Spatiëring van tekst:"
+msgstr "Tekstspatiëring:"
 
 #: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
 #: src/Widgets/Preferences.vala:152
@@ -278,15 +277,15 @@ msgstr "Tekstafmetingen:"
 
 #: src/Widgets/Preferences.vala:149
 msgid "Fonts & Type"
-msgstr ""
+msgstr "Lettertype-opties"
 
 #: src/Widgets/Preferences.vala:150
 msgid "Editor Font Size:"
-msgstr ""
+msgstr "Lettergrootte van bewerker:"
 
 #: src/Widgets/Preferences.vala:203
 msgid "Save files when changed:"
-msgstr ""
+msgstr "Bestanden opslaan bij wijzigingen:"
 
 #: src/Widgets/Preferences.vala:234
 msgid "Modes"
@@ -310,7 +309,7 @@ msgstr "Zin"
 
 #: src/Widgets/Preferences.vala:347
 msgid "Typewriter Scrolling:"
-msgstr ""
+msgstr "Typemachine-achtig scrollen:"
 
 #: src/Widgets/Preferences.vala:351
 msgid "User Interface"
@@ -326,7 +325,7 @@ msgstr "Statusbalk tonen:"
 
 #: src/Widgets/Preferences.vala:413
 msgid "Enable Code Highlighting:"
-msgstr "Spellingcontrole inschakelen:"
+msgstr "Codemarkering inschakelen:"
 
 #: src/Widgets/Preferences.vala:417
 msgid "Enable Spellchecking:"
@@ -334,77 +333,75 @@ msgstr "Spellingcontrole inschakelen:"
 
 #: src/Widgets/SearchBar.vala:39
 msgid "Replace with…"
-msgstr ""
+msgstr "Vervangen door…"
 
 #: src/Widgets/SearchBar.vala:43
 msgid "Replace"
-msgstr ""
+msgstr "Vervangen"
 
 #: src/Widgets/SearchBar.vala:46
 msgid "Replace all"
-msgstr ""
+msgstr "Alles vervangen"
 
 #: src/Widgets/SearchBar.vala:71
 msgid "Find text…"
-msgstr ""
+msgstr "Tekst zoeken…"
 
 #: src/Widgets/SearchBar.vala:90
 msgid "Search previous"
-msgstr ""
+msgstr "Vorige zoeken"
 
 #: src/Widgets/SearchBar.vala:109
 msgid "Search next"
-msgstr ""
+msgstr "Volgende zoeken"
 
 #: src/Widgets/SideBar.vala:64
-#, fuzzy
 msgid "No files…"
-msgstr "Nieuw bestand"
+msgstr "Geen bestanden…"
 
 #: src/Widgets/SideBar.vala:80
 msgid "Files"
-msgstr ""
+msgstr "Bestanden"
 
 #: src/Widgets/SideBar.vala:82
 msgid "Outline"
-msgstr ""
+msgstr "Contour"
 
 #: src/Widgets/SideBar.vala:148
-#, fuzzy
 msgid "Remove All Files"
-msgstr "Alle bestanden"
+msgstr "Alle bestanden verwijderen"
 
 #: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
-msgstr ""
+msgstr "Zijbalk tonen/verbergen"
 
 #: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
-msgstr ""
+msgstr "Aantal tekens bijhouden"
 
 #: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
-msgstr ""
+msgstr "Aantal woorden bijhouden"
 
 #: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
-msgstr ""
+msgstr "Aantal regels bijhouden"
 
 #: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
-msgstr ""
+msgstr "Stel in wat moet worden bijgehouden"
 
 #: src/Widgets/StatusBar.vala:125
 msgid "Words: "
-msgstr "Woorden: "
+msgstr "Aantal woorden: "
 
 #: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
-msgstr ""
+msgstr "Aantal regels: "
 
 #: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
-msgstr ""
+msgstr "Aantal tekens: "
 
 #: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
@@ -420,7 +417,7 @@ msgstr "Alle bestanden"
 
 #: src/Services/DialogUtils.vala:44
 msgid "Save Open File?"
-msgstr "Bestand opslaan"
+msgstr "Wil je het geopende bestand opslaan?"
 
 #: src/Services/DialogUtils.vala:45
 msgid ""
@@ -440,34 +437,35 @@ msgstr "Sluiten zonder opslaan"
 #: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
 #: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
 msgid "Cancel"
-msgstr ""
+msgstr "Annuleren"
 
 #: src/Services/DialogUtils.vala:61
 msgid "Remove File from Sidebar?"
-msgstr ""
+msgstr "Wil je het bestand verwijderen uit de zijbalk?"
 
 #: src/Services/DialogUtils.vala:62
 msgid ""
 "By removing this file from the Sidebar, you will lose any changes made if "
 "not saved. Otherwise, it will only be removed."
 msgstr ""
+"Als je het bestand verwijdert uit de zijbalk, dan gaan niet-opgeslagen "
+"wijzigingen verloren. Anders wordt alleen het bestand verwijderd."
 
 #: src/Services/DialogUtils.vala:67
-#, fuzzy
 msgid "Remove Without Saving"
-msgstr "Sluiten zonder opslaan"
+msgstr "Verwijderen zonder opslaan"
 
 #: src/Services/ExportUtils.vala:87
 msgid "Print to File"
-msgstr ""
+msgstr "Afdrukken naar bestand"
 
 #: src/Services/ExportUtils.vala:144
 msgid "Select destination PDF file"
-msgstr ""
+msgstr "Kies een bestemming voor het PDF-bestand"
 
 #: src/Services/ExportUtils.vala:149
 msgid "PDF File"
-msgstr ""
+msgstr "PDF-bestand"
 
 #: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
 msgid "All Files"
@@ -475,11 +473,11 @@ msgstr "Alle bestanden"
 
 #: src/Services/ExportUtils.vala:193
 msgid "Select destination HTML file"
-msgstr ""
+msgstr "Kies een bestemming voor het HTML-bestand"
 
 #: src/Services/ExportUtils.vala:198
 msgid "HTML File"
-msgstr ""
+msgstr "HTML-bestand"
 
 #: src/Services/FileManager.vala:84
 msgid "Open file"
