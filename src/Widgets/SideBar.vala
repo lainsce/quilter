@@ -245,7 +245,7 @@ namespace Quilter.Widgets {
                         } while (match.next ());
                     }
                 } catch (GLib.Error e) {
-                    GLib.error ("ERR: %s", e.message);
+                    warning ("ERR: %s", e.message);
                 }
             }
         }

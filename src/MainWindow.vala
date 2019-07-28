@@ -532,8 +532,7 @@ namespace Quilter {
                 dialog.run ();
             }
 
-            Services.FileManager.get_cache_path ();
-            sidebar.add_file (Services.FileManager.get_cache_path ());
+            sidebar.add_file (Services.FileManager.get_temp_document_path ());
         }
 
         private void on_open () {

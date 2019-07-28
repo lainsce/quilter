@@ -25,34 +25,38 @@ namespace Quilter.Services.FileManager {
     private static string? cache;
     public static string get_cache_path () {
         if (cache == null) {
-            cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter", "temp.md");
+            cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
             try {
             	string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
             	File cachedir = File.new_for_path (cachedirpath);
                 cachedir.make_directory_with_parents ();
                 FileUtils.set_contents (cache, "");
-            } catch (Error err) {
-                print ("Error writing file: " + err.message);
+            } catch (Error e) {
+                warning ("Error writing file: " + e.message);
             }
         }
 
         return cache;
     }
 
+    public static string get_temp_document_path () {
+        debug ("Generating a temp file path");
+        var name = new GLib.DateTime.now ();
+        return Path.build_filename (get_cache_path (), @"~$name.md");
+    }
+
     public void save_file (string path, string contents) throws Error {
         try {
             GLib.FileUtils.set_contents (path, contents);
-        } catch (Error err) {
-            print ("Error writing file: " + err.message);
+            debug (@"Saved file: $path");
+        } catch (Error e) {
+            var msg = e.message;
+            warning (@"Error writing file: $msg");
         }
     }
-    public void save_tmp_file (string contents = "") {
-        debug ("Saving cache...");
-        try {
-            save_file (get_cache_path (), contents);
-        } catch (Error e) {
-            warning ("Exception found: "+ e.message);
-        }
+
+    public bool is_temp_file (string path) {
+        return get_cache_path () in path;
     }
 
     // File I/O
