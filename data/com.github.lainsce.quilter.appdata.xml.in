@@ -55,6 +55,16 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.9.3" date="2019-08-01">
+         <description>
+            <p>Release: Sidebar Shoeshine</p>
+            <ul>
+                <li>Fixed: Sidebar would grow uncontrollably</li>
+                <li>Fixed: No more file muncher monster, your files will be saved and taken care of.</li>
+                <li>Fixed: Spellchecking now works without any problem</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.9.2" date="2019-06-28">
          <description>
             <p>Release: Sidebar File Cleaner-o-matic</p>

@@ -60,6 +60,11 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             this.win = win;
 
+            var scrolled_box = new Gtk.ScrolledWindow (null, null);
+            scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
+            scrolled_box.max_content_height = 500;
+            scrolled_box.propagate_natural_height = true;
+
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
@@ -86,13 +91,36 @@ namespace Quilter.Widgets {
                 view.expand_all ();
             }
 
+            scrolled_box.add (stack);
+
+            var file_clean_button = new Gtk.Button ();
+            var fcb_context = file_clean_button.get_style_context ();
+            fcb_context.add_class ("quilter-sidebar-button");
+            file_clean_button.always_show_image = true;
+            file_clean_button.vexpand = false;
+            file_clean_button.hexpand = false;
+            file_clean_button.valign = Gtk.Align.CENTER;
+            file_clean_button.tooltip_text = "Removes files from the Sidebar, leaving it empty again.\nNo files will be saved however!";
+            file_clean_button.set_label (_("Remove All Files"));
+            var file_clean_button_style_context = file_clean_button.get_style_context ();
+            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+
+            file_clean_button.clicked.connect (() => {
+                delete_row ();
+                win.edit_view_content.buffer.text = "";
+                Services.FileManager.file = null;
+                win.toolbar.set_subtitle (_("No Documents Open"));
+            });
+
             var grid = new Gtk.Grid ();
             var g_context = grid.get_style_context ();
             g_context.add_class ("quilter-sidebar");
             g_context.add_class (Gtk.STYLE_CLASS_SIDEBAR);
             grid.margin_top = 0;
             grid.attach (stackswitcher, 0, 0, 1, 1);
-            grid.attach (stack, 0, 1, 1, 1);
+            grid.attach (scrolled_box, 0, 1, 1, 1);
+            grid.attach (file_clean_button, 0, 2, 1, 1);
 
             this.add (grid);
 
@@ -136,25 +164,6 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var file_clean_button = new Gtk.Button ();
-            var fcb_context = file_clean_button.get_style_context ();
-            fcb_context.add_class ("quilter-sidebar-button");
-            file_clean_button.always_show_image = true;
-            file_clean_button.vexpand = false;
-            file_clean_button.hexpand = false;
-            file_clean_button.valign = Gtk.Align.CENTER;
-            file_clean_button.tooltip_text = "Removes files from the Sidebar, leaving it empty again.\nNo files will be saved however!";
-            file_clean_button.set_label (_("Remove All Files"));
-            var file_clean_button_style_context = file_clean_button.get_style_context ();
-            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-
-            file_clean_button.clicked.connect (() => {
-                delete_row ();
-                win.edit_view_content.buffer.text = "";
-                Services.FileManager.file = null;
-                win.toolbar.set_subtitle (_("No Documents Open"));
-            });
 
             column.show_all ();
 
@@ -162,7 +171,6 @@ namespace Quilter.Widgets {
             files_grid.hexpand = false;
             files_grid.set_size_request (280, -1);
             files_grid.attach (column, 0, 0, 1, 1);
-            files_grid.attach (file_clean_button, 0, 1, 1, 1);
             files_grid.show_all ();
             return files_grid;
         }

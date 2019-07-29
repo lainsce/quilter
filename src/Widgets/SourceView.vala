@@ -166,7 +166,7 @@ namespace Quilter.Widgets {
                         }
                     }
                     if (language_list.length () == 0) {
-                        spell.set_language (null);
+                        spell.set_language ("en");
                     } else {
                         spell.set_language (lang_dict);
                     }
