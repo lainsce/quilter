@@ -60,7 +60,7 @@
             <p>Release: Sidebar Shoeshine</p>
             <ul>
                 <li>Fixed: Sidebar would grow uncontrollably</li>
-                <li>Fixed: No more file muncher monster, your files will be saved and taken care of.</li>
+                <li>Fixed: No more file muncher monster, your files will be saved and taken care of. (Bleak Grey [@bleakgrey])</li>
                 <li>Fixed: Spellchecking now works without any problem</li>
             </ul>
          </description>
