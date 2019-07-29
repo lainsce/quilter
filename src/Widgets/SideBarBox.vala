@@ -31,7 +31,7 @@ namespace Quilter.Widgets {
             }
             set {
                 _path = value;
-                if (_path == Services.FileManager.get_cache_path ()) {
+                if (Services.FileManager.is_temp_file (_path)) {
                     file_name_label.label = "New Document";
                     file_label.label = "New File";
                 } else {
@@ -43,11 +43,10 @@ namespace Quilter.Widgets {
 
         public string title {
             owned get {
-                if (path != Services.FileManager.get_cache_path ()) {
-                    return file_label.label;
-                } else {
+                if (Services.FileManager.is_temp_file (path))
                     return "New File";
-                }
+                else
+                    return file_label.label;
             }
         }
 

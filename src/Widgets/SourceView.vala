@@ -81,21 +81,17 @@ namespace Quilter.Widgets {
             settings.changed.connect (update_settings);
 
             try {
-                string text;
+                string text = "";
                 string file_path = settings.current_file;
+                
                 var file = File.new_for_path (file_path);
-
-                if (file.query_exists ()) {
-                    string filename = file.get_path ();
-                    GLib.FileUtils.get_contents (filename, out text);
-                    buffer.text = text;
-                    modified = false;
-                } else {
-                    Services.FileManager.save_tmp_file ();
-                    GLib.FileUtils.get_contents (Services.FileManager.get_cache_path (), out text);
-                    buffer.text = text;
-                    modified = false;
+                if (!file.query_exists ()) {
+                    Services.FileManager.save_file (file_path, "");
                 }
+                
+                GLib.FileUtils.get_contents (file.get_path (), out text);
+                buffer.text = text;
+                modified = false;
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
