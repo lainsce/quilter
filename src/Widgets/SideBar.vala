@@ -41,7 +41,6 @@ namespace Quilter.Widgets {
         private GLib.File file;
         private Gtk.Label no_files;
         private string[] files;
-        public string cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter" + "/temp.md");
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}
 
@@ -119,7 +118,7 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             if (settings.current_file == "") {
-                filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
+                filebox = new SideBarBox (this.win, Services.FileManager.get_temp_document_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
