@@ -35,7 +35,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
-        public unowned Gtk.SourceBuffer buffer;
+        public new unowned Gtk.SourceBuffer buffer;
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -69,16 +69,47 @@ namespace Quilter.Widgets {
         public signal void save ();
 
         public EditView (MainWindow window) {
+            var settings = AppSettings.get_default ();
             this.window = window;
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
+            buffer.highlight_syntax = true;
+            buffer.set_max_undo_levels (20);
             set_buffer (buffer);
 
-            update_settings ();
-            var settings = AppSettings.get_default ();
-            settings.changed.connect (update_settings);
+            darkgrayfont = new Gtk.TextTag();
+            lightgrayfont = new Gtk.TextTag();
+            blackfont = new Gtk.TextTag();
+            whitefont = new Gtk.TextTag();
+            lightsepiafont = new Gtk.TextTag();
+            sepiafont = new Gtk.TextTag();
+            lightmoonfont = new Gtk.TextTag();
+            moonfont = new Gtk.TextTag();
+
+            darkgrayfont = buffer.create_tag(null, "foreground", "#888");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#777");
+            blackfont = buffer.create_tag(null, "foreground", "#333");
+            whitefont = buffer.create_tag(null, "foreground", "#CCC");
+            lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
+            sepiafont = buffer.create_tag(null, "foreground", "#331100");
+            lightmoonfont = buffer.create_tag(null, "foreground", "#939699");
+            moonfont = buffer.create_tag(null, "foreground", "#C3C6C9");
+
+            modified = false;
+
+            buffer.changed.connect (() => {
+                modified = true;
+            });
+
+            if (settings.current_file == "") {
+                buffer.text = "";
+                modified = false;
+            }
+
+            search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
+            search_context.set_match_style (srcstyle);
 
             try {
                 string text = "";
@@ -108,43 +139,6 @@ namespace Quilter.Widgets {
                     }
                 });
             });
-        }
-
-        construct {
-            var settings = AppSettings.get_default ();
-            buffer.highlight_syntax = true;
-            buffer.set_max_undo_levels (20);
-            this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 40;
-            this.bottom_margin = 40;
-            this.expand = true;
-            this.has_focus = true;
-            this.set_tab_width (4);
-            this.set_insert_spaces_instead_of_tabs (true);
-            this.auto_indent = true;
-
-            modified = false;
-
-            buffer.changed.connect (() => {
-                modified = true;
-            });
-
-            if (settings.current_file == "") {
-                buffer.text = "";
-                modified = false;
-            }
-
-            darkgrayfont = buffer.create_tag(null, "foreground", "#888");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#777");
-            blackfont = buffer.create_tag(null, "foreground", "#333");
-            whitefont = buffer.create_tag(null, "foreground", "#CCC");
-            lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
-            sepiafont = buffer.create_tag(null, "foreground", "#331100");
-            lightmoonfont = buffer.create_tag(null, "foreground", "#939699");
-            moonfont = buffer.create_tag(null, "foreground", "#C3C6C9");
-
-            search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
-            search_context.set_match_style (srcstyle);
 
             warning_tag = new Gtk.TextTag ("warning_bg");
             warning_tag.underline = Pango.Underline.ERROR;
@@ -154,9 +148,9 @@ namespace Quilter.Widgets {
             buffer.tag_table.add (error_tag);
             buffer.tag_table.add (warning_tag);
 
+            spell = new GtkSpell.Checker ();
             if (settings.spellcheck != false) {
                 try {
-                    spell = new GtkSpell.Checker ();
                     var lang_dict = settings.spellcheck_language;
                     var language_list = GtkSpell.Checker.get_language_list ();
                     foreach (var element in language_list) {
@@ -175,24 +169,28 @@ namespace Quilter.Widgets {
                     warning (e.message);
                 }
             } else {
-                try {
-                    spell.detach ();
-                } catch (Error e) {
-                    warning (e.message);
-                }
+                spell.detach ();
             }
 
             if (settings.autosave == true) {
                 Timeout.add (10000, () => {
-                    try {
-                        save ();
-                        modified = false;
-                    } catch (Error err) {
-                        print ("Error writing file: " + err.message);
-                    }
+                    save ();
+                    modified = false;
                     return true;
                 });
             }
+
+            update_settings ();
+            settings.changed.connect (update_settings);
+
+            this.set_wrap_mode (Gtk.WrapMode.WORD);
+            this.top_margin = 40;
+            this.bottom_margin = 40;
+            this.expand = true;
+            this.has_focus = true;
+            this.set_tab_width (4);
+            this.set_insert_spaces_instead_of_tabs (true);
+            this.auto_indent = true;
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {

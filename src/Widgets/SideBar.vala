@@ -38,8 +38,8 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subsection;
         private Gtk.TreeIter subsubsection;
         private Gtk.TreeIter paragraph;
-        private GLib.File file;
         private Gtk.Label no_files;
+        private GLib.File file;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool show_this {get; set; default = false;}

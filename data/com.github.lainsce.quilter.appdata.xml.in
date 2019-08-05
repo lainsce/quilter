@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="1.9.3" date="2019-08-05">
+         <description>
+            <p>Release: Backend Blues</p>
+            <ul>
+                <li>Fixed: Many backend problems were fixed to count here.</li>
+            </ul>
+         </description>
+        </release>
         <release version="1.9.3" date="2019-08-01">
          <description>
             <p>Release: Sidebar Shoeshine</p>

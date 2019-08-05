@@ -18,6 +18,7 @@
 namespace Quilter.Services.FileManager {
     public File tmp_file;
     public File file;
+    public File cachedir;
     public MainWindow win;
     public Widgets.EditView view;
     private string[] files;
@@ -26,11 +27,13 @@ namespace Quilter.Services.FileManager {
     public static string get_cache_path () {
         if (cache == null) {
             cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
+            string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
+            cachedir = File.new_for_path (cachedirpath);
             try {
-            	string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
-            	File cachedir = File.new_for_path (cachedirpath);
-                cachedir.make_directory_with_parents ();
-                FileUtils.set_contents (cache, "");
+                if (!cachedir.query_exists()) {
+                    cachedir.make_directory_with_parents ();
+                }
+            	
             } catch (Error e) {
                 warning ("Error writing file: " + e.message);
             }

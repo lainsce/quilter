@@ -89,7 +89,6 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
-            settings.current_file = Services.FileManager.get_cache_path ();
 
             sidebar.store.clear ();
             sidebar.get_file_contents_as_items ();
