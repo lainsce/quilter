@@ -276,6 +276,7 @@ namespace Quilter {
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.set_visible_child (edit_view);
 
             paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
             int w = settings.window_width;
@@ -293,28 +294,31 @@ namespace Quilter {
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
 
-            show_font_button (false);
-            if (stack.get_visible_child_name () == "preview_view") {
-                show_font_button (true);
-                toolbar.pack_end (set_font_menu);
-            } else if (stack.get_visible_child_name () == "edit_view") {
-                show_font_button (false);
-            }
-
             if (settings.preview_type == "full") {
                 paned.remove (edit_view);
                 paned.remove (preview_view);
+
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
                 stack.add_titled (preview_view, "preview_view", _("Preview"));
                 show_stack ();
-                show_font_button (true);
+
+                show_font_button (false);
+                if (stack.get_visible_child_name () == "preview_view") {
+                    show_font_button (true);
+                    toolbar.pack_end (set_font_menu);
+                } else if (stack.get_visible_child_name () == "edit_view") {
+                    show_font_button (false);
+                }
+
                 toolbar.pack_end (view_mode);
-            } else if (settings.preview_type == "half") {
+            } else {
                 stack.remove (edit_view);
                 stack.remove (preview_view);
+
                 paned.pack1 (edit_view, false, false);
                 paned.pack2 (preview_view, false, false);
                 show_paned ();
+
                 show_font_button (false);
             }
 
@@ -384,7 +388,6 @@ namespace Quilter {
         }
 
         public void show_stack () {
-            stack.set_visible_child (edit_view);
             main_stack.set_visible_child (stack);
         }
 
