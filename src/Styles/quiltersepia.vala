@@ -109,7 +109,7 @@ public class Quilter.Styles.quiltersepia {
 
     body {
       color: #3b3228;
-      background-color: #F0E8DD;
+      background-color: #f8f4ef;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 40px;

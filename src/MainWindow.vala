@@ -492,7 +492,7 @@ namespace Quilter {
 
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
+                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }

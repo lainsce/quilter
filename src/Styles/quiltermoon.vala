@@ -110,7 +110,7 @@ public class Quilter.Styles.quiltermoon {
 
     body {
       color: #C3C3C1;
-      background-color: #273445;
+      background-color: #192839;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 40px;
