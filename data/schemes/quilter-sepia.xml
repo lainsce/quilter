@@ -3,7 +3,7 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#3b3228" background="#f0e8dd"/>
+  <style name="text"            foreground="#3b3228" background="#f0e8df"/>
   <style name="cursor"          foreground="#00897b"/>
   <style name="current-line"    background="#c1a073"/>
   <style name="selection"       foreground="#3b3228" background="#00897b"/>
@@ -20,7 +20,7 @@
   <style name="def:underlined" foreground="#00897b"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#c1a073"/>
+  <style name="def:identifier" foreground="#c1a075"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#3b3228"/>
