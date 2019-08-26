@@ -81,46 +81,31 @@ namespace Quilter {
         public void preview_type_menu_item () {
             var settings = AppSettings.get_default ();
 
-            var full_width_preview = new Gtk.RadioButton.with_label_from_widget (null, _("Full-width"));
-	        full_width_preview.toggled.connect (() => {
-	            settings.preview_type = "full";
-	        });
-
-	        var half_width_preview = new Gtk.RadioButton.with_label_from_widget (full_width_preview, _("Half-width"));
-	        half_width_preview.toggled.connect (() => {
-	            settings.preview_type = "half";
-	        });
-            full_width_preview.set_active (true);
+            var preview_cbt = new Gtk.ComboBoxText();
+            preview_cbt.append_text(_("Full-Width"));
+            preview_cbt.append_text(_("Half-Width"));
 
             if (settings.preview_type == "full") {
-                full_width_preview.set_active (true);
+                preview_cbt.set_active(0);
+                settings.preview_type = "full";
             } else if (settings.preview_type == "half") {
-                half_width_preview.set_active (true);
+                preview_cbt.set_active(1);
+                settings.preview_type = "half";
             }
 
-            var preview_type_grid = new Gtk.Grid ();
-            preview_type_grid.margin = 12;
-            preview_type_grid.row_spacing = 12;
-            preview_type_grid.column_spacing = 12;
-            preview_type_grid.orientation = Gtk.Orientation.VERTICAL;
-            preview_type_grid.add (full_width_preview);
-            preview_type_grid.add (half_width_preview);
-            preview_type_grid.show_all ();
+            preview_cbt.changed.connect (() => {
+                var pcbt_value = preview_cbt.get_active();
+                if (pcbt_value == 0) {
+                    settings.preview_type = "full";
+                } else if (pcbt_value == 1) {
+                    settings.preview_type = "half";
+                }
+            });
 
-            var preview_type_menu_pop = new Gtk.Popover (null);
-            preview_type_menu_pop.add (preview_type_grid);
-
-            preview_type_menu = new Gtk.MenuButton ();
-            preview_type_menu.set_image (new Gtk.Image.from_icon_name ("folder-pictures-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            preview_type_menu.tooltip_text = _("Set Previewing Type");
-            preview_type_menu.popover = preview_type_menu_pop;
-            preview_type_menu.always_show_image = true;
-
-            var menu_context = track_type_menu.get_style_context ();
-            menu_context.add_class ("quilter-menu");
-            menu_context.add_class (Gtk.STYLE_CLASS_FLAT);
-
-            actionbar.pack_end (preview_type_menu);
+            var preview_cbt_context = preview_cbt.get_style_context ();
+            preview_cbt_context.add_class ("quilter-cbt");
+            preview_cbt_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            actionbar.pack_end (preview_cbt);
         }
 
         public void track_type_menu_item () {

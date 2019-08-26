@@ -167,7 +167,6 @@ actionbar,
     border: 1px solid transparent;
 }
 
-
 .quilter-sidebar button.radio {
     border-radius: 0;
 }
@@ -218,5 +217,17 @@ actionbar,
 }
 
 .quilter-menu:hover {
+    border: 1px solid alpha (@textColorPrimary, 0.35);
+}
+
+.quilter-cbt button {
+    background: @colorPrimary;
+    color: @textColorPrimary;
+    border: 1px solid alpha (@textColorPrimary, 0);
+    background-image: none;
+	box-shadow: none;
+}
+
+.quilter-cbt button:hover {
     border: 1px solid alpha (@textColorPrimary, 0.35);
 }
