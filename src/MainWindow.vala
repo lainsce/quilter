@@ -281,11 +281,13 @@ namespace Quilter {
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
-            bool v = settings.shown_view;
-            if (v) {
-                stack.set_visible_child (preview_view);
-            } else {
-                stack.set_visible_child (edit_view);
+            if (settings.preview_type == "full") {
+                bool v = settings.shown_view;
+                if (v) {
+                    stack.set_visible_child (preview_view);
+                } else {
+                    stack.set_visible_child (edit_view);
+                }
             }
 
             view_mode = new Gtk.StackSwitcher ();
@@ -403,6 +405,15 @@ namespace Quilter {
             return false;
         }
 
+        private static void widget_unparent (Gtk.Widget widget) {
+            unowned Gtk.Container? parent = widget.get_parent ();
+            if (parent == null) {
+                return;
+            }
+
+            parent.remove (widget);
+        }
+
         private void update_count () {
             var settings = AppSettings.get_default ();
             if (settings.track_type == "words") {
@@ -517,8 +528,8 @@ namespace Quilter {
         private void change_layout () {
             var settings = AppSettings.get_default ();
             if (settings.preview_type == "full") {
-                paned.remove (edit_view);
-                paned.remove (preview_view);
+                widget_unparent (edit_view);
+                widget_unparent (preview_view);
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
                 stack.add_titled (preview_view, "preview_view", _("Preview"));
                 main_stack.set_visible_child (stack);
@@ -526,6 +537,8 @@ namespace Quilter {
                 foreach (Gtk.Widget c in stack.get_children ()) {
                     stack.remove (c);
                 }
+                widget_unparent (edit_view);
+                widget_unparent (preview_view);
                 paned.pack1 (edit_view, false, false);
                 paned.pack2 (preview_view, false, false);
                 main_stack.set_visible_child (paned);
