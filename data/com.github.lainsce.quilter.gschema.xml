@@ -70,6 +70,11 @@
 				<summary>Font used on Preview View</summary>
 				<description>The user-preferred font to use in Preview in Quilter</description>
 		</key>
+		<key name="preview-type" type="s">
+				<default>'full'</default>
+				<summary>Preview type for the UI</summary>
+				<description>The user-preferred preview type to use in Preview in Quilter</description>
+		</key>
 		<key name="track-type" type="s">
 				<default>''</default>
 				<summary>Tracking type for the Statusbar</summary>
@@ -98,7 +103,7 @@
 			    <summary>Show (true) or Hide (false) the statusbar</summary>
         </key>
         <key name="sidebar" type="b">
-			    <default>true</default>
+			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the sidebar</summary>
         </key>
 		<key name="searchbar" type="b">

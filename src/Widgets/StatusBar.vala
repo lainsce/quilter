@@ -26,6 +26,7 @@ namespace Quilter {
         public MainWindow window;
         public Gtk.ActionBar actionbar;
         public Gtk.MenuButton track_type_menu;
+        public Gtk.MenuButton preview_type_menu;
         public Gtk.SourceBuffer buf;
 
         /* Average normal reading speed is 275 WPM */
@@ -61,6 +62,8 @@ namespace Quilter {
 
             track_type_menu_item ();
 
+            preview_type_menu_item ();
+
             if (settings.track_type == "words") {
                 update_wordcount ();
             } else if (settings.track_type == "lines") {
@@ -73,6 +76,36 @@ namespace Quilter {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
+        }
+
+        public void preview_type_menu_item () {
+            var settings = AppSettings.get_default ();
+
+            var preview_cbt = new Gtk.ComboBoxText();
+            preview_cbt.append_text(_("Full-Width"));
+            preview_cbt.append_text(_("Half-Width"));
+
+            if (settings.preview_type == "full") {
+                preview_cbt.set_active(0);
+                settings.preview_type = "full";
+            } else if (settings.preview_type == "half") {
+                preview_cbt.set_active(1);
+                settings.preview_type = "half";
+            }
+
+            preview_cbt.changed.connect (() => {
+                var pcbt_value = preview_cbt.get_active();
+                if (pcbt_value == 0) {
+                    settings.preview_type = "full";
+                } else if (pcbt_value == 1) {
+                    settings.preview_type = "half";
+                }
+            });
+
+            var preview_cbt_context = preview_cbt.get_style_context ();
+            preview_cbt_context.add_class ("quilter-cbt");
+            preview_cbt_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            actionbar.pack_end (preview_cbt);
         }
 
         public void track_type_menu_item () {

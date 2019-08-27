@@ -20,7 +20,7 @@
   <style name="def:underlined" foreground="#00897b"/>
 
   <!-- Code -->
-  <style name="def:identifier" foreground="#c1a073"/>
+  <style name="def:identifier" foreground="#c1a075"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#3b3228"/>

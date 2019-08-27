@@ -39,6 +39,11 @@ actionbar,
     background-color: alpha (@accentColor, 0.35);
 }
 
+.quilter-cbt button:hover,
+.quilter-cbt button:backdrop:active {
+    background-color: alpha (@accentColor, 0.35);
+}
+
 .quilter-sidebar-box:hover {
     background: shade (@colorPrimary, 0.95);
     color: @textColorPrimary;

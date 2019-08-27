@@ -55,12 +55,16 @@ namespace Quilter {
             }
             win = new MainWindow (this);
 
-            if (open_view) {
-                win.stack.set_visible_child (win.preview_view);
-                open_view = false;
-            } else {
-                win.stack.set_visible_child (win.edit_view);
+            var settings = AppSettings.get_default ();
+            if (settings.preview_type == "full") {
+                if (open_view) {
+                    win.stack.set_visible_child (win.preview_view);
+                    open_view = false;
+                } else {
+                    win.stack.set_visible_child (win.edit_view);
+                }
             }
+            
             win.show_all ();
         }
 

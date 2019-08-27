@@ -29,7 +29,10 @@ namespace Quilter {
         public Gtk.MenuButton set_font_menu;
         public Widgets.EditView edit_view_content;
         public Widgets.Preview preview_view_content;
+        public Gtk.Stack main_stack;
         public Gtk.Stack stack;
+        public Gtk.StackSwitcher view_mode;
+        public Gtk.Paned paned;
         public Gtk.ScrolledWindow edit_view;
         public Gtk.ScrolledWindow preview_view;
         public Gtk.Grid grid;
@@ -167,20 +170,24 @@ namespace Quilter {
                 }
                 if (match_keycode (Gdk.Key.F1, keycode)) {
                     debug ("Press to change view...");
-                    if (this.stack.get_visible_child_name () == "preview_view") {
-                        this.stack.set_visible_child (this.edit_view);
-                    } else if (this.stack.get_visible_child_name () == "edit_view") {
-                        this.stack.set_visible_child (this.preview_view);
+                    if (settings.preview_type == "full") {
+                        if (this.stack.get_visible_child_name () == "preview_view") {
+                            this.stack.set_visible_child (this.edit_view);
+                        } else if (this.stack.get_visible_child_name () == "edit_view") {
+                            this.stack.set_visible_child (this.preview_view);
+                        }
                     }
                     return true;
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@1, keycode)) {
                         debug ("Press to change view...");
-                        if (this.stack.get_visible_child_name () == "preview_view") {
-                            this.stack.set_visible_child (this.edit_view);
-                        } else if (this.stack.get_visible_child_name () == "edit_view") {
-                            this.stack.set_visible_child (this.preview_view);
+                        if (settings.preview_type == "full") {
+                            if (this.stack.get_visible_child_name () == "preview_view") {
+                                this.stack.set_visible_child (this.edit_view);
+                            } else if (this.stack.get_visible_child_name () == "edit_view") {
+                                this.stack.set_visible_child (this.preview_view);
+                            }
                         }
                         return true;
                     }
@@ -273,25 +280,42 @@ namespace Quilter {
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            stack.add_titled (edit_view, "edit_view", _("Edit"));
-            stack.add_titled (preview_view, "preview_view", _("Preview"));
 
-            stack.set_visible_child (this.edit_view);
+            if (settings.preview_type == "full") {
+                bool v = settings.shown_view;
+                if (v) {
+                    stack.set_visible_child (preview_view);
+                } else {
+                    stack.set_visible_child (edit_view);
+                }
+            }
 
-            var view_mode = new Gtk.StackSwitcher ();
+            view_mode = new Gtk.StackSwitcher ();
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
 
-            toolbar.pack_end (view_mode);
             show_font_button (false);
-            ((Gtk.RadioButton)(view_mode.get_children().first().data)).toggled.connect(() => {
-                show_font_button (false);
-            });
-            ((Gtk.RadioButton)(view_mode.get_children().last().data)).toggled.connect(() => {
+            if (stack.get_visible_child_name () == "preview_view") {
                 show_font_button (true);
                 toolbar.pack_end (set_font_menu);
-            });
+            } else if (stack.get_visible_child_name () == "edit_view") {
+                show_font_button (false);
+            }
+
+            toolbar.pack_end (view_mode);
+
+            paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            int wd = settings.window_width;
+            paned.set_position (wd/2);
+
+            main_stack = new Gtk.Stack ();
+            main_stack.hexpand = true;
+            main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
+            main_stack.add_named (stack, "stack");
+            main_stack.add_named (paned, "paned");
+
+            change_layout ();
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -309,20 +333,15 @@ namespace Quilter {
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (searchbar, 0, 0, 2, 1);
             grid.attach (sidebar, 0, 1, 1, 1);
-            grid.attach (stack, 1, 1, 1, 1);
+            grid.attach (main_stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
             this.add (grid);
 
             int x = settings.window_x;
             int y = settings.window_y;
-            int h = settings.window_height;
             int w = settings.window_width;
-
-            bool v = settings.shown_view;
-            if (v) {
-                this.stack.set_visible_child (this.preview_view);
-            }
+            int h = settings.window_height;
 
             if (x != -1 && y != -1) {
                 this.move (x, y);
@@ -340,7 +359,6 @@ namespace Quilter {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;
-            //this.show_all ();
         }
 
 #if VALA_0_42
@@ -364,14 +382,16 @@ namespace Quilter {
             int x, y, w, h;
             get_position (out x, out y);
             get_size (out w, out h);
-            bool v = set_font_menu.get_visible ();
 
             var settings = AppSettings.get_default ();
             settings.window_x = x;
             settings.window_y = y;
             settings.window_width = w;
             settings.window_height = h;
-            settings.shown_view = v;
+            if (settings.preview_type == "full") {
+                bool v = set_font_menu.get_visible ();
+                settings.shown_view = v;
+            }
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -383,6 +403,15 @@ namespace Quilter {
 
             on_save ();
             return false;
+        }
+
+        private static void widget_unparent (Gtk.Widget widget) {
+            unowned Gtk.Container? parent = widget.get_parent ();
+            if (parent == null) {
+                return;
+            }
+
+            parent.remove (widget);
         }
 
         private void update_count () {
@@ -474,7 +503,7 @@ namespace Quilter {
 
             var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("set-font", Gtk.IconSize.LARGE_TOOLBAR);
+                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }
@@ -491,6 +520,29 @@ namespace Quilter {
                 sidebar.store.clear ();
                 sidebar.get_file_contents_as_items ();
                 sidebar.view.expand_all ();
+            }
+
+            change_layout ();
+        }
+
+        private void change_layout () {
+            var settings = AppSettings.get_default ();
+            if (settings.preview_type == "full") {
+                widget_unparent (edit_view);
+                widget_unparent (preview_view);
+                stack.add_titled (edit_view, "edit_view", _("Edit"));
+                stack.add_titled (preview_view, "preview_view", _("Preview"));
+                main_stack.set_visible_child (stack);
+            } else {
+                foreach (Gtk.Widget c in stack.get_children ()) {
+                    stack.remove (c);
+                }
+                widget_unparent (edit_view);
+                widget_unparent (preview_view);
+                paned.pack1 (edit_view, false, false);
+                paned.pack2 (preview_view, false, false);
+                main_stack.set_visible_child (paned);
+                show_font_button (false);
             }
         }
 

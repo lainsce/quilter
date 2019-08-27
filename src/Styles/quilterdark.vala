@@ -109,8 +109,8 @@ public class Quilter.Styles.quilterdark {
     }
 
     body {
-      color: #C3C3C1;
-      background-color: #151611;
+      color: #C3C3C3;
+      background-color: #111111;
       font-weight: 400;
       line-height: 1.4rem;
       margin-left: 40px;
@@ -128,17 +128,17 @@ public class Quilter.Styles.quilterdark {
 
     table th {
       font-weight: bold;
-      background-color: #23241c;
+      background-color: #2b2b2b;
     }
 
     table th,
     table td {
       padding: 8px 13px;
-      border: 1px solid #23241c;
+      border: 1px solid #2b2b2b;
     }
 
     table tr {
-      border-top: 1px solid #23241c;
+      border-top: 1px solid #2b2b2b;
     }
 
     img {
