@@ -21,7 +21,7 @@ using Granite;
 using Granite.Services;
 
 namespace Quilter {
-    public class MainWindow : Gtk.Window {
+    public class MainWindow : Gtk.ApplicationWindow {
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
@@ -64,6 +64,7 @@ namespace Quilter {
                 if (settings.fullscreen) {
                     fullscreen ();
                     settings.statusbar = false;
+		    settings.sidebar = false;
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
@@ -81,10 +82,9 @@ namespace Quilter {
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
+	    	    app: application,
                     resizable: true,
-                    title: _("Quilter"),
-                    height_request: 600,
-                    width_request: 700);
+                    title: _("Quilter"));
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
