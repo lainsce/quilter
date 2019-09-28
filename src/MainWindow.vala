@@ -22,6 +22,7 @@ using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.ApplicationWindow {
+
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
@@ -82,7 +83,6 @@ namespace Quilter {
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
-	    	    app: application,
                     resizable: true,
                     title: _("Quilter"));
 
@@ -359,6 +359,7 @@ namespace Quilter {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;
+            this.set_size_request (600, 700);
         }
 
 #if VALA_0_42
