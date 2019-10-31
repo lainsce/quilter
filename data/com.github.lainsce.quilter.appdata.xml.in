@@ -63,7 +63,7 @@
                 <li>Fixed: Outline tab is cleaned when pressing the Remove All Files button.</li>
                 <li>Fixed: File names of deleted files are not reused.</li>
                 <li>Fixed: Reading Time is properly reset when pressing the Remove All Files button.</li>
-                <li>Fixed: .</li>
+                <li>Fixed: Reading Time is properly updated as text is typed.</li>
             </ul>
          </description>
         </release>
