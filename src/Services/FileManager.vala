@@ -33,7 +33,6 @@ namespace Quilter.Services.FileManager {
                 if (!cachedir.query_exists()) {
                     cachedir.make_directory_with_parents ();
                 }
-            	
             } catch (Error e) {
                 warning ("Error writing file: " + e.message);
             }
@@ -100,7 +99,7 @@ namespace Quilter.Services.FileManager {
         return file.get_path ();
     }
 
-    public void save_as (string contents) throws Error {
+    public void save_as (string contents, out string path) throws Error {
         debug ("Save as button pressed.");
         var chooser = Services.DialogUtils.create_file_chooser (_("Save file"),
                 Gtk.FileChooserAction.SAVE);
@@ -111,7 +110,7 @@ namespace Quilter.Services.FileManager {
             file = File.new_for_path (file.get_path () + ".md");
         }
 
-        string path = file.get_path ();
+        path = file.get_path ();
 
         try {
             debug ("Saving file...");

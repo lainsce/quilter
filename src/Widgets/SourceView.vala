@@ -114,12 +114,12 @@ namespace Quilter.Widgets {
             try {
                 string text = "";
                 string file_path = settings.current_file;
-                
+
                 var file = File.new_for_path (file_path);
                 if (!file.query_exists ()) {
                     Services.FileManager.save_file (file_path, "");
                 }
-                
+
                 GLib.FileUtils.get_contents (file.get_path (), out text);
                 buffer.text = text;
                 modified = false;
@@ -173,7 +173,7 @@ namespace Quilter.Widgets {
             }
 
             if (settings.autosave == true) {
-                Timeout.add (10000, () => {
+                Timeout.add (1000, () => {
                     save ();
                     modified = false;
                     return true;

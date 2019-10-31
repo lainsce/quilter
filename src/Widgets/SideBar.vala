@@ -111,6 +111,7 @@ namespace Quilter.Widgets {
                 win.edit_view_content.buffer.text = "";
                 Services.FileManager.file = null;
                 win.toolbar.set_subtitle (_("No Documents Open"));
+                store.clear ();
             });
 
             var grid = new Gtk.Grid ();
@@ -284,6 +285,14 @@ namespace Quilter.Widgets {
         public void delete_row () {
             foreach (Gtk.Widget item in column.get_children ()) {
                 item.destroy ();
+            }
+        }
+
+        public void delete_row_with_name () {
+            foreach (SideBarBox item in get_rows ()) {
+                if (Services.FileManager.is_temp_file (item.path)) {
+                    item.destroy ();
+                }
             }
         }
 

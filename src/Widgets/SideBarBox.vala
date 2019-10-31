@@ -64,7 +64,7 @@ namespace Quilter.Widgets {
             file_name_label.halign = Gtk.Align.START;
             file_name_label.hexpand = false;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
-            file_name_label.max_width_chars = 27;
+            file_name_label.max_width_chars = 25;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
 
@@ -74,7 +74,7 @@ namespace Quilter.Widgets {
             file_label.max_width_chars = 25;
             file_label.hexpand = false;
 
-            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.LARGE_TOOLBAR);
+            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;

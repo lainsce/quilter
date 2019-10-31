@@ -55,6 +55,18 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.0.2" date="2019-11-07">
+         <description>
+            <p>Release: Let's Make It Whirr</p>
+            <ul>
+                <li>Fixed: Save As for a file will update the UI accordingly after usage.</li>
+                <li>Fixed: Outline tab is cleaned when pressing the Remove All Files button.</li>
+                <li>Fixed: File names of deleted files are not reused.</li>
+                <li>Fixed: Reading Time is properly reset when pressing the Remove All Files button.</li>
+                <li>Fixed: .</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.0.1" date="2019-09-30">
          <description>
             <p>Release: Minimal Maximize Madness</p>

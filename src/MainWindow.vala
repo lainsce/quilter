@@ -427,6 +427,7 @@ namespace Quilter {
                 statusbar.update_charcount ();
                 settings.track_type = "chars";
             }
+            statusbar.update_readtimecount ();
         }
 
         private void action_preferences () {
@@ -597,7 +598,14 @@ namespace Quilter {
             string path = Services.FileManager.open (out contents);
 
             edit_view_content.text = contents;
-            sidebar.add_file (path);
+
+            var settings = AppSettings.get_default ();
+            if (settings.last_files != null) {
+                sidebar.add_file (path);
+            } else {
+                sidebar.delete_row ();
+                sidebar.add_file (path);
+            }
         }
 
         private void on_save () {
@@ -613,11 +621,23 @@ namespace Quilter {
         }
 
         private void on_save_as () {
-            try {
-                Services.FileManager.save_as (edit_view_content.text);
-                edit_view_content.modified = false;
-            } catch (Error e) {
-                warning ("Unexpected error during open: " + e.message);
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                try {
+                    var settings = AppSettings.get_default ();
+                    string path;
+                    Services.FileManager.save_as (edit_view_content.text, out path);
+                    edit_view_content.modified = false;
+                    if (settings.last_files != null) {
+                        sidebar.delete_row_with_name ();
+                        sidebar.add_file (path);
+                    } else {
+                        sidebar.delete_row ();
+                        sidebar.add_file (path);
+                    }
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
             }
         }
 
@@ -630,6 +650,10 @@ namespace Quilter {
 
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);
+
+                    if (settings.current_file != file_path) {
+                        Services.FileManager.save_file (file_path, text);
+                    }
 
                     if (edit_view_content.modified) {
                         Services.FileManager.save_file (file_path, text);
