@@ -112,6 +112,7 @@ namespace Quilter.Widgets {
                 Services.FileManager.file = null;
                 win.toolbar.set_subtitle (_("No Documents Open"));
                 store.clear ();
+                win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
             });
 
             var grid = new Gtk.Grid ();
