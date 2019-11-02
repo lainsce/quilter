@@ -181,7 +181,7 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             view = new Gtk.TreeView ();
             view.expand = true;
-            view.hexpand = false;
+            view.hexpand = true;
             view.headers_visible = false;
             view.margin_top = 6;
             view.set_activate_on_single_click (true);
@@ -225,7 +225,7 @@ namespace Quilter.Widgets {
             file = GLib.File.new_for_path (settings.current_file);
             if (file.query_exists ()) {
                 try {
-                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.+)");
+                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
                     string buffer = "";
                     GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                     GLib.MatchInfo match;
@@ -234,22 +234,22 @@ namespace Quilter.Widgets {
                         do {
                             if (match.fetch_named ("header") == "#") {
                                 store.insert (out root, null, -1);
-                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             } else if (match.fetch_named ("header") == "##") {
                                 store.insert (out subheader, root, -1);
-                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             } else if (match.fetch_named ("header") == "###") {
                                 store.insert (out section, subheader, -1);
-                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             } else if (match.fetch_named ("header") == "####") {
                                 store.insert (out subsection, section, -1);
-                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             } else if (match.fetch_named ("header") == "#####") {
                                 store.insert (out subsubsection, subsection, -1);
-                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             } else if (match.fetch_named ("header") == "######") {
                                 store.insert (out paragraph, subsubsection, -1);
-                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
                             }
                         } while (match.next ());
                     }

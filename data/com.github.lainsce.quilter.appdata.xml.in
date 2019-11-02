@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.0.3" date="2019-11-07">
+         <description>
+            <p>Release: Kling Klang</p>
+            <ul>
+                <li>Fixed: Outline tab shouldn't make the sidebar grow in size anymore.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.0.2" date="2019-11-07">
          <description>
             <p>Release: Let's Make It Whirr</p>
