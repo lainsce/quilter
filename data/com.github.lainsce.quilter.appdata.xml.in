@@ -60,6 +60,7 @@
             <p>Release: Kling Klang</p>
             <ul>
                 <li>Fixed: Outline tab shouldn't make the sidebar grow in size anymore.</li>
+		<li>Fixed: A rogue file in your Home folder shouldn't happen anymore.</li>
             </ul>
          </description>
         </release>
