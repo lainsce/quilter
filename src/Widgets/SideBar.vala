@@ -222,39 +222,42 @@ namespace Quilter.Widgets {
 
         public void get_file_contents_as_items () {
             var settings = AppSettings.get_default ();
-            file = GLib.File.new_for_path (settings.current_file);
-            if (file.query_exists ()) {
-                try {
-                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
-                    string buffer = "";
-                    GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
-                    GLib.MatchInfo match;
+            if (settings.current_file != _("No Documents Open")) {
+                file = GLib.File.new_for_path (settings.current_file);
 
-                    if (reg.match (buffer, 0, out match)) {
-                        do {
-                            if (match.fetch_named ("header") == "#") {
-                                store.insert (out root, null, -1);
-                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "##") {
-                                store.insert (out subheader, root, -1);
-                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "###") {
-                                store.insert (out section, subheader, -1);
-                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "####") {
-                                store.insert (out subsection, section, -1);
-                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "#####") {
-                                store.insert (out subsubsection, subsection, -1);
-                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "######") {
-                                store.insert (out paragraph, subsubsection, -1);
-                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            }
-                        } while (match.next ());
+                if (file.query_exists ()) {
+                    try {
+                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
+                        string buffer = "";
+                        GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
+                        GLib.MatchInfo match;
+
+                        if (reg.match (buffer, 0, out match)) {
+                            do {
+                                if (match.fetch_named ("header") == "#") {
+                                    store.insert (out root, null, -1);
+                                    store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                } else if (match.fetch_named ("header") == "##") {
+                                    store.insert (out subheader, root, -1);
+                                    store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                } else if (match.fetch_named ("header") == "###") {
+                                    store.insert (out section, subheader, -1);
+                                    store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                } else if (match.fetch_named ("header") == "####") {
+                                    store.insert (out subsection, section, -1);
+                                    store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                } else if (match.fetch_named ("header") == "#####") {
+                                    store.insert (out subsubsection, subsection, -1);
+                                    store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                } else if (match.fetch_named ("header") == "######") {
+                                    store.insert (out paragraph, subsubsection, -1);
+                                    store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                                }
+                            } while (match.next ());
+                        }
+                    } catch (GLib.Error e) {
+                        warning ("ERR: %s", e.message);
                     }
-                } catch (GLib.Error e) {
-                    warning ("ERR: %s", e.message);
                 }
             }
         }

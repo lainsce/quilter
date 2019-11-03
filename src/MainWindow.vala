@@ -65,7 +65,7 @@ namespace Quilter {
                 if (settings.fullscreen) {
                     fullscreen ();
                     settings.statusbar = false;
-		    settings.sidebar = false;
+		            settings.sidebar = false;
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
@@ -94,7 +94,10 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
 
             sidebar.store.clear ();
-            sidebar.get_file_contents_as_items ();
+            if (settings.current_file != _("No Documents Open")) {
+                sidebar.get_file_contents_as_items ();
+            }
+
             sidebar.view.expand_all ();
             if (settings.current_file == "" || toolbar.get_subtitle () == (_("No Documents Open"))) {
                 edit_view_content.buffer.text = "";
@@ -351,7 +354,9 @@ namespace Quilter {
             }
 
             update_title ();
-            on_sidebar_row_selected (sidebar.get_selected_row ());
+            if (settings.current_file != _("No Documents Open")) {
+                on_sidebar_row_selected (sidebar.get_selected_row ());
+            }
 
             try {
                 this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
@@ -396,7 +401,8 @@ namespace Quilter {
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
-                files += row.path;
+                if (row.path != _("No Documents Open"))
+                    files += row.path;
             }
 
             settings.last_files = files;
@@ -490,9 +496,9 @@ namespace Quilter {
 
         private void set_prev_workfile () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row != null) {
-                var settings = AppSettings.get_default ();
-                settings.current_file = row.title;
+            var settings = AppSettings.get_default ();
+            if (row != null && settings.current_file != _("No Documents Open")) {
+                settings.current_file = row.path;
             }
         }
 
@@ -510,7 +516,7 @@ namespace Quilter {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }
 
-            if (settings.current_file != "") {
+            if (settings.current_file != "" && settings.current_file != _("No Documents Open")) {
                 sidebar.store.clear ();
                 sidebar.get_file_contents_as_items ();
                 sidebar.view.expand_all ();
@@ -520,7 +526,8 @@ namespace Quilter {
                 settings.current_file = Services.FileManager.get_cache_path ();
                 edit_view_content.buffer.text = "";
                 sidebar.store.clear ();
-                sidebar.get_file_contents_as_items ();
+                if (settings.current_file != _("No Documents Open"))
+                    sidebar.get_file_contents_as_items ();
                 sidebar.view.expand_all ();
             }
 
@@ -600,7 +607,7 @@ namespace Quilter {
             edit_view_content.text = contents;
 
             var settings = AppSettings.get_default ();
-            if (settings.last_files != null) {
+            if (settings.last_files != null && path != _("No Documents Open")) {
                 sidebar.add_file (path);
             } else {
                 sidebar.delete_row ();
@@ -653,6 +660,8 @@ namespace Quilter {
 
                     if (settings.current_file != file_path) {
                         Services.FileManager.save_file (file_path, text);
+                    } else if (settings.current_file == _("No Documents Open")) {
+                        return;
                     }
 
                     if (edit_view_content.modified) {

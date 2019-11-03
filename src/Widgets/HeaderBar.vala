@@ -61,6 +61,8 @@ namespace Quilter.Widgets {
                 set_subtitle (_("No Documents Open"));
             } else if (settings.current_file == null) {
                 set_subtitle (_("No Documents Open"));
+            } else if (this.subtitle == Services.FileManager.get_temp_document_path ()) {
+                set_subtitle (_("No Documents Open"));
             }
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
