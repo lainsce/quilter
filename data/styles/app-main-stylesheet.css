@@ -208,6 +208,10 @@ actionbar,
     border: 1px solid transparent;
 }
 
+.quilter-sidebar-box > grid > label {
+    color: #222;
+}
+
 .quilter-menu {
     background: @colorPrimary;
     color: @textColorPrimary;
