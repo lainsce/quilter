@@ -90,7 +90,7 @@ namespace Quilter.Widgets {
 
             search_button = new Gtk.ToggleButton ();
             search_button.has_tooltip = true;
-            search_button.tooltip_text = _("Start search");
+            search_button.tooltip_text = _("Find…");
 
             if (settings.searchbar == false) {
                 search_button.set_active (false);

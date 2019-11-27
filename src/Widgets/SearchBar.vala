@@ -42,6 +42,7 @@ namespace Quilter.Widgets {
 
             replace_tool_button = new Gtk.Button.with_label (_("Replace"));
             replace_tool_button.clicked.connect (on_replace_entry_activate);
+            replace_tool_button.tooltip_text = (_("Use the arrows to target the text to replace before pressing this."));
 
             replace_all_tool_button = new Gtk.Button.with_label (_("Replace all"));
             replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
