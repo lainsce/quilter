@@ -1,15 +1,15 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.quilter package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Polish translations for Quilter.
+# This file is distributed under the same license as the com.github.lainsce.quilter.
+# Created by Michał Rowicki <mirowicki@gmail.com>, updated by Michał Nowakowski <nowakowski@offshore.rocks>, 2019.
+
+
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-28 18:11+0200\n"
-"PO-Revision-Date: 2018-01-11 23:01+0100\n"
-"Last-Translator: Michał Rowicki <mirowicki@gmail.com>\n"
+"PO-Revision-Date: 2019-11-18 17:08+0100\n"
+"Last-Translator: Michał Nowakowski <nowakowski@offshore.rocks>\n"
 "Language-Team:\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -23,19 +23,19 @@ msgstr "Quilter"
 #: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
 #: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
 msgid "No Documents Open"
-msgstr ""
+msgstr "Brak otwartych dokumentów"
 
 #: src/MainWindow.vala:231
 msgid "Use Sans-serif"
-msgstr ""
+msgstr "Użyj Sans-serif"
 
 #: src/MainWindow.vala:236
 msgid "Use Serif"
-msgstr ""
+msgstr "Użyj Serif"
 
 #: src/MainWindow.vala:242
 msgid "Use Monospace"
-msgstr ""
+msgstr "Użyj Monospace"
 
 #: src/MainWindow.vala:261
 msgid "Set Preview Font"
@@ -51,7 +51,7 @@ msgstr "Podgląd"
 
 #: src/Widgets/Cheatsheet.vala:29
 msgid "Cheatsheet"
-msgstr "Cheatsheet"
+msgstr "Ściągawka"
 
 #: src/Widgets/Cheatsheet.vala:47
 msgid "Text"
@@ -59,7 +59,7 @@ msgstr "Tekst"
 
 #: src/Widgets/Cheatsheet.vala:48
 msgid "Links & Special"
-msgstr "Linki & Specjalne"
+msgstr "Odnośniki i specjalne"
 
 #: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
 msgid "Tables"
@@ -116,7 +116,7 @@ msgstr "` Kod `"
 
 #: src/Widgets/Cheatsheet.vala:90
 msgid "> Quoting text"
-msgstr "> Cytowany tekst"
+msgstr "> Cytat"
 
 #: src/Widgets/Cheatsheet.vala:91
 msgid "~~Strikethrough text~~"
@@ -124,15 +124,15 @@ msgstr "~~Przekreślony tekst~~"
 
 #: src/Widgets/Cheatsheet.vala:115
 msgid "Links"
-msgstr "Linki"
+msgstr "Odnośniki"
 
 #: src/Widgets/Cheatsheet.vala:116
 msgid "[Link Label](http://link.url.here.com)"
-msgstr "[Etykieta Linku](http://link.url.tutaj.com)"
+msgstr "[Etykieta odnośnika](http://link.url.tutaj.com)"
 
 #: src/Widgets/Cheatsheet.vala:117
 msgid "![Image Label](http://image.url.here.com)"
-msgstr "![Etykieta Obrazka](http://image.url.tutaj.com)"
+msgstr "![Etykieta obrazka](http://image.url.tutaj.com)"
 
 #: src/Widgets/Cheatsheet.vala:118
 msgid "Special"
@@ -145,15 +145,15 @@ msgstr "```To jest blok kodu```"
 #: src/Widgets/Cheatsheet.vala:120
 #, fuzzy
 msgid "This creates a horizontal rule → ---"
-msgstr "--- ← To jest linia horyzontalna"
+msgstr "To tworzy poziomą linię → ---"
 
 #: src/Widgets/Cheatsheet.vala:121
 msgid "This embeds a local image → | Folder/Image.png |"
-msgstr ""
+msgstr "To osadza lokalny obrazek → | Folder/Obrazek.png |"
 
 #: src/Widgets/Cheatsheet.vala:122
 msgid "This embeds a local Markdown file → % Folder/File.md %"
-msgstr ""
+msgstr "To osadza lokalny plik markdown → % Folder/Plik.md %"
 
 #: src/Widgets/Cheatsheet.vala:143
 msgid "To make a column's content go to the left, change --- to :--- ."
@@ -185,23 +185,23 @@ msgstr "Otwórz…"
 
 #: src/Widgets/HeaderBar.vala:91
 msgid "Start search"
-msgstr ""
+msgstr "Rozpocznij szukanie"
 
 #: src/Widgets/HeaderBar.vala:109
 msgid "Export to PDF…"
-msgstr ""
+msgstr "Eksportuj do PDF…"
 
 #: src/Widgets/HeaderBar.vala:113
 msgid "Export to HTML…"
-msgstr ""
+msgstr "Eksportuj do HTML…"
 
 #: src/Widgets/HeaderBar.vala:129
 msgid "Export"
-msgstr ""
+msgstr "Eksportuj"
 
 #: src/Widgets/HeaderBar.vala:133
 msgid "Markdown Cheatsheet"
-msgstr "Markdown Cheatsheet"
+msgstr "Ściągawka Markdowna"
 
 #: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
 msgid "Preferences"
@@ -209,27 +209,27 @@ msgstr "Ustawienia"
 
 #: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
 msgid "Light Mode"
-msgstr ""
+msgstr "Jasny"
 
 #: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
 msgid "Sepia Mode"
-msgstr "Tryb Ciemny"
+msgstr "Sepia"
 
 #: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
 msgid "Moon Mode"
-msgstr "Tryb Fokusu"
+msgstr "Księżycowy"
 
 #: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
 msgid "Dark Mode"
-msgstr "Tryb Ciemny"
+msgstr "Ciemny"
 
 #: src/Widgets/HeaderBar.vala:208
 msgid "Focus Mode"
-msgstr "Tryb Fokusu"
+msgstr "Tryb Skupienia"
 
 #: src/Widgets/HeaderBar.vala:211
 msgid "Enter focus mode"
-msgstr "Włącz Tryb Fokusu:"
+msgstr "Włącz Tryb Skupienia"
 
 #: src/Widgets/HeaderBar.vala:256
 msgid "Settings"
@@ -245,7 +245,7 @@ msgstr "Interfejs"
 
 #: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
 msgid "Extensions"
-msgstr ""
+msgstr "Rozszerzenia"
 
 #: src/Widgets/Preferences.vala:68
 msgid "Geometry"
@@ -276,31 +276,31 @@ msgstr "Margines:"
 
 #: src/Widgets/Preferences.vala:149
 msgid "Fonts & Type"
-msgstr ""
+msgstr "Czcionki"
 
 #: src/Widgets/Preferences.vala:150
 msgid "Editor Font Size:"
-msgstr ""
+msgstr "Wielkość tekstu w edytorze:"
 
 #: src/Widgets/Preferences.vala:203
 msgid "Save files when changed:"
-msgstr ""
+msgstr "Zapisuj zmienione pliki"
 
 #: src/Widgets/Preferences.vala:234
 msgid "Modes"
-msgstr "Tryb"
+msgstr "Tryby"
 
 #: src/Widgets/Preferences.vala:311
 msgid "Enable Focus Mode:"
-msgstr "Włącz Tryb Fokusu:"
+msgstr "Włącz Tryb Skupienia:"
 
 #: src/Widgets/Preferences.vala:314
 msgid "Type of Focus Mode:"
-msgstr "Typ Fokusa"
+msgstr "Skupienie na:"
 
 #: src/Widgets/Preferences.vala:316
 msgid "Paragraph"
-msgstr "Paragraf"
+msgstr "Akapit"
 
 #: src/Widgets/Preferences.vala:317
 msgid "Sentence"
@@ -308,7 +308,7 @@ msgstr "Zdanie"
 
 #: src/Widgets/Preferences.vala:347
 msgid "Typewriter Scrolling:"
-msgstr ""
+msgstr "Tryb maszyny do pisania"
 
 #: src/Widgets/Preferences.vala:351
 msgid "User Interface"
@@ -320,77 +320,77 @@ msgstr "Pokaż pasek stanu:"
 
 #: src/Widgets/Preferences.vala:355
 msgid "Show Searchbar:"
-msgstr "Pokaż pasek stanu:"
+msgstr "Pokaż pasek wyszukiwania:"
 
 #: src/Widgets/Preferences.vala:413
 msgid "Enable Code Highlighting:"
-msgstr "Włącz Sprawdzanie Pisowni"
+msgstr "Włącz podświetlenie kodu:"
 
 #: src/Widgets/Preferences.vala:417
 msgid "Enable Spellchecking:"
-msgstr "Włącz Sprawdzanie Pisowni"
+msgstr "Włącz sprawdzanie pisowni:"
 
 #: src/Widgets/SearchBar.vala:39
 msgid "Replace with…"
-msgstr ""
+msgstr "Zastąp przez…"
 
 #: src/Widgets/SearchBar.vala:43
 msgid "Replace"
-msgstr ""
+msgstr "Zastąp"
 
 #: src/Widgets/SearchBar.vala:46
 msgid "Replace all"
-msgstr ""
+msgstr "Zastąp wszystki"
 
 #: src/Widgets/SearchBar.vala:71
 msgid "Find text…"
-msgstr ""
+msgstr "Znajdź tekst…"
 
 #: src/Widgets/SearchBar.vala:90
 msgid "Search previous"
-msgstr ""
+msgstr "Znajdź poprzednie"
 
 #: src/Widgets/SearchBar.vala:109
 msgid "Search next"
-msgstr ""
+msgstr "Znajdź następne"
 
 #: src/Widgets/SideBar.vala:64
 #, fuzzy
 msgid "No files…"
-msgstr "Nowy plik"
+msgstr "Brak plików…"
 
 #: src/Widgets/SideBar.vala:80
 msgid "Files"
-msgstr ""
+msgstr "Pliki"
 
 #: src/Widgets/SideBar.vala:82
 msgid "Outline"
-msgstr ""
+msgstr "Zarys"
 
 #: src/Widgets/SideBar.vala:148
 #, fuzzy
 msgid "Remove All Files"
-msgstr "Wszystkie pliki"
+msgstr "Usuń wszystkie pliki"
 
 #: src/Widgets/StatusBar.vala:42
 msgid "Show/Hide Sidebar"
-msgstr ""
+msgstr "Pokaż/ukryj pasek boczny"
 
 #: src/Widgets/StatusBar.vala:81
 msgid "Track Characters"
-msgstr ""
+msgstr "Licz znaki"
 
 #: src/Widgets/StatusBar.vala:86
 msgid "Track Words"
-msgstr ""
+msgstr "Licz wyrazy"
 
 #: src/Widgets/StatusBar.vala:91
 msgid "Track Lines"
-msgstr ""
+msgstr "Licz linijki"
 
 #: src/Widgets/StatusBar.vala:111
 msgid "Set Tracking Type"
-msgstr ""
+msgstr "Ustaw typ zliczania"
 
 #: src/Widgets/StatusBar.vala:125
 msgid "Words: "
@@ -398,11 +398,11 @@ msgstr "Słowa: "
 
 #: src/Widgets/StatusBar.vala:132
 msgid "Lines: "
-msgstr ""
+msgstr "Linijki: "
 
 #: src/Widgets/StatusBar.vala:139
 msgid "Characters: "
-msgstr ""
+msgstr "Znaki: "
 
 #: src/Widgets/StatusBar.vala:153
 msgid "Reading Time: "
@@ -418,18 +418,20 @@ msgstr "Wszystkie pliki"
 
 #: src/Services/DialogUtils.vala:44
 msgid "Save Open File?"
-msgstr "Zapisz plik"
+msgstr "Zapisać otwarty plik?"
 
 #: src/Services/DialogUtils.vala:45
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
-msgstr "Jeśli nie zapiszesz, zmiany zostaną utracone na zawsze."
+msgstr ""
+"Są niezapisane zmiany w pliku. Jeśli nie zapiszesz, "
+"zmiany zostaną bezpowrotnie utracone."
 
 #: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
 #: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
 msgid "Save"
-msgstr "Zapisz plik"
+msgstr "Zapisz"
 
 #: src/Services/DialogUtils.vala:50
 msgid "Close Without Saving"
@@ -438,17 +440,19 @@ msgstr "Zamknij bez zapisywania"
 #: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
 #: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
 msgid "Cancel"
-msgstr ""
+msgstr "Anuluj"
 
 #: src/Services/DialogUtils.vala:61
 msgid "Remove File from Sidebar?"
-msgstr ""
+msgstr "Usunąć plik z paska bocznego?"
 
 #: src/Services/DialogUtils.vala:62
 msgid ""
 "By removing this file from the Sidebar, you will lose any changes made if "
 "not saved. Otherwise, it will only be removed."
 msgstr ""
+"Usuwając ten plik z paska bocznego, utracisz wszelkie niezapisane zmiany. "
+"W przeciwnym wypadku, po prostu zostanie usunięty."
 
 #: src/Services/DialogUtils.vala:67
 #, fuzzy
@@ -457,15 +461,15 @@ msgstr "Zamknij bez zapisywania"
 
 #: src/Services/ExportUtils.vala:87
 msgid "Print to File"
-msgstr ""
+msgstr "Drukuj do pliku"
 
 #: src/Services/ExportUtils.vala:144
 msgid "Select destination PDF file"
-msgstr ""
+msgstr "Wybierz położenie pliku PDF"
 
 #: src/Services/ExportUtils.vala:149
 msgid "PDF File"
-msgstr ""
+msgstr "Plik PDF"
 
 #: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
 msgid "All Files"
@@ -473,15 +477,12 @@ msgstr "Wszystkie pliki"
 
 #: src/Services/ExportUtils.vala:193
 msgid "Select destination HTML file"
-msgstr ""
+msgstr "Wybierz położenie pliku HTML"
 
 #: src/Services/ExportUtils.vala:198
 msgid "HTML File"
-msgstr ""
+msgstr "Plik HTML"
 
 #: src/Services/FileManager.vala:84
 msgid "Open file"
 msgstr "Otwórz plik"
-
-#~ msgid "No File"
-#~ msgstr "Wszystkie pliki"
