@@ -640,7 +640,9 @@ namespace Quilter {
                     GLib.FileUtils.get_contents (file_path, out text);
 
                     if (settings.current_file != file_path) {
-                        on_save ();
+                        if (settings.autosave == true) {
+                            on_save ();
+                        }
                     } else if (settings.current_file == _("No Documents Open")) {
                         return;
                     }
