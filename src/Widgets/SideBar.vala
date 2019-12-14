@@ -84,6 +84,7 @@ namespace Quilter.Widgets {
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
+
             scrolled_box.add (stack);
 
             var grid = new Gtk.Grid ();
@@ -167,11 +168,20 @@ namespace Quilter.Widgets {
             tvc.set_sort_order (Gtk.SortType.DESCENDING);
             view.append_column (tvc);
 
+            store.clear ();
+            view.expand_all ();
+            if (settings.current_file != "") {
+                store.clear ();
+                outline_populate ();
+                view.expand_all ();
+            }
+
             settings.changed.connect (() => {
+                store.clear ();
+                view.expand_all ();
                 if (settings.current_file != "") {
                     store.clear ();
                     outline_populate ();
-                    view.expand_all ();
                 }
             });
 
@@ -186,42 +196,44 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            debug ("Outline populated");
             var settings = AppSettings.get_default ();
-            file = GLib.File.new_for_path (settings.current_file);
+            if (settings.current_file != "" || settings.current_file != _("No Documents Open")) {
+                file = GLib.File.new_for_path (get_selected_row ().path);
 
-            if (file.query_exists ()) {
-                try {
-                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
-                    string buffer = "";
-                    GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
-                    GLib.MatchInfo match;
+                if (file.query_exists ()) {
+                    try {
+                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{0,26}\\$?)");
+                        string buffer = "";
+                        GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
+                        GLib.MatchInfo match;
 
-                    if (reg.match (buffer, 0, out match)) {
-                        do {
-                            if (match.fetch_named ("header") == "#") {
-                                store.insert (out root, null, -1);
-                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "##") {
-                                store.insert (out subheader, root, -1);
-                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "###") {
-                                store.insert (out section, subheader, -1);
-                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "####") {
-                                store.insert (out subsection, section, -1);
-                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "#####") {
-                                store.insert (out subsubsection, subsection, -1);
-                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            } else if (match.fetch_named ("header") == "######") {
-                                store.insert (out paragraph, subsubsection, -1);
-                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                            }
-                        } while (match.next ());
+                        if (reg.match (buffer, 0, out match)) {
+                            do {
+                                if (match.fetch_named ("header") == "#") {
+                                    store.insert (out root, null, -1);
+                                    store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                } else if (match.fetch_named ("header") == "##") {
+                                    store.insert (out subheader, root, -1);
+                                    store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                } else if (match.fetch_named ("header") == "###") {
+                                    store.insert (out section, subheader, -1);
+                                    store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                } else if (match.fetch_named ("header") == "####") {
+                                    store.insert (out subsection, section, -1);
+                                    store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                } else if (match.fetch_named ("header") == "#####") {
+                                    store.insert (out subsubsection, subsection, -1);
+                                    store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                } else if (match.fetch_named ("header") == "######") {
+                                    store.insert (out paragraph, subsubsection, -1);
+                                    store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                }
+                            } while (match.next ());
+                            debug ("Outline populated");
+                        }
+                    } catch (GLib.Error e) {
+                        warning ("ERR: %s", e.message);
                     }
-                } catch (GLib.Error e) {
-                    warning ("ERR: %s", e.message);
                 }
             }
         }
@@ -246,7 +258,6 @@ namespace Quilter.Widgets {
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
             column.select_row (filebox);
-            outline_populate ();
 
             return filebox;
         }

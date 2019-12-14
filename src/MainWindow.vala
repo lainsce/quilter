@@ -106,9 +106,12 @@ namespace Quilter {
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
-                sidebar.outline_populate ();
 
-                if (settings.current_file == "") {
+                if (settings.current_file != "") {
+                    sidebar.store.clear ();
+                    sidebar.outline_populate ();
+                    sidebar.view.expand_all ();
+                } else {
                     Services.FileManager.get_cache_path ();
                     sidebar.add_file (Services.FileManager.get_cache_path ());
                     settings.current_file = Services.FileManager.get_cache_path ();
@@ -507,7 +510,9 @@ namespace Quilter {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
             }
 
-            if (settings.current_file == "") {
+            if (settings.current_file != "" || settings.current_file != _("No Documents Open")) {
+                // pass
+            } else {
                 Services.FileManager.get_cache_path ();
                 sidebar.add_file (Services.FileManager.get_cache_path ());
                 settings.current_file = Services.FileManager.get_cache_path ();
