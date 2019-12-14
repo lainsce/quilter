@@ -351,6 +351,15 @@ namespace Quilter {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
 
+            if (!Granite.Services.System.history_is_enabled ()) {
+                edit_view_content.buffer.text = "";
+                Services.FileManager.file = null;
+                toolbar.set_subtitle (_("No Documents Open"));
+                sidebar.store.clear ();
+                sidebar.delete_row ();
+                statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
+            }
+
             try {
                 this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
