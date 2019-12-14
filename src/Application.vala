@@ -64,7 +64,7 @@ namespace Quilter {
                     win.stack.set_visible_child (win.edit_view);
                 }
             }
-            
+
             win.show_all ();
         }
 

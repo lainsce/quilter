@@ -57,7 +57,6 @@ namespace Quilter.Widgets {
         }
 
         public SideBar (MainWindow win) {
-            var settings = AppSettings.get_default ();
             this.win = win;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
@@ -84,36 +83,8 @@ namespace Quilter.Widgets {
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
-            stack.child_set_property (outline_grid, "icon-name", "format-justify-left-symbolic");
-
-            if (settings.current_file != "") {
-                get_file_contents_as_items ();
-                view.expand_all ();
-            }
-
+            stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
             scrolled_box.add (stack);
-
-            var file_clean_button = new Gtk.Button ();
-            var fcb_context = file_clean_button.get_style_context ();
-            fcb_context.add_class ("quilter-sidebar-button");
-            file_clean_button.always_show_image = true;
-            file_clean_button.vexpand = false;
-            file_clean_button.hexpand = false;
-            file_clean_button.valign = Gtk.Align.CENTER;
-            file_clean_button.tooltip_text = "Removes files from the Sidebar, leaving it empty again.\nNo files will be saved however!";
-            file_clean_button.set_label (_("Remove All Files"));
-            var file_clean_button_style_context = file_clean_button.get_style_context ();
-            file_clean_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            file_clean_button.set_image (new Gtk.Image.from_icon_name ("edit-clear-all-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-
-            file_clean_button.clicked.connect (() => {
-                delete_row ();
-                win.edit_view_content.buffer.text = "";
-                Services.FileManager.file = null;
-                win.toolbar.set_subtitle (_("No Documents Open"));
-                store.clear ();
-                win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
-            });
 
             var grid = new Gtk.Grid ();
             var g_context = grid.get_style_context ();
@@ -122,10 +93,8 @@ namespace Quilter.Widgets {
             grid.margin_top = 0;
             grid.attach (stackswitcher, 0, 0, 1, 1);
             grid.attach (scrolled_box, 0, 1, 1, 1);
-            grid.attach (file_clean_button, 0, 2, 1, 1);
 
             this.add (grid);
-
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
 
             show_this = false;
@@ -185,28 +154,23 @@ namespace Quilter.Widgets {
             view.headers_visible = false;
             view.margin_top = 6;
             view.set_activate_on_single_click (true);
+
             store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
+
             crt = new Gtk.CellRendererText ();
             crt.font = "Open Sans 11";
+
             tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
             tvc.set_spacing (6);
             tvc.set_sort_column_id (0);
             tvc.set_sort_order (Gtk.SortType.DESCENDING);
             view.append_column (tvc);
 
-            store.clear ();
-
-            if (settings.current_file != "") {
-                store.clear ();
-                get_file_contents_as_items ();
-                view.expand_all ();
-            }
-
             settings.changed.connect (() => {
-                store.clear ();
                 if (settings.current_file != "") {
-                    get_file_contents_as_items ();
+                    store.clear ();
+                    outline_populate ();
                     view.expand_all ();
                 }
             });
@@ -217,47 +181,47 @@ namespace Quilter.Widgets {
             outline_grid.set_size_request (280, -1);
             outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
+
             return outline_grid;
         }
 
-        public void get_file_contents_as_items () {
+        public void outline_populate () {
+            debug ("Outline populated");
             var settings = AppSettings.get_default ();
-            if (settings.current_file != _("No Documents Open")) {
-                file = GLib.File.new_for_path (settings.current_file);
+            file = GLib.File.new_for_path (settings.current_file);
 
-                if (file.query_exists ()) {
-                    try {
-                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
-                        string buffer = "";
-                        GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
-                        GLib.MatchInfo match;
+            if (file.query_exists ()) {
+                try {
+                    var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{26})");
+                    string buffer = "";
+                    GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
+                    GLib.MatchInfo match;
 
-                        if (reg.match (buffer, 0, out match)) {
-                            do {
-                                if (match.fetch_named ("header") == "#") {
-                                    store.insert (out root, null, -1);
-                                    store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                } else if (match.fetch_named ("header") == "##") {
-                                    store.insert (out subheader, root, -1);
-                                    store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                } else if (match.fetch_named ("header") == "###") {
-                                    store.insert (out section, subheader, -1);
-                                    store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                } else if (match.fetch_named ("header") == "####") {
-                                    store.insert (out subsection, section, -1);
-                                    store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                } else if (match.fetch_named ("header") == "#####") {
-                                    store.insert (out subsubsection, subsection, -1);
-                                    store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                } else if (match.fetch_named ("header") == "######") {
-                                    store.insert (out paragraph, subsubsection, -1);
-                                    store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
-                                }
-                            } while (match.next ());
-                        }
-                    } catch (GLib.Error e) {
-                        warning ("ERR: %s", e.message);
+                    if (reg.match (buffer, 0, out match)) {
+                        do {
+                            if (match.fetch_named ("header") == "#") {
+                                store.insert (out root, null, -1);
+                                store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            } else if (match.fetch_named ("header") == "##") {
+                                store.insert (out subheader, root, -1);
+                                store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            } else if (match.fetch_named ("header") == "###") {
+                                store.insert (out section, subheader, -1);
+                                store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            } else if (match.fetch_named ("header") == "####") {
+                                store.insert (out subsection, section, -1);
+                                store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            } else if (match.fetch_named ("header") == "#####") {
+                                store.insert (out subsubsection, subsection, -1);
+                                store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            } else if (match.fetch_named ("header") == "######") {
+                                store.insert (out paragraph, subsubsection, -1);
+                                store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text") + "…", -1);
+                            }
+                        } while (match.next ());
                     }
+                } catch (GLib.Error e) {
+                    warning ("ERR: %s", e.message);
                 }
             }
         }
@@ -282,6 +246,7 @@ namespace Quilter.Widgets {
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
             column.select_row (filebox);
+            outline_populate ();
 
             return filebox;
         }
@@ -293,10 +258,9 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            foreach (SideBarBox item in get_rows ()) {
-                if (Services.FileManager.is_temp_file (item.path)) {
-                    item.destroy ();
-                }
+            var settings = AppSettings.get_default ();
+            if (get_selected_row ().path == settings.current_file) {
+                get_selected_row ().destroy ();
             }
         }
 

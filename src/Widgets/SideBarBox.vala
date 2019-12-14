@@ -77,6 +77,27 @@ namespace Quilter.Widgets {
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
+            var file_remove_button = new Gtk.Button ();
+            file_remove_button.always_show_image = true;
+            file_remove_button.vexpand = false;
+            file_remove_button.hexpand = false;
+            file_remove_button.valign = Gtk.Align.CENTER;
+            file_remove_button.tooltip_text = _("Remove File from Sidebar");
+            var file_remove_button_style_context = file_remove_button.get_style_context ();
+            file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            file_remove_button_style_context.add_class ("quilter-sidebar-button");
+            file_remove_button_style_context.remove_class ("image-button");
+            file_remove_button.set_image (new Gtk.Image.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+
+            file_remove_button.clicked.connect (() => {
+                win.sidebar.delete_row_with_name ();
+                win.edit_view_content.buffer.text = "";
+                Services.FileManager.file = null;
+                win.toolbar.set_subtitle (_("No Documents Open"));
+                win.sidebar.store.clear ();
+                win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
+            });
+
             file_grid = new Gtk.Grid ();
             file_grid.hexpand = false;
             file_grid.row_spacing = 3;
@@ -85,6 +106,7 @@ namespace Quilter.Widgets {
             file_grid.attach (file_icon, 0, 0, 1, 2);
             file_grid.attach (file_name_label, 1, 0, 1, 1);
             file_grid.attach (file_label, 1, 1, 1, 1);
+            file_grid.attach (file_remove_button, 2, 0, 1, 2);
 
             this.add (file_grid);
             this.hexpand = true;

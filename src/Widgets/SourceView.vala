@@ -173,7 +173,7 @@ namespace Quilter.Widgets {
             }
 
             if (settings.autosave == true) {
-                Timeout.add (1000, () => {
+                Timeout.add_seconds (30, () => {
                     save ();
                     modified = false;
                     return true;
