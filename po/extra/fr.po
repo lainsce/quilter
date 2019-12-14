@@ -1,15 +1,15 @@
 # French translations for extra package.
 # Copyright (C) 2019 THE extra'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the extra package.
-# NathanBnm, 2019.
+# Nathan Bonnemains (@NathanBnm), 2019.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: extra\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-28 18:12+0200\n"
+"POT-Creation-Date: 2019-11-30 16:00+0100\n"
 "PO-Revision-Date: 2019-01-25 21:30+0100\n"
-"Last-Translator: NathanBnm\n"
+"Last-Translator: Nathan Bonnemains (@NathanBnm)\n"
 "Language-Team: Français\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -78,38 +78,135 @@ msgid "Lains"
 msgstr "Lains"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
+msgid "Release: Minority Report"
+msgstr "Version : Corrections mineures"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:62
+msgid "Added: Helpful tooltip for operation of Replace button."
+msgstr "Ajouté : Infobulle pratique pour les actions du bouton Remplacer."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:63
+msgid "Fixed: Changed tooltip on search button to fit HIG."
+msgstr "Corrigé : Modification de l'infobulle du bouton de recherche pour correspondre au recommandations d'elementary (HIG)."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:69
+msgid "Release: Kling Klang"
+msgstr "Version : Cling Clang"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:71
+msgid "Fixed: Outline tab shouldn't make the sidebar grow in size anymore."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:72
+msgid "Fixed: A rogue file in your Home folder shouldn't happen anymore."
+msgstr "Corrigé : Il ne devrait plus y avoir de fichier malveillant dans votre dossier personnel."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:78
+msgid "Release: Let's Make It Whirr"
+msgstr "Version : Faisons-le ronronner"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:80
+msgid "Fixed: Save As for a file will update the UI accordingly after usage."
+msgstr "Corrigé : Enregistrer sous pour un fichier mettra à jour l'interface utilisateur en conséquence après utilisation."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:81
+msgid ""
+"Fixed: Outline tab is cleaned when pressing the Remove All Files button."
+msgstr ""
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:82
+msgid "Fixed: File names of deleted files are not reused."
+msgstr "Corrigé : Les noms des fichiers supprimés ne sont pas réutilisés."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:83
+msgid ""
+"Fixed: Reading Time is properly reset when pressing the Remove All Files "
+"button."
+msgstr "Corrigé : Le temps de lecture est correctement réinitialisé en appuyant sur le bouton Supprimer tous les fichiers."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:84
+msgid "Fixed: Reading Time is properly updated as text is typed."
+msgstr "Corrigé : Le temps de lecture est correctement mis à jour au fur et à mesure que le texte est tapé."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:90
+msgid "Release: Minimal Maximize Madness"
+msgstr "Version : Minimiser au maximum la bêtise"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:92
+msgid "Fixed: Maximization problems in certain setups."
+msgstr "Corrigé : Problèmes d'agrandissement de la fenêtre dans certaines configurations."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:98
+msgid "Release: Layout Lambada"
+msgstr "Version : Mise en page Lambada"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:100
+msgid ""
+"Added: New Layout; Half-Width, check it out by changing layouts on the "
+"statusbar."
+msgstr ""
+"Ajouté : Nouvelle mise en page ; Demi largeur, essayez en modifiant la mise en page dans la barre d'état."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:106
+msgid "Release: Backend Blues"
+msgstr "Version : Blues en arrière-plan"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:108
+msgid "Fixed: Many backend problems were fixed to count here."
+msgstr "Corrigé : De nombreux problèmes en arrière-plan ont été corrigés pour compter ici."
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:114
+msgid "Release: Sidebar Shoeshine"
+msgstr "Version : Cirage de barre latérale"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:116
+msgid "Fixed: Sidebar would grow uncontrollably"
+msgstr "Corrigé : La barre latérale s'agrandissait de façon incontrôlable"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:117
+msgid ""
+"Fixed: No more file muncher monster, your files will be saved and taken care "
+"of. (Bleak Grey [@bleakgrey])"
+msgstr "Corrigé : Plus de monstre mangeur de fichiers, vos fichiers seront sauvegardés et pris en charge. (Bleak Grey [@bleakgrey])"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:118
+msgid "Fixed: Spellchecking now works without any problem"
+msgstr "Corrigé : La correction orthographique fonctionne désormais sans problème"
+
+#: data/com.github.lainsce.quilter.appdata.xml.in:124
 msgid "Release: Sidebar File Cleaner-o-matic"
 msgstr "Version : Nettoyeur automatique de barre latérale"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:62
+#: data/com.github.lainsce.quilter.appdata.xml.in:126
 msgid ""
 "Added: \"Remove All Files\" button on the sidebar, this way, no files will "
 "be harmed with the old close file buttons."
 msgstr ""
-"Ajouté : Bouton « Supprimer tous les fichiers » dans la barre latérale, de cette façon aucun fichier ne sera "
-"endommagé ou perdu avec les anciens boutons de fermeture de fichier."
+"Ajouté : Bouton « Supprimer tous les fichiers » dans la barre latérale, de "
+"cette façon aucun fichier ne sera endommagé ou perdu avec les anciens "
+"boutons de fermeture de fichier."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:68
+#: data/com.github.lainsce.quilter.appdata.xml.in:132
 msgid "Release: Export without Errors"
 msgstr "Version : Exportation sans erreur"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:70
+#: data/com.github.lainsce.quilter.appdata.xml.in:134
 msgid "Fixed: Exports to PDF while in other modes visual glitches."
 msgstr "Correction : Bugs visuels lors de l'exportation en PDF."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:76
+#: data/com.github.lainsce.quilter.appdata.xml.in:140
 msgid "Release: I Said Fixes!"
 msgstr "Version : J'ai dit « des corrections » !"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:78
+#: data/com.github.lainsce.quilter.appdata.xml.in:142
 msgid "Fixed: Backend technical confusion with files."
 msgstr "Correction : Confusion technique en arrière-plan avec les fichiers."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:84
+#: data/com.github.lainsce.quilter.appdata.xml.in:148
 msgid "Release: Did Anyone Say Minor Fixes?"
 msgstr "Version : Quelqu'un a parlé de corrections mineures ?"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:86
+#: data/com.github.lainsce.quilter.appdata.xml.in:150
 msgid ""
 "Fixed: Local image syntax wrongly picked up with links or two : in "
 "succession."
@@ -117,30 +214,30 @@ msgstr ""
 "Correction : Syntaxe de l'image locale mal choisie avec des liens ou deux : "
 "en succession."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:92
+#: data/com.github.lainsce.quilter.appdata.xml.in:156
 msgid "Release: Even MORE Minor Fixes"
 msgstr "Version : Encore PLUS de corrections mineures"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:94
+#: data/com.github.lainsce.quilter.appdata.xml.in:158
 msgid "Other tiny fixes with the sidebar."
 msgstr "Autres légères corrections avec la barre latérale."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:100
-#: data/com.github.lainsce.quilter.appdata.xml.in:109
+#: data/com.github.lainsce.quilter.appdata.xml.in:164
+#: data/com.github.lainsce.quilter.appdata.xml.in:173
 msgid "Release: Minor Fixes"
 msgstr "Version : Corrections mineures"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:102
+#: data/com.github.lainsce.quilter.appdata.xml.in:166
 msgid "Fixed: Various Sidebar fixes for safety of your files."
 msgstr ""
 "Correction : Diverses corrections de la barre latérale pour la sécurité de "
 "vos fichiers."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:103
+#: data/com.github.lainsce.quilter.appdata.xml.in:167
 msgid "Other: Minor fixes in styling."
 msgstr "Autre : Corrections mineures de style."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:111
+#: data/com.github.lainsce.quilter.appdata.xml.in:175
 msgid ""
 "Fixed: cache was not being made, resulting in multiple file loss afterwards "
 "with many operations."
@@ -148,11 +245,11 @@ msgstr ""
 "Correction : Le cache n'était pas construit, ce qui entraînait la perte de "
 "plusieurs fichiers par la suite avec de nombreuses opérations."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:117
+#: data/com.github.lainsce.quilter.appdata.xml.in:181
 msgid "Release: Magic Files"
 msgstr "Version : Fichiers magiques"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:119
+#: data/com.github.lainsce.quilter.appdata.xml.in:183
 msgid ""
 "Added: When a user types a path with either % ... % or : ... : to a file or "
 "image respectively, it is embedded, and is in Preview."
@@ -161,16 +258,16 @@ msgstr ""
 "image avec % ... % ou : ... : respectivement, il est intégré, et apparaît "
 "dans l'aperçu."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:125
+#: data/com.github.lainsce.quilter.appdata.xml.in:189
 msgid "Release: Fixes and Gizmos"
 msgstr "Version : Corrections et gadgets"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:127
+#: data/com.github.lainsce.quilter.appdata.xml.in:191
 msgid "Fixes: Outline crashes the app if no file found."
 msgstr ""
 "Corrections : L'aperçu plante l'application si aucun fichier n'est trouvé."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:128
+#: data/com.github.lainsce.quilter.appdata.xml.in:192
 msgid ""
 "Fixes: App crashes if new document button is pushed when no files are in the "
 "sidebar."
@@ -178,52 +275,52 @@ msgstr ""
 "Corrections : L'application se ferme brutalement si le bouton Nouveau "
 "document est appuyé alors qu'il n'y a aucun fichier dans la barre latérale."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:129
+#: data/com.github.lainsce.quilter.appdata.xml.in:193
 msgid "Fixes: App fails to launch if file in sidebar no longer exists."
 msgstr ""
 "Corrections : L'application ne se lance pas si le fichier dans la barre "
 "latérale n'existe plus."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:130
+#: data/com.github.lainsce.quilter.appdata.xml.in:194
 msgid "Fixes: App doesn't check spelling."
 msgstr "Corrections : L'application ne vérifie pas l'orthographe."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:136
+#: data/com.github.lainsce.quilter.appdata.xml.in:200
 msgid "Release: File Eyeliner"
 msgstr "Version : Fichier Eyeliner"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:138
+#: data/com.github.lainsce.quilter.appdata.xml.in:202
 msgid "Added: File outline in the sidebar."
 msgstr "Ajouté : Aperçu du fichier dans la barre latérale."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:144
+#: data/com.github.lainsce.quilter.appdata.xml.in:208
 msgid "Release: Blu-ray Encoder"
 msgstr "Version : Encodeur Blu-Ray"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:146
+#: data/com.github.lainsce.quilter.appdata.xml.in:210
 msgid "Fixed: When adding files to sidebar, actually select them."
 msgstr ""
 "Corrigé : Lorsque vous ajoutez des fichiers à la barre latérale, "
 "sélectionnez-les."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:147
+#: data/com.github.lainsce.quilter.appdata.xml.in:211
 msgid "Updated: Dutch Translation"
 msgstr "Mise à jour : Traduction en néerlandais"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:153
+#: data/com.github.lainsce.quilter.appdata.xml.in:217
 msgid "Release: DVD Cleaner"
 msgstr "Version : Nettoyeur de DVD"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:155
+#: data/com.github.lainsce.quilter.appdata.xml.in:219
 msgid "Fixed: Opening files should never fail now."
 msgstr ""
 "Corrigé : L'ouverture des fichiers ne devrait jamais échouer maintenant."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:161
+#: data/com.github.lainsce.quilter.appdata.xml.in:225
 msgid "Release: VHS Tape Mixer"
 msgstr "Version : Mélangeur de cassettes VHS"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:163
+#: data/com.github.lainsce.quilter.appdata.xml.in:227
 msgid ""
 "Reworked a lot of the internals so actions don't kill files. [Adam "
 "Bieńkowski - @donadigo]"
@@ -231,21 +328,21 @@ msgstr ""
 "Il a refait beaucoup de travail en interne pour que les actions ne "
 "suppriment pas les fichiers. [Adam Bieńkowski - @donadigo]"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:169
+#: data/com.github.lainsce.quilter.appdata.xml.in:233
 msgid "Release: Betamax Tracker"
 msgstr "Version : Traqueur Betamax"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:171
+#: data/com.github.lainsce.quilter.appdata.xml.in:235
 msgid "Some UX redefinition in the sidebar, to avoid complicating it."
 msgstr ""
 "Révision de l'interface graphique de la barre latérale, pour éviter de la "
 "compliquer."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:177
+#: data/com.github.lainsce.quilter.appdata.xml.in:241
 msgid "Release: Kodachrome Selector"
 msgstr "Version : Sélecteur de Kodachrome"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:179
+#: data/com.github.lainsce.quilter.appdata.xml.in:243
 msgid ""
 "Open files without adding duplicate entries, and clear sidebar is you really "
 "need to (it has a confirm dialog)."
@@ -254,47 +351,47 @@ msgstr ""
 "latérale si vous en avez vraiment besoin (il y a une boîte de dialogue de "
 "confirmation)."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:185
+#: data/com.github.lainsce.quilter.appdata.xml.in:249
 msgid "Release: Visually Stunning"
 msgstr "Version : Visuellement époustouflant"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:186
+#: data/com.github.lainsce.quilter.appdata.xml.in:250
 msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
 msgstr ""
 "Quilter a reçu une mise à jour visuelle, ainsi qu'une mise au point "
 "impressionnante du traitement."
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:188
+#: data/com.github.lainsce.quilter.appdata.xml.in:252
 msgid "Rewrote all Sidebar functions"
 msgstr "Réécriture de toutes les fonctions de la barre latérale"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:189
+#: data/com.github.lainsce.quilter.appdata.xml.in:253
 msgid "Removed LaTeX because it was lagging the app…"
 msgstr "Suppression de LaTeX car cela ralentissait l'application…"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:190
+#: data/com.github.lainsce.quilter.appdata.xml.in:254
 msgid "All File Management functions rewritten from scratch!"
 msgstr ""
 "Toutes les fonctions de gestion de fichiers ont été réécrites à partir de "
 "zéro !"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:197
+#: data/com.github.lainsce.quilter.appdata.xml.in:261
 msgid "Light Mode"
 msgstr "Thème clair"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:201
+#: data/com.github.lainsce.quilter.appdata.xml.in:265
 msgid "Sepia Mode"
 msgstr "Thème sepia"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:205
+#: data/com.github.lainsce.quilter.appdata.xml.in:269
 msgid "Dark Mode"
 msgstr "Thème sombre"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:209
+#: data/com.github.lainsce.quilter.appdata.xml.in:273
 msgid "Focus Mode"
 msgstr "Mode zen"
 
-#: data/com.github.lainsce.quilter.appdata.xml.in:213
+#: data/com.github.lainsce.quilter.appdata.xml.in:277
 msgid "Preview Mode"
 msgstr "Mode Aperçu"
 
