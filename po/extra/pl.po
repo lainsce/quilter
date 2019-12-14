@@ -1,15 +1,14 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.quilter package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# Polish translations for Quilter.
+# This file is distributed under the same license as the com.github.lainsce.quilter.
+# Created by Michał Nowakowski <nowakowski@offshore.rocks>, 2019.
+
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-28 18:12+0200\n"
 "PO-Revision-Date: 2018-01-11 23:01+0100\n"
-"Last-Translator: Michał Rowicki <mirowicki@gmail.com>\n"
+"Last-Translator: Michał Nowakowski <nowakowski@offshore.rocks>\n"
 "Language-Team:\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
@@ -24,240 +23,257 @@ msgstr "Quilter"
 #: data/com.github.lainsce.quilter.appdata.xml.in:7
 #: data/com.github.lainsce.quilter.desktop.in:4
 msgid "Focus on your writing"
-msgstr ""
+msgstr "Skup się na pisaniu"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:9
 msgid ""
 "Focus on your writing and write beautiful solid stories with the Focus Mode "
 "in tow in this Markdown editor"
 msgstr ""
+"Skup się na swoim pisaniu i pisz piękne, solidne opowieści w Trybie Skupienia "
+"z pomocą tego edytora Markdown."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:11
 msgid "Work on a story, one file displayed at a time, many files sidebar'd."
-msgstr ""
+msgstr "Pracuj nad opowieścią, jeden plik na raz, wiele na pasku bocznym."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:12
 msgid "Save your documents anywhere, even on existing files."
-msgstr ""
+msgstr "Zapisuj swoje dokumenty gdziekolwiek, nawet na istniejących plikach."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:13
 msgid "Preview your story in the Preview Mode."
-msgstr ""
+msgstr "Podejrzyj swoją opowieść w trybie Podglądu."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:14
 msgid "Configure whether to have Focus Mode or not."
-msgstr ""
+msgstr "Skonfiguruj, czy chcesz mieć Tryb Skupienia, czy nie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:15
 msgid "Configure whether to have Dark Mode or not."
-msgstr ""
+msgstr "Skonfiguruj, czy chcesz mieć tryb Ciemny, czy nie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:16
 msgid "Configure whether to have Sepia Mode or not."
-msgstr ""
+msgstr "Skonfiguruj, czy chcesz mieć tryb Sepii, czy nie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:17
 msgid "Fullscreen your writing area with F11."
-msgstr ""
+msgstr "Pisz w trybie pełnoekranowym dzięki F11."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:18
 msgid "Search anytime with the shortcut Ctrl + F"
-msgstr ""
+msgstr "Przeszukuj kiedy chcesz skrótem Ctrl + F."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:19
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "Zamknij aplikację kiedy chcesz skrótem Ctrl + Q."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:25
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
 msgid "Release: Sidebar File Cleaner-o-matic"
-msgstr ""
+msgstr "Wydanie: Czyściciel Paska Bocznego"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:62
 msgid ""
 "Added: \"Remove All Files\" button on the sidebar, this way, no files will "
 "be harmed with the old close file buttons."
 msgstr ""
+"Dodane: przycisk \"Wyczyść pasek boczny\", który nie usuwa żadnych plików, "
+"tylko czyści pasek boczny."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:68
 msgid "Release: Export without Errors"
-msgstr ""
+msgstr "Wydanie: Eksportuj bez błędów"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:70
 msgid "Fixed: Exports to PDF while in other modes visual glitches."
-msgstr ""
+msgstr "Poprawione: Eksportowanie do PDF, kiedy w innych trybach są wizualne błędy."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:76
 msgid "Release: I Said Fixes!"
-msgstr ""
+msgstr "Wydanie: Powiedziałem „Poprawki!”"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:78
 msgid "Fixed: Backend technical confusion with files."
-msgstr ""
+msgstr "Poprawione: Techniczne zamieszanie z plikami."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:84
 msgid "Release: Did Anyone Say Minor Fixes?"
-msgstr ""
+msgstr "Wydanie: Czy ktoś powiedział „Drobne poprawki”?"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:86
 msgid ""
 "Fixed: Local image syntax wrongly picked up with links or two : in "
 "succession."
 msgstr ""
+"Poprawione: Lokalna składnia obrazu błędnie pobrana "
+"z linkami lub dwoma: sukcesywnie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:92
 msgid "Release: Even MORE Minor Fixes"
-msgstr ""
+msgstr "Wydanie: Nawet WIĘCEJ drobnych poprawek"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:94
 msgid "Other tiny fixes with the sidebar."
-msgstr ""
+msgstr "Inne malutkie poprawki paska bocznego."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:100
 #: data/com.github.lainsce.quilter.appdata.xml.in:109
 msgid "Release: Minor Fixes"
-msgstr ""
+msgstr "Wydanie: Drobne Poprawki"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:102
 msgid "Fixed: Various Sidebar fixes for safety of your files."
-msgstr ""
+msgstr "Poprawione: Różne poprawki paska bocznego dla bezpieczeństwa plików."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:103
 msgid "Other: Minor fixes in styling."
-msgstr ""
+msgstr "Inne: Drobne poprawki w stylizacji."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:111
 msgid ""
 "Fixed: cache was not being made, resulting in multiple file loss afterwards "
 "with many operations."
 msgstr ""
+"Poprawione: cache nie było tworzone, co powodowało wielokrotną "
+"utratę plików i wiele operacji."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:117
 msgid "Release: Magic Files"
-msgstr ""
+msgstr "Wydanie: Magiczne Pliki"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:119
 msgid ""
 "Added: When a user types a path with either % ... % or : ... : to a file or "
 "image respectively, it is embedded, and is in Preview."
 msgstr ""
+"Dodano: Kiedy użytkownik wpisze ścieżkę z % ... % albo : ... : prowadzącą "
+"do pliku lub obrazka, zostaje to osadzone i jest widoczne w Podglądzie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:125
 msgid "Release: Fixes and Gizmos"
-msgstr ""
+msgstr "Wydanie: Poprawki i Ustrojstwa"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:127
 msgid "Fixes: Outline crashes the app if no file found."
-msgstr ""
+msgstr "Poprawione: Zarys zamykał aplikację, jeśli nie znaleziono pliku."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:128
 msgid ""
 "Fixes: App crashes if new document button is pushed when no files are in the "
 "sidebar."
 msgstr ""
+"Poprawione: Zamykanie się aplikacji, kiedy przycisk nowego dokumentu jest "
+"wciskany przy pustym pasku bocznym."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:129
 msgid "Fixes: App fails to launch if file in sidebar no longer exists."
-msgstr ""
+msgstr "Poprawione: Nieotwieranie aplikacji, jeśli plik z pasku bocznego "
+"już nie istnieje."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:130
 msgid "Fixes: App doesn't check spelling."
-msgstr ""
+msgstr "Porawione: Aplikacja nie sprawdzała pisowni."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:136
 msgid "Release: File Eyeliner"
-msgstr ""
+msgstr "Wydanie: Eyeliner plików"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:138
 msgid "Added: File outline in the sidebar."
-msgstr ""
+msgstr "Dodane: Zarys pliku w pasku bocznym."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:144
 msgid "Release: Blu-ray Encoder"
-msgstr ""
+msgstr "Wydanie: Enkoder Blu-ray"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:146
 msgid "Fixed: When adding files to sidebar, actually select them."
-msgstr ""
+msgstr "Poprawiono: Wybieranie pliku dodawanego do paska bocznego."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:147
 msgid "Updated: Dutch Translation"
-msgstr ""
+msgstr "Zaktualizowano: Tłumaczenie niderlandzkie."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:153
 msgid "Release: DVD Cleaner"
-msgstr ""
+msgstr "Wydanie: Czyszczarka DVD"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:155
 msgid "Fixed: Opening files should never fail now."
-msgstr ""
+msgstr "Poprawiono: Otwieranie plików."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:161
 msgid "Release: VHS Tape Mixer"
-msgstr ""
+msgstr "Wydanie: Mikser kaset VHS"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:163
 msgid ""
 "Reworked a lot of the internals so actions don't kill files. [Adam "
 "Bieńkowski - @donadigo]"
 msgstr ""
+"Przerobiono wiele wewnętrznych elementów, żeby akcje nie zabijały "
+"plików. [Adam Bieńkowski - @donadigo]"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:169
 msgid "Release: Betamax Tracker"
-msgstr ""
+msgstr "Wydanie: Betamax Tracker"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:171
 msgid "Some UX redefinition in the sidebar, to avoid complicating it."
-msgstr ""
+msgstr "Przeróbki UX paska bocznego, aby uniknąć komplikacji."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:177
 msgid "Release: Kodachrome Selector"
-msgstr ""
+msgstr "Wydanie: Selektor Kodachromu"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:179
 msgid ""
 "Open files without adding duplicate entries, and clear sidebar is you really "
 "need to (it has a confirm dialog)."
 msgstr ""
+"Otwieraj pliki bez dodawania duplikatów wpisów, a czysty pasek boczny jest "
+"naprawdę potrzebny (ma okno dialogowe z potwierdzeniem)."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:185
 msgid "Release: Visually Stunning"
-msgstr ""
+msgstr "Wydanie: Oszałamiające wizualnie"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:186
 msgid "Quilter received a visual upgrade, and also an awesome backend tuneup."
-msgstr ""
+msgstr "Wygląd Quiltera został ulepszony, podobnie, jak jego backend."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:188
 msgid "Rewrote all Sidebar functions"
-msgstr ""
+msgstr "Przepisano wszystkie funkcje paska bocznego"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:189
 msgid "Removed LaTeX because it was lagging the app…"
-msgstr ""
+msgstr "Usunięto LaTeX-a, który zacinał aplikację…"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:190
 msgid "All File Management functions rewritten from scratch!"
-msgstr ""
+msgstr "Wszystkie funkcje zarządzania plikami napisano od nowa!"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:197
 msgid "Light Mode"
-msgstr ""
+msgstr "Jasny"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:201
 msgid "Sepia Mode"
-msgstr "Tryb Ciemny"
+msgstr "Sepia"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:205
 msgid "Dark Mode"
-msgstr "Tryb Ciemny"
+msgstr "Ciemny"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:209
 msgid "Focus Mode"
-msgstr "Tryb Fokusu"
+msgstr "Tryb Skupienia"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:213
 msgid "Preview Mode"
@@ -265,8 +281,8 @@ msgstr "Podgląd"
 
 #: data/com.github.lainsce.quilter.desktop.in:6
 msgid "com.github.lainsce.quilter"
-msgstr ""
+msgstr "com.github.lainsce.quilter"
 
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;Editor;"
-msgstr ""
+msgstr "Tekst;Markdown;Edytor;"
