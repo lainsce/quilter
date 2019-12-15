@@ -274,6 +274,14 @@ namespace Quilter {
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
 
+            if (settings.preview_type != "full") {
+                var evadj = edit_view.get_vadjustment ();
+                var pvadj = preview_view.get_vadjustment ();
+
+                evadj.set_value(evadj.get_upper() - evadj.get_page_size());
+                preview_view.set_vadjustment (evadj);
+            }
+
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
