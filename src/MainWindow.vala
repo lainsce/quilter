@@ -267,7 +267,6 @@ namespace Quilter {
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
-            edit_view_content.monospace = true;
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
@@ -275,11 +274,7 @@ namespace Quilter {
             preview_view.add (preview_view_content);
 
             if (settings.preview_type != "full") {
-                var evadj = edit_view.get_vadjustment ();
-                var pvadj = preview_view.get_vadjustment ();
-
-                evadj.set_value(evadj.get_upper() - evadj.get_page_size());
-                preview_view.set_vadjustment (evadj);
+                // Ideally, get scroll position from preview view "webpage", and use that as the vadj of edit view.
             }
 
             stack = new Gtk.Stack ();

@@ -61,6 +61,11 @@ install_data(
     install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )
 
+install_data(
+    join_paths('font', 'QuiltVier.ttf'),
+    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
+)
+
 install_subdir(
     'plugin/highlight.js',
     install_dir: join_paths([ get_option('prefix'), get_option('datadir'), 'com.github.lainsce.quilter' ])

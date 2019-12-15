@@ -59,6 +59,7 @@ namespace Quilter {
         public string current_file { get; set; }
         public string[] last_files { get; set; }
         public string preview_font { get; set; }
+        public string edit_font_type { get; set; }
         public string spellcheck_language { get; set; }
         public string track_type { get; set; }
         public string preview_type { get; set; }

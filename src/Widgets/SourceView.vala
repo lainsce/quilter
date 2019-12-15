@@ -191,6 +191,7 @@ namespace Quilter.Widgets {
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
+            this.monospace = true;
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -248,6 +249,14 @@ namespace Quilter.Widgets {
                 buffer_context.remove_class ("small-text");
                 buffer_context.remove_class ("medium-text");
                 buffer_context.add_class ("big-text");
+            }
+
+            if (settings.edit_font_type == "mono") {
+                buffer_context.add_class ("mono-font");
+                buffer_context.remove_class ("vier-font");
+            } else if (settings.edit_font_type == "vier") {
+                buffer_context.add_class ("vier-font");
+                buffer_context.remove_class ("mono-font");
             }
 
             var style_manager = Gtk.SourceStyleSchemeManager.get_default ();

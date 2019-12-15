@@ -65,8 +65,13 @@
 				<summary>Last opened files</summary>
 				<description>The last opened files in Quilter</description>
 		</key>
+		<key name="edit-font-type" type="s">
+				<default>'mono'</default>
+				<summary>Font used on Edit View</summary>
+				<description>The user-preferred font to use in Edit in Quilter</description>
+		</key>
 		<key name="preview-font" type="s">
-				<default>''</default>
+				<default>'mono'</default>
 				<summary>Font used on Preview View</summary>
 				<description>The user-preferred font to use in Preview in Quilter</description>
 		</key>

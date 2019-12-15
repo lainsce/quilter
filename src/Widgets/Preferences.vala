@@ -147,6 +147,36 @@ namespace Quilter.Widgets {
             });
 
             var font_header = new Granite.HeaderLabel (_("Fonts & Type"));
+            var font_type_label = new SettingsLabel (_("Editor Font Type:"));
+            var font_type = new Gtk.ComboBoxText();
+            font_type.append_text(_("Quilt Mono"));
+            font_type.append_text(_("Quilt Vier"));
+            switch (main_settings.edit_font_type) {
+                case "mono":
+                    font_type.set_active(0);
+                    break;
+                case "vier":
+                    font_type.set_active(1);
+                    break;
+                default:
+                    font_type.set_active(0);
+                    break;
+            }
+
+            font_type.changed.connect (() => {
+                switch (font_type.get_active ()) {
+                    case 0:
+                        main_settings.edit_font_type = "mono";
+                        break;
+                    case 1:
+                        main_settings.edit_font_type = "vier";
+                        break;
+                    default:
+                        main_settings.edit_font_type = "mono";
+                        break;
+                }
+            });
+
             var font_label = new SettingsLabel (_("Editor Font Size:"));
             var font_size = new Granite.Widgets.ModeButton ();
             font_size.append_text (_("Small"));
@@ -202,7 +232,7 @@ namespace Quilter.Widgets {
             var edit_header = new Granite.HeaderLabel (_("Editor"));
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
-            
+
             editor_grid.attach (edit_header,  0, 0, 1, 1);
             editor_grid.attach (save_button_label,  0, 1, 1, 1);
             editor_grid.attach (save_button, 1, 1, 1, 1);
@@ -214,8 +244,10 @@ namespace Quilter.Widgets {
             editor_grid.attach (margins_size, 1, 5, 1, 1);
 
             editor_grid.attach (font_header, 0, 7, 3, 1);
-            editor_grid.attach (font_label, 0, 8, 1, 1);
-            editor_grid.attach (font_size, 1, 8, 1, 1);
+            editor_grid.attach (font_type_label, 0, 8, 1, 1);
+            editor_grid.attach (font_type, 1, 8, 1, 1);
+            editor_grid.attach (font_label, 0, 9, 1, 1);
+            editor_grid.attach (font_size, 1, 9, 1, 1);
 
             return editor_grid;
         }
