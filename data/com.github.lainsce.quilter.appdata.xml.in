@@ -55,14 +55,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="2.0.4" date="2020-02-12">
+        <release version="2.0.4" date="2019-12-20">
          <description>
             <p>Release: Minority Report</p>
             <ul>
                 <li>Added: Instead of a Remove All Button, an individual Remove button for each file.</li>
                 <li>Added: New Outline icon, better reflects what Outline is.</li>
                 <li>Added: Helpful tooltip for operation of Replace button.</li>
-		        <li>Fixed: Changed tooltip on search button to fit HIG.</li>
+                <li>Added: Sync scroll of Edit view to Preview when in Half-Width Layout. (Note: Won't sync Preview scroll to Edit View.)</li>
+		            <li>Fixed: Changed tooltip on search button to fit HIG.</li>
             </ul>
          </description>
         </release>
