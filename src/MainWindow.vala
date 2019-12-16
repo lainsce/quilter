@@ -38,6 +38,7 @@ namespace Quilter {
         public Gtk.ScrolledWindow preview_view;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
+        public ulong scroll_fix;
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
@@ -106,6 +107,7 @@ namespace Quilter {
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
+                scroll_to (edit_view);
 
                 if (settings.current_file != "") {
                     sidebar.store.clear ();
@@ -272,10 +274,7 @@ namespace Quilter {
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
-
-            if (settings.preview_type != "full") {
-                // Ideally, get scroll position from preview view "webpage", and use that as the vadj of edit view.
-            }
+            ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
 
             stack = new Gtk.Stack ();
             stack.hexpand = true;
@@ -354,6 +353,16 @@ namespace Quilter {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
 
+            Gtk.Adjustment ead = edit_view.get_vadjustment ();
+            Gtk.Adjustment pad = preview_view.get_vadjustment ();
+            ead.value_changed.connect (() => {
+                scroll_to (preview_view);
+            });
+            scroll_fix = pad.value_changed.connect (() => {
+                scroll_to_fix (preview_view);
+            });
+            pad.set_lower(1);
+
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
                 Services.FileManager.file = null;
@@ -415,6 +424,38 @@ namespace Quilter {
 
             on_save ();
             return false;
+        }
+
+        public void scroll_to (Gtk.Widget widget) {
+            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
+            Gtk.Adjustment padj = preview_view.get_vadjustment ();
+            padj.disconnect(scroll_fix);
+            var value = eadj.get_value();
+            var psize_edit = eadj.get_page_size();
+            var psize_prev = padj.get_page_size();
+            var upper_edit = eadj.get_upper();
+            var upper_prev = padj.get_upper();
+
+            if (value >= (upper_edit - psize_edit)) {
+                padj.set_value(upper_prev - psize_prev);
+            } else {
+                padj.set_value(value / upper_edit * upper_prev);
+            }
+
+            scroll_fix = padj.value_changed.connect (() => {
+                    scroll_to_fix (preview_view);
+            });
+        }
+
+        public void scroll_to_fix (Gtk.Widget widget) {
+            Gtk.Adjustment padj = preview_view.get_vadjustment ();
+            padj.disconnect(scroll_fix);
+            var value = padj.get_value();
+            if (value == 0) {
+                scroll_to (widget);
+            } else {
+                // pass
+            }
         }
 
         private static void widget_unparent (Gtk.Widget widget) {
