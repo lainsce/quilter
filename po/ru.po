@@ -1,0 +1,518 @@
+# Russian translations for com.github.lainsce.quilter package.
+# Copyright (C) 2019 THE com.github.lainsce.quilter'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# Arthur Aslanyan <arthur.e.aslanyan@gmail.com>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-06-28 18:11+0200\n"
+"PO-Revision-Date: 2019-12-20 01:24+0600\n"
+"Last-Translator: Arthur Aslanyan <arthur.e.aslanyan@gmail.com>\n"
+"Language-Team: none\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: src/MainWindow.vala:82
+msgid "Quilter"
+msgstr "Quilter"
+
+#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
+#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
+msgid "No Documents Open"
+msgstr "Нет открытых документов"
+
+#: src/MainWindow.vala:231
+msgid "Use Sans-serif"
+msgstr "Использовать Sans-serif"
+
+#: src/MainWindow.vala:236
+msgid "Use Serif"
+msgstr "Использовать Serif"
+
+#: src/MainWindow.vala:242
+msgid "Use Monospace"
+msgstr "Использовать моноширинный шрифт"
+
+#: src/MainWindow.vala:261
+msgid "Set Preview Font"
+msgstr "Установить шрифт для предпросмотра"
+
+#: src/MainWindow.vala:277
+msgid "Edit"
+msgstr "Редактировать"
+
+#: src/MainWindow.vala:278
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#: src/Widgets/Cheatsheet.vala:29
+msgid "Cheatsheet"
+msgstr "Шпаргалка"
+
+#: src/Widgets/Cheatsheet.vala:47
+msgid "Text"
+msgstr "Текст"
+
+#: src/Widgets/Cheatsheet.vala:48
+msgid "Links & Special"
+msgstr "Ссылки и особое"
+
+#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
+msgid "Tables"
+msgstr "Таблицы"
+
+#. Close button
+#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
+msgid "Close"
+msgstr "Закрыть"
+
+#: src/Widgets/Cheatsheet.vala:79
+msgid "Heading"
+msgstr "Заголовки"
+
+#: src/Widgets/Cheatsheet.vala:80
+msgid "# Heading 1"
+msgstr "Заголовок 1"
+
+#: src/Widgets/Cheatsheet.vala:81
+msgid "## Heading 2"
+msgstr "Заголовок 2"
+
+#: src/Widgets/Cheatsheet.vala:82
+msgid "### Heading 3"
+msgstr "Заголовок 3"
+
+#: src/Widgets/Cheatsheet.vala:83
+msgid "#### Heading 4"
+msgstr "Заголовок 4"
+
+#: src/Widgets/Cheatsheet.vala:84
+msgid "##### Heading 5"
+msgstr "Заголовок 5"
+
+#: src/Widgets/Cheatsheet.vala:85
+msgid "###### Heading 6"
+msgstr "Заголовок 6"
+
+#: src/Widgets/Cheatsheet.vala:86
+msgid "Special Text"
+msgstr "Стили текста"
+
+#: src/Widgets/Cheatsheet.vala:87
+msgid "** Bold text **"
+msgstr "** Жирный текст **"
+
+#: src/Widgets/Cheatsheet.vala:88
+msgid "* Emphasized text *"
+msgstr "* Выделенный текст *"
+
+#: src/Widgets/Cheatsheet.vala:89
+msgid "` Code text `"
+msgstr "` Код `"
+
+#: src/Widgets/Cheatsheet.vala:90
+msgid "> Quoting text"
+msgstr "> Цитата"
+
+#: src/Widgets/Cheatsheet.vala:91
+msgid "~~Strikethrough text~~"
+msgstr "~~Перечеркнутый текст~~"
+
+#: src/Widgets/Cheatsheet.vala:115
+msgid "Links"
+msgstr "Ссылки"
+
+#: src/Widgets/Cheatsheet.vala:116
+msgid "[Link Label](http://link.url.here.com)"
+msgstr "[Название ссылки](http://ваша.ссылка.тут.com)"
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "![Image Label](http://image.url.here.com)"
+msgstr "![Название изображения](http://ссылка.на.изображение.com)"
+
+#: src/Widgets/Cheatsheet.vala:118
+msgid "Special"
+msgstr "Особое"
+
+#: src/Widgets/Cheatsheet.vala:119
+msgid "```This is a code block```"
+msgstr "```Это блок кода```"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "This creates a horizontal rule → ---"
+msgstr "Это создает горизонтальный разделитель → ---"
+
+#: src/Widgets/Cheatsheet.vala:121
+msgid "This embeds a local image → | Folder/Image.png |"
+msgstr "Это вставляет локальное изображение → | Папка/Изображение.png |"
+
+#: src/Widgets/Cheatsheet.vala:122
+msgid "This embeds a local Markdown file → % Folder/File.md %"
+msgstr "Это вставляет локальный файл Markdown → % Папка/Файл.md %"
+
+#: src/Widgets/Cheatsheet.vala:143
+msgid "To make a column's content go to the left, change --- to :--- ."
+msgstr "Чтобы выровнять содержимое колонки по левому краю, поменяйте --- на :--- ."
+
+#: src/Widgets/Cheatsheet.vala:144
+msgid "To make a column's content centered, change --- to :---: ."
+msgstr "Чтобы выровнять содержимое колонки по центру, поменяйте --- на :---: ."
+
+#: src/Widgets/Cheatsheet.vala:145
+msgid "To make a column's content go to the right, change --- to ---: ."
+msgstr "Чтобы выровнять содержимое колонки по правому краю, поменяйте --- на :---: ."
+
+#: src/Widgets/HeaderBar.vala:67
+msgid "New file"
+msgstr "Новый файл"
+
+#: src/Widgets/HeaderBar.vala:73
+msgid "Save as…"
+msgstr "Сохранить как…"
+
+#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
+msgid "Save file"
+msgstr "Сохранить файл"
+
+#: src/Widgets/HeaderBar.vala:85
+msgid "Open…"
+msgstr "Открыть…"
+
+#: src/Widgets/HeaderBar.vala:91
+msgid "Start search"
+msgstr "Начать поиск"
+
+#: src/Widgets/HeaderBar.vala:93
+msgid "Find…"
+msgstr "Найти…"
+
+#: src/Widgets/HeaderBar.vala:109
+msgid "Export to PDF…"
+msgstr "Экспортировать в PDF…"
+
+#: src/Widgets/HeaderBar.vala:113
+msgid "Export to HTML…"
+msgstr "Экспортировать в HTML…"
+
+#: src/Widgets/HeaderBar.vala:129
+msgid "Export"
+msgstr "Экспортировать"
+
+#: src/Widgets/HeaderBar.vala:133
+msgid "Markdown Cheatsheet"
+msgstr "Шпаргалка по Markdown"
+
+#: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
+msgid "Preferences"
+msgstr "Предпочтения"
+
+#: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
+msgid "Light Mode"
+msgstr "Светлая тема"
+
+#: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
+msgid "Sepia Mode"
+msgstr "Сепия"
+
+#: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
+msgid "Moon Mode"
+msgstr "Луна"
+
+#: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
+msgid "Dark Mode"
+msgstr "Темная тема"
+
+#: src/Widgets/HeaderBar.vala:208
+msgid "Focus Mode"
+msgstr "Режим фокуса"
+
+#: src/Widgets/HeaderBar.vala:211
+msgid "Enter focus mode"
+msgstr "Войти в режим фокуса"
+
+#: src/Widgets/HeaderBar.vala:256
+msgid "Settings"
+msgstr "Настройки"
+
+#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:202
+msgid "Editor"
+msgstr "Редактор"
+
+#: src/Widgets/Preferences.vala:47
+msgid "Interface"
+msgstr "Интерфейс"
+
+#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
+msgid "Extensions"
+msgstr "Расширения"
+
+#: src/Widgets/Preferences.vala:68
+msgid "Geometry"
+msgstr "Отступы"
+
+#: src/Widgets/Preferences.vala:69
+msgid "Spacing of Text:"
+msgstr "Межстрочный интервал"
+
+#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
+#: src/Widgets/Preferences.vala:152
+msgid "Small"
+msgstr "Маленький"
+
+#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
+#: src/Widgets/Preferences.vala:153
+msgid "Normal"
+msgstr "Нормальный"
+
+#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
+#: src/Widgets/Preferences.vala:154
+msgid "Large"
+msgstr "Большой"
+
+#: src/Widgets/Preferences.vala:109
+msgid "Margins of Text:"
+msgstr "Размер полей"
+
+#: src/Widgets/Preferences.vala:149
+msgid "Fonts & Type"
+msgstr "Шрифт"
+
+#: src/Widgets/Preferences.vala:150
+msgid "Editor Font Type:"
+msgstr "Тип шрифта в редакторе:"
+
+#: src/Widgets/Preferences.vala:180
+msgid "Editor Font Size:"
+msgstr "Размер шрифта в редакторе:"
+
+#: src/Widgets/Preferences.vala:203
+msgid "Save files when changed:"
+msgstr "Сохранять файлы по мере изменения:"
+
+#: src/Widgets/Preferences.vala:234
+msgid "Modes"
+msgstr "Темы"
+
+#: src/Widgets/Preferences.vala:311
+msgid "Enable Focus Mode:"
+msgstr "Включить режим фокуса:"
+
+#: src/Widgets/Preferences.vala:314
+msgid "Type of Focus Mode:"
+msgstr "Тип режима фокуса:"
+
+#: src/Widgets/Preferences.vala:316
+msgid "Paragraph"
+msgstr "Абзац"
+
+#: src/Widgets/Preferences.vala:317
+msgid "Sentence"
+msgstr "Предложение"
+
+#: src/Widgets/Preferences.vala:347
+msgid "Typewriter Scrolling:"
+msgstr "Прокручивание печатной машинки:"
+
+#: src/Widgets/Preferences.vala:351
+msgid "User Interface"
+msgstr "Пользовательский интерфейс"
+
+#: src/Widgets/Preferences.vala:352
+msgid "Show Statusbar:"
+msgstr "Показывать панель статуса:"
+
+#: src/Widgets/Preferences.vala:355
+msgid "Show Searchbar:"
+msgstr "Показывать панель поиска:"
+
+#: src/Widgets/Preferences.vala:413
+msgid "Enable Code Highlighting:"
+msgstr "Включить подсветку синтаксиса:"
+
+#: src/Widgets/Preferences.vala:417
+msgid "Enable Spellchecking:"
+msgstr "Включить проверку орфографии:"
+
+#: src/Widgets/SearchBar.vala:39
+msgid "Replace with…"
+msgstr "Заменить на…"
+
+#: src/Widgets/SearchBar.vala:43
+msgid "Replace"
+msgstr "Заменить"
+
+#: src/Widgets/SearchBar.vala:45
+msgid "Use the arrows to target the text to replace before pressing this."
+msgstr "Используйте стрелки, чтобы выбрать нужный текст для замены прежде чем нажать сюда."
+
+#: src/Widgets/SearchBar.vala:46
+msgid "Replace all"
+msgstr "Заменить всё"
+
+#: src/Widgets/SearchBar.vala:71
+msgid "Find text…"
+msgstr "Найти текст…"
+
+#: src/Widgets/SearchBar.vala:90
+msgid "Search previous"
+msgstr "Найти предыдущее"
+
+#: src/Widgets/SearchBar.vala:109
+msgid "Search next"
+msgstr "Найти следующее"
+
+#: src/Widgets/SideBarBox.vala:35
+msgid "New Document"
+msgstr "Новый документ"
+
+#: src/Widgets/SideBarBox.vala:36
+msgid "New File"
+msgstr "Новый файл"
+
+#: src/Widgets/SideBarBox.vala:85
+msgid "Remove File from Sidebar"
+msgstr "Убрать файл из боковой панели"
+
+#: src/Widgets/SideBar.vala:64
+msgid "No files…"
+msgstr "Нет файлов…"
+
+#: src/Widgets/SideBar.vala:80
+msgid "Files"
+msgstr "Файлы"
+
+#: src/Widgets/SideBar.vala:82
+msgid "Outline"
+msgstr "Содержание"
+
+#: src/Widgets/SideBar.vala:148
+msgid "Remove All Files"
+msgstr "Удалить все файлы"
+
+#: src/Widgets/StatusBar.vala:42
+msgid "Show/Hide Sidebar"
+msgstr "Показать/Скрыть боковую панель"
+
+#: src/Widgets/StatusBar.vala:85
+msgid "Full-Width"
+msgstr "Полная ширина"
+
+#: src/Widgets/StatusBar.vala:86
+msgid "Half-Width"
+msgstr "Полширины"
+
+#: src/Widgets/StatusBar.vala:81
+msgid "Track Characters"
+msgstr "Следить за количеством символов"
+
+#: src/Widgets/StatusBar.vala:86
+msgid "Track Words"
+msgstr "Следить за количеством слов"
+
+#: src/Widgets/StatusBar.vala:91
+msgid "Track Lines"
+msgstr "Следить за количеством строк"
+
+#: src/Widgets/StatusBar.vala:111
+msgid "Set Tracking Type"
+msgstr "Установить тип отслеживания"
+
+#: src/Widgets/StatusBar.vala:125
+msgid "Words: "
+msgstr "Слова: "
+
+#: src/Widgets/StatusBar.vala:132
+msgid "Lines: "
+msgstr "Строки: "
+
+#: src/Widgets/StatusBar.vala:139
+msgid "Characters: "
+msgstr "Символы: "
+
+#: src/Widgets/StatusBar.vala:153
+msgid "Reading Time: "
+msgstr "Время на чтение: "
+
+#: src/Services/DialogUtils.vala:29
+msgid "Markdown files"
+msgstr "Файлы Markdown"
+
+#: src/Services/DialogUtils.vala:33
+msgid "All files"
+msgstr "Все файлы"
+
+#: src/Services/DialogUtils.vala:44
+msgid "Save Open File?"
+msgstr "Сохранить открытый файл?"
+
+#: src/Services/DialogUtils.vala:45
+msgid ""
+"There are unsaved changes to the file. If you don't save, changes will be "
+"lost forever."
+msgstr ""
+"В файле есть несохраненные изменения. Если вы не сохраните файл, "
+"то изменения будут навсегда утрачены."
+
+#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
+#: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
+msgid "Save"
+msgstr "Сохранить"
+
+#: src/Services/DialogUtils.vala:50
+msgid "Close Without Saving"
+msgstr "Закрыть без сохранения"
+
+#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
+#: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
+msgid "Cancel"
+msgstr "Отменить"
+
+#: src/Services/DialogUtils.vala:61
+msgid "Remove File from Sidebar?"
+msgstr "Удалить файл из боковой панели?"
+
+#: src/Services/DialogUtils.vala:62
+msgid ""
+"By removing this file from the Sidebar, you will lose any changes made if "
+"not saved. Otherwise, it will only be removed."
+msgstr ""
+"При удалении файла из боковой панели вы потеряете несохраненные изменения. "
+"Если вы сохранили файл, то он просто будет убран из боковой панели."
+
+#: src/Services/DialogUtils.vala:67
+msgid "Remove Without Saving"
+msgstr "Убрать без сохранения"
+
+#: src/Services/ExportUtils.vala:87
+msgid "Print to File"
+msgstr "Распечатать в файл"
+
+#: src/Services/ExportUtils.vala:144
+msgid "Select destination PDF file"
+msgstr "Укажите путь для файла PDF"
+
+#: src/Services/ExportUtils.vala:149
+msgid "PDF File"
+msgstr "Файл PDF"
+
+#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src/Services/ExportUtils.vala:193
+msgid "Select destination HTML file"
+msgstr "Укажите путь для файла HTML"
+
+#: src/Services/ExportUtils.vala:198
+msgid "HTML File"
+msgstr "Файл HTML"
+
+#: src/Services/FileManager.vala:84
+msgid "Open file"
+msgstr "Открыть файл"
