@@ -55,6 +55,18 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.0.5" date="2019-12-27">
+         <description>
+            <p>Release: Fixes Galore</p>
+            <ul>
+                <li>Changed: Syntax for local file/image is now /folder/(image.png/file.md) (:image/:file)</li>
+                <li>Fixed: Changed tooltips to include keybinds if they have it.</li>
+                <li>Fixed: When removing a file from the Sidebar, move to the next one immediately.</li>
+                <li>Fixed: Local image syntax actually provides the image you wanted to appear.</li>
+                <li>Fixed: Minor styling fixes.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.0.4" date="2019-12-20">
          <description>
             <p>Release: Minority Report</p>

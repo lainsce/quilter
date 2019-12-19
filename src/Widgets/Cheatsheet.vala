@@ -118,8 +118,8 @@ namespace Quilter.Widgets {
             var special_header = new Granite.HeaderLabel (_("Special"));
             var codeblocks_label = new Label (_("```This is a code block```"));
             var hr_label = new Label (_("This creates a horizontal rule → ---"));
-            var sp_image_label = new Label (_("This embeds a local image → | Folder/Image.png |"));
-            var sp_file_label = new Label (_("This embeds a local Markdown file → % Folder/File.md %"));
+            var sp_image_label = new Label (_("This embeds a local image → /Folder/Image.png :image"));
+            var sp_file_label = new Label (_("This embeds a local Markdown file → /Folder/File.md :file"));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);

@@ -118,7 +118,7 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             if (settings.current_file == "") {
-                filebox = new SideBarBox (this.win, Services.FileManager.get_temp_document_path ());
+                filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
@@ -272,6 +272,12 @@ namespace Quilter.Widgets {
             var settings = AppSettings.get_default ();
             if (get_selected_row ().path == settings.current_file) {
                 get_selected_row ().destroy ();
+            } else {
+                foreach (Gtk.Widget item in column.get_children ()) {
+                    if (item != get_selected_row ()) {
+                        item.destroy ();
+                    }
+                }
             }
         }
 

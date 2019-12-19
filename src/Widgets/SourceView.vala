@@ -210,10 +210,9 @@ namespace Quilter.Widgets {
         private void update_settings () {
             var settings = AppSettings.get_default ();
             var buffer_context = this.get_style_context ();
-            this.set_pixels_above_lines(settings.spacing);
             this.set_pixels_inside_wrap(settings.spacing);
+            this.set_pixels_above_lines(settings.spacing);
             dynamic_margins();
-            this.set_show_line_numbers (settings.show_num_lines);
 
             if (!settings.focus_mode) {
                 Gtk.TextIter start, end;

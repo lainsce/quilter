@@ -41,13 +41,11 @@ namespace Quilter {
         public bool searchbar { get; set; }
         public bool sepia_mode { get; set; }
         public bool show_filename { get; set; }
-        public bool show_num_lines { get; set; }
         public bool shown_view { get; set; }
         public bool spellcheck { get; set; }
         public bool statusbar { get; set; }
         public bool sidebar { get; set; }
         public bool typewriter_scrolling { get; set; }
-        public bool use_system_font { get; set; }
         public int focus_mode_type { get; set; }
         public int font_sizing { get; set; }
         public int margins { get; set; }

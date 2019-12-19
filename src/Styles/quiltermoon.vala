@@ -25,13 +25,14 @@ THE SOFTWARE.
 public class Quilter.Styles.quiltermoon {
   public const string css="""
     html {
-      font-size: 16px;
+      font-size: 1rem;
       width: 100%;
       margin: 0 auto;
     }
 
     p {
-      font-size: 18px;
+      font-size: 1.1rem;
+      line-height: 1.66rem;
       width: 100%;
       color: #C3C3C1;
     }
@@ -43,57 +44,35 @@ public class Quilter.Styles.quiltermoon {
     h5,
     h6 {
       font-style: bold;
-    }
-
-    h1:first-of-type,
-    h2:first-of-type,
-    h3:first-of-type,
-    h4:first-of-type,
-    h5:first-of-type,
-    h6:first-of-type {
-      margin-top: 20px;
+      margin-top: 2rem;
     }
 
     h1 {
-      margin-top: 1em;
-      margin-bottom: 1em;
       font-size: 2rem;
       text-align: center;
       text-transform: uppercase;
     }
 
     h2 {
-      margin-top: 1em;
-      margin-bottom: 1em;
       font-size: 1.5rem;
       text-transform: uppercase;
     }
 
     h3 {
-      margin-top: 1em;
-      margin-bottom: 1em;
       font-size: 1.25rem;
     }
 
     h4 {
-      margin-top: 1em;
-      margin-bottom: 1em;
-      font-size: 1rem;
+      font-size: 1.125rem;
     }
 
     h5 {
-      margin-top: 1em;
-      margin-bottom: 1em;
-      font-size: .875rem;
+      font-size: 1.1rem;
     }
 
     h6 {
-      margin-top: 1em;
-      margin-bottom: 1em;
-      font-size: .75rem;
+      font-size: 1rem;
     }
-
-
     small {
       font-size: .7em;
     }
@@ -116,6 +95,7 @@ public class Quilter.Styles.quiltermoon {
       margin-left: 40px;
       margin-right: 40px;
       margin-top: 40px;
+      margin-bottom: 40px;
       text-align: left;
     }
 

@@ -66,31 +66,46 @@ namespace Quilter.Widgets {
             }
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
-            new_button.tooltip_text = (_("New file"));
+            new_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>n"},
+                _("New file")
+            );
 
             new_button.clicked.connect (() => create_new ());
 
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
-            save_as_button.tooltip_text = (_("Save as…"));
+            save_as_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl><Shift>s"},
+                _("Save as…")
+            );
 
             save_as_button.clicked.connect (() => save_as ());
 
             save_button = new Gtk.Button ();
             save_button.has_tooltip = true;
-            save_button.tooltip_text = (_("Save file"));
+            save_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>s"},
+                _("Save file")
+            );
 
             save_button.clicked.connect (() => save ());
 
             open_button = new Gtk.Button ();
 			open_button.has_tooltip = true;
-            open_button.tooltip_text = (_("Open…"));
+            open_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>o"},
+                _("Open…")
+            );
 
             open_button.clicked.connect (() => open ());
 
             search_button = new Gtk.ToggleButton ();
             search_button.has_tooltip = true;
-            search_button.tooltip_text = _("Find…");
+            search_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>f"},
+                _("Find…")
+            );
 
             if (settings.searchbar == false) {
                 search_button.set_active (false);

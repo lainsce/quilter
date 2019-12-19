@@ -54,6 +54,7 @@ namespace Quilter.Widgets {
         public signal void save_as ();
 
         public SideBarBox (MainWindow win, string? path) {
+            var settings = AppSettings.get_default ();
             this.win = win;
             this.activatable = true;
             this.set_size_request (180,-1);
@@ -80,8 +81,9 @@ namespace Quilter.Widgets {
             var file_remove_button = new Gtk.Button ();
             file_remove_button.always_show_image = true;
             file_remove_button.vexpand = false;
-            file_remove_button.hexpand = false;
+            file_remove_button.hexpand = true;
             file_remove_button.valign = Gtk.Align.CENTER;
+            file_remove_button.halign = Gtk.Align.END;
             file_remove_button.tooltip_text = _("Remove File from Sidebar");
             var file_remove_button_style_context = file_remove_button.get_style_context ();
             file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
@@ -92,10 +94,20 @@ namespace Quilter.Widgets {
             file_remove_button.clicked.connect (() => {
                 win.sidebar.delete_row_with_name ();
                 win.edit_view_content.buffer.text = "";
-                Services.FileManager.file = null;
+                win.edit_view_content.modified = false;
                 win.toolbar.set_subtitle (_("No Documents Open"));
                 win.sidebar.store.clear ();
                 win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
+
+                var rows = win.sidebar.get_rows ();
+                if (settings.last_files != null) {
+                    foreach (unowned SideBarBox r in rows) {
+                        win.sidebar.column.select_row (r);
+                    }
+                } else if (settings.last_files == null) {
+                        win.sidebar.add_file (Services.FileManager.get_cache_path ());
+                        settings.current_file = Services.FileManager.get_cache_path ();
+                }
             });
 
             file_grid = new Gtk.Grid ();

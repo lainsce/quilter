@@ -20,7 +20,7 @@
 */
 
 public class Quilter.Filep : Plugins.Plugin {
-    private PatternSpec spec = new PatternSpec ("*%*%*");
+    private PatternSpec spec = new PatternSpec ("*/*:file*");
 
     construct {}
 
@@ -51,8 +51,8 @@ public class Quilter.Filep : Plugins.Plugin {
     public override string convert (string line_) {
         string build = "";
         string text = "";
-        int initial = line_.index_of ("% ") + 2;
-        int last = line_.index_of (" %", initial);
+        int initial = line_.index_of ("/") + 1;
+        int last = line_.index_of (" :file", initial);
         string subline = line_.substring (initial, last - initial);
 
         File file = File.new_for_path (subline);

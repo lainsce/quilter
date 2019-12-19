@@ -20,7 +20,7 @@
 */
 
 public class Quilter.Image : Plugins.Plugin {
-    private PatternSpec spec = new PatternSpec ("*|*|*");
+    private PatternSpec spec = new PatternSpec ("*/*:image*");
 
     construct {}
 
@@ -50,8 +50,8 @@ public class Quilter.Image : Plugins.Plugin {
 
     public override string convert (string line_) {
         string build = "";
-        int initial = line_.index_of (": ") + 2;
-        int last = line_.index_of (" :", initial);
+        int initial = line_.index_of ("/") + 1;
+        int last = line_.index_of (" :image", initial);
         string subline = line_.substring (initial, last - initial);
 
         File file = File.new_for_path (subline);

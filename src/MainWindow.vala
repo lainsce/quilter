@@ -38,7 +38,6 @@ namespace Quilter {
         public Gtk.ScrolledWindow preview_view;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
-        public ulong scroll_fix;
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
@@ -107,7 +106,7 @@ namespace Quilter {
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
-                scroll_to (edit_view);
+                scroll_to ();
 
                 if (settings.current_file != "") {
                     sidebar.store.clear ();
@@ -129,8 +128,20 @@ namespace Quilter {
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.n, keycode)) {
+                        on_create_new ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.s, keycode)) {
                         on_save ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if ((e.state & Gdk.ModifierType.SHIFT_MASK) != 0) {
+                        if (match_keycode (Gdk.Key.s, keycode)) {
+                            on_save_as ();
+                        }
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -293,6 +304,10 @@ namespace Quilter {
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
             view_mode.homogeneous = true;
+            view_mode.tooltip_markup = Granite.markup_accel_tooltip (
+                {"F1"},
+                _("Change view")
+            );
 
             show_font_button (false);
             if (stack.get_visible_child_name () == "preview_view") {
@@ -353,15 +368,15 @@ namespace Quilter {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
 
-            Gtk.Adjustment ead = edit_view.get_vadjustment ();
-            Gtk.Adjustment pad = preview_view.get_vadjustment ();
-            ead.value_changed.connect (() => {
-                scroll_to (preview_view);
+            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
+            Gtk.Adjustment padj = preview_view.get_vadjustment ();
+            eadj.value_changed.connect (() => {
+                scroll_to ();
             });
-            scroll_fix = pad.value_changed.connect (() => {
-                scroll_to_fix (preview_view);
+            padj.value_changed.connect (() => {
+                scroll_to_fix ();
             });
-            pad.set_lower(1);
+            padj.set_lower(1);
 
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
@@ -426,10 +441,9 @@ namespace Quilter {
             return false;
         }
 
-        public void scroll_to (Gtk.Widget widget) {
+        public void scroll_to () {
             Gtk.Adjustment eadj = edit_view.get_vadjustment ();
             Gtk.Adjustment padj = preview_view.get_vadjustment ();
-            padj.disconnect(scroll_fix);
             var value = eadj.get_value();
             var psize_edit = eadj.get_page_size();
             var psize_prev = padj.get_page_size();
@@ -442,17 +456,16 @@ namespace Quilter {
                 padj.set_value(value / upper_edit * upper_prev);
             }
 
-            scroll_fix = padj.value_changed.connect (() => {
-                    scroll_to_fix (preview_view);
+            padj.value_changed.connect (() => {
+                scroll_to_fix ();
             });
         }
 
-        public void scroll_to_fix (Gtk.Widget widget) {
-            Gtk.Adjustment padj = preview_view.get_vadjustment ();
-            padj.disconnect(scroll_fix);
-            var value = padj.get_value();
+        public void scroll_to_fix () {
+            Gtk.Adjustment adj = preview_view.get_vadjustment ();
+            var value = adj.get_value();
             if (value == 0) {
-                scroll_to (widget);
+                scroll_to ();
             } else {
                 // pass
             }
