@@ -464,6 +464,10 @@ msgstr ""
 msgid "Save"
 msgstr "Сохранить"
 
+#: src/Services/DialogUtils.vala:23
+msgid "Open"
+msgstr "Открыть"
+
 #: src/Services/DialogUtils.vala:50
 msgid "Close Without Saving"
 msgstr "Закрыть без сохранения"
