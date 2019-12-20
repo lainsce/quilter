@@ -85,8 +85,8 @@ namespace Quilter {
             var settings = AppSettings.get_default ();
 
             var preview_cbt = new Gtk.ComboBoxText();
-            preview_cbt.append_text(_("Full-Width"));
-            preview_cbt.append_text(_("Half-Width"));
+            preview_cbt.append_text((_("Full-Width")));
+            preview_cbt.append_text((_("Half-Width")));
 
             if (settings.preview_type == "full") {
                 preview_cbt.set_active(0);
