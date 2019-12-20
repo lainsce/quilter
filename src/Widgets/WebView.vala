@@ -111,6 +111,23 @@ namespace Quilter.Widgets {
             }
         }
 
+        private string set_latex () {
+            var settings = AppSettings.get_default ();
+            if (settings.latex) {
+                string katex_main = Build.PKGDATADIR + "/katex/katex.css";
+                string katex_js = Build.PKGDATADIR + "/katex/katex.js";
+                string render = Build.PKGDATADIR + "/katex/render.js";
+                string latex = """
+                    <link rel="stylesheet" href="%s">
+                    <script defer src="%s"></script>
+                    <script defer src="%s" onload="renderMathInElement(document.body);"></script>
+                """.printf (katex_main, katex_js, render);
+                return latex;
+            } else {
+                return "";
+            }
+        }
+
         private void connect_signals () {
             create.connect ((navigation_action) => {
                 launch_browser (navigation_action.get_request().get_uri ());
@@ -243,6 +260,7 @@ namespace Quilter.Widgets {
         public string make_html (string result) {
             string highlight_stylesheet = set_highlight_stylesheet();
             string highlight = set_highlight();
+            string latex = set_latex();
             string font_stylesheet = set_font_stylesheet ();
             string stylesheet = set_stylesheet ();
             string markdown = process_plugins (result);
@@ -254,6 +272,7 @@ namespace Quilter.Widgets {
                     <link rel="stylesheet" href="%s" />
                     <script src="%s"></script>
                     <script>hljs.initHighlightingOnLoad();</script>
+                    %s
                     <link rel="stylesheet" href="%s" />
                     <style>"%s"</style>
                 </head>
@@ -262,7 +281,7 @@ namespace Quilter.Widgets {
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight_stylesheet, highlight, font_stylesheet, stylesheet, markdown);
+            </html>""".printf(highlight_stylesheet, highlight, latex, font_stylesheet, stylesheet, markdown);
             return html;
         }
         public void update_html_view () {
