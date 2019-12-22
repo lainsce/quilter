@@ -309,14 +309,7 @@ namespace Quilter {
                 _("Change view")
             );
 
-            show_font_button (false);
-            if (stack.get_visible_child_name () == "preview_view") {
-                show_font_button (true);
-                toolbar.pack_end (set_font_menu);
-            } else if (stack.get_visible_child_name () == "edit_view") {
-                show_font_button (false);
-            }
-
+            toolbar.pack_end (set_font_menu);
             toolbar.pack_end (view_mode);
 
             paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
@@ -423,10 +416,6 @@ namespace Quilter {
             settings.window_y = y;
             settings.window_width = w;
             settings.window_height = h;
-            if (settings.preview_type == "full") {
-                bool v = set_font_menu.get_visible ();
-                settings.shown_view = v;
-            }
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -540,10 +529,6 @@ namespace Quilter {
             searchbar.reveal_child = settings.searchbar;
         }
 
-        public void show_font_button (bool v) {
-            set_font_menu.visible = v;
-        }
-
         private void update_title () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
@@ -603,7 +588,6 @@ namespace Quilter {
                 paned.pack1 (edit_view, false, false);
                 paned.pack2 (preview_view, false, false);
                 main_stack.set_visible_child (paned);
-                show_font_button (false);
             }
         }
 
