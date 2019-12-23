@@ -507,6 +507,7 @@ namespace Quilter {
         }
 
         private void render_func () {
+            preview_view_content.update_html_view ();
             if (edit_view_content.buffer.get_modified () == true) {
                 preview_view_content.update_html_view ();
                 edit_view_content.buffer.set_modified (false);
