@@ -55,6 +55,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.0.6" date="2020-01-10">
+         <description>
+            <p>Release: Fixes Galore</p>
+            <ul>
+                <li>Added: LaTeX support with $$…$$</li>
+                <li>Fixed: _</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.0.5" date="2019-12-27">
          <description>
             <p>Release: Fixes Galore</p>
@@ -113,160 +122,6 @@
             <p>Release: Layout Lambada</p>
             <ul>
                 <li>Added: New Layout; Half-Width, check it out by changing layouts on the statusbar.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.9.5" date="2019-08-05">
-         <description>
-            <p>Release: Backend Blues</p>
-            <ul>
-                <li>Fixed: Many backend problems were fixed to count here.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.9.3" date="2019-08-01">
-         <description>
-            <p>Release: Sidebar Shoeshine</p>
-            <ul>
-                <li>Fixed: Sidebar would grow uncontrollably</li>
-                <li>Fixed: No more file muncher monster, your files will be saved and taken care of. (Bleak Grey [@bleakgrey])</li>
-                <li>Fixed: Spellchecking now works without any problem</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.9.2" date="2019-06-28">
-         <description>
-            <p>Release: Sidebar File Cleaner-o-matic</p>
-            <ul>
-                <li>Added: "Remove All Files" button on the sidebar, this way, no files will be harmed with the old close file buttons.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.9.1" date="2019-06-08">
-         <description>
-            <p>Release: Export without Errors</p>
-            <ul>
-                <li>Fixed: Exports to PDF while in other modes visual glitches.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.9.0" date="2019-05-30">
-         <description>
-            <p>Release: I Said Fixes!</p>
-            <ul>
-                <li>Fixed: Backend technical confusion with files.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.7" date="2019-05-30">
-         <description>
-            <p>Release: Did Anyone Say Minor Fixes?</p>
-            <ul>
-                <li>Fixed: Local image syntax wrongly picked up with links or two : in succession.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.6" date="2019-05-30">
-         <description>
-            <p>Release: Even MORE Minor Fixes</p>
-            <ul>
-                <li>Other tiny fixes with the sidebar.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.5" date="2019-05-30">
-         <description>
-            <p>Release: Minor Fixes</p>
-            <ul>
-                <li>Fixed: Various Sidebar fixes for safety of your files.</li>
-                <li>Other: Minor fixes in styling.</li>
-            </ul>
-         </description>
-        </release>
-	    <release version="1.8.4" date="2019-04-26">
-         <description>
-            <p>Release: Minor Fixes</p>
-            <ul>
-                <li>Fixed: cache was not being made, resulting in multiple file loss afterwards with many operations.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.2" date="2019-04-15">
-         <description>
-            <p>Release: Magic Files</p>
-            <ul>
-                <li>Added: When a user types a path with either % ... % or : ... : to a file or image respectively, it is embedded, and is in Preview.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.1" date="2019-04-12">
-         <description>
-            <p>Release: Fixes and Gizmos</p>
-            <ul>
-                <li>Fixes: Outline crashes the app if no file found.</li>
-                <li>Fixes: App crashes if new document button is pushed when no files are in the sidebar.</li>
-                <li>Fixes: App fails to launch if file in sidebar no longer exists.</li>
-                <li>Fixes: App doesn't check spelling.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.8.0" date="2019-04-12">
-         <description>
-            <p>Release: File Eyeliner</p>
-            <ul>
-                <li>Added: File outline in the sidebar.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.6" date="2019-03-16">
-         <description>
-            <p>Release: Blu-ray Encoder</p>
-            <ul>
-                <li>Fixed: When adding files to sidebar, actually select them.</li>
-                <li>Updated: Dutch Translation</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.5" date="2019-03-08">
-         <description>
-            <p>Release: DVD Cleaner</p>
-            <ul>
-                <li>Fixed: Opening files should never fail now.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.4" date="2019-03-01">
-         <description>
-            <p>Release: VHS Tape Mixer</p>
-            <ul>
-                <li>Reworked a lot of the internals so actions don't kill files. [Adam Bieńkowski - @donadigo]</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.3" date="2019-03-01">
-         <description>
-            <p>Release: Betamax Tracker</p>
-            <ul>
-                <li>Some UX redefinition in the sidebar, to avoid complicating it.</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.2" date="2019-03-01">
-         <description>
-            <p>Release: Kodachrome Selector</p>
-            <ul>
-                <li>Open files without adding duplicate entries, and clear sidebar is you really need to (it has a confirm dialog).</li>
-            </ul>
-         </description>
-        </release>
-        <release version="1.7.0" date="2019-02-22">
-         <description>
-            <p>Release: Visually Stunning</p>
-            <p>Quilter received a visual upgrade, and also an awesome backend tuneup.</p>
-            <ul>
-                <li>Rewrote all Sidebar functions</li>
-                <li>Removed LaTeX because it was lagging the app…</li>
-                <li>All File Management functions rewritten from scratch!</li>
             </ul>
          </description>
         </release>
