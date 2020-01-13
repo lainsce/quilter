@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -66,7 +66,7 @@ namespace Quilter {
         }
 
         protected void connect_settings (string setting) {
-            settings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+            Application.settings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
         }
     }
 }

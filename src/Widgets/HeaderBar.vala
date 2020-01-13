@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (C) 2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -20,7 +20,7 @@ namespace Quilter.Widgets {
     public class Headerbar : Gtk.HeaderBar {
         public EditView sourceview;
         public Preview preview;
-        public MainWindow win;
+        public weak Quilter.MainWindow win { get; construct; }
 
         public signal void open ();
         public signal void save_as ();
@@ -35,8 +35,8 @@ namespace Quilter.Widgets {
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton share_app_menu;
 
-        public Headerbar (Quilter.MainWindow win) {
-            this.win = win;
+        public Headerbar (Quilter.MainWindow _win) {
+            Object (win: _win);
             var header_context = this.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
@@ -45,7 +45,7 @@ namespace Quilter.Widgets {
 
             focus_mode_toolbar ();
 
-            settings.changed.connect (() => {
+            Application.settings.changed.connect (() => {
                 focus_mode_toolbar ();
             });
         }
@@ -54,10 +54,10 @@ namespace Quilter.Widgets {
             set_title (null);
             string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
-                set_subtitle (settings.current_file);
+                set_subtitle (Application.settings.get_string("current-file"));
             } else if (this.subtitle == cache) {
                 set_subtitle (_("No Documents Open"));
-            } else if (settings.current_file == null) {
+            } else if (Application.settings.get_string("current-file") == null) {
                 set_subtitle (_("No Documents Open"));
             } else if (this.subtitle == Services.FileManager.get_temp_document_path ()) {
                 set_subtitle (_("No Documents Open"));
@@ -105,17 +105,17 @@ namespace Quilter.Widgets {
                 _("Find…")
             );
 
-            if (settings.searchbar == false) {
+            if (Application.settings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
             } else {
-                search_button.set_active (settings.searchbar);
+                search_button.set_active (Application.settings.get_boolean("searchbar"));
             }
 
             search_button.toggled.connect (() => {
     			if (search_button.active) {
-    				settings.searchbar = true;
+    				Application.settings.set_boolean("searchbar", true);
     			} else {
-    				settings.searchbar = false;
+    				Application.settings.set_boolean("searchbar", false);
     			}
 
             });
@@ -197,27 +197,27 @@ namespace Quilter.Widgets {
             color_button_dark_context.add_class ("color-dark");
 
             color_button_dark.clicked.connect (() => {
-                settings.dark_mode = true;
-                settings.sepia_mode = false;
-                settings.moon_mode = false;
+                Application.settings.set_boolean("dark-mode", true);
+                Application.settings.set_boolean("sepia-mode", false);
+                Application.settings.set_boolean("moon-mode", false);
             });
 
             color_button_sepia.clicked.connect (() => {
-                settings.sepia_mode = true;
-                settings.dark_mode = false;
-                settings.moon_mode = false;
+                Application.settings.set_boolean("sepia-mode", true);
+                Application.settings.set_boolean("dark-mode", false);
+                Application.settings.set_boolean("moon-mode", false);
             });
 
             color_button_moon.clicked.connect (() => {
-                settings.moon_mode = true;
-                settings.sepia_mode = false;
-                settings.dark_mode = false;
+                Application.settings.set_boolean("moon-mode", true );
+                Application.settings.set_boolean("sepia-mode", false);
+                Application.settings.set_boolean("dark-mode", false);
             });
 
             color_button_light.clicked.connect (() => {
-                settings.dark_mode = false;
-                settings.sepia_mode = false;
-                settings.moon_mode = false;
+                Application.settings.set_boolean("dark-mode", false);
+                Application.settings.set_boolean("sepia-mode", false);
+                Application.settings.set_boolean("moon-mode", false);
             });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
@@ -225,17 +225,17 @@ namespace Quilter.Widgets {
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            if (settings.focus_mode == false) {
+            if (Application.settings.get_boolean("focus-mode") == false) {
                 focusmode_button.set_active (false);
             } else {
-                focusmode_button.set_active (settings.focus_mode);
+                focusmode_button.set_active (Application.settings.get_boolean("focus-mode"));
             }
 
             focusmode_button.toggled.connect (() => {
     			if (focusmode_button.active) {
-    				settings.focus_mode = true;
+    				Application.settings.set_boolean("focus-mode", true);
     			} else {
-    				settings.focus_mode = false;
+    				Application.settings.set_boolean("focus-mode", false);
     			}
 
             });
@@ -276,18 +276,14 @@ namespace Quilter.Widgets {
             pack_start (save_as_button);
 
             // This makes the save button show or not, and it's necessary as-is.
-            settings.changed.connect ((key) => {
-            //      if (settings.get_boolean ("autosave")) {
-            //          save_button.visible = false;
-            //          settings.set_boolean ("autosave", true);
-            //      } else {
-            //          pack_start (save_button);
-            //          save_button.visible = true;
-            //          settings.set_boolean ("autosave", false);
-            //      }
-
-
-            });
+            if (Application.settings.get_boolean("auto-save")) {
+                save_button.visible = false;
+                Application.settings.set_boolean("auto-save", true);
+            } else {
+                pack_start (save_button);
+                save_button.visible = true;
+                Application.settings.set_boolean("auto-save", false);
+            }
 
             pack_end (menu_button);
             pack_end (share_app_menu);
@@ -298,7 +294,7 @@ namespace Quilter.Widgets {
         }
 
         public void focus_mode_toolbar () {
-            if (!settings.focus_mode) {
+            if (!Application.settings.get_boolean("focus-mode")) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));

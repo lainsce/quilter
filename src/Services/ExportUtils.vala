@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Lains
+ * Copyright (C) 2020 Lains
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -48,14 +48,14 @@ namespace Quilter.Services.ExportUtils {
         
         int type_of_mode = 0;
 
-        if (settings.dark_mode) {
-            settings.dark_mode = false;
+        if (Application.settings.get_boolean("dark-mode")) {
+            Application.settings.set_boolean("dark-mode", false);
             type_of_mode = 1;
-        } else if (settings.moon_mode) {
-            settings.moon_mode = false;
+        } else if (Application.settings.get_boolean("moon-mode")) {
+            Application.settings.set_boolean("moon-mode", false);
             type_of_mode = 2;
-        } else if (settings.sepia_mode) {
-            settings.sepia_mode = false;
+        } else if (Application.settings.get_boolean("sepia-mode")) {
+            Application.settings.set_boolean("sepia-mode", false);
             type_of_mode = 3;
         }
 
@@ -96,13 +96,13 @@ namespace Quilter.Services.ExportUtils {
         op.print ();
 
         if (type_of_mode == 1) {
-            settings.dark_mode = true;
+            Application.settings.set_boolean("dark-mode", true);
             type_of_mode = 0;
         } else if (type_of_mode == 2) {
-            settings.moon_mode = true;
+            Application.settings.set_boolean("moon-mode", true);
             type_of_mode = 0;
         } else if (type_of_mode == 3) {
-            settings.sepia_mode = true;
+            Application.settings.set_boolean("sepia-mode", true);
             type_of_mode = 0;
         }
 

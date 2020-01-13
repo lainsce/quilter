@@ -117,15 +117,15 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
 
-            if (settings.current_file == "") {
+            if (Application.settings.get_string("current-file") == "") {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
 
-            foreach (string f in settings.last_files) {
+            foreach (string f in Application.settings.get_strv("last-files")) {
                 var row = add_file (f);
-                if (f == settings.current_file) {
+                if (f == Application.settings.get_string("current-file")) {
                     column.select_row (row);
                 }
             }
@@ -170,16 +170,16 @@ namespace Quilter.Widgets {
 
             store.clear ();
             view.expand_all ();
-            if (settings.current_file != "") {
+            if (Application.settings.get_string("current-file") != "") {
                 store.clear ();
                 outline_populate ();
                 view.expand_all ();
             }
 
-            settings.changed.connect (() => {
+            Application.settings.changed.connect (() => {
                 store.clear ();
                 view.expand_all ();
-                if (settings.current_file != "") {
+                if (Application.settings.get_string("current-file") != "") {
                     store.clear ();
                     outline_populate ();
                 }
@@ -197,7 +197,7 @@ namespace Quilter.Widgets {
 
         public void outline_populate () {
             
-            if (settings.current_file != "" || settings.current_file != _("No Documents Open")) {
+            if (Application.settings.get_string("current-file") != "" || Application.settings.get_string("current-file") != _("No Documents Open")) {
                 file = GLib.File.new_for_path (get_selected_row ().path);
 
                 if (file.query_exists ()) {
@@ -270,7 +270,7 @@ namespace Quilter.Widgets {
 
         public void delete_row_with_name () {
             
-            if (get_selected_row ().path == settings.current_file) {
+            if (get_selected_row ().path == Application.settings.get_string("current-file")) {
                 get_selected_row ().destroy ();
             } else {
                 foreach (Gtk.Widget item in column.get_children ()) {

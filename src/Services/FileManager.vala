@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Lains
+ * Copyright (C) 2020 Lains
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -63,13 +63,12 @@ namespace Quilter.Services.FileManager {
 
     // File I/O
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
-        
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();
-            settings.current_file = file_path;
+            Application.settings.set_string("current-file", file_path);
             files += file_path;
-            settings.last_files = files;
+            Application.settings.set_strv("last-files", files);
             if (win.sidebar != null && f != null) {
                 win.sidebar.add_file (file_path);
             }

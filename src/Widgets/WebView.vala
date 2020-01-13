@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (C) 2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -24,8 +24,6 @@ namespace Quilter.Widgets {
         private static Preview? instance = null;
         public string html;
         public Gtk.SourceBuffer buf;
-        public WebKit.Settings wsettings;
-        public Quilter.AppSettings gsettings;
 
         public static Preview get_instance () {
             if (instance == null) {
@@ -41,14 +39,15 @@ namespace Quilter.Widgets {
             vexpand = true;
             hexpand = true;
             this.buf = buf;
-            wsettings.enable_plugins = false;
-            wsettings.enable_page_cache = false;
-            wsettings.enable_developer_extras = false;
-            wsettings.javascript_can_open_windows_automatically = false;
+            var settings = get_settings ();
+            settings.enable_plugins = false;
+            settings.enable_page_cache = false;
+            settings.enable_developer_extras = false;
+            settings.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
 
-            gsettings.changed.connect (update_html_view);
+            Application.settings.changed.connect (update_html_view);
             connect_signals ();
         }
 
@@ -62,15 +61,15 @@ namespace Quilter.Widgets {
 
         private string set_stylesheet () {
 
-            if (gsettings.dark_mode) {
+            if (Application.settings.get_boolean("dark-mode")) {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (gsettings.sepia_mode) {
+            } else if (Application.settings.get_boolean("sepia-mode")) {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (gsettings.moon_mode) {
-                string sepia = Styles.quiltermoon.css;
-                return sepia;
+            } else if (Application.settings.get_boolean("moon-mode")) {
+                string moon = Styles.quiltermoon.css;
+                return moon;
             }
 
             string normal = Styles.quilter.css;
@@ -79,11 +78,11 @@ namespace Quilter.Widgets {
 
         private string set_font_stylesheet () {
 
-            if (gsettings.preview_font == "serif") {
+            if (Application.settings.get_string("preview-font") == "serif") {
                 return Build.PKGDATADIR + "/font/serif.css";
-            } else if (gsettings.preview_font == "sans") {
+            } else if (Application.settings.get_string("preview-font") == "sans") {
                 return Build.PKGDATADIR + "/font/sans.css";
-            } else if (gsettings.preview_font == "mono") {
+            } else if (Application.settings.get_string("preview-font") == "mono") {
                 return Build.PKGDATADIR + "/font/mono.css";
             }
 
@@ -92,11 +91,11 @@ namespace Quilter.Widgets {
 
         private string set_highlight_stylesheet () {
 
-            if (gsettings.dark_mode) {
+            if (Application.settings.get_boolean("dark-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
-            } else if (gsettings.sepia_mode) {
+            } else if (Application.settings.get_boolean("sepia-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
-            } else if (gsettings.moon_mode) {
+            } else if (Application.settings.get_boolean("moon-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             }
 
@@ -105,7 +104,7 @@ namespace Quilter.Widgets {
 
         private string set_highlight () {
 
-            if (gsettings.highlight) {
+            if (Application.settings.get_boolean("highlight")) {
                 return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
             } else {
                 return "";
@@ -114,7 +113,7 @@ namespace Quilter.Widgets {
 
         private string set_latex () {
 
-            if (gsettings.latex) {
+            if (Application.settings.get_boolean("latex")) {
                 string katex_main = Build.PKGDATADIR + "/katex/katex.css";
                 string katex_js = Build.PKGDATADIR + "/katex/katex.js";
                 string render = Build.PKGDATADIR + "/katex/render.js";

@@ -45,12 +45,12 @@
 				<summary>Moon Mode</summary>
 				<description>Whether Quilter should be in Moon Mode</description>
 		</key>
-        <key name="autosave" type="b">
+        <key name="auto-save" type="b">
             <default>true</default>
             <summary>Autosave edited files</summary>
             <description>Autosave edited files.</description>
         </key>
-    <key name="current-file" type="s">
+    	<key name="current-file" type="s">
 				<default>''</default>
 				<summary>Current working file</summary>
 				<description>The c.w.f. in Quilter</description>
@@ -89,7 +89,7 @@
 			    <default>true</default>
 			    <summary>Enable spellcheck</summary>
         </key>
-    <key name="spellcheck-language" type="s">
+    	<key name="spellcheck-language" type="s">
 			    <default>"en"</default>
 			    <summary>Spell check language used</summary>
 			    <description>This must be the name of one of the installed languages, by default the fallback</description>
@@ -98,11 +98,11 @@
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
         </key>
-    <key name="statusbar" type="b">
+    	<key name="statusbar" type="b">
 			    <default>true</default>
 			    <summary>Show (true) or Hide (false) the statusbar</summary>
         </key>
-    <key name="sidebar" type="b">
+    	<key name="sidebar" type="b">
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the sidebar</summary>
         </key>
@@ -114,7 +114,7 @@
 			    <default>false</default>
 			    <summary>Use the Code Highlight built-in extension</summary>
         </key>
-	  <key name="latex" type="b">
+	    <key name="latex" type="b">
 			    <default>false</default>
 			    <summary>Use the Latex built-in extension</summary>
         </key>
