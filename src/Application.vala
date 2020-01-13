@@ -17,8 +17,9 @@
 * Boston, MA 02110-1301 USA
 *
 */
-namespace Quilter { 
-    public GLib.Settings gsettings;
+namespace Quilter {
+    // Global because easy access.
+    public static GLib.Settings gsettings;
 }
 
 public class Quilter.Application : Gtk.Application {
@@ -30,7 +31,7 @@ public class Quilter.Application : Gtk.Application {
     public Widgets.Headerbar toolbar;
     public static string[] supported_mimetypes;
 
-    public Application () {
+    static construct {
         gsettings = new GLib.Settings ("com.github.lainsce.quilter");
     }
     
