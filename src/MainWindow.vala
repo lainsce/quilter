@@ -50,20 +50,20 @@ namespace Quilter {
         
         public bool is_fullscreen {
             get {
-                return Application.settings.get_boolean("fullscreen");
+                return gsettings.get_boolean("fullscreen");
             }
             set {
-                Application.settings.set_boolean("fullscreen", value);
-                if (Application.settings.get_boolean("fullscreen")) {
+                gsettings.set_boolean("fullscreen", value);
+                if (value) {
                     fullscreen ();
-                    Application.settings.set_boolean("statusbar", false);
-                    Application.settings.set_boolean("sidebar", true);
+                    gsettings.set_boolean("statusbar", false);
+                    gsettings.set_boolean("sidebar", true);
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
                 } else {
                     unfullscreen ();
-                    Application.settings.set_boolean("statusbar", true);
+                    gsettings.set_boolean("statusbar", true);
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
@@ -73,7 +73,7 @@ namespace Quilter {
             }
         }
         
-        public MainWindow (Quilter.Application app) {
+        public MainWindow (Gtk.Application app) {
             Object (
                 application: app,
                 resizable: true,
@@ -83,29 +83,30 @@ namespace Quilter {
             // Ensure the folder used in the init is cache and exists
             Services.FileManager.get_cache_path ();
             
-            if (Application.settings.get_string("current-file") == "") {
-                var file = Services.FileManager.get_temp_document_path ();
+            if (gsettings.get_string("current-file") == "") {
+                Services.FileManager.get_cache_path ();
+                var file = Services.FileManager.get_cache_path ();
+                gsettings.set_string("current-file", file);
                 sidebar.add_file (file);
-                Application.settings.set_string("current-file", file);
                 edit_view_content.buffer.text = "";
             }
             
-            Application.settings.changed.connect (on_settings_changed);
-            on_settings_changed ();
+            gsettings.changed.connect (on_gsettings_changed);
+            on_gsettings_changed ();
             
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
                 scroll_to ();
                 
-                if (Application.settings.get_string("current-file") != "") {
+                if (gsettings.get_string("current-file") != "") {
                     sidebar.store.clear ();
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
                     Services.FileManager.get_cache_path ();
                     sidebar.add_file (Services.FileManager.get_cache_path ());
-                    Application.settings.set_string("current-file", Services.FileManager.get_cache_path ());
+                    gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                     edit_view_content.buffer.text = "";
                 }
             });
@@ -141,11 +142,11 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.f, keycode)) {
-                        if (Application.settings.get_boolean("searchbar") == false) {
-                            Application.settings.set_boolean("searchbar", true);
+                        if (gsettings.get_boolean("searchbar") == false) {
+                            gsettings.set_boolean("searchbar", true);
                             searchbar.search_entry.grab_focus_without_selecting();
                         } else {
-                            Application.settings.set_boolean("searchbar", false);
+                            gsettings.set_boolean("searchbar", false);
                         }
                     }
                 }
@@ -170,7 +171,7 @@ namespace Quilter {
                 }
                 if (match_keycode (Gdk.Key.F1, keycode)) {
                     debug ("Press to change view...");
-                    if (Application.settings.get_string("preview-type") == "full") {
+                    if (gsettings.get_string("preview-type") == "full") {
                         if (this.stack.get_visible_child_name () == "preview_view") {
                             this.stack.set_visible_child (this.edit_view);
                         } else if (this.stack.get_visible_child_name () == "edit_view") {
@@ -182,7 +183,7 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@1, keycode)) {
                         debug ("Press to change view...");
-                        if (Application.settings.get_string("preview-type") == "full") {
+                        if (gsettings.get_string("preview-type") == "full") {
                             if (this.stack.get_visible_child_name () == "preview_view") {
                                 this.stack.set_visible_child (this.edit_view);
                             } else if (this.stack.get_visible_child_name () == "edit_view") {
@@ -194,20 +195,20 @@ namespace Quilter {
                 }
                 if (match_keycode (Gdk.Key.F2, keycode)) {
                     debug ("Press to change view...");
-                    if (Application.settings.get_boolean("sidebar")) {
-                        Application.settings.set_boolean("sidebar", false);
+                    if (gsettings.get_boolean("sidebar")) {
+                        gsettings.set_boolean("sidebar", false);
                     } else {
-                        Application.settings.set_boolean("sidebar", true);
+                        gsettings.set_boolean("sidebar", true);
                     }
                     return true;
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@2, keycode)) {
                         debug ("Press to change view...");
-                        if (Application.settings.get_boolean("sidebar")) {
-                            Application.settings.set_boolean("sidebar", false);
+                        if (gsettings.get_boolean("sidebar")) {
+                            gsettings.set_boolean("sidebar", false);
                         } else {
-                            Application.settings.set_boolean("sidebar", true);
+                            gsettings.set_boolean("sidebar", true);
                         }
                         return true;
                     }
@@ -236,18 +237,18 @@ namespace Quilter {
             
             var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
             set_font_sans.toggled.connect (() => {
-                Application.settings.set_string("preview-font", "sans");
+                gsettings.set_string("preview-font", "sans");
             });
             
             var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
             set_font_serif.toggled.connect (() => {
-                Application.settings.set_string("preview-font", "serif");
+                gsettings.set_string("preview-font", "serif");
             });
             set_font_serif.set_active (true);
             
             var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
             set_font_mono.toggled.connect (() => {
-                Application.settings.set_string("preview-font", "mono");
+                gsettings.set_string("preview-font", "mono");
             });
             
             var set_font_menu_grid = new Gtk.Grid ();
@@ -281,8 +282,8 @@ namespace Quilter {
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
             
-            if (Application.settings.get_string("preview-type") == "full") {
-                bool v = Application.settings.get_boolean("shown-view");
+            if (gsettings.get_string("preview-type") == "full") {
+                bool v = gsettings.get_boolean("shown-view");
                 if (v) {
                     stack.set_visible_child (preview_view);
                 } else {
@@ -303,7 +304,7 @@ namespace Quilter {
             toolbar.pack_end (view_mode);
             
             paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.set_position (Application.settings.get_int("window-width")/2);
+            paned.set_position (gsettings.get_int("window-width")/2);
             
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
@@ -317,7 +318,7 @@ namespace Quilter {
             actions.add_action_entries (action_entries, this);
             insert_action_group ("win", actions);
             
-            statusbar = new Widgets.StatusBar (this, edit_view_content.buffer);
+            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
@@ -334,10 +335,10 @@ namespace Quilter {
             grid.show_all ();
             this.add (grid);
             
-            int x = Application.settings.get_int("window-x");
-            int y = Application.settings.get_int("window-y");
-            int w = Application.settings.get_int("window-width");
-            int h = Application.settings.get_int("window-height");
+            int x = gsettings.get_int("window-x");
+            int y = gsettings.get_int("window-y");
+            int w = gsettings.get_int("window-width");
+            int h = gsettings.get_int("window-height");
             
             if (x != -1 && y != -1) {
                 this.move (x, y);
@@ -347,7 +348,7 @@ namespace Quilter {
             }
             
             update_title ();
-            if (Application.settings.get_string("current-file") != "") {
+            if (gsettings.get_string("current-file") != "") {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
             
@@ -402,10 +403,10 @@ namespace Quilter {
                 get_size (out w, out h);
                 
                 
-                Application.settings.set_int("window-x", x);
-                Application.settings.set_int("window-y", y);
-                Application.settings.set_int("window-width", w);
-                Application.settings.set_int("window-height", h);
+                gsettings.set_int("window-x", x);
+                gsettings.set_int("window-y", y);
+                gsettings.set_int("window-width", w);
+                gsettings.set_int("window-height", h);
                 
                 string[] files = {};
                 foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -413,7 +414,7 @@ namespace Quilter {
                     files += row.path;
                 }
                 
-                Application.settings.set_strv("last-files", files);
+                gsettings.set_strv("last-files", files);
                 set_prev_workfile ();
                 
                 on_save ();
@@ -461,15 +462,15 @@ namespace Quilter {
             
             private void update_count () {
                 
-                if (Application.settings.get_string("track-type") == "words") {
+                if (gsettings.get_string("track-type") == "words") {
                     statusbar.update_wordcount ();
-                    Application.settings.set_string("track-type", "words");
-                } else if (Application.settings.get_string("track-type") == "lines") {
+                    gsettings.set_string("track-type", "words");
+                } else if (gsettings.get_string("track-type") == "lines") {
                     statusbar.update_linecount ();
-                    Application.settings.set_string("track-type", "lines");
-                } else if (Application.settings.get_string("track-type") == "chars") {
+                    gsettings.set_string("track-type", "lines");
+                } else if (gsettings.get_string("track-type") == "chars") {
                     statusbar.update_charcount ();
-                    Application.settings.set_string("track-type", "chars");
+                    gsettings.set_string("track-type", "chars");
                 }
                 statusbar.update_readtimecount ();
             }
@@ -506,18 +507,18 @@ namespace Quilter {
             
             public void show_sidebar () {
                 
-                sidebar.show_this = Application.settings.get_boolean("sidebar");
-                sidebar.reveal_child = Application.settings.get_boolean("sidebar");
+                sidebar.show_this = gsettings.get_boolean("sidebar");
+                sidebar.reveal_child = gsettings.get_boolean("sidebar");
             }
             
             public void show_statusbar () {
                 
-                statusbar.reveal_child = Application.settings.get_boolean("statusbar");
+                statusbar.reveal_child = gsettings.get_boolean("statusbar");
             }
             
             public void show_searchbar () {
                 
-                searchbar.reveal_child = Application.settings.get_boolean("searchbar");
+                searchbar.reveal_child = gsettings.get_boolean("searchbar");
             }
             
             private void update_title () {
@@ -532,12 +533,12 @@ namespace Quilter {
             private void set_prev_workfile () {
                 unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
                 
-                if (row != null && Application.settings.get_string("current-file") != _("No Documents Open")) {
-                    Application.settings.set_string("current-file", row.path);
+                if (row != null && gsettings.get_string("current-file") != _("No Documents Open")) {
+                    gsettings.set_string("current-file", row.path);
                 }
             }
             
-            private void on_settings_changed () {
+            private void on_gsettings_changed () {
                 show_statusbar ();
                 show_sidebar ();
                 show_searchbar ();
@@ -545,24 +546,24 @@ namespace Quilter {
                 edit_view_content.dynamic_margins ();
                 change_layout ();
                 
-                if (!Application.settings.get_boolean("focus-mode")) {
+                if (!gsettings.get_boolean("focus-mode")) {
                     set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
                 } else {
                     set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
                 }
                 
-                if (Application.settings.get_string("current-file") != "" || Application.settings.get_string("current-file") != _("No Documents Open")) {
+                if (gsettings.get_string("current-file") != "" || gsettings.get_string("current-file") != _("No Documents Open")) {
                     // pass
                 } else {
                     Services.FileManager.get_cache_path ();
                     sidebar.add_file (Services.FileManager.get_cache_path ());
-                    Application.settings.set_string("current-file", Services.FileManager.get_cache_path ());
+                    gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                     edit_view_content.buffer.text = "";
                 }
             }
             
             private void change_layout () {
-                if (Application.settings.get_string("preview-type") == "full") {
+                if (gsettings.get_string("preview-type") == "full") {
                     widget_unparent (edit_view);
                     widget_unparent (preview_view);
                     stack.add_titled (edit_view, "edit_view", _("Edit"));
@@ -619,7 +620,7 @@ namespace Quilter {
                 
                 debug ("Creating new document");
                 on_save ();
-                sidebar.add_file (Services.FileManager.get_temp_document_path ());
+                sidebar.add_file (Services.FileManager.get_cache_path ());
                 edit_view_content.text = "";
                 edit_view_content.modified = true;
                 on_save ();
@@ -632,7 +633,7 @@ namespace Quilter {
                 edit_view_content.text = contents;
                 
                 
-                if (Application.settings.get_strv("last-files") != null && path != _("No Documents Open")) {
+                if (gsettings.get_strv("last-files") != null && path != _("No Documents Open")) {
                     sidebar.add_file (path);
                 } else {
                     sidebar.delete_row ();
@@ -660,7 +661,7 @@ namespace Quilter {
                         string path;
                         Services.FileManager.save_as (edit_view_content.text, out path);
                         edit_view_content.modified = false;
-                        if (Application.settings.get_strv("last-files") != null) {
+                        if (gsettings.get_strv("last-files") != null) {
                             sidebar.delete_row_with_name ();
                             sidebar.add_file (path);
                         } else {
@@ -677,17 +678,16 @@ namespace Quilter {
                 if (box != null) {
                     try {
                         string file_path = box.path;
-                        
-                        Application.settings.set_string("current-file", file_path);
+                        gsettings.set_string("current-file", file_path);
                         
                         string text;
                         GLib.FileUtils.get_contents (file_path, out text);
                         
-                        if (Application.settings.get_string("current-file") != file_path) {
-                            if (Application.settings.get_boolean("auto-save") == true) {
-                                on_save ();
-                            }
-                        } else if (Application.settings.get_string("current-file") == _("No Documents Open")) {
+                        if (gsettings.get_string("current-file") != file_path) {
+                            //if (gsettings.get_boolean("auto-save") == true) {
+                            //    on_save ();
+                            //}
+                        } else if (gsettings.get_string("current-file") == _("No Documents Open")) {
                             return;
                         }
                         

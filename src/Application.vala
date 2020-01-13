@@ -17,8 +17,11 @@
 * Boston, MA 02110-1301 USA
 *
 */
+namespace Quilter { 
+    public GLib.Settings gsettings;
+}
+
 public class Quilter.Application : Gtk.Application {
-    public static GLib.Settings settings;
     private static bool print_cr = false;
     private static bool open_view = false;
     private static string _cwd;
@@ -26,13 +29,15 @@ public class Quilter.Application : Gtk.Application {
     public static MainWindow win = null;
     public Widgets.Headerbar toolbar;
     public static string[] supported_mimetypes;
+
+    public Application () {
+        gsettings = new GLib.Settings ("com.github.lainsce.quilter");
+    }
     
     construct {
         flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
         flags |= ApplicationFlags.HANDLES_OPEN;
-        application_id = "com.github.lainsce.quilter";
-        settings = new GLib.Settings ("com.github.lainsce.quilter");
-        
+        application_id = "com.github.lainsce.quilter";        
         supported_mimetypes = {"text/markdown"};
         register_default_handler ();
     }
@@ -61,7 +66,7 @@ public class Quilter.Application : Gtk.Application {
         win = new MainWindow (this);
         
         
-        if (settings.get_string("preview-type") == "full") {
+        if (gsettings.get_string("preview-type") == "full") {
             if (open_view) {
                 win.stack.set_visible_child (win.preview_view);
                 open_view = false;

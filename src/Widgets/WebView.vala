@@ -47,7 +47,7 @@ namespace Quilter.Widgets {
 
             update_html_view ();
 
-            Application.settings.changed.connect (update_html_view);
+            gsettings.changed.connect (update_html_view);
             connect_signals ();
         }
 
@@ -61,13 +61,13 @@ namespace Quilter.Widgets {
 
         private string set_stylesheet () {
 
-            if (Application.settings.get_boolean("dark-mode")) {
+            if (gsettings.get_boolean("dark-mode")) {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (Application.settings.get_boolean("sepia-mode")) {
+            } else if (gsettings.get_boolean("sepia-mode")) {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (Application.settings.get_boolean("moon-mode")) {
+            } else if (gsettings.get_boolean("moon-mode")) {
                 string moon = Styles.quiltermoon.css;
                 return moon;
             }
@@ -78,11 +78,11 @@ namespace Quilter.Widgets {
 
         private string set_font_stylesheet () {
 
-            if (Application.settings.get_string("preview-font") == "serif") {
+            if (gsettings.get_string("preview-font") == "serif") {
                 return Build.PKGDATADIR + "/font/serif.css";
-            } else if (Application.settings.get_string("preview-font") == "sans") {
+            } else if (gsettings.get_string("preview-font") == "sans") {
                 return Build.PKGDATADIR + "/font/sans.css";
-            } else if (Application.settings.get_string("preview-font") == "mono") {
+            } else if (gsettings.get_string("preview-font") == "mono") {
                 return Build.PKGDATADIR + "/font/mono.css";
             }
 
@@ -91,11 +91,11 @@ namespace Quilter.Widgets {
 
         private string set_highlight_stylesheet () {
 
-            if (Application.settings.get_boolean("dark-mode")) {
+            if (gsettings.get_boolean("dark-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
-            } else if (Application.settings.get_boolean("sepia-mode")) {
+            } else if (gsettings.get_boolean("sepia-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
-            } else if (Application.settings.get_boolean("moon-mode")) {
+            } else if (gsettings.get_boolean("moon-mode")) {
                 return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             }
 
@@ -104,7 +104,7 @@ namespace Quilter.Widgets {
 
         private string set_highlight () {
 
-            if (Application.settings.get_boolean("highlight")) {
+            if (gsettings.get_boolean("highlight")) {
                 return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
             } else {
                 return "";
@@ -113,7 +113,7 @@ namespace Quilter.Widgets {
 
         private string set_latex () {
 
-            if (Application.settings.get_boolean("latex")) {
+            if (gsettings.get_boolean("latex")) {
                 string katex_main = Build.PKGDATADIR + "/katex/katex.css";
                 string katex_js = Build.PKGDATADIR + "/katex/katex.js";
                 string render = Build.PKGDATADIR + "/katex/render.js";

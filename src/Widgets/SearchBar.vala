@@ -27,10 +27,10 @@ namespace Quilter.Widgets {
         private Gtk.TextBuffer? text_buffer = null;
         public Gtk.SourceSearchContext search_context = null;
 
-        public weak Quilter.MainWindow window { get; construct; }
+        public weak MainWindow window { get; construct; }
 
-        public SearchBar (Quilter.MainWindow _window) {
-            Object (window: _window);
+        public SearchBar (MainWindow window) {
+            Object (window: window);
         }
 
         construct {

@@ -23,7 +23,7 @@ namespace Quilter.Widgets {
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
         public Widgets.SearchBar seb;
-        public weak Quilter.MainWindow win { get; construct; }
+        public MainWindow win;
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
@@ -56,8 +56,8 @@ namespace Quilter.Widgets {
             return instance;
         }
 
-        public SideBar (Quilter.MainWindow _win) {
-            Object (win: _win);
+        public SideBar (Quilter.MainWindow win) {
+            this.win = win;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -117,15 +117,15 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
 
-            if (Application.settings.get_string("current-file") == "") {
+            if (gsettings.get_string("current-file") == "") {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
 
-            foreach (string f in Application.settings.get_strv("last-files")) {
+            foreach (string f in gsettings.get_strv("last-files")) {
                 var row = add_file (f);
-                if (f == Application.settings.get_string("current-file")) {
+                if (f == gsettings.get_string("current-file")) {
                     column.select_row (row);
                 }
             }
@@ -170,16 +170,16 @@ namespace Quilter.Widgets {
 
             store.clear ();
             view.expand_all ();
-            if (Application.settings.get_string("current-file") != "") {
+            if (gsettings.get_string("current-file") != "") {
                 store.clear ();
                 outline_populate ();
                 view.expand_all ();
             }
 
-            Application.settings.changed.connect (() => {
+            gsettings.changed.connect (() => {
                 store.clear ();
                 view.expand_all ();
-                if (Application.settings.get_string("current-file") != "") {
+                if (gsettings.get_string("current-file") != "") {
                     store.clear ();
                     outline_populate ();
                 }
@@ -197,7 +197,7 @@ namespace Quilter.Widgets {
 
         public void outline_populate () {
             
-            if (Application.settings.get_string("current-file") != "" || Application.settings.get_string("current-file") != _("No Documents Open")) {
+            if (gsettings.get_string("current-file") != "" || gsettings.get_string("current-file") != _("No Documents Open")) {
                 file = GLib.File.new_for_path (get_selected_row ().path);
 
                 if (file.query_exists ()) {
@@ -269,8 +269,7 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            
-            if (get_selected_row ().path == Application.settings.get_string("current-file")) {
+            if (get_selected_row ().path == gsettings.get_string("current-file")) {
                 get_selected_row ().destroy ();
             } else {
                 foreach (Gtk.Widget item in column.get_children ()) {

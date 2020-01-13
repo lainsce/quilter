@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
-        public weak Quilter.MainWindow win { get; construct; }
+        public MainWindow win;
         private Gtk.Label file_name_label;
         private Gtk.Label file_label;
         public Gtk.Grid file_grid;
@@ -31,7 +31,7 @@ namespace Quilter.Widgets {
             }
             set {
                 _path = value;
-                if (Services.FileManager.is_temp_file (_path)) {
+                if (Services.FileManager.is_temp_file (_path) && _path != null) {
                     file_name_label.label = _("New Document");
                     file_label.label = _("New File");
                 } else {
@@ -53,8 +53,8 @@ namespace Quilter.Widgets {
 
         public signal void save_as ();
 
-        public SideBarBox (MainWindow _win, string? path) {
-            Object (win: _win);
+        public SideBarBox (MainWindow win, string? path) {
+            this.win = win;
             this.activatable = true;
             this.set_size_request (180,-1);
             this.hexpand = false;
@@ -99,13 +99,13 @@ namespace Quilter.Widgets {
                 win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
 
                 var rows = win.sidebar.get_rows ();
-                if (Application.settings.get_strv("last-files") != null) {
+                if (gsettings.get_strv("last-files") != null) {
                     foreach (unowned SideBarBox r in rows) {
                         win.sidebar.column.select_row (r);
                     }
-                } else if (Application.settings.get_strv("last-files") == null) {
-                        win.sidebar.add_file (Services.FileManager.get_cache_path ());
-                        Application.settings.set_string("current-file", Services.FileManager.get_cache_path ());
+                } else if (gsettings.get_strv("last-files") == null) {
+                    win.sidebar.add_file (Services.FileManager.get_cache_path ());
+                    gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                 }
             });
 

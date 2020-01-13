@@ -23,7 +23,7 @@ namespace Quilter {
         public Gtk.Label wordcount_label;
         public Gtk.Label linecount_label;
         public Gtk.Label readtimecount_label;
-        public weak Quilter.MainWindow window { get; construct; }
+        public MainWindow window;
         public Gtk.ActionBar actionbar;
         public Gtk.MenuButton track_type_menu;
         public Gtk.MenuButton preview_type_menu;
@@ -32,8 +32,7 @@ namespace Quilter {
         /* Average normal reading speed is 275 WPM */
         int WPM = 275;
 
-        public StatusBar (Quilter.MainWindow _window, Gtk.SourceBuffer buf) {
-            Object (window: _window);
+        public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
 
             actionbar = new Gtk.ActionBar ();
@@ -46,18 +45,18 @@ namespace Quilter {
                 _("Show/Hide Sidebar")
             );
 
-            if (Application.settings.get_boolean("sidebar") == false) {
+            if (gsettings.get_boolean("sidebar") == false) {
                 side_button.set_active (false);
             } else {
-                side_button.set_active (Application.settings.get_boolean("sidebar") );
+                side_button.set_active (gsettings.get_boolean("sidebar") );
             }
 
             side_button.toggled.connect (() => {
     			if (side_button.active) {
-    				Application.settings.set_boolean("sidebar", true);
+    				gsettings.set_boolean("sidebar", true);
                     side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
     			} else {
-    				Application.settings.set_boolean("sidebar", false);
+    				gsettings.set_boolean("sidebar", false);
                     side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
     			}
 
@@ -68,11 +67,11 @@ namespace Quilter {
 
             preview_type_menu_item ();
 
-            if (Application.settings.get_string("track-type") == "words") {
+            if (gsettings.get_string("track-type") == "words") {
                 update_wordcount ();
-            } else if (Application.settings.get_string("track-type") == "lines") {
+            } else if (gsettings.get_string("track-type") == "lines") {
                 update_linecount ();
-            } else if (Application.settings.get_string("track-type") == "chars") {
+            } else if (gsettings.get_string("track-type") == "chars") {
                 update_charcount ();
             }
 
@@ -89,20 +88,20 @@ namespace Quilter {
             preview_cbt.append_text((_("Full-Width")));
             preview_cbt.append_text((_("Half-Width")));
 
-            if (Application.settings.get_string("preview-type") == "full") {
+            if (gsettings.get_string("preview-type") == "full") {
                 preview_cbt.set_active(0);
-                Application.settings.set_string("preview-type", "full");
-            } else if (Application.settings.get_string("preview-type") == "half") {
+                gsettings.set_string("preview-type", "full");
+            } else if (gsettings.get_string("preview-type") == "half") {
                 preview_cbt.set_active(1);
-                Application.settings.set_string("preview-type", "half");
+                gsettings.set_string("preview-type", "half");
             }
 
             preview_cbt.changed.connect (() => {
                 var pcbt_value = preview_cbt.get_active();
                 if (pcbt_value == 0) {
-                    Application.settings.set_string("preview-type", "full");
+                    gsettings.set_string("preview-type", "full");
                 } else if (pcbt_value == 1) {
-                    Application.settings.set_string("preview-type", "half");
+                    gsettings.set_string("preview-type", "half");
                 }
             });
 
@@ -117,17 +116,17 @@ namespace Quilter {
 
             var track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
 	        track_chars.toggled.connect (() => {
-	            Application.settings.set_string("track-type", "chars");
+	            gsettings.set_string("track-type", "chars");
 	        });
 
 	        var track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
 	        track_words.toggled.connect (() => {
-	            Application.settings.set_string("track-type", "words");
+	            gsettings.set_string("track-type", "words");
 	        });
 
 	        var track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
 	        track_lines.toggled.connect (() => {
-	            Application.settings.set_string("track-type", "lines");
+	            gsettings.set_string("track-type", "lines");
 	        });
 	        track_words.set_active (true);
 
@@ -160,21 +159,21 @@ namespace Quilter {
 
             var wc = get_count();
             track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
-            Application.settings.set_string("track-type", "words");
+            gsettings.set_string("track-type", "words");
         }
 
         public void update_linecount () {
 
             var lc = get_count();
             track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
-            Application.settings.set_string("track-type", "lines");
+            gsettings.set_string("track-type", "lines");
         }
 
         public void update_charcount () {
 
             var cc = get_count();
             track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
-            Application.settings.set_string("track-type", "chars");
+            gsettings.set_string("track-type", "chars");
         }
 
         public void readtimecount_item () {
