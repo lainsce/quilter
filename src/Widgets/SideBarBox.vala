@@ -54,7 +54,7 @@ namespace Quilter.Widgets {
         public signal void save_as ();
 
         public SideBarBox (MainWindow win, string? path) {
-            var settings = AppSettings.get_default ();
+            
             this.win = win;
             this.activatable = true;
             this.set_size_request (180,-1);

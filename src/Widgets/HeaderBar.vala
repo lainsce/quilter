@@ -45,7 +45,6 @@ namespace Quilter.Widgets {
 
             focus_mode_toolbar ();
 
-            var settings = AppSettings.get_default ();
             settings.changed.connect (() => {
                 focus_mode_toolbar ();
             });
@@ -53,7 +52,6 @@ namespace Quilter.Widgets {
 
         private void build_ui () {
             set_title (null);
-            var settings = AppSettings.get_default ();
             string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
                 set_subtitle (settings.current_file);
@@ -278,15 +276,17 @@ namespace Quilter.Widgets {
             pack_start (save_as_button);
 
             // This makes the save button show or not, and it's necessary as-is.
-            settings.changed.connect (() => {
-                if (settings.autosave) {
-                    save_button.visible = false;
-                    settings.autosave = true;
-                } else {
-                    pack_start (save_button);
-                    save_button.visible = true;
-                    settings.autosave = false;
-                }
+            settings.changed.connect ((key) => {
+            //      if (settings.get_boolean ("autosave")) {
+            //          save_button.visible = false;
+            //          settings.set_boolean ("autosave", true);
+            //      } else {
+            //          pack_start (save_button);
+            //          save_button.visible = true;
+            //          settings.set_boolean ("autosave", false);
+            //      }
+
+
             });
 
             pack_end (menu_button);
@@ -298,7 +298,6 @@ namespace Quilter.Widgets {
         }
 
         public void focus_mode_toolbar () {
-            var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));

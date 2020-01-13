@@ -34,7 +34,7 @@ namespace Quilter {
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
-            var settings = AppSettings.get_default ();
+
             actionbar = new Gtk.ActionBar ();
 
             var side_button = new Gtk.ToggleButton ();
@@ -82,7 +82,7 @@ namespace Quilter {
         }
 
         public void preview_type_menu_item () {
-            var settings = AppSettings.get_default ();
+
 
             var preview_cbt = new Gtk.ComboBoxText();
             preview_cbt.append_text((_("Full-Width")));
@@ -112,7 +112,7 @@ namespace Quilter {
         }
 
         public void track_type_menu_item () {
-            var settings = AppSettings.get_default ();
+
 
             var track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
 	        track_chars.toggled.connect (() => {
@@ -156,21 +156,21 @@ namespace Quilter {
         }
 
         public void update_wordcount () {
-            var settings = AppSettings.get_default ();
+
             var wc = get_count();
             track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
             settings.track_type = "words";
         }
 
         public void update_linecount () {
-            var settings = AppSettings.get_default ();
+
             var lc = get_count();
             track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
             settings.track_type = "lines";
         }
 
         public void update_charcount () {
-            var settings = AppSettings.get_default ();
+
             var cc = get_count();
             track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
             settings.track_type = "chars";

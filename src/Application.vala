@@ -18,6 +18,8 @@
 *
 */
 namespace Quilter {
+    public Quilter.AppSettings settings;
+
     public class Application : Gtk.Application {
         private static bool print_cr = false;
         private static bool open_view = false;
@@ -55,7 +57,7 @@ namespace Quilter {
             }
             win = new MainWindow (this);
 
-            var settings = AppSettings.get_default ();
+            
             if (settings.preview_type == "full") {
                 if (open_view) {
                     win.stack.set_visible_child (win.preview_view);

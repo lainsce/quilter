@@ -55,11 +55,11 @@ namespace Quilter {
 
         public bool is_fullscreen {
             get {
-                var settings = AppSettings.get_default ();
+    
                 return settings.fullscreen;
             }
             set {
-                var settings = AppSettings.get_default ();
+    
                 settings.fullscreen = value;
 
                 if (settings.fullscreen) {
@@ -89,7 +89,7 @@ namespace Quilter {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            var settings = AppSettings.get_default ();
+
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
 
@@ -227,7 +227,7 @@ namespace Quilter {
         }
 
         construct {
-            var settings = AppSettings.get_default ();
+
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -411,7 +411,7 @@ namespace Quilter {
             get_position (out x, out y);
             get_size (out w, out h);
 
-            var settings = AppSettings.get_default ();
+
             settings.window_x = x;
             settings.window_y = y;
             settings.window_width = w;
@@ -470,7 +470,7 @@ namespace Quilter {
         }
 
         private void update_count () {
-            var settings = AppSettings.get_default ();
+
             if (settings.track_type == "words") {
                 statusbar.update_wordcount ();
                 settings.track_type = "words";
@@ -515,18 +515,18 @@ namespace Quilter {
         }
 
         public void show_sidebar () {
-            var settings = AppSettings.get_default ();
+
             sidebar.show_this = settings.sidebar;
             sidebar.reveal_child = settings.sidebar;
         }
 
         public void show_statusbar () {
-            var settings = AppSettings.get_default ();
+
             statusbar.reveal_child = settings.statusbar;
         }
 
         public void show_searchbar () {
-            var settings = AppSettings.get_default ();
+
             searchbar.reveal_child = settings.searchbar;
         }
 
@@ -541,7 +541,7 @@ namespace Quilter {
 
         private void set_prev_workfile () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            var settings = AppSettings.get_default ();
+
             if (row != null && settings.current_file != _("No Documents Open")) {
                 settings.current_file = row.path;
             }
@@ -555,7 +555,6 @@ namespace Quilter {
             edit_view_content.dynamic_margins ();
             change_layout ();
 
-            var settings = AppSettings.get_default ();
             if (!settings.focus_mode) {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
@@ -573,7 +572,6 @@ namespace Quilter {
         }
 
         private void change_layout () {
-            var settings = AppSettings.get_default ();
             if (settings.preview_type == "full") {
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);
@@ -643,7 +641,7 @@ namespace Quilter {
 
             edit_view_content.text = contents;
 
-            var settings = AppSettings.get_default ();
+
             if (settings.last_files != null && path != _("No Documents Open")) {
                 sidebar.add_file (path);
             } else {
@@ -668,7 +666,7 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
                 try {
-                    var settings = AppSettings.get_default ();
+        
                     string path;
                     Services.FileManager.save_as (edit_view_content.text, out path);
                     edit_view_content.modified = false;
@@ -689,7 +687,7 @@ namespace Quilter {
             if (box != null) {
                 try {
                     string file_path = box.path;
-                    var settings = AppSettings.get_default ();
+        
                     settings.current_file = file_path;
 
                     string text;

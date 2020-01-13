@@ -69,7 +69,7 @@ namespace Quilter.Widgets {
         public signal void save ();
 
         public EditView (MainWindow window) {
-            var settings = AppSettings.get_default ();
+            
             this.window = window;
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/markdown");
@@ -208,7 +208,7 @@ namespace Quilter.Widgets {
         }
 
         private void update_settings () {
-            var settings = AppSettings.get_default ();
+            
             var buffer_context = this.get_style_context ();
             this.set_pixels_inside_wrap(settings.spacing);
             this.set_pixels_above_lines(settings.spacing);
@@ -264,7 +264,7 @@ namespace Quilter.Widgets {
         }
 
         public void dynamic_margins () {
-            var settings = AppSettings.get_default ();
+            
             int w, h, m, p;
             window.get_size (out w, out h);
 
@@ -298,7 +298,7 @@ namespace Quilter.Widgets {
         }
 
         private string get_default_scheme () {
-            var settings = AppSettings.get_default ();
+            
             if (settings.dark_mode) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
@@ -346,7 +346,7 @@ namespace Quilter.Widgets {
         }
 
         public bool move_typewriter_scrolling () {
-            var settings = AppSettings.get_default ();
+            
             if (should_scroll) {
                 var cursor = buffer.get_insert ();
                 this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
@@ -358,7 +358,7 @@ namespace Quilter.Widgets {
         public void set_focused_text () {
             Gtk.TextIter cursor_iter;
             Gtk.TextIter start, end;
-            var settings = AppSettings.get_default ();
+            
 
             buffer.get_bounds (out start, out end);
 

@@ -63,7 +63,7 @@ namespace Quilter.Services.FileManager {
 
     // File I/O
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
-        var settings = AppSettings.get_default ();
+        
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();

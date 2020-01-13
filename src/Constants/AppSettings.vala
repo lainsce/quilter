@@ -31,49 +31,131 @@ namespace Quilter {
         public const double TYPEWRITER_POSITION = 0.50;
     }
 
-    public class AppSettings : Granite.Services.Settings {
-        public bool autosave { get; set; }
-        public bool dark_mode { get; set; }
-        public bool focus_mode { get; set; }
-        public bool fullscreen { get; set; }
-        public bool highlight { get; set; }
-        public bool latex { get; set; }
-        public bool moon_mode { get; set; }
-        public bool searchbar { get; set; }
-        public bool sepia_mode { get; set; }
-        public bool show_filename { get; set; }
-        public bool shown_view { get; set; }
-        public bool spellcheck { get; set; }
-        public bool statusbar { get; set; }
-        public bool sidebar { get; set; }
-        public bool typewriter_scrolling { get; set; }
-        public int focus_mode_type { get; set; }
-        public int font_sizing { get; set; }
-        public int margins { get; set; }
-        public int spacing { get; set; }
-        public int window_height { get; set; }
-        public int window_width { get; set; }
-        public int window_x { get; set; }
-        public int window_y { get; set; }
-        public string current_file { get; set; }
-        public string[] last_files { get; set; }
-        public string preview_font { get; set; }
-        public string edit_font_type { get; set; }
-        public string spellcheck_language { get; set; }
-        public string track_type { get; set; }
-        public string preview_type { get; set; }
-
-        private static AppSettings? instance;
-        public static unowned AppSettings get_default () {
-            if (instance == null) {
-                instance = new AppSettings ();
-            }
-
-            return instance;
+    public class AppSettings : GLib.Settings {
+        public bool autosave { 
+            get { return get_boolean ("autosave"); }
+            set { set_boolean ("autosave", value); }
+        }
+        public bool dark_mode { 
+            get { return get_boolean ("dark-mode"); }
+            set { set_boolean ("dark-mode", value); }
+        }
+        public bool focus_mode { 
+            get { return get_boolean ("focus-mode"); }
+            set { set_boolean ("focus-mode", value); }
+        }
+        public bool fullscreen { 
+            get { return get_boolean ("fullscreen"); }
+            set { set_boolean ("fullscreen", value); }
+        }
+        public bool highlight { 
+            get { return get_boolean ("highlight"); }
+            set { set_boolean ("highlight", value); }
+        }
+        public bool latex { 
+            get { return get_boolean ("latex"); }
+            set { set_boolean ("latex", value); }
+        }
+        public bool moon_mode { 
+            get { return get_boolean ("moon-mode"); }
+            set { set_boolean ("moon-mode", value); }
+        }
+        public bool searchbar { 
+            get { return get_boolean ("searchbar"); }
+            set { set_boolean ("searchbar", value); }
+        }
+        public bool sepia_mode { 
+            get { return get_boolean ("sepia-mode"); }
+            set { set_boolean ("sepia-mode", value); }
+        }
+        public bool show_filename { 
+            get { return get_boolean ("show-filename"); }
+            set { set_boolean ("show-filename", value); }
+        }
+        public bool shown_view { 
+            get { return get_boolean ("shown-view"); }
+            set { set_boolean ("shown-view", value); }
+        }
+        public bool spellcheck { 
+            get { return get_boolean ("spellcheck"); }
+            set { set_boolean ("spellcheck", value); }
+        }
+        public bool statusbar { 
+            get { return get_boolean ("statusbar"); }
+            set { set_boolean ("statusbar", value); }
+        }
+        public bool sidebar { 
+            get { return get_boolean ("sidebar"); }
+            set { set_boolean ("sidebar", value); }
+        }
+        public bool typewriter_scrolling { 
+            get { return get_boolean ("typewriter-scrolling"); }
+            set { set_boolean ("typewriter-scrolling", value); }
+        }
+        public int focus_mode_type {
+            get { return get_int ("focus-mode-type"); }
+            set { set_int ("focus-mode-type", value); }
+        }
+        public int font_sizing {
+            get { return get_int ("font-sizing"); }
+            set { set_int ("font-sizing", value); }
+        }
+        public int margins {
+            get { return get_int ("margins"); }
+            set { set_int ("margins", value); }
+        }
+        public int spacing {
+            get { return get_int ("spacing"); }
+            set { set_int ("spacing", value); }
+        }
+        public int window_height {
+            get { return get_int ("window-height"); }
+            set { set_int ("window-height", value); }
+        }
+        public int window_width {
+            get { return get_int ("window-width"); }
+            set { set_int ("window-width", value); }
+        }
+        public int window_x {
+            get { return get_int ("window-x"); }
+            set { set_int ("window-x", value); }
+        }
+        public int window_y {
+            get { return get_int ("window-y"); }
+            set { set_int ("window-y", value); }
+        }
+        public string current_file {
+            owned get { return get_string ("current-file"); }
+            set { set_string ("current-file", value); }
+        }
+        public string preview_font {
+            owned get { return get_string ("preview-font"); }
+            set { set_string ("preview-font", value); }
+        }
+        public string edit_font_type {
+            owned get { return get_string ("edit-font-type"); }
+            set { set_string ("edit-font-type", value); }
+        }
+        public string spellcheck_language {
+            owned get { return get_string ("spellcheck-language"); }
+            set { set_string ("spellcheck-language", value); }
+        }
+        public string track_type {
+            owned get { return get_string ("track-type"); }
+            set { set_string ("track-type", value); }
+        }
+        public string preview_type {
+            owned get { return get_string ("preview-type"); }
+            set { set_string ("preview-type", value); }
+        }
+        public string[] last_files {
+            owned get { return get_strv ("last-files"); }
+            set { set_strv ("last-files", value); }
         }
 
         private AppSettings () {
-            base ("com.github.lainsce.quilter");
+            debug ("Settings setupped correctly!");
+            Object (schema_id: "com.github.lainsce.quilter");
         }
     }
 }

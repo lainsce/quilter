@@ -24,6 +24,8 @@ namespace Quilter.Widgets {
         private static Preview? instance = null;
         public string html;
         public Gtk.SourceBuffer buf;
+        public WebKit.Settings wsettings;
+        public Quilter.AppSettings gsettings;
 
         public static Preview get_instance () {
             if (instance == null) {
@@ -39,15 +41,14 @@ namespace Quilter.Widgets {
             vexpand = true;
             hexpand = true;
             this.buf = buf;
-            var settingsweb = get_settings();
-            settingsweb.enable_plugins = false;
-            settingsweb.enable_page_cache = false;
-            settingsweb.enable_developer_extras = false;
-            settingsweb.javascript_can_open_windows_automatically = false;
+            wsettings.enable_plugins = false;
+            wsettings.enable_page_cache = false;
+            wsettings.enable_developer_extras = false;
+            wsettings.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
-            var settings = AppSettings.get_default ();
-            settings.changed.connect (update_html_view);
+
+            gsettings.changed.connect (update_html_view);
             connect_signals ();
         }
 
@@ -60,14 +61,14 @@ namespace Quilter.Widgets {
         }
 
         private string set_stylesheet () {
-            var settings = AppSettings.get_default ();
-            if (settings.dark_mode) {
+
+            if (gsettings.dark_mode) {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (settings.sepia_mode) {
+            } else if (gsettings.sepia_mode) {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (settings.moon_mode) {
+            } else if (gsettings.moon_mode) {
                 string sepia = Styles.quiltermoon.css;
                 return sepia;
             }
@@ -77,12 +78,12 @@ namespace Quilter.Widgets {
         }
 
         private string set_font_stylesheet () {
-            var settings = AppSettings.get_default ();
-            if (settings.preview_font == "serif") {
+
+            if (gsettings.preview_font == "serif") {
                 return Build.PKGDATADIR + "/font/serif.css";
-            } else if (settings.preview_font == "sans") {
+            } else if (gsettings.preview_font == "sans") {
                 return Build.PKGDATADIR + "/font/sans.css";
-            } else if (settings.preview_font == "mono") {
+            } else if (gsettings.preview_font == "mono") {
                 return Build.PKGDATADIR + "/font/mono.css";
             }
 
@@ -90,12 +91,12 @@ namespace Quilter.Widgets {
         }
 
         private string set_highlight_stylesheet () {
-            var settings = AppSettings.get_default ();
-            if (settings.dark_mode) {
+
+            if (gsettings.dark_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
-            } else if (settings.sepia_mode) {
+            } else if (gsettings.sepia_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
-            } else if (settings.moon_mode) {
+            } else if (gsettings.moon_mode) {
                 return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             }
 
@@ -103,8 +104,8 @@ namespace Quilter.Widgets {
         }
 
         private string set_highlight () {
-            var settings = AppSettings.get_default ();
-            if (settings.highlight) {
+
+            if (gsettings.highlight) {
                 return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
             } else {
                 return "";
@@ -112,8 +113,8 @@ namespace Quilter.Widgets {
         }
 
         private string set_latex () {
-            var settings = AppSettings.get_default ();
-            if (settings.latex) {
+
+            if (gsettings.latex) {
                 string katex_main = Build.PKGDATADIR + "/katex/katex.css";
                 string katex_js = Build.PKGDATADIR + "/katex/katex.js";
                 string render = Build.PKGDATADIR + "/katex/render.js";

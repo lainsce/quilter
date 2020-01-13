@@ -45,7 +45,7 @@ namespace Quilter.Services.ExportUtils {
     }
 
     public static File? export_pdf (string? file_path = null) {
-        var settings = AppSettings.get_default ();
+        
         int type_of_mode = 0;
 
         if (settings.dark_mode) {

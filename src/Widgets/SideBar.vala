@@ -107,7 +107,7 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_files_list () {
-            var settings = AppSettings.get_default ();
+            
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
@@ -148,7 +148,7 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_outline () {
-            var settings = AppSettings.get_default ();
+            
             view = new Gtk.TreeView ();
             view.expand = true;
             view.hexpand = true;
@@ -196,7 +196,7 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            var settings = AppSettings.get_default ();
+            
             if (settings.current_file != "" || settings.current_file != _("No Documents Open")) {
                 file = GLib.File.new_for_path (get_selected_row ().path);
 
@@ -269,7 +269,7 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            var settings = AppSettings.get_default ();
+            
             if (get_selected_row ().path == settings.current_file) {
                 get_selected_row ().destroy ();
             } else {
