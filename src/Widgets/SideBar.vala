@@ -56,7 +56,7 @@ namespace Quilter.Widgets {
             return instance;
         }
 
-        public SideBar (Quilter.MainWindow win) {
+        public SideBar (MainWindow win) {
             this.win = win;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);

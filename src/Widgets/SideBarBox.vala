@@ -31,7 +31,7 @@ namespace Quilter.Widgets {
             }
             set {
                 _path = value;
-                if (Services.FileManager.is_temp_file (_path) && _path != null) {
+                if (Services.FileManager.is_temp_file (_path)) {
                     file_name_label.label = _("New Document");
                     file_label.label = _("New File");
                 } else {

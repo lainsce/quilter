@@ -35,7 +35,7 @@ namespace Quilter.Widgets {
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton share_app_menu;
 
-        public Headerbar (Quilter.MainWindow win) {
+        public Headerbar (MainWindow win) {
             this.win = win;
             var header_context = this.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);

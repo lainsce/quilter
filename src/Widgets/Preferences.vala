@@ -18,13 +18,13 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
-        public Preferences (Quilter.MainWindow window) {
+        public Preferences (Gtk.Window? parent) {
             Object (
                 border_width: 6,
                 deletable: false,
                 resizable: false,
                 title: _("Preferences"),
-                transient_for: window,
+                transient_for: parent,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
@@ -203,25 +203,25 @@ namespace Quilter.Widgets {
             font_size.mode_changed.connect (() => {
                 switch (font_size.selected) {
                     case 0:
-                        gsettings.set_int("font_sizing", Constants.SMALL_FONT);
+                        gsettings.set_int("font-sizing", Constants.SMALL_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 1:
-                        gsettings.set_int("font_sizing", Constants.MEDIUM_FONT);
+                        gsettings.set_int("font-sizing", Constants.MEDIUM_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 2:
-                        gsettings.set_int("font_sizing", Constants.BIG_FONT);
+                        gsettings.set_int("font-sizing", Constants.BIG_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
                         break;
                     case 3:
-                        gsettings.set_int("font_sizing", font_sizing);
+                        gsettings.set_int("font-sizing", font_sizing);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
