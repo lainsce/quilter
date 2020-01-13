@@ -23,7 +23,7 @@ namespace Quilter {
         public Gtk.Label wordcount_label;
         public Gtk.Label linecount_label;
         public Gtk.Label readtimecount_label;
-        public MainWindow window;
+        public weak Quilter.MainWindow window { get; construct; }
         public Gtk.ActionBar actionbar;
         public Gtk.MenuButton track_type_menu;
         public Gtk.MenuButton preview_type_menu;
@@ -32,7 +32,8 @@ namespace Quilter {
         /* Average normal reading speed is 275 WPM */
         int WPM = 275;
 
-        public StatusBar (Gtk.SourceBuffer buf) {
+        public StatusBar (Quilter.MainWindow _window, Gtk.SourceBuffer buf) {
+            Object (window: _window);
             this.buf = buf;
 
             actionbar = new Gtk.ActionBar ();

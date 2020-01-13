@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
-        public MainWindow win;
+        public weak Quilter.MainWindow win { get; construct; }
         private Gtk.Label file_name_label;
         private Gtk.Label file_label;
         public Gtk.Grid file_grid;
@@ -53,9 +53,8 @@ namespace Quilter.Widgets {
 
         public signal void save_as ();
 
-        public SideBarBox (MainWindow win, string? path) {
-            
-            this.win = win;
+        public SideBarBox (MainWindow _win, string? path) {
+            Object (win: _win);
             this.activatable = true;
             this.set_size_request (180,-1);
             this.hexpand = false;

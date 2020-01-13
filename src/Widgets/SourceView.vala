@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
-        public MainWindow window;
+        public weak Quilter.MainWindow window { get; construct; }
         private static EditView? instance = null;
         public bool should_scroll {get; set; default = false;}
         public File file;
@@ -68,9 +68,8 @@ namespace Quilter.Widgets {
 
         public signal void save ();
 
-        public EditView (MainWindow window) {
-            
-            this.window = window;
+        public EditView (Quilter.MainWindow _window) {
+            Object (window: _window);
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);

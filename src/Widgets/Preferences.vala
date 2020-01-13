@@ -18,14 +18,16 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
+        public weak Quilter.MainWindow window { get; construct; }
 
-        public Preferences (Gtk.Window? parent) {
+        public Preferences (Quilter.MainWindow _window) {
             Object (
                 border_width: 6,
                 deletable: false,
                 resizable: false,
                 title: _("Preferences"),
-                transient_for: parent,
+                window: _window,
+                transient_for: _window,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
@@ -151,6 +153,7 @@ namespace Quilter.Widgets {
             var font_type = new Gtk.ComboBoxText();
             font_type.append_text(_("Quilt Mono"));
             font_type.append_text(_("Quilt Vier"));
+
             switch (settings.edit_font_type) {
                 case "mono":
                     font_type.set_active(0);

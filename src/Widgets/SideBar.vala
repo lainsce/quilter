@@ -23,7 +23,7 @@ namespace Quilter.Widgets {
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
         public Widgets.SearchBar seb;
-        public MainWindow win;
+        public weak Quilter.MainWindow win { get; construct; }
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
@@ -56,8 +56,8 @@ namespace Quilter.Widgets {
             return instance;
         }
 
-        public SideBar (MainWindow win) {
-            this.win = win;
+        public SideBar (Quilter.MainWindow _win) {
+            Object (win: _win);
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;

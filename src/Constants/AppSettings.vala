@@ -153,7 +153,7 @@ namespace Quilter {
             set { set_strv ("last-files", value); }
         }
 
-        private AppSettings () {
+        public AppSettings () {
             debug ("Settings setupped correctly!");
             Object (schema_id: "com.github.lainsce.quilter");
         }

@@ -21,7 +21,7 @@ namespace Quilter.Widgets {
         private Gtk.Stack main_stack;
         private Gtk.StackSwitcher main_stackswitcher;
 
-        public Cheatsheet (Gtk.Window? parent) {
+        public Cheatsheet (Quilter.MainWindow parent) {
             Object (
                 border_width: 6,
                 deletable: false,
