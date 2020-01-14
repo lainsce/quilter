@@ -243,19 +243,19 @@ namespace Quilter {
 
             var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
             set_font_sans.toggled.connect (() => {
-                gsettings.set_string("preview-font", "sans");
-            });
-            
-            var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
-            set_font_serif.toggled.connect (() => {
-                gsettings.set_string("preview-font", "serif");
-            });
-            set_font_serif.set_active (true);
-            
-            var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
-            set_font_mono.toggled.connect (() => {
-                gsettings.set_string("preview-font", "mono");
-            });
+	            gsettings.set_string("preview-font", "sans");
+	        });
+
+	        var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
+	        set_font_serif.toggled.connect (() => {
+	            gsettings.set_string("preview-font", "serif");
+	        });
+	        set_font_serif.set_active (true);
+
+	        var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
+	        set_font_mono.toggled.connect (() => {
+	            gsettings.set_string("preview-font", "mono");
+	        });
 
             var set_font_menu_grid = new Gtk.Grid ();
             set_font_menu_grid.margin = 12;
