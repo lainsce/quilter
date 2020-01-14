@@ -116,15 +116,15 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
 
-            if (Application.gsettings.get_string("current-file") == "") {
+            if (Quilter.Application.gsettings.get_string("current-file") == "") {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
 
-            for (int i = 0; i < Application.gsettings.get_strv("last-files").length; i++) {
-                var row = add_file (Application.gsettings.get_strv("last-files")[i]);
-                if (Application.gsettings.get_strv("last-files")[i] == Application.gsettings.get_string("current-file")) {
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                var row = add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
                     column.select_row (row);
                 }
             }
@@ -169,16 +169,16 @@ namespace Quilter.Widgets {
 
             store.clear ();
             view.expand_all ();
-            if (Application.gsettings.get_string("current-file") != "") {
+            if (Quilter.Application.gsettings.get_string("current-file") != "") {
                 store.clear ();
                 outline_populate ();
                 view.expand_all ();
             }
 
-            Application.gsettings.changed.connect (() => {
+            Quilter.Application.gsettings.changed.connect (() => {
                 store.clear ();
                 view.expand_all ();
-                if (Application.gsettings.get_string("current-file") != "") {
+                if (Quilter.Application.gsettings.get_string("current-file") != "") {
                     store.clear ();
                     outline_populate ();
                 }
@@ -195,8 +195,8 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            if (Application.gsettings.get_string("current-file") != "" || Application.gsettings.get_string("current-file") != _("No Documents Open")) {
-                var file = GLib.File.new_for_path (Application.gsettings.get_string("current-file"));
+            if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
+                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
 
                 if (file != null && file.query_exists ()) {
                     try {
@@ -267,7 +267,7 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            if (get_selected_row ().path == Application.gsettings.get_string("current-file")) {
+            if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
                 get_selected_row ().destroy ();
             } else {
                 foreach (Gtk.Widget item in column.get_children ()) {

@@ -48,14 +48,14 @@ namespace Quilter.Services.ExportUtils {
         
         int type_of_mode = 0;
 
-        if (Application.gsettings.get_boolean("dark-mode")) {
-            Application.gsettings.set_boolean("dark-mode", false);
+        if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+            Quilter.Application.gsettings.set_boolean("dark-mode", false);
             type_of_mode = 1;
-        } else if (Application.gsettings.get_boolean("moon-mode")) {
-            Application.gsettings.set_boolean("moon-mode", false);
+        } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+            Quilter.Application.gsettings.set_boolean("moon-mode", false);
             type_of_mode = 2;
-        } else if (Application.gsettings.get_boolean("sepia-mode")) {
-            Application.gsettings.set_boolean("sepia-mode", false);
+        } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+            Quilter.Application.gsettings.set_boolean("sepia-mode", false);
             type_of_mode = 3;
         }
 
@@ -96,13 +96,13 @@ namespace Quilter.Services.ExportUtils {
         op.print ();
 
         if (type_of_mode == 1) {
-            Application.gsettings.set_boolean("dark-mode", true);
+            Quilter.Application.gsettings.set_boolean("dark-mode", true);
             type_of_mode = 0;
         } else if (type_of_mode == 2) {
-            Application.gsettings.set_boolean("moon-mode", true);
+            Quilter.Application.gsettings.set_boolean("moon-mode", true);
             type_of_mode = 0;
         } else if (type_of_mode == 3) {
-            Application.gsettings.set_boolean("sepia-mode", true);
+            Quilter.Application.gsettings.set_boolean("sepia-mode", true);
             type_of_mode = 0;
         }
 

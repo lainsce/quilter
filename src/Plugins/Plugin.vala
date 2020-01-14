@@ -66,7 +66,7 @@ namespace Quilter {
         }
 
         protected void connect_settings (string setting) {
-            Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+            Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
         }
     }
 }

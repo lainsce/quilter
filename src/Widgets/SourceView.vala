@@ -102,7 +102,7 @@ namespace Quilter.Widgets {
                 modified = true;
             });
 
-            if (Application.gsettings.get_string("current-file") == "") {
+            if (Quilter.Application.gsettings.get_string("current-file") == "") {
                 buffer.text = "";
                 modified = false;
             }
@@ -112,7 +112,7 @@ namespace Quilter.Widgets {
 
             try {
                 string text = "";
-                string file_path = Application.gsettings.get_string("current-file");
+                string file_path = Quilter.Application.gsettings.get_string("current-file");
 
                 var file = File.new_for_path (file_path);
                 if (!file.query_exists ()) {
@@ -133,7 +133,7 @@ namespace Quilter.Widgets {
                     if (selected != null) {
                         try {
                             spell.set_language (selected.label);
-                            Application.gsettings.set_string("spellcheck-language", selected.label);
+                            Quilter.Application.gsettings.set_string("spellcheck-language", selected.label);
                         } catch (Error e) {}
                     }
                 });
@@ -148,9 +148,9 @@ namespace Quilter.Widgets {
             buffer.tag_table.add (warning_tag);
 
             spell = new GtkSpell.Checker ();
-            if (Application.gsettings.get_boolean("spellcheck") != false) {
+            if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
                 try {
-                    var lang_dict = Application.gsettings.get_string("spellcheck-language");
+                    var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
                     var language_list = GtkSpell.Checker.get_language_list ();
                     foreach (var element in language_list) {
                         if (lang_dict == element) {
@@ -171,7 +171,7 @@ namespace Quilter.Widgets {
                 spell.detach ();
             }
 
-            if (Application.gsettings.get_boolean("autosave")) {
+            if (Quilter.Application.gsettings.get_boolean("autosave")) {
                 Timeout.add_seconds (30, () => {
                     save ();
                     modified = false;
@@ -180,7 +180,7 @@ namespace Quilter.Widgets {
             }
 
             update_settings ();
-            Application.gsettings.changed.connect (update_settings);
+            Quilter.Application.gsettings.changed.connect (update_settings);
 
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
@@ -209,11 +209,11 @@ namespace Quilter.Widgets {
         private void update_settings () {
             
             var buffer_context = this.get_style_context ();
-            this.set_pixels_inside_wrap(Application.gsettings.get_int("spacing"));
-            this.set_pixels_above_lines(Application.gsettings.get_int("spacing"));
+            this.set_pixels_inside_wrap(Quilter.Application.gsettings.get_int("spacing"));
+            this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins();
 
-            if (!Application.gsettings.get_boolean("focus-mode")) {
+            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
                 buffer.remove_tag(lightgrayfont, start, end);
@@ -230,29 +230,29 @@ namespace Quilter.Widgets {
                 buffer_context.add_class ("big-text");
                 buffer_context.remove_class ("medium-text");
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                if (Application.gsettings.get_boolean("typewriter_scrolling")) {
+                if (Quilter.Application.gsettings.get_boolean("typewriter_scrolling")) {
                     Timeout.add(500, move_typewriter_scrolling);
                 }
             }
 
-            if (Application.gsettings.get_int("font-sizing") == 1) {
+            if (Quilter.Application.gsettings.get_int("font-sizing") == 1) {
                 buffer_context.add_class ("small-text");
                 buffer_context.remove_class ("medium-text");
                 buffer_context.remove_class ("big-text");
-            } else if (Application.gsettings.get_int("font-sizing") == 2) {
+            } else if (Quilter.Application.gsettings.get_int("font-sizing") == 2) {
                 buffer_context.remove_class ("small-text");
                 buffer_context.add_class ("medium-text");
                 buffer_context.remove_class ("big-text");
-            } else if (Application.gsettings.get_int("font-sizing") == 3) {
+            } else if (Quilter.Application.gsettings.get_int("font-sizing") == 3) {
                 buffer_context.remove_class ("small-text");
                 buffer_context.remove_class ("medium-text");
                 buffer_context.add_class ("big-text");
             }
 
-            if (Application.gsettings.get_string("edit-font-type") == "mono") {
+            if (Quilter.Application.gsettings.get_string("edit-font-type") == "mono") {
                 buffer_context.add_class ("mono-font");
                 buffer_context.remove_class ("vier-font");
-            } else if (Application.gsettings.get_string("edit-font-type") == "vier") {
+            } else if (Quilter.Application.gsettings.get_string("edit-font-type") == "vier") {
                 buffer_context.add_class ("vier-font");
                 buffer_context.remove_class ("mono-font");
             }
@@ -269,7 +269,7 @@ namespace Quilter.Widgets {
 
             p = (window.is_fullscreen) ? 5 : 0;
 
-            var margins = Application.gsettings.get_int("margins");
+            var margins = Quilter.Application.gsettings.get_int("margins");
             switch (margins) {
                 case Constants.NARROW_MARGIN:
                     m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
@@ -286,7 +286,7 @@ namespace Quilter.Widgets {
             this.left_margin = m;
             this.right_margin = m;
 
-            if (Application.gsettings.get_boolean("typewriter-scrolling") && Application.gsettings.get_boolean("focus-mode")) {
+            if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 int titlebar_h = window.get_titlebar().get_allocated_height();
                 this.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
                 this.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
@@ -298,7 +298,7 @@ namespace Quilter.Widgets {
 
         private string get_default_scheme () {
             
-            if (Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -309,7 +309,7 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
-            } else if (Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -319,7 +319,7 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-sepia";
-            } else if (Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-moon.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -351,7 +351,7 @@ namespace Quilter.Widgets {
                 this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
                 should_scroll = false;
             }
-            return (Application.gsettings.get_boolean("typewriter-scrolling") && Application.gsettings.get_boolean("focus-mode"));
+            return (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode"));
         }
 
         public void set_focused_text () {
@@ -364,19 +364,19 @@ namespace Quilter.Widgets {
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
 
-            if (Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
                 buffer.apply_tag(darkgrayfont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(lightmoonfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
-            } else if (Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
                 buffer.remove_tag(darkgrayfont, start, end);
                 buffer.apply_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(lightmoonfont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
-            } else if (Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
                 buffer.remove_tag(darkgrayfont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
@@ -394,7 +394,7 @@ namespace Quilter.Widgets {
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
-                var focus_type = Application.gsettings.get_int("focus_mode_type");
+                var focus_type = Quilter.Application.gsettings.get_int("focus_mode_type");
                 if (cursor_iter != start) {
                     switch (focus_type) {
                         case 0:
@@ -424,7 +424,7 @@ namespace Quilter.Widgets {
                     }
 
                 }
-                if (Application.gsettings.get_boolean("dark-mode")) {
+                if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
                     buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
@@ -433,7 +433,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.remove_tag(moonfont, start_sentence, end_sentence);
                     buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
-                } else if (Application.gsettings.get_boolean("sepia-mode")) {
+                } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
                     buffer.apply_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
@@ -442,7 +442,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.remove_tag(moonfont, start_sentence, end_sentence);
                     buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
-                } else if (Application.gsettings.get_boolean("moon-mode")) {
+                } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
                     buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
