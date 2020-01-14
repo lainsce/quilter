@@ -105,19 +105,10 @@ namespace Quilter.Widgets {
                 _("Find…")
             );
 
-            if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
-                search_button.set_active (false);
-            } else {
-                search_button.set_active (Quilter.Application.gsettings.get_boolean("searchbar"));
-            }
+            Quilter.Application.gsettings.bind ("searchbar", search_button, "active", SettingsBindFlags.DEFAULT);
 
             search_button.toggled.connect (() => {
-    			if (search_button.active) {
-    				Quilter.Application.gsettings.set_boolean("searchbar", true);
-    			} else {
-    				Quilter.Application.gsettings.set_boolean("searchbar", false);
-    			}
-
+    			Quilter.Application.gsettings.bind ("searchbar", search_button, "active", SettingsBindFlags.DEFAULT);
             });
 
             var export_pdf = new Gtk.ModelButton ();
