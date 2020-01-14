@@ -123,9 +123,9 @@ namespace Quilter.Widgets {
                 column.select_row (filebox);
             }
 
-            foreach (string f in gsettings.get_strv("last-files")) {
-                var row = add_file (f);
-                if (f == gsettings.get_string("current-file")) {
+            for (int i = 0; i < gsettings.get_strv("last-files").length; i++) {
+                var row = add_file (gsettings.get_strv("last-files")[i]);
+                if (gsettings.get_strv("last-files")[i] == gsettings.get_string("current-file")) {
                     column.select_row (row);
                 }
             }
@@ -249,7 +249,7 @@ namespace Quilter.Widgets {
         public GLib.List<unowned SideBarBox> get_rows () {
             return (GLib.List<unowned SideBarBox>) column.get_children ();
         }
-        public unowned SideBarBox? get_selected_row () {
+        public unowned SideBarBox get_selected_row () {
             return (SideBarBox) column.get_selected_row ();
         }
 

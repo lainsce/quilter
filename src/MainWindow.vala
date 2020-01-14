@@ -639,12 +639,13 @@ namespace Quilter {
 
             edit_view_content.text = contents;
 
-            
-            if (gsettings.get_strv("last-files") != null && path != _("No Documents Open")) {
-                sidebar.add_file (path);
-            } else {
-                sidebar.delete_row ();
-                sidebar.add_file (path);
+            for (int i = 0; i < gsettings.get_strv("last-files").length; i++) {
+                if (gsettings.get_strv("last-files")[i] != null && path != _("No Documents Open")) {
+                    sidebar.add_file (path);
+                } else {
+                    sidebar.delete_row ();
+                    sidebar.add_file (path);
+                }
             }
         }
 
@@ -668,12 +669,15 @@ namespace Quilter {
                     string path;
                     Services.FileManager.save_as (edit_view_content.text, out path);
                     edit_view_content.modified = false;
-                    if (gsettings.get_strv("last-files") != null) {
-                        sidebar.delete_row_with_name ();
-                        sidebar.add_file (path);
-                    } else {
-                        sidebar.delete_row ();
-                        sidebar.add_file (path);
+                    
+                    for (int i = 0; i < gsettings.get_strv("last-files").length; i++) {
+                        if (gsettings.get_strv("last-files")[i] != null) {
+                            sidebar.delete_row_with_name ();
+                            sidebar.add_file (path);
+                        } else {
+                            sidebar.delete_row ();
+                            sidebar.add_file (path);
+                        }
                     }
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
