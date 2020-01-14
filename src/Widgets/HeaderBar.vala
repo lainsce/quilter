@@ -216,19 +216,10 @@ namespace Quilter.Widgets {
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            if (Quilter.Application.gsettings.get_boolean("focus-mode") == false) {
-                focusmode_button.set_active (false);
-            } else {
-                focusmode_button.set_active (Quilter.Application.gsettings.get_boolean("focus-mode"));
-            }
+            Quilter.Application.gsettings.bind ("focus-mode", focusmode_button, "active", SettingsBindFlags.DEFAULT);
 
             focusmode_button.toggled.connect (() => {
-    			if (focusmode_button.active) {
-    				Quilter.Application.gsettings.set_boolean("focus-mode", true);
-    			} else {
-    				Quilter.Application.gsettings.set_boolean("focus-mode", false);
-    			}
-
+                Quilter.Application.gsettings.bind ("focus-mode", focusmode_button, "active", SettingsBindFlags.DEFAULT);
             });
 
             var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
