@@ -79,6 +79,7 @@ namespace Quilter {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
         }
 
         public void preview_type_menu_item () {

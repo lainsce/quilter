@@ -151,10 +151,30 @@ namespace Quilter.Widgets {
             font_type.append_text(_("Quilt Mono"));
             font_type.append_text(_("Quilt Vier"));
 
-            Quilter.Application.gsettings.bind ("edit-font-type", font_type, "active", SettingsBindFlags.DEFAULT);
+            switch (Quilter.Application.gsettings.get_string("edit-font-type")) {
+                case "mono":
+                    font_type.set_active(0);
+                    break;
+                case "vier":
+                    font_type.set_active(1);
+                    break;
+                default:
+                    font_type.set_active(0);
+                    break;
+            }
 
             font_type.changed.connect (() => {
-                Quilter.Application.gsettings.bind ("edit-font-type", font_type, "active", SettingsBindFlags.DEFAULT);
+                switch (font_type.get_active ()) {
+                    case 0:
+                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
+                        break;
+                    case 1:
+                        Quilter.Application.gsettings.set_string("edit-font-type", "vier");
+                        break;
+                    default:
+                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
+                        break;
+                }
             });
 
             var font_label = new SettingsLabel (_("Editor Font Size:"));

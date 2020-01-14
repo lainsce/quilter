@@ -98,7 +98,7 @@ namespace Quilter {
             }
 
             Quilter.Application.gsettings.changed.connect (on_settings_changed);
-            on_settings_changed ();
+            //on_settings_changed ();
 
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
@@ -510,19 +510,15 @@ namespace Quilter {
         }
 
         public void show_sidebar () {
-            
-            sidebar.show_this = Quilter.Application.gsettings.get_boolean("sidebar");
-            sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            Quilter.Application.gsettings.bind ("sidebar", sidebar, "reveal_child", SettingsBindFlags.DEFAULT);
         }
 
         public void show_statusbar () {
-            
-            statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
+            Quilter.Application.gsettings.bind ("statusbar", statusbar, "reveal_child", SettingsBindFlags.DEFAULT);
         }
 
         public void show_searchbar () {
-            
-            searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
+            Quilter.Application.gsettings.bind ("searchbar", searchbar, "reveal_child", SettingsBindFlags.DEFAULT);
         }
 
         private void update_title () {

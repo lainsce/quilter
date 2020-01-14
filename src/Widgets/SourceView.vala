@@ -230,7 +230,7 @@ namespace Quilter.Widgets {
                 buffer_context.add_class ("big-text");
                 buffer_context.remove_class ("medium-text");
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                if (Quilter.Application.gsettings.get_boolean("typewriter_scrolling")) {
+                if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling")) {
                     Timeout.add(500, move_typewriter_scrolling);
                 }
             }
@@ -394,7 +394,7 @@ namespace Quilter.Widgets {
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
-                var focus_type = Quilter.Application.gsettings.get_int("focus_mode_type");
+                var focus_type = Quilter.Application.gsettings.get_int("focus-mode-type");
                 if (cursor_iter != start) {
                     switch (focus_type) {
                         case 0:

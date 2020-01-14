@@ -41,7 +41,6 @@ namespace Quilter.Widgets {
         private Gtk.Label no_files;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
-        public bool show_this {get; set; default = false;}
 
         public signal void save_as ();
         public signal void row_selected (Widgets.SideBarBox box);
@@ -96,13 +95,7 @@ namespace Quilter.Widgets {
 
             this.add (grid);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-
-            show_this = false;
-            if (show_this) {
-                this.show_all ();
-            } else if (!show_this) {
-                this.hide ();
-            }
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public Gtk.Widget sidebar_files_list () {
