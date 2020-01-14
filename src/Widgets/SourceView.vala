@@ -329,18 +329,18 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-moon";
+            } else {
+                var provider = new Gtk.CssProvider ();
+                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(whitefont, start, end);
+                buffer.remove_tag(lightsepiafont, start, end);
+                buffer.remove_tag(sepiafont, start, end);
+                return "quilter";
             }
-
-            var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-            Gtk.TextIter start, end;
-            buffer.get_bounds (out start, out end);
-            buffer.remove_tag(whitefont, start, end);
-            buffer.remove_tag(lightsepiafont, start, end);
-            buffer.remove_tag(sepiafont, start, end);
-            return "quilter";
         }
 
         public bool move_typewriter_scrolling () {

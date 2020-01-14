@@ -196,7 +196,7 @@ namespace Quilter.Widgets {
             });
 
             color_button_light.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "light");
+                Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));

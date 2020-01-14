@@ -31,9 +31,9 @@
 				<description>Whether Quilter should use Typewriter Scrolling</description>
 		</key>
 		<key name="visual-mode" type="s">
-				<default>'light'</default>
+				<default>''</default>
 				<summary>Visual Mode</summary>
-				<description>What visual style to use for Quilter</description>
+				<description>What visual style to use for Quilter (Default is blank which means Light UI)</description>
 		</key>
         <key name="autosave" type="b">
             <default>true</default>

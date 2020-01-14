@@ -98,6 +98,10 @@ namespace Quilter {
 
             on_settings_changed ();
 
+            Quilter.Application.gsettings.changed.connect ((k) => {
+                on_settings_changed ();
+            });
+
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
@@ -421,7 +425,6 @@ namespace Quilter {
             set_prev_workfile ();
             on_save ();
 
-            Quilter.Application.gsettings.sync ();
             return false;
         }
 
@@ -510,15 +513,15 @@ namespace Quilter {
         }
 
         public void show_sidebar () {
-            Quilter.Application.gsettings.bind ("sidebar", sidebar, "reveal_child", SettingsBindFlags.DEFAULT);
+            sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public void show_statusbar () {
-            Quilter.Application.gsettings.bind ("statusbar", statusbar, "reveal_child", SettingsBindFlags.DEFAULT);
+            statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
         }
 
         public void show_searchbar () {
-            Quilter.Application.gsettings.bind ("searchbar", searchbar, "reveal_child", SettingsBindFlags.DEFAULT);
+            searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
         }
 
         private void update_title () {

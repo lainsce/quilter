@@ -68,40 +68,37 @@ namespace Quilter.Widgets {
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 string moon = Styles.quiltermoon.css;
                 return moon;
+            } else {
+                string normal = Styles.quilter.css;
+                return normal;
             }
-
-            string normal = Styles.quilter.css;
-            return normal;
         }
 
         private string set_font_stylesheet () {
-
             if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
                 return Build.PKGDATADIR + "/font/serif.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
                 return Build.PKGDATADIR + "/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
                 return Build.PKGDATADIR + "/font/mono.css";
+            } else {
+                return Build.PKGDATADIR + "/font/serif.css";
             }
-
-            return Build.PKGDATADIR + "/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
-
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
+            } else {
+                return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
             }
-
-            return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
         }
 
         private string set_highlight () {
-
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
                 return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
             } else {
@@ -110,7 +107,6 @@ namespace Quilter.Widgets {
         }
 
         private string set_latex () {
-
             if (Quilter.Application.gsettings.get_boolean("latex")) {
                 string katex_main = Build.PKGDATADIR + "/katex/katex.css";
                 string katex_js = Build.PKGDATADIR + "/katex/katex.js";
