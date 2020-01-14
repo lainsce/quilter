@@ -171,7 +171,7 @@ namespace Quilter.Widgets {
                 spell.detach ();
             }
 
-            if (gsettings.get_boolean("auto-save")) {
+            if (gsettings.get_boolean("autosave")) {
                 Timeout.add_seconds (30, () => {
                     save ();
                     modified = false;

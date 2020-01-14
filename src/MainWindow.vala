@@ -693,7 +693,7 @@ namespace Quilter {
                     GLib.FileUtils.get_contents (file_path, out text);
 
                     if (gsettings.get_string("current-file") != file_path) {
-                        if (gsettings.get_boolean("auto-save") == true) {
+                        if (gsettings.get_boolean("autosave") == true) {
                             on_save ();
                         }
                     } else if (gsettings.get_string("current-file") == _("No Documents Open")) {

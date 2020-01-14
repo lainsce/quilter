@@ -276,13 +276,13 @@ namespace Quilter.Widgets {
             pack_start (save_as_button);
 
             // This makes the save button show or not, and it's necessary as-is.
-            if (gsettings.get_boolean("auto-save")) {
+            if (gsettings.get_boolean("autosave")) {
                 save_button.visible = false;
-                gsettings.set_boolean("auto-save", true);
+                gsettings.set_boolean("autosave", true);
             } else {
                 pack_start (save_button);
                 save_button.visible = true;
-                gsettings.set_boolean("auto-save", false);
+                gsettings.set_boolean("autosave", false);
             }
 
             pack_end (menu_button);

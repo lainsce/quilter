@@ -65,10 +65,10 @@ executable(
     'src/Styles/quilterdark.vala',
     'src/Styles/quiltermoon.vala',
     'src/Styles/quiltersepia.vala',
+    'src/Constants/AppSettings.vala',
     'src/Services/FileManager.vala',
     'src/Services/ExportUtils.vala',
     'src/Services/DialogUtils.vala',
-    'src/Constants/AppSettings.vala',
     asresources,
     c_args: c_args,
     dependencies: [
