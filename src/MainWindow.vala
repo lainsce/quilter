@@ -95,8 +95,9 @@ namespace Quilter {
 
             if (settings.current_file == "") {
                 Services.FileManager.get_cache_path ();
-                sidebar.add_file (Services.FileManager.get_cache_path ());
-                settings.current_file = Services.FileManager.get_cache_path ();
+                var file = Services.FileManager.get_temp_document_path ();
+                settings.current_file = file;
+                sidebar.add_file (file);
                 edit_view_content.buffer.text = "";
             }
 
@@ -566,8 +567,9 @@ namespace Quilter {
                 // pass
             } else {
                 Services.FileManager.get_cache_path ();
-                sidebar.add_file (Services.FileManager.get_cache_path ());
-                settings.current_file = Services.FileManager.get_cache_path ();
+                var file = Services.FileManager.get_temp_document_path ();
+                sidebar.add_file (file);
+                settings.current_file = file;
                 edit_view_content.buffer.text = "";
             }
         }
@@ -575,6 +577,9 @@ namespace Quilter {
         private void change_layout () {
             var settings = AppSettings.get_default ();
             if (settings.preview_type == "full") {
+                foreach (Gtk.Widget w in paned.get_children ()) {
+                    paned.remove (w);
+                }
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
