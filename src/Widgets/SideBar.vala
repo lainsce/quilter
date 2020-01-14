@@ -49,7 +49,7 @@ namespace Quilter.Widgets {
         private static SideBar? instance = null;
         public static SideBar get_instance () {
             if (instance == null) {
-                instance = new Widgets.SideBar (Application.win);
+                instance = new Widgets.SideBar (Quilter.Application.win);
             }
 
             return instance;

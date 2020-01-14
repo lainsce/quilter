@@ -17,7 +17,8 @@
 * Boston, MA 02110-1301 USA
 *
 */
-public class Quilter.Application : Gtk.Application {
+namespace Quilter {
+    public class Application : Gtk.Application {
         public static GLib.Settings gsettings;
         private static bool print_cr = false;
         private static bool open_view = false;
@@ -232,4 +233,5 @@ public class Quilter.Application : Gtk.Application {
             { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },
             { null }
         };
+    }
 }
