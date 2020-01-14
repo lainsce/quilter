@@ -92,8 +92,8 @@ namespace Quilter {
 
             if (gsettings.get_string("current-file") == "") {
                 Services.FileManager.get_cache_path ();
-                sidebar.add_file (Services.FileManager.get_cache_path ());
-                gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
+                sidebar.add_file (Services.FileManager.get_temp_document_path ());
+                gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
 
@@ -110,9 +110,8 @@ namespace Quilter {
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
-                    Services.FileManager.get_cache_path ();
-                    sidebar.add_file (Services.FileManager.get_cache_path ());
-                    gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
+                    sidebar.add_file (Services.FileManager.get_temp_document_path ());
+                    gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                     edit_view_content.buffer.text = "";
                 }
             });
@@ -562,9 +561,9 @@ namespace Quilter {
             if (gsettings.get_string("current-file") != "" || gsettings.get_string("current-file") != _("No Documents Open")) {
                 // pass
             } else {
-                Services.FileManager.get_cache_path ();
-                sidebar.add_file (Services.FileManager.get_cache_path ());
-                gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
+                Services.FileManager.get_temp_document_path ();
+                gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
         }
@@ -653,7 +652,7 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
                 try {
-                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_cache_path (), edit_view_content.text);
+                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_temp_document_path (), edit_view_content.text);
                     edit_view_content.modified = false;
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
