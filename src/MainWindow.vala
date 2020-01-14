@@ -73,7 +73,7 @@ namespace Quilter {
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
                 }
-                
+
                 edit_view_content.dynamic_margins ();
             }
         }
@@ -242,7 +242,7 @@ namespace Quilter {
             this.set_titlebar (toolbar);
 
             var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
-            set_font_sans.toggled.connect (() => {
+	        set_font_sans.toggled.connect (() => {
 	            gsettings.set_string("preview-font", "sans");
 	        });
 
