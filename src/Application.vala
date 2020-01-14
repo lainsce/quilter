@@ -17,12 +17,8 @@
 * Boston, MA 02110-1301 USA
 *
 */
-namespace Quilter {
-    // Global because easy access.
-    public static GLib.Settings gsettings;
-}
-
 public class Quilter.Application : Gtk.Application {
+        public static GLib.Settings gsettings;
         private static bool print_cr = false;
         private static bool open_view = false;
         private static string _cwd;

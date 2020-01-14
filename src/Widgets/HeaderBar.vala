@@ -45,7 +45,7 @@ namespace Quilter.Widgets {
 
             focus_mode_toolbar ();
 
-            gsettings.changed.connect (() => {
+            Application.gsettings.changed.connect (() => {
                 focus_mode_toolbar ();
             });
         }
@@ -54,10 +54,10 @@ namespace Quilter.Widgets {
             set_title (null);
             string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
-                set_subtitle (gsettings.get_string("current-file"));
+                set_subtitle (Application.gsettings.get_string("current-file"));
             } else if (this.subtitle == cache) {
                 set_subtitle (_("No Documents Open"));
-            } else if (gsettings.get_string("current-file") == null) {
+            } else if (Application.gsettings.get_string("current-file") == null) {
                 set_subtitle (_("No Documents Open"));
             } else if (this.subtitle == Services.FileManager.get_temp_document_path ()) {
                 set_subtitle (_("No Documents Open"));
@@ -105,17 +105,17 @@ namespace Quilter.Widgets {
                 _("Find…")
             );
 
-            if (gsettings.get_boolean("searchbar") == false) {
+            if (Application.gsettings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
             } else {
-                search_button.set_active (gsettings.get_boolean("searchbar"));
+                search_button.set_active (Application.gsettings.get_boolean("searchbar"));
             }
 
             search_button.toggled.connect (() => {
     			if (search_button.active) {
-    				gsettings.set_boolean("searchbar", true);
+    				Application.gsettings.set_boolean("searchbar", true);
     			} else {
-    				gsettings.set_boolean("searchbar", false);
+    				Application.gsettings.set_boolean("searchbar", false);
     			}
 
             });
@@ -197,27 +197,27 @@ namespace Quilter.Widgets {
             color_button_dark_context.add_class ("color-dark");
 
             color_button_dark.clicked.connect (() => {
-                gsettings.set_boolean("dark-mode", true);
-                gsettings.set_boolean("sepia-mode", false);
-                gsettings.set_boolean("moon-mode", false);
+                Application.gsettings.set_boolean("dark-mode", true);
+                Application.gsettings.set_boolean("sepia-mode", false);
+                Application.gsettings.set_boolean("moon-mode", false);
             });
 
             color_button_sepia.clicked.connect (() => {
-                gsettings.set_boolean("sepia-mode", true);
-                gsettings.set_boolean("dark-mode", false);
-                gsettings.set_boolean("moon-mode", false);
+                Application.gsettings.set_boolean("sepia-mode", true);
+                Application.gsettings.set_boolean("dark-mode", false);
+                Application.gsettings.set_boolean("moon-mode", false);
             });
 
             color_button_moon.clicked.connect (() => {
-                gsettings.set_boolean("moon-mode", true );
-                gsettings.set_boolean("sepia-mode", false);
-                gsettings.set_boolean("dark-mode", false);
+                Application.gsettings.set_boolean("moon-mode", true );
+                Application.gsettings.set_boolean("sepia-mode", false);
+                Application.gsettings.set_boolean("dark-mode", false);
             });
 
             color_button_light.clicked.connect (() => {
-                gsettings.set_boolean("dark-mode", false);
-                gsettings.set_boolean("sepia-mode", false);
-                gsettings.set_boolean("moon-mode", false);
+                Application.gsettings.set_boolean("dark-mode", false);
+                Application.gsettings.set_boolean("sepia-mode", false);
+                Application.gsettings.set_boolean("moon-mode", false);
             });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
@@ -225,17 +225,17 @@ namespace Quilter.Widgets {
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            if (gsettings.get_boolean("focus-mode") == false) {
+            if (Application.gsettings.get_boolean("focus-mode") == false) {
                 focusmode_button.set_active (false);
             } else {
-                focusmode_button.set_active (gsettings.get_boolean("focus-mode"));
+                focusmode_button.set_active (Application.gsettings.get_boolean("focus-mode"));
             }
 
             focusmode_button.toggled.connect (() => {
     			if (focusmode_button.active) {
-    				gsettings.set_boolean("focus-mode", true);
+    				Application.gsettings.set_boolean("focus-mode", true);
     			} else {
-    				gsettings.set_boolean("focus-mode", false);
+    				Application.gsettings.set_boolean("focus-mode", false);
     			}
 
             });
@@ -276,13 +276,13 @@ namespace Quilter.Widgets {
             pack_start (save_as_button);
 
             // This makes the save button show or not, and it's necessary as-is.
-            if (gsettings.get_boolean("autosave")) {
+            if (Application.gsettings.get_boolean("autosave")) {
                 save_button.visible = false;
-                gsettings.set_boolean("autosave", true);
+                Application.gsettings.set_boolean("autosave", true);
             } else {
                 pack_start (save_button);
                 save_button.visible = true;
-                gsettings.set_boolean("autosave", false);
+                Application.gsettings.set_boolean("autosave", false);
             }
 
             pack_end (menu_button);
@@ -294,7 +294,7 @@ namespace Quilter.Widgets {
         }
 
         public void focus_mode_toolbar () {
-            if (!gsettings.get_boolean("focus-mode")) {
+            if (!Application.gsettings.get_boolean("focus-mode")) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));

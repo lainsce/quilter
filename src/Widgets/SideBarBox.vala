@@ -99,14 +99,14 @@ namespace Quilter.Widgets {
                 win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
 
                 var rows = win.sidebar.get_rows ();
-                for (int i = 0; i < gsettings.get_strv("last-files").length; i++) {
-                    if (gsettings.get_strv("last-files")[i] != null) {
+                for (int i = 0; i < Application.gsettings.get_strv("last-files").length; i++) {
+                    if (Application.gsettings.get_strv("last-files")[i] != null) {
                         foreach (unowned SideBarBox r in rows) {
                             win.sidebar.column.select_row (r);
                         }
-                    } else if (gsettings.get_strv("last-files")[i] == null) {
+                    } else if (Application.gsettings.get_strv("last-files")[i] == null) {
                         win.sidebar.add_file (Services.FileManager.get_cache_path ());
-                        gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
+                        Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                     }
                 }
             });
