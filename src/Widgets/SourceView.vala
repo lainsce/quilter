@@ -180,7 +180,6 @@ namespace Quilter.Widgets {
             }
 
             update_settings ();
-            Quilter.Application.gsettings.changed.connect (update_settings);
 
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
@@ -298,7 +297,7 @@ namespace Quilter.Widgets {
 
         private string get_default_scheme () {
             
-            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -309,7 +308,7 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
-            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -319,7 +318,7 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-sepia";
-            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-moon.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -364,19 +363,19 @@ namespace Quilter.Widgets {
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
 
-            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 buffer.apply_tag(darkgrayfont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(lightmoonfont, start, end);
                 buffer.remove_tag(whitefont, start, end);
-            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 buffer.remove_tag(darkgrayfont, start, end);
                 buffer.apply_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
                 buffer.remove_tag(lightmoonfont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
-            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 buffer.remove_tag(darkgrayfont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(lightgrayfont, start, end);
@@ -424,7 +423,7 @@ namespace Quilter.Widgets {
                     }
 
                 }
-                if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                     buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
@@ -433,7 +432,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.remove_tag(moonfont, start_sentence, end_sentence);
                     buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
-                } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                     buffer.apply_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);
@@ -442,7 +441,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                     buffer.remove_tag(moonfont, start_sentence, end_sentence);
                     buffer.remove_tag(lightmoonfont, start_sentence, end_sentence);
-                } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                     buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(blackfont, start_sentence, end_sentence);

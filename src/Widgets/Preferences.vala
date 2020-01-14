@@ -183,32 +183,50 @@ namespace Quilter.Widgets {
             font_size.append_text (_("Normal"));
             font_size.append_text (_("Large"));
 
-            Quilter.Application.gsettings.bind ("font-sizing", font_size, "selected", SettingsBindFlags.DEFAULT);
+            var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
+
+            switch (font_sizing) {
+                case Constants.SMALL_FONT:
+                    font_size.selected = 0;
+                    break;
+                case Constants.MEDIUM_FONT:
+                    font_size.selected = 1;
+                    break;
+                case Constants.BIG_FONT:
+                    font_size.selected = 2;
+                    break;
+                default:
+                    font_size.selected = 1;
+                    break;
+            }
 
             font_size.mode_changed.connect (() => {
                 switch (font_size.selected) {
                     case 0:
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.SMALL_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 1:
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.MEDIUM_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 2:
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.BIG_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
                         break;
                     case 3:
+                        Quilter.Application.gsettings.set_int("font-sizing", font_sizing);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                 }
-                Quilter.Application.gsettings.bind ("font-sizing", font_size, "selected", SettingsBindFlags.DEFAULT);
             });
 
             var edit_header = new Granite.HeaderLabel (_("Editor"));
@@ -299,27 +317,19 @@ namespace Quilter.Widgets {
             var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
 
             color_button_dark.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("dark-mode", true);
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "dark");
             });
 
             color_button_sepia.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("sepia-mode", true);
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
             color_button_moon.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("moon-mode", true );
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "moon");
             });
 
             color_button_light.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "light");
             });
 
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));

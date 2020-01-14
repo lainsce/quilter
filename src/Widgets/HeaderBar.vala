@@ -44,10 +44,6 @@ namespace Quilter.Widgets {
             build_ui ();
 
             focus_mode_toolbar ();
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                focus_mode_toolbar ();
-            });
         }
 
         private void build_ui () {
@@ -188,27 +184,19 @@ namespace Quilter.Widgets {
             color_button_dark_context.add_class ("color-dark");
 
             color_button_dark.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("dark-mode", true);
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "dark");
             });
 
             color_button_sepia.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("sepia-mode", true);
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
             color_button_moon.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("moon-mode", true );
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "moon");
             });
 
             color_button_light.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("dark-mode", false);
-                Quilter.Application.gsettings.set_boolean("sepia-mode", false);
-                Quilter.Application.gsettings.set_boolean("moon-mode", false);
+                Quilter.Application.gsettings.set_string("visual-mode", "light");
             });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));

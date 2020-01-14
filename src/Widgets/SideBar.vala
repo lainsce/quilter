@@ -162,20 +162,7 @@ namespace Quilter.Widgets {
 
             store.clear ();
             view.expand_all ();
-            if (Quilter.Application.gsettings.get_string("current-file") != "") {
-                store.clear ();
-                outline_populate ();
-                view.expand_all ();
-            }
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                store.clear ();
-                view.expand_all ();
-                if (Quilter.Application.gsettings.get_string("current-file") != "") {
-                    store.clear ();
-                    outline_populate ();
-                }
-            });
+            outline_populate ();
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;

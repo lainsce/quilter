@@ -91,14 +91,12 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                Services.FileManager.get_cache_path ();
-                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
-                sidebar.add_file (Services.FileManager.get_cache_path ());
+                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
 
-            Quilter.Application.gsettings.changed.connect (on_settings_changed);
-            //on_settings_changed ();
+            on_settings_changed ();
 
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
@@ -110,8 +108,8 @@ namespace Quilter {
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
-                    Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
-                    sidebar.add_file (Services.FileManager.get_cache_path ());
+                    Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                    sidebar.add_file (Services.FileManager.get_temp_document_path ());
                     edit_view_content.buffer.text = "";
                 }
             });
@@ -422,6 +420,8 @@ namespace Quilter {
 
             set_prev_workfile ();
             on_save ();
+
+            Quilter.Application.gsettings.sync ();
             return false;
         }
 
@@ -545,8 +545,7 @@ namespace Quilter {
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout ();
-
-            
+         
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             } else {
@@ -561,10 +560,11 @@ namespace Quilter {
                 sidebar.add_file (Services.FileManager.get_cache_path ());
                 edit_view_content.buffer.text = "";
             }
+
+            Quilter.Application.gsettings.sync ();
         }
 
-        private void change_layout () {
-            
+        private void change_layout () {      
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);

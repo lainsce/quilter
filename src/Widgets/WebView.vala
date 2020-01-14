@@ -46,8 +46,6 @@ namespace Quilter.Widgets {
             settingsweb.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
-
-            Quilter.Application.gsettings.changed.connect (update_html_view);
             connect_signals ();
         }
 
@@ -61,13 +59,13 @@ namespace Quilter.Widgets {
 
         private string set_stylesheet () {
 
-            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 string moon = Styles.quiltermoon.css;
                 return moon;
             }
@@ -91,11 +89,11 @@ namespace Quilter.Widgets {
 
         private string set_highlight_stylesheet () {
 
-            if (Quilter.Application.gsettings.get_boolean("dark-mode")) {
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
-            } else if (Quilter.Application.gsettings.get_boolean("sepia-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
-            } else if (Quilter.Application.gsettings.get_boolean("moon-mode")) {
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
                 return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             }
 
