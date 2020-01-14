@@ -151,30 +151,10 @@ namespace Quilter.Widgets {
             font_type.append_text(_("Quilt Mono"));
             font_type.append_text(_("Quilt Vier"));
 
-            switch (Quilter.Application.gsettings.get_string("edit-font-type")) {
-                case "mono":
-                    font_type.set_active(0);
-                    break;
-                case "vier":
-                    font_type.set_active(1);
-                    break;
-                default:
-                    font_type.set_active(0);
-                    break;
-            }
+            Quilter.Application.gsettings.bind ("edit-font-type", font_type, "active", SettingsBindFlags.DEFAULT);
 
             font_type.changed.connect (() => {
-                switch (font_type.get_active ()) {
-                    case 0:
-                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
-                        break;
-                    case 1:
-                        Quilter.Application.gsettings.set_string("edit-font-type", "vier");
-                        break;
-                    default:
-                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
-                        break;
-                }
+                Quilter.Application.gsettings.bind ("edit-font-type", font_type, "active", SettingsBindFlags.DEFAULT);
             });
 
             var font_label = new SettingsLabel (_("Editor Font Size:"));
@@ -183,50 +163,32 @@ namespace Quilter.Widgets {
             font_size.append_text (_("Normal"));
             font_size.append_text (_("Large"));
 
-            var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
-
-            switch (font_sizing) {
-                case Constants.SMALL_FONT:
-                    font_size.selected = 0;
-                    break;
-                case Constants.MEDIUM_FONT:
-                    font_size.selected = 1;
-                    break;
-                case Constants.BIG_FONT:
-                    font_size.selected = 2;
-                    break;
-                default:
-                    font_size.selected = 1;
-                    break;
-            }
+            Quilter.Application.gsettings.bind ("font-sizing", font_size, "selected", SettingsBindFlags.DEFAULT);
 
             font_size.mode_changed.connect (() => {
                 switch (font_size.selected) {
                     case 0:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.SMALL_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 1:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.MEDIUM_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.BIG_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
                         break;
                     case 3:
-                        Quilter.Application.gsettings.set_int("font-sizing", font_sizing);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                 }
+                Quilter.Application.gsettings.bind ("font-sizing", font_size, "selected", SettingsBindFlags.DEFAULT);
             });
 
             var edit_header = new Granite.HeaderLabel (_("Editor"));
@@ -348,32 +310,10 @@ namespace Quilter.Widgets {
             focus_mode_type_size.append_text (_("Paragraph"));
             focus_mode_type_size.append_text (_("Sentence"));
 
-            var focus_mode_type = Quilter.Application.gsettings.get_int("focus-mode-type");
-
-            switch (focus_mode_type) {
-                case 0:
-                    focus_mode_type_size.selected = 0;
-                    break;
-                case 1:
-                    focus_mode_type_size.selected = 1;
-                    break;
-                default:
-                    focus_mode_type_size.selected = 0;
-                    break;
-            }
+            Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "selected", SettingsBindFlags.DEFAULT);
 
             focus_mode_type_size.mode_changed.connect (() => {
-                switch (focus_mode_type_size.selected) {
-                    case 0:
-                        Quilter.Application.gsettings.set_int("focus-mode-type", 0);
-                        break;
-                    case 1:
-                        Quilter.Application.gsettings.set_int("focus-mode-type", 1);
-                        break;
-                    case 2:
-                        Quilter.Application.gsettings.set_int("focus-mode-type", focus_mode_type);
-                        break;
-                }
+                Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "selected", SettingsBindFlags.DEFAULT);
             });
 
             var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
