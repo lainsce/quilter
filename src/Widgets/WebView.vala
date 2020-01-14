@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017 Lains
+* Copyright (c) 2017 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -39,11 +39,11 @@ namespace Quilter.Widgets {
             vexpand = true;
             hexpand = true;
             this.buf = buf;
-            var settings = get_settings ();
-            settings.enable_plugins = false;
-            settings.enable_page_cache = false;
-            settings.enable_developer_extras = false;
-            settings.javascript_can_open_windows_automatically = false;
+            var settingsweb = get_settings ();
+            settingsweb.enable_plugins = false;
+            settingsweb.enable_page_cache = false;
+            settingsweb.enable_developer_extras = false;
+            settingsweb.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
 
