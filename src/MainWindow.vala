@@ -89,7 +89,6 @@ namespace Quilter {
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
-
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
                 Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
