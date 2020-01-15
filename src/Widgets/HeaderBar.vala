@@ -44,22 +44,16 @@ namespace Quilter.Widgets {
             build_ui ();
 
             focus_mode_toolbar ();
-
-            var settings = AppSettings.get_default ();
-            settings.changed.connect (() => {
-                focus_mode_toolbar ();
-            });
         }
 
         private void build_ui () {
             set_title (null);
-            var settings = AppSettings.get_default ();
             string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
-                set_subtitle (settings.current_file);
+                set_subtitle (Quilter.Application.gsettings.get_string("current-file"));
             } else if (this.subtitle == cache) {
                 set_subtitle (_("No Documents Open"));
-            } else if (settings.current_file == null) {
+            } else if (Quilter.Application.gsettings.get_string("current-file") == null) {
                 set_subtitle (_("No Documents Open"));
             } else if (this.subtitle == Services.FileManager.get_temp_document_path ()) {
                 set_subtitle (_("No Documents Open"));
@@ -107,17 +101,17 @@ namespace Quilter.Widgets {
                 _("Find…")
             );
 
-            if (settings.searchbar == false) {
+            if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
             } else {
-                search_button.set_active (settings.searchbar);
+                search_button.set_active (Quilter.Application.gsettings.get_boolean("searchbar"));
             }
 
             search_button.toggled.connect (() => {
     			if (search_button.active) {
-    				settings.searchbar = true;
+    				Quilter.Application.gsettings.set_boolean("searchbar", true);
     			} else {
-    				settings.searchbar = false;
+    				Quilter.Application.gsettings.set_boolean("searchbar", false);
     			}
 
             });
@@ -199,27 +193,19 @@ namespace Quilter.Widgets {
             color_button_dark_context.add_class ("color-dark");
 
             color_button_dark.clicked.connect (() => {
-                settings.dark_mode = true;
-                settings.sepia_mode = false;
-                settings.moon_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "dark");
             });
 
             color_button_sepia.clicked.connect (() => {
-                settings.sepia_mode = true;
-                settings.dark_mode = false;
-                settings.moon_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
             color_button_moon.clicked.connect (() => {
-                settings.moon_mode = true;
-                settings.sepia_mode = false;
-                settings.dark_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "moon");
             });
 
             color_button_light.clicked.connect (() => {
-                settings.dark_mode = false;
-                settings.sepia_mode = false;
-                settings.moon_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
             var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
@@ -227,17 +213,17 @@ namespace Quilter.Widgets {
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            if (settings.focus_mode == false) {
+            if (Quilter.Application.gsettings.get_boolean("focus-mode") == false) {
                 focusmode_button.set_active (false);
             } else {
-                focusmode_button.set_active (settings.focus_mode);
+                focusmode_button.set_active (Quilter.Application.gsettings.get_boolean("focus-mode"));
             }
 
             focusmode_button.toggled.connect (() => {
     			if (focusmode_button.active) {
-    				settings.focus_mode = true;
+    				Quilter.Application.gsettings.set_boolean("focus-mode", true);
     			} else {
-    				settings.focus_mode = false;
+    				Quilter.Application.gsettings.set_boolean("focus-mode", false);
     			}
 
             });
@@ -278,16 +264,14 @@ namespace Quilter.Widgets {
             pack_start (save_as_button);
 
             // This makes the save button show or not, and it's necessary as-is.
-            settings.changed.connect (() => {
-                if (settings.autosave) {
-                    save_button.visible = false;
-                    settings.autosave = true;
-                } else {
-                    pack_start (save_button);
-                    save_button.visible = true;
-                    settings.autosave = false;
-                }
-            });
+            if (Quilter.Application.gsettings.get_boolean("autosave")) {
+                save_button.visible = false;
+                Quilter.Application.gsettings.set_boolean("autosave", true);
+            } else {
+                pack_start (save_button);
+                save_button.visible = true;
+                Quilter.Application.gsettings.set_boolean("autosave", false);
+            }
 
             pack_end (menu_button);
             pack_end (share_app_menu);
@@ -298,8 +282,7 @@ namespace Quilter.Widgets {
         }
 
         public void focus_mode_toolbar () {
-            var settings = AppSettings.get_default ();
-            if (!settings.focus_mode) {
+            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
                 save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));

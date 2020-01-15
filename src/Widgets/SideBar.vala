@@ -39,10 +39,8 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subsubsection;
         private Gtk.TreeIter paragraph;
         private Gtk.Label no_files;
-        private GLib.File file;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
-        public bool show_this {get; set; default = false;}
 
         public signal void save_as ();
         public signal void row_selected (Widgets.SideBarBox box);
@@ -50,7 +48,7 @@ namespace Quilter.Widgets {
         private static SideBar? instance = null;
         public static SideBar get_instance () {
             if (instance == null) {
-                instance = new Widgets.SideBar (Application.win);
+                instance = new Widgets.SideBar (Quilter.Application.win);
             }
 
             return instance;
@@ -97,17 +95,11 @@ namespace Quilter.Widgets {
 
             this.add (grid);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-
-            show_this = false;
-            if (show_this) {
-                this.show_all ();
-            } else if (!show_this) {
-                this.hide ();
-            }
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public Gtk.Widget sidebar_files_list () {
-            var settings = AppSettings.get_default ();
+            
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
@@ -117,15 +109,15 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
 
-            if (settings.current_file == "") {
+            if (Quilter.Application.gsettings.get_string("current-file") == "") {
                 filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
                 column.insert (filebox, 1);
                 column.select_row (filebox);
             }
 
-            foreach (string f in settings.last_files) {
-                var row = add_file (f);
-                if (f == settings.current_file) {
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                var row = add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
                     column.select_row (row);
                 }
             }
@@ -148,7 +140,7 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_outline () {
-            var settings = AppSettings.get_default ();
+            
             view = new Gtk.TreeView ();
             view.expand = true;
             view.hexpand = true;
@@ -170,20 +162,7 @@ namespace Quilter.Widgets {
 
             store.clear ();
             view.expand_all ();
-            if (settings.current_file != "") {
-                store.clear ();
-                outline_populate ();
-                view.expand_all ();
-            }
-
-            settings.changed.connect (() => {
-                store.clear ();
-                view.expand_all ();
-                if (settings.current_file != "") {
-                    store.clear ();
-                    outline_populate ();
-                }
-            });
+            outline_populate ();
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
@@ -196,11 +175,10 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            var settings = AppSettings.get_default ();
-            if (settings.current_file != "" || settings.current_file != _("No Documents Open")) {
-                file = GLib.File.new_for_path (get_selected_row ().path);
+            if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
+                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
 
-                if (file.query_exists ()) {
+                if (file != null && file.query_exists ()) {
                     try {
                         var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{0,26}\\$?)");
                         string buffer = "";
@@ -249,7 +227,7 @@ namespace Quilter.Widgets {
         public GLib.List<unowned SideBarBox> get_rows () {
             return (GLib.List<unowned SideBarBox>) column.get_children ();
         }
-        public unowned SideBarBox? get_selected_row () {
+        public unowned SideBarBox get_selected_row () {
             return (SideBarBox) column.get_selected_row ();
         }
 
@@ -269,8 +247,7 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            var settings = AppSettings.get_default ();
-            if (get_selected_row ().path == settings.current_file) {
+            if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
                 get_selected_row ().destroy ();
             } else {
                 foreach (Gtk.Widget item in column.get_children ()) {

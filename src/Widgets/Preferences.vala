@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (C) 2018 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -18,7 +18,6 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
-
         public Preferences (Gtk.Window? parent) {
             Object (
                 border_width: 6,
@@ -59,7 +58,7 @@ namespace Quilter.Widgets {
         }
 
         private Gtk.Widget get_editor_grid () {
-            var main_settings = AppSettings.get_default ();
+            
             var editor_grid = new Gtk.Grid ();
             editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
@@ -72,7 +71,7 @@ namespace Quilter.Widgets {
             spacing_size.append_text (_("Normal"));
             spacing_size.append_text (_("Large"));
 
-            var spacing = main_settings.spacing;
+            var spacing = Quilter.Application.gsettings.get_int("spacing");
 
             switch (spacing) {
                 case 2:
@@ -92,16 +91,16 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        main_settings.spacing = 2;
+                        Quilter.Application.gsettings.set_int("spacing", 2);
                         break;
                     case 1:
-                        main_settings.spacing = 4;
+                        Quilter.Application.gsettings.set_int("spacing", 4);
                         break;
                     case 2:
-                        main_settings.spacing = 6;
+                        Quilter.Application.gsettings.set_int("spacing", 8);
                         break;
                     case 3:
-                        main_settings.spacing = spacing;
+                        Quilter.Application.gsettings.set_int("spacing", spacing);
                         break;
                 }
             });
@@ -112,7 +111,7 @@ namespace Quilter.Widgets {
             margins_size.append_text (_("Normal"));
             margins_size.append_text (_("Large"));
 
-            var margins = main_settings.margins;
+            var margins = Quilter.Application.gsettings.get_int("margins");
 
             switch (margins) {
                 case Constants.NARROW_MARGIN:
@@ -132,16 +131,16 @@ namespace Quilter.Widgets {
             margins_size.mode_changed.connect (() => {
                 switch (margins_size.selected) {
                     case 0:
-                        main_settings.margins = Constants.NARROW_MARGIN;
+                        Quilter.Application.gsettings.set_int("margins", Constants.NARROW_MARGIN);
                         break;
                     case 1:
-                        main_settings.margins = Constants.MEDIUM_MARGIN;
+                        Quilter.Application.gsettings.set_int("margins", Constants.MEDIUM_MARGIN);
                         break;
                     case 2:
-                        main_settings.margins = Constants.WIDE_MARGIN;
+                        Quilter.Application.gsettings.set_int("margins", Constants.WIDE_MARGIN);
                         break;
                     case 3:
-                        main_settings.margins = margins;
+                        Quilter.Application.gsettings.set_int("margins", margins);
                         break;
                 }
             });
@@ -151,7 +150,8 @@ namespace Quilter.Widgets {
             var font_type = new Gtk.ComboBoxText();
             font_type.append_text(_("Quilt Mono"));
             font_type.append_text(_("Quilt Vier"));
-            switch (main_settings.edit_font_type) {
+
+            switch (Quilter.Application.gsettings.get_string("edit-font-type")) {
                 case "mono":
                     font_type.set_active(0);
                     break;
@@ -166,13 +166,13 @@ namespace Quilter.Widgets {
             font_type.changed.connect (() => {
                 switch (font_type.get_active ()) {
                     case 0:
-                        main_settings.edit_font_type = "mono";
+                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
                         break;
                     case 1:
-                        main_settings.edit_font_type = "vier";
+                        Quilter.Application.gsettings.set_string("edit-font-type", "vier");
                         break;
                     default:
-                        main_settings.edit_font_type = "mono";
+                        Quilter.Application.gsettings.set_string("edit-font-type", "mono");
                         break;
                 }
             });
@@ -183,7 +183,7 @@ namespace Quilter.Widgets {
             font_size.append_text (_("Normal"));
             font_size.append_text (_("Large"));
 
-            var font_sizing = main_settings.font_sizing;
+            var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
 
             switch (font_sizing) {
                 case Constants.SMALL_FONT:
@@ -203,25 +203,25 @@ namespace Quilter.Widgets {
             font_size.mode_changed.connect (() => {
                 switch (font_size.selected) {
                     case 0:
-                        main_settings.font_sizing = Constants.SMALL_FONT;
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.SMALL_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 1:
-                        main_settings.font_sizing = Constants.MEDIUM_FONT;
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.MEDIUM_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
                         break;
                     case 2:
-                        main_settings.font_sizing = Constants.BIG_FONT;
+                        Quilter.Application.gsettings.set_int("font-sizing", Constants.BIG_FONT);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
                         break;
                     case 3:
-                        main_settings.font_sizing = font_sizing;
+                        Quilter.Application.gsettings.set_int("font-sizing", font_sizing);
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
                         Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
                         Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
@@ -256,7 +256,7 @@ namespace Quilter.Widgets {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            var main_settings = AppSettings.get_default ();
+            
             var interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
@@ -317,27 +317,19 @@ namespace Quilter.Widgets {
             var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
 
             color_button_dark.clicked.connect (() => {
-                main_settings.dark_mode = true;
-                main_settings.moon_mode = false;
-                main_settings.sepia_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "dark");
             });
 
             color_button_sepia.clicked.connect (() => {
-                main_settings.sepia_mode = true;
-                main_settings.moon_mode = false;
-                main_settings.dark_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
             color_button_moon.clicked.connect (() => {
-                main_settings.moon_mode = true;
-                main_settings.sepia_mode = false;
-                main_settings.dark_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "moon");
             });
 
             color_button_light.clicked.connect (() => {
-                main_settings.dark_mode = false;
-                main_settings.sepia_mode = false;
-                main_settings.moon_mode = false;
+                Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
@@ -348,7 +340,7 @@ namespace Quilter.Widgets {
             focus_mode_type_size.append_text (_("Paragraph"));
             focus_mode_type_size.append_text (_("Sentence"));
 
-            var focus_mode_type = main_settings.focus_mode_type;
+            var focus_mode_type = Quilter.Application.gsettings.get_int("focus-mode-type");
 
             switch (focus_mode_type) {
                 case 0:
@@ -365,13 +357,13 @@ namespace Quilter.Widgets {
             focus_mode_type_size.mode_changed.connect (() => {
                 switch (focus_mode_type_size.selected) {
                     case 0:
-                        main_settings.focus_mode_type = 0;
+                       Quilter.Application.gsettings.set_int("focus-mode-type", 0);
                         break;
                     case 1:
-                        main_settings.focus_mode_type = 1;
+                       Quilter.Application.gsettings.set_int("focus-mode-type", 1);
                         break;
                     case 2:
-                        main_settings.focus_mode_type = focus_mode_type;
+                       Quilter.Application.gsettings.set_int("focus-mode-type", focus_mode_type);
                         break;
                 }
             });
@@ -474,9 +466,9 @@ namespace Quilter.Widgets {
 
         private class SettingsSwitch : Gtk.Switch {
             public SettingsSwitch (string setting) {
-                var main_settings = AppSettings.get_default ();
+                
                 halign = Gtk.Align.START;
-                main_settings.schema.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+                Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
             }
         }
     }

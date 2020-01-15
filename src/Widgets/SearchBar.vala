@@ -64,6 +64,7 @@ namespace Quilter.Widgets {
             this.add (grid);
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
         }
 
         public void search_entry_item () {

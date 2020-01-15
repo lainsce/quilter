@@ -63,13 +63,12 @@ namespace Quilter.Services.FileManager {
 
     // File I/O
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
-        var settings = AppSettings.get_default ();
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();
-            settings.current_file = file_path;
+            //Quilter.Application.gsettings.set_string("current-file", file_path);
             files += file_path;
-            settings.last_files = files;
+            Quilter.Application.gsettings.set_strv("last-files", files);
             if (win.sidebar != null && f != null) {
                 win.sidebar.add_file (file_path);
             }

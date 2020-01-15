@@ -19,6 +19,7 @@
 */
 namespace Quilter {
     public class Application : Gtk.Application {
+        public static GLib.Settings gsettings;
         private static bool print_cr = false;
         private static bool open_view = false;
         private static string _cwd;
@@ -26,6 +27,10 @@ namespace Quilter {
         public static MainWindow win = null;
         public Widgets.Headerbar toolbar;
         public static string[] supported_mimetypes;
+
+        static construct {
+            gsettings = new GLib.Settings ("com.github.lainsce.quilter");
+        }
 
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
@@ -55,8 +60,7 @@ namespace Quilter {
             }
             win = new MainWindow (this);
 
-            var settings = AppSettings.get_default ();
-            if (settings.preview_type == "full") {
+            if (gsettings.get_string("preview-type") == "full") {
                 if (open_view) {
                     win.stack.set_visible_child (win.preview_view);
                     open_view = false;

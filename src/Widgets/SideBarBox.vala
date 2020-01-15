@@ -54,7 +54,6 @@ namespace Quilter.Widgets {
         public signal void save_as ();
 
         public SideBarBox (MainWindow win, string? path) {
-            var settings = AppSettings.get_default ();
             this.win = win;
             this.activatable = true;
             this.set_size_request (180,-1);
@@ -100,13 +99,15 @@ namespace Quilter.Widgets {
                 win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
 
                 var rows = win.sidebar.get_rows ();
-                if (settings.last_files != null) {
-                    foreach (unowned SideBarBox r in rows) {
-                        win.sidebar.column.select_row (r);
+                for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                    if (Quilter.Application.gsettings.get_strv("last-files")[i] != null) {
+                        foreach (unowned SideBarBox r in rows) {
+                            win.sidebar.column.select_row (r);
+                        }
+                    } else if (Quilter.Application.gsettings.get_strv("last-files")[i] == null) {
+                        win.sidebar.add_file (Services.FileManager.get_temp_document_path ());
+                        //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                     }
-                } else if (settings.last_files == null) {
-                        win.sidebar.add_file (Services.FileManager.get_cache_path ());
-                        settings.current_file = Services.FileManager.get_cache_path ();
                 }
             });
 
