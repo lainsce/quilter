@@ -81,9 +81,9 @@ namespace Quilter.Widgets {
                 return Build.PKGDATADIR + "/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
                 return Build.PKGDATADIR + "/font/mono.css";
-            } else {
-                return Build.PKGDATADIR + "/font/serif.css";
             }
+
+            return Build.PKGDATADIR + "/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {

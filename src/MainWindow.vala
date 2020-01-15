@@ -91,12 +91,16 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
 
             on_settings_changed ();
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                on_settings_changed ();
+            });
 
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
@@ -108,7 +112,7 @@ namespace Quilter {
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
-                    Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                    //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                     sidebar.add_file (Services.FileManager.get_temp_document_path ());
                     edit_view_content.buffer.text = "";
                 }
@@ -467,13 +471,10 @@ namespace Quilter {
             
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 statusbar.update_wordcount ();
-                Quilter.Application.gsettings.set_string("track-type", "words");
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
                 statusbar.update_linecount ();
-                Quilter.Application.gsettings.set_string("track-type", "lines");
             } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
                 statusbar.update_charcount ();
-                Quilter.Application.gsettings.set_string("track-type", "chars");
             }
             statusbar.update_readtimecount ();
         }
@@ -533,7 +534,7 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             
             if (row != null) {
-                Quilter.Application.gsettings.set_string("current-file", row.path);
+                //Quilter.Application.gsettings.set_string("current-file", row.path);
             }
         }
 
@@ -555,10 +556,12 @@ namespace Quilter {
                 // pass
             } else {
                 Services.FileManager.get_cache_path ();
-                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
-                sidebar.add_file (Services.FileManager.get_cache_path ());
+                //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
+
+            render_func ();
         }
 
         private void change_layout () {      
@@ -682,7 +685,7 @@ namespace Quilter {
                 try {
                     string file_path = box.path;
                     
-                    Quilter.Application.gsettings.set_string("current-file", file_path);
+                    //Quilter.Application.gsettings.set_string("current-file", file_path);
 
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);

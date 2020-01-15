@@ -181,6 +181,10 @@ namespace Quilter.Widgets {
 
             update_settings ();
 
+            Quilter.Application.gsettings.changed.connect (() => {
+                update_settings ();
+            });
+
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
             this.bottom_margin = 40;

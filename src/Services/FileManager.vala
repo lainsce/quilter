@@ -66,7 +66,7 @@ namespace Quilter.Services.FileManager {
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();
-            Quilter.Application.gsettings.set_string("current-file", file_path);
+            //Quilter.Application.gsettings.set_string("current-file", file_path);
             files += file_path;
             Quilter.Application.gsettings.set_strv("last-files", files);
             if (win.sidebar != null && f != null) {
