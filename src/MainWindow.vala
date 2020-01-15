@@ -22,7 +22,7 @@ using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.ApplicationWindow {
-
+        public Gtk.Application app { get; construct; }
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
@@ -80,13 +80,13 @@ namespace Quilter {
 
         public MainWindow (Gtk.Application application) {
             Object (application: application,
+                    app: application,
                     resizable: true,
                     title: _("Quilter"));
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
 
@@ -97,10 +97,6 @@ namespace Quilter {
             }
 
             on_settings_changed ();
-
-            Quilter.Application.gsettings.changed.connect ((k) => {
-                on_settings_changed ();
-            });
 
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
@@ -563,8 +559,6 @@ namespace Quilter {
                 sidebar.add_file (Services.FileManager.get_cache_path ());
                 edit_view_content.buffer.text = "";
             }
-
-            Quilter.Application.gsettings.sync ();
         }
 
         private void change_layout () {      

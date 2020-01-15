@@ -101,10 +101,19 @@ namespace Quilter.Widgets {
                 _("Find…")
             );
 
-            Quilter.Application.gsettings.bind ("searchbar", search_button, "active", SettingsBindFlags.DEFAULT);
+            if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
+                search_button.set_active (false);
+            } else {
+                search_button.set_active (Quilter.Application.gsettings.get_boolean("searchbar"));
+            }
 
             search_button.toggled.connect (() => {
-    			Quilter.Application.gsettings.bind ("searchbar", search_button, "active", SettingsBindFlags.DEFAULT);
+    			if (search_button.active) {
+    				Quilter.Application.gsettings.set_boolean("searchbar", true);
+    			} else {
+    				Quilter.Application.gsettings.set_boolean("searchbar", false);
+    			}
+
             });
 
             var export_pdf = new Gtk.ModelButton ();
@@ -204,10 +213,19 @@ namespace Quilter.Widgets {
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            Quilter.Application.gsettings.bind ("focus-mode", focusmode_button, "active", SettingsBindFlags.DEFAULT);
+            if (Quilter.Application.gsettings.get_boolean("focus-mode") == false) {
+                focusmode_button.set_active (false);
+            } else {
+                focusmode_button.set_active (Quilter.Application.gsettings.get_boolean("focus-mode"));
+            }
 
             focusmode_button.toggled.connect (() => {
-                Quilter.Application.gsettings.bind ("focus-mode", focusmode_button, "active", SettingsBindFlags.DEFAULT);
+    			if (focusmode_button.active) {
+    				Quilter.Application.gsettings.set_boolean("focus-mode", true);
+    			} else {
+    				Quilter.Application.gsettings.set_boolean("focus-mode", false);
+    			}
+
             });
 
             var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

@@ -329,7 +329,7 @@ namespace Quilter.Widgets {
             });
 
             color_button_light.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "light");
+                Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
@@ -340,10 +340,32 @@ namespace Quilter.Widgets {
             focus_mode_type_size.append_text (_("Paragraph"));
             focus_mode_type_size.append_text (_("Sentence"));
 
-            Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "selected", SettingsBindFlags.DEFAULT);
+            var focus_mode_type = Quilter.Application.gsettings.get_int("focus-mode-type");
+
+            switch (focus_mode_type) {
+                case 0:
+                    focus_mode_type_size.selected = 0;
+                    break;
+                case 1:
+                    focus_mode_type_size.selected = 1;
+                    break;
+                default:
+                    focus_mode_type_size.selected = 0;
+                    break;
+            }
 
             focus_mode_type_size.mode_changed.connect (() => {
-                Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "selected", SettingsBindFlags.DEFAULT);
+                switch (focus_mode_type_size.selected) {
+                    case 0:
+                       Quilter.Application.gsettings.set_int("focus-mode-type", 0);
+                        break;
+                    case 1:
+                       Quilter.Application.gsettings.set_int("focus-mode-type", 1);
+                        break;
+                    case 2:
+                       Quilter.Application.gsettings.set_int("focus-mode-type", focus_mode_type);
+                        break;
+                }
             });
 
             var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
