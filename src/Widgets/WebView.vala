@@ -27,7 +27,7 @@ namespace Quilter.Widgets {
 
         public static Preview get_instance () {
             if (instance == null) {
-                instance = new Widgets.Preview (Quilter.Application.win, Quilter.Application.win.edit_view_content.buffer);
+                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content.buffer);
             }
 
             return instance;

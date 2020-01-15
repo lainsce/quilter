@@ -39,7 +39,7 @@ namespace Quilter.Widgets {
 
         public static EditView get_instance () {
             if (instance == null) {
-                instance = new Widgets.EditView (Quilter.Application.win);
+                instance = new Widgets.EditView (Application.win);
             }
 
             return instance;
