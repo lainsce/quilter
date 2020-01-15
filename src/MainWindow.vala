@@ -91,7 +91,7 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
+                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
@@ -112,7 +112,6 @@ namespace Quilter {
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
-                    //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                     sidebar.add_file (Services.FileManager.get_temp_document_path ());
                     edit_view_content.buffer.text = "";
                 }
@@ -414,7 +413,7 @@ namespace Quilter {
             Quilter.Application.gsettings.set_int("window-width", w);
             Quilter.Application.gsettings.set_int("window-height", h);
             
-            string[] files = null;
+            string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
                 if (row.path != _("No Documents Open")) {
                     files += row.path;
@@ -534,7 +533,7 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             
             if (row != null) {
-                //Quilter.Application.gsettings.set_string("current-file", row.path);
+                Quilter.Application.gsettings.set_string("current-file", row.path);
             }
         }
 
@@ -556,7 +555,6 @@ namespace Quilter {
                 // pass
             } else {
                 Services.FileManager.get_cache_path ();
-                //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
             }
@@ -634,13 +632,11 @@ namespace Quilter {
 
             edit_view_content.text = contents;
 
-            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                if (Quilter.Application.gsettings.get_strv("last-files")[i] != null && path != _("No Documents Open")) {
-                    sidebar.add_file (path);
-                } else {
-                    sidebar.delete_row ();
-                    sidebar.add_file (path);
-                }
+            if (Quilter.Application.gsettings.get_strv("last-files") != null && path != _("No Documents Open")) {
+                sidebar.add_file (path);
+            } else {
+                sidebar.delete_row ();
+                sidebar.add_file (path);
             }
         }
 
@@ -685,7 +681,7 @@ namespace Quilter {
                 try {
                     string file_path = box.path;
                     
-                    //Quilter.Application.gsettings.set_string("current-file", file_path);
+                    Quilter.Application.gsettings.set_string("current-file", box.path);
 
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);
