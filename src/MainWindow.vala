@@ -91,8 +91,11 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
                 Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
-                sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
+                sidebar.add_file (Services.FileManager.get_temp_document_path ());
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
             }
 
             on_settings_changed ();
@@ -111,8 +114,8 @@ namespace Quilter {
                     sidebar.outline_populate ();
                     sidebar.view.expand_all ();
                 } else {
-                    sidebar.add_file (Services.FileManager.get_temp_document_path ());
                     edit_view_content.buffer.text = "";
+                    sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 }
             });
 
@@ -416,7 +419,10 @@ namespace Quilter {
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
                 if (row.path != _("No Documents Open")) {
                     files += row.path;
-                }     
+                }
+            }
+            if (sidebar.column.get_children () == null) {
+                Quilter.Application.gsettings.set_string("current-file", "");
             }
             Quilter.Application.gsettings.set_strv("last-files", files);
 
@@ -631,10 +637,10 @@ namespace Quilter {
 
             edit_view_content.text = contents;
 
-            if (Quilter.Application.gsettings.get_strv("last-files") != null && path != _("No Documents Open")) {
+            if (path == Quilter.Application.gsettings.get_string("current-file")) {
+                sidebar.delete_row ();
                 sidebar.add_file (path);
             } else {
-                sidebar.delete_row ();
                 sidebar.add_file (path);
             }
         }
@@ -643,7 +649,7 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
                 try {
-                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_cache_path (), edit_view_content.text);
+                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_temp_document_path (), edit_view_content.text);
                     edit_view_content.modified = false;
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);

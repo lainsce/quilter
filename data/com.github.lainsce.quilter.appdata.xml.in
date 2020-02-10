@@ -55,6 +55,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.1.1" date="2020-02-14">
+         <description>
+            <p>Release: Swift Scenes</p>
+            <ul>
+                <li>Fixed: Would duplicate files when open in the sidebar</li>
+                <li>Fixed: If the sidebar was empty and Quilter was reopened, last file contents would still appear</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.1.0" date="2020-01-17">
          <description>
             <p>Release: Beautiful Backend</p>

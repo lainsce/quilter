@@ -106,7 +106,6 @@ namespace Quilter.Widgets {
                         }
                     } else if (Quilter.Application.gsettings.get_strv("last-files")[i] == null) {
                         win.sidebar.add_file (Services.FileManager.get_temp_document_path ());
-                        //Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_cache_path ());
                     }
                 }
             });

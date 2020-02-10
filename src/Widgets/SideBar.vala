@@ -109,12 +109,6 @@ namespace Quilter.Widgets {
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
 
-            if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                filebox = new SideBarBox (this.win, Services.FileManager.get_cache_path ());
-                column.insert (filebox, 1);
-                column.select_row (filebox);
-            }
-
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 var row = add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
                 if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
