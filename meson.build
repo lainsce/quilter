@@ -1,6 +1,6 @@
 # Name our project
 project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '2.1.1'
+    version: '2.1.2'
 )
 
 # Import main lib files
@@ -26,6 +26,7 @@ conf.set_quoted('PKGDATADIR', pkgdatadir)
 
 # Other configs
 conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
+conf.set_quoted('VERSION', meson.project_version())
 conf
 add_global_arguments('-DDATADIR="' + get_option('datadir') + '"', language: 'c')
 configure_file(output: 'config.h', configuration: conf)

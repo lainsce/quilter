@@ -20,7 +20,7 @@
 namespace Quilter {
     public class Application : Gtk.Application {
         public static GLib.Settings gsettings;
-        private static bool print_cr = false;
+        private static bool print_ver = false;
         private static bool open_view = false;
         private static string _cwd;
 
@@ -88,8 +88,9 @@ namespace Quilter {
                 return 0;
             }
 
-            if (print_cr) {
-                stdout.printf ("Copyright 2017-2018 Lains\n");
+            if (print_ver) {
+                var ver = Build.VERSION;
+                stdout.printf ("Quilter %s - Copyright 2017-2020 Lains\n", ver);
                 return 0;
             } else {
                 new_win ();
@@ -229,7 +230,7 @@ namespace Quilter {
         }
 
         const OptionEntry[] entries = {
-            { "copyright", 'v', 0, OptionArg.NONE, out print_cr, ("Print copyright info and exit"), null },
+            { "version", 'v', 0, OptionArg.NONE, out print_ver, ("Print version and copyright info and exit"), null },
             { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },
             { null }
         };

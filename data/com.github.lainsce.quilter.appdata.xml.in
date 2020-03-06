@@ -55,6 +55,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.1.2" date="2020-03-13">
+         <description>
+            <p>Release: Calm Composing</p>
+            <ul>
+                <li>Fixed: Would not prompt to save files which were modified on changing between them</li>
+                <li>Fixed: Version info accessible on Terminal</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.1.1" date="2020-02-14">
          <description>
             <p>Release: Swift Scenes</p>

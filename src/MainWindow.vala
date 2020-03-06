@@ -427,7 +427,9 @@ namespace Quilter {
             Quilter.Application.gsettings.set_strv("last-files", files);
 
             set_prev_workfile ();
-            on_save ();
+            if (edit_view_content.modified) {
+                on_save ();
+            }
 
             return false;
         }
@@ -701,10 +703,10 @@ namespace Quilter {
 
                     if (edit_view_content.modified) {
                         Services.FileManager.save_file (file_path, text);
+                        edit_view_content.modified = false;
                     }
 
                     edit_view_content.text = text;
-                    edit_view_content.modified = false;
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }
