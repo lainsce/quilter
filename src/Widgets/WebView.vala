@@ -38,6 +38,7 @@ namespace Quilter.Widgets {
             visible = true;
             vexpand = true;
             hexpand = true;
+            this.margin = 2;
             this.buf = buf;
             var settingsweb = get_settings ();
             settingsweb.enable_plugins = false;

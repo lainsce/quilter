@@ -22,11 +22,13 @@ using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.ApplicationWindow {
-        public Gtk.Application app { get; construct; }
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
         public Widgets.Headerbar toolbar;
+        public Gtk.Revealer toolbar_revealer;
+        public Gtk.Revealer overlay_button_revealer;
+        public Gtk.Button focus_overlay_button;
         public Gtk.MenuButton set_font_menu;
         public Widgets.EditView edit_view_content;
         public Widgets.Preview preview_view_content;
@@ -62,7 +64,6 @@ namespace Quilter {
                 if (value) {
                     fullscreen ();
                     Quilter.Application.gsettings.set_boolean("statusbar", false);
-                    Quilter.Application.gsettings.set_boolean("sidebar", true);
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
@@ -79,10 +80,7 @@ namespace Quilter {
         }
 
         public MainWindow (Gtk.Application application) {
-            Object (application: application,
-                    app: application,
-                    resizable: true,
-                    title: _("Quilter"));
+            Object (application: application);
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
@@ -223,10 +221,13 @@ namespace Quilter {
                 }
                 return false;
             });
+
+            overlay_button_revealer.visible = false;
         }
 
         construct {
-            
+            // Used for identification purposes, don't translate.
+            title = _("Quilter");
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -239,9 +240,18 @@ namespace Quilter {
             toolbar.save.connect (on_save);
             toolbar.save_as.connect (on_save_as);
             toolbar.create_new.connect (on_create_new);
-            toolbar.title = this.title;
             toolbar.has_subtitle = false;
-            this.set_titlebar (toolbar);
+            var toolbar_context = toolbar.get_style_context ();
+            toolbar_context.add_class ("titlebar");
+
+            toolbar_revealer = new Gtk.Revealer ();
+            toolbar_revealer.add (toolbar);
+            toolbar_revealer.reveal_child = true;
+
+            set_titlebar (toolbar_revealer);
+            toolbar.title = title;
+            var toolbar_revealer_context = toolbar_revealer.get_style_context ();
+            toolbar_revealer_context.remove_class ("titlebar");
 
             var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
 	        set_font_sans.toggled.connect (() => {
@@ -273,6 +283,7 @@ namespace Quilter {
             set_font_menu_pop.add (set_font_menu_grid);
 
             set_font_menu = new Gtk.MenuButton ();
+            set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             set_font_menu.tooltip_text = _("Set Preview Font");
             set_font_menu.popover = set_font_menu_pop;
 
@@ -341,7 +352,34 @@ namespace Quilter {
             grid.attach (main_stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
-            this.add (grid);
+
+            overlay_button_revealer = new Gtk.Revealer ();
+            overlay_button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            overlay_button_revealer.halign = Gtk.Align.END;
+            overlay_button_revealer.valign = Gtk.Align.START;
+
+            focus_overlay_button = new Gtk.Button ();
+            focus_overlay_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            focus_overlay_button.set_always_show_image (true);
+            focus_overlay_button.tooltip_text = _("Exit focus mode");
+            focus_overlay_button.halign = Gtk.Align.END;
+            focus_overlay_button.valign = Gtk.Align.START;
+            focus_overlay_button.margin = 12;
+            var focus_overlay_button_context = focus_overlay_button.get_style_context ();
+            focus_overlay_button_context.add_class ("quilter-focus-button");
+            focus_overlay_button_context.add_class ("osd");
+
+            focus_overlay_button.clicked.connect (() => {
+    			Quilter.Application.gsettings.set_boolean("focus-mode", false);
+            });
+
+            overlay_button_revealer.add (focus_overlay_button);
+
+            var overlay = new Gtk.Overlay ();
+            overlay.add_overlay (overlay_button_revealer);
+            overlay.add (grid);
+
+            add (overlay);
 
             int x = Quilter.Application.gsettings.get_int("window-x");
             int y = Quilter.Application.gsettings.get_int("window-y");
@@ -386,6 +424,7 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (600, 700);
+            this.margin = 4;
         }
 
 #if VALA_0_42
@@ -545,17 +584,27 @@ namespace Quilter {
         }
 
         private void on_settings_changed () {
+            var context = this.get_style_context ();
+
             show_statusbar ();
             show_sidebar ();
             show_searchbar ();
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout ();
-         
+
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+                overlay_button_revealer.visible = false;
+                toolbar_revealer.reveal_child = true;
+                overlay_button_revealer.reveal_child = false;
+                statusbar.reveal_child = true;
+                context.remove_class ("focus");
             } else {
-                set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+                overlay_button_revealer.visible = true;
+                toolbar_revealer.reveal_child = false;
+                overlay_button_revealer.reveal_child = true;
+                statusbar.reveal_child = false;
+                context.add_class ("focus");
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {

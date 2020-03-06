@@ -88,8 +88,8 @@ namespace Quilter.Widgets {
             moonfont = new Gtk.TextTag();
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#777");
-            blackfont = buffer.create_tag(null, "foreground", "#333");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#999");
+            blackfont = buffer.create_tag(null, "foreground", "#000");
             whitefont = buffer.create_tag(null, "foreground", "#CCC");
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
@@ -188,6 +188,7 @@ namespace Quilter.Widgets {
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
             this.bottom_margin = 40;
+            this.margin = 2;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);

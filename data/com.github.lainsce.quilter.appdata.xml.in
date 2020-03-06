@@ -61,6 +61,7 @@
             <ul>
                 <li>Fixed: Would not prompt to save files which were modified on changing between them</li>
                 <li>Fixed: Version info accessible on Terminal</li>
+                <li>Added: New UI for when Focus Mode is active</li>
             </ul>
          </description>
         </release>

@@ -2,6 +2,14 @@
 @define-color textColorPrimary #333;
 @define-color accentColor #0073c5;
 
+window {
+  background: @colorPrimary;
+}
+
+window:backdrop {
+  background: @colorPrimary;
+}
+
 .quilter-toolbar {
     background: @colorPrimary;
     color: @textColorPrimary;

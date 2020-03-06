@@ -42,8 +42,7 @@ namespace Quilter.Widgets {
             header_context.add_class ("quilter-toolbar");
 
             build_ui ();
-
-            focus_mode_toolbar ();
+            icons_toolbar ();
         }
 
         private void build_ui () {
@@ -208,24 +207,13 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
-            var focusmode_button = new Gtk.ToggleButton.with_label ((_("Focus Mode")));
+            var focusmode_button = new Gtk.Button.with_label ((_("Focus Mode")));
             focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
 
-            if (Quilter.Application.gsettings.get_boolean("focus-mode") == false) {
-                focusmode_button.set_active (false);
-            } else {
-                focusmode_button.set_active (Quilter.Application.gsettings.get_boolean("focus-mode"));
-            }
-
-            focusmode_button.toggled.connect (() => {
-    			if (focusmode_button.active) {
-    				Quilter.Application.gsettings.set_boolean("focus-mode", true);
-    			} else {
-    				Quilter.Application.gsettings.set_boolean("focus-mode", false);
-    			}
-
+            focusmode_button.clicked.connect (() => {
+    			Quilter.Application.gsettings.set_boolean("focus-mode", true);
             });
 
             var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -281,24 +269,14 @@ namespace Quilter.Widgets {
             this.show_all ();
         }
 
-        public void focus_mode_toolbar () {
-            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
-                new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-                share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-                search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-            } else {
-                new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-                save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-                save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-                open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-                menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-                share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-                search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            }
+        public void icons_toolbar () {
+            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
         }
     }
 }
