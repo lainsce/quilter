@@ -75,7 +75,7 @@ executable(
     dependencies: [
         dependency('granite'),
         dependency('gobject-2.0'),
-        dependency('gtksourceview-3.0'),
+        dependency('gtksourceview-4.0'),
         dependency('gtk+-3.0'),
         dependency('webkit2gtk-4.0'),
         dependency('gtkspell3-3.0'),
