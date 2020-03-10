@@ -169,17 +169,6 @@ namespace Quilter.Widgets {
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_moon = new Gtk.Button ();
-            color_button_moon.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            color_button_moon.halign = Gtk.Align.CENTER;
-            color_button_moon.height_request = 40;
-            color_button_moon.width_request = 40;
-            color_button_moon.tooltip_text = _("Moon Mode");
-
-            var color_button_moon_context = color_button_moon.get_style_context ();
-            color_button_moon_context.add_class ("color-button");
-            color_button_moon_context.add_class ("color-moon");
-
             var color_button_dark = new Gtk.Button ();
             color_button_dark.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             color_button_dark.halign = Gtk.Align.CENTER;
@@ -199,10 +188,6 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
-            color_button_moon.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "moon");
-            });
-
             color_button_light.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
@@ -219,7 +204,6 @@ namespace Quilter.Widgets {
             var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             colorbox.pack_start (color_button_light, true, true, 0);
             colorbox.pack_start (color_button_sepia, true, true, 0);
-            colorbox.pack_start (color_button_moon, true, true, 0);
             colorbox.pack_start (color_button_dark, true, true, 0);
 
             var modebox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);

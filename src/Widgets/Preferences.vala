@@ -58,7 +58,7 @@ namespace Quilter.Widgets {
         }
 
         private Gtk.Widget get_editor_grid () {
-            
+
             var editor_grid = new Gtk.Grid ();
             editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
@@ -256,7 +256,7 @@ namespace Quilter.Widgets {
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            
+
             var interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
             interface_grid.column_spacing = 12;
@@ -290,19 +290,6 @@ namespace Quilter.Widgets {
 
             var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
 
-            var color_button_moon = new Gtk.Button ();
-            var color_button_moon_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_moon.set_image (color_button_moon_icon);
-            color_button_moon.halign = Gtk.Align.CENTER;
-            color_button_moon.height_request = 64;
-            color_button_moon.width_request = 64;
-
-            var color_button_moon_context = color_button_moon.get_style_context ();
-            color_button_moon_context.add_class ("color-button");
-            color_button_moon_context.add_class ("color-moon");
-
-            var color_button_moon_text = new Gtk.Label (_("Moon Mode"));
-
             var color_button_dark = new Gtk.Button ();
             var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
             color_button_dark.set_image (color_button_dark_icon);
@@ -322,10 +309,6 @@ namespace Quilter.Widgets {
 
             color_button_sepia.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "sepia");
-            });
-
-            color_button_moon.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "moon");
             });
 
             color_button_light.clicked.connect (() => {
@@ -386,7 +369,6 @@ namespace Quilter.Widgets {
             buttonbox.set_homogeneous (true);
             buttonbox.pack_start (color_button_light, true, true, 6);
             buttonbox.pack_start (color_button_sepia, true, true, 6);
-            buttonbox.pack_start (color_button_moon, true, true, 6);
             buttonbox.pack_start (color_button_dark, true, true, 6);
 
             var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -395,7 +377,6 @@ namespace Quilter.Widgets {
             textbox.set_homogeneous (true);
             textbox.pack_start (color_button_light_text, true, true, 6);
             textbox.pack_start (color_button_sepia_text, true, true, 6);
-            textbox.pack_start (color_button_moon_text, true, true, 6);
             textbox.pack_start (color_button_dark_text, true, true, 6);
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -466,7 +447,7 @@ namespace Quilter.Widgets {
 
         private class SettingsSwitch : Gtk.Switch {
             public SettingsSwitch (string setting) {
-                
+
                 halign = Gtk.Align.START;
                 Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
             }

@@ -52,11 +52,6 @@ install_data(
 )
 
 install_data(
-    join_paths('schemes', 'quilter-moon.xml'),
-    install_dir: join_paths(get_option('datadir'), 'gtksourceview-3.0', 'styles')
-)
-
-install_data(
     join_paths('font', 'QuiltMono.ttf'),
     install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )

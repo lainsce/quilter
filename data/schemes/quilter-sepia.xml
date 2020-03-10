@@ -3,7 +3,7 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#3b3228" background="#e8dccb"/>
+  <style name="text"            foreground="#3b3228" background="#f0e8dd"/>
   <style name="cursor"          foreground="#00897b"/>
   <style name="current-line"    background="#c1a073"/>
   <style name="selection"       foreground="#3b3228" background="#00897b"/>
@@ -13,7 +13,7 @@
   <style name="def:statement" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#c1a073" italic="true"/>
+  <style name="def:doc-comment-element" foreground="#b19063" italic="true"/>
 
   <!-- Links -->
   <style name="def:comment" foreground="#00897b"/>

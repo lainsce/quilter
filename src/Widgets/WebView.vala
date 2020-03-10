@@ -66,9 +66,6 @@ namespace Quilter.Widgets {
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
-                string moon = Styles.quiltermoon.css;
-                return moon;
             } else {
                 string normal = Styles.quilter.css;
                 return normal;
@@ -92,8 +89,6 @@ namespace Quilter.Widgets {
                 return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                 return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
-                return Build.PKGDATADIR + "/highlight.js/styles/moon.min.css";
             } else {
                 return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
             }
