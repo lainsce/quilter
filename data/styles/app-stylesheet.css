@@ -72,3 +72,18 @@ actionbar,
 .quilter-sidebar-box:selected {
     color: @accentColor;
 }
+
+.osd {
+  background-image: none;
+  background-color: #E8E8E8;
+  box-shadow: none;
+  border: 1px solid #E8E8E8;
+}
+
+.osd:active,
+.osd:focus {
+  background-image: none;
+  background-color: shade(#E8E8E8,0.88);
+  box-shadow: none;
+  border: 1px solid shade(#E8E8E8,0.88);
+}
