@@ -297,9 +297,9 @@ namespace Quilter {
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
+            ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
-            ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
 
             stack = new Gtk.Stack ();
             stack.hexpand = true;
