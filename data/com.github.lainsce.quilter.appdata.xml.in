@@ -59,7 +59,7 @@
          <description>
             <p>Release: New Horizons</p>
             <ul>
-                <li>Fixed: Can now move the window if holding mouse right-click on the "Exit Focus Mode" button</li>
+                <li>Fixed: Can now move the window when in Focus Mode by holding mouse right-click on the "Exit Focus Mode" button</li>
                 <li>Removed: Moon mode due to legacy</li>
             </ul>
          </description>
