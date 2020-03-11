@@ -425,6 +425,7 @@ namespace Quilter {
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (600, 700);
             this.margin = 4;
+            this.get_style_context().add_class("rounded");
         }
 
 #if VALA_0_42
@@ -453,7 +454,7 @@ namespace Quilter {
             Quilter.Application.gsettings.set_int("window-y", y);
             Quilter.Application.gsettings.set_int("window-width", w);
             Quilter.Application.gsettings.set_int("window-height", h);
-            
+
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
                 if (row.path != _("No Documents Open")) {
@@ -513,7 +514,7 @@ namespace Quilter {
         }
 
         private void update_count () {
-            
+
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 statusbar.update_wordcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
@@ -577,7 +578,7 @@ namespace Quilter {
 
         private void set_prev_workfile () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            
+
             if (row != null) {
                 Quilter.Application.gsettings.set_string("current-file", row.path);
             }
@@ -618,7 +619,7 @@ namespace Quilter {
             render_func ();
         }
 
-        private void change_layout () {      
+        private void change_layout () {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);
@@ -712,11 +713,11 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
                 try {
-                    
+
                     string path;
                     Services.FileManager.save_as (edit_view_content.text, out path);
                     edit_view_content.modified = false;
-                    
+
                     for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                         if (Quilter.Application.gsettings.get_strv("last-files")[i] != null) {
                             sidebar.delete_row_with_name ();
@@ -736,7 +737,7 @@ namespace Quilter {
             if (box != null) {
                 try {
                     string file_path = box.path;
-                    
+
                     Quilter.Application.gsettings.set_string("current-file", box.path);
 
                     string text;
