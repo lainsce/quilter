@@ -85,3 +85,15 @@ actionbar,
   box-shadow: none;
   border: 1px solid shade(#1A1A1A,0.88);
 }
+
+scrolledwindow:not(.quilter-preview-view) {
+  background: @colorPrimary;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+
+scrolledwindow:not(.quilter-edit-view) {
+  background: #111;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}

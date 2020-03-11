@@ -288,6 +288,8 @@ namespace Quilter {
             set_font_menu.popover = set_font_menu_pop;
 
             edit_view = new Gtk.ScrolledWindow (null, null);
+            var edit_view_context = edit_view.get_style_context ();
+            edit_view_context.add_class ("quilter-edit-view");
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
@@ -295,6 +297,8 @@ namespace Quilter {
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
+            var preview_view_context = preview_view.get_style_context ();
+            preview_view_context.add_class ("quilter-preview-view");
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
 
             stack = new Gtk.Stack ();
