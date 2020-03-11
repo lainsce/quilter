@@ -606,6 +606,14 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = true;
                 statusbar.reveal_child = false;
                 context.add_class ("focus");
+
+                focus_overlay_button.button_press_event.connect ((e) => {
+                    if (e.button == Gdk.BUTTON_SECONDARY) {
+                        begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
+                        return true;
+                    }
+                    return false;
+                });
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
