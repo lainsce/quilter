@@ -94,9 +94,15 @@ namespace Quilter.Widgets {
             }
         }
 
+
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                return Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
+                string render = Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
+                string hl = """
+                    <link rel="stylesheet" href="%s">
+                    <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
+                """.printf (set_highlight_stylesheet (), render);
+                return hl;
             } else {
                 return "";
             }
@@ -113,6 +119,18 @@ namespace Quilter.Widgets {
                     <script defer src="%s" onload="renderMathInElement(document.body);"></script>
                 """.printf (katex_main, katex_js, render);
                 return latex;
+            } else {
+                return "";
+            }
+        }
+
+        private string set_mermaid () {
+            if (Quilter.Application.gsettings.get_boolean("mermaid")) {
+                string render = Build.PKGDATADIR + "/mermaid/mermaid.js";
+                string mermaid = """
+                    <script defer src="%s" onload="mermaid.initialize({startOnLoad:true;});"></script>
+                """.printf (render);
+                return mermaid;
             } else {
                 return "";
             }
@@ -248,9 +266,9 @@ namespace Quilter.Widgets {
         }
 
         public string make_html (string result) {
-            string highlight_stylesheet = set_highlight_stylesheet();
             string highlight = set_highlight();
             string latex = set_latex();
+            string mermaid = set_mermaid();
             string font_stylesheet = set_font_stylesheet ();
             string stylesheet = set_stylesheet ();
             string markdown = process_plugins (result);
@@ -259,19 +277,16 @@ namespace Quilter.Widgets {
             <html>
                 <head>
                     <meta charset="utf-8">
-                    <link rel="stylesheet" href="%s" />
-                    <script src="%s"></script>
-                    <script>hljs.initHighlightingOnLoad();</script>
                     %s
-                    <link rel="stylesheet" href="%s" />
+                    %s
+                    <link rel="stylesheet" href="%s"/>
                     <style>"%s"</style>
                 </head>
                 <body>
-                    <div class="markdown-body">
-                        %s
-                    </div>
+                    %s
+                    %s
                 </body>
-            </html>""".printf(highlight_stylesheet, highlight, latex, font_stylesheet, stylesheet, markdown);
+            </html>""".printf(highlight, latex, font_stylesheet, stylesheet, mermaid, markdown);
             return html;
         }
         public void update_html_view () {

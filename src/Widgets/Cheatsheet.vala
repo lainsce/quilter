@@ -121,6 +121,7 @@ namespace Quilter.Widgets {
             var sp_image_label = new Label (_("This embeds a local image → /Folder/Image.png :image"));
             var sp_file_label = new Label (_("This embeds a local Markdown file → /Folder/File.md :file"));
             var lx_label = new Label (_("LaTeX is processed with:\n\t- $$…$$ for equation block.\n\t- \\(…\\) or \\[\\] for inline equation."));
+            var mm_label = new Label (_("Mermaid is processed with:\n\t<div class=\"mermaid\">...</div>\n\tUsing Mermaid.js in other forms may clash with\n\tthe Code Highlightning plugin."));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
             links_grid.attach (link_label, 0, 1, 3, 1);
@@ -131,6 +132,7 @@ namespace Quilter.Widgets {
             links_grid.attach (sp_image_label, 0, 6, 3, 1);
             links_grid.attach (sp_file_label, 0, 7, 3, 1);
             links_grid.attach (lx_label, 0, 8, 3, 1);
+            links_grid.attach (mm_label, 0, 9, 3, 1);
 
             return links_grid;
         }

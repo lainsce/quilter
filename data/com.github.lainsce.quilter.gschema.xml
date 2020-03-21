@@ -108,6 +108,10 @@
 			    <default>false</default>
 			    <summary>Use the Latex built-in extension</summary>
         </key>
+        <key name="mermaid" type="b">
+			    <default>false</default>
+			    <summary>Use the Mermaid.js built-in extension</summary>
+        </key>
         <key name="fullscreen" type="b">
 			    <default>false</default>
 			    <summary>Whether Quilter should be fullscreen or not</summary>

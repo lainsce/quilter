@@ -422,17 +422,26 @@ namespace Quilter.Widgets {
             var latex_label = new SettingsLabel (_("Enable LaTeX Processing:"));
             var latex = new SettingsSwitch ("latex");
             latex.hexpand = true;
+            
+            var mermaid_label = new SettingsLabel (_("Enable Mermaid.js Graphing:"));
+            var mermaid = new SettingsSwitch ("mermaid");
+            mermaid.hexpand = true;
+            var mermaid_info_label = new Text (_("Disable Code Highlighting for optimal use of Mermaid.js"));
+            mermaid_info_label.sensitive = false;
 
             var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
 
             ext_grid.attach (ext_header,  0, 0, 1, 1);
             ext_grid.attach (highlight_label, 0, 1, 1, 1);
-            ext_grid.attach (highlight, 2, 1, 1, 1);
+            ext_grid.attach (highlight, 1, 1, 1, 1);
             ext_grid.attach (latex_label, 0, 2, 1, 1);
-            ext_grid.attach (latex, 2, 2, 1, 1);
-            ext_grid.attach (spellcheck_label, 0, 3, 1, 1);
-            ext_grid.attach (spellcheck, 2, 3, 1, 1);
+            ext_grid.attach (latex, 1, 2, 1, 1);
+            ext_grid.attach (mermaid_label, 0, 3, 1, 1);
+            ext_grid.attach (mermaid, 1, 3, 1, 1);
+            ext_grid.attach (mermaid_info_label, 0, 4, 2, 1);
+            ext_grid.attach (spellcheck_label, 0, 5, 1, 1);
+            ext_grid.attach (spellcheck, 1, 5, 1, 1);
 
             return ext_grid;
         }
@@ -442,6 +451,13 @@ namespace Quilter.Widgets {
                 label = text;
                 halign = Gtk.Align.END;
                 margin_start = 12;
+            }
+        }
+
+        private class Text : Gtk.Label {
+            public Text (string text) {
+                label = text;
+                halign = Gtk.Align.END;
             }
         }
 
