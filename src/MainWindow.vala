@@ -428,7 +428,6 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (600, 700);
-            this.margin = 4;
             this.get_style_context().add_class("rounded");
         }
 
@@ -604,6 +603,7 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = false;
                 statusbar.reveal_child = true;
                 context.remove_class ("focus");
+                context.remove_class ("focus-full");
             } else {
                 overlay_button_revealer.visible = true;
                 toolbar_revealer.reveal_child = false;
@@ -618,6 +618,12 @@ namespace Quilter {
                     }
                     return false;
                 });
+                
+                if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
+                    context.add_class ("focus-full");
+                } else {
+                    context.remove_class ("focus-full");
+                }
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {

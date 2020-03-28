@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.2.1" date="2020-04-03">
+         <description>
+            <p>Release: Small Fixes</p>
+            <ul>
+                <li>General small fixes to deliver the best Quilter can be.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.2.0" date="2020-03-27">
          <description>
             <p>Release: Mysterious Mermaid</p>

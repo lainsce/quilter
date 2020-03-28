@@ -246,3 +246,8 @@ actionbar,
 .focus {
     border-radius: 4px;
 }
+
+.focus-full .quilter-edit-view {
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
