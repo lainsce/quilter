@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.2.2" date="2020-04-03">
+         <description>
+            <p>Release: Small Fixes</p>
+            <ul>
+                <li>Small Fix: Added focus-full styling so that when focused and not half-width, the styling doesn't look bugged.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.2.1" date="2020-04-03">
          <description>
             <p>Release: Small Fixes</p>
