@@ -323,6 +323,21 @@ namespace Quilter {
                 _("Change view")
             );
 
+            var v_context = view_mode.get_style_context ();
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                v_context.add_class ("dark-switcher");
+            } else {
+                v_context.remove_class ("dark-switcher");
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                    v_context.add_class ("dark-switcher");
+                } else {
+                    v_context.remove_class ("dark-switcher");
+                }
+            });
+
             toolbar.pack_end (set_font_menu);
             toolbar.pack_end (view_mode);
 

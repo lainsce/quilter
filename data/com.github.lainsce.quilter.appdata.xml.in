@@ -55,6 +55,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.2.3" date="2020-04-17">
+         <description>
+            <p>Release: Spring Cleaned</p>
+            <ul>
+                <li>Small Fix: Preview View titles shouldn't look smushed.</li>
+                <li>Small Fix: Improved Sidebar pane and View switchers contrast in Dark Mode.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.2.2" date="2020-04-03">
          <description>
             <p>Release: Small Fixes</p>

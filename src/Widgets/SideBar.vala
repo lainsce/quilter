@@ -83,6 +83,20 @@ namespace Quilter.Widgets {
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                s_context.add_class ("dark-switcher");
+            } else {
+                s_context.remove_class ("dark-switcher");
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                    s_context.add_class ("dark-switcher");
+                } else {
+                    s_context.remove_class ("dark-switcher");
+                }
+            });
+
             scrolled_box.add (stack);
 
             var grid = new Gtk.Grid ();

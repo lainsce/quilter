@@ -45,6 +45,7 @@ public class Quilter.Styles.quilter {
     h6 {
       font-style: bold;
       margin-top: 2rem;
+      line-height: 2rem;
     }
 
     h1 {

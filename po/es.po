@@ -460,15 +460,15 @@ msgstr "Cerrar sin guardar"
 
 #: src/Services/ExportUtils.vala:87
 msgid "Print to File"
-msgstr ""
+msgstr "Imprimir Archivio"
 
 #: src/Services/ExportUtils.vala:144
 msgid "Select destination PDF file"
-msgstr ""
+msgstr "Seleccionar Archivio PDF de destino"
 
 #: src/Services/ExportUtils.vala:149
 msgid "PDF File"
-msgstr ""
+msgstr "Archivio PDF"
 
 #: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
 msgid "All Files"
@@ -476,11 +476,11 @@ msgstr "Todos los archivos"
 
 #: src/Services/ExportUtils.vala:193
 msgid "Select destination HTML file"
-msgstr ""
+msgstr "Seleccionar Archivio HTML de destino"
 
 #: src/Services/ExportUtils.vala:198
 msgid "HTML File"
-msgstr ""
+msgstr "Archivio HTML"
 
 #: src/Services/FileManager.vala:84
 msgid "Open file"
