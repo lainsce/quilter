@@ -55,6 +55,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="2.2.4" date="2020-04-24">
+         <description>
+            <p>Release: Just What You Needed</p>
+            <ul>
+                <li>Fix: Preview View backend fixed to enable footnotes and some other Markdown goodies, because before they'd not appear.</li>
+            </ul>
+         </description>
+        </release>
         <release version="2.2.3" date="2020-04-17">
          <description>
             <p>Release: Spring Cleaned</p>

@@ -21,73 +21,64 @@
 
 public class Quilter.Filep : Plugins.Plugin {
     private PatternSpec spec = new PatternSpec ("*/*:file*");
-
+    
     construct {}
-
+    
     public override string get_desctiption () {
         return _("Load an embeded file");
     }
-
+    
     public override string get_name () {
         return _("File");
     }
-
+    
     public override Gtk.Widget? editor_button () {
         return null;
     }
-
+    
     public override string request_string (string selection) {
         return selection;
     }
-
+    
     public override string get_button_desctiption () {
         return "";
     }
-
+    
     public override bool has_match (string text) {
         return spec.match_string (text);
     }
-
+    
     public override string convert (string line_) {
         string build = "";
         string text = "";
         int initial = line_.index_of ("/") + 1;
         int last = line_.index_of (" :file", initial);
         string subline = line_.substring (initial, last - initial);
-
+        
         File file = File.new_for_path (subline);
-
+        
         try {
             if (file.query_exists()) {
                 GLib.FileUtils.get_contents(subline, out text);
-                var mkd = new Markdown.Document.gfm_format (text.data,
-                                                            0x00004000 +
-                                                            0x00200000 +
-                                                            0x00400000 +
-                                                            0x02000000 +
-                                                            0x01000000 +
-                                                            0x04000000 +
-                                                            0x10000000 +
-                                                            0x40000000);
-                mkd.compile (0x00004000 +
-                             0x00200000 +
-                             0x00400000 +
-                             0x02000000 +
-                             0x01000000 +
-                             0x04000000 +
-                             0x10000000 +
-                             0x40000000);
-
+                var mkd = new Markdown.Document.from_string (text.data,
+                                                             0x00001000 +
+                                                             0x00040000 +
+                                                             0x00200000 );
+            
+                mkd.compile (0x00001000 +
+                             0x00040000 +
+                             0x00200000 );
+                
                 string result;
-                mkd.get_document (out result);
-
+                mkd.document (out result);
+                
                 build = build + result;
                 return build;
             }
         } catch (Error e) {
             warning ("Error: %s", e.message);
         }
-
+        
         return "No file.";
     }
 }

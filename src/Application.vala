@@ -46,8 +46,7 @@ namespace Quilter {
         }
 
         public static int main (string[] args) {
-            Intl.setlocale (LocaleCategory.ALL, "");
-            Intl.textdomain (Build.GETTEXT_PACKAGE);
+            Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
 
             var app = new Quilter.Application ();
             return app.run (args);
@@ -89,8 +88,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                var ver = Build.VERSION;
-                stdout.printf ("Quilter %s - Copyright 2017-2020 Lains\n", ver);
+                stdout.printf ("Quilter - Copyright 2017-2020 Lains\n");
                 return 0;
             } else {
                 new_win ();

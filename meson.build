@@ -1,49 +1,18 @@
-# Name our project
-project('com.github.lainsce.quilter', ['vala', 'c'],
-    version: '2.2.3'
-)
+project('com.github.lainsce.quilter', 'vala', 'c', version: '2.2.4')
 
-# Import main lib files
 gnome = import('gnome')
 i18n = import('i18n')
 
-# Compile the GResources for this project
+add_global_arguments(
+    '-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()),
+    language:'c'
+)
+
 asresources = gnome.compile_resources(
-    'as-resources', 'data/app.gresource.xml',
+    'as-resources', join_paths('data', 'app.gresource.xml'),
     source_dir: 'data',
     c_name: 'as'
 )
-
-# Set this for convenience
-conf = configuration_data()
-
-# Get the package data directory under Meson
-pkgdatadir = join_paths([ get_option('prefix'),
-                          get_option('datadir'),
-                          'com.github.lainsce.quilter' ])
-
-conf.set_quoted('PKGDATADIR', pkgdatadir)
-
-# Other configs
-conf.set_quoted('GETTEXT_PACKAGE', meson.project_name())
-conf.set_quoted('VERSION', meson.project_version())
-conf
-add_global_arguments('-DDATADIR="' + get_option('datadir') + '"', language: 'c')
-configure_file(output: 'config.h', configuration: conf)
-config_h_dir = include_directories('.')
-
-# Arguments for C
-c_args = [
-  '-include', 'config.h',
-  '-w'
-]
-
-# Find libMarkdown
-cc = meson.get_compiler('c')
-libmarkdown = cc.find_library('markdown', required: true)
-
-# Let's define our executable
-add_project_arguments(['--vapidir', join_paths(meson.current_source_dir(), 'vapi')], language: 'vala')
 
 executable(
     meson.project_name(),
@@ -70,7 +39,6 @@ executable(
     'src/Services/ExportUtils.vala',
     'src/Services/DialogUtils.vala',
     asresources,
-    c_args: c_args,
     dependencies: [
         dependency('granite'),
         dependency('gobject-2.0'),
@@ -78,17 +46,16 @@ executable(
         dependency('gtk+-3.0'),
         dependency('webkit2gtk-4.0'),
         dependency('gtkspell3-3.0'),
-        libmarkdown
+        dependency('libmarkdown')
     ],
     vala_args: [
-        meson.source_root() + '/vapi/config.vapi',
-        meson.source_root() + '/vapi/libmarkdown.vapi'
+        '--vapidir=' + meson.source_root() + '/vapi/',
     ],
     install : true
 )
 
 # Add in a post install script
-meson.add_install_script('meson/post_install.py',  join_paths(get_option('prefix'), get_option('datadir')))
+meson.add_install_script('meson/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
 
 # Add subfolders for Meson to look
 subdir('data')

@@ -74,30 +74,30 @@ namespace Quilter.Widgets {
 
         private string set_font_stylesheet () {
             if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
-                return Build.PKGDATADIR + "/font/serif.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/font/serif.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
-                return Build.PKGDATADIR + "/font/sans.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
-                return Build.PKGDATADIR + "/font/mono.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/font/mono.css";
             }
 
-            return Build.PKGDATADIR + "/font/serif.css";
+            return "/usr/share/com.github.lainsce.quilter" + "/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                return Build.PKGDATADIR + "/highlight.js/styles/dark.min.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                return Build.PKGDATADIR + "/highlight.js/styles/sepia.min.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/sepia.min.css";
             } else {
-                return Build.PKGDATADIR + "/highlight.js/styles/default.min.css";
+                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/default.min.css";
             }
         }
 
 
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                string render = Build.PKGDATADIR + "/highlight.js/lib/highlight.min.js";
+                string render = "/usr/share/com.github.lainsce.quilter" + "/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -110,9 +110,9 @@ namespace Quilter.Widgets {
 
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean("latex")) {
-                string katex_main = Build.PKGDATADIR + "/katex/katex.css";
-                string katex_js = Build.PKGDATADIR + "/katex/katex.js";
-                string render = Build.PKGDATADIR + "/katex/render.js";
+                string katex_main = "/usr/share/com.github.lainsce.quilter" + "/katex/katex.css";
+                string katex_js = "/usr/share/com.github.lainsce.quilter" + "/katex/katex.js";
+                string render = "/usr/share/com.github.lainsce.quilter" + "/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -126,7 +126,7 @@ namespace Quilter.Widgets {
 
         private string set_mermaid () {
             if (Quilter.Application.gsettings.get_boolean("mermaid")) {
-                string render = Build.PKGDATADIR + "/mermaid/mermaid.js";
+                string render = "/usr/share/com.github.lainsce.quilter" + "/mermaid/mermaid.js";
                 string mermaid = """
                     <script defer src="%s" onload="mermaid.initialize({startOnLoad:true;});"></script>
                 """.printf (render);
@@ -237,30 +237,16 @@ namespace Quilter.Widgets {
         private string process () {
             string processed_mk;
             process_frontmatter (buf.text, out processed_mk);
-            var mkd = new Markdown.Document.gfm_format (processed_mk.data,
-                                                        0x00001000 +
-                                                        0x00002000 +
-                                                        0x00004000 +
-                                                        0x00200000 +
-                                                        0x00400000 +
-                                                        0x01000000 +
-                                                        0x02000000 +
-                                                        0x04000000 +
-                                                        0x10000000 +
-                                                        0x40000000);
+            var mkd = new Markdown.Document.from_string (processed_mk.data,
+                                                         0x00001000 +
+                                                         0x00040000 +
+                                                         0x00200000 );
             mkd.compile (0x00001000 +
-                         0x00002000 +
-                         0x00004000 +
-                         0x00200000 +
-                         0x00400000 +
-                         0x01000000 +
-                         0x02000000 +
-                         0x04000000 +
-                         0x10000000 +
-                         0x40000000);
+                         0x00040000 +
+                         0x00200000 );
 
             string result;
-            mkd.get_document (out result);
+            mkd.document (out result);
             string html = make_html (result);
             return html;
         }
