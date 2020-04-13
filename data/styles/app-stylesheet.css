@@ -1,6 +1,6 @@
 @define-color colorPrimary #F7F7F7;
 @define-color textColorPrimary #333;
-@define-color accentColor #B1D2F7;
+@define-color accentColor #0EBAFB;
 
 window {
   background: @colorPrimary;
@@ -52,25 +52,26 @@ actionbar,
     background-color: alpha (@accentColor, 0.35);
 }
 
+.quilter-sidebar-box {
+  background: shade (@colorPrimary, 1.2);
+}
+
 .quilter-sidebar-box:hover {
-    background: shade (@colorPrimary, 0.95);
-    color: @textColorPrimary;
+  border-left: 5px solid shade (@colorPrimary, 0.95);
+  color: @textColorPrimary;
+  background: shade (@colorPrimary, 0.95);
 }
 
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected {
-    background: alpha (@accentColor, 0.12);
+    border-left: 5px solid alpha (@accentColor, 0.5);
 }
 
 .quilter-sidebar-box:active:hover,
 .quilter-sidebar-box:focus:hover,
 .quilter-sidebar-box:selected:hover {
-    background: alpha (@accentColor, 0.22);
-}
-
-.quilter-sidebar-box:selected {
-    color: @accentColor;
+    border-left: 5px solid alpha (@accentColor, 0.7);
 }
 
 .osd {

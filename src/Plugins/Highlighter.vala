@@ -60,7 +60,7 @@ public class Quilter.Highlighter : Plugins.Plugin {
             build = build + """<span style="background-color:#00897B; color:#FFF; border: 3px solid #00897b;">%s</span>""".printf(subline);
             return build;
         } else {
-            build = build + """<span style="background-color:#B1D2F7; color:#FFF; border: 3px solid #0073c5;">%s</span>""".printf(subline);
+            build = build + """<span style="background-color:#0EBAFB; color:#FFF; border: 3px solid #0EBAFB;">%s</span>""".printf(subline);
             return build;
         }
     }
