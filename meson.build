@@ -14,6 +14,9 @@ asresources = gnome.compile_resources(
     c_name: 'as'
 )
 
+cc = meson.get_compiler('c')
+libmarkdown = cc.find_library('markdown', required: true)
+
 executable(
     meson.project_name(),
     'src/Application.vala',
@@ -31,6 +34,11 @@ executable(
     'src/Plugins/Plugin.vala',
     'src/Plugins/Image.vala',
     'src/Plugins/Filep.vala',
+    'src/Plugins/Checkbox.vala',
+    'src/Plugins/CheckboxChecked.vala',
+    'src/Plugins/Highlighter.vala',
+    'src/Plugins/Superscript.vala',
+    'src/Plugins/Subscript.vala',
     'src/Styles/quilter.vala',
     'src/Styles/quilterdark.vala',
     'src/Styles/quiltersepia.vala',
@@ -46,17 +54,15 @@ executable(
         dependency('gtk+-3.0'),
         dependency('webkit2gtk-4.0'),
         dependency('gtkspell3-3.0'),
-        dependency('libmarkdown')
+        libmarkdown,
     ],
     vala_args: [
-        '--vapidir=' + meson.source_root() + '/vapi/',
+        meson.source_root() + '/vapi/libmarkdown.vapi',
     ],
     install : true
 )
 
-# Add in a post install script
 meson.add_install_script('meson/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
 
-# Add subfolders for Meson to look
 subdir('data')
 subdir('po')

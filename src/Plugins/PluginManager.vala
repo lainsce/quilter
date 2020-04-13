@@ -41,6 +41,11 @@ namespace Quilter {
         private void load_plugins () {
             plug_list += new Image ();
             plug_list += new Filep ();
+            plug_list += new Checkbox ();
+            plug_list += new CheckboxChecked ();
+            plug_list += new Highlighter ();
+            plug_list += new Superscript ();
+            plug_list += new Subscript ();
         }
 
         public List<Plugin> get_plugs () {

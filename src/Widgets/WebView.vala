@@ -41,9 +41,7 @@ namespace Quilter.Widgets {
             this.margin = 2;
             this.buf = buf;
             var settingsweb = get_settings ();
-            settingsweb.enable_plugins = false;
             settingsweb.enable_page_cache = false;
-            settingsweb.enable_developer_extras = false;
             settingsweb.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
@@ -74,30 +72,30 @@ namespace Quilter.Widgets {
 
         private string set_font_stylesheet () {
             if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
-                return "/usr/share/com.github.lainsce.quilter" + "/font/serif.css";
+                return "/usr/share/com.github.lainsce.quilter/font/serif.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
-                return "/usr/share/com.github.lainsce.quilter" + "/font/sans.css";
+                return "/usr/share/com.github.lainsce.quilter/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
-                return "/usr/share/com.github.lainsce.quilter" + "/font/mono.css";
+                return "/usr/share/com.github.lainsce.quilter/font/mono.css";
             }
 
-            return "/usr/share/com.github.lainsce.quilter" + "/font/serif.css";
+            return "/usr/share/com.github.lainsce.quilter/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/dark.min.css";
+                return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/sepia.min.css";
+                return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
             } else {
-                return "/usr/share/com.github.lainsce.quilter" + "/highlight.js/styles/default.min.css";
+                return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/default.min.css";
             }
         }
 
 
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                string render = "/usr/share/com.github.lainsce.quilter" + "/highlight.js/lib/highlight.min.js";
+                string render = "/usr/share/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -110,9 +108,9 @@ namespace Quilter.Widgets {
 
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean("latex")) {
-                string katex_main = "/usr/share/com.github.lainsce.quilter" + "/katex/katex.css";
-                string katex_js = "/usr/share/com.github.lainsce.quilter" + "/katex/katex.js";
-                string render = "/usr/share/com.github.lainsce.quilter" + "/katex/render.js";
+                string katex_main = "/usr/share/com.github.lainsce.quilter/katex/katex.css";
+                string katex_js = "/usr/share/com.github.lainsce.quilter/katex/katex.js";
+                string render = "/usr/share/com.github.lainsce.quilter/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -126,7 +124,7 @@ namespace Quilter.Widgets {
 
         private string set_mermaid () {
             if (Quilter.Application.gsettings.get_boolean("mermaid")) {
-                string render = "/usr/share/com.github.lainsce.quilter" + "/mermaid/mermaid.js";
+                string render = "/usr/share/com.github.lainsce.quilter/mermaid/mermaid.js";
                 string mermaid = """
                     <script defer src="%s" onload="mermaid.initialize({startOnLoad:true;});"></script>
                 """.printf (render);
@@ -234,24 +232,21 @@ namespace Quilter.Widgets {
             return map;
         }
 
-        private string process () {
+        public void update_html_view () {
             string processed_mk;
             process_frontmatter (buf.text, out processed_mk);
             var mkd = new Markdown.Document.from_string (processed_mk.data,
+                                                         0x00000100 +
                                                          0x00001000 +
                                                          0x00040000 +
                                                          0x00200000 );
             mkd.compile (0x00001000 +
+                         0x00000100 +
                          0x00040000 +
                          0x00200000 );
 
             string result;
             mkd.document (out result);
-            string html = make_html (result);
-            return html;
-        }
-
-        public string make_html (string result) {
             string highlight = set_highlight();
             string latex = set_latex();
             string mermaid = set_mermaid();
@@ -270,13 +265,11 @@ namespace Quilter.Widgets {
                 </head>
                 <body>
                     %s
-                    %s
+                    <div class=\"markdown-body\">
+                        %s
+                    </div>
                 </body>
             </html>""".printf(highlight, latex, font_stylesheet, stylesheet, mermaid, markdown);
-            return html;
-        }
-        public void update_html_view () {
-            process ();
             this.load_html (html, "file:///");
         }
 
@@ -299,6 +292,6 @@ namespace Quilter.Widgets {
             }
 
             return build;
-}
+        }
     }
 }

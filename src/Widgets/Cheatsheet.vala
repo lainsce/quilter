@@ -83,12 +83,19 @@ namespace Quilter.Widgets {
             var header_four_label = new Label (_("#### Heading 4"));
             var header_five_label = new Label (_("##### Heading 5"));
             var header_six_label = new Label (_("###### Heading 6"));
+
             var font_header = new Granite.HeaderLabel (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
             var emph_font_label = new Label (_("* Emphasized text *"));
             var code_font_label = new Label (_("` Code text `"));
             var quote_font_label = new Label (_("> Quoting text"));
             var strike_font_label = new Label (_("~~Strikethrough text~~"));
+            var high_font_label = new Label (_("==Highlight text=="));
+            var sub_font_label = new Label (_("Subscripted text: H~2~O"));
+            var sup_font_label = new Label (_("Superscripted text: E = MC^2^"));
+
+            var header2_header = new Granite.HeaderLabel (_("Miscellaneous Styles"));
+            var checkbox_label = new Label (_("- [] This Makes an empty Checkbox.\n- [x] This makes a checked Checkbox.\n\n\tPlease note the period, it's necessary to avoid conflicts.\n\tAlso, it's not needed to put this on a new paragraph.\n\tJust one new line between content and Checkboxes."));
 
             textstyle_grid.attach (header_header, 0, 0, 5, 1);
             textstyle_grid.attach (header_one_label, 0, 1, 3, 1);
@@ -103,6 +110,11 @@ namespace Quilter.Widgets {
             textstyle_grid.attach (code_font_label , 0, 10, 3, 1);
             textstyle_grid.attach (quote_font_label , 0, 11, 3, 1);
             textstyle_grid.attach (strike_font_label , 0, 12, 3, 1);
+            textstyle_grid.attach (header2_header , 0, 13, 5, 1);
+            textstyle_grid.attach (sub_font_label , 0, 14, 3, 1);
+            textstyle_grid.attach (sup_font_label , 0, 15, 3, 1);
+            textstyle_grid.attach (high_font_label , 0, 16, 3, 1);
+            textstyle_grid.attach (checkbox_label , 0, 17, 3, 1);
 
             return textstyle_grid;
         }

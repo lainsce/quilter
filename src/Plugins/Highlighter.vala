@@ -19,68 +19,49 @@
 * Co-authored by: Felipe Escoto <felescoto95@hotmail.com>
 */
 
-public class Quilter.Filep : Plugins.Plugin {
-    private PatternSpec spec = new PatternSpec ("*/*:file*");
-    
+public class Quilter.Highlighter : Plugins.Plugin {
+    private PatternSpec spec = new PatternSpec ("*==*==*");
+
     construct {}
-    
+
     public override string get_desctiption () {
-        return _("Load an embeded file");
+        return _("Highlight text in marker yellow.");
     }
-    
+
     public override string get_name () {
-        return _("File");
+        return _("Highlight");
     }
-    
+
     public override Gtk.Widget? editor_button () {
         return null;
     }
-    
+
     public override string request_string (string selection) {
         return selection;
     }
-    
+
     public override string get_button_desctiption () {
         return "";
     }
-    
+
     public override bool has_match (string text) {
         return spec.match_string (text);
     }
-    
+
     public override string convert (string line_) {
         string build = "";
-        string text = "";
-        int initial = line_.index_of ("/") + 1;
-        int last = line_.index_of (" :file", initial);
+        int initial = line_.index_of ("==") + 2;
+        int last = line_.index_of ("==", initial);
         string subline = line_.substring (initial, last - initial);
-        
-        File file = File.new_for_path (subline);
-        
-        try {
-            if (file.query_exists()) {
-                GLib.FileUtils.get_contents(subline, out text);
-                var mkd = new Markdown.Document.from_string (text.data,
-                                                             0x00000100 +
-                                                             0x00001000 +
-                                                             0x00040000 +
-                                                             0x00200000 );
-            
-                mkd.compile (0x00000100 +
-                             0x00001000 +
-                             0x00040000 +
-                             0x00200000 );
-                
-                string result;
-                mkd.document (out result);
-                
-                build = build + result;
-                return build;
-            }
-        } catch (Error e) {
-            warning ("Error: %s", e.message);
+        if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+            build = build + """<span style="background-color:#0DBCEE; color:#000; border: 3px solid #0DBCEE;">%s</span>""".printf(subline);
+            return build;
+        } if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+            build = build + """<span style="background-color:#00897b; color:#FFF; border: 3px solid #00897b;">%s</span>""".printf(subline);
+            return build;
+        } else {
+            build = build + """<span style="background-color:#0073c5; color:#FFF; border: 3px solid #0073c5;">%s</span>""".printf(subline);
+            return build;
         }
-        
-        return "No file.";
     }
 }

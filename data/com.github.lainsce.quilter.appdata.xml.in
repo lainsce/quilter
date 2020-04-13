@@ -59,6 +59,7 @@
          <description>
             <p>Release: Just What You Needed</p>
             <ul>
+                <li>Added: Markdown support for Checkboxes and Highlighted text, as well as subscript and superscript.</li>
                 <li>Fix: Preview View backend fixed to enable footnotes and some other Markdown goodies, because before they'd not appear.</li>
             </ul>
          </description>
