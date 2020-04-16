@@ -132,7 +132,7 @@ namespace Quilter.Widgets {
             var hr_label = new Label (_("This creates a horizontal rule → ---"));
             var sp_image_label = new Label (_("This embeds a local image → /Folder/Image.png :image"));
             var sp_file_label = new Label (_("This embeds a local Markdown file → /Folder/File.md :file"));
-            var lx_label = new Label (_("LaTeX is processed with:\n\t- $$…$$ for equation block.\n\t- \\(…\\) or \\[\\] for inline equation."));
+            var lx_label = new Label (_("LaTeX is processed with:\n\t- $$…$$ for equation block.\n\t- \\\\(…\\\\) for inline equation."));
             var mm_label = new Label (_("Mermaid is processed with:\n\t<div class=\"mermaid\">...</div>\n\tUsing Mermaid.js in other forms may clash with\n\tthe Code Highlightning plugin."));
 
             links_grid.attach (link_header, 0, 0, 5, 1);
