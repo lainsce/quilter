@@ -36,9 +36,6 @@ namespace Quilter.Widgets {
         public Preview (MainWindow window, Gtk.SourceBuffer buf) {
             Object(user_content_manager: new UserContentManager());
             visible = true;
-            vexpand = true;
-            hexpand = true;
-            this.margin = 2;
             this.buf = buf;
             var settingsweb = get_settings ();
             settingsweb.enable_page_cache = false;

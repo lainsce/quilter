@@ -32,14 +32,14 @@ namespace Quilter.Widgets {
 
         construct {
             var main_stack = new Gtk.Stack ();
-            main_stack.margin = 12;
+            main_stack.margin = 6;
             main_stack.margin_top = 0;
 
             var main_stackswitcher = new Gtk.StackSwitcher ();
             main_stackswitcher.stack = main_stack;
             main_stackswitcher.halign = Gtk.Align.CENTER;
             main_stackswitcher.homogeneous = true;
-            main_stackswitcher.margin = 12;
+            main_stackswitcher.margin = 6;
             main_stackswitcher.margin_top = 0;
 
             main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
@@ -97,7 +97,7 @@ namespace Quilter.Widgets {
                         Quilter.Application.gsettings.set_int("spacing", 4);
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("spacing", 8);
+                        Quilter.Application.gsettings.set_int("spacing", 6);
                         break;
                     case 3:
                         Quilter.Application.gsettings.set_int("spacing", spacing);
@@ -356,9 +356,6 @@ namespace Quilter.Widgets {
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
-            var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
-            statusbar_label.set_halign (Gtk.Align.END);
-            var statusbar = new SettingsSwitch ("statusbar");
             var searchbar_label = new SettingsLabel (_("Show Searchbar:"));
             searchbar_label.set_halign (Gtk.Align.END);
             var searchbar = new SettingsSwitch ("searchbar");
@@ -383,25 +380,23 @@ namespace Quilter.Widgets {
             separator.hexpand = true;
             separator.margin_top = 6;
             separator.margin_bottom = 6;
+            var separator_cx = separator.get_style_context ();
+            separator_cx.add_class ("sep");
 
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (buttonbox, 0, 2, 3, 1);
             interface_grid.attach (textbox, 0, 3, 3, 1);
             interface_grid.attach (separator, 0, 4, 3, 1);
 
-            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
-            interface_grid.attach (focus_mode, 1, 5, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
-
-            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
-            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
-
-            interface_grid.attach (ui_header,  0, 8, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
-            interface_grid.attach (statusbar, 1, 9, 1, 1);
-            interface_grid.attach (searchbar_label,  0, 10, 1, 1);
-            interface_grid.attach (searchbar, 1, 10, 1, 1);
+            interface_grid.attach (ui_header,  0, 5, 1, 1);
+            interface_grid.attach (focus_mode_label, 0, 6, 1, 1);
+            interface_grid.attach (focus_mode, 1, 6, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 7, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 7, 1, 1);
+            interface_grid.attach (typewriterscrolling_label, 0, 8, 1, 1);
+            interface_grid.attach (typewriterscrolling, 1, 8, 1, 1);
+            interface_grid.attach (searchbar_label,  0, 9, 1, 1);
+            interface_grid.attach (searchbar, 1, 9, 1, 1);
 
             return interface_grid;
         }
@@ -422,7 +417,7 @@ namespace Quilter.Widgets {
             var latex_label = new SettingsLabel (_("Enable LaTeX Processing:"));
             var latex = new SettingsSwitch ("latex");
             latex.hexpand = true;
-            
+
             var mermaid_label = new SettingsLabel (_("Enable Mermaid.js Graphing:"));
             var mermaid = new SettingsSwitch ("mermaid");
             mermaid.hexpand = true;
@@ -462,10 +457,15 @@ namespace Quilter.Widgets {
         }
 
         private class SettingsSwitch : Gtk.Switch {
-            public SettingsSwitch (string setting) {
+            public static GLib.Settings gsettings;
 
+            static construct {
+                gsettings = new GLib.Settings ("com.github.lainsce.quilter");
+            }
+
+            public SettingsSwitch (string setting) {
                 halign = Gtk.Align.START;
-                Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+                gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
             }
         }
     }

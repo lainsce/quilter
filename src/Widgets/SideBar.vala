@@ -83,20 +83,6 @@ namespace Quilter.Widgets {
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                s_context.add_class ("dark-switcher");
-            } else {
-                s_context.remove_class ("dark-switcher");
-            }
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                    s_context.add_class ("dark-switcher");
-                } else {
-                    s_context.remove_class ("dark-switcher");
-                }
-            });
-
             scrolled_box.add (stack);
 
             var grid = new Gtk.Grid ();
@@ -113,7 +99,7 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_files_list () {
-            
+
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
@@ -124,10 +110,7 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                var row = add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
-                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
-                    column.select_row (row);
-                }
+                add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
             }
 
             column.row_selected.connect ((row) => {
@@ -148,7 +131,7 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_outline () {
-            
+
             view = new Gtk.TreeView ();
             view.expand = true;
             view.hexpand = true;

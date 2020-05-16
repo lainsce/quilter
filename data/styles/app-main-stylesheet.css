@@ -1,150 +1,69 @@
 .color-button {
-    border-radius: 8px;
-    -gtk-outline-radius: 8px;
-    text-shadow: 1px 1px transparent;
-    padding: 6px;
+    background-clip: padding-box;
+    border-radius: 0.2rem;
+    padding: 0.25em 0.5rem;
+    box-shadow: inset 0 1px 0 0 alpha(white, 0.3),
+                inset 1px 0 0 0 alpha(white, 0.07),
+                inset -1px 0 0 0 alpha(white, 0.07),
+                0 1px 1px alpha(black, 0.07),
+                0 1px 2px alpha(black, 0.08);
 }
 
 .color-dark {
     background-color: #151515;
-    border: 1px solid #717171;
-    box-shadow:
-        inset 0 0 0 1px alpha (shade (#3b3b3b, 1.4), 0.05),
-        inset 0 1px 0 0 alpha (#3b3b3b, 0.45),
-        inset 0 -1px 0 0 alpha (#5b5b5b, 0.15);
-    background-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            transparent 50%,
-            alpha (
-                #333,
-                0.04
-            )
-        );
+    border: 1px solid #444;
 }
 
 .color-dark:active {
     border-color: #0DBCEE;
-    box-shadow:
-        inset 0 1px 0 0 alpha (#3b3b3b, 0.45),
-        inset 0 -1px 0 0 alpha (#3b3b3b, 0.15),
-        0 0 0 1px alpha (#AbAbAb, 0.25);
     transition: all 100ms ease-out;
 }
 
 .color-dark image {
-    color: #C3C3C3;
-    -gtk-icon-shadow: 1px 1px transparent;
+    color: white;
 }
 
 .color-light {
-    background-color: #FAFAFA;
-    border: 1px solid #BFBFBF;
-    box-shadow:
-    inset 0 0 0 1px alpha (shade (#dddddd, 1.4), 0.05),
-        inset 0 1px 0 0 alpha (#dddddd, 0.45),
-        inset 0 -1px 0 0 alpha (#cccccc, 0.15);
-        background-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            transparent 50%,
-            alpha (
-                #000,
-                0.04
-            )
-        );
+    background-color: #F7F7F7;
+    border: 1px solid alpha(black, 0.2);
 }
 
 .color-light:active {
-    border-color: #0073c5;
-    box-shadow:
-        inset 0 1px 0 0 alpha (#dddddd, 0.45),
-        inset 0 -1px 0 0 alpha (#dddddd, 0.15),
-        0 0 0 1px alpha (#eeeeee, 0.25);
+    border-color: #0EBAFB;
     transition: all 100ms ease-out;
 }
 
 .color-light image {
-    color: #191919;
-    -gtk-icon-shadow: 1px 1px transparent;
+    color: black;
 }
 
 .color-sepia {
     background-color: #F0E8DD;
-    border: 1px solid #d0b896;
-    box-shadow:
-        inset 0 0 0 1px alpha (shade (#e0c8a6, 1.4), 0.05),
-        inset 0 1px 0 0 alpha (#e0c8a6, 0.45),
-        inset 0 -1px 0 0 alpha (#8D7768, 0.15);
-    background-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            transparent 50%,
-            alpha (
-                #807452,
-                0.04
-            )
-        );
+    border: 1px solid #D0C6BB;
 }
 
 .color-sepia:active {
     border-color: #00897b;
-    box-shadow:
-        inset 0 1px 0 0 alpha (#e0c8a6, 0.45),
-        inset 0 -1px 0 0 alpha (#e0c8a6, 0.15),
-        0 0 0 1px alpha (#d0b896, 0.25);
     transition: all 100ms ease-out;
 }
 
 .color-sepia image {
     color: #5D4738;
-    -gtk-icon-shadow: 1px 1px transparent;
 }
 
-.color-moon {
-    background-color: #111c27;
-    border: 1px solid #606c81;
-    box-shadow:
-        inset 0 0 0 1px alpha (shade (#414e58, 1.4), 0.05),
-        inset 0 1px 0 0 alpha (#414e58, 0.45),
-        inset 0 -1px 0 0 alpha (#606c81, 0.15);
-    background-image:
-        linear-gradient(
-            to bottom,
-            transparent,
-            transparent 50%,
-            alpha (
-                #807452,
-                0.04
-            )
-        );
+.statusbar {
+    border-top: 1px solid alpha (black, 0.25);
+    border-radius: 0 0 6px 6px;
 }
 
-.color-moon:active {
-    border-color: #4DBCEE;
-    box-shadow:
-        inset 0 1px 0 0 alpha (#414e58, 0.45),
-        inset 0 -1px 0 0 alpha (#414e58, 0.15),
-        0 0 0 1px alpha (#606c81, 0.25);
-    transition: all 100ms ease-out;
-}
-
-.color-moon image {
-    color: #C3C3C1;
-    -gtk-icon-shadow: 1px 1px transparent;
-}
-
-actionbar,
-.action-bar {
-    border-top: 1px solid alpha (#000, 0.25);
+.full-bar {
+    border-top: 1px solid transparent;
+    background: transparent;
 }
 
 .quilter-searchbar {
     border-top-color: transparent;
-    border-bottom: 1px solid alpha (#000, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
     background: @colorPrimary;
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
@@ -152,11 +71,12 @@ actionbar,
 }
 
 .quilter-toolbar {
-    border-bottom: 1px solid alpha (#000, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
+	border-radius: 6px 6px 0 0;
 }
 
 .quilter-sidebar {
-    border-right: 1px solid alpha (#000, 0.25);
+    border-right: 1px solid alpha (black, 0.25);
     margin: 0px;
 }
 
@@ -166,9 +86,9 @@ actionbar,
 
 .quilter-sidebar-button {
     background: alpha (mix (@bg_color, @fg_color, 0.5), 0.38);
-    border: 1px solid alpha (#000, 0.25);
-    border-radius: 50px;
-    padding: 4px;
+    border: 1px solid alpha (black, 0.25);
+    border-radius: 50%;
+    padding: 6px;
 }
 
 .quilter-sidebar-button:hover {
@@ -181,7 +101,7 @@ actionbar,
 }
 
 .quilter-task-button {
-    border: 1px solid alpha (#000, 0.25);
+    border: 1px solid alpha (black, 0.25);
     background: transparent;
     border-radius: 50%;
     padding: 2px;
@@ -197,15 +117,10 @@ actionbar,
     border-radius: 0;
     margin-left: 0;
     margin-bottom: 0;
-    border: 0px solid alpha (#000, 0);
-    border-top: 1px solid alpha (#000, 0);
+    border: 0px solid alpha (black, 0);
+    border-top: 1px solid alpha (black, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
     border-left: 5px solid @colorPrimary;
-}
-
-.quilter-sidebar-box:active,
-.quilter-sidebar-box:focus,
-.quilter-sidebar-box:selected {
-    border-top: 1px solid alpha (#000, 0.25);
 }
 
 .quilter-sidebar-box > grid > label {
@@ -218,6 +133,7 @@ actionbar,
     border: 1px solid alpha (@textColorPrimary, 0);
     background-image: none;
     padding: 3px;
+    border-radius: 6px;
 }
 
 .quilter-menu:hover {
@@ -230,6 +146,7 @@ actionbar,
     border: 1px solid alpha (@textColorPrimary, 0);
     background-image: none;
 	box-shadow: none;
+	border-radius: 6px;
 }
 
 .quilter-cbt button:hover {
@@ -246,21 +163,28 @@ actionbar,
 }
 
 .focus {
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
-.focus-full .quilter-edit-view {
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
+.rounded {
+    border-radius: 0 0 6px 6px;
 }
 
-.dark-switcher .radio:checked {
-    background-color: #0f0f0f;
-    background-image: none;
-    box-shadow: none;
+.rounded-full {
+    border-radius: 6px;
 }
-  
-.dark-switcher .radio:not(checked) {
-    background-image: linear-gradient(0deg, #121212, #242424);
-    box-shadow: none;
+
+.focus-full {
+  border-radius: 6px;
+}
+
+.sep {
+    background: linear-gradient(90deg, alpha(black, 0),
+                                       alpha(black, 0.05),
+                                       alpha(black, 0.10),
+                                       alpha(black, 0.15),
+                                       alpha(black, 0.10),
+                                       alpha(black, 0.05),
+                                       alpha(black, 0));
+    padding: 1px;
 }

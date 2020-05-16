@@ -88,10 +88,6 @@
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
         </key>
-    	<key name="statusbar" type="b">
-			    <default>true</default>
-			    <summary>Show (true) or Hide (false) the statusbar</summary>
-        </key>
     	<key name="sidebar" type="b">
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the sidebar</summary>

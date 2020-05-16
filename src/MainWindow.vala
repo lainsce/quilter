@@ -63,16 +63,18 @@ namespace Quilter {
                 Quilter.Application.gsettings.set_boolean("fullscreen", value);
                 if (value) {
                     fullscreen ();
-                    Quilter.Application.gsettings.set_boolean("statusbar", false);
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
+                    var sb_context = statusbar.actionbar.get_style_context ();
+                    sb_context.add_class ("full-bar");
                 } else {
                     unfullscreen ();
-                    Quilter.Application.gsettings.set_boolean("statusbar", true);
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
+                    var sb_context = statusbar.actionbar.get_style_context ();
+                    sb_context.remove_class ("full-bar");
                 }
 
                 edit_view_content.dynamic_margins ();
@@ -298,6 +300,7 @@ namespace Quilter {
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
+            ((Gtk.Viewport) preview_view.get_child ()).margin = 2;
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 
@@ -322,21 +325,6 @@ namespace Quilter {
                 {"F1"},
                 _("Change view")
             );
-
-            var v_context = view_mode.get_style_context ();
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                v_context.add_class ("dark-switcher");
-            } else {
-                v_context.remove_class ("dark-switcher");
-            }
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                    v_context.add_class ("dark-switcher");
-                } else {
-                    v_context.remove_class ("dark-switcher");
-                }
-            });
 
             toolbar.pack_end (set_font_menu);
             toolbar.pack_end (view_mode);
@@ -443,7 +431,6 @@ namespace Quilter {
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (600, 700);
-            this.get_style_context().add_class("rounded");
         }
 
 #if VALA_0_42
@@ -577,10 +564,6 @@ namespace Quilter {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
-        public void show_statusbar () {
-            statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
-        }
-
         public void show_searchbar () {
             searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
         }
@@ -605,7 +588,6 @@ namespace Quilter {
         private void on_settings_changed () {
             var context = this.get_style_context ();
 
-            show_statusbar ();
             show_sidebar ();
             show_searchbar ();
             update_count ();
@@ -633,7 +615,7 @@ namespace Quilter {
                     }
                     return false;
                 });
-                
+
                 if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                     context.add_class ("focus-full");
                 } else {
@@ -647,6 +629,14 @@ namespace Quilter {
                 Services.FileManager.get_cache_path ();
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
+            }
+
+            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
+                this.get_style_context().add_class("rounded");
+                this.get_style_context().remove_class("rounded-full");
+            } else {
+                this.get_style_context().add_class("rounded-full");
+                this.get_style_context().remove_class("rounded");
             }
 
             render_func ();

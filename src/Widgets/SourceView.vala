@@ -69,7 +69,7 @@ namespace Quilter.Widgets {
         public EditView (MainWindow window) {
             this.window = window;
             var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/markdown");
+            var language = manager.guess_language (null, "text/x-markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
@@ -93,6 +93,28 @@ namespace Quilter.Widgets {
             modified = false;
 
             buffer.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
+                    try {
+                        var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
+                        var language_list = GtkSpell.Checker.get_language_list ();
+                        foreach (var element in language_list) {
+                            if (lang_dict == element) {
+                                spell.set_language (lang_dict);
+                                break;
+                            }
+                        }
+                        if (language_list.length () == 0) {
+                            spell.set_language ("en");
+                        } else {
+                            spell.set_language (lang_dict);
+                        }
+                        spell.attach (this);
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else {
+                    spell.detach ();
+                }
                 modified = true;
             });
 
@@ -176,6 +198,29 @@ namespace Quilter.Widgets {
             update_settings ();
 
             Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
+                    try {
+                        var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
+                        var language_list = GtkSpell.Checker.get_language_list ();
+                        foreach (var element in language_list) {
+                            if (lang_dict == element) {
+                                spell.set_language (lang_dict);
+                                break;
+                            }
+                        }
+                        if (language_list.length () == 0) {
+                            spell.set_language ("en");
+                        } else {
+                            spell.set_language (lang_dict);
+                        }
+                        spell.attach (this);
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else {
+                    spell.detach ();
+                }
+
                 update_settings ();
             });
 
@@ -183,6 +228,7 @@ namespace Quilter.Widgets {
             this.top_margin = 40;
             this.bottom_margin = 40;
             this.margin = 2;
+            this.margin_end = 0;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);

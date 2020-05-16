@@ -1,12 +1,16 @@
 @define-color colorPrimary #151515;
 @define-color textColorPrimary #C3C3C1;
-@define-color accentColor #0DBCEE;
+@define-color accent_color_500 #0DBCEE;
 
 window {
   background: @colorPrimary;
 }
 
 window:backdrop {
+  background: @colorPrimary;
+}
+
+window.background {
   background: @colorPrimary;
 }
 
@@ -33,6 +37,7 @@ window:backdrop {
     color: @textColorPrimary;
     -gtk-icon-shadow: 1px 1px transparent;
 }
+
 actionbar,
 .action-bar {
     background: @colorPrimary;
@@ -42,12 +47,12 @@ actionbar,
 
 .quilter-menu:hover,
 .quilter-menu:backdrop:active {
-    background-color: alpha (@accentColor, 0.35);
+    background-color: alpha (@accent_color_500, 0.35);
 }
 
 .quilter-cbt button:hover,
 .quilter-cbt button:backdrop:active {
-    background-color: alpha (@accentColor, 0.35);
+    background-color: alpha (@accent_color_500, 0.35);
 }
 
 .quilter-sidebar-box {
@@ -63,13 +68,13 @@ actionbar,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected {
-  border-left: 5px solid alpha (@accentColor, 0.5);
+  border-left: 5px solid alpha (@accent_color_500, 0.5);
 }
 
 .quilter-sidebar-box:active:hover,
 .quilter-sidebar-box:focus:hover,
 .quilter-sidebar-box:selected:hover {
-  border-left: 5px solid alpha (@accentColor, 0.7);
+  border-left: 5px solid alpha (@accent_color_500, 0.7);
 }
 
 .osd {
@@ -85,16 +90,4 @@ actionbar,
   background-color: shade(#1A1A1A,0.88);
   box-shadow: none;
   border: 1px solid shade(#1A1A1A,0.88);
-}
-
-scrolledwindow:not(.quilter-preview-view) {
-  background: @colorPrimary;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-scrolledwindow:not(.quilter-edit-view) {
-  background: #111;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
 }

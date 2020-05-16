@@ -1,12 +1,16 @@
 @define-color colorPrimary #f0e8dd;
 @define-color textColorPrimary #3b3228;
-@define-color accentColor #00897b;
+@define-color accent_color_500 #00897b;
 
 window {
   background: @colorPrimary;
 }
 
 window:backdrop {
+  background: @colorPrimary;
+}
+
+window.background {
   background: @colorPrimary;
 }
 
@@ -42,12 +46,12 @@ actionbar,
 
 .quilter-menu:hover,
 .quilter-menu:backdrop:active {
-    background-color: alpha (@accentColor, 0.35);
+    background-color: alpha (@accent_color_500, 0.35);
 }
 
 .quilter-cbt button:hover,
 .quilter-cbt button:backdrop:active {
-    background-color: alpha (@accentColor, 0.35);
+    background-color: alpha (@accent_color_500, 0.35);
 }
 
 .quilter-sidebar-box {
@@ -63,13 +67,13 @@ actionbar,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected {
-  border-left: 5px solid alpha (@accentColor, 0.5);
+  border-left: 5px solid alpha (@accent_color_500, 0.5);
 }
 
 .quilter-sidebar-box:active:hover,
 .quilter-sidebar-box:focus:hover,
 .quilter-sidebar-box:selected:hover {
-  border-left: 5px solid alpha (@accentColor, 0.7);
+  border-left: 5px solid alpha (@accent_color_500, 0.7);
 }
 
 .osd {
@@ -85,16 +89,4 @@ actionbar,
   background-color: shade(#e8dccb,0.88);
   box-shadow: none;
   border: 1px solid shade(#e8dccb,0.88);
-}
-
-scrolledwindow:not(.quilter-preview-view) {
-  background: @colorPrimary;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-}
-
-scrolledwindow:not(.quilter-edit-view) {
-  background: #f8f4ef;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
 }

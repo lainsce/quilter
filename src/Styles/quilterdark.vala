@@ -99,6 +99,7 @@ public class Quilter.Styles.quilterdark {
       margin-top: 40px;
       margin-bottom: 40px;
       text-align: left;
+      overflow: hidden;
     }
 
     table {

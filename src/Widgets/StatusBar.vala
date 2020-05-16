@@ -37,6 +37,9 @@ namespace Quilter {
 
             actionbar = new Gtk.ActionBar ();
 
+            var sb_context = actionbar.get_style_context ();
+            sb_context.add_class ("statusbar");
+
             var side_button = new Gtk.ToggleButton ();
             side_button.has_tooltip = true;
             side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -79,7 +82,7 @@ namespace Quilter {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
+            this.reveal_child = true;
         }
 
         public void preview_type_menu_item () {

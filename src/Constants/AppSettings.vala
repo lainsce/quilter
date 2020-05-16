@@ -18,7 +18,7 @@
 namespace Quilter {
     public class Constants {
         // Margin Constants
-        public const int NARROW_MARGIN = 2;
+        public const int NARROW_MARGIN = 1;
         public const int MEDIUM_MARGIN = 5;
         public const int WIDE_MARGIN = 10;
 
