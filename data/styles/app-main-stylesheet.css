@@ -170,6 +170,10 @@
     border-radius: 0 0 6px 6px;
 }
 
+.rounded.fullscreen {
+    border-radius: 6px;
+}
+
 .rounded-full {
     border-radius: 6px;
 }
