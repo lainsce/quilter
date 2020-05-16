@@ -105,7 +105,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.set_size_request (280,-1);
+            column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -116,9 +116,11 @@ namespace Quilter.Widgets {
             }
 
             column.row_selected.connect ((selected_row) => {
-                foreach (Widgets.SideBarBox row in rows) {
+                foreach (var row in rows) {
                     row.file_remove_button.visible = (row == selected_row);
                 }
+                Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)selected_row).path);
+                row_selected ((Widgets.SideBarBox)selected_row);
             });
 
 
@@ -126,7 +128,7 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (280, -1);
+            files_grid.set_size_request (250, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;
@@ -160,7 +162,7 @@ namespace Quilter.Widgets {
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
             outline_grid.vexpand = false;
-            outline_grid.set_size_request (280, -1);
+            outline_grid.set_size_request (250, -1);
             outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
 
@@ -243,9 +245,9 @@ namespace Quilter.Widgets {
             if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
                 get_selected_row ().destroy ();
             } else {
-                foreach (Gtk.Widget item in column.get_children ()) {
-                    if (item != get_selected_row ()) {
-                        item.destroy ();
+                foreach (var row in get_rows ()) {
+                    if (row != get_selected_row ()) {
+                        row.destroy ();
                     }
                 }
             }
