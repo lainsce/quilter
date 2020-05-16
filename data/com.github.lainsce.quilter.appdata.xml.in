@@ -59,6 +59,8 @@
          <description>
             <p>Release: Hello, Odin!</p>
             <ul>
+                <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
+                <li>Fix: Spellchecking styling.</li>
                 <li>Fix: Many style fixes for Odin.</li>
                 <li>Fix: Many minor backend fixes.</li>
             </ul>
