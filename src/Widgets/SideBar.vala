@@ -19,6 +19,7 @@
 namespace Quilter.Widgets {
     public class SideBar : Gtk.Revealer {
         public Gtk.ListBox column;
+        private Widgets.SideBarBox[] rows;
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
@@ -74,6 +75,7 @@ namespace Quilter.Widgets {
             stackswitcher = new Gtk.StackSwitcher ();
             var s_context = stackswitcher.get_style_context ();
             s_context.add_class ("linked");
+            s_context.add_class ("quilter-sb-switcher");
             stackswitcher.halign = Gtk.Align.FILL;
             stackswitcher.homogeneous = true;
             stackswitcher.margin = 0;
@@ -110,12 +112,12 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+                rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
             }
 
-            column.row_selected.connect ((row) => {
-                if (((Widgets.SideBarBox)row) != null) {
-                    row_selected ((Widgets.SideBarBox)row);
+            column.row_selected.connect ((selected_row) => {
+                foreach (Widgets.SideBarBox row in rows) {
+                    row.file_remove_button.visible = (row == selected_row);
                 }
             });
 

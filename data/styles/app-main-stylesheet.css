@@ -58,7 +58,8 @@
 
 .full-bar {
     border-top: 1px solid transparent;
-    background: transparent;
+    background-color: transparent;
+    border-radius: 0 0 6px 6px;
 }
 
 .quilter-searchbar {
@@ -191,4 +192,10 @@
                                        alpha(black, 0.05),
                                        alpha(black, 0));
     padding: 1px;
+}
+
+.quilter-sb-switcher * {
+    border-top: 0px solid transparent;
+    border-left: 0px solid transparent;
+    border-right: 0px solid transparent;
 }

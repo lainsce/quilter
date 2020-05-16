@@ -68,6 +68,7 @@ namespace Quilter {
                     buffer_context.remove_class ("small-text");
                     var sb_context = statusbar.actionbar.get_style_context ();
                     sb_context.add_class ("full-bar");
+                    sb_context.remove_class ("statusbar");
                 } else {
                     unfullscreen ();
                     var buffer_context = edit_view_content.get_style_context ();
@@ -75,6 +76,7 @@ namespace Quilter {
                     buffer_context.remove_class ("full-text");
                     var sb_context = statusbar.actionbar.get_style_context ();
                     sb_context.remove_class ("full-bar");
+                    sb_context.add_class ("statusbar");
                 }
 
                 edit_view_content.dynamic_margins ();

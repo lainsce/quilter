@@ -3,11 +3,11 @@
 @define-color accent_color_500 #0DBCEE;
 
 window {
-  background: @colorPrimary;
+  background: shade(@colorPrimary, 0.88);
 }
 
 window:backdrop {
-  background: @colorPrimary;
+  background: shade(@colorPrimary, 0.75);
 }
 
 window.background {
@@ -15,7 +15,7 @@ window.background {
 }
 
 .quilter-toolbar {
-    background: @colorPrimary;
+    background: shade(@colorPrimary, 0.88);
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }

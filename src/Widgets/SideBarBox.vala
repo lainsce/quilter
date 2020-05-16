@@ -22,6 +22,7 @@ namespace Quilter.Widgets {
         private Gtk.Label file_name_label;
         private Gtk.Label file_label;
         public Gtk.Grid file_grid;
+        public Gtk.Button file_remove_button;
         public EditView ev;
 
         private string? _path;
@@ -77,7 +78,7 @@ namespace Quilter.Widgets {
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
-            var file_remove_button = new Gtk.Button ();
+            file_remove_button = new Gtk.Button ();
             file_remove_button.always_show_image = true;
             file_remove_button.vexpand = false;
             file_remove_button.hexpand = true;

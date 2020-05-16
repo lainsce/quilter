@@ -82,7 +82,14 @@ namespace Quilter {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
-            this.reveal_child = true;
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("fullscreen")) {
+                    this.reveal_child = false;
+                } else {
+                    this.reveal_child = true;
+                }
+            });
         }
 
         public void preview_type_menu_item () {
