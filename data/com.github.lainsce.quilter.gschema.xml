@@ -112,6 +112,10 @@
 			    <default>false</default>
 			    <summary>Whether Quilter should be fullscreen or not</summary>
         </key>
+        <key name="pos" type="b">
+			    <default>false</default>
+			    <summary>Whether Quilter should highlight parts of speech or not</summary>
+        </key>
         <key name="spacing" type="i">
 			    <default>4</default>
 			    <summary>The spacing on the Editor View's lines</summary>

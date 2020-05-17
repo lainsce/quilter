@@ -232,10 +232,22 @@ namespace Quilter.Widgets {
             var edit_header = new Granite.HeaderLabel (_("Editor"));
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
+            var pos_button_label = new SettingsLabel (_("Highlight Parts of Speech<sup>BETA</sup> :"));
+            var pos_button = new SettingsSwitch ("pos");
+            var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            custom_help.halign = Gtk.Align.START;
+            custom_help.margin_start = 6;
+            custom_help.tooltip_text = _("Only available in English");
+
+            var pos_switch_grid = new Gtk.Grid ();
+            pos_switch_grid.add (pos_button);
+            pos_switch_grid.add (custom_help);
 
             editor_grid.attach (edit_header,  0, 0, 1, 1);
             editor_grid.attach (save_button_label,  0, 1, 1, 1);
             editor_grid.attach (save_button, 1, 1, 1, 1);
+            editor_grid.attach (pos_button_label,  0, 2, 1, 1);
+            editor_grid.attach (pos_switch_grid, 1, 2, 1, 1);
 
             editor_grid.attach (geo_header, 0, 3, 3, 1);
             editor_grid.attach (spacing_label, 0, 4, 1, 1);
@@ -420,9 +432,14 @@ namespace Quilter.Widgets {
 
             var mermaid_label = new SettingsLabel (_("Enable Mermaid.js Graphing:"));
             var mermaid = new SettingsSwitch ("mermaid");
-            mermaid.hexpand = true;
-            var mermaid_info_label = new Text (_("Disable Code Highlighting for optimal use of Mermaid.js"));
-            mermaid_info_label.sensitive = false;
+            var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            custom_help.halign = Gtk.Align.START;
+            custom_help.margin_start = 6;
+            custom_help.tooltip_text = _("Disable Code Highlighting for optimal use of Mermaid.js");
+
+            var mermaid_switch_grid = new Gtk.Grid ();
+            mermaid_switch_grid.add (mermaid);
+            mermaid_switch_grid.add (custom_help);
 
             var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
@@ -433,8 +450,7 @@ namespace Quilter.Widgets {
             ext_grid.attach (latex_label, 0, 2, 1, 1);
             ext_grid.attach (latex, 1, 2, 1, 1);
             ext_grid.attach (mermaid_label, 0, 3, 1, 1);
-            ext_grid.attach (mermaid, 1, 3, 1, 1);
-            ext_grid.attach (mermaid_info_label, 0, 4, 2, 1);
+            ext_grid.attach (mermaid_switch_grid, 1, 3, 1, 1);
             ext_grid.attach (spellcheck_label, 0, 5, 1, 1);
             ext_grid.attach (spellcheck, 1, 5, 1, 1);
 
@@ -446,6 +462,7 @@ namespace Quilter.Widgets {
                 label = text;
                 halign = Gtk.Align.END;
                 margin_start = 12;
+                use_markup = true;
             }
         }
 
@@ -453,19 +470,14 @@ namespace Quilter.Widgets {
             public Text (string text) {
                 label = text;
                 halign = Gtk.Align.END;
+                use_markup = true;
             }
         }
 
         private class SettingsSwitch : Gtk.Switch {
-            public static GLib.Settings gsettings;
-
-            static construct {
-                gsettings = new GLib.Settings ("com.github.lainsce.quilter");
-            }
-
             public SettingsSwitch (string setting) {
                 halign = Gtk.Align.START;
-                gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+                Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
             }
         }
     }

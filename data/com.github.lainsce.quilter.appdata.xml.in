@@ -59,6 +59,7 @@
          <description>
             <p>Release: Hello, Odin!</p>
             <ul>
+                <li>Add: Part of Speech highlighter (BETA).</li>
                 <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
                 <li>Fix: Spellchecking styling.</li>
                 <li>Fix: Many style fixes for Odin.</li>

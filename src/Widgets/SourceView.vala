@@ -29,6 +29,9 @@ namespace Quilter.Widgets {
         private Gtk.TextTag whitefont;
         private Gtk.TextTag sepiafont;
         private Gtk.TextTag lightsepiafont;
+        private Gtk.TextTag adverbfont;
+        private Gtk.TextTag verbfont;
+        private Gtk.TextTag adjfont;
         public Gtk.TextTag warning_tag;
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
@@ -90,32 +93,17 @@ namespace Quilter.Widgets {
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
 
+            adverbfont = buffer.create_tag(null, "foreground", "#a56de2");
+            verbfont = buffer.create_tag(null, "foreground", "#3689e6");
+            adjfont = buffer.create_tag(null, "foreground", "#f9c440");
+
             modified = false;
 
             buffer.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
-                    try {
-                        var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
-                        var language_list = GtkSpell.Checker.get_language_list ();
-                        foreach (var element in language_list) {
-                            if (lang_dict == element) {
-                                spell.set_language (lang_dict);
-                                break;
-                            }
-                        }
-                        if (language_list.length () == 0) {
-                            spell.set_language ("en");
-                        } else {
-                            spell.set_language (lang_dict);
-                        }
-                        spell.attach (this);
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else {
-                    spell.detach ();
-                }
                 modified = true;
+                if (Quilter.Application.gsettings.get_boolean("pos")) {
+                    pos_syntax ();
+                }
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -141,19 +129,6 @@ namespace Quilter.Widgets {
             } catch (Error e) {
                 warning ("Error: %s\n", e.message);
             }
-
-            this.populate_popup.connect ((menu) => {
-                menu.selection_done.connect (() => {
-                    var selected = get_selected (menu);
-
-                    if (selected != null) {
-                        try {
-                            spell.set_language (selected.label);
-                            Quilter.Application.gsettings.set_string("spellcheck-language", selected.label);
-                        } catch (Error e) {}
-                    }
-                });
-            });
 
             warning_tag = new Gtk.TextTag ("warning_bg");
             warning_tag.underline = Pango.Underline.ERROR;
@@ -187,6 +162,19 @@ namespace Quilter.Widgets {
                 spell.detach ();
             }
 
+            this.populate_popup.connect ((menu) => {
+                menu.selection_done.connect (() => {
+                    var selected = get_selected (menu);
+
+                    if (selected != null) {
+                        try {
+                            spell.set_language (selected.label);
+                            Quilter.Application.gsettings.set_string("spellcheck-language", selected.label);
+                        } catch (Error e) {}
+                    }
+                });
+            });
+
             if (Quilter.Application.gsettings.get_boolean("autosave")) {
                 Timeout.add_seconds (30, () => {
                     save ();
@@ -198,29 +186,6 @@ namespace Quilter.Widgets {
             update_settings ();
 
             Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
-                    try {
-                        var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
-                        var language_list = GtkSpell.Checker.get_language_list ();
-                        foreach (var element in language_list) {
-                            if (lang_dict == element) {
-                                spell.set_language (lang_dict);
-                                break;
-                            }
-                        }
-                        if (language_list.length () == 0) {
-                            spell.set_language ("en");
-                        } else {
-                            spell.set_language (lang_dict);
-                        }
-                        spell.attach (this);
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else {
-                    spell.detach ();
-                }
-
                 update_settings ();
             });
 
@@ -301,6 +266,16 @@ namespace Quilter.Widgets {
                 buffer_context.remove_class ("mono-font");
             }
 
+            if (Quilter.Application.gsettings.get_boolean("pos")) {
+                pos_syntax ();
+            } else {
+                 Gtk.TextIter start, end;
+                 buffer.get_bounds (out start, out end);
+                 buffer.remove_tag(verbfont, start, end);
+                 buffer.remove_tag(adjfont, start, end);
+                 buffer.remove_tag(adverbfont, start, end);
+             }
+
             var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
             var style = style_manager.get_scheme (get_default_scheme ());
             buffer.set_style_scheme (style);
@@ -341,7 +316,6 @@ namespace Quilter.Widgets {
         }
 
         private string get_default_scheme () {
-
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                 var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
@@ -385,6 +359,84 @@ namespace Quilter.Widgets {
                 should_scroll = false;
             }
             return (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode"));
+        }
+
+        public void pos_syntax () {
+            var file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
+            var file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
+            var file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
+            
+            var flags = Gtk.TextSearchFlags.VISIBLE_ONLY;
+            flags += Gtk.TextSearchFlags.CASE_INSENSITIVE;
+
+            if (file_verbs != null && file_verbs.query_exists () &&
+                file_adj != null && file_adj.query_exists () &&
+                file_adverbs != null && file_adverbs.query_exists ()) {
+                try {
+
+                    var vreg = new Regex("(?m)(?<verb>^\\w*$)");
+                    string vbuf = "";
+                    GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
+                    GLib.MatchInfo vmatch;
+
+                    if (vreg.match (vbuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out vmatch)) {
+                        do {
+                          Gtk.TextIter start, end, match_start, match_end;
+                          buffer.get_bounds (out start, out end);
+                          bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, null);
+                          if (found) {
+                            if (start.starts_word ()) {
+                                buffer.apply_tag(verbfont, match_start, match_end);
+                            }
+                          }
+                        } while (vmatch.next ());
+                        debug ("Verbs found!");
+                    }
+
+
+                    var areg = new Regex("(?m)(?<adj>^\\w*$)");
+                    string abuf = "";
+                    GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
+                    GLib.MatchInfo amatch;
+
+                    if (areg.match (abuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out amatch)) {
+                        do {
+                            Gtk.TextIter start, end, match_start, match_end;
+                            buffer.get_bounds (out start, out end);
+                            bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, null);
+                            if (found) {
+                                if (start.starts_word ()) {
+                                    buffer.apply_tag(adjfont, match_start, match_end);
+                                }
+                            }
+                        } while (amatch.next ());
+                        debug ("Adjectives found!");
+                    }
+
+
+                    var adreg = new Regex("(?m)(?<adverb>^\\w*$)");
+                    string adbuf = "";
+                    GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
+                    GLib.MatchInfo admatch;
+
+                    if (adreg.match (adbuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out admatch)) {
+                        do {
+                            Gtk.TextIter start, end, match_start, match_end;
+                            buffer.get_bounds (out start, out end);
+                            bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, null);
+                            if (found) {
+                                if (start.starts_word ()) {
+                                    buffer.apply_tag(adverbfont, match_start, match_end);
+                                }
+                            }
+                        } while (admatch.next ());
+                        debug ("Adverbs found!");
+                    }
+                } catch (Error e) {
+                    var msg = e.message;
+                    warning (@"Error: $msg");
+                }
+            }
         }
 
         public void set_focused_text () {
