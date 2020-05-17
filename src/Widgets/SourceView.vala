@@ -382,12 +382,12 @@ namespace Quilter.Widgets {
                 file_conj != null && file_adverbs.query_exists ()) {
                 try {
 
-                    var vreg = new Regex("(?m)(?<verb>^\\w*$)");
+                    var vreg = new Regex("(?m)(?<verb>^.*$)");
                     string vbuf = "";
                     GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
                     GLib.MatchInfo vmatch;
 
-                    if (vreg.match (vbuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out vmatch)) {
+                    if (vreg.match (vbuf, 0, out vmatch)) {
                         do {
                           bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, null);
                           if (found) {
@@ -400,12 +400,12 @@ namespace Quilter.Widgets {
                     }
 
 
-                    var areg = new Regex("(?m)(?<adj>^\\w*$)");
+                    var areg = new Regex("(?m)(?<adj>^.*$)");
                     string abuf = "";
                     GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
                     GLib.MatchInfo amatch;
 
-                    if (areg.match (abuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out amatch)) {
+                    if (areg.match (abuf, 0, out amatch)) {
                         do {
                             bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, null);
                             if (found) {
@@ -418,12 +418,12 @@ namespace Quilter.Widgets {
                     }
 
 
-                    var adreg = new Regex("(?m)(?<adverb>^\\w*$)");
+                    var adreg = new Regex("(?m)(?<adverb>^.*$)");
                     string adbuf = "";
                     GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                     GLib.MatchInfo admatch;
 
-                    if (adreg.match (adbuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out admatch)) {
+                    if (adreg.match (adbuf, 0, out admatch)) {
                         do {
                             bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, null);
                             if (found) {
@@ -435,12 +435,12 @@ namespace Quilter.Widgets {
                         debug ("Adverbs found!");
                     }
 
-                    var cnreg = new Regex("(?m)(?<conj>^\\w*$)");
+                    var cnreg = new Regex("(?m)(?<conj>^.*$)");
                     string cnbuf = "";
                     GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
                     GLib.MatchInfo cnmatch;
 
-                    if (cnreg.match (cnbuf, GLib.RegexMatchFlags.PARTIAL_SOFT, out cnmatch)) {
+                    if (cnreg.match (cnbuf, 0, out cnmatch)) {
                         do {
                             bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, null);
                             if (found) {

@@ -20,16 +20,28 @@ begin
 begins
 began
 beginning
+buy
+buys
+bought
+buying
 call
 calls
 called
 calling
+clinch
+clinches
+clinching
+clinched
 come
 comes
 came
 coming
 can
 could
+consume
+consumed
+consumes
+consuming
 do 
 does
  did 
@@ -38,6 +50,10 @@ eat
 eats
  ate
 eating
+ensue
+ensues
+ensuing
+ensued
 feel
 feels
 felt
@@ -50,18 +66,30 @@ fix
 fixes
 fixed
 fixing
- get
- gets
+foldingfolds
+folded
+folding
+forget
+forgets
+forgotten
+forgot
+forgetting
+forgive
+forgives
+forgiving
+forgave
+get
+gets
 got
 getting
 gotten
 gotta
- give
+give
 gives
 gave
 giving
- go 
- goes
+go 
+goes
 went
 going
 have
@@ -76,6 +104,14 @@ help
 helps
 helped
 helping
+howl
+howls
+howling
+howled
+join
+joins
+joining
+joined
 judge
 judges
 judged
@@ -129,6 +165,10 @@ need
 needs
 needed
 needing
+nod
+nods
+nodded
+nodding
 order
 orders
 ordered
@@ -145,6 +185,10 @@ play
 plays
 played
 playing
+prepare
+prepares
+preparing
+prepared
 put 
 puts
 putting
@@ -177,6 +221,15 @@ start
 starts
 started
 starting
+sing
+sang
+sung
+singing
+sings
+swallow
+swallows
+swallowing
+swelled
 take 
 takes
 took 
@@ -187,14 +240,14 @@ talked
 talking
 tell
 tells
- told
+told
 telling
 think 
 thinks
 thought
 thinking
- try
- tries
+try
+tries
 tried
 trying
 turn

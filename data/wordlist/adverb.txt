@@ -101,7 +101,7 @@ backwards
 backward
 behind
 below
- down
+down
 downstairs
 elsewhere
 far
@@ -122,6 +122,7 @@ there
 towards
 under
  up
+upon
 upstairs
 where
 anymore
@@ -133,3 +134,11 @@ so
 from 
 to 
 vexingly
+thusly
+nearly
+so.
+too 
+more 
+less 
+that 
+this 

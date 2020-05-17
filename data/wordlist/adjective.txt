@@ -22,6 +22,7 @@ average
 batty
 beefy
 bewildered
+beloved
 biting
 bitter
 black
@@ -31,6 +32,7 @@ blushing
 bored
 brave
 bright
+brief
 broad
 brown
 bulky
@@ -135,6 +137,7 @@ glorious
 gorgeous
 graceful
 greasy
+great
 grieving
 gritty
 grotesque
@@ -166,6 +169,7 @@ jittery
 jolly
 joyous
 filthy
+first
 flat
 floppy
 fluttering
@@ -224,6 +228,7 @@ jumpy
 kind
 lackadaisical
 large
+last 
 lazy
 lethal
 little
@@ -280,6 +285,7 @@ positive
 precious
 prickly
 proud
+proper
 pungent
 puny
 quick
