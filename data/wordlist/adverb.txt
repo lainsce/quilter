@@ -113,6 +113,7 @@ near
 nearby
  off
  on
+once
 out
 outside
 over
@@ -123,3 +124,12 @@ under
  up
 upstairs
 where
+anymore
+any 
+seldom
+someday
+someone
+so 
+from 
+to 
+vexingly

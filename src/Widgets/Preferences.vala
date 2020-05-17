@@ -237,7 +237,7 @@ namespace Quilter.Widgets {
             var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
             custom_help.halign = Gtk.Align.START;
             custom_help.margin_start = 6;
-            custom_help.tooltip_text = _("Only available in English");
+            custom_help.tooltip_text = _("Only available in English.\n\nColors words based on type:\n- Nouns are Black\n- Verbs are Blue\n- Adjectives are Yellow\n- Adverbs are Purple\n- Conjunctions are Green");
 
             var pos_switch_grid = new Gtk.Grid ();
             pos_switch_grid.add (pos_button);
