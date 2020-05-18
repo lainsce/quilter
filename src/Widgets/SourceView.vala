@@ -274,16 +274,17 @@ namespace Quilter.Widgets {
             var style = style_manager.get_scheme (get_default_scheme ());
             buffer.set_style_scheme (style);
 
-            if (!Quilter.Application.gsettings.get_boolean("pos")) {
-                 Gtk.TextIter start, end;
-                 buffer.get_bounds (out start, out end);
-                 buffer.remove_tag(verbfont, start, end);
-                 buffer.remove_tag(adjfont, start, end);
-                 buffer.remove_tag(adverbfont, start, end);
-                 buffer.remove_tag(conjfont, start, end);
-            } else {
-                pos_syntax_start ();
-            }
+            // TODO: Fix this later.
+            // if (!Quilter.Application.gsettings.get_boolean("pos")) {
+            //      Gtk.TextIter start, end;
+            //      buffer.get_bounds (out start, out end);
+            //      buffer.remove_tag(verbfont, start, end);
+            //      buffer.remove_tag(adjfont, start, end);
+            //      buffer.remove_tag(adverbfont, start, end);
+            //      buffer.remove_tag(conjfont, start, end);
+            // } else {
+            //     pos_syntax_start ();
+            // }
         }
 
         public void dynamic_margins () {
@@ -383,13 +384,10 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
             try {
-
                 var vreg = new Regex("(?m)(?<verb>.*)");
-                string vbuf = "";
-                GLib.FileUtils.get_contents (pos.file_verbs.get_path (), out vbuf, null);
                 GLib.MatchInfo vmatch;
 
-                if (vreg.match (vbuf, 0, out vmatch)) {
+                if (vreg.match (pos.vbuf, 0, out vmatch)) {
                     do {
                         bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, end);
                         if (found) {
@@ -402,11 +400,9 @@ namespace Quilter.Widgets {
                 }
 
                 var areg = new Regex("(?m)(?<adj>^.*$)");
-                string abuf = "";
-                GLib.FileUtils.get_contents (pos.file_adj.get_path (), out abuf, null);
                 GLib.MatchInfo amatch;
 
-                if (areg.match (abuf, 0, out amatch)) {
+                if (areg.match (pos.abuf, 0, out amatch)) {
                     do {
                         bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, end);
                         if (found) {
@@ -419,11 +415,9 @@ namespace Quilter.Widgets {
                 }
 
                 var adreg = new Regex("(?m)(?<adverb>^.*$)");
-                string adbuf = "";
-                GLib.FileUtils.get_contents (pos.file_adverbs.get_path (), out adbuf, null);
                 GLib.MatchInfo admatch;
 
-                if (adreg.match (adbuf, 0, out admatch)) {
+                if (adreg.match (pos.adbuf, 0, out admatch)) {
                     do {
                         bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, end);
                         if (found) {
@@ -436,11 +430,9 @@ namespace Quilter.Widgets {
                 }
 
                 var cnreg = new Regex("(?m)(?<conj>^.*$)");
-                string cnbuf = "";
-                GLib.FileUtils.get_contents (pos.file_conj.get_path (), out cnbuf, null);
                 GLib.MatchInfo cnmatch;
 
-                if (cnreg.match (cnbuf, 0, out cnmatch)) {
+                if (cnreg.match (pos.cnbuf, 0, out cnmatch)) {
                     do {
                         bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, end);
                         if (found) {
@@ -553,12 +545,26 @@ namespace Quilter.Services {
         public File file_conj;
         public File file_adverbs;
         public File file_adj;
+        public string vbuf = "";
+        public string abuf = "";
+        public string adbuf = "";
+        public string cnbuf = "";
 
         public POSFiles () {
             file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
             file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
             file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
             file_conj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/conjunction.txt");
+
+            try {
+                GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
+                GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
+                GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
+                GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
+            } catch (Error e) {
+                var msg = e.message;
+                warning (@"Error: $msg");
+            }
         }
     }
 }
