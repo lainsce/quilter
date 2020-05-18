@@ -1,3 +1,7 @@
+add
+adds
+added
+adding
  ask
  asks
  asked
@@ -12,6 +16,7 @@ will
 were
 being
  is 
+are 
 become
 becomes
 became
@@ -28,6 +33,22 @@ call
 calls
 called
 calling
+capture
+captures
+capturing
+captured
+care
+cares
+cared
+caring
+carry
+carries
+carrying
+carried
+catch
+catches
+caught
+catching
 clinch
 clinches
 clinching
@@ -124,6 +145,10 @@ keep
 keeps
 kept
 keeping
+kill
+kills
+killed
+killing
 know
 knows
 known
@@ -155,6 +180,7 @@ may
 mean 
 meant
 means
+meaning
 meaning to
 might
 move 
@@ -262,6 +288,8 @@ want
 wants
 wanted
 wanting to
+wanting
+weaken
 work
 works
 worked
