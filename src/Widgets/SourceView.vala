@@ -19,6 +19,7 @@
 namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
         public MainWindow window;
+        public Services.POSFiles pos;
         private static EditView? instance = null;
         public bool should_scroll {get; set; default = false;}
         public File file;
@@ -29,10 +30,10 @@ namespace Quilter.Widgets {
         private Gtk.TextTag whitefont;
         private Gtk.TextTag sepiafont;
         private Gtk.TextTag lightsepiafont;
-        private Gtk.TextTag adverbfont;
-        private Gtk.TextTag verbfont;
-        private Gtk.TextTag adjfont;
-        private Gtk.TextTag conjfont;
+        public Gtk.TextTag adverbfont;
+        public Gtk.TextTag verbfont;
+        public Gtk.TextTag adjfont;
+        public Gtk.TextTag conjfont;
         public Gtk.TextTag warning_tag;
         public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
@@ -100,10 +101,12 @@ namespace Quilter.Widgets {
             adjfont = buffer.create_tag(null, "foreground", "#d48e15");
             conjfont = buffer.create_tag(null, "foreground", "#3a9104");
 
+            pos = new Services.POSFiles ();
+
             modified = false;
             buffer.changed.connect (() => {
                 modified = true;
-                pos_syntax_start.begin ();
+                pos_syntax_start ();
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -279,7 +282,7 @@ namespace Quilter.Widgets {
                  buffer.remove_tag(adverbfont, start, end);
                  buffer.remove_tag(conjfont, start, end);
             } else {
-                pos_syntax_start.begin ();
+                pos_syntax_start ();
             }
         }
 
@@ -354,7 +357,6 @@ namespace Quilter.Widgets {
         }
 
         public bool move_typewriter_scrolling () {
-
             if (should_scroll) {
                 var cursor = buffer.get_insert ();
                 this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
@@ -363,106 +365,95 @@ namespace Quilter.Widgets {
             return (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode"));
         }
 
-        public async void pos_syntax_start () {
+        public void pos_syntax_start () {
             if (update_idle_source > 0) {
                 GLib.Source.remove (update_idle_source);
             }
 
             update_idle_source = GLib.Idle.add (() => {
-                pos_syntax.begin ();
+                pos_syntax ();
                 return false;
             });
         }
 
-        private async bool pos_syntax () {
-            var file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
-            var file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
-            var file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
-            var file_conj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/conjunction.txt");
-
+        private bool pos_syntax () {
             var flags = Gtk.TextSearchFlags.TEXT_ONLY;
             flags += Gtk.TextSearchFlags.CASE_INSENSITIVE;
 
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
+            try {
 
-            if (file_verbs != null && file_verbs.query_exists () &&
-                file_adj != null && file_adj.query_exists () &&
-                file_adverbs != null && file_adverbs.query_exists () &&
-                file_conj != null && file_adverbs.query_exists ()) {
-                try {
+                var vreg = new Regex("(?m)(?<verb>.*)");
+                string vbuf = "";
+                GLib.FileUtils.get_contents (pos.file_verbs.get_path (), out vbuf, null);
+                GLib.MatchInfo vmatch;
 
-                    var vreg = new Regex("(?m)(?<verb>.*)");
-                    string vbuf = "";
-                    GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
-                    GLib.MatchInfo vmatch;
-
-                    if (vreg.match (vbuf, 0, out vmatch)) {
-                        do {
-                            bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, end);
-                            if (found) {
-                                if (match_start.starts_word () && match_end.ends_word ()) {
-                                    buffer.apply_tag(verbfont, match_start, match_end);
-                                }
+                if (vreg.match (vbuf, 0, out vmatch)) {
+                    do {
+                        bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, end);
+                        if (found) {
+                            if (match_start.starts_word () && match_end.ends_word ()) {
+                                buffer.apply_tag(verbfont, match_start, match_end);
                             }
-                        } while (vmatch.next ());
-                        debug ("Verbs found!");
-                    }
-
-                    var areg = new Regex("(?m)(?<adj>^.*$)");
-                    string abuf = "";
-                    GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
-                    GLib.MatchInfo amatch;
-
-                    if (areg.match (abuf, 0, out amatch)) {
-                        do {
-                            bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, end);
-                            if (found) {
-                                if (match_start.starts_word () && match_end.ends_word ()) {
-                                    buffer.apply_tag(adjfont, match_start, match_end);
-                                }
-                            }
-                        } while (amatch.next ());
-                        debug ("Adjectives found!");
-                    }
-
-                    var adreg = new Regex("(?m)(?<adverb>^.*$)");
-                    string adbuf = "";
-                    GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
-                    GLib.MatchInfo admatch;
-
-                    if (adreg.match (adbuf, 0, out admatch)) {
-                        do {
-                            bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, end);
-                            if (found) {
-                                if (match_start.starts_word () && match_end.ends_word ()) {
-                                    buffer.apply_tag(adverbfont, match_start, match_end);
-                                }
-                            }
-                        } while (admatch.next ());
-                        debug ("Adverbs found!");
-                    }
-
-                    var cnreg = new Regex("(?m)(?<conj>^.*$)");
-                    string cnbuf = "";
-                    GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
-                    GLib.MatchInfo cnmatch;
-
-                    if (cnreg.match (cnbuf, 0, out cnmatch)) {
-                        do {
-                            bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, end);
-                            if (found) {
-                                if (match_start.starts_word ()) {
-                                    buffer.apply_tag(conjfont, match_start, match_end);
-                                }
-                            }
-                        } while (cnmatch.next ());
-                        debug ("Conjuctions found!");
-                    }
-                } catch (Error e) {
-                    var msg = e.message;
-                    warning (@"Error: $msg");
+                        }
+                    } while (vmatch.next ());
+                    debug ("Verbs found!");
                 }
+
+                var areg = new Regex("(?m)(?<adj>^.*$)");
+                string abuf = "";
+                GLib.FileUtils.get_contents (pos.file_adj.get_path (), out abuf, null);
+                GLib.MatchInfo amatch;
+
+                if (areg.match (abuf, 0, out amatch)) {
+                    do {
+                        bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, end);
+                        if (found) {
+                            if (match_start.starts_word () && match_end.ends_word ()) {
+                                buffer.apply_tag(adjfont, match_start, match_end);
+                            }
+                        }
+                    } while (amatch.next ());
+                    debug ("Adjectives found!");
+                }
+
+                var adreg = new Regex("(?m)(?<adverb>^.*$)");
+                string adbuf = "";
+                GLib.FileUtils.get_contents (pos.file_adverbs.get_path (), out adbuf, null);
+                GLib.MatchInfo admatch;
+
+                if (adreg.match (adbuf, 0, out admatch)) {
+                    do {
+                        bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, end);
+                        if (found) {
+                            if (match_start.starts_word () && match_end.ends_word ()) {
+                                buffer.apply_tag(adverbfont, match_start, match_end);
+                            }
+                        }
+                    } while (admatch.next ());
+                    debug ("Adverbs found!");
+                }
+
+                var cnreg = new Regex("(?m)(?<conj>^.*$)");
+                string cnbuf = "";
+                GLib.FileUtils.get_contents (pos.file_conj.get_path (), out cnbuf, null);
+                GLib.MatchInfo cnmatch;
+
+                if (cnreg.match (cnbuf, 0, out cnmatch)) {
+                    do {
+                        bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, end);
+                        if (found) {
+                            if (match_start.starts_word ()) {
+                                buffer.apply_tag(conjfont, match_start, match_end);
+                            }
+                        }
+                    } while (cnmatch.next ());
+                    debug ("Conjuctions found!");
+                }
+            } catch (Error e) {
+                var msg = e.message;
+                warning (@"Error: $msg");
             }
             update_idle_source = 0;
             return GLib.Source.REMOVE;
@@ -552,6 +543,22 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
                 }
             }
+        }
+    }
+}
+
+namespace Quilter.Services {
+    public class POSFiles {
+        public File file_verbs;
+        public File file_conj;
+        public File file_adverbs;
+        public File file_adj;
+
+        public POSFiles () {
+            file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
+            file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
+            file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
+            file_conj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/conjunction.txt");
         }
     }
 }
