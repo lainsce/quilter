@@ -384,41 +384,46 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            foreach (string word in pos.vbuf_list) {
-                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
-                if (found) {
-                    if (match_start.starts_word () && match_end.ends_word ()) {
-                        buffer.apply_tag(verbfont, match_start, match_end);
-                    }
+            string[] words = buffer.text.split (" ");
+            int p = 0;
+            foreach (string word in words) {
+                if (word.strip ().length == 0) {
+                    p += word.length + 1;
+                    continue;
                 }
-                debug ("Verbs found!");
-            }
-            foreach (string word in pos.abuf_list) {
-                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
-                if (found) {
-                    if (match_start.starts_word () && match_end.ends_word ()) {
-                        buffer.apply_tag(adjfont, match_start, match_end);
-                    }
+                if (word in pos.vbuf_list) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.apply_tag(verbfont, match_start, match_end);
+
+                    debug ("Verbs found!");
                 }
-                debug ("Adjectives found!");
-            }
-            foreach (string word in pos.adbuf_list) {
-                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
-                if (found) {
-                    if (match_start.starts_word () && match_end.ends_word ()) {
-                        buffer.apply_tag(adverbfont, match_start, match_end);
-                    }
+
+                if (word in pos.abuf_list) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.apply_tag(adjfont, match_start, match_end);
+
+                    debug ("Adjectives found!");
                 }
-                debug ("Adverbs found!");
-            }
-            foreach (string word in pos.cnbuf_list) {
-                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
-                if (found) {
-                    if (match_start.starts_word ()) {
-                        buffer.apply_tag(conjfont, match_start, match_end);
-                    }
+
+                if (word in pos.adbuf_list) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.apply_tag(adverbfont, match_start, match_end);
+
+                    debug ("Adverbs found!");
                 }
-                debug ("Conjunctions found!");
+
+                if (word in pos.cnbuf_list) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.apply_tag(conjfont, match_start, match_end);
+
+                    debug ("Conjunctions found!");
+                }
+
+                p += word.length + 1;
             }
 
             var ends = new DateTime.now ();
@@ -542,42 +547,10 @@ namespace Quilter.Services {
                 GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                 GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
 
-                GLib.Array<string> verb_list = new GLib.Array<string> ();
-                string[] verb_string_array = vbuf.strip ().split ("\n");
-                foreach (string w in verb_string_array) {
-                    verb_list.append_val (w);
-                }
-                for (int i = 0; i < verb_list.length ; i++) {
-                    vbuf_list.add(verb_list.index (i));
-                }
-
-                GLib.Array<string> adj_list = new GLib.Array<string> ();
-                string[] adj_string_array = abuf.strip ().split ("\n");
-                foreach (string w in adj_string_array) {
-                    adj_list.append_val (w);
-                }
-                for (int i = 0; i < adj_list.length ; i++) {
-                    abuf_list.add(adj_list.index (i));
-                }
-
-                GLib.Array<string> adverb_list = new GLib.Array<string> ();
-                string[] adverb_string_array = adbuf.strip ().split ("\n");
-                foreach (string w in adverb_string_array) {
-                    adverb_list.append_val (w);
-                }
-                for (int i = 0; i < adverb_list.length ; i++) {
-                    adbuf_list.add(adverb_list.index (i));
-                }
-
-                GLib.Array<string> conj_list = new GLib.Array<string> ();
-                string[] conj_string_array = cnbuf.strip ().split ("\n");
-                foreach (string w in conj_string_array) {
-                    conj_list.append_val (w);
-                }
-                for (int i = 0; i < conj_list.length ; i++) {
-                    cnbuf_list.add(conj_list.index (i));
-                }
-
+                vbuf_list.add_all_array (vbuf.strip ().split ("\n"));
+                abuf_list.add_all_array (abuf.strip ().split ("\n"));
+                adbuf_list.add_all_array (adbuf.strip ().split ("\n"));
+                cnbuf_list.add_all_array (cnbuf.strip ().split ("\n"));
             } catch (Error e) {
                 var msg = e.message;
                 warning (@"Error: $msg");

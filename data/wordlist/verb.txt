@@ -65,7 +65,7 @@ baulk
 baulks
 bawl
 bawls
- be 
+be
 bead
 beads
 beak
@@ -2043,7 +2043,7 @@ poops
 pore
 pores
 pose
-poss 
+poss
 pouch
 pounce
 pour
@@ -3187,6 +3187,8 @@ syncs
 ta'en
 tag
 tags
+take
+takes
 taint
 taints
 talc
@@ -3244,6 +3246,8 @@ thieve
 thieves
 thig
 thigs
+think
+thinks
 thin
 thins
 thirl
