@@ -38,6 +38,7 @@ namespace Quilter.Widgets {
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
         public new unowned Gtk.SourceBuffer buffer;
+        private uint update_idle_source = 0;
 
         public static EditView get_instance () {
             if (instance == null) {
@@ -100,12 +101,9 @@ namespace Quilter.Widgets {
             conjfont = buffer.create_tag(null, "foreground", "#3a9104");
 
             modified = false;
-
             buffer.changed.connect (() => {
                 modified = true;
-                if (Quilter.Application.gsettings.get_boolean("pos")) {
-                    pos_syntax ();
-                }
+                pos_syntax_start.begin ();
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -185,12 +183,6 @@ namespace Quilter.Widgets {
                 });
             }
 
-            update_settings ();
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                update_settings ();
-            });
-
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.top_margin = 40;
             this.bottom_margin = 40;
@@ -202,6 +194,14 @@ namespace Quilter.Widgets {
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
             this.monospace = true;
+        }
+
+        construct {
+            update_settings ();
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                update_settings ();
+            });
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -218,7 +218,6 @@ namespace Quilter.Widgets {
         }
 
         private void update_settings () {
-
             var buffer_context = this.get_style_context ();
             this.set_pixels_inside_wrap(Quilter.Application.gsettings.get_int("spacing"));
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
@@ -268,20 +267,20 @@ namespace Quilter.Widgets {
                 buffer_context.remove_class ("mono-font");
             }
 
-            if (Quilter.Application.gsettings.get_boolean("pos")) {
-                pos_syntax ();
-            } else {
+            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
+            var style = style_manager.get_scheme (get_default_scheme ());
+            buffer.set_style_scheme (style);
+
+            if (!Quilter.Application.gsettings.get_boolean("pos")) {
                  Gtk.TextIter start, end;
                  buffer.get_bounds (out start, out end);
                  buffer.remove_tag(verbfont, start, end);
                  buffer.remove_tag(adjfont, start, end);
                  buffer.remove_tag(adverbfont, start, end);
                  buffer.remove_tag(conjfont, start, end);
-             }
-
-            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
-            var style = style_manager.get_scheme (get_default_scheme ());
-            buffer.set_style_scheme (style);
+            } else {
+                pos_syntax_start.begin ();
+            }
         }
 
         public void dynamic_margins () {
@@ -364,7 +363,18 @@ namespace Quilter.Widgets {
             return (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode"));
         }
 
-        public void pos_syntax () {
+        public async void pos_syntax_start () {
+            if (update_idle_source > 0) {
+                GLib.Source.remove (update_idle_source);
+            }
+
+            update_idle_source = GLib.Idle.add (() => {
+                pos_syntax.begin ();
+                return false;
+            });
+        }
+
+        private async bool pos_syntax () {
             var file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
             var file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
             var file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
@@ -382,23 +392,22 @@ namespace Quilter.Widgets {
                 file_conj != null && file_adverbs.query_exists ()) {
                 try {
 
-                    var vreg = new Regex("(?m)(?<verb>^.*$)");
+                    var vreg = new Regex("(?m)(?<verb>.*)");
                     string vbuf = "";
                     GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
                     GLib.MatchInfo vmatch;
 
                     if (vreg.match (vbuf, 0, out vmatch)) {
                         do {
-                          bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, null);
-                          if (found) {
-                            if (match_start.starts_word ()) {
-                                buffer.apply_tag(verbfont, match_start, match_end);
+                            bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, end);
+                            if (found) {
+                                if (match_start.starts_word () && match_end.ends_word ()) {
+                                    buffer.apply_tag(verbfont, match_start, match_end);
+                                }
                             }
-                          }
                         } while (vmatch.next ());
                         debug ("Verbs found!");
                     }
-
 
                     var areg = new Regex("(?m)(?<adj>^.*$)");
                     string abuf = "";
@@ -407,16 +416,15 @@ namespace Quilter.Widgets {
 
                     if (areg.match (abuf, 0, out amatch)) {
                         do {
-                            bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, null);
+                            bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, end);
                             if (found) {
-                                if (match_start.starts_word ()) {
+                                if (match_start.starts_word () && match_end.ends_word ()) {
                                     buffer.apply_tag(adjfont, match_start, match_end);
                                 }
                             }
                         } while (amatch.next ());
                         debug ("Adjectives found!");
                     }
-
 
                     var adreg = new Regex("(?m)(?<adverb>^.*$)");
                     string adbuf = "";
@@ -425,9 +433,9 @@ namespace Quilter.Widgets {
 
                     if (adreg.match (adbuf, 0, out admatch)) {
                         do {
-                            bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, null);
+                            bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, end);
                             if (found) {
-                                if (match_start.starts_word ()) {
+                                if (match_start.starts_word () && match_end.ends_word ()) {
                                     buffer.apply_tag(adverbfont, match_start, match_end);
                                 }
                             }
@@ -442,7 +450,7 @@ namespace Quilter.Widgets {
 
                     if (cnreg.match (cnbuf, 0, out cnmatch)) {
                         do {
-                            bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, null);
+                            bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, end);
                             if (found) {
                                 if (match_start.starts_word ()) {
                                     buffer.apply_tag(conjfont, match_start, match_end);
@@ -456,6 +464,8 @@ namespace Quilter.Widgets {
                     warning (@"Error: $msg");
                 }
             }
+            update_idle_source = 0;
+            return GLib.Source.REMOVE;
         }
 
         public void set_focused_text () {
