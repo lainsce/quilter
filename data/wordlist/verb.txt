@@ -308,6 +308,8 @@ cark
 carks
 carp
 carps
+carry
+carries
 cart
 carts
 carve

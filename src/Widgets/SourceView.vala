@@ -275,16 +275,16 @@ namespace Quilter.Widgets {
             buffer.set_style_scheme (style);
 
             // TODO: Fix this later.
-            // if (!Quilter.Application.gsettings.get_boolean("pos")) {
-            //      Gtk.TextIter start, end;
-            //      buffer.get_bounds (out start, out end);
-            //      buffer.remove_tag(verbfont, start, end);
-            //      buffer.remove_tag(adjfont, start, end);
-            //      buffer.remove_tag(adverbfont, start, end);
-            //      buffer.remove_tag(conjfont, start, end);
-            // } else {
-            //     pos_syntax_start ();
-            // }
+            if (!Quilter.Application.gsettings.get_boolean("pos")) {
+                 Gtk.TextIter start, end;
+                 buffer.get_bounds (out start, out end);
+                 buffer.remove_tag(verbfont, start, end);
+                 buffer.remove_tag(adjfont, start, end);
+                 buffer.remove_tag(adverbfont, start, end);
+                 buffer.remove_tag(conjfont, start, end);
+            } else {
+                pos_syntax_start ();
+            }
         }
 
         public void dynamic_margins () {
@@ -378,75 +378,51 @@ namespace Quilter.Widgets {
         }
 
         private bool pos_syntax () {
-            var flags = Gtk.TextSearchFlags.TEXT_ONLY;
-            flags += Gtk.TextSearchFlags.CASE_INSENSITIVE;
+            var begin = new DateTime.now ();
+            var flags = Gtk.TextSearchFlags.CASE_INSENSITIVE;
 
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
-            try {
-                var vreg = new Regex("(?m)(?<verb>.*)");
-                GLib.MatchInfo vmatch;
 
-                if (vreg.match (pos.vbuf, 0, out vmatch)) {
-                    do {
-                        bool found = start.forward_search (vmatch.fetch_named ("verb"), flags, out match_start, out match_end, end);
-                        if (found) {
-                            if (match_start.starts_word () && match_end.ends_word ()) {
-                                buffer.apply_tag(verbfont, match_start, match_end);
-                            }
-                        }
-                    } while (vmatch.next ());
-                    debug ("Verbs found!");
+            foreach (string word in pos.vbuf_list) {
+                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
+                if (found) {
+                    if (match_start.starts_word () && match_end.ends_word ()) {
+                        buffer.apply_tag(verbfont, match_start, match_end);
+                    }
                 }
-
-                var areg = new Regex("(?m)(?<adj>^.*$)");
-                GLib.MatchInfo amatch;
-
-                if (areg.match (pos.abuf, 0, out amatch)) {
-                    do {
-                        bool found = start.forward_search (amatch.fetch_named ("adj"), flags, out match_start, out match_end, end);
-                        if (found) {
-                            if (match_start.starts_word () && match_end.ends_word ()) {
-                                buffer.apply_tag(adjfont, match_start, match_end);
-                            }
-                        }
-                    } while (amatch.next ());
-                    debug ("Adjectives found!");
-                }
-
-                var adreg = new Regex("(?m)(?<adverb>^.*$)");
-                GLib.MatchInfo admatch;
-
-                if (adreg.match (pos.adbuf, 0, out admatch)) {
-                    do {
-                        bool found = start.forward_search (admatch.fetch_named ("adverb"), flags, out match_start, out match_end, end);
-                        if (found) {
-                            if (match_start.starts_word () && match_end.ends_word ()) {
-                                buffer.apply_tag(adverbfont, match_start, match_end);
-                            }
-                        }
-                    } while (admatch.next ());
-                    debug ("Adverbs found!");
-                }
-
-                var cnreg = new Regex("(?m)(?<conj>^.*$)");
-                GLib.MatchInfo cnmatch;
-
-                if (cnreg.match (pos.cnbuf, 0, out cnmatch)) {
-                    do {
-                        bool found = start.forward_search (cnmatch.fetch_named ("conj"), flags, out match_start, out match_end, end);
-                        if (found) {
-                            if (match_start.starts_word ()) {
-                                buffer.apply_tag(conjfont, match_start, match_end);
-                            }
-                        }
-                    } while (cnmatch.next ());
-                    debug ("Conjuctions found!");
-                }
-            } catch (Error e) {
-                var msg = e.message;
-                warning (@"Error: $msg");
+                debug ("Verbs found!");
             }
+            foreach (string word in pos.abuf_list) {
+                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
+                if (found) {
+                    if (match_start.starts_word () && match_end.ends_word ()) {
+                        buffer.apply_tag(adjfont, match_start, match_end);
+                    }
+                }
+                debug ("Adjectives found!");
+            }
+            foreach (string word in pos.adbuf_list) {
+                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
+                if (found) {
+                    if (match_start.starts_word () && match_end.ends_word ()) {
+                        buffer.apply_tag(adverbfont, match_start, match_end);
+                    }
+                }
+                debug ("Adverbs found!");
+            }
+            foreach (string word in pos.cnbuf_list) {
+                bool found = start.forward_search (word, flags, out match_start, out match_end, end);
+                if (found) {
+                    if (match_start.starts_word ()) {
+                        buffer.apply_tag(conjfont, match_start, match_end);
+                    }
+                }
+                debug ("Conjunctions found!");
+            }
+
+            var ends = new DateTime.now ();
+            print ("%i\n", (int)(ends.difference (begin) / TimeSpan.MILLISECOND));
             update_idle_source = 0;
             return GLib.Source.REMOVE;
         }
@@ -549,6 +525,10 @@ namespace Quilter.Services {
         public string abuf = "";
         public string adbuf = "";
         public string cnbuf = "";
+        public Gee.TreeSet<string> vbuf_list = new Gee.TreeSet<string> ();
+        public Gee.TreeSet<string> abuf_list = new Gee.TreeSet<string> ();
+        public Gee.TreeSet<string> adbuf_list = new Gee.TreeSet<string> ();
+        public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
             file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
@@ -561,6 +541,43 @@ namespace Quilter.Services {
                 GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
                 GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                 GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
+
+                GLib.Array<string> verb_list = new GLib.Array<string> ();
+                string[] verb_string_array = vbuf.strip ().split ("\n");
+                foreach (string w in verb_string_array) {
+                    verb_list.append_val (w);
+                }
+                for (int i = 0; i < verb_list.length ; i++) {
+                    vbuf_list.add(verb_list.index (i));
+                }
+
+                GLib.Array<string> adj_list = new GLib.Array<string> ();
+                string[] adj_string_array = abuf.strip ().split ("\n");
+                foreach (string w in adj_string_array) {
+                    adj_list.append_val (w);
+                }
+                for (int i = 0; i < adj_list.length ; i++) {
+                    abuf_list.add(adj_list.index (i));
+                }
+
+                GLib.Array<string> adverb_list = new GLib.Array<string> ();
+                string[] adverb_string_array = adbuf.strip ().split ("\n");
+                foreach (string w in adverb_string_array) {
+                    adverb_list.append_val (w);
+                }
+                for (int i = 0; i < adverb_list.length ; i++) {
+                    adbuf_list.add(adverb_list.index (i));
+                }
+
+                GLib.Array<string> conj_list = new GLib.Array<string> ();
+                string[] conj_string_array = cnbuf.strip ().split ("\n");
+                foreach (string w in conj_string_array) {
+                    conj_list.append_val (w);
+                }
+                for (int i = 0; i < conj_list.length ; i++) {
+                    cnbuf_list.add(conj_list.index (i));
+                }
+
             } catch (Error e) {
                 var msg = e.message;
                 warning (@"Error: $msg");
