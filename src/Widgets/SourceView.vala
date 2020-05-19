@@ -381,7 +381,9 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            string[] words = buffer.text.strip ().split (" ");
+            string no_punct_buffer = buffer.get_text (start, end, false).delimit (""".,/!?<>;:{}[]()"'""", ' ');
+
+            string[] words = no_punct_buffer.strip ().split (" ");
             int p = 0;
             foreach (string word in words) {
                 if (word.strip ().length == 0) {
@@ -418,6 +420,17 @@ namespace Quilter.Widgets {
                     buffer.apply_tag(conjfont, match_start, match_end);
 
                     debug ("Conjunctions found!");
+                }
+
+                if (word in pos.nbuf_list) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.remove_tag(conjfont, match_start, match_end);
+                    buffer.remove_tag(adverbfont, match_start, match_end);
+                    buffer.remove_tag(adjfont, match_start, match_end);
+                    buffer.remove_tag(verbfont, match_start, match_end);
+
+                    debug ("Nouns found!");
                 }
 
                 p += word.length + 1;
@@ -521,31 +534,37 @@ namespace Quilter.Services {
         public File file_conj;
         public File file_adverbs;
         public File file_adj;
+        public File file_nouns;
         public string vbuf = "";
         public string abuf = "";
         public string adbuf = "";
         public string cnbuf = "";
+        public string nbuf = "";
         public Gee.TreeSet<string> vbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> abuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> adbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
+        public Gee.TreeSet<string> nbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
             file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
             file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
             file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
             file_conj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/conjunction.txt");
+            file_nouns = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/nouns.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
                 GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
                 GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                 GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
+                GLib.FileUtils.get_contents (file_nouns.get_path (), out nbuf, null);
 
                 vbuf_list.add_all_array (vbuf.strip ().split ("\n"));
                 abuf_list.add_all_array (abuf.strip ().split ("\n"));
                 adbuf_list.add_all_array (adbuf.strip ().split ("\n"));
                 cnbuf_list.add_all_array (cnbuf.strip ().split ("\n"));
+                nbuf_list.add_all_array (nbuf.strip ().split ("\n"));
             } catch (Error e) {
                 var msg = e.message;
                 warning (@"Error: $msg");
