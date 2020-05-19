@@ -48,3 +48,4 @@ wherever
 while
 which
 who
+whether
