@@ -378,13 +378,10 @@ namespace Quilter.Widgets {
         }
 
         private bool pos_syntax () {
-            var begin = new DateTime.now ();
-            var flags = Gtk.TextSearchFlags.CASE_INSENSITIVE;
-
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            string[] words = buffer.text.split (" ");
+            string[] words = buffer.text.strip ().split (" ");
             int p = 0;
             foreach (string word in words) {
                 if (word.strip ().length == 0) {
@@ -426,8 +423,6 @@ namespace Quilter.Widgets {
                 p += word.length + 1;
             }
 
-            var ends = new DateTime.now ();
-            print ("%i\n", (int)(ends.difference (begin) / TimeSpan.MILLISECOND));
             update_idle_source = 0;
             return GLib.Source.REMOVE;
         }
