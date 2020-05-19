@@ -30978,3 +30978,5 @@ speaking
 beating
 bent
 cutting
+wondering
+wonder
