@@ -17,6 +17,8 @@ asresources = gnome.compile_resources(
 cc = meson.get_compiler('c')
 libmarkdown = cc.find_library('markdown', required: true)
 
+granite_dep = dependency('granite', version: '>=5.2.0')
+
 executable(
     meson.project_name(),
     'src/Application.vala',
@@ -48,7 +50,7 @@ executable(
     'src/Services/DialogUtils.vala',
     asresources,
     dependencies: [
-        dependency('granite'),
+        granite_dep,
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
         dependency('gtk+-3.0'),

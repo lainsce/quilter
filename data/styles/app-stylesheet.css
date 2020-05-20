@@ -1,5 +1,6 @@
 @define-color colorPrimary #F7F7F7;
 @define-color textColorPrimary #333;
+@define-color accentColor #0EBAFB;
 @define-color accent_color_500 #0EBAFB;
 
 window {
@@ -42,7 +43,7 @@ window.background {
 
 actionbar,
 .action-bar {
-    background: @colorPrimary;
+    background: shade(@colorPrimary, 0.95);
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }

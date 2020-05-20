@@ -19,6 +19,8 @@
 namespace Quilter.Widgets {
     public class SearchBar : Gtk.Revealer {
         public Gtk.Grid grid;
+        public Gtk.Grid prev_next_grid;
+        public Gtk.Grid replace_grid;
         public Gtk.SearchEntry search_entry;
         public Gtk.SearchEntry replace_entry;
         private Gtk.Button replace_tool_button;
@@ -37,31 +39,50 @@ namespace Quilter.Widgets {
             replace_entry = new Gtk.SearchEntry ();
             replace_entry.hexpand = true;
             replace_entry.placeholder_text = _("Replace with…");
-            replace_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-symbolic");
+            replace_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-replace-symbolic");
             replace_entry.activate.connect (on_replace_entry_activate);
 
-            replace_tool_button = new Gtk.Button.with_label (_("Replace"));
+            replace_tool_button = new Gtk.Button ();
+            replace_tool_button.label = _("Replace");
             replace_tool_button.clicked.connect (on_replace_entry_activate);
-            replace_tool_button.tooltip_text = (_("Use the arrows to target the text to replace before pressing this."));
+            replace_tool_button.tooltip_text = (_("Use the arrows to target the text\nto replace before pressing this."));
 
-            replace_all_tool_button = new Gtk.Button.with_label (_("Replace all"));
+            replace_all_tool_button = new Gtk.Button ();
+            replace_all_tool_button.label = _("Replace all");
+            replace_all_tool_button.always_show_image = true;
             replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
 
             grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
             grid.row_spacing = 6;
             grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+
+            prev_next_grid = new Gtk.Grid ();
+            prev_next_grid.row_spacing = 6;
+            var pvcontext = prev_next_grid.get_style_context ();
+            pvcontext.add_class (Gtk.STYLE_CLASS_LINKED);
             search_entry_item ();
             search_previous_item ();
             search_next_item ();
-            grid.add (replace_entry);
-            grid.add (replace_tool_button);
-            grid.add (replace_all_tool_button);
+
+            grid.attach (prev_next_grid, 0, 0);
+
+            replace_grid = new Gtk.Grid ();
+            replace_grid.row_spacing = 6;
+            var rcontext = replace_grid.get_style_context ();
+            rcontext.add_class (Gtk.STYLE_CLASS_LINKED);
+            replace_grid.add (replace_entry);
+            replace_grid.add (replace_tool_button);
+            replace_grid.add (replace_all_tool_button);
+
+            grid.attach (replace_grid, 0, 1);
 
             var context = grid.get_style_context ();
             context.add_class ("quilter-searchbar");
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             this.add (grid);
+            this.margin_top = 6;
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
             this.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
@@ -72,7 +93,7 @@ namespace Quilter.Widgets {
             search_entry.hexpand = true;
             search_entry.placeholder_text = _("Find text…");
             search_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
-            grid.add (search_entry);
+            prev_next_grid.add (search_entry);
 
             var entry_path = new Gtk.WidgetPath ();
             entry_path.append_type (typeof (Gtk.Widget));
@@ -88,9 +109,10 @@ namespace Quilter.Widgets {
 
         public void search_previous_item () {
             var tool_arrow_up = new Gtk.Button.from_icon_name ("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_up.always_show_image = true;
             tool_arrow_up.clicked.connect (search_previous);
             tool_arrow_up.tooltip_text = _("Search previous");
-            grid.add (tool_arrow_up);
+            prev_next_grid.add (tool_arrow_up);
         }
 
         public void search_previous () {
@@ -107,9 +129,10 @@ namespace Quilter.Widgets {
 
         public void search_next_item () {
             var tool_arrow_down = new Gtk.Button.from_icon_name ("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_down.always_show_image = true;
             tool_arrow_down.clicked.connect (search_next);
             tool_arrow_down.tooltip_text = _("Search next");
-            grid.add (tool_arrow_down);
+            prev_next_grid.add (tool_arrow_down);
         }
 
         public void search_next () {

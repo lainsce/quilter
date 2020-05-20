@@ -79,7 +79,7 @@ namespace Quilter.Widgets {
             var buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
-            buffer.set_max_undo_levels (20);
+            buffer.set_max_undo_levels (50);
             set_buffer (buffer);
 
             darkgrayfont = new Gtk.TextTag();
@@ -106,7 +106,9 @@ namespace Quilter.Widgets {
             modified = false;
             buffer.changed.connect (() => {
                 modified = true;
-                pos_syntax_start ();
+                if (Quilter.Application.gsettings.get_boolean("pos")) {
+                    pos_syntax_start ();
+                }
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -274,14 +276,13 @@ namespace Quilter.Widgets {
             var style = style_manager.get_scheme (get_default_scheme ());
             buffer.set_style_scheme (style);
 
-            // TODO: Fix this later.
             if (!Quilter.Application.gsettings.get_boolean("pos")) {
-                 Gtk.TextIter start, end;
-                 buffer.get_bounds (out start, out end);
-                 buffer.remove_tag(verbfont, start, end);
-                 buffer.remove_tag(adjfont, start, end);
-                 buffer.remove_tag(adverbfont, start, end);
-                 buffer.remove_tag(conjfont, start, end);
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+                buffer.remove_tag(verbfont, start, end);
+                buffer.remove_tag(adjfont, start, end);
+                buffer.remove_tag(adverbfont, start, end);
+                buffer.remove_tag(conjfont, start, end);
             } else {
                 pos_syntax_start ();
             }
@@ -289,22 +290,23 @@ namespace Quilter.Widgets {
 
         public void dynamic_margins () {
 
-            int w, h, m, p;
-            window.get_size (out w, out h);
+            int m, p;
+            var rect = Gtk.Allocation ();
+            Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
             p = (window.is_fullscreen) ? 5 : 0;
 
             var margins = Quilter.Application.gsettings.get_int("margins");
             switch (margins) {
                 case Constants.NARROW_MARGIN:
-                    m = (int)(w * ((Constants.NARROW_MARGIN + p) / 100.0));
+                    m = (int)(rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
                     break;
                 case Constants.WIDE_MARGIN:
-                    m = (int)(w * ((Constants.WIDE_MARGIN + p) / 100.0));
+                    m = (int)(rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
                     break;
                 default:
                 case Constants.MEDIUM_MARGIN:
-                    m = (int)(w * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                    m = (int)(rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
                     break;
             }
 
@@ -313,11 +315,10 @@ namespace Quilter.Widgets {
 
             if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 int titlebar_h = window.get_titlebar().get_allocated_height();
-                this.bottom_margin = (int)(h * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
-                this.top_margin = (int)(h * Constants.TYPEWRITER_POSITION) - titlebar_h;
+                this.bottom_margin = (int)(rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
+                this.top_margin = (int)(rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
-                this.bottom_margin = 40;
-                this.top_margin = 40;
+                this.top_margin = 42;
             }
         }
 

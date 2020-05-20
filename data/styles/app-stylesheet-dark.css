@@ -1,13 +1,14 @@
 @define-color colorPrimary #151515;
 @define-color textColorPrimary #C3C3C1;
+@define-color accentColor #0DBCEE;
 @define-color accent_color_500 #0DBCEE;
 
 window {
-  background: shade(@colorPrimary, 0.88);
+  background: @colorPrimary;
 }
 
 window:backdrop {
-  background: shade(@colorPrimary, 0.75);
+  background: @colorPrimary;
 }
 
 window.background {
@@ -15,7 +16,7 @@ window.background {
 }
 
 .quilter-toolbar {
-    background: shade(@colorPrimary, 0.88);
+    background: mix(@colorPrimary, #333, 0.25);
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
@@ -40,7 +41,7 @@ window.background {
 
 actionbar,
 .action-bar {
-    background: @colorPrimary;
+    background: mix(@colorPrimary, #333, 0.25);
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }

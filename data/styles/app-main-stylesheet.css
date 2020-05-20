@@ -129,7 +129,7 @@
 }
 
 .quilter-menu {
-    background: @colorPrimary;
+    background: shade(@colorPrimary, 0.95);
     color: @textColorPrimary;
     border: 1px solid alpha (@textColorPrimary, 0);
     background-image: none;
@@ -142,7 +142,7 @@
 }
 
 .quilter-cbt button {
-    background: @colorPrimary;
+    background: shade(@colorPrimary, 0.95);
     color: @textColorPrimary;
     border: 1px solid alpha (@textColorPrimary, 0);
     background-image: none;

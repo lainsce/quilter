@@ -42,9 +42,9 @@ namespace Quilter.Widgets {
             main_stackswitcher.margin = 6;
             main_stackswitcher.margin_top = 0;
 
-            main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
             main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
-            main_stack.add_titled (get_extensions_grid (), "extensions", _("Extensions"));
+            main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
+            main_stack.add_titled (get_preview_grid (), "preview", _("Preview"));
 
             var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
@@ -74,13 +74,13 @@ namespace Quilter.Widgets {
             var spacing = Quilter.Application.gsettings.get_int("spacing");
 
             switch (spacing) {
-                case 2:
+                case 1:
                     spacing_size.selected = 0;
                     break;
-                case 4:
+                case 5:
                     spacing_size.selected = 1;
                     break;
-                case 6:
+                case 10:
                     spacing_size.selected = 2;
                     break;
                 default:
@@ -91,13 +91,13 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        Quilter.Application.gsettings.set_int("spacing", 2);
+                        Quilter.Application.gsettings.set_int("spacing", 1);
                         break;
                     case 1:
-                        Quilter.Application.gsettings.set_int("spacing", 4);
+                        Quilter.Application.gsettings.set_int("spacing", 5);
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("spacing", 6);
+                        Quilter.Application.gsettings.set_int("spacing", 10);
                         break;
                     case 3:
                         Quilter.Application.gsettings.set_int("spacing", spacing);
@@ -413,12 +413,53 @@ namespace Quilter.Widgets {
             return interface_grid;
         }
 
-        private Gtk.Widget get_extensions_grid () {
+        private Gtk.Widget get_preview_grid () {
             var ext_grid = new Gtk.Grid ();
             ext_grid.row_spacing = 6;
             ext_grid.column_spacing = 12;
             ext_grid.orientation = Gtk.Orientation.VERTICAL;
             ext_grid.set_column_homogeneous (false);
+
+            var preview_header = new Granite.HeaderLabel (_("Preview"));
+            var preview_font_label = new SettingsLabel (_("Preview Font:"));
+            var preview_font_size = new Granite.Widgets.ModeButton ();
+            preview_font_size.append_text (_("Serif"));
+            preview_font_size.append_text (_("Sans-serif"));
+            preview_font_size.append_text (_("Monospace"));
+
+            var preview_font = Quilter.Application.gsettings.get_string("preview-font");
+
+            switch (preview_font) {
+                case "serif":
+                    preview_font_size.selected = 0;
+                    break;
+                case "sans":
+                    preview_font_size.selected = 1;
+                    break;
+                case "mono":
+                    preview_font_size.selected = 2;
+                    break;
+                default:
+                    preview_font_size.selected = 1;
+                    break;
+            }
+
+            preview_font_size.mode_changed.connect (() => {
+                switch (preview_font_size.selected) {
+                    case 0:
+                        Quilter.Application.gsettings.set_string("preview-font", "serif");
+                        break;
+                    case 1:
+                        Quilter.Application.gsettings.set_string("preview-font", "sans");
+                        break;
+                    case 2:
+                        Quilter.Application.gsettings.set_string("preview-font", "mono");
+                        break;
+                    case 3:
+                        Quilter.Application.gsettings.set_string("preview-font", preview_font);
+                        break;
+                }
+            });
 
             var ext_header = new Granite.HeaderLabel (_("Extensions"));
 
@@ -444,15 +485,18 @@ namespace Quilter.Widgets {
             var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
 
-            ext_grid.attach (ext_header,  0, 0, 1, 1);
-            ext_grid.attach (highlight_label, 0, 1, 1, 1);
-            ext_grid.attach (highlight, 1, 1, 1, 1);
-            ext_grid.attach (latex_label, 0, 2, 1, 1);
-            ext_grid.attach (latex, 1, 2, 1, 1);
-            ext_grid.attach (mermaid_label, 0, 3, 1, 1);
-            ext_grid.attach (mermaid_switch_grid, 1, 3, 1, 1);
-            ext_grid.attach (spellcheck_label, 0, 5, 1, 1);
-            ext_grid.attach (spellcheck, 1, 5, 1, 1);
+            ext_grid.attach (preview_header,  0, 0, 1, 1);
+            ext_grid.attach (preview_font_label, 0, 1, 1, 1);
+            ext_grid.attach (preview_font_size, 1, 1, 1, 1);
+            ext_grid.attach (ext_header,  0, 2, 1, 1);
+            ext_grid.attach (highlight_label, 0, 3, 1, 1);
+            ext_grid.attach (highlight, 1, 3, 1, 1);
+            ext_grid.attach (latex_label, 0, 4, 1, 1);
+            ext_grid.attach (latex, 1, 4, 1, 1);
+            ext_grid.attach (mermaid_label, 0, 5, 1, 1);
+            ext_grid.attach (mermaid_switch_grid, 1, 5, 1, 1);
+            ext_grid.attach (spellcheck_label, 0, 6, 1, 1);
+            ext_grid.attach (spellcheck, 1, 6, 1, 1);
 
             return ext_grid;
         }

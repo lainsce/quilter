@@ -22,6 +22,7 @@ using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.ApplicationWindow {
+        public weak Quilter.Application app { get; construct; }
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
@@ -47,8 +48,9 @@ namespace Quilter {
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
+        delegate void HookFunc ();
 
-        private const GLib.ActionEntry[] action_entries = {
+        private const GLib.ActionEntry[] ACTION_ENTRIES = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
             { ACTION_EXPORT_PDF, action_export_pdf },
@@ -83,8 +85,11 @@ namespace Quilter {
             }
         }
 
-        public MainWindow (Gtk.Application application) {
-            Object (application: application);
+        public MainWindow (Quilter.Application application) {
+            Object (
+                application: application,
+                app: application
+            );
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
@@ -171,6 +176,16 @@ namespace Quilter {
                         edit_view_content.buffer.undo ();
                     }
                 }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.g, keycode)) {
+                        action_export_html ();
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.p, keycode)) {
+                        action_export_pdf ();
+                    }
+                }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK + Gdk.ModifierType.SHIFT_MASK) != 0) {
                     if (match_keycode (Gdk.Key.z, keycode)) {
                         edit_view_content.buffer.redo ();
@@ -229,7 +244,25 @@ namespace Quilter {
             overlay_button_revealer.visible = false;
         }
 
+        static construct {
+            action_accelerators.set (ACTION_CHEATSHEET, "<Control>h");
+            action_accelerators.set (ACTION_EXPORT_HTML, "<Control>g");
+            action_accelerators.set (ACTION_EXPORT_PDF, "<Control>p");
+        }
+
         construct {
+            actions = new SimpleActionGroup ();
+            actions.add_action_entries (ACTION_ENTRIES, this);
+            insert_action_group ("win", actions);
+
+            foreach (var action in action_accelerators.get_keys ()) {
+                var accels_array = action_accelerators[action].to_array ();
+                accels_array += null;
+
+                app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
+            }
+
+            var rect = Gtk.Allocation ();
             // Used for identification purposes, don't translate.
             title = _("Quilter");
             var provider = new Gtk.CssProvider ();
@@ -257,52 +290,27 @@ namespace Quilter {
             var toolbar_revealer_context = toolbar_revealer.get_style_context ();
             toolbar_revealer_context.remove_class ("titlebar");
 
-            var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
-	        set_font_sans.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "sans");
-	        });
-
-	        var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
-	        set_font_serif.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "serif");
-	        });
-	        set_font_serif.set_active (true);
-
-	        var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
-	        set_font_mono.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "mono");
-	        });
-
-            var set_font_menu_grid = new Gtk.Grid ();
-            set_font_menu_grid.margin = 12;
-            set_font_menu_grid.row_spacing = 12;
-            set_font_menu_grid.column_spacing = 12;
-            set_font_menu_grid.orientation = Gtk.Orientation.VERTICAL;
-            set_font_menu_grid.add (set_font_sans);
-            set_font_menu_grid.add (set_font_serif);
-            set_font_menu_grid.add (set_font_mono);
-            set_font_menu_grid.show_all ();
-
-            var set_font_menu_pop = new Gtk.Popover (null);
-            set_font_menu_pop.add (set_font_menu_grid);
-
-            set_font_menu = new Gtk.MenuButton ();
-            set_font_menu.image = new Gtk.Image.from_icon_name ("font-select-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            set_font_menu.tooltip_text = _("Set Preview Font");
-            set_font_menu.popover = set_font_menu_pop;
-
             edit_view = new Gtk.ScrolledWindow (null, null);
             var edit_view_context = edit_view.get_style_context ();
             edit_view_context.add_class ("quilter-edit-view");
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
-            edit_view.add (edit_view_content);
+
+            searchbar = new Widgets.SearchBar (this);
+
+            var edit_search_grid = new Gtk.Grid ();
+            edit_search_grid.orientation = Gtk.Orientation.VERTICAL;
+            edit_search_grid.add (searchbar);
+            edit_search_grid.add (edit_view_content);
+
+            edit_view.add (edit_search_grid);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
             ((Gtk.Viewport) preview_view.get_child ()).margin = 2;
+            ((Gtk.Viewport) preview_view.get_child ()).margin_start = 0;
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 
@@ -315,7 +323,7 @@ namespace Quilter {
                 if (v) {
                     stack.set_visible_child (preview_view);
                 } else {
-                    stack.set_visible_child (edit_view);
+                    stack.set_visible_child (edit_search_grid);
                 }
             }
 
@@ -328,11 +336,9 @@ namespace Quilter {
                 _("Change view")
             );
 
-            toolbar.pack_end (set_font_menu);
             toolbar.pack_end (view_mode);
 
             paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.set_position (Quilter.Application.gsettings.get_int("window-width")/2);
 
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
@@ -342,21 +348,15 @@ namespace Quilter {
 
             change_layout ();
 
-            actions = new SimpleActionGroup ();
-            actions.add_action_entries (action_entries, this);
-            insert_action_group ("win", actions);
-
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
-            searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
             grid.set_column_homogeneous (false);
             grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (searchbar, 0, 0, 2, 1);
             grid.attach (sidebar, 0, 1, 1, 1);
             grid.attach (main_stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
@@ -390,17 +390,13 @@ namespace Quilter {
 
             add (overlay);
 
-            int x = Quilter.Application.gsettings.get_int("window-x");
-            int y = Quilter.Application.gsettings.get_int("window-y");
-            int w = Quilter.Application.gsettings.get_int("window-width");
-            int h = Quilter.Application.gsettings.get_int("window-height");
-
-            if (x != -1 && y != -1) {
-                this.move (x, y);
+            int window_x, window_y;
+            Quilter.Application.gsettings.get ("window-position", "(ii)", out window_x, out window_y);
+            Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
+            if (window_x != -1 || window_y != -1) {
+                this.move (window_x, window_y);
             }
-            if (w != 0 && h != 0) {
-                this.resize (w, h);
-            }
+            this.set_allocation (rect);
 
             update_title ();
             if (Quilter.Application.gsettings.get_string("current-file") != "") {
@@ -453,14 +449,12 @@ namespace Quilter {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            int x, y, w, h;
-            get_position (out x, out y);
-            get_size (out w, out h);
-
-            Quilter.Application.gsettings.set_int("window-x", x);
-            Quilter.Application.gsettings.set_int("window-y", y);
-            Quilter.Application.gsettings.set_int("window-width", w);
-            Quilter.Application.gsettings.set_int("window-height", h);
+            var rect = Gtk.Allocation ();
+            this.get_allocation (out rect);
+            Quilter.Application.gsettings.set ("window-size", "(ii)", rect.width, rect.height);
+            int root_x, root_y;
+            this.get_position (out root_x, out root_y);
+            Quilter.Application.gsettings.set ("window-position", "(ii)", root_x, root_y);
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -657,8 +651,8 @@ namespace Quilter {
                 }
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);
-                paned.pack1 (edit_view, false, false);
-                paned.pack2 (preview_view, false, false);
+                paned.pack1 (edit_view, true, false);
+                paned.pack2 (preview_view, true, false);
                 main_stack.set_visible_child (paned);
             }
         }

@@ -1,15 +1,15 @@
 .small-text {
-    font-size: 13.2px;
+    font-size: 1.22223em;
     letter-spacing: 2px;
 }
 
 .medium-text {
-    font-size: 16.4px;
+    font-size: 1.33334em;
     letter-spacing: 2px;
 }
 
 .big-text {
-    font-size: 19.6px;
+    font-size: 1.66667em;
     letter-spacing: 2px;
 }
 

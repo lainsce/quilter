@@ -116,12 +116,22 @@ namespace Quilter.Widgets {
             });
 
             var export_pdf = new Gtk.ModelButton ();
-            export_pdf.text = (_("Export to PDF…"));
             export_pdf.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_PDF;
+            export_pdf.get_child ().destroy ();
+            var export_pdf_accellabel = new Granite.AccelLabel.from_action_name (
+                _("Export to PDF…"),
+                MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_PDF
+            );
+            export_pdf.add (export_pdf_accellabel);
 
             var export_html = new Gtk.ModelButton ();
-            export_html.text = (_("Export to HTML…"));
             export_html.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_HTML;
+            export_html.get_child ().destroy ();
+            var export_html_accellabel = new Granite.AccelLabel.from_action_name (
+                _("Export to HTML…"),
+                MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_HTML
+            );
+            export_html.add (export_html_accellabel);
 
             var share_menu_grid = new Gtk.Grid ();
             share_menu_grid.margin = 6;
@@ -140,12 +150,17 @@ namespace Quilter.Widgets {
             share_app_menu.popover = share_menu;
 
             var cheatsheet = new Gtk.ModelButton ();
-            cheatsheet.text = (_("Markdown Cheatsheet"));
             cheatsheet.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET;
+            cheatsheet.get_child ().destroy ();
+            var cheatsheet_accellabel = new Granite.AccelLabel.from_action_name (
+                _("Markdown Cheatsheet"),
+                MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET
+            );
+            cheatsheet.add (cheatsheet_accellabel);
 
             var preferences = new Gtk.ModelButton ();
-            preferences.text = (_("Preferences"));
             preferences.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_PREFS;
+            preferences.text = _("Preferences");
 
             var color_button_light = new Gtk.Button ();
             color_button_light.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
@@ -196,31 +211,33 @@ namespace Quilter.Widgets {
             focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             focusmode_button.set_always_show_image (true);
             focusmode_button.tooltip_text = _("Enter focus mode");
+            focusmode_button.margin_start = 15;
+            focusmode_button.margin_end = 15;
 
             focusmode_button.clicked.connect (() => {
     			Quilter.Application.gsettings.set_boolean("focus-mode", true);
             });
 
-            var colorbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            colorbox.pack_start (color_button_light, true, true, 0);
-            colorbox.pack_start (color_button_sepia, true, true, 0);
-            colorbox.pack_start (color_button_dark, true, true, 0);
-
-            var modebox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            modebox.pack_start (focusmode_button, true, true, 6);
-
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+
+            var top_grid = new Gtk.Grid ();
+            top_grid.column_homogeneous = true;
+            top_grid.hexpand = true;
+            top_grid.row_spacing = 12;
+            top_grid.margin_top = 6;
+            top_grid.attach (color_button_light, 0, 0, 1, 1);
+            top_grid.attach (color_button_sepia, 1, 0, 1, 1);
+            top_grid.attach (color_button_dark, 2, 0, 1, 1);
+            top_grid.attach (focusmode_button, 0, 1, 3, 1);
 
             var menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
+            menu_grid.column_homogeneous = true;
             menu_grid.row_spacing = 6;
-            menu_grid.column_spacing = 12;
-            menu_grid.orientation = Gtk.Orientation.VERTICAL;
-            menu_grid.add (colorbox);
-            menu_grid.add (modebox);
-            menu_grid.add (separator);
-            menu_grid.add (cheatsheet);
-            menu_grid.add (preferences);
+            menu_grid.attach (top_grid, 0, 0);
+            menu_grid.attach (separator, 0, 2);
+            menu_grid.attach (cheatsheet, 0, 3);
+            menu_grid.attach (preferences, 0, 4);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);

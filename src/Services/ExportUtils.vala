@@ -45,7 +45,7 @@ namespace Quilter.Services.ExportUtils {
     }
 
     public static File? export_pdf (string? file_path = null) {
-        
+
         int type_of_mode = 0;
 
         if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
@@ -88,7 +88,11 @@ namespace Quilter.Services.ExportUtils {
 
         var psize = new Gtk.PaperSize(Gtk.PAPER_NAME_A4);
 		var psetup = new Gtk.PageSetup();
-        psetup.set_paper_size_and_default_margins(psize);
+		psetup.set_top_margin (1.0, Gtk.Unit.INCH);
+		psetup.set_bottom_margin (1.20, Gtk.Unit.INCH);
+		psetup.set_left_margin (0.75, Gtk.Unit.INCH);
+		psetup.set_right_margin (0.75, Gtk.Unit.INCH);
+        psetup.set_paper_size(psize);
 
         psettings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
         op.set_print_settings (psettings);

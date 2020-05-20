@@ -25,15 +25,14 @@ THE SOFTWARE.
 public class Quilter.Styles.quiltersepia {
   public const string css="""
     html {
-      font-size: 1rem;
+      font-size: 1.2em;
       width: 100%;
       margin: 0 auto;
     }
 
     p {
-      font-size: 1.1rem;
-      line-height: 1.66rem;
-      width: 100%;
+      font-size: 1.2em;
+      line-height: 1.618rem;
       color: #3b3228;
     }
 
@@ -49,30 +48,29 @@ public class Quilter.Styles.quiltersepia {
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 24pt;
       text-align: center;
       text-transform: uppercase;
     }
 
     h2 {
-      font-size: 1.5rem;
-      text-transform: uppercase;
+      font-size: 22pt;
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-size: 20pt;
     }
 
     h4 {
-      font-size: 1.125rem;
+      font-size: 18pt;
     }
 
     h5 {
-      font-size: 1.1rem;
+      font-size: 16pt;
     }
 
     h6 {
-      font-size: 1rem;
+      font-size: 14pt;
     }
 
     small {
@@ -93,11 +91,11 @@ public class Quilter.Styles.quiltersepia {
       color: #3b3228;
       background-color: #f8f4ef;
       font-weight: 400;
-      line-height: 1.4rem;
-      margin-left: 40px;
-      margin-right: 40px;
-      margin-top: 40px;
-      margin-bottom: 40px;
+      line-height: 1.618rem;
+      margin-left: 3rem;
+      margin-right: 3rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
       text-align: left;
     }
 

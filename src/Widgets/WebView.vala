@@ -132,25 +132,21 @@ namespace Quilter.Widgets {
         }
 
         private void connect_signals () {
-            create.connect ((navigation_action) => {
-                launch_browser (navigation_action.get_request().get_uri ());
-                return (Gtk.Widget) null;
-            });
-
             decide_policy.connect ((decision, type) => {
                 switch (type) {
                     case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION:
                         if (decision is WebKit.ResponsePolicyDecision) {
-                            launch_browser ((decision as WebKit.ResponsePolicyDecision).request.get_uri ());
+                            var policy = (WebKit.ResponsePolicyDecision) decision;
+                            launch_browser (policy.request.get_uri ());
                         }
-                    break;
+                        break;
                     case WebKit.PolicyDecisionType.RESPONSE:
                         if (decision is WebKit.ResponsePolicyDecision) {
                             var policy = (WebKit.ResponsePolicyDecision) decision;
                             launch_browser (policy.request.get_uri ());
                             return false;
                         }
-                    break;
+                        break;
                 }
 
                 return true;
