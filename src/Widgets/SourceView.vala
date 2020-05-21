@@ -267,8 +267,14 @@ namespace Quilter.Widgets {
             if (Quilter.Application.gsettings.get_string("edit-font-type") == "mono") {
                 buffer_context.add_class ("mono-font");
                 buffer_context.remove_class ("vier-font");
+                buffer_context.remove_class ("zwei-font");
             } else if (Quilter.Application.gsettings.get_string("edit-font-type") == "vier") {
                 buffer_context.add_class ("vier-font");
+                buffer_context.remove_class ("zwei-font");
+                buffer_context.remove_class ("mono-font");
+            } else if (Quilter.Application.gsettings.get_string("edit-font-type") == "zwei") {
+                buffer_context.add_class ("zwei-font");
+                buffer_context.remove_class ("vier-font");
                 buffer_context.remove_class ("mono-font");
             }
 

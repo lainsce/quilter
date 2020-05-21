@@ -59,6 +59,7 @@
          <description>
             <p>Release: Hello, Odin!</p>
             <ul>
+                <li>Add: New Quilt Zwei font</li>
                 <li>Add: Part of Speech highlighter (BETA).</li>
                 <li>Add: Center or not Preview Headers (h1 to h3).</li>
                 <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>

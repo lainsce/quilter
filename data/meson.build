@@ -57,6 +57,11 @@ install_data(
 )
 
 install_data(
+    join_paths('font', 'QuiltZwei.ttf'),
+    install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
+)
+
+install_data(
     join_paths('font', 'QuiltVier.ttf'),
     install_dir: join_paths(get_option('datadir'), 'fonts', 'truetype', 'quilt')
 )

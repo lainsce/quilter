@@ -149,14 +149,18 @@ namespace Quilter.Widgets {
             var font_type_label = new SettingsLabel (_("Editor Font Type:"));
             var font_type = new Gtk.ComboBoxText();
             font_type.append_text(_("Quilt Mono"));
+            font_type.append_text(_("Quilt Zwei"));
             font_type.append_text(_("Quilt Vier"));
 
             switch (Quilter.Application.gsettings.get_string("edit-font-type")) {
                 case "mono":
                     font_type.set_active(0);
                     break;
-                case "vier":
+                case "zwei":
                     font_type.set_active(1);
+                    break;
+                case "vier":
+                    font_type.set_active(2);
                     break;
                 default:
                     font_type.set_active(0);
@@ -169,6 +173,9 @@ namespace Quilter.Widgets {
                         Quilter.Application.gsettings.set_string("edit-font-type", "mono");
                         break;
                     case 1:
+                        Quilter.Application.gsettings.set_string("edit-font-type", "zwei");
+                        break;
+                    case 2:
                         Quilter.Application.gsettings.set_string("edit-font-type", "vier");
                         break;
                     default:
