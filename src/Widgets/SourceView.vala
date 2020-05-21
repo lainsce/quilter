@@ -91,8 +91,8 @@ namespace Quilter.Widgets {
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
             lightgrayfont = buffer.create_tag(null, "foreground", "#999");
-            blackfont = buffer.create_tag(null, "foreground", "#000");
-            whitefont = buffer.create_tag(null, "foreground", "#CCC");
+            blackfont = buffer.create_tag(null, "foreground", "#1a1a1a");
+            whitefont = buffer.create_tag(null, "foreground", "#b8b8b8");
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
 
@@ -189,8 +189,6 @@ namespace Quilter.Widgets {
             }
 
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.top_margin = 40;
-            this.bottom_margin = 40;
             this.margin = 2;
             this.margin_end = 0;
             this.expand = true;
@@ -198,7 +196,6 @@ namespace Quilter.Widgets {
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
-            this.monospace = true;
         }
 
         construct {
@@ -296,7 +293,8 @@ namespace Quilter.Widgets {
 
         public void dynamic_margins () {
 
-            int m, p;
+            int p;
+            double m;
             var rect = Gtk.Allocation ();
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
@@ -305,26 +303,27 @@ namespace Quilter.Widgets {
             var margins = Quilter.Application.gsettings.get_int("margins");
             switch (margins) {
                 case Constants.NARROW_MARGIN:
-                    m = (int)(rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
+                    m = (rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
                     break;
                 case Constants.WIDE_MARGIN:
-                    m = (int)(rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
+                    m = (rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
                     break;
                 default:
                 case Constants.MEDIUM_MARGIN:
-                    m = (int)(rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                    m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
                     break;
             }
 
-            this.left_margin = m;
-            this.right_margin = m;
+            this.left_margin = (int)m;
+            this.right_margin = (int)m;
 
             if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 int titlebar_h = window.get_titlebar().get_allocated_height();
                 this.bottom_margin = (int)(rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
                 this.top_margin = (int)(rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
-                this.top_margin = 42;
+                this.top_margin = 30;
+                this.bottom_margin = 30;
             }
         }
 

@@ -1,7 +1,7 @@
 @define-color colorPrimary #F7F7F7;
-@define-color textColorPrimary #333;
-@define-color accentColor #0EBAFB;
-@define-color accent_color_500 #0EBAFB;
+@define-color textColorPrimary #1a1a1a;
+@define-color accentColor #00C6FF;
+@define-color accent_color_500 #00C6FF;
 
 window {
   background: shade(@colorPrimary, 0.95);
