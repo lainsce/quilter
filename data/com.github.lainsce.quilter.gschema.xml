@@ -106,6 +106,10 @@
 			    <default>false</default>
 			    <summary>Whether Quilter should highlight parts of speech or not</summary>
         </key>
+        <key name="center-headers" type="b">
+			    <default>false</default>
+			    <summary>Whether Quilter's Preview should center h1 thru h3</summary>
+        </key>
         <key name="spacing" type="i">
 			    <default>4</default>
 			    <summary>The spacing on the Editor View's lines</summary>

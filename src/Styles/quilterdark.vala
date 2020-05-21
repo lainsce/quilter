@@ -25,13 +25,13 @@ THE SOFTWARE.
 public class Quilter.Styles.quilterdark {
   public const string css="""
     html {
-      font-size: 1.2em;
+      font-size: 14pt;
       width: 100%;
       margin: 0 auto;
     }
 
     p {
-      font-size: 1.2em;
+      font-size: 14pt;
       line-height: 1.618rem;
       color: #C3C3C1;
     }
@@ -43,34 +43,33 @@ public class Quilter.Styles.quilterdark {
     h5,
     h6 {
       font-style: bold;
-      margin-top: 2rem;
-      line-height: 2rem;
+      margin-top: 1em;
+      line-height: 1.618rem;
     }
 
     h1 {
-      font-size: 24pt;
-      text-align: center;
+      font-size: 2em;
       text-transform: uppercase;
     }
 
     h2 {
-      font-size: 22pt;
+      font-size: 1.5em;
     }
 
     h3 {
-      font-size: 20pt;
+      font-size: 1.17em;
     }
 
     h4 {
-      font-size: 18pt;
+      font-size: 1.12em;
     }
 
     h5 {
-      font-size: 16pt;
+      font-size: .83em;
     }
 
     h6 {
-      font-size: 14pt;
+      font-size: .75em;
     }
 
     small {

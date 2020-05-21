@@ -147,7 +147,8 @@ namespace Quilter.Widgets {
             view.set_model (store);
 
             crt = new Gtk.CellRendererText ();
-            crt.font = "Open Sans 11";
+            crt.font = "Inter 10";
+            crt.max_width_chars = 25;
 
             tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
             tvc.set_spacing (6);
@@ -156,8 +157,8 @@ namespace Quilter.Widgets {
             view.append_column (tvc);
 
             store.clear ();
-            view.expand_all ();
             outline_populate ();
+            view.expand_all ();
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
@@ -175,7 +176,7 @@ namespace Quilter.Widgets {
 
                 if (file != null && file.query_exists ()) {
                     try {
-                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{0,26}\\$?)");
+                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.*\\$?)");
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                         GLib.MatchInfo match;

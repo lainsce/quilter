@@ -421,11 +421,11 @@ namespace Quilter.Widgets {
             ext_grid.set_column_homogeneous (false);
 
             var preview_header = new Granite.HeaderLabel (_("Preview"));
-            var preview_font_label = new SettingsLabel (_("Preview Font:"));
+            var preview_font_label = new SettingsLabel (_("Preview Font Type:"));
             var preview_font_size = new Granite.Widgets.ModeButton ();
             preview_font_size.append_text (_("Serif"));
-            preview_font_size.append_text (_("Sans-serif"));
-            preview_font_size.append_text (_("Monospace"));
+            preview_font_size.append_text (_("Sans"));
+            preview_font_size.append_text (_("Mono"));
 
             var preview_font = Quilter.Application.gsettings.get_string("preview-font");
 
@@ -461,6 +461,10 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var centering_preview_headers_label = new SettingsLabel (_("Center Preview Headers:"));
+            var centering_preview_headers = new SettingsSwitch ("center-headers");
+            centering_preview_headers.hexpand = true;
+
             var ext_header = new Granite.HeaderLabel (_("Extensions"));
 
             var highlight_label = new SettingsLabel (_("Enable Code Highlighting:"));
@@ -488,15 +492,17 @@ namespace Quilter.Widgets {
             ext_grid.attach (preview_header,  0, 0, 1, 1);
             ext_grid.attach (preview_font_label, 0, 1, 1, 1);
             ext_grid.attach (preview_font_size, 1, 1, 1, 1);
-            ext_grid.attach (ext_header,  0, 2, 1, 1);
-            ext_grid.attach (highlight_label, 0, 3, 1, 1);
-            ext_grid.attach (highlight, 1, 3, 1, 1);
-            ext_grid.attach (latex_label, 0, 4, 1, 1);
-            ext_grid.attach (latex, 1, 4, 1, 1);
-            ext_grid.attach (mermaid_label, 0, 5, 1, 1);
-            ext_grid.attach (mermaid_switch_grid, 1, 5, 1, 1);
-            ext_grid.attach (spellcheck_label, 0, 6, 1, 1);
-            ext_grid.attach (spellcheck, 1, 6, 1, 1);
+            ext_grid.attach (centering_preview_headers_label, 0, 2, 1, 1);
+            ext_grid.attach (centering_preview_headers, 1, 2, 1, 1);
+            ext_grid.attach (ext_header,  0, 3, 1, 1);
+            ext_grid.attach (highlight_label, 0, 4, 1, 1);
+            ext_grid.attach (highlight, 1, 4, 1, 1);
+            ext_grid.attach (latex_label, 0, 5, 1, 1);
+            ext_grid.attach (latex, 1, 5, 1, 1);
+            ext_grid.attach (mermaid_label, 0, 6, 1, 1);
+            ext_grid.attach (mermaid_switch_grid, 1, 6, 1, 1);
+            ext_grid.attach (spellcheck_label, 0, 7, 1, 1);
+            ext_grid.attach (spellcheck, 1, 7, 1, 1);
 
             return ext_grid;
         }

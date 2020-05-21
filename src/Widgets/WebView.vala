@@ -103,6 +103,14 @@ namespace Quilter.Widgets {
             }
         }
 
+        private string set_center_headers () {
+            if (Quilter.Application.gsettings.get_boolean("center-headers")) {
+                return "/usr/share/com.github.lainsce.quilter/center_headers/cheaders.css";
+            } else {
+                return "";
+            }
+        }
+
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean("latex")) {
                 string katex_main = "/usr/share/com.github.lainsce.quilter/katex/katex.css";
@@ -241,6 +249,7 @@ namespace Quilter.Widgets {
             string result;
             mkd.document (out result);
             string highlight = set_highlight();
+            string cheaders = set_center_headers();
             string latex = set_latex();
             string mermaid = set_mermaid();
             string font_stylesheet = set_font_stylesheet ();
@@ -255,6 +264,7 @@ namespace Quilter.Widgets {
                     %s
                     <link rel="stylesheet" href="%s"/>
                     <style>"%s"</style>
+                    <link rel="stylesheet" href="%s"/>
                 </head>
                 <body>
                     %s
@@ -262,7 +272,7 @@ namespace Quilter.Widgets {
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight, latex, font_stylesheet, stylesheet, mermaid, markdown);
+            </html>""".printf(highlight, latex, font_stylesheet, stylesheet, cheaders, mermaid, markdown);
             this.load_html (html, "file:///");
         }
 

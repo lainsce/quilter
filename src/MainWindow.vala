@@ -711,8 +711,14 @@ namespace Quilter {
             if (path == Quilter.Application.gsettings.get_string("current-file")) {
                 sidebar.delete_row ();
                 sidebar.add_file (path);
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
             } else {
                 sidebar.add_file (path);
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
             }
         }
 
@@ -776,6 +782,9 @@ namespace Quilter {
                     }
 
                     edit_view_content.text = text;
+                    sidebar.store.clear ();
+                    sidebar.outline_populate ();
+                    sidebar.view.expand_all ();
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }
