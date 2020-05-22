@@ -25,13 +25,13 @@ THE SOFTWARE.
 public class Quilter.Styles.quilterdark {
   public const string css="""
     html {
-      font-size: 14pt;
+      font-size: 13pt;
       width: 100%;
       margin: 0 auto;
     }
 
     p {
-      font-size: 14pt;
+      font-size: 13pt;
       line-height: 1.618rem;
       color: #C3C3C1;
     }

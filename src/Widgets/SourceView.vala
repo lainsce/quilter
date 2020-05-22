@@ -247,8 +247,9 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var buffer_context = this.get_style_context ();
-            this.set_pixels_inside_wrap(Quilter.Application.gsettings.get_int("spacing"));
+            this.set_pixels_inside_wrap((int)(1.5*Quilter.Application.gsettings.get_int("spacing")));
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
+            this.set_pixels_below_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins();
             spellcheck_enable();
 

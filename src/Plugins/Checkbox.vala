@@ -20,7 +20,7 @@
 */
 
 public class Quilter.Checkbox : Plugins.Plugin {
-    private PatternSpec spec = new PatternSpec ("*- []*.*");
+    private PatternSpec spec = new PatternSpec ("*[ ]*.*");
 
     construct {}
 
@@ -49,10 +49,10 @@ public class Quilter.Checkbox : Plugins.Plugin {
     }
 
     public override string convert (string line_) {
-        int initial = line_.index_of ("- []") + 5;
+        int initial = line_.index_of ("[ ]") + 4;
         int last = line_.index_of (".", initial);
         string subline = line_.substring (initial, last - initial);
 
-        return line_.replace("""- [] %s.""".printf(subline), """<li  style="list-style: none;"><input type="checkbox" id="1" name="1"> <label for="1"> %s</label><br></li>""".printf(subline));
+        return line_.replace("""[ ] %s.""".printf(subline), """<li  style="list-style: none;"><input type="checkbox" id="1" name="1"> <label for="1">%s.</label></li>""".printf(subline));
     }
 }

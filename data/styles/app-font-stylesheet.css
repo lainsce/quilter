@@ -15,14 +15,17 @@
 
 .mono-font {
     font-family: 'Quilt Mono';
+    font-weight: 500;
 }
 
 .vier-font {
     font-family: 'Quilt Vier';
+    font-weight: 500;
 }
 
 .zwei-font {
     font-family: 'Quilt Zwei';
+    font-weight: 500;
 }
 
 * {

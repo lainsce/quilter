@@ -95,7 +95,7 @@ namespace Quilter.Widgets {
             var sup_font_label = new Label (_("Superscripted text: E = MC^2^"));
 
             var header2_header = new Granite.HeaderLabel (_("Miscellaneous Styles"));
-            var checkbox_label = new Label (_("- [] This Makes an empty Checkbox.\n- [x] This makes a checked Checkbox.\n\n\tPlease note the period, it's necessary to avoid conflicts.\n\tAlso, it's not needed to put this on a new paragraph.\n\tJust one new line between content and Checkboxes."));
+            var checkbox_label = new Label (_("[] This Makes an empty Checkbox.\n[x] This makes a checked Checkbox.\n\n\tPlease note the period, it's necessary to avoid conflicts.\n\tAlso, it's not needed to put this on a new paragraph.\n\tJust one new line between content and Checkboxes.\n\tAdding a - before will result in text-only Checkboxes."));
 
             textstyle_grid.attach (header_header, 0, 0, 5, 1);
             textstyle_grid.attach (header_one_label, 0, 1, 3, 1);

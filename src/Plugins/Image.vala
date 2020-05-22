@@ -49,14 +49,11 @@ public class Quilter.Image : Plugins.Plugin {
     }
 
     public override string convert (string line_) {
-        string build = "";
         int initial = line_.index_of ("/") + 1;
         int last = line_.index_of (" :image", initial);
         string subline = line_.substring (initial, last - initial);
 
         File file = File.new_for_path (subline);
-        build = build + "<img src=\"" + file.get_path () + "\"/>";
-
-        return build;
+        return line_.replace("/%s :image".printf(subline), """<img src="%s"/>""".printf(file.get_path()));
     }
 }

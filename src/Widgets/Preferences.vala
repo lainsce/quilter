@@ -74,13 +74,13 @@ namespace Quilter.Widgets {
             var spacing = Quilter.Application.gsettings.get_int("spacing");
 
             switch (spacing) {
-                case 5:
+                case 2:
                     spacing_size.selected = 0;
                     break;
-                case 10:
+                case 4:
                     spacing_size.selected = 1;
                     break;
-                case 15:
+                case 6:
                     spacing_size.selected = 2;
                     break;
                 default:
@@ -91,13 +91,13 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        Quilter.Application.gsettings.set_int("spacing", 5);
+                        Quilter.Application.gsettings.set_int("spacing", 2);
                         break;
                     case 1:
-                        Quilter.Application.gsettings.set_int("spacing", 10);
+                        Quilter.Application.gsettings.set_int("spacing", 4);
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("spacing", 15);
+                        Quilter.Application.gsettings.set_int("spacing", 6);
                         break;
                     case 3:
                         Quilter.Application.gsettings.set_int("spacing", spacing);
