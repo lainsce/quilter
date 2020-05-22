@@ -23,7 +23,8 @@ namespace Quilter.Widgets {
         private static EditView? instance = null;
         public bool should_scroll {get; set; default = false;}
         public File file;
-        public GtkSpell.Checker spell;
+        public GtkSpell.Checker spell = null;
+        private bool spellcheck_active;
         private Gtk.TextTag blackfont;
         private Gtk.TextTag lightgrayfont;
         private Gtk.TextTag darkgrayfont;
@@ -74,6 +75,9 @@ namespace Quilter.Widgets {
 
         public EditView (MainWindow window) {
             this.window = window;
+        }
+
+        construct {
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);
@@ -135,36 +139,33 @@ namespace Quilter.Widgets {
                 warning ("Error: %s\n", e.message);
             }
 
-            warning_tag = new Gtk.TextTag ("warning_bg");
-            warning_tag.underline = Pango.Underline.ERROR;
-            warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
+            if (Quilter.Application.gsettings.get_boolean("autosave")) {
+                Timeout.add_seconds (30, () => {
+                    save ();
+                    if (spellcheck_active) {
+                        spell.recheck_all ();
+                    }
+                    modified = false;
+                    return true;
+                });
+            }
+
+            update_settings ();
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                update_settings ();
+            });
+
             error_tag = new Gtk.TextTag ("error_bg");
             error_tag.underline = Pango.Underline.ERROR;
             buffer.tag_table.add (error_tag);
-            buffer.tag_table.add (warning_tag);
 
             spell = new GtkSpell.Checker ();
-            if (Quilter.Application.gsettings.get_boolean("spellcheck") != false) {
-                try {
-                    var lang_dict = Quilter.Application.gsettings.get_string("spellcheck-language");
-                    var language_list = GtkSpell.Checker.get_language_list ();
-                    foreach (var element in language_list) {
-                        if (lang_dict == element) {
-                            spell.set_language (lang_dict);
-                            break;
-                        }
-                    }
-                    if (language_list.length () == 0) {
-                        spell.set_language ("en");
-                    } else {
-                        spell.set_language (lang_dict);
-                    }
-                    spell.attach (this);
-                } catch (Error e) {
-                    warning (e.message);
-                }
+            if (Quilter.Application.gsettings.get_boolean("spellcheck")) {
+                spell.attach (this);
+                spellcheck_active = true;
             } else {
-                spell.detach ();
+                spellcheck_active = false;
             }
 
             this.populate_popup.connect ((menu) => {
@@ -180,17 +181,11 @@ namespace Quilter.Widgets {
                 });
             });
 
-            if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                Timeout.add_seconds (30, () => {
-                    save ();
-                    modified = false;
-                    return true;
-                });
-            }
-
+            // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.margin = 2;
             this.margin_end = 0;
+            this.right_margin = this.left_margin = 40;
             this.expand = true;
             this.has_focus = true;
             this.set_tab_width (4);
@@ -198,12 +193,43 @@ namespace Quilter.Widgets {
             this.auto_indent = true;
         }
 
-        construct {
-            update_settings ();
+        private void spellcheck_enable () {
+            spellcheck = Quilter.Application.gsettings.get_boolean ("spellcheck");
+        }
 
-            Quilter.Application.gsettings.changed.connect (() => {
-                update_settings ();
-            });
+        public bool spellcheck {
+            set {
+                if (value && !spellcheck_active && spell != null) {
+                    debug ("Activate spellcheck\n");
+                    try {
+                        var last_language = Quilter.Application.gsettings.get_string ("spellcheck-language");
+                        bool language_set = false;
+                        var language_list = GtkSpell.Checker.get_language_list ();
+                        foreach (var element in language_list) {
+                            if (last_language == element) {
+                                language_set = true;
+                                spell.set_language (last_language);
+                                break;
+                            }
+                        }
+
+                        if (language_list.length () == 0) {
+                            spell.set_language (null);
+                        } else if (!language_set) {
+                            last_language = language_list.first ().data;
+                            spell.set_language (last_language);
+                        }
+                        spell.attach (this);
+                        spellcheck_active = true;
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else if (!value && spellcheck_active) {
+                    debug ("Disable spellcheck\n");
+                    spell.detach ();
+                    spellcheck_active = false;
+                }
+            }
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -224,6 +250,7 @@ namespace Quilter.Widgets {
             this.set_pixels_inside_wrap(Quilter.Application.gsettings.get_int("spacing"));
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins();
+            spellcheck_enable();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;
@@ -298,24 +325,26 @@ namespace Quilter.Widgets {
             var rect = Gtk.Allocation ();
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
-            p = (window.is_fullscreen) ? 5 : 0;
+            if (window != null) {
+                p = (window.is_fullscreen) ? 5 : 0;
 
-            var margins = Quilter.Application.gsettings.get_int("margins");
-            switch (margins) {
-                case Constants.NARROW_MARGIN:
-                    m = (rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
-                    break;
-                case Constants.WIDE_MARGIN:
-                    m = (rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
-                    break;
-                default:
-                case Constants.MEDIUM_MARGIN:
-                    m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
-                    break;
+                var margins = Quilter.Application.gsettings.get_int("margins");
+                switch (margins) {
+                    case Constants.NARROW_MARGIN:
+                        m = (rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
+                        break;
+                    case Constants.WIDE_MARGIN:
+                        m = (rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
+                        break;
+                    default:
+                    case Constants.MEDIUM_MARGIN:
+                        m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
+                        break;
+                }
+
+                this.left_margin = (int)m;
+                this.right_margin = (int)m;
             }
-
-            this.left_margin = (int)m;
-            this.right_margin = (int)m;
 
             if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 int titlebar_h = window.get_titlebar().get_allocated_height();

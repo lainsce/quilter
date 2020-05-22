@@ -82,7 +82,6 @@ namespace Quilter.Widgets {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             this.add (grid);
-            this.margin_top = 6;
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
             this.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");

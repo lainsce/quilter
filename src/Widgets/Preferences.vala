@@ -375,10 +375,6 @@ namespace Quilter.Widgets {
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
-            var searchbar_label = new SettingsLabel (_("Show Searchbar:"));
-            searchbar_label.set_halign (Gtk.Align.END);
-            var searchbar = new SettingsSwitch ("searchbar");
-
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             buttonbox.halign = Gtk.Align.FILL;
             buttonbox.hexpand = true;
@@ -414,8 +410,6 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_size, 1, 7, 1, 1);
             interface_grid.attach (typewriterscrolling_label, 0, 8, 1, 1);
             interface_grid.attach (typewriterscrolling, 1, 8, 1, 1);
-            interface_grid.attach (searchbar_label,  0, 9, 1, 1);
-            interface_grid.attach (searchbar, 1, 9, 1, 1);
 
             return interface_grid;
         }

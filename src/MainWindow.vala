@@ -192,7 +192,7 @@ namespace Quilter {
                     }
                 }
                 if (match_keycode (Gdk.Key.F11, keycode)) {
-                    is_fullscreen = !is_fullscreen;
+                        is_fullscreen = !is_fullscreen;
                 }
                 if (match_keycode (Gdk.Key.F1, keycode)) {
                     debug ("Press to change view...");
@@ -295,22 +295,12 @@ namespace Quilter {
             edit_view_context.add_class ("quilter-edit-view");
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
-
-            searchbar = new Widgets.SearchBar (this);
-
-            var edit_search_grid = new Gtk.Grid ();
-            edit_search_grid.orientation = Gtk.Orientation.VERTICAL;
-            edit_search_grid.add (searchbar);
-            edit_search_grid.add (edit_view_content);
-
-            edit_view.add (edit_search_grid);
+            edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
-            ((Gtk.Viewport) preview_view.get_child ()).margin = 2;
-            ((Gtk.Viewport) preview_view.get_child ()).margin_start = 0;
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 
@@ -323,7 +313,7 @@ namespace Quilter {
                 if (v) {
                     stack.set_visible_child (preview_view);
                 } else {
-                    stack.set_visible_child (edit_search_grid);
+                    stack.set_visible_child (edit_view);
                 }
             }
 
@@ -352,12 +342,14 @@ namespace Quilter {
             sidebar = new Widgets.SideBar (this);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
+            searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
             grid.set_column_homogeneous (false);
             grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (sidebar, 0, 1, 1, 1);
+            grid.attach (searchbar, 0, 0, 2, 1);
             grid.attach (main_stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
