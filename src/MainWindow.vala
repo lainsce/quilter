@@ -348,7 +348,7 @@ namespace Quilter {
             change_layout ();
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
-            sidebar = new Widgets.SideBar (this);
+            sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
             searchbar = new Widgets.SearchBar (this);

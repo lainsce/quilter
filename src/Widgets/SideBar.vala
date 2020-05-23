@@ -31,7 +31,7 @@ namespace Quilter.Widgets {
         private Gtk.StackSwitcher stackswitcher;
         public Gtk.TreeStore store;
         public Gtk.TreeView view;
-        public Gtk.TreeViewColumn tvc;
+        public Gtk.TreeSelection selection;
         public Gtk.CellRendererText crt;
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
@@ -49,14 +49,15 @@ namespace Quilter.Widgets {
         private static SideBar? instance = null;
         public static SideBar get_instance () {
             if (instance == null) {
-                instance = new Widgets.SideBar (Quilter.Application.win);
+                instance = new Widgets.SideBar (Quilter.Application.win, Quilter.Application.win.edit_view_content);
             }
 
             return instance;
         }
 
-        public SideBar (MainWindow win) {
+        public SideBar (MainWindow win, Widgets.EditView ev) {
             this.win = win;
+            this.ev = ev;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -141,24 +142,39 @@ namespace Quilter.Widgets {
             view.hexpand = true;
             view.headers_visible = false;
             view.margin_top = 6;
-            view.set_activate_on_single_click (true);
-
-            store = new Gtk.TreeStore (1, typeof (string));
-            view.set_model (store);
+            view.activate_on_single_click = true;
 
             crt = new Gtk.CellRendererText ();
             crt.font = "Inter 10";
             crt.max_width_chars = 25;
 
-            tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
-            tvc.set_spacing (6);
-            tvc.set_sort_column_id (0);
-            tvc.set_sort_order (Gtk.SortType.DESCENDING);
-            view.append_column (tvc);
+            view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
+
+            store = new Gtk.TreeStore (1, typeof (string));
+            view.set_model (store);
 
             store.clear ();
             outline_populate ();
             view.expand_all ();
+
+            selection = view.get_selection ();
+            selection.set_mode (Gtk.SelectionMode.SINGLE);
+
+            view.button_press_event.connect ((widget, event) => {
+                //capture which mouse button
+                uint clicked_button;
+                event.get_button(out clicked_button);
+				//handle right button click for context menu
+                if (event.get_event_type ()  == Gdk.EventType.BUTTON_PRESS  &&  clicked_button == 1){
+                    Gtk.TreePath path; Gtk.TreeViewColumn column; int cell_x; int cell_y;
+			        view.get_path_at_pos ((int)event.x, (int)event.y, out path, out column, out cell_x, out cell_y);
+			        view.grab_focus ();
+                    view.set_cursor (path, column, false);
+
+					selchanged (selection);
+				}
+				return false;
+            });
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
@@ -170,17 +186,36 @@ namespace Quilter.Widgets {
             return outline_grid;
         }
 
+        public void selchanged (Gtk.TreeSelection row) {
+            // Get string value from row clicked from TreeView and scroll to it in Editor
+            Gtk.TreeModel pathmodel;
+            Gtk.TreeIter pathiter;
+            if (row.count_selected_rows () == 1){
+                row.get_selected (out pathmodel, out pathiter);
+                Value val;
+                pathmodel.get_value (pathiter, 0, out val);
+
+                Gtk.TextIter start, end, match_start, match_end;
+                ev.buffer.get_bounds (out start, out end);
+
+                bool found = start.forward_search (val.get_string (), 0, out match_start, out match_end, null);
+                if (found) {
+                    ev.scroll_to_iter (match_start, 0.0, true, 0.5, 0.1);
+                }
+
+
+			}
+        }
+
         public void outline_populate () {
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
-                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
-
-                if (file != null && file.query_exists ()) {
+               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
+               if (file != null && file.query_exists ()) {
                     try {
-                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.*\\$?)");
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                         GLib.MatchInfo match;
-
+                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.*\\$?)");
                         if (reg.match (buffer, 0, out match)) {
                             do {
                                 if (match.fetch_named ("header") == "#") {
@@ -209,6 +244,7 @@ namespace Quilter.Widgets {
                         warning ("ERR: %s", e.message);
                     }
                 }
+
             }
         }
 
