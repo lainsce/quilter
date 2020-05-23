@@ -327,7 +327,7 @@ namespace Quilter.Widgets {
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
             if (window != null) {
-                p = (window.is_fullscreen) ? 5 : 0;
+                p = (window.is_fullscreen) ? 40 : 0;
 
                 var margins = Quilter.Application.gsettings.get_int("margins");
                 switch (margins) {

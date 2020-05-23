@@ -65,12 +65,16 @@ namespace Quilter {
                 Quilter.Application.gsettings.set_boolean("fullscreen", value);
                 if (value) {
                     fullscreen ();
+                    if (Quilter.Application.gsettings.get_string("preview-type") != "full") {
+                        Quilter.Application.gsettings.set_string("preview-type", "full");
+                    }
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
                     var sb_context = statusbar.actionbar.get_style_context ();
                     sb_context.add_class ("full-bar");
                     sb_context.remove_class ("statusbar");
+                    sidebar.reveal_child = false;
                 } else {
                     unfullscreen ();
                     var buffer_context = edit_view_content.get_style_context ();
@@ -79,6 +83,9 @@ namespace Quilter {
                     var sb_context = statusbar.actionbar.get_style_context ();
                     sb_context.remove_class ("full-bar");
                     sb_context.add_class ("statusbar");
+                    if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                        sidebar.reveal_child = true;
+                    }
                 }
 
                 edit_view_content.dynamic_margins ();
@@ -298,6 +305,8 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
+            preview_view.margin = 2;
+            preview_view.margin_start = 0;
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
@@ -587,6 +596,9 @@ namespace Quilter {
                 toolbar_revealer.reveal_child = true;
                 overlay_button_revealer.reveal_child = false;
                 statusbar.reveal_child = true;
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    sidebar.reveal_child = true;
+                }
                 context.remove_class ("focus");
                 context.remove_class ("focus-full");
             } else {
@@ -594,6 +606,7 @@ namespace Quilter {
                 toolbar_revealer.reveal_child = false;
                 overlay_button_revealer.reveal_child = true;
                 statusbar.reveal_child = false;
+                sidebar.reveal_child = false;
                 context.add_class ("focus");
 
                 focus_overlay_button.button_press_event.connect ((e) => {
