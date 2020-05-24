@@ -42,6 +42,11 @@ namespace Quilter.Widgets {
             settingsweb.javascript_can_open_windows_automatically = false;
 
             update_html_view ();
+
+            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                update_html_view ();
+            });
+
             connect_signals ();
         }
 
@@ -54,13 +59,20 @@ namespace Quilter.Widgets {
         }
 
         private string set_stylesheet () {
-
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                string sepia = Styles.quiltersepia.css;
-                return sepia;
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                    string dark = Styles.quilterdark.css;
+                    return dark;
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                    string sepia = Styles.quiltersepia.css;
+                    return sepia;
+                } else {
+                    string normal = Styles.quilter.css;
+                    return normal;
+                }
             } else {
                 string normal = Styles.quilter.css;
                 return normal;
@@ -80,10 +92,16 @@ namespace Quilter.Widgets {
         }
 
         private string set_highlight_stylesheet () {
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                    return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                    return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
+                } else {
+                    return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/default.min.css";
+                }
             } else {
                 return "/usr/share/com.github.lainsce.quilter/highlight.js/styles/default.min.css";
             }

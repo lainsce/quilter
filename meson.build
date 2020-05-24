@@ -17,7 +17,7 @@ asresources = gnome.compile_resources(
 cc = meson.get_compiler('c')
 libmarkdown = cc.find_library('markdown', required: true)
 
-granite_dep = dependency('granite', version: '>=5.3.0')
+granite_dep = dependency('granite', version: '>=5.4.0')
 
 executable(
     meson.project_name(),

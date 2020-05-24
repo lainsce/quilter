@@ -150,7 +150,13 @@ namespace Quilter.Widgets {
                 });
             }
 
+            var gtksettings = Gtk.Settings.get_default ();
+            gtksettings.gtk_application_prefer_dark_theme = Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
             update_settings ();
+
+            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                update_settings ();
+            });
 
             Quilter.Application.gsettings.changed.connect (() => {
                 update_settings ();
@@ -250,8 +256,8 @@ namespace Quilter.Widgets {
             this.set_pixels_inside_wrap((int)(1.5*Quilter.Application.gsettings.get_int("spacing")));
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
             this.set_pixels_below_lines(Quilter.Application.gsettings.get_int("spacing"));
-            dynamic_margins();
-            spellcheck_enable();
+            dynamic_margins ();
+            spellcheck_enable ();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;
@@ -304,7 +310,7 @@ namespace Quilter.Widgets {
             }
 
             var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
-            var style = style_manager.get_scheme (get_default_scheme ());
+            var style = style_manager.get_scheme (setup_ui_scheme ());
             buffer.set_style_scheme (style);
 
             if (!Quilter.Application.gsettings.get_boolean("pos")) {
@@ -320,7 +326,6 @@ namespace Quilter.Widgets {
         }
 
         public void dynamic_margins () {
-
             int p;
             double m;
             var rect = Gtk.Allocation ();
@@ -357,40 +362,54 @@ namespace Quilter.Widgets {
             }
         }
 
-        private string get_default_scheme () {
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                var provider = new Gtk.CssProvider ();
+        private string setup_ui_scheme () {
+            var provider = new Gtk.CssProvider ();
+            Gtk.TextIter start, end;
+            buffer.get_bounds (out start, out end);
+
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                var provider = new Gtk.CssProvider ();
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
-                buffer.remove_tag(whitefont, start, end);
-                buffer.remove_tag(blackfont, start, end);
-                return "quilter-sepia";
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                    provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                    buffer.remove_tag(lightsepiafont, start, end);
+                    buffer.remove_tag(sepiafont, start, end);
+                    buffer.remove_tag(blackfont, start, end);
+                    return "quilter-dark";
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                    provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    buffer.remove_tag(whitefont, start, end);
+                    buffer.remove_tag(blackfont, start, end);
+                    return "quilter-sepia";
+                } else {
+                    provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                    buffer.remove_tag(whitefont, start, end);
+                    buffer.remove_tag(lightsepiafont, start, end);
+                    buffer.remove_tag(sepiafont, start, end);
+                    return "quilter";
+                }
             } else {
-                var provider = new Gtk.CssProvider ();
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                Gtk.TextIter start, end;
-                buffer.get_bounds (out start, out end);
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
                 return "quilter";
             }
+
         }
 
         public bool move_typewriter_scrolling () {

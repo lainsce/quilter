@@ -9,6 +9,10 @@
                 0 1px 2px alpha(black, 0.08);
 }
 
+.color-button:insensitive {
+	opacity: 0.5;
+}
+
 .color-dark {
     background-color: #151515;
     border: 1px solid #444;

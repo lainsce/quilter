@@ -34,6 +34,8 @@ namespace Quilter.Widgets {
         public Gtk.ToggleButton search_button;
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton share_app_menu;
+        private Gtk.Grid menu_grid;
+        private Gtk.Grid top_grid;
 
         public Headerbar (MainWindow win) {
             this.win = win;
@@ -220,7 +222,7 @@ namespace Quilter.Widgets {
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
-            var top_grid = new Gtk.Grid ();
+            top_grid = new Gtk.Grid ();
             top_grid.column_homogeneous = true;
             top_grid.hexpand = true;
             top_grid.row_spacing = 12;
@@ -228,9 +230,9 @@ namespace Quilter.Widgets {
             top_grid.attach (color_button_light, 0, 0, 1, 1);
             top_grid.attach (color_button_sepia, 1, 0, 1, 1);
             top_grid.attach (color_button_dark, 2, 0, 1, 1);
-            top_grid.attach (focusmode_button, 0, 1, 3, 1);
+            top_grid.attach (focusmode_button, 0, 2, 3, 1);
 
-            var menu_grid = new Gtk.Grid ();
+            menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
             menu_grid.column_homogeneous = true;
             menu_grid.row_spacing = 6;
@@ -265,6 +267,30 @@ namespace Quilter.Widgets {
             pack_end (menu_button);
             pack_end (share_app_menu);
             pack_end (search_button);
+
+            // Please take note of the \n, keep it where you'd want a line break because the space is small
+            var prefer_label = new Gtk.Label (_("Changing modes is disabled due\nto global dark mode."));
+            prefer_label.visible = false;
+            var prefer_label_context = prefer_label.get_style_context ();
+            prefer_label_context.add_class ("h6");
+
+            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    color_button_light.sensitive = false;
+                    color_button_sepia.sensitive = false;
+                    color_button_dark.sensitive = false;
+
+                    top_grid.attach (prefer_label, 0, 1, 3, 1);
+                    prefer_label.visible = true;
+                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    color_button_light.sensitive = true;
+                    color_button_sepia.sensitive = true;
+                    color_button_dark.sensitive = true;
+
+                    top_grid.remove (prefer_label);
+                    prefer_label.visible = false;
+                }
+            });
 
             set_show_close_button (true);
             this.show_all ();

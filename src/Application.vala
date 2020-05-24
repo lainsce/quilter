@@ -20,6 +20,7 @@
 namespace Quilter {
     public class Application : Gtk.Application {
         public static GLib.Settings gsettings;
+        public static Granite.Settings grsettings;
         private static bool print_ver = false;
         private static bool open_view = false;
         private static string _cwd;
@@ -39,6 +40,8 @@ namespace Quilter {
 
             supported_mimetypes = {"text/markdown"};
             register_default_handler ();
+
+            grsettings = Granite.Settings.get_default ();
         }
 
         protected override void activate () {

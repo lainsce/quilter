@@ -58,7 +58,6 @@ namespace Quilter.Widgets {
         }
 
         private Gtk.Widget get_editor_grid () {
-
             var editor_grid = new Gtk.Grid ();
             editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
@@ -334,6 +333,10 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
+            color_button_light.sensitive = false;
+            color_button_sepia.sensitive = false;
+            color_button_dark.sensitive = false;
+
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
@@ -401,15 +404,33 @@ namespace Quilter.Widgets {
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (buttonbox, 0, 2, 3, 1);
             interface_grid.attach (textbox, 0, 3, 3, 1);
-            interface_grid.attach (separator, 0, 4, 3, 1);
+            interface_grid.attach (separator, 0, 5, 3, 1);
 
-            interface_grid.attach (ui_header,  0, 5, 1, 1);
-            interface_grid.attach (focus_mode_label, 0, 6, 1, 1);
-            interface_grid.attach (focus_mode, 1, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 7, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 7, 1, 1);
-            interface_grid.attach (typewriterscrolling_label, 0, 8, 1, 1);
-            interface_grid.attach (typewriterscrolling, 1, 8, 1, 1);
+            interface_grid.attach (ui_header,  0, 6, 1, 1);
+            interface_grid.attach (focus_mode_label, 0, 7, 1, 1);
+            interface_grid.attach (focus_mode, 1, 7, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 8, 1, 1);
+            interface_grid.attach (focus_mode_type_size, 1, 8, 1, 1);
+            interface_grid.attach (typewriterscrolling_label, 0, 9, 1, 1);
+            interface_grid.attach (typewriterscrolling, 1, 9, 1, 1);
+
+            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    color_button_light.sensitive = false;
+                    color_button_sepia.sensitive = false;
+                    color_button_dark.sensitive = false;
+                    color_button_light_text.sensitive = false;
+                    color_button_sepia_text.sensitive = false;
+                    color_button_dark_text.sensitive = false;
+                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    color_button_light.sensitive = true;
+                    color_button_sepia.sensitive = true;
+                    color_button_dark.sensitive = true;
+                    color_button_light_text.sensitive = false;
+                    color_button_sepia_text.sensitive = false;
+                    color_button_dark_text.sensitive = false;
+                }
+            });
 
             return interface_grid;
         }
