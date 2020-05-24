@@ -268,11 +268,20 @@ namespace Quilter.Widgets {
             pack_end (share_app_menu);
             pack_end (search_button);
 
+            var prefer_label_button = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small
-            var prefer_label = new Gtk.Label (_("Changing modes is disabled due\nto global dark mode."));
-            prefer_label.visible = false;
-            var prefer_label_context = prefer_label.get_style_context ();
-            prefer_label_context.add_class ("h6");
+            prefer_label_button.label = _("Changing modes is disabled due\nto the system dark style preference.");
+            var prefer_label_button_context = prefer_label_button.get_style_context ();
+            prefer_label_button_context.add_class ("flat");
+            prefer_label_button.margin_start = prefer_label_button.margin_end = 2;
+
+            prefer_label_button.clicked.connect (() => {
+                try {
+                    AppInfo.launch_default_for_uri ("settings://desktop/appearance", null);
+                } catch (Error e) {
+                    warning ("Failed to open system settings: %s", e.message);
+                }
+            });
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
@@ -280,15 +289,15 @@ namespace Quilter.Widgets {
                     color_button_sepia.sensitive = false;
                     color_button_dark.sensitive = false;
 
-                    top_grid.attach (prefer_label, 0, 1, 3, 1);
-                    prefer_label.visible = true;
+                    top_grid.attach (prefer_label_button, 0, 1, 3, 1);
+                    prefer_label_button.visible = true;
                 } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                     color_button_light.sensitive = true;
                     color_button_sepia.sensitive = true;
                     color_button_dark.sensitive = true;
 
-                    top_grid.remove (prefer_label);
-                    prefer_label.visible = false;
+                    top_grid.remove (prefer_label_button);
+                    prefer_label_button.visible = false;
                 }
             });
 
