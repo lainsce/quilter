@@ -426,9 +426,9 @@ namespace Quilter.Widgets {
                     color_button_light.sensitive = true;
                     color_button_sepia.sensitive = true;
                     color_button_dark.sensitive = true;
-                    color_button_light_text.sensitive = false;
-                    color_button_sepia_text.sensitive = false;
-                    color_button_dark_text.sensitive = false;
+                    color_button_light_text.sensitive = true;
+                    color_button_sepia_text.sensitive = true;
+                    color_button_dark_text.sensitive = true;
                 }
             });
 
