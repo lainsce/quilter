@@ -333,10 +333,6 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
-            color_button_light.sensitive = false;
-            color_button_sepia.sensitive = false;
-            color_button_dark.sensitive = false;
-
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
