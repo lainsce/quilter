@@ -21,7 +21,7 @@ using Granite;
 using Granite.Services;
 
 namespace Quilter {
-    public class MainWindow : Gtk.ApplicationWindow {
+    public class MainWindow : Hdy.Window {
         public weak Quilter.Application app { get; construct; }
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
@@ -287,13 +287,11 @@ namespace Quilter {
             toolbar.has_subtitle = false;
             var toolbar_context = toolbar.get_style_context ();
             toolbar_context.add_class ("titlebar");
+            toolbar.title = title;
 
             toolbar_revealer = new Gtk.Revealer ();
             toolbar_revealer.add (toolbar);
             toolbar_revealer.reveal_child = true;
-
-            set_titlebar (toolbar_revealer);
-            toolbar.title = title;
             var toolbar_revealer_context = toolbar_revealer.get_style_context ();
             toolbar_revealer_context.remove_class ("titlebar");
 
@@ -389,8 +387,6 @@ namespace Quilter {
             overlay.add_overlay (overlay_button_revealer);
             overlay.add (grid);
 
-            add (overlay);
-
             int window_x, window_y;
             Quilter.Application.gsettings.get ("window-position", "(ii)", out window_x, out window_y);
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
@@ -427,6 +423,15 @@ namespace Quilter {
                 this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
             }
+
+            var window_handle = new Hdy.WindowHandle ();
+            window_handle.add (toolbar_revealer);
+
+            var grid = new Gtk.Grid ();
+            grid.attach (window_handle, 0, 0);
+            grid.attach (overlay, 0, 1);
+
+            add (grid);
 
             this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (600, 700);
@@ -596,18 +601,12 @@ namespace Quilter {
                 toolbar_revealer.reveal_child = true;
                 overlay_button_revealer.reveal_child = false;
                 statusbar.reveal_child = true;
-                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                    sidebar.reveal_child = true;
-                }
-                context.remove_class ("focus");
-                context.remove_class ("focus-full");
             } else {
                 overlay_button_revealer.visible = true;
                 toolbar_revealer.reveal_child = false;
                 overlay_button_revealer.reveal_child = true;
                 statusbar.reveal_child = false;
                 sidebar.reveal_child = false;
-                context.add_class ("focus");
 
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
@@ -616,12 +615,6 @@ namespace Quilter {
                     }
                     return false;
                 });
-
-                if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                    context.add_class ("focus-full");
-                } else {
-                    context.remove_class ("focus-full");
-                }
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
@@ -630,14 +623,6 @@ namespace Quilter {
                 Services.FileManager.get_cache_path ();
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
-            }
-
-            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
-                this.get_style_context().add_class("rounded");
-                this.get_style_context().remove_class("rounded-full");
-            } else {
-                this.get_style_context().add_class("rounded-full");
-                this.get_style_context().remove_class("rounded");
             }
 
             render_func ();

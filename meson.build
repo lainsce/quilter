@@ -5,6 +5,7 @@ i18n = import('i18n')
 
 add_global_arguments(
     '-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()),
+    '-DHANDY_USE_UNSTABLE_API',
     language:'c'
 )
 
@@ -18,6 +19,7 @@ cc = meson.get_compiler('c')
 libmarkdown = cc.find_library('markdown', required: true)
 
 granite_dep = dependency('granite', version: '>=5.4.0')
+handy_dep = dependency('libhandy-1', version: '>=0.80.0')
 
 executable(
     meson.project_name(),
@@ -51,6 +53,7 @@ executable(
     asresources,
     dependencies: [
         granite_dep,
+        handy_dep,
         dependency('gobject-2.0'),
         dependency('gtksourceview-3.0'),
         dependency('gtk+-3.0'),
