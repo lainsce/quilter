@@ -43,7 +43,7 @@ namespace Quilter.Widgets {
         private uint update_idle_source = 0;
 
         public static EditView get_instance () {
-            if (instance == null) {
+            if (instance == null && Application.win != null) {
                 instance = new Widgets.EditView (Application.win);
             }
 

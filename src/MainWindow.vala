@@ -35,7 +35,7 @@ namespace Quilter {
         public Widgets.Preview preview_view_content;
         public Gtk.Stack main_stack;
         public Gtk.Stack stack;
-        public Gtk.StackSwitcher view_mode;
+        public Hdy.ViewSwitcher view_mode;
         public Gtk.Paned paned;
         public Gtk.ScrolledWindow edit_view;
         public Gtk.ScrolledWindow preview_view;
@@ -303,7 +303,7 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
+            preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
             var preview_view_context = preview_view.get_style_context ();
@@ -313,19 +313,11 @@ namespace Quilter {
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
-            if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                bool v = Quilter.Application.gsettings.get_boolean("shown-view");
-                if (v) {
-                    stack.set_visible_child (preview_view);
-                } else {
-                    stack.set_visible_child (edit_view);
-                }
-            }
-
-            view_mode = new Gtk.StackSwitcher ();
+            view_mode = new Hdy.ViewSwitcher ();
+            var view_mode_context = view_mode.get_style_context ();
+            view_mode_context.add_class ("linked");
             view_mode.stack = stack;
             view_mode.valign = Gtk.Align.CENTER;
-            view_mode.homogeneous = true;
             view_mode.tooltip_markup = Granite.markup_accel_tooltip (
                 {"F1"},
                 _("Change view")
@@ -631,6 +623,15 @@ namespace Quilter {
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
                 stack.add_titled (preview_view, "preview_view", _("Preview"));
                 main_stack.set_visible_child (stack);
+
+                if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
+                    bool v = Quilter.Application.gsettings.get_boolean("shown-view");
+                    if (v) {
+                        stack.set_visible_child (preview_view);
+                    } else {
+                        stack.set_visible_child (edit_view);
+                    }
+                }
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);

@@ -46,7 +46,7 @@
 				<description>The user-preferred font to use in Edit in Quilter</description>
 		</key>
 		<key name="preview-font" type="s">
-				<default>'mono'</default>
+				<default>'serif'</default>
 				<summary>Font used on Preview View</summary>
 				<description>The user-preferred font to use in Preview in Quilter</description>
 		</key>

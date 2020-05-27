@@ -49,7 +49,7 @@ namespace Quilter {
         }
 
         public static int main (string[] args) {
-            Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
+            Intl.setlocale (LocaleCategory.ALL, "");
 
             var app = new Quilter.Application ();
             return app.run (args);
@@ -61,15 +61,6 @@ namespace Quilter {
                 return;
             }
             win = new MainWindow (this);
-
-            if (gsettings.get_string("preview-type") == "full") {
-                if (open_view) {
-                    win.stack.set_visible_child (win.preview_view);
-                    open_view = false;
-                } else {
-                    win.stack.set_visible_child (win.edit_view);
-                }
-            }
 
             win.show_all ();
         }
@@ -91,7 +82,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                stdout.printf ("Quilter - Copyright 2017-2020 Lains\n");
+                stdout.printf ("Quilter 3.0.0 - Copyright 2017-2020 Lains\n");
                 return 0;
             } else {
                 new_win ();

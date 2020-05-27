@@ -23,17 +23,17 @@ namespace Quilter.Widgets {
     public class Preview : WebKit.WebView {
         private static Preview? instance = null;
         public string html;
-        public Gtk.SourceBuffer buf;
+        public Widgets.EditView buf;
 
         public static Preview get_instance () {
             if (instance == null) {
-                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content.buffer);
+                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content);
             }
 
             return instance;
         }
 
-        public Preview (MainWindow window, Gtk.SourceBuffer buf) {
+        public Preview (MainWindow window, Widgets.EditView buf) {
             Object(user_content_manager: new UserContentManager());
             visible = true;
             this.buf = buf;
@@ -253,7 +253,9 @@ namespace Quilter.Widgets {
 
         public void update_html_view () {
             string processed_mk;
-            process_frontmatter (buf.text, out processed_mk);
+            Gtk.TextIter start, end;
+            buf.buffer.get_bounds (out start, out end);
+            process_frontmatter (buf.buffer.get_text (start, end, false), out processed_mk);
             var mkd = new Markdown.Document.from_string (processed_mk.data,
                                                          0x00000100 +
                                                          0x00001000 +
@@ -280,7 +282,7 @@ namespace Quilter.Widgets {
                     <meta charset="utf-8">
                     %s
                     %s
-                    <link rel="stylesheet" href="%s"/>
+                    <style>"%s"</style>
                     <style>"%s"</style>
                     <link rel="stylesheet" href="%s"/>
                 </head>
