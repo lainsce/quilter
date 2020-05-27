@@ -312,6 +312,7 @@ namespace Quilter {
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            
 
             view_mode = new Hdy.ViewSwitcher ();
             var view_mode_context = view_mode.get_style_context ();
@@ -334,6 +335,7 @@ namespace Quilter {
             main_stack.add_named (paned, "paned");
 
             change_layout ();
+            stack.set_visible_child (edit_view);
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this, edit_view_content);
@@ -383,7 +385,9 @@ namespace Quilter {
             if (window_x != -1 || window_y != -1) {
                 this.move (window_x, window_y);
             }
-            this.set_allocation (rect);
+            if (rect.width != 0 && rect.height != 0) {
+                this.resize (rect.width, rect.height);
+            }
 
             update_title ();
             if (Quilter.Application.gsettings.get_string("current-file") != "") {
@@ -623,15 +627,6 @@ namespace Quilter {
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
                 stack.add_titled (preview_view, "preview_view", _("Preview"));
                 main_stack.set_visible_child (stack);
-
-                if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                    bool v = Quilter.Application.gsettings.get_boolean("shown-view");
-                    if (v) {
-                        stack.set_visible_child (preview_view);
-                    } else {
-                        stack.set_visible_child (edit_view);
-                    }
-                }
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);

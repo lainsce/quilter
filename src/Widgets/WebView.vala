@@ -280,10 +280,10 @@ namespace Quilter.Widgets {
             <html>
                 <head>
                     <meta charset="utf-8">
+                    <style>"%s"</style>
                     %s
                     %s
-                    <style>"%s"</style>
-                    <style>"%s"</style>
+                    <link rel="stylesheet" href="%s"/>
                     <link rel="stylesheet" href="%s"/>
                 </head>
                 <body>
@@ -292,7 +292,7 @@ namespace Quilter.Widgets {
                         %s
                     </div>
                 </body>
-            </html>""".printf(highlight, latex, font_stylesheet, stylesheet, cheaders, mermaid, markdown);
+            </html>""".printf(stylesheet, highlight, latex, font_stylesheet, cheaders, mermaid, markdown);
             this.load_html (html, "file:///");
         }
 
