@@ -189,8 +189,6 @@ namespace Quilter.Widgets {
 
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.margin = 2;
-            this.margin_end = 0;
             this.right_margin = this.left_margin = 40;
             this.expand = true;
             this.has_focus = true;

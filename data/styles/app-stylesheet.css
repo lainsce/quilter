@@ -3,16 +3,8 @@
 @define-color accentColor #00C6FF;
 @define-color accent_color_500 #00C6FF;
 
-window {
-  background: shade(@colorPrimary, 0.95);
-}
-
-window:backdrop {
-  background: shade(@colorPrimary, 0.88);
-}
-
 window.background {
-  background: @colorPrimary;
+    background: @colorPrimary;
 }
 
 .quilter-toolbar {

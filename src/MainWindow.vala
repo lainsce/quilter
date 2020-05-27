@@ -303,8 +303,6 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view.margin = 2;
-            preview_view.margin_start = 0;
             preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
             preview_view.add (preview_view_content);
             ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
@@ -588,8 +586,6 @@ namespace Quilter {
         }
 
         private void on_settings_changed () {
-            var context = this.get_style_context ();
-
             show_sidebar ();
             show_searchbar ();
             update_count ();
