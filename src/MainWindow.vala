@@ -33,12 +33,13 @@ namespace Quilter {
         public Gtk.MenuButton set_font_menu;
         public Widgets.EditView edit_view_content;
         public Widgets.Preview preview_view_content;
+        public Gtk.Grid box;
         public Gtk.Stack main_stack;
         public Gtk.Stack stack;
         public Hdy.ViewSwitcher view_mode;
         public Gtk.Paned paned;
         public Gtk.ScrolledWindow edit_view;
-        public Gtk.ScrolledWindow preview_view;
+        public Gtk.Adjustment eadj;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
         public SimpleActionGroup actions { get; construct; }
@@ -207,7 +208,7 @@ namespace Quilter {
                         if (this.stack.get_visible_child_name () == "preview_view") {
                             this.stack.set_visible_child (this.edit_view);
                         } else if (this.stack.get_visible_child_name () == "edit_view") {
-                            this.stack.set_visible_child (this.preview_view);
+                            this.stack.set_visible_child (this.box);
                         }
                     }
                     return true;
@@ -219,7 +220,7 @@ namespace Quilter {
                             if (this.stack.get_visible_child_name () == "preview_view") {
                                 this.stack.set_visible_child (this.edit_view);
                             } else if (this.stack.get_visible_child_name () == "edit_view") {
-                                this.stack.set_visible_child (this.preview_view);
+                                this.stack.set_visible_child (this.box);
                             }
                         }
                         return true;
@@ -302,16 +303,12 @@ namespace Quilter {
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
 
-            preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content);
-            preview_view.add (preview_view_content);
-            var preview_view_context = preview_view.get_style_context ();
-            preview_view_context.add_class ("quilter-preview-view");
+            preview_view_content.expand = true;
 
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-            
 
             view_mode = new Hdy.ViewSwitcher ();
             var view_mode_context = view_mode.get_style_context ();
@@ -325,16 +322,17 @@ namespace Quilter {
 
             toolbar.pack_end (view_mode);
 
-            paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            box = new Gtk.Grid ();
+            box.column_homogeneous = true;
+            box.expand = true;
 
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
             main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             main_stack.add_named (stack, "stack");
-            main_stack.add_named (paned, "paned");
+            main_stack.add_named (box, "paned");
 
             change_layout ();
-            stack.set_visible_child (edit_view);
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this, edit_view_content);
@@ -391,15 +389,10 @@ namespace Quilter {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
 
-            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
-            Gtk.Adjustment padj = preview_view.get_vadjustment ();
+            eadj = edit_view.get_vadjustment ();
             eadj.value_changed.connect (() => {
                 scroll_to ();
             });
-            padj.value_changed.connect (() => {
-                scroll_to_fix ();
-            });
-            padj.set_lower(1);
 
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
@@ -473,33 +466,11 @@ namespace Quilter {
         }
 
         public void scroll_to () {
-            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
-            Gtk.Adjustment padj = preview_view.get_vadjustment ();
-            var value = eadj.get_value();
-            var psize_edit = eadj.get_page_size();
-            var psize_prev = padj.get_page_size();
-            var upper_edit = eadj.get_upper();
-            var upper_prev = padj.get_upper();
-
-            if (value >= (upper_edit - psize_edit)) {
-                padj.set_value(upper_prev - psize_prev);
-            } else {
-                padj.set_value(value / upper_edit * upper_prev);
-            }
-
-            padj.value_changed.connect (() => {
-                scroll_to_fix ();
-            });
-        }
-
-        public void scroll_to_fix () {
-            Gtk.Adjustment adj = preview_view.get_vadjustment ();
-            var value = adj.get_value();
-            if (value == 0) {
-                scroll_to ();
-            } else {
-                // pass
-            }
+            Gtk.Adjustment vap = edit_view.get_vadjustment ();
+            var upper = vap.get_upper();
+            var psize = vap.get_page_size();
+            var value = vap.get_value();
+            preview_view_content.scroll_value = (upper > psize) ? value : 0;
         }
 
         private static void widget_unparent (Gtk.Widget widget) {
@@ -620,19 +591,19 @@ namespace Quilter {
         private void change_layout () {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (edit_view);
-                widget_unparent (preview_view);
+                widget_unparent (preview_view_content);
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
-                stack.add_titled (preview_view, "preview_view", _("Preview"));
+                stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);
                 }
                 widget_unparent (edit_view);
-                widget_unparent (preview_view);
-                paned.pack1 (edit_view, true, false);
-                paned.pack2 (preview_view, true, false);
-                main_stack.set_visible_child (paned);
+                widget_unparent (preview_view_content);
+                box.attach (edit_view, 0, 0);
+                box.attach (preview_view_content, 1, 0);
+                main_stack.set_visible_child (box);
             }
         }
 

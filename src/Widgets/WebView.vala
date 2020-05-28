@@ -22,6 +22,7 @@ namespace Quilter {
         private static Preview? instance = null;
         public string html;
         public Widgets.EditView buf;
+        public double scroll_value;
 
         public static Preview get_instance () {
             if (instance == null) {
@@ -158,12 +159,11 @@ namespace Quilter {
         private string get_javascript () {
             string script;
 
-            bool typewriter_active = Quilter.Application.gsettings.get_boolean("typewriter-scrolling");
-
-            script = """const element = document.getElementById('quiltmark');
-            const textOnTop = element.offsetTop;
-            const middle = textOnTop - (window.innerHeight * %f);
-            window.scrollTo(0, middle);""".printf((typewriter_active) ? Constants.TYPEWRITER_POSITION : buf.cursor_position);
+            script = """
+                e = document.documentElement;
+                
+                e.scrollTo (0, %f);
+            """.printf(scroll_value);
 
             return script;
         }
@@ -264,7 +264,7 @@ namespace Quilter {
 
         public void update_html_view () {
             string processed_mk;
-            process_frontmatter (buf.scroll_text, out processed_mk);
+            process_frontmatter (buf.text, out processed_mk);
             var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
                                                          0x00000100 +
                                                          0x00001000 +
