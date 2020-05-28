@@ -35,7 +35,7 @@ namespace Quilter.Widgets {
 
         construct {
             main_stack = new Gtk.Stack ();
-            main_stack.margin = 6;
+            main_stack.margin = 4;
 
             // Let's make a new Dialog design for preferences, follow elementary OS UI cues.
             main_stackswitcher = new Hdy.ViewSwitcher ();
