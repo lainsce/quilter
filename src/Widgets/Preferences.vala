@@ -18,6 +18,9 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Gtk.Dialog {
+        private Gtk.Stack main_stack;
+        private Hdy.ViewSwitcher main_stackswitcher;
+
         public Preferences (Gtk.Window? parent) {
             Object (
                 border_width: 6,
@@ -31,28 +34,33 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            var main_stack = new Gtk.Stack ();
+            main_stack = new Gtk.Stack ();
             main_stack.margin = 6;
-            main_stack.margin_top = 0;
 
-            var main_stackswitcher = new Gtk.StackSwitcher ();
+            // Let's make a new Dialog design for preferences, follow elementary OS UI cues.
+            main_stackswitcher = new Hdy.ViewSwitcher ();
             main_stackswitcher.stack = main_stack;
-            main_stackswitcher.halign = Gtk.Align.CENTER;
-            main_stackswitcher.homogeneous = true;
-            main_stackswitcher.margin = 6;
-            main_stackswitcher.margin_top = 0;
 
             main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
             main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
             main_stack.add_titled (get_preview_grid (), "preview", _("Preview"));
 
-            var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
+            // Needs to be CANCEL to follow elementary's close-button-on-left UI.
+            var close_button = add_button ("", Gtk.ResponseType.CANCEL);
+            ((Gtk.Button) close_button).margin = 6;
+            ((Gtk.Button) close_button).set_image (new Gtk.Image.from_icon_name ("window-close", Gtk.IconSize.SMALL_TOOLBAR));
+            ((Gtk.Button) close_button).always_show_image = true;
+            var close_button_context = ((Gtk.Button) close_button).get_style_context ();
+            close_button_context.add_class ("image-button");
             ((Gtk.Button) close_button).clicked.connect (() => destroy ());
 
+            var prefs_head = this.get_header_bar ();
+            prefs_head.custom_title = main_stackswitcher;
+            this.use_header_bar = 1;
+            //
+
             var main_grid = new Gtk.Grid ();
-            main_grid.margin_top = 0;
-            main_grid.attach (main_stackswitcher, 0, 0, 1, 1);
-            main_grid.attach (main_stack, 0, 1, 1, 1);
+            main_grid.add (main_stack);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
         }
