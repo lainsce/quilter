@@ -173,7 +173,7 @@
     border-right: 0px solid transparent;
 }
 
-.quilter-dialog-hb {
+.quilter-dialog-hb headerbar {
     border-bottom: 1px solid alpha (@textColorPrimary, 0.35);
 }
 
