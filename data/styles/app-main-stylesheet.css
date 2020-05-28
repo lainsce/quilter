@@ -173,6 +173,14 @@
     border-right: 0px solid transparent;
 }
 
+.quilter-edit-view {
+    border-right: 1px solid alpha (@textColorPrimary, 0.25);
+}
+
+.quilter-edit-view:dir(rtl) {
+    border-left: 1px solid alpha (@textColorPrimary, 0.25);
+}
+
 .quilter-dialog-hb headerbar {
     border-bottom: 1px solid alpha (@textColorPrimary, 0.35);
 }

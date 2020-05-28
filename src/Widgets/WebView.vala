@@ -23,6 +23,7 @@ namespace Quilter {
         public string html;
         public Widgets.EditView buf;
         public double scroll_value;
+        private uint id1 = 0;
 
         public static Preview get_instance () {
             if (instance == null) {
@@ -39,6 +40,9 @@ namespace Quilter {
             var settingsweb = get_settings ();
             settingsweb.enable_page_cache = false;
             settingsweb.javascript_can_open_windows_automatically = false;
+
+            this.scroll_value = -1;
+            idle_update_events ();
 
             update_html_view ();
 
@@ -156,16 +160,34 @@ namespace Quilter {
             }
         }
 
-        private string get_javascript () {
+        public string get_javascript () {
             string script;
-
             script = """
                 e = document.documentElement;
+                canScroll = e.scrollHeight > e.clientHeight;
+                if (canScroll) {
+                    e.scrollTop = (%.13f * e.scrollHeight);
+                    e.scrollTop;
+                }
                 
-                e.scrollTo (0, %f);
             """.printf(scroll_value);
 
             return script;
+        }
+
+        private void idle_update_events () {
+            if (id1 > 0) {
+                GLib.Source.remove (id1);
+            }
+    
+            id1 = GLib.Idle.add (() => {
+                state_loop ();
+                return true;
+            });
+        }
+
+        public void state_loop () {
+            this.run_javascript (get_javascript (), null);
         }
 
         private void connect_signals () {
@@ -194,6 +216,7 @@ namespace Quilter {
                     var rectangle = get_window_properties ().get_geometry ();
                     set_size_request (rectangle.width, rectangle.height);
                 }
+                idle_update_events ();
             });
         }
 
@@ -283,7 +306,6 @@ namespace Quilter {
             string mermaid = set_mermaid();
             string font = set_font_stylesheet ();
             string style = set_stylesheet ();
-            string js = get_javascript ();
             string md = process_plugins (result);
 
             bool focus_active = Quilter.Application.gsettings.get_boolean("focus-mode");
@@ -319,11 +341,9 @@ namespace Quilter {
                     <div class="markdown-body">
                         %s
                     </div>
-                    <script>
-                        %s
-                    </script>
+                    
                 </body>
-            </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md, js);
+            </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md);
             this.load_html (html, "file:///");
         }
 

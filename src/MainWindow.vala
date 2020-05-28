@@ -119,6 +119,12 @@ namespace Quilter {
                 on_settings_changed ();
             });
 
+            eadj = edit_view.get_vadjustment ();
+            eadj.notify["value"].connect (() => {
+                scroll_to ();
+                print ("Scroll is now at:\t%.13f\n".printf(preview_view_content.scroll_value));
+            });
+
             edit_view_content.buffer.changed.connect (() => {
                 render_func ();
                 update_count ();
@@ -389,11 +395,6 @@ namespace Quilter {
                 on_sidebar_row_selected (sidebar.get_selected_row ());
             }
 
-            eadj = edit_view.get_vadjustment ();
-            eadj.value_changed.connect (() => {
-                scroll_to ();
-            });
-
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
                 Services.FileManager.file = null;
@@ -470,7 +471,7 @@ namespace Quilter {
             var upper = vap.get_upper();
             var psize = vap.get_page_size();
             var value = vap.get_value();
-            preview_view_content.scroll_value = (upper > psize) ? value : 0;
+            preview_view_content.scroll_value = (upper > psize) ? (value/upper) : 0;
         }
 
         private static void widget_unparent (Gtk.Widget widget) {
