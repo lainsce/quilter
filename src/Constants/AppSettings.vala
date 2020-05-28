@@ -28,6 +28,6 @@ namespace Quilter {
         public const int BIG_FONT = 3;
 
         // Typewriter Position
-        public const double TYPEWRITER_POSITION = 0.50;
+        public const double TYPEWRITER_POSITION = 0.55;
     }
 }

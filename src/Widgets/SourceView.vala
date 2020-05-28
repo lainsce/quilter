@@ -22,6 +22,11 @@ namespace Quilter.Widgets {
         public Services.POSFiles pos;
         private static EditView? instance = null;
         public bool should_scroll {get; set; default = false;}
+        public bool should_update_preview { get; set; default = false; }
+        public string scroll_text = "";
+        public double cursor_position = 0;
+        private int last_height = 0;
+        private int last_width = 0;
         public File file;
         public GtkSpell.Checker spell = null;
         private bool spellcheck_active;
@@ -113,6 +118,10 @@ namespace Quilter.Widgets {
                 if (Quilter.Application.gsettings.get_boolean("pos")) {
                     pos_syntax_start ();
                 }
+                if (!should_update_preview) {
+                    Timeout.add (100, update_preview);
+                    should_update_preview = true;
+                }
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -187,13 +196,46 @@ namespace Quilter.Widgets {
                 });
             });
 
+            var rect = Gtk.Allocation ();
+            Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
+            last_width = rect.width;
+            last_height = rect.height;
+
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.right_margin = this.left_margin = 40;
+            this.right_margin = this.left_margin = this.bottom_margin = 40;
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
+        }
+
+        public bool update_preview () {
+            var cursor = buffer.get_insert ();
+            if (cursor != null) {
+                Gtk.TextIter cursor_iter;
+                Gtk.TextIter start, end;
+                buffer.get_bounds (out start, out end);
+
+                buffer.get_iter_at_mark (out cursor_iter, cursor);;
+                scroll_text = buffer.get_text (start, cursor_iter, true);
+                scroll_text += "<span id='quiltmark'></span>";
+                scroll_text += buffer.get_text (cursor_iter, end, true);
+
+                Gdk.Rectangle strong;
+                Gdk.Rectangle weak;
+                this.get_cursor_locations (cursor_iter, out strong, out weak);
+                int win_x, win_y;
+                this.buffer_to_window_coords (Gtk.TextWindowType.WIDGET, strong.x, strong.y, out win_x, out win_y);
+                cursor_position = win_y / (double) last_height;
+                cursor_position = (cursor_position < 0 || cursor_position > 1) ? Constants.TYPEWRITER_POSITION : cursor_position;
+                debug ("Cursor at %d, window %d, %f", win_y, last_height, cursor_position);
+                window.preview_view_content.update_html_view ();
+            }
+
+            should_update_preview = false;
+
+            return false;
         }
 
         private void spellcheck_enable () {

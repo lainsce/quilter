@@ -305,9 +305,6 @@ namespace Quilter {
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view.add (preview_view_content);
-            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
-                ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
-            }
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 

@@ -155,6 +155,19 @@ namespace Quilter {
             }
         }
 
+        private string get_javascript () {
+            string script;
+
+            bool typewriter_active = Quilter.Application.gsettings.get_boolean("typewriter-scrolling");
+
+            script = """const element = document.getElementById('quiltmark');
+            const textOnTop = element.offsetTop;
+            const middle = textOnTop - (window.innerHeight * %f);
+            window.scrollTo(0, middle);""".printf((typewriter_active) ? Constants.TYPEWRITER_POSITION : buf.cursor_position);
+
+            return script;
+        }
+
         private void connect_signals () {
             decide_policy.connect ((decision, type) => {
                 switch (type) {
@@ -251,10 +264,8 @@ namespace Quilter {
 
         public void update_html_view () {
             string processed_mk;
-            Gtk.TextIter start, end;
-            buf.buffer.get_bounds (out start, out end);
-            process_frontmatter (buf.buffer.get_text (start, end, false), out processed_mk);
-            var mkd = new Markdown.Document.from_string (processed_mk.data,
+            process_frontmatter (buf.scroll_text, out processed_mk);
+            var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
                                                          0x00000100 +
                                                          0x00001000 +
                                                          0x00040000 +
@@ -270,15 +281,34 @@ namespace Quilter {
             string cheaders = set_center_headers();
             string latex = set_latex();
             string mermaid = set_mermaid();
-            string font_stylesheet = set_font_stylesheet ();
-            string stylesheet = set_stylesheet ();
-            string markdown = process_plugins (result);
+            string font = set_font_stylesheet ();
+            string style = set_stylesheet ();
+            string js = get_javascript ();
+            string md = process_plugins (result);
+
+            bool focus_active = Quilter.Application.gsettings.get_boolean("focus-mode");
+            bool typewriter_active = Quilter.Application.gsettings.get_boolean("typewriter-scrolling");
+            if (focus_active && typewriter_active) {
+                style += """
+                html {
+                    padding-top: 50%;
+                    padding-bottom: 50%;
+                }
+                """;
+            } else {
+                style += """
+                html {
+                    padding-bottom: 10%;
+                }
+                """;
+            }
+
             html = """
             <!doctype html>
             <html>
                 <head>
                     <meta charset="utf-8">
-                    <style>"%s"</style>
+                    <style>%s</style>
                     %s
                     %s
                     <link rel="stylesheet" href="%s"/>
@@ -286,11 +316,14 @@ namespace Quilter {
                 </head>
                 <body>
                     %s
-                    <div class=\"markdown-body\">
+                    <div class="markdown-body">
                         %s
                     </div>
+                    <script>
+                        %s
+                    </script>
                 </body>
-            </html>""".printf(stylesheet, highlight, latex, font_stylesheet, cheaders, mermaid, markdown);
+            </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md, js);
             this.load_html (html, "file:///");
         }
 
