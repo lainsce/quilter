@@ -82,7 +82,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                stdout.printf ("Quilter 3.0.0 - Copyright 2017-2020 Lains\n");
+                stdout.printf ("Quilter - Copyright 2017-2020 Lains\n");
                 return 0;
             } else {
                 new_win ();

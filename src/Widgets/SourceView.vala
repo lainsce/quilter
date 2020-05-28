@@ -155,8 +155,6 @@ namespace Quilter.Widgets {
                 });
             }
 
-            var gtksettings = Gtk.Settings.get_default ();
-            gtksettings.gtk_application_prefer_dark_theme = Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK;
             update_settings ();
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {

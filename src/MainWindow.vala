@@ -122,7 +122,6 @@ namespace Quilter {
             eadj = edit_view.get_vadjustment ();
             eadj.notify["value"].connect (() => {
                 scroll_to ();
-                print ("Scroll is now at:\t%.13f\n".printf(preview_view_content.scroll_value));
             });
 
             edit_view_content.buffer.changed.connect (() => {

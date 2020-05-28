@@ -37,9 +37,13 @@ namespace Quilter {
             Object(user_content_manager: new WebKit.UserContentManager());
             visible = true;
             this.buf = buf;
-            var settingsweb = get_settings ();
-            settingsweb.enable_page_cache = false;
-            settingsweb.javascript_can_open_windows_automatically = false;
+            var webkit_settings = get_settings ();
+            webkit_settings.enable_page_cache = false;
+            webkit_settings.javascript_can_open_windows_automatically = false;
+            webkit_settings.enable_java = false;
+            webkit_settings.enable_mediasource = true;
+            webkit_settings.enable_plugins = false;
+            webkit_settings.enable_smooth_scrolling = true;
 
             this.scroll_value = -1;
             idle_update_events ();
@@ -178,16 +182,15 @@ namespace Quilter {
         private void idle_update_events () {
             if (id1 > 0) {
                 GLib.Source.remove (id1);
+                id1 = 0;
             }
     
-            id1 = GLib.Idle.add (() => {
-                state_loop ();
-                return true;
-            });
+            id1 = GLib.Idle.add (state_loop);
         }
 
-        public void state_loop () {
+        public bool state_loop () {
             this.run_javascript (get_javascript (), null);
+            return true;
         }
 
         private void connect_signals () {
@@ -216,7 +219,6 @@ namespace Quilter {
                     var rectangle = get_window_properties ().get_geometry ();
                     set_size_request (rectangle.width, rectangle.height);
                 }
-                idle_update_events ();
             });
         }
 
@@ -341,7 +343,6 @@ namespace Quilter {
                     <div class="markdown-body">
                         %s
                     </div>
-                    
                 </body>
             </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md);
             this.load_html (html, "file:///");
