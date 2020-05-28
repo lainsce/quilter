@@ -60,11 +60,6 @@
 				<summary>Tracking type for the Statusbar</summary>
 				<description>The user-preferred tracking to use in Edit in Quilter</description>
 		</key>
-		<key name="shown-view" type="b">
-				<default>true</default>
-				<summary>Font button for Preview</summary>
-				<description>Show (true) or Hide (false) the font button for Preview</description>
-		</key>
         <key name="spellcheck" type="b">
 			    <default>true</default>
 			    <summary>Enable spellcheck</summary>

@@ -21,7 +21,7 @@ using Granite;
 using Granite.Services;
 
 namespace Quilter {
-    public class MainWindow : Hdy.Window {
+    public class MainWindow : Hdy.ApplicationWindow {
         public weak Quilter.Application app { get; construct; }
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
@@ -305,7 +305,9 @@ namespace Quilter {
             preview_view = new Gtk.ScrolledWindow (null, null);
             preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view.add (preview_view_content);
-            ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
+            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
+                ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
+            }
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 
@@ -385,9 +387,7 @@ namespace Quilter {
             if (window_x != -1 || window_y != -1) {
                 this.move (window_x, window_y);
             }
-            if (rect.width != 0 && rect.height != 0) {
-                this.resize (rect.width, rect.height);
-            }
+            this.set_allocation (rect);
 
             update_title ();
             if (Quilter.Application.gsettings.get_string("current-file") != "") {

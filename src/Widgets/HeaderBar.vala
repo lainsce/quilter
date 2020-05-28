@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class Headerbar : Gtk.HeaderBar {
+    public class Headerbar : Hdy.HeaderBar {
         public EditView sourceview;
         public Preview preview;
         public MainWindow win;

@@ -17,10 +17,8 @@
 * Boston, MA 02110-1301 USA
 *
 */
-using WebKit;
-
-namespace Quilter.Widgets {
-    public class Preview : WebKit.WebView {
+namespace Quilter {
+    public class Widgets.Preview : WebKit.WebView {
         private static Preview? instance = null;
         public string html;
         public Widgets.EditView buf;
@@ -34,7 +32,7 @@ namespace Quilter.Widgets {
         }
 
         public Preview (MainWindow window, Widgets.EditView buf) {
-            Object(user_content_manager: new UserContentManager());
+            Object(user_content_manager: new WebKit.UserContentManager());
             visible = true;
             this.buf = buf;
             var settingsweb = get_settings ();
@@ -51,9 +49,9 @@ namespace Quilter.Widgets {
         }
 
         protected override bool context_menu (
-            ContextMenu context_menu,
+            WebKit.ContextMenu context_menu,
             Gdk.Event event,
-            HitTestResult hit_test_result
+            WebKit.HitTestResult hit_test_result
         ) {
             return true;
         }
