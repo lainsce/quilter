@@ -173,6 +173,10 @@
     border-right: 0px solid transparent;
 }
 
+.quilter-dialog-hb {
+    border-bottom: 1px solid alpha (@textColorPrimary, 0.35);
+}
+
 /* <!> Some libHandy Stuff here */
 viewswitcher, viewswitcher button { margin: 0; padding: 0; }
 viewswitcher button { border-radius: 0; border-top: 0; border-bottom: 0; box-shadow: none; font-size: 1rem; }

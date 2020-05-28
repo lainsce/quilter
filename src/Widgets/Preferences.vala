@@ -63,6 +63,9 @@ namespace Quilter.Widgets {
             main_grid.add (main_stack);
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
+
+            var context = this.get_style_context ();
+            context.add_class ("quilter-dialog-hb");
         }
 
         private Gtk.Widget get_editor_grid () {

@@ -65,6 +65,9 @@ namespace Quilter.Widgets {
 
             ((Gtk.Container) get_content_area ()).add (main_grid);
 
+            var context = this.get_style_context ();
+            context.add_class ("quilter-dialog-hb");
+
             this.key_press_event.connect ((e) => {
                 uint keycode = e.hardware_keycode;
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
