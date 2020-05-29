@@ -302,8 +302,8 @@ namespace Quilter.Widgets {
             });
 
             set_show_close_button (true);
-            ellipsize = Pango.EllipsizeMode.START;
-            max_width_chars = 20;
+            this.get_subtitle ().ellipsize = Pango.EllipsizeMode.START;
+            this.get_subtitle ().max_width_chars = 20;
             this.show_all ();
         }
 
