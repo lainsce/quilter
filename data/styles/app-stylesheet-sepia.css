@@ -10,7 +10,6 @@ window.background {
 .quilter-toolbar {
     background: shade(@colorPrimary, 0.95);
     color: @textColorPrimary;
-    box-shadow: 0 1px transparent inset;
 }
 .quilter-sidebar {
     border-bottom-color: transparent;

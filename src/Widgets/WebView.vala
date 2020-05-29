@@ -22,8 +22,19 @@ namespace Quilter {
         private static Preview? instance = null;
         public string html;
         public Widgets.EditView buf;
-        public double scroll_value;
-        private uint id1 = 0;
+        public double scroll_value {
+            set {
+                run_javascript ("""
+                    e = document.documentElement;
+                    canScroll = e.scrollHeight > e.clientHeight;
+                    if (canScroll) {
+                        e.scrollTop = (%.13f * e.scrollHeight);
+                        e.scrollTop;
+                    }
+
+                """.printf(value), null);
+            }
+        }
 
         public static Preview get_instance () {
             if (instance == null) {
@@ -46,7 +57,6 @@ namespace Quilter {
             webkit_settings.enable_smooth_scrolling = true;
 
             this.scroll_value = -1;
-            idle_update_events ();
 
             update_html_view ();
 
@@ -162,35 +172,6 @@ namespace Quilter {
             } else {
                 return "";
             }
-        }
-
-        public string get_javascript () {
-            string script;
-            script = """
-                e = document.documentElement;
-                canScroll = e.scrollHeight > e.clientHeight;
-                if (canScroll) {
-                    e.scrollTop = (%.13f * e.scrollHeight);
-                    e.scrollTop;
-                }
-                
-            """.printf(scroll_value);
-
-            return script;
-        }
-
-        private void idle_update_events () {
-            if (id1 > 0) {
-                GLib.Source.remove (id1);
-                id1 = 0;
-            }
-    
-            id1 = GLib.Idle.add (state_loop);
-        }
-
-        public bool state_loop () {
-            this.run_javascript (get_javascript (), null);
-            return true;
         }
 
         private void connect_signals () {

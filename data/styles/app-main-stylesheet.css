@@ -62,7 +62,11 @@
 
 .quilter-toolbar {
     border-bottom: 1px solid alpha (black, 0.25);
-	border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    margin: 0;
+    margin-right: 6px;
+    margin-left: 6px;
+    padding: 0;
 }
 
 .quilter-sidebar {
@@ -183,6 +187,16 @@
 
 .quilter-dialog-hb headerbar {
     border-bottom: 1px solid alpha (@textColorPrimary, 0.35);
+    margin: 0;
+    padding: 0;
+}
+
+.quilter-dialog-hb headerbar .titlebutton {
+    margin-left: 6px;
+}
+
+.quilter-dialog-hb:dir(rtl) headerbar .titlebutton {
+    margin-right: 6px;
 }
 
 /* <!> Some libHandy Stuff here */

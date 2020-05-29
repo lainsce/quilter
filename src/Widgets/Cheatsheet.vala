@@ -17,14 +17,15 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class Cheatsheet : Gtk.Dialog {
+    public class Cheatsheet : Hdy.Window {
         private Gtk.Stack main_stack;
         private Hdy.ViewSwitcher main_stackswitcher;
+        private Gtk.Grid links_grid;
+        private Gtk.Grid textstyle_grid;
+        private Gtk.Grid tables_grid;
 
         public Cheatsheet (Gtk.Window? parent) {
             Object (
-                border_width: 6,
-                deletable: false,
                 resizable: false,
                 title: _("Cheatsheet"),
                 transient_for: parent,
@@ -35,35 +36,36 @@ namespace Quilter.Widgets {
 
         construct {
             main_stack = new Gtk.Stack ();
-            main_stack.margin = 4;
+            main_stack.margin = 12;
 
             // Let's make a new Dialog design for preferences, follow elementary OS UI cues.
             main_stackswitcher = new Hdy.ViewSwitcher ();
             main_stackswitcher.stack = main_stack;
 
-            main_stack.add_titled (get_textstyle_grid (), "textstyle", _("Text"));
-            main_stack.add_titled (get_links_grid (), "links", _("Links & Special"));
-            main_stack.add_titled (get_tables_grid (), "tables", _("Tables"));
+            get_textstyle_grid ();
+            get_links_grid ();
+            get_tables_grid ();
 
-            // Needs to be CANCEL to follow elementary's close-button-on-left UI.
-            var close_button = add_button ("", Gtk.ResponseType.CANCEL);
-            ((Gtk.Button) close_button).margin = 6;
-            ((Gtk.Button) close_button).set_image (new Gtk.Image.from_icon_name ("window-close", Gtk.IconSize.SMALL_TOOLBAR));
-            ((Gtk.Button) close_button).always_show_image = true;
-            var close_button_context = ((Gtk.Button) close_button).get_style_context ();
-            close_button_context.add_class ("image-button");
-            ((Gtk.Button) close_button).clicked.connect (() => destroy ());
+            main_stack.add_titled (textstyle_grid, "textstyle", _("Text"));
+            main_stack.add_titled (links_grid, "links", _("Links & Special"));
+            main_stack.add_titled (tables_grid, "tables", _("Tables"));
 
-            var prefs_head = this.get_header_bar ();
-            prefs_head.custom_title = main_stackswitcher;
-            this.use_header_bar = 1;
-            //
+            main_stack.child_set_property (textstyle_grid, "icon-name", "font-select-symbolic");
+            main_stack.child_set_property (links_grid, "icon-name", "insert-link-symbolic");
+            main_stack.child_set_property (tables_grid, "icon-name", "view-column-symbolic");
 
-            // Pack everything into the dialog
-            var main_grid = new Gtk.Grid ();
-            main_grid.add (main_stack);
+            var titlebar = new Gtk.HeaderBar ();
+            titlebar.set_custom_title (main_stackswitcher);
+            titlebar.set_show_close_button (true);
 
-            ((Gtk.Container) get_content_area ()).add (main_grid);
+            var window_handle = new Hdy.WindowHandle ();
+            window_handle.add (titlebar);
+
+            var grid = new Gtk.Grid ();
+            grid.attach (window_handle, 0, 0);
+            grid.attach (main_stack, 0, 1);
+
+            add (grid);
 
             var context = this.get_style_context ();
             context.add_class ("quilter-dialog-hb");
@@ -79,8 +81,8 @@ namespace Quilter.Widgets {
             });
         }
 
-        private Gtk.Widget get_textstyle_grid () {
-            var textstyle_grid = new Gtk.Grid ();
+        private void get_textstyle_grid () {
+            textstyle_grid = new Gtk.Grid ();
             textstyle_grid.row_spacing = 6;
             textstyle_grid.column_spacing = 12;
 
@@ -123,12 +125,10 @@ namespace Quilter.Widgets {
             textstyle_grid.attach (sup_font_label , 0, 15, 3, 1);
             textstyle_grid.attach (high_font_label , 0, 16, 3, 1);
             textstyle_grid.attach (checkbox_label , 0, 17, 3, 1);
-
-            return textstyle_grid;
         }
 
-        private Gtk.Widget get_links_grid () {
-            var links_grid = new Gtk.Grid ();
+        private void get_links_grid () {
+            links_grid = new Gtk.Grid ();
             links_grid.row_spacing = 6;
             links_grid.column_spacing = 12;
 
@@ -153,12 +153,10 @@ namespace Quilter.Widgets {
             links_grid.attach (sp_file_label, 0, 7, 3, 1);
             links_grid.attach (lx_label, 0, 8, 3, 1);
             links_grid.attach (mm_label, 0, 9, 3, 1);
-
-            return links_grid;
         }
 
-        private Gtk.Widget get_tables_grid () {
-            var tables_grid = new Gtk.Grid ();
+        private void get_tables_grid () {
+            tables_grid = new Gtk.Grid ();
             tables_grid.row_spacing = 6;
             tables_grid.column_spacing = 12;
 
@@ -173,8 +171,6 @@ namespace Quilter.Widgets {
             tables_grid.attach (table_explain_label, 0, 2, 5, 1);
             tables_grid.attach (table_explain_label2, 0, 3, 5, 1);
             tables_grid.attach (table_explain_label3, 0, 4, 5, 1);
-
-            return tables_grid;
         }
 
         private class Label : Gtk.Label {

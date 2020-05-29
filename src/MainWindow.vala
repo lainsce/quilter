@@ -303,7 +303,9 @@ namespace Quilter {
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             var edit_view_context = edit_view.get_style_context ();
-            edit_view_context.add_class ("quilter-edit-view");
+            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
+                edit_view_context.add_class ("quilter-edit-view");
+            }
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
@@ -468,9 +470,8 @@ namespace Quilter {
         public void scroll_to () {
             Gtk.Adjustment vap = edit_view.get_vadjustment ();
             var upper = vap.get_upper();
-            var psize = vap.get_page_size();
             var value = vap.get_value();
-            preview_view_content.scroll_value = (upper > psize) ? (value/upper) : 0;
+            preview_view_content.scroll_value = value/upper;
         }
 
         private static void widget_unparent (Gtk.Widget widget) {
@@ -495,17 +496,12 @@ namespace Quilter {
         }
 
         private void action_preferences () {
-            var dialog = new Widgets.Preferences (this);
-            dialog.set_modal (true);
-            dialog.transient_for = this;
-            dialog.show_all ();
+            var prefs = new Widgets.Preferences (this);
+            prefs.show_all ();
         }
-
         private void action_cheatsheet () {
-            var dialog = new Widgets.Cheatsheet (this);
-            dialog.set_modal (true);
-            dialog.transient_for = this;
-            dialog.show_all ();
+            var ch = new Widgets.Cheatsheet (this);
+            ch.show_all ();
         }
 
         private void action_export_pdf () {
@@ -594,6 +590,8 @@ namespace Quilter {
                 widget_unparent (preview_view_content);
                 stack.add_titled (edit_view, "edit_view", _("Edit"));
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
+                stack.child_set_property (edit_view, "icon-name", "edit-symbolic");
+                stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
