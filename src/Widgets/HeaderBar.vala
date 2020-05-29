@@ -310,14 +310,15 @@ namespace Quilter.Widgets {
             top_grid = new Gtk.Grid ();
             top_grid.column_homogeneous = true;
             top_grid.hexpand = true;
-            top_grid.row_spacing = 12;
+            top_grid.row_spacing = 6;
             top_grid.attach (color_button_light, 0, 0, 1, 1);
             top_grid.attach (color_button_sepia, 1, 0, 1, 1);
             top_grid.attach (color_button_dark, 2, 0, 1, 1);
             top_grid.attach (focusmode_button, 0, 2, 3, 1);
 
             menu_grid = new Gtk.Grid ();
-            menu_grid.margin_top = menu_grid.margin_bottom = 6;
+            menu_grid.margin_top = 12;
+            menu_grid.margin_bottom = 6;
             menu_grid.column_homogeneous = true;
             menu_grid.row_spacing = 6;
             menu_grid.attach (top_grid, 0, 0);
