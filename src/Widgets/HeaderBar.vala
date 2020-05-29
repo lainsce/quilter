@@ -135,22 +135,6 @@ namespace Quilter.Widgets {
             );
             export_html.add (export_html_accellabel);
 
-            var share_menu_grid = new Gtk.Grid ();
-            share_menu_grid.margin = 6;
-            share_menu_grid.row_spacing = 6;
-            share_menu_grid.column_spacing = 12;
-            share_menu_grid.orientation = Gtk.Orientation.VERTICAL;
-            share_menu_grid.add (export_pdf);
-            share_menu_grid.add (export_html);
-            share_menu_grid.show_all ();
-
-            var share_menu = new Gtk.Popover (null);
-            share_menu.add (share_menu_grid);
-
-            share_app_menu = new Gtk.MenuButton ();
-            share_app_menu.tooltip_text = _("Export");
-            share_app_menu.popover = share_menu;
-
             var cheatsheet = new Gtk.ModelButton ();
             cheatsheet.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET;
             cheatsheet.get_child ().destroy ();
@@ -221,25 +205,29 @@ namespace Quilter.Widgets {
             });
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            var separator2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
             top_grid = new Gtk.Grid ();
             top_grid.column_homogeneous = true;
             top_grid.hexpand = true;
             top_grid.row_spacing = 12;
-            top_grid.margin_top = 6;
+            top_grid.margin_top = top_grid.margin_bottom = 6;
             top_grid.attach (color_button_light, 0, 0, 1, 1);
             top_grid.attach (color_button_sepia, 1, 0, 1, 1);
             top_grid.attach (color_button_dark, 2, 0, 1, 1);
             top_grid.attach (focusmode_button, 0, 2, 3, 1);
 
             menu_grid = new Gtk.Grid ();
-            menu_grid.margin = 6;
+            menu_grid.margin_top = menu_grid.margin_bottom = 6;
             menu_grid.column_homogeneous = true;
             menu_grid.row_spacing = 6;
             menu_grid.attach (top_grid, 0, 0);
             menu_grid.attach (separator, 0, 2);
-            menu_grid.attach (cheatsheet, 0, 3);
-            menu_grid.attach (preferences, 0, 4);
+            menu_grid.attach (export_pdf, 0, 3);
+            menu_grid.attach (export_html, 0, 4);
+            menu_grid.attach (separator2, 0, 5);
+            menu_grid.attach (cheatsheet, 0, 6);
+            menu_grid.attach (preferences, 0, 7);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);
@@ -265,7 +253,6 @@ namespace Quilter.Widgets {
             }
 
             pack_end (menu_button);
-            pack_end (share_app_menu);
             pack_end (search_button);
 
             var prefer_label_button = new Gtk.Button ();

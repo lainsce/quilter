@@ -64,12 +64,15 @@
                 <li>Add: Part of Speech highlighter (BETA)</li>
                 <li>Add: Center or not Preview Headers (h1 to h3)</li>
                 <li>Add: Click on Outline headers to scroll to them</li>
+                <li>Change: Export options now live in the Cog menu</li>
+                <li>Change: Preferences & Cheatsheet now have a new intuitive look</li>
                 <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>
                 <li>Change: Preferences tabs were re-organized</li>
                 <li>Move: Preview font selection to Preferences</li>
                 <li>Move: Searchbar to above Editor only</li>
                 <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
-                <li>Fix: Spellchecking styling.</li>
+                <li>Fix: Spellchecking styling</li>
+                <li>Fix: Sync scrolling now uses less Processor & RAM</li>
                 <li>Fix: Exported PDF margins</li>
                 <li>Fix: Many style fixes for Odin</li>
                 <li>Fix: Many minor backend fixes</li>
