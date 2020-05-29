@@ -294,44 +294,52 @@ namespace Quilter.Widgets {
             interface_grid.set_column_homogeneous (false);
 
             var mode_header = new Granite.HeaderLabel (_("Modes"));
-            var color_button_light = new Gtk.Button ();
-            var color_button_light_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_light.set_image (color_button_light_icon);
+            var color_button_light = new Gtk.RadioButton (null);
             color_button_light.halign = Gtk.Align.CENTER;
-            color_button_light.height_request = 64;
-            color_button_light.width_request = 64;
+            color_button_light.height_request = 40;
+            color_button_light.width_request = 40;
+            color_button_light.tooltip_text = _("Light Mode");
 
             var color_button_light_context = color_button_light.get_style_context ();
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_light_text = new Gtk.Label (_("Light Mode"));
-
-            var color_button_sepia = new Gtk.Button ();
-            var color_button_sepia_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_sepia.set_image (color_button_sepia_icon);
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_sepia.halign = Gtk.Align.CENTER;
-            color_button_sepia.height_request = 64;
-            color_button_sepia.width_request = 64;
+            color_button_sepia.height_request = 40;
+            color_button_sepia.width_request = 40;
+            color_button_sepia.tooltip_text = _("Sepia Mode");
 
             var color_button_sepia_context = color_button_sepia.get_style_context ();
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
-
-            var color_button_dark = new Gtk.Button ();
-            var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_dark.set_image (color_button_dark_icon);
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_dark.halign = Gtk.Align.CENTER;
-            color_button_dark.height_request = 64;
-            color_button_dark.width_request = 64;
+            color_button_dark.height_request = 40;
+            color_button_dark.width_request = 40;
+            color_button_dark.tooltip_text = _("Dark Mode");
 
             var color_button_dark_context = color_button_dark.get_style_context ();
             color_button_dark_context.add_class ("color-button");
             color_button_dark_context.add_class ("color-dark");
 
-            var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
+            var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
+
+            switch (mode_type) {
+                case "":
+                    color_button_light.set_active (true);
+                    break;
+                case "sepia":
+                    color_button_sepia.set_active (true);
+                    break;
+                case "dark":
+                    color_button_dark.set_active (true);
+                    break;
+                default:
+                    color_button_light.set_active (true);
+                    break;
+            }
 
             color_button_dark.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "dark");
@@ -344,6 +352,12 @@ namespace Quilter.Widgets {
             color_button_light.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
+
+            var color_button_light_text = new Gtk.Label (_("Light Mode"));
+
+            var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
+
+            var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
 
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");

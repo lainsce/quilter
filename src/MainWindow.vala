@@ -47,6 +47,7 @@ namespace Quilter {
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_PREFS = "action_preferences";
+        public const string ACTION_FOCUS = "action_focus";
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -55,6 +56,7 @@ namespace Quilter {
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
+            { ACTION_FOCUS, action_focus },
             { ACTION_EXPORT_PDF, action_export_pdf },
             { ACTION_EXPORT_HTML, action_export_html }
         };
@@ -208,17 +210,6 @@ namespace Quilter {
                 if (match_keycode (Gdk.Key.F11, keycode)) {
                         is_fullscreen = !is_fullscreen;
                 }
-                if (match_keycode (Gdk.Key.F1, keycode)) {
-                    debug ("Press to change view...");
-                    if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                        if (this.stack.get_visible_child_name () == "preview_view") {
-                            this.stack.set_visible_child (this.edit_view);
-                        } else if (this.stack.get_visible_child_name () == "edit_view") {
-                            this.stack.set_visible_child (this.box);
-                        }
-                    }
-                    return true;
-                }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@1, keycode)) {
                         debug ("Press to change view...");
@@ -232,15 +223,6 @@ namespace Quilter {
                         return true;
                     }
                 }
-                if (match_keycode (Gdk.Key.F2, keycode)) {
-                    debug ("Press to change view...");
-                    if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                        Quilter.Application.gsettings.set_boolean("sidebar", false);
-                    } else {
-                        Quilter.Application.gsettings.set_boolean("sidebar", true);
-                    }
-                    return true;
-                }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@2, keycode)) {
                         debug ("Press to change view...");
@@ -248,6 +230,17 @@ namespace Quilter {
                             Quilter.Application.gsettings.set_boolean("sidebar", false);
                         } else {
                             Quilter.Application.gsettings.set_boolean("sidebar", true);
+                        }
+                        return true;
+                    }
+                }
+                if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
+                    if (match_keycode (Gdk.Key.@3, keycode)) {
+                        debug ("Press to change view...");
+                        if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
+                            Quilter.Application.gsettings.set_boolean("focus-mode", false);
+                        } else {
+                            Quilter.Application.gsettings.set_boolean("focus-mode", true);
                         }
                         return true;
                     }
@@ -262,6 +255,7 @@ namespace Quilter {
             action_accelerators.set (ACTION_CHEATSHEET, "<Control>h");
             action_accelerators.set (ACTION_EXPORT_HTML, "<Control>g");
             action_accelerators.set (ACTION_EXPORT_PDF, "<Control>p");
+            action_accelerators.set (ACTION_FOCUS, "<Control>3");
         }
 
         construct {
@@ -509,6 +503,9 @@ namespace Quilter {
         private void action_cheatsheet () {
             var ch = new Widgets.Cheatsheet (this);
             ch.show_all ();
+        }
+        private void action_focus () {
+            Quilter.Application.gsettings.set_boolean("focus-mode", true);
         }
 
         private void action_export_pdf () {

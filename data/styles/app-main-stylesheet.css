@@ -1,42 +1,37 @@
-.color-dark {
-    background-color: #151515;
-    border: 1px solid #444;
+.color-button radio,
+.color-button radio:checked {
+    border-color: alpha (#000, 0.3);
+    box-shadow:
+        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
+    padding: 10px;
+    -gtk-icon-shadow: none;
 }
 
-.color-dark:active {
-    border-color: #0DBCEE;
-    transition: all 100ms ease-out;
+.color-button radio:focus {
+    border-color: @colorAccent;
+    box-shadow:
+        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
+        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
+        inset 0 0 0 1px alpha (@bg_highlight_color, 0.05),
+        0 1px 0 0 alpha (@bg_highlight_color, 0.3),
+        0 0 0 1px alpha (@colorAccent, 0.25);
 }
 
-.color-dark image {
-    color: white;
+.color-dark radio {
+    background: #151515;
+    border-color: @BLACK_700;
+    color: #a5a5a5;
 }
 
-.color-light {
-    background-color: #F7F7F7;
-    border: 1px solid alpha(black, 0.2);
+.color-light radio {
+    background: #f7f7f7;
+    color: #151515;
 }
 
-.color-light:active {
-    border-color: #0EBAFB;
-    transition: all 100ms ease-out;
-}
-
-.color-light image {
-    color: black;
-}
-
-.color-sepia {
-    background-color: #F0E8DD;
-    border: 1px solid #D0C6BB;
-}
-
-.color-sepia:active {
-    border-color: #00897b;
-    transition: all 100ms ease-out;
-}
-
-.color-sepia image {
+.color-sepia radio {
+    background: #F0E8DD;
     color: #5D4738;
 }
 
@@ -163,18 +158,20 @@
 }
 
 .sep {
-    background: linear-gradient(90deg, alpha(black, 0),
-                                       alpha(black, 0.05),
-                                       alpha(black, 0.10),
-                                       alpha(black, 0.15),
-                                       alpha(black, 0.10),
-                                       alpha(black, 0.05),
-                                       alpha(black, 0));
-    padding: 1px;
+    border-top: 1px solid alpha (@textColorPrimary, 0.15);
+    margin-bottom: -7px;
 }
 
 .subtitle {
     font-size: smaller;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+label:insensitive {
+    opacity: 0.8;
 }
 
 .quilter-edit-view {
@@ -186,7 +183,7 @@
 }
 
 .quilter-dialog-hb headerbar {
-    border-bottom: 1px solid @menu_separator;
+    border-bottom: 1px solid alpha (black, 0.25);
     margin: 0;
     padding: 0;
 }

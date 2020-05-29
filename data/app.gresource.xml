@@ -6,7 +6,6 @@
         <file alias="app-stylesheet.css" compressed="true">styles/app-stylesheet.css</file>
         <file alias="app-stylesheet-dark.css" compressed="true">styles/app-stylesheet-dark.css</file>
         <file alias="app-stylesheet-sepia.css" compressed="true">styles/app-stylesheet-sepia.css</file>
-        <file alias="mode-change-symbolic.svg">icons/symbolic/mode-change-symbolic.svg</file>
         <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
     </gresource>
 </gresources>

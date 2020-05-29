@@ -33,7 +33,7 @@ namespace Quilter.Widgets {
         private Gtk.Button save_as_button;
         public Gtk.ToggleButton search_button;
         private Gtk.MenuButton menu_button;
-        private Gtk.MenuButton share_app_menu;
+        private Gtk.MenuButton pmenu_button;
         private Gtk.Grid menu_grid;
         private Gtk.Grid top_grid;
 
@@ -148,8 +148,7 @@ namespace Quilter.Widgets {
             preferences.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_PREFS;
             preferences.text = _("Preferences");
 
-            var color_button_light = new Gtk.Button ();
-            color_button_light.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            var color_button_light = new Gtk.RadioButton (null);
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 40;
             color_button_light.width_request = 40;
@@ -159,8 +158,7 @@ namespace Quilter.Widgets {
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_sepia = new Gtk.Button ();
-            color_button_sepia.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 40;
             color_button_sepia.width_request = 40;
@@ -170,8 +168,7 @@ namespace Quilter.Widgets {
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_dark = new Gtk.Button ();
-            color_button_dark.set_image (new Gtk.Image.from_icon_name ("format-justify-fill-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 40;
             color_button_dark.width_request = 40;
@@ -180,6 +177,23 @@ namespace Quilter.Widgets {
             var color_button_dark_context = color_button_dark.get_style_context ();
             color_button_dark_context.add_class ("color-button");
             color_button_dark_context.add_class ("color-dark");
+
+            var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
+
+            switch (mode_type) {
+                case "":
+                    color_button_light.set_active (true);
+                    break;
+                case "sepia":
+                    color_button_sepia.set_active (true);
+                    break;
+                case "dark":
+                    color_button_dark.set_active (true);
+                    break;
+                default:
+                    color_button_light.set_active (true);
+                    break;
+            }
 
             color_button_dark.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "dark");
@@ -193,55 +207,114 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
-            var focusmode_button = new Gtk.Button.with_label ((_("Focus Mode")));
-            focusmode_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            focusmode_button.set_always_show_image (true);
-            focusmode_button.tooltip_text = _("Enter focus mode");
-            focusmode_button.margin_start = 15;
-            focusmode_button.margin_end = 15;
+            var focusmode_button = new Gtk.ModelButton ();
+            focusmode_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_FOCUS;
+            focusmode_button.get_child ().destroy ();
+            var focusmode_button_accellabel = new Granite.AccelLabel.from_action_name (
+                _("Focus Mode…"),
+                MainWindow.ACTION_PREFIX + MainWindow.ACTION_FOCUS
+            );
+            focusmode_button.add (focusmode_button_accellabel);
 
             focusmode_button.clicked.connect (() => {
-    			Quilter.Application.gsettings.set_boolean("focus-mode", true);
+                Quilter.Application.gsettings.set_boolean("focus-mode", true);
             });
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            var separator_cx = separator.get_style_context ();
+            separator_cx.add_class ("sep");
+
             var separator2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
+            var separator2_cx = separator2.get_style_context ();
+            separator2_cx.add_class ("sep");
 
 
-            var preview_full_button = new Gtk.Button.with_label ((_("Full-Width")));
-            var preview_half_button = new Gtk.Button.with_label ((_("Half-Width")));
-    
-            preview_full_button.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("preview-type", "full");
+            //_("Full-Width\nFull Editor, change with switcher")
+            var preview_full_label_title = new Gtk.Label (_("Full-Width"));
+            preview_full_label_title.halign = Gtk.Align.START;
+            var preview_full_label_title_context = preview_full_label_title.get_style_context ();
+            preview_full_label_title_context.add_class ("bold");
+            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change with switcher"));
+            preview_full_label_subtitle.halign = Gtk.Align.START;
+            preview_full_label_subtitle.sensitive = false;
+            var preview_full_button = new Gtk.RadioButton.from_widget (null);
+            preview_full_button.valign = Gtk.Align.START;
+	        preview_full_button.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("preview-type", "full");
             });
+            var preview_full_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            preview_full_label_box.add (preview_full_label_title);
+            preview_full_label_box.add (preview_full_label_subtitle);
 
-            preview_half_button.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("preview-type", "half");
-            });
+            var preview_full_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            preview_full_box.add (preview_full_button);
+            preview_full_box.add (preview_full_label_box);
 
-            var preview_box = new Gtk.Grid ();
-            preview_box.margin_start = 15;
-            preview_box.margin_end = 15;
-            preview_box.column_homogeneous = true;
-            preview_box.hexpand = true;
-            var preview_box_context = preview_box.get_style_context ();
-            preview_box_context.add_class ("linked");
-            preview_box.add (preview_full_button);
-            preview_box.add (preview_half_button);
 
-            var prev_label = new Label (_("<b>Width Mode:</b>"));
+            var preview_half_label_title = new Gtk.Label (_("Half-Width"));
+            preview_half_label_title.halign = Gtk.Align.START;
+            var preview_half_label_title_context = preview_half_label_title.get_style_context ();
+            preview_half_label_title_context.add_class ("bold");
+            var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally"));
+            preview_half_label_subtitle.halign = Gtk.Align.START;
+            preview_half_label_subtitle.sensitive = false;
+            var preview_half_button = new Gtk.RadioButton.from_widget (preview_full_button);
+            preview_half_button.valign = Gtk.Align.START;
+	        preview_half_button.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("preview-type", "half");
+	        });
+            preview_full_button.set_active (true);
+
+            var prev_type = Quilter.Application.gsettings.get_string("preview-type");
+
+            switch (prev_type) {
+                case "half":
+                    preview_half_button.set_active (true);
+                    break;
+                case "full":
+                    preview_full_button.set_active (true);
+                    break;
+                default:
+                    preview_half_button.set_active (true);
+                    break;
+            }
+
+            var preview_half_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            preview_half_label_box.add (preview_half_label_title);
+            preview_half_label_box.add (preview_half_label_subtitle);
+
+            var preview_half_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            preview_half_box.add (preview_half_button);
+            preview_half_box.add (preview_half_label_box);
+
+            var preview_grid = new Gtk.Grid ();
+            preview_grid.column_homogeneous = true;
+            preview_grid.hexpand = true;
+            preview_grid.margin = 6;
+            preview_grid.row_spacing = 12;
+            preview_grid.attach (preview_full_box, 0, 0, 1, 1);
+            preview_grid.attach (preview_half_box, 0, 1, 1, 1);
+            preview_grid.show_all ();
+
+            var pmenu = new Gtk.Popover (null);
+            pmenu.add (preview_grid);
+
+            pmenu_button = new Gtk.MenuButton ();
+            pmenu_button.has_tooltip = true;
+            pmenu_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>1"},
+                _("Interface Modes")
+            );
+            pmenu_button.popover = pmenu;
 
             top_grid = new Gtk.Grid ();
             top_grid.column_homogeneous = true;
             top_grid.hexpand = true;
             top_grid.row_spacing = 12;
-            top_grid.margin_top = top_grid.margin_bottom = 6;
             top_grid.attach (color_button_light, 0, 0, 1, 1);
             top_grid.attach (color_button_sepia, 1, 0, 1, 1);
             top_grid.attach (color_button_dark, 2, 0, 1, 1);
             top_grid.attach (focusmode_button, 0, 2, 3, 1);
-            top_grid.attach (prev_label, 0, 3, 3, 1);
-            top_grid.attach (preview_box, 0, 4, 3, 1);
 
             menu_grid = new Gtk.Grid ();
             menu_grid.margin_top = menu_grid.margin_bottom = 6;
@@ -279,6 +352,7 @@ namespace Quilter.Widgets {
             }
 
             pack_end (menu_button);
+            pack_end (pmenu_button);
             pack_end (search_button);
 
             var prefer_label_button = new Gtk.Button ();
@@ -324,17 +398,8 @@ namespace Quilter.Widgets {
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-            share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-reveal-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-        }
-    }
-
-    private class Label : Gtk.Label {
-        public Label (string text) {
-            label = text;
-            halign = Gtk.Align.START;
-            margin_start = 12;
-            use_markup = true;
         }
     }
 }
