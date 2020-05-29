@@ -176,6 +176,10 @@
     padding: 1px;
 }
 
+.subtitle {
+    font-size: smaller;
+}
+
 .quilter-sb-switcher * {
     border-top: 0px solid transparent;
     border-left: 0px solid transparent;
