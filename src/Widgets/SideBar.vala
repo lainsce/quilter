@@ -28,7 +28,7 @@ namespace Quilter.Widgets {
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
-        private Gtk.StackSwitcher stackswitcher;
+        private Hdy.ViewSwitcher stackswitcher;
         public Gtk.TreeStore store;
         public Gtk.TreeView view;
         public Gtk.TreeSelection selection;
@@ -73,13 +73,7 @@ namespace Quilter.Widgets {
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stackswitcher = new Gtk.StackSwitcher ();
-            var s_context = stackswitcher.get_style_context ();
-            s_context.add_class ("linked");
-            s_context.add_class ("quilter-sb-switcher");
-            stackswitcher.halign = Gtk.Align.FILL;
-            stackswitcher.homogeneous = true;
-            stackswitcher.margin = 0;
+            stackswitcher = new Hdy.ViewSwitcher ();
             stackswitcher.stack = stack;
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");

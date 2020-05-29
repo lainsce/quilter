@@ -207,6 +207,30 @@ namespace Quilter.Widgets {
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             var separator2 = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
 
+
+            var preview_full_button = new Gtk.Button.with_label ((_("Full-Width")));
+            var preview_half_button = new Gtk.Button.with_label ((_("Half-Width")));
+    
+            preview_full_button.clicked.connect (() => {
+                Quilter.Application.gsettings.set_string("preview-type", "full");
+            });
+
+            preview_half_button.clicked.connect (() => {
+                Quilter.Application.gsettings.set_string("preview-type", "half");
+            });
+
+            var preview_box = new Gtk.Grid ();
+            preview_box.margin_start = 15;
+            preview_box.margin_end = 15;
+            preview_box.column_homogeneous = true;
+            preview_box.hexpand = true;
+            var preview_box_context = preview_box.get_style_context ();
+            preview_box_context.add_class ("linked");
+            preview_box.add (preview_full_button);
+            preview_box.add (preview_half_button);
+
+            var prev_label = new Label (_("<b>Width Mode:</b>"));
+
             top_grid = new Gtk.Grid ();
             top_grid.column_homogeneous = true;
             top_grid.hexpand = true;
@@ -216,6 +240,8 @@ namespace Quilter.Widgets {
             top_grid.attach (color_button_sepia, 1, 0, 1, 1);
             top_grid.attach (color_button_dark, 2, 0, 1, 1);
             top_grid.attach (focusmode_button, 0, 2, 3, 1);
+            top_grid.attach (prev_label, 0, 3, 3, 1);
+            top_grid.attach (preview_box, 0, 4, 3, 1);
 
             menu_grid = new Gtk.Grid ();
             menu_grid.margin_top = menu_grid.margin_bottom = 6;
@@ -300,6 +326,15 @@ namespace Quilter.Widgets {
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
             share_app_menu.image = new Gtk.Image.from_icon_name ("document-export-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+        }
+    }
+
+    private class Label : Gtk.Label {
+        public Label (string text) {
+            label = text;
+            halign = Gtk.Align.START;
+            margin_start = 12;
+            use_markup = true;
         }
     }
 }

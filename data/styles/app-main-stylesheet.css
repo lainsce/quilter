@@ -41,7 +41,10 @@
 }
 
 .statusbar {
-    border-top: 1px solid alpha (black, 0.25);
+    background-color: @colorPrimary;
+	box-shadow: none;
+	border: none;
+    padding: 6px;
     border-radius: 0 0 6px 6px;
 }
 
@@ -70,8 +73,8 @@
 }
 
 .quilter-toolbar .image-button {
-    margin-top: 6px;
-    margin-bottom: 6px;
+    margin-top: 7px;
+    margin-bottom: 7px;
 }
 
 .quilter-sidebar {
@@ -81,6 +84,7 @@
 
 .quilter-sidebar button.radio {
     border-radius: 0;
+    border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .rounded .quilter-sidebar {
@@ -88,7 +92,6 @@
 }
 
 .quilter-sidebar-button {
-    background: alpha (mix (@bg_color, @fg_color, 0.5), 0.38);
     border: 1px solid alpha (black, 0.25);
     border-radius: 50%;
     padding: 6px;
@@ -131,12 +134,7 @@
 }
 
 .quilter-menu {
-    background: shade(@colorPrimary, 0.95);
-    color: @textColorPrimary;
     border: 1px solid alpha (@textColorPrimary, 0);
-    background-image: none;
-    padding: 3px;
-    border-radius: 6px;
 }
 
 .quilter-menu:hover {
@@ -144,10 +142,9 @@
 }
 
 .quilter-cbt button {
-    background: shade(@colorPrimary, 0.95);
+    background: none;
     color: @textColorPrimary;
     border: 1px solid alpha (@textColorPrimary, 0);
-    background-image: none;
 	box-shadow: none;
 	border-radius: 6px;
 }
@@ -178,12 +175,6 @@
 
 .subtitle {
     font-size: smaller;
-}
-
-.quilter-sb-switcher * {
-    border-top: 0px solid transparent;
-    border-left: 0px solid transparent;
-    border-right: 0px solid transparent;
 }
 
 .quilter-edit-view {

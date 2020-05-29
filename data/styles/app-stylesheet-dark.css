@@ -4,11 +4,11 @@
 @define-color accent_color_500 #0DBCEE;
 
 window.background {
-    background: mix(@colorPrimary, #000, 0.25);
+    background: @colorPrimary;
 }
 
 .quilter-toolbar {
-    background: mix(@colorPrimary, #333, 0.25);
+    background: @colorPrimary, #333, 0.25);
     color: @textColorPrimary;
 }
 .quilter-sidebar {
@@ -28,23 +28,6 @@ window.background {
 .quilter-task-button image {
     color: @textColorPrimary;
     -gtk-icon-shadow: 1px 1px transparent;
-}
-
-actionbar,
-.action-bar {
-    background: mix(@colorPrimary, #333, 0.25);
-    color: @textColorPrimary;
-    box-shadow: 0 1px transparent inset;
-}
-
-.quilter-menu:hover,
-.quilter-menu:backdrop:active {
-    background-color: alpha (@accent_color_500, 0.35);
-}
-
-.quilter-cbt button:hover,
-.quilter-cbt button:backdrop:active {
-    background-color: alpha (@accent_color_500, 0.35);
 }
 
 .quilter-sidebar-box {

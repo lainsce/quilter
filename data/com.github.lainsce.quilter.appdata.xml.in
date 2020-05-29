@@ -69,7 +69,8 @@
                 <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>
                 <li>Change: Preferences tabs were re-organized</li>
                 <li>Move: Preview font selection to Preferences</li>
-                <li>Move: Searchbar to above Editor only</li>
+                <li>Move: Statusbar to below Editor only</li>
+                <li>Move: Change Width Mode in the Cog Menu</li>
                 <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
                 <li>Fix: Spellchecking styling</li>
                 <li>Fix: Sync scrolling now uses less Processor &amp; RAM</li>

@@ -197,7 +197,8 @@ namespace Quilter.Widgets {
 
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
-            this.right_margin = this.left_margin = this.bottom_margin = 40;
+            this.right_margin = this.left_margin = 40;
+            this.bottom_margin = 70;
             this.has_focus = true;
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
@@ -362,8 +363,8 @@ namespace Quilter.Widgets {
                 this.bottom_margin = (int)(rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
                 this.top_margin = (int)(rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
-                this.top_margin = 30;
-                this.bottom_margin = 30;
+                this.top_margin = 45;
+                this.bottom_margin = 70;
             }
         }
 

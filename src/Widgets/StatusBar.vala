@@ -42,7 +42,7 @@ namespace Quilter {
 
             var side_button = new Gtk.ToggleButton ();
             side_button.has_tooltip = true;
-            side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             side_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {"F2"},
                 _("Show/Hide Sidebar")
@@ -62,13 +62,11 @@ namespace Quilter {
     				Quilter.Application.gsettings.set_boolean("sidebar", false);
                     side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
     			}
-
             });
+
             actionbar.pack_start (side_button);
 
             track_type_menu_item ();
-
-            preview_type_menu_item ();
 
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 update_wordcount ();
@@ -90,36 +88,6 @@ namespace Quilter {
                     this.reveal_child = true;
                 }
             });
-        }
-
-        public void preview_type_menu_item () {
-
-
-            var preview_cbt = new Gtk.ComboBoxText();
-            preview_cbt.append_text((_("Full-Width")));
-            preview_cbt.append_text((_("Half-Width")));
-
-            if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                preview_cbt.set_active(0);
-                Quilter.Application.gsettings.set_string("preview-type", "full");
-            } else if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
-                preview_cbt.set_active(1);
-                Quilter.Application.gsettings.set_string("preview-type", "half");
-            }
-
-            preview_cbt.changed.connect (() => {
-                var pcbt_value = preview_cbt.get_active();
-                if (pcbt_value == 0) {
-                    Quilter.Application.gsettings.set_string("preview-type", "full");
-                } else if (pcbt_value == 1) {
-                    Quilter.Application.gsettings.set_string("preview-type", "half");
-                }
-            });
-
-            var preview_cbt_context = preview_cbt.get_style_context ();
-            preview_cbt_context.add_class ("quilter-cbt");
-            preview_cbt_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            actionbar.pack_end (preview_cbt);
         }
 
         public void track_type_menu_item () {

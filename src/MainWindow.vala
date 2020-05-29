@@ -42,6 +42,7 @@ namespace Quilter {
         public Gtk.Adjustment eadj;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
+        public Gtk.Grid overlay_editor;
         public SimpleActionGroup actions { get; construct; }
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
@@ -307,6 +308,7 @@ namespace Quilter {
                 edit_view_context.add_class ("quilter-edit-view");
             }
             edit_view_content = new Widgets.EditView (this);
+            edit_view_content.expand = true;
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
 
@@ -332,6 +334,13 @@ namespace Quilter {
             box = new Gtk.Grid ();
             box.column_homogeneous = true;
             box.expand = true;
+            
+            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
+
+            overlay_editor = new Gtk.Grid ();
+            overlay_editor.orientation = Gtk.Orientation.VERTICAL;
+            overlay_editor.add (edit_view);
+            overlay_editor.add (statusbar);
 
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
@@ -341,7 +350,6 @@ namespace Quilter {
 
             change_layout ();
 
-            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
@@ -354,7 +362,6 @@ namespace Quilter {
             grid.attach (sidebar, 0, 1, 1, 1);
             grid.attach (searchbar, 0, 0, 2, 1);
             grid.attach (main_stack, 1, 1, 1, 1);
-            grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
 
             overlay_button_revealer = new Gtk.Revealer ();
@@ -586,20 +593,20 @@ namespace Quilter {
 
         private void change_layout () {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                widget_unparent (edit_view);
+                widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
-                stack.add_titled (edit_view, "edit_view", _("Edit"));
+                stack.add_titled (overlay_editor, "overlay_editor", _("Edit"));
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
-                stack.child_set_property (edit_view, "icon-name", "edit-symbolic");
+                stack.child_set_property (overlay_editor, "icon-name", "edit-symbolic");
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);
                 }
-                widget_unparent (edit_view);
+                widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
-                box.attach (edit_view, 0, 0);
+                box.attach (overlay_editor, 0, 0);
                 box.attach (preview_view_content, 1, 0);
                 main_stack.set_visible_child (box);
             }

@@ -32,23 +32,6 @@ window.background {
     -gtk-icon-shadow: 1px 1px transparent;
 }
 
-actionbar,
-.action-bar {
-    background: shade(@colorPrimary, 0.95);
-    color: @textColorPrimary;
-    box-shadow: 0 1px transparent inset;
-}
-
-.quilter-menu:hover,
-.quilter-menu:backdrop:active {
-    background-color: alpha (@accent_color_500, 0.35);
-}
-
-.quilter-cbt button:hover,
-.quilter-cbt button:backdrop:active {
-    background-color: alpha (@accent_color_500, 0.35);
-}
-
 .quilter-sidebar-box {
   background: shade (@colorPrimary, 1.2);
 }
