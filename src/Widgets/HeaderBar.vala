@@ -27,8 +27,8 @@ namespace Quilter.Widgets {
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton pmenu_button;
         public EditView sourceview;
-        public Gtk.StackSwitcher view_mode;
         public Gtk.ToggleButton search_button;
+        public Hdy.ViewSwitcher view_mode;
         public MainWindow win;
         public Preview preview;
         public signal void create_new ();
@@ -351,13 +351,11 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_boolean("autosave", false);
             }
 
-            view_mode = new Gtk.StackSwitcher ();
+            view_mode = new Hdy.ViewSwitcher ();
             var view_mode_context = view_mode.get_style_context ();
             view_mode_context.add_class ("linked");
             view_mode_context.add_class ("sb-stackswitcher");
-            
             view_mode.valign = Gtk.Align.CENTER;
-            view_mode.homogeneous = true;
             view_mode.tooltip_markup = Granite.markup_accel_tooltip (
                 {"F1"},
                 _("Change view")

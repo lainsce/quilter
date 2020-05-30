@@ -311,7 +311,8 @@ namespace Quilter {
 
             toolbar.view_mode.stack = stack;
 
-            box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            box.homogeneous = true;
             box.expand = true;
             
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
@@ -577,7 +578,9 @@ namespace Quilter {
                 widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
                 stack.add_titled (overlay_editor, "overlay_editor", _("Edit"));
+                stack.child_set_property (overlay_editor, "icon-name", "text-x-generic-symbolic");
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
+                stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {

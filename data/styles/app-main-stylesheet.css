@@ -44,6 +44,10 @@
     border-radius: 0 0 6px 6px;
 }
 
+.statusbar box {
+    padding-left: 0;
+}
+
 .full-bar {
     border-top: 1px solid transparent;
     background-color: transparent;
@@ -178,14 +182,6 @@
 
 label:insensitive {
     opacity: 0.8;
-}
-
-.quilter-edit-view {
-    border-right: 1px solid alpha (@textColorPrimary, 0.25);
-}
-
-.quilter-edit-view:dir(rtl) {
-    border-left: 1px solid alpha (@textColorPrimary, 0.25);
 }
 
 .quilter-dialog-hb headerbar {
