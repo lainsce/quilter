@@ -62,6 +62,8 @@ window.background {
 }
 
 .quilter-menu {
+  border-radius: 99999px;
+  -gtk-outline-radius: 99999px;
   background-color: #E8E8E8;
   border: 1px solid #E8E8E8;
 }

@@ -18,6 +18,10 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Hdy.HeaderBar {
+        private Gtk.Button new_button;
+        private Gtk.Button open_button;
+        private Gtk.Button save_as_button;
+        private Gtk.Button save_button;
         private Gtk.Grid menu_grid;
         private Gtk.Grid top_grid;
         private Gtk.MenuButton menu_button;
@@ -25,9 +29,13 @@ namespace Quilter.Widgets {
         public Gtk.ToggleButton side_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
-        public Hdy.ViewSwitcher view_mode;
+        public Gtk.ToggleButton view_mode;
         public MainWindow win;
         public Preview preview;
+        public signal void create_new ();
+        public signal void open ();
+        public signal void save ();
+        public signal void save_as ();
 
         public Headerbar (MainWindow win) {
             this.win = win;
@@ -35,12 +43,55 @@ namespace Quilter.Widgets {
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
 
+            if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+                header_context.add_class ("quilter-toolbar-main");
+            } else {
+                header_context.remove_class ("quilter-toolbar-main");
+            }
+
             build_ui ();
             icons_toolbar ();
         }
 
         private void build_ui () {
             set_title (null);
+
+            new_button = new Gtk.Button ();
+            new_button.has_tooltip = true;
+            new_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>n"},
+                _("New file")
+            );
+
+            new_button.clicked.connect (() => create_new ());
+
+            save_as_button = new Gtk.Button ();
+            save_as_button.has_tooltip = true;
+            save_as_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl><Shift>s"},
+                _("Save as…")
+            );
+
+            save_as_button.clicked.connect (() => save_as ());
+
+            save_button = new Gtk.Button ();
+            save_button.has_tooltip = true;
+            save_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>s"},
+                _("Save file")
+            );
+
+            save_button.clicked.connect (() => save ());
+
+            open_button = new Gtk.Button ();
+			open_button.has_tooltip = true;
+            open_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>o"},
+                _("Open…")
+            );
+
+            open_button.clicked.connect (() => open ());
+
             string cache = Services.FileManager.get_cache_path ();
             if (this.subtitle != cache) {
                 set_subtitle (Quilter.Application.gsettings.get_string("current-file"));
@@ -191,7 +242,7 @@ namespace Quilter.Widgets {
             preview_full_label_title.halign = Gtk.Align.START;
             var preview_full_label_title_context = preview_full_label_title.get_style_context ();
             preview_full_label_title_context.add_class ("bold");
-            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change with switcher"));
+            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change with Eye button"));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
             var preview_full_button = new Gtk.RadioButton.from_widget (null);
@@ -295,41 +346,44 @@ namespace Quilter.Widgets {
             menu_button.tooltip_text = (_("Settings"));
             menu_button.popover = menu;
 
-            view_mode = new Hdy.ViewSwitcher ();
-            var view_mode_context = view_mode.get_style_context ();
-            view_mode_context.add_class ("linked");
-            view_mode_context.add_class ("sb-stackswitcher");
-            view_mode.valign = Gtk.Align.CENTER;
+            view_mode = new Gtk.ToggleButton ();
+            view_mode.has_tooltip = true;
             view_mode.tooltip_markup = Granite.markup_accel_tooltip (
-                {"F1"},
-                _("Change view")
+                {"<Ctrl>3"},
+                _("Switch Editor/Preview")
             );
+
+            if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
+                view_mode.set_active (false);
+            } else {
+                view_mode.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
+            }
 
             side_button = new Gtk.ToggleButton ();
             side_button.has_tooltip = true;
             side_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"F2"},
+                {"<Ctrl>2"},
                 _("Show/Hide Sidebar")
             );
 
             if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
                 side_button.set_active (false);
-                side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.BUTTON));
             } else {
                 side_button.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
-                side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.BUTTON));
             }
 
             side_button.toggled.connect (() => {
     			if (side_button.active) {
                     Quilter.Application.gsettings.set_boolean("sidebar", true);
                     Quilter.Application.gsettings.set_boolean("sidebar-title", true);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.BUTTON));
                     set_decoration_layout (":maximize");
     			} else {
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
                     Quilter.Application.gsettings.set_boolean("sidebar-title", false);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.BUTTON));
                     set_decoration_layout ("close:maximize");
     			}
             });
@@ -337,8 +391,22 @@ namespace Quilter.Widgets {
             pack_end (menu_button);
             pack_end (pmenu_button);
             pack_end (search_button);
+            pack_end (view_mode);
+
             pack_start (side_button);
-            pack_start (view_mode);
+            pack_start (new_button);
+            pack_start (open_button);
+            pack_start (save_as_button);
+
+            // This makes the save button show or not, and it's necessary as-is.
+            if (Quilter.Application.gsettings.get_boolean("autosave")) {
+                save_button.visible = false;
+                Quilter.Application.gsettings.set_boolean("autosave", true);
+            } else {
+                pack_start (save_button);
+                save_button.visible = true;
+                Quilter.Application.gsettings.set_boolean("autosave", false);
+            }
 
             var prefer_label_button = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small
@@ -379,9 +447,14 @@ namespace Quilter.Widgets {
         }
 
         public void icons_toolbar () {
-            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-            pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-reveal-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
-            search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.LARGE_TOOLBAR));
+            menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
+            pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
+            search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
+            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
+            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON));
+            save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
+            open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
+            view_mode.set_image (new Gtk.Image.from_icon_name ("view-reveal-symbolic", Gtk.IconSize.BUTTON));
         }
     }
 }

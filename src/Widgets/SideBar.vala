@@ -28,7 +28,6 @@ namespace Quilter.Widgets {
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
-        private Gtk.StackSwitcher stackswitcher;
         public Gtk.TreeStore store;
         public Gtk.TreeView view;
         public Gtk.TreeSelection selection;
@@ -59,10 +58,14 @@ namespace Quilter.Widgets {
             this.win = win;
             this.ev = ev;
 
+
+
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
             scrolled_box.max_content_height = 500;
             scrolled_box.propagate_natural_height = true;
+            var sb_context = scrolled_box.get_style_context ();
+            sb_context.add_class ("quilter-sidebar");
 
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
@@ -73,11 +76,6 @@ namespace Quilter.Widgets {
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stackswitcher = new Gtk.StackSwitcher ();
-            var stackswitcher_context = stackswitcher.get_style_context ();
-            stackswitcher_context.add_class ("sb-stackswitcher");
-            stackswitcher.stack = stack;
-            stackswitcher.homogeneous = true;
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
@@ -85,15 +83,7 @@ namespace Quilter.Widgets {
 
             scrolled_box.add (stack);
 
-            var grid = new Gtk.Grid ();
-            var g_context = grid.get_style_context ();
-            g_context.add_class ("quilter-sidebar");
-            g_context.add_class (Gtk.STYLE_CLASS_SIDEBAR);
-            grid.margin_top = 0;
-            grid.attach (stackswitcher, 0, 0, 1, 1);
-            grid.attach (scrolled_box, 0, 1, 1, 1);
-
-            this.add (grid);
+            this.add (scrolled_box);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
@@ -103,7 +93,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.set_size_request (250,-1);
+            column.set_size_request (256,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -126,7 +116,7 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (250, -1);
+            files_grid.set_size_request (256, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;

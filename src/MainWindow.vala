@@ -280,26 +280,26 @@ namespace Quilter {
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             side_toolbar = new Widgets.SideHeaderbar (this);
-            side_toolbar.open.connect (on_open);
-            side_toolbar.save.connect (on_save);
-            side_toolbar.save_as.connect (on_save_as);
-            side_toolbar.create_new.connect (on_create_new);
             side_toolbar.reveal_child = false;
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
             toolbar.title = title;
+            toolbar.hexpand = true;
             var toolbar_context = toolbar.get_style_context ();
             toolbar_context.add_class ("titlebar");
 
-            var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            var header_paned_context = header_paned.get_style_context ();
-            header_paned_context.add_class ("quilter-header-paned");
-            header_paned.pack1 (side_toolbar, false, false);
-            header_paned.pack2 (toolbar, true, false);
+            toolbar.open.connect (on_open);
+            toolbar.save.connect (on_save);
+            toolbar.save_as.connect (on_save_as);
+            toolbar.create_new.connect (on_create_new);
+
+            var header_leaflet = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
+            header_leaflet.add (side_toolbar);
+            header_leaflet.add (toolbar);
 
             toolbar_revealer = new Gtk.Revealer ();
-            toolbar_revealer.add (header_paned);
+            toolbar_revealer.add (header_leaflet);
             toolbar_revealer.reveal_child = true;
             var toolbar_revealer_context = toolbar_revealer.get_style_context ();
             toolbar_revealer_context.remove_class ("titlebar");
@@ -320,8 +320,6 @@ namespace Quilter {
             stack = new Gtk.Stack ();
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
-
-            toolbar.view_mode.stack = stack;
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
@@ -345,15 +343,19 @@ namespace Quilter {
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
+
+            side_toolbar.stackswitcher.stack = sidebar.stack;
+
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
             grid.set_column_homogeneous (false);
             grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (sidebar, 0, 0, 1, 2);
-            grid.attach (searchbar, 1, 0, 1, 1);
-            grid.attach (main_stack, 1, 1, 1, 1);
+            grid.attach (toolbar_revealer, 0, 0, 2, 1);
+            grid.attach (sidebar, 0, 1, 1, 2);
+            grid.attach (searchbar, 1, 1, 1, 1);
+            grid.attach (main_stack, 1, 2, 1, 1);
             grid.show_all ();
 
             overlay_button_revealer = new Gtk.Revealer ();
@@ -377,9 +379,11 @@ namespace Quilter {
             });
 
             overlay_button_revealer.add (focus_overlay_button);
+            overlay_button_revealer.visible = false;
 
             var overlay = new Gtk.Overlay ();
             overlay.add_overlay (overlay_button_revealer);
+            overlay.set_overlay_pass_through (overlay_button_revealer, true);
             overlay.add (grid);
 
             int window_x, window_y;
@@ -408,11 +412,7 @@ namespace Quilter {
             } catch (Error e) {
             }
 
-            var window_handle = new Hdy.WindowHandle ();
-            window_handle.add (toolbar_revealer);
-
             var grid = new Gtk.Grid ();
-            grid.attach (window_handle, 0, 0);
             grid.attach (overlay, 0, 1);
 
             add (grid);
@@ -604,6 +604,14 @@ namespace Quilter {
                 stack.child_set_property (overlay_editor, "icon-name", "text-x-generic-symbolic");
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
+
+                toolbar.view_mode.toggled.connect (() => {
+                    if (toolbar.view_mode.active) {
+                        stack.set_visible_child (overlay_editor);
+                    } else {
+                        stack.set_visible_child (preview_view_content);
+                    }
+                });
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
