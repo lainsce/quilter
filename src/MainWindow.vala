@@ -353,11 +353,20 @@ namespace Quilter {
             main_leaf.add (main_stack);
 
             grid = new Hdy.Leaflet ();
-            grid.orientation = Gtk.Orientation.HORIZONTAL;
-            grid.set_visible_child (main_leaf);
             grid.add (side_leaf);
             grid.add (main_leaf);
+            grid.transition_type = Hdy.LeafletTransitionType.UNDER;
+            grid.visible_child = main_leaf;
             grid.show_all ();
+
+            grid.notify["folded"].connect (() => { 
+                toolbar.side_button.set_active (false);
+                if (grid.folded) {
+                    toolbar.side_button.sensitive = false;
+                } else {
+                    toolbar.side_button.sensitive = true;
+                }
+            });
 
             overlay_button_revealer = new Gtk.Revealer ();
             overlay_button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
