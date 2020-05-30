@@ -58,6 +58,11 @@ window.background {
   border-left: 5px solid alpha (@accent_color_500, 0.7);
 }
 
+.quilter-menu {
+  background-color: #e8dccb;
+  border: 1px solid #e8dccb;
+}
+
 .osd {
   background-image: none;
   background-color: #e8dccb;

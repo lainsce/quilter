@@ -34,12 +34,6 @@ namespace Quilter.Widgets {
         public SideHeaderbar (MainWindow win) {
             this.win = win;
 
-            header = new Hdy.HeaderBar ();
-            var header_context = header.get_style_context ();
-            header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            header_context.add_class ("quilter-toolbar");
-            header_context.add_class ("titlebar");
-
             build_ui ();
             icons_toolbar ();
         }
@@ -81,6 +75,12 @@ namespace Quilter.Widgets {
 
             open_button.clicked.connect (() => open ());
 
+            header = new Hdy.HeaderBar ();
+            var header_context = header.get_style_context ();
+            header_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            header_context.add_class ("quilter-toolbar");
+            header_context.add_class ("titlebar");
+
             header.pack_start (new_button);
             header.pack_start (open_button);
             header.pack_start (save_as_button);
@@ -104,6 +104,7 @@ namespace Quilter.Widgets {
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (header);
             this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
+            this.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
         }
 
         public void icons_toolbar () {

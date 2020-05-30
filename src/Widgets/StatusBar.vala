@@ -22,15 +22,14 @@ namespace Quilter {
     public class Widgets.StatusBar : Gtk.Revealer {
         public Gtk.ActionBar actionbar;
         public Gtk.Label linecount_label;
-        public Gtk.Label readtimecount_label;
         public Gtk.Label wordcount_label;
         public Gtk.MenuButton preview_type_menu;
         public Gtk.MenuButton track_type_menu;
         public Gtk.SourceBuffer buf;
         public MainWindow window;
 
-        /* Average normal reading speed is 275 WPM */
-        int WPM = 275;
+        /* Averaged normal reading speed is 225 WPM */
+        int WPM = 225;
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
@@ -48,25 +47,16 @@ namespace Quilter {
                 update_linecount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
                 update_charcount ();
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+                update_readtimecount ();
             }
-
-            readtimecount_item ();
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_boolean("fullscreen")) {
-                    this.reveal_child = false;
-                } else {
-                    this.reveal_child = true;
-                }
-            });
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
         }
 
         public void track_type_menu_item () {
-
-
             var track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
 	        track_chars.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "chars");
@@ -80,6 +70,11 @@ namespace Quilter {
 	        var track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
+            });
+            
+            var track_rtc = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Read Time"));
+	        track_rtc.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("track-type", "rtc");
 	        });
 	        track_words.set_active (true);
 
@@ -91,6 +86,7 @@ namespace Quilter {
             track_type_grid.add (track_chars);
             track_type_grid.add (track_words);
             track_type_grid.add (track_lines);
+            track_type_grid.add (track_rtc);
             track_type_grid.show_all ();
 
             var track_type_menu_pop = new Gtk.Popover (null);
@@ -105,45 +101,35 @@ namespace Quilter {
             menu_context.add_class ("quilter-menu");
             menu_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
-            actionbar.pack_start (track_type_menu);
+            actionbar.pack_end (track_type_menu);
         }
 
         public void update_wordcount () {
-
             var wc = get_count();
             track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
         }
 
         public void update_linecount () {
-
             var lc = get_count();
             track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
         }
 
         public void update_charcount () {
-
             var cc = get_count();
             track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
-        }
-
-        public void readtimecount_item () {
-            readtimecount_label = new Gtk.Label("");
-            readtimecount_label.set_width_chars (12);
-            update_readtimecount ();
-            actionbar.pack_start (readtimecount_label);
         }
 
         public void update_readtimecount () {
             var rtc = get_count();
             int rt = (rtc.words / WPM);
-		    readtimecount_label.set_text((_("Reading Time: ")) + rt.to_string() + "m");
+		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
         }
 
         public WordCount get_count() {
     		Gtk.TextIter start, end;
             buf.get_bounds (out start, out end);
             var lines = buf.get_line_count ();
-            var chars = buf.get_text (start, end, false).length;
+            var chars = buf.get_text (start, end, false).strip().length;
             var words = buf.get_text (start, end, false).strip().split(" ").length;
 
     		return new WordCount(words, lines, chars);

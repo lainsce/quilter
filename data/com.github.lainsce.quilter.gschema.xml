@@ -81,6 +81,10 @@
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the sidebar</summary>
         </key>
+		<key name="statusbar" type="b">
+			    <default>false</default>
+			    <summary>Show (true) or Hide (false) the statusbar</summary>
+        </key>
 		<key name="searchbar" type="b">
 			    <default>false</default>
 			    <summary>Show (true) or Hide (false) the searchbar</summary>

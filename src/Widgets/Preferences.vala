@@ -398,6 +398,9 @@ namespace Quilter.Widgets {
             var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
             typewriterscrolling_label.set_halign (Gtk.Align.END);
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
+            var tracking_label = new SettingsLabel (_("Enable Type Counter:"));
+            tracking_label.set_halign (Gtk.Align.END);
+            var tracking = new SettingsSwitch ("statusbar");
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
@@ -435,6 +438,8 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_type_size, 1, 8, 1, 1);
             interface_grid.attach (typewriterscrolling_label, 0, 9, 1, 1);
             interface_grid.attach (typewriterscrolling, 1, 9, 1, 1);
+            interface_grid.attach (tracking_label, 0, 10, 1, 1);
+            interface_grid.attach (tracking, 1, 10, 1, 1);
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {

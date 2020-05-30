@@ -97,7 +97,6 @@ namespace Quilter.Widgets {
                 win.edit_view_content.modified = false;
                 win.toolbar.set_subtitle (_("No Documents Open"));
                 win.sidebar.store.clear ();
-                win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
 
                 var rows = win.sidebar.get_rows ();
                 for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {

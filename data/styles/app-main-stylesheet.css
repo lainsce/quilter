@@ -36,15 +36,11 @@
 }
 
 .statusbar {
-    background-color: @colorPrimary;
+    background-color: transparent;
 	box-shadow: none;
 	border: none;
     padding: 6px;
     border-radius: 0 0 6px 6px;
-}
-
-.statusbar box {
-    padding-left: 0;
 }
 
 .full-bar {
@@ -132,10 +128,6 @@
     color: @textColorPrimary;
 }
 
-.quilter-menu {
-    border: 1px solid alpha (@textColorPrimary, 0);
-}
-
 .quilter-menu:hover {
     border: 1px solid alpha (@textColorPrimary, 0.35);
 }
@@ -164,6 +156,17 @@
 .sep {
     border-top: 1px solid alpha (@textColorPrimary, 0.15);
     margin-bottom: -7px;
+}
+
+.quilter-header-paned separator {
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(black, 0.05) 1px,
+            transparent 2px
+        );
+    margin-right: -7px;
+    min-width: 8px;
 }
 
 .subtitle {

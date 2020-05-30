@@ -22,7 +22,7 @@ namespace Quilter {
         delegate void HookFunc ();
         public Gtk.Adjustment eadj;
         public Gtk.Box box;
-        public Gtk.Box overlay_editor;
+        public Gtk.Overlay overlay_editor;
         public Gtk.Button focus_overlay_button;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
@@ -284,6 +284,7 @@ namespace Quilter {
             side_toolbar.save.connect (on_save);
             side_toolbar.save_as.connect (on_save_as);
             side_toolbar.create_new.connect (on_create_new);
+            side_toolbar.reveal_child = false;
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
@@ -292,6 +293,8 @@ namespace Quilter {
             toolbar_context.add_class ("titlebar");
 
             var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            var header_paned_context = header_paned.get_style_context ();
+            header_paned_context.add_class ("quilter-header-paned");
             header_paned.pack1 (side_toolbar, false, false);
             header_paned.pack2 (toolbar, true, false);
 
@@ -325,10 +328,11 @@ namespace Quilter {
             box.expand = true;
             
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
+            statusbar.valign = Gtk.Align.END;
 
-            overlay_editor = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            overlay_editor = new Gtk.Overlay ();
             overlay_editor.add (edit_view);
-            overlay_editor.add (statusbar);
+            overlay_editor.add_overlay (statusbar);
 
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
@@ -397,7 +401,6 @@ namespace Quilter {
                 toolbar.set_subtitle (_("No Documents Open"));
                 sidebar.store.clear ();
                 sidebar.delete_row ();
-                statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
             }
 
             try {
@@ -479,15 +482,15 @@ namespace Quilter {
         }
 
         private void update_count () {
-
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 statusbar.update_wordcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
                 statusbar.update_linecount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
                 statusbar.update_charcount ();
+            }  else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+                statusbar.update_readtimecount ();
             }
-            statusbar.update_readtimecount ();
         }
 
         private void action_preferences () {
@@ -531,6 +534,10 @@ namespace Quilter {
             searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
         }
 
+        public void show_statusbar () {
+            statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
+        }
+
         private void update_title () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
@@ -552,6 +559,7 @@ namespace Quilter {
             show_sidebar ();
             show_header ();
             show_searchbar ();
+            show_statusbar ();
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout ();
@@ -560,14 +568,13 @@ namespace Quilter {
                 overlay_button_revealer.visible = false;
                 toolbar_revealer.reveal_child = true;
                 overlay_button_revealer.reveal_child = false;
-                statusbar.reveal_child = true;
             } else {
                 overlay_button_revealer.visible = true;
                 toolbar_revealer.reveal_child = false;
                 overlay_button_revealer.reveal_child = true;
-                statusbar.reveal_child = false;
                 sidebar.reveal_child = false;
                 side_toolbar.reveal_child = false;
+                side_toolbar.visible = false;
 
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
