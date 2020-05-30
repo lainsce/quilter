@@ -18,11 +18,11 @@
 */
 namespace Quilter.Widgets {
     public class Cheatsheet : Hdy.Window {
+        private Gtk.Grid links_grid;
+        private Gtk.Grid tables_grid;
+        private Gtk.Grid textstyle_grid;
         private Gtk.Stack main_stack;
         private Hdy.ViewSwitcher main_stackswitcher;
-        private Gtk.Grid links_grid;
-        private Gtk.Grid textstyle_grid;
-        private Gtk.Grid tables_grid;
 
         public Cheatsheet (Gtk.Window? parent) {
             Object (

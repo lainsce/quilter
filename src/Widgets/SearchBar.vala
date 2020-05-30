@@ -18,17 +18,16 @@
 */
 namespace Quilter.Widgets {
     public class SearchBar : Gtk.Revealer {
+        private EditView? text_view = null;
+        private Gtk.Button replace_all_tool_button;
+        private Gtk.Button replace_tool_button;
+        private Gtk.TextBuffer? text_buffer = null;
         public Gtk.Grid grid;
         public Gtk.Grid prev_next_grid;
         public Gtk.Grid replace_grid;
-        public Gtk.SearchEntry search_entry;
         public Gtk.SearchEntry replace_entry;
-        private Gtk.Button replace_tool_button;
-        private Gtk.Button replace_all_tool_button;
-        private EditView? text_view = null;
-        private Gtk.TextBuffer? text_buffer = null;
+        public Gtk.SearchEntry search_entry;
         public Gtk.SourceSearchContext search_context = null;
-
         public weak MainWindow window { get; construct; }
 
         public SearchBar (MainWindow window) {

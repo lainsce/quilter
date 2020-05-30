@@ -18,24 +18,23 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Hdy.HeaderBar {
-        public EditView sourceview;
-        public Preview preview;
-        public MainWindow win;
-
-        public signal void open ();
-        public signal void save_as ();
-        public signal void save ();
-        public signal void create_new ();
-
         private Gtk.Button new_button;
         private Gtk.Button open_button;
-        private Gtk.Button save_button;
         private Gtk.Button save_as_button;
-        public Gtk.ToggleButton search_button;
-        private Gtk.MenuButton menu_button;
-        private Gtk.MenuButton pmenu_button;
+        private Gtk.Button save_button;
         private Gtk.Grid menu_grid;
         private Gtk.Grid top_grid;
+        private Gtk.MenuButton menu_button;
+        private Gtk.MenuButton pmenu_button;
+        public EditView sourceview;
+        public Gtk.StackSwitcher view_mode;
+        public Gtk.ToggleButton search_button;
+        public MainWindow win;
+        public Preview preview;
+        public signal void create_new ();
+        public signal void open ();
+        public signal void save ();
+        public signal void save_as ();
 
         public Headerbar (MainWindow win) {
             this.win = win;
@@ -352,9 +351,23 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_boolean("autosave", false);
             }
 
+            view_mode = new Gtk.StackSwitcher ();
+            var view_mode_context = view_mode.get_style_context ();
+            view_mode_context.add_class ("linked");
+            view_mode_context.add_class ("sb-stackswitcher");
+            
+            view_mode.valign = Gtk.Align.CENTER;
+            view_mode.homogeneous = true;
+            view_mode.tooltip_markup = Granite.markup_accel_tooltip (
+                {"F1"},
+                _("Change view")
+            );
+            
+
             pack_end (menu_button);
             pack_end (pmenu_button);
             pack_end (search_button);
+            pack_end (view_mode);
 
             var prefer_label_button = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small

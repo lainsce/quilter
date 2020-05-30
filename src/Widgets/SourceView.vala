@@ -18,34 +18,34 @@
 */
 namespace Quilter.Widgets {
     public class EditView : Gtk.SourceView {
-        public MainWindow window;
-        public Services.POSFiles pos;
-        private static EditView? instance = null;
-        public bool should_scroll {get; set; default = false;}
-        public bool should_update_preview { get; set; default = false; }
-        public string scroll_text = "";
-        public double cursor_position = 0;
+        private Gtk.TextTag blackfont;
+        private Gtk.TextTag darkgrayfont;
+        private Gtk.TextTag lightgrayfont;
+        private Gtk.TextTag lightsepiafont;
+        private Gtk.TextTag sepiafont;
+        private Gtk.TextTag whitefont;
+        private bool spellcheck_active;
         private int last_height = 0;
         private int last_width = 0;
+        private static EditView? instance = null;
+        private uint update_idle_source = 0;
         public File file;
-        public GtkSpell.Checker spell = null;
-        private bool spellcheck_active;
-        private Gtk.TextTag blackfont;
-        private Gtk.TextTag lightgrayfont;
-        private Gtk.TextTag darkgrayfont;
-        private Gtk.TextTag whitefont;
-        private Gtk.TextTag sepiafont;
-        private Gtk.TextTag lightsepiafont;
-        public Gtk.TextTag adverbfont;
-        public Gtk.TextTag verbfont;
-        public Gtk.TextTag adjfont;
-        public Gtk.TextTag conjfont;
-        public Gtk.TextTag warning_tag;
-        public Gtk.TextTag error_tag;
         public Gtk.SourceSearchContext search_context = null;
         public Gtk.SourceStyle srcstyle = null;
+        public Gtk.TextTag adjfont;
+        public Gtk.TextTag adverbfont;
+        public Gtk.TextTag conjfont;
+        public Gtk.TextTag error_tag;
+        public Gtk.TextTag verbfont;
+        public Gtk.TextTag warning_tag;
+        public GtkSpell.Checker spell = null;
+        public MainWindow window;
+        public Services.POSFiles pos;
+        public bool should_scroll {get; set; default = false;}
+        public bool should_update_preview { get; set; default = false; }
+        public double cursor_position = 0;
         public new unowned Gtk.SourceBuffer buffer;
-        private uint update_idle_source = 0;
+        public string scroll_text = "";
 
         public static EditView get_instance () {
             if (instance == null && Application.win != null) {

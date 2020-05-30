@@ -11,6 +11,12 @@ window.background {
     background: @colorPrimary, #333, 0.25);
     color: @textColorPrimary;
 }
+.quilter-task-button image {
+  -gtk-icon-shadow: 1px 1px transparent;
+}
+.sb-sidebutton {
+	background: @colorPrimary, #333, 0.25);
+}
 .quilter-sidebar {
     border-bottom-color: transparent;
     border-bottom-width: 1px;

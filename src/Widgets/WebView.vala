@@ -20,8 +20,8 @@
 namespace Quilter {
     public class Widgets.Preview : WebKit.WebView {
         private static Preview? instance = null;
-        public string html;
         public Widgets.EditView buf;
+        public string html;
         public double scroll_value {
             set {
                 run_javascript ("""

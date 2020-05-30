@@ -19,14 +19,13 @@
 */
 namespace Quilter {
     public class Application : Gtk.Application {
+        private static bool open_view = false;
+        private static bool print_ver = false;
+        private static string _cwd;
+        public Widgets.Headerbar toolbar;
         public static GLib.Settings gsettings;
         public static Granite.Settings grsettings;
-        private static bool print_ver = false;
-        private static bool open_view = false;
-        private static string _cwd;
-
         public static MainWindow win = null;
-        public Widgets.Headerbar toolbar;
         public static string[] supported_mimetypes;
 
         static construct {

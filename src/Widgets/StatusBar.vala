@@ -20,14 +20,14 @@ using Gtk;
 using Granite;
 namespace Quilter {
     public class Widgets.StatusBar : Gtk.Revealer {
-        public Gtk.Label wordcount_label;
+        public Gtk.ActionBar actionbar;
         public Gtk.Label linecount_label;
         public Gtk.Label readtimecount_label;
-        public MainWindow window;
-        public Gtk.ActionBar actionbar;
-        public Gtk.MenuButton track_type_menu;
+        public Gtk.Label wordcount_label;
         public Gtk.MenuButton preview_type_menu;
+        public Gtk.MenuButton track_type_menu;
         public Gtk.SourceBuffer buf;
+        public MainWindow window;
 
         /* Average normal reading speed is 275 WPM */
         int WPM = 275;
@@ -41,6 +41,8 @@ namespace Quilter {
             sb_context.add_class ("statusbar");
 
             var side_button = new Gtk.ToggleButton ();
+            var side_button_context = side_button.get_style_context ();
+            side_button_context.add_class ("sb-sidebutton");
             side_button.has_tooltip = true;
             side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
             side_button.tooltip_markup = Granite.markup_accel_tooltip (

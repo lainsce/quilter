@@ -18,11 +18,11 @@
 */
 namespace Quilter.Widgets {
     public class Preferences : Hdy.Window {
+        private Gtk.Grid editor_grid;
+        private Gtk.Grid interface_grid;
+        private Gtk.Grid preview_grid;
         private Gtk.Stack main_stack;
         private Hdy.ViewSwitcher main_stackswitcher;
-        private Gtk.Grid editor_grid;
-        private Gtk.Grid preview_grid;
-        private Gtk.Grid interface_grid;
 
         public Preferences (Gtk.Window? parent) {
             Object (

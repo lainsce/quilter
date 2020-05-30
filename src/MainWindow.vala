@@ -16,42 +16,38 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-using Gtk;
-using Granite;
-using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Hdy.ApplicationWindow {
-        public weak Quilter.Application app { get; construct; }
-        public Widgets.StatusBar statusbar;
-        public Widgets.SideBar sidebar;
-        public Widgets.SearchBar searchbar;
-        public Widgets.Headerbar toolbar;
-        public Gtk.Revealer toolbar_revealer;
-        public Gtk.Revealer overlay_button_revealer;
-        public Gtk.Button focus_overlay_button;
-        public Gtk.MenuButton set_font_menu;
-        public Widgets.EditView edit_view_content;
-        public Widgets.Preview preview_view_content;
-        public Gtk.Grid box;
-        public Gtk.Stack main_stack;
-        public Gtk.Stack stack;
-        public Hdy.ViewSwitcher view_mode;
-        public Gtk.Paned paned;
-        public Gtk.ScrolledWindow edit_view;
+        delegate void HookFunc ();
         public Gtk.Adjustment eadj;
+        public Gtk.Box box;
+        public Gtk.Box overlay_editor;
+        public Gtk.Button focus_overlay_button;
         public Gtk.Grid grid;
         public Gtk.Grid main_pane;
-        public Gtk.Grid overlay_editor;
+        public Gtk.MenuButton set_font_menu;
+        public Gtk.Paned paned;
+        public Gtk.Revealer overlay_button_revealer;
+        public Gtk.Revealer toolbar_revealer;
+        public Gtk.ScrolledWindow edit_view;
+        public Gtk.Stack main_stack;
+        public Gtk.Stack stack;
         public SimpleActionGroup actions { get; construct; }
-        public const string ACTION_PREFIX = "win.";
+        public Widgets.EditView edit_view_content;
+        public Widgets.Headerbar toolbar;
+        public Widgets.Preview preview_view_content;
+        public Widgets.SearchBar searchbar;
+        public Widgets.SideBar sidebar;
+        public Widgets.StatusBar statusbar;
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
-        public const string ACTION_PREFS = "action_preferences";
-        public const string ACTION_FOCUS = "action_focus";
-        public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_EXPORT_HTML = "action_export_html";
+        public const string ACTION_EXPORT_PDF = "action_export_pdf";
+        public const string ACTION_FOCUS = "action_focus";
+        public const string ACTION_PREFIX = "win.";
+        public const string ACTION_PREFS = "action_preferences";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
-        delegate void HookFunc ();
+        public weak Quilter.Application app { get; construct; }
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
             { ACTION_CHEATSHEET, action_cheatsheet },
@@ -313,26 +309,14 @@ namespace Quilter {
             stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
-            view_mode = new Hdy.ViewSwitcher ();
-            var view_mode_context = view_mode.get_style_context ();
-            view_mode_context.add_class ("linked");
-            view_mode.stack = stack;
-            view_mode.valign = Gtk.Align.CENTER;
-            view_mode.tooltip_markup = Granite.markup_accel_tooltip (
-                {"F1"},
-                _("Change view")
-            );
+            toolbar.view_mode.stack = stack;
 
-            toolbar.pack_end (view_mode);
-
-            box = new Gtk.Grid ();
-            box.column_homogeneous = true;
+            box = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             box.expand = true;
             
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
 
-            overlay_editor = new Gtk.Grid ();
-            overlay_editor.orientation = Gtk.Orientation.VERTICAL;
+            overlay_editor = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             overlay_editor.add (edit_view);
             overlay_editor.add (statusbar);
 
@@ -407,7 +391,7 @@ namespace Quilter {
             }
 
             try {
-                this.icon = IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
+                this.icon = Gtk.IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
             }
 
@@ -594,8 +578,6 @@ namespace Quilter {
                 widget_unparent (preview_view_content);
                 stack.add_titled (overlay_editor, "overlay_editor", _("Edit"));
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
-                stack.child_set_property (overlay_editor, "icon-name", "edit-symbolic");
-                stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
@@ -603,8 +585,8 @@ namespace Quilter {
                 }
                 widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
-                box.attach (overlay_editor, 0, 0);
-                box.attach (preview_view_content, 1, 0);
+                box.add (overlay_editor);
+                box.add (preview_view_content);
                 main_stack.set_visible_child (box);
             }
         }

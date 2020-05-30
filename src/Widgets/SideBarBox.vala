@@ -18,12 +18,12 @@
 */
 namespace Quilter.Widgets {
     public class SideBarBox : Gtk.ListBoxRow {
-        public MainWindow win;
-        private Gtk.Label file_name_label;
         private Gtk.Label file_label;
-        public Gtk.Grid file_grid;
-        public Gtk.Button file_remove_button;
+        private Gtk.Label file_name_label;
         public EditView ev;
+        public Gtk.Button file_remove_button;
+        public Gtk.Grid file_grid;
+        public MainWindow win;
 
         private string? _path;
         public new string? path {
