@@ -289,7 +289,7 @@ namespace Quilter.Widgets {
             var preview_grid = new Gtk.Grid ();
             preview_grid.column_homogeneous = true;
             preview_grid.hexpand = true;
-            preview_grid.margin = 6;
+            preview_grid.margin = 12;
             preview_grid.row_spacing = 12;
             preview_grid.attach (preview_full_box, 0, 0, 1, 1);
             preview_grid.attach (preview_half_box, 0, 1, 1, 1);
