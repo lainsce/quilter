@@ -40,34 +40,6 @@ namespace Quilter {
             var sb_context = actionbar.get_style_context ();
             sb_context.add_class ("statusbar");
 
-            var side_button = new Gtk.ToggleButton ();
-            var side_button_context = side_button.get_style_context ();
-            side_button_context.add_class ("sb-sidebutton");
-            side_button.has_tooltip = true;
-            side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-            side_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"F2"},
-                _("Show/Hide Sidebar")
-            );
-
-            if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
-                side_button.set_active (false);
-            } else {
-                side_button.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
-            }
-
-            side_button.toggled.connect (() => {
-    			if (side_button.active) {
-    				Quilter.Application.gsettings.set_boolean("sidebar", true);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-    			} else {
-    				Quilter.Application.gsettings.set_boolean("sidebar", false);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
-    			}
-            });
-
-            actionbar.pack_start (side_button);
-
             track_type_menu_item ();
 
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {

@@ -39,6 +39,7 @@ namespace Quilter {
         public Widgets.Preview preview_view_content;
         public Widgets.SearchBar searchbar;
         public Widgets.SideBar sidebar;
+        public Widgets.SideHeaderbar side_toolbar;
         public Widgets.StatusBar statusbar;
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_EXPORT_HTML = "action_export_html";
@@ -222,10 +223,12 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@2, keycode)) {
                         debug ("Press to change view...");
-                        if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                        if (Quilter.Application.gsettings.get_boolean("sidebar") && Quilter.Application.gsettings.get_boolean("sidebar-title")) {
                             Quilter.Application.gsettings.set_boolean("sidebar", false);
+                            Quilter.Application.gsettings.set_boolean("sidebar-title", false);
                         } else {
                             Quilter.Application.gsettings.set_boolean("sidebar", true);
+                            Quilter.Application.gsettings.set_boolean("sidebar-title", true);
                         }
                         return true;
                     }
@@ -276,18 +279,24 @@ namespace Quilter {
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+            side_toolbar = new Widgets.SideHeaderbar (this);
+            side_toolbar.open.connect (on_open);
+            side_toolbar.save.connect (on_save);
+            side_toolbar.save_as.connect (on_save_as);
+            side_toolbar.create_new.connect (on_create_new);
+
             toolbar = new Widgets.Headerbar (this);
-            toolbar.open.connect (on_open);
-            toolbar.save.connect (on_save);
-            toolbar.save_as.connect (on_save_as);
-            toolbar.create_new.connect (on_create_new);
             toolbar.has_subtitle = false;
+            toolbar.title = title;
             var toolbar_context = toolbar.get_style_context ();
             toolbar_context.add_class ("titlebar");
-            toolbar.title = title;
+
+            var header_paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
+            header_paned.pack1 (side_toolbar, false, false);
+            header_paned.pack2 (toolbar, true, false);
 
             toolbar_revealer = new Gtk.Revealer ();
-            toolbar_revealer.add (toolbar);
+            toolbar_revealer.add (header_paned);
             toolbar_revealer.reveal_child = true;
             var toolbar_revealer_context = toolbar_revealer.get_style_context ();
             toolbar_revealer_context.remove_class ("titlebar");
@@ -338,8 +347,8 @@ namespace Quilter {
             grid.set_column_homogeneous (false);
             grid.set_row_homogeneous (false);
             grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (sidebar, 0, 1, 1, 1);
-            grid.attach (searchbar, 0, 0, 2, 1);
+            grid.attach (sidebar, 0, 0, 1, 2);
+            grid.attach (searchbar, 1, 0, 1, 1);
             grid.attach (main_stack, 1, 1, 1, 1);
             grid.show_all ();
 
@@ -406,7 +415,7 @@ namespace Quilter {
             add (grid);
 
             this.window_position = Gtk.WindowPosition.CENTER;
-            this.set_size_request (600, 700);
+            this.set_size_request (600, 720);
         }
 
 #if VALA_0_42
@@ -513,6 +522,11 @@ namespace Quilter {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
+        public void show_header () {
+            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
+            side_toolbar.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
+        }
+
         public void show_searchbar () {
             searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
         }
@@ -536,6 +550,7 @@ namespace Quilter {
 
         private void on_settings_changed () {
             show_sidebar ();
+            show_header ();
             show_searchbar ();
             update_count ();
             edit_view_content.dynamic_margins ();
@@ -552,6 +567,7 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = true;
                 statusbar.reveal_child = false;
                 sidebar.reveal_child = false;
+                side_toolbar.reveal_child = false;
 
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
