@@ -354,6 +354,7 @@ namespace Quilter {
 
             grid = new Hdy.Leaflet ();
             grid.orientation = Gtk.Orientation.HORIZONTAL;
+            grid.set_visible_child (main_leaf);
             grid.add (side_leaf);
             grid.add (main_leaf);
             grid.show_all ();
