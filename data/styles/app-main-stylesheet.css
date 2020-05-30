@@ -51,45 +51,51 @@
 
 .quilter-searchbar {
     border-top-color: transparent;
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
     background: @colorPrimary;
-    color: @textColorPrimary;
+    color: black;
     box-shadow: 0 1px transparent inset;
     padding: 6px;
 }
 
 .quilter-toolbar {
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
-    margin: 0;
+    border-bottom: 1px solid alpha (black, 0.25);
     margin-right: 6px;
     margin-left: 6px;
-    padding: 0;
-}
-
-.quilter-toolbar-main {
-    margin-top: 4px;
-    margin-bottom: 4px;
 }
 
 .quilter-toolbar .image-button {
-    border: 1px solid alpha (@textColorPrimary, 0.25);
     border-radius: 4px;
-    padding: 6px;
-    margin: 4px 0;
+    padding: 6px 7px;
+}
+
+.quilter-toolbar .image-button:prelight {
+    background: shade(@colorPrimary, 0.88);
+}
+
+.quilter-toolbar .image-button:active,
+.quilter-toolbar .image-button.toggle:checked {
+    background: shade(@colorPrimary, 0.88);
+}
+
+.quilter-toolbar-main {
+    margin: 1px 0;
 }
 
 .quilter-toolbar-side {
-    border-right: 1px solid alpha (@textColorPrimary, 0.25);
+    border-right: 1px solid alpha (black, 0.25);
+    margin: 0;
+    padding: 0;
 }
 
 .quilter-sidebar {
-    border-right: 1px solid alpha (@textColorPrimary, 0.25);
+    border-right: 1px solid alpha (black, 0.25);
     margin: 0px;
 }
 
 .quilter-sidebar button.radio {
     border-radius: 0;
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .rounded .quilter-sidebar {
@@ -97,7 +103,7 @@
 }
 
 .quilter-sidebar-button {
-    border: 1px solid alpha (@textColorPrimary, 0.25);
+    border: 1px solid alpha (black, 0.25);
     border-radius: 50%;
     padding: 6px;
 }
@@ -112,7 +118,7 @@
 }
 
 .quilter-task-button {
-    border: 1px solid alpha (@textColorPrimary, 0.25);
+    border: 1px solid alpha (black, 0.25);
     background: transparent;
     border-radius: 50%;
     padding: 2px;
@@ -120,7 +126,7 @@
 
 .quilter-task-button:active,
 .quilter-task-button:selected {
-    color: @textColorPrimary;
+    color: black;
     -gtk-icon-shadow: 1px 1px transparent;
 }
 
@@ -128,14 +134,14 @@
     border-radius: 0;
     margin-left: 0;
     margin-bottom: 0;
-    border: 0px solid alpha (@textColorPrimary, 0);
-    border-top: 1px solid alpha (@textColorPrimary, 0.25);
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
+    border: 0px solid alpha (black, 0);
+    border-top: 1px solid alpha (black, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
     border-left: 5px solid @colorPrimary;
 }
 
 .quilter-sidebar-box:first-child {
-    border-top: 0px solid alpha (@textColorPrimary, 0);
+    border-top: 0px solid alpha (black, 0);
 }
 
 .quilter-sidebar-box > grid > label {
@@ -143,19 +149,19 @@
 }
 
 .quilter-menu:hover {
-    border: 1px solid alpha (@textColorPrimary, 0.35);
+    border: 1px solid alpha (black, 0.35);
 }
 
 .quilter-cbt button {
     background: none;
-    color: @textColorPrimary;
-    border: 1px solid alpha (@textColorPrimary, 0);
+    color: black;
+    border: 1px solid alpha (black, 0);
 	box-shadow: none;
 	border-radius: 6px;
 }
 
 .quilter-cbt button:hover {
-    border: 1px solid alpha (@textColorPrimary, 0.35);
+    border: 1px solid alpha (black, 0.35);
 }
 
 .quilter-focus-button {
@@ -168,7 +174,7 @@
 }
 
 .sep {
-    border-top: 1px solid alpha (@textColorPrimary, 0.15);
+    border-top: 1px solid alpha (black, 0.15);
     margin-bottom: -7px;
 }
 
@@ -176,7 +182,7 @@
     background-image:
         linear-gradient(
             to right,
-            rgba(@textColorPrimary, 0.05) 1px,
+            rgba(black, 0.05) 1px,
             transparent 2px
         );
     margin-right: -7px;
@@ -192,6 +198,10 @@
 	border-radius: 0 9999px 9999px 0;
 }
 
+.sb-switcher {
+    padding: 0;
+}
+
 .bold {
     font-weight: 700;
 }
@@ -201,7 +211,7 @@ label:insensitive {
 }
 
 .quilter-dialog-hb headerbar {
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
     margin: 0;
     padding: 0;
 }
@@ -217,6 +227,6 @@ label:insensitive {
 .quilter-sidebar button.radio {
     border-radius: 0;
     border: transparent;
-    border-bottom: 1px solid alpha (@textColorPrimary, 0.25);
+    border-bottom: 1px solid alpha (black, 0.25);
 }
 

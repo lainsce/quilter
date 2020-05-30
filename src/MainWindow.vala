@@ -24,7 +24,7 @@ namespace Quilter {
         public Gtk.Box box;
         public Gtk.Overlay overlay_editor;
         public Gtk.Button focus_overlay_button;
-        public Gtk.Grid grid;
+        public Hdy.Leaflet grid;
         public Gtk.Grid main_pane;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
@@ -280,7 +280,6 @@ namespace Quilter {
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             side_toolbar = new Widgets.SideHeaderbar (this);
-            side_toolbar.reveal_child = false;
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
@@ -294,12 +293,8 @@ namespace Quilter {
             toolbar.save_as.connect (on_save_as);
             toolbar.create_new.connect (on_create_new);
 
-            var header_leaflet = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
-            header_leaflet.add (side_toolbar);
-            header_leaflet.add (toolbar);
-
             toolbar_revealer = new Gtk.Revealer ();
-            toolbar_revealer.add (header_leaflet);
+            toolbar_revealer.add (toolbar);
             toolbar_revealer.reveal_child = true;
             var toolbar_revealer_context = toolbar_revealer.get_style_context ();
             toolbar_revealer_context.remove_class ("titlebar");
@@ -348,14 +343,19 @@ namespace Quilter {
 
             searchbar = new Widgets.SearchBar (this);
 
-            grid = new Gtk.Grid ();
-            grid.set_column_homogeneous (false);
-            grid.set_row_homogeneous (false);
-            grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.attach (toolbar_revealer, 0, 0, 2, 1);
-            grid.attach (sidebar, 0, 1, 1, 2);
-            grid.attach (searchbar, 1, 1, 1, 1);
-            grid.attach (main_stack, 1, 2, 1, 1);
+            var side_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            side_leaf.add (side_toolbar);
+            side_leaf.add (sidebar);
+
+            var main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            main_leaf.add (toolbar_revealer);
+            main_leaf.add (searchbar);
+            main_leaf.add (main_stack);
+
+            grid = new Hdy.Leaflet ();
+            grid.orientation = Gtk.Orientation.HORIZONTAL;
+            grid.add (side_leaf);
+            grid.add (main_leaf);
             grid.show_all ();
 
             overlay_button_revealer = new Gtk.Revealer ();
@@ -379,7 +379,7 @@ namespace Quilter {
             });
 
             overlay_button_revealer.add (focus_overlay_button);
-            overlay_button_revealer.visible = false;
+            overlay_button_revealer.no_show_all = true;
 
             var overlay = new Gtk.Overlay ();
             overlay.add_overlay (overlay_button_revealer);
@@ -527,7 +527,6 @@ namespace Quilter {
 
         public void show_header () {
             side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
-            side_toolbar.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
         }
 
         public void show_searchbar () {
@@ -574,7 +573,7 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = true;
                 sidebar.reveal_child = false;
                 side_toolbar.reveal_child = false;
-                side_toolbar.visible = false;
+                overlay_button_revealer.no_show_all = false;
 
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
@@ -583,6 +582,12 @@ namespace Quilter {
                     }
                     return false;
                 });
+            }
+
+            if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+                toolbar.set_decoration_layout (":maximize");
+            } else {
+                toolbar.set_decoration_layout ("close:maximize");
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
@@ -607,9 +612,9 @@ namespace Quilter {
 
                 toolbar.view_mode.toggled.connect (() => {
                     if (toolbar.view_mode.active) {
-                        stack.set_visible_child (overlay_editor);
-                    } else {
                         stack.set_visible_child (preview_view_content);
+                    } else {
+                        stack.set_visible_child (overlay_editor);
                     }
                 });
                 main_stack.set_visible_child (stack);

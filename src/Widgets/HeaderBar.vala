@@ -348,16 +348,11 @@ namespace Quilter.Widgets {
 
             view_mode = new Gtk.ToggleButton ();
             view_mode.has_tooltip = true;
+            view_mode.set_active (false);
             view_mode.tooltip_markup = Granite.markup_accel_tooltip (
                 {"<Ctrl>3"},
                 _("Switch Editor/Preview")
             );
-
-            if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
-                view_mode.set_active (false);
-            } else {
-                view_mode.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
-            }
 
             side_button = new Gtk.ToggleButton ();
             side_button.has_tooltip = true;

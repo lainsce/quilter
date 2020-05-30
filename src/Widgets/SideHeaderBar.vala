@@ -34,7 +34,7 @@ namespace Quilter.Widgets {
         private void build_ui () {
             stackswitcher = new Hdy.ViewSwitcher ();
             var stackswitcher_context = stackswitcher.get_style_context ();
-            stackswitcher_context.add_class ("sb-stackswitcher");
+            stackswitcher_context.add_class ("sb-switcher");
 
             header = new Hdy.HeaderBar ();
             var header_context = header.get_style_context ();
@@ -50,7 +50,7 @@ namespace Quilter.Widgets {
             header.set_title (null);
             header.set_decoration_layout ("close:");
 
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.add (header);
             this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
             this.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
