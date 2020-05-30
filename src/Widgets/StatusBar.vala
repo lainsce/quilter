@@ -26,6 +26,10 @@ namespace Quilter {
         public Gtk.MenuButton preview_type_menu;
         public Gtk.MenuButton track_type_menu;
         public Gtk.SourceBuffer buf;
+        public Gtk.RadioButton track_words;
+        public Gtk.RadioButton track_chars;
+        public Gtk.RadioButton track_lines;
+        public Gtk.RadioButton track_rtc;
         public MainWindow window;
 
         /* Averaged normal reading speed is 225 WPM */
@@ -33,50 +37,30 @@ namespace Quilter {
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
-
             actionbar = new Gtk.ActionBar ();
 
             var sb_context = actionbar.get_style_context ();
             sb_context.add_class ("statusbar");
 
-            track_type_menu_item ();
-
-            if (Quilter.Application.gsettings.get_string("track-type") == "words") {
-                update_wordcount ();
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
-                update_linecount ();
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
-                update_charcount ();
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
-                update_readtimecount ();
-            }
-
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-            this.add (actionbar);
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
-        }
-
-        public void track_type_menu_item () {
-            var track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
+            track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
 	        track_chars.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "chars");
 	        });
 
-	        var track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
+	        track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
 	        track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
 	        });
 
-	        var track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
+	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
             });
             
-            var track_rtc = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Read Time"));
+            track_rtc = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Read Time"));
 	        track_rtc.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "rtc");
 	        });
-	        track_words.set_active (true);
 
             var track_type_grid = new Gtk.Grid ();
             track_type_grid.margin = 12;
@@ -102,6 +86,20 @@ namespace Quilter {
             menu_context.add_class (Gtk.STYLE_CLASS_FLAT);
 
             actionbar.pack_end (track_type_menu);
+
+            if (Quilter.Application.gsettings.get_string("track-type") == "words") {
+                update_wordcount ();
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
+                update_linecount ();
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
+                update_charcount ();
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+                update_readtimecount ();
+            }
+
+            this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
+            this.add (actionbar);
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
         }
 
         public void update_wordcount () {

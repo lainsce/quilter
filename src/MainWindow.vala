@@ -498,7 +498,7 @@ namespace Quilter {
                 statusbar.update_linecount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
                 statusbar.update_charcount ();
-            }  else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
                 statusbar.update_readtimecount ();
             }
         }
