@@ -42,12 +42,7 @@ namespace Quilter.Widgets {
             var header_context = this.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
-
-            if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
-                header_context.add_class ("quilter-toolbar-main");
-            } else {
-                header_context.remove_class ("quilter-toolbar-main");
-            }
+            header_context.add_class ("quilter-toolbar-main");
 
             build_ui ();
             icons_toolbar ();
