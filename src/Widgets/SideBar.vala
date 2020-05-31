@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 Lains
+* Copyright (c) 2018-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -58,8 +58,6 @@ namespace Quilter.Widgets {
             this.win = win;
             this.ev = ev;
 
-
-
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
             scrolled_box.max_content_height = 500;
@@ -101,11 +99,20 @@ namespace Quilter.Widgets {
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+                foreach (var row in get_rows ()) {
+                    if (row.path == Quilter.Application.gsettings.get_string("current-file")) {
+                        column.select_row (row);
+                    }
+                }
             }
 
             column.row_selected.connect ((selected_row) => {
                 foreach (var row in rows) {
-                    row.file_remove_button.visible = (row == selected_row);
+                    if (row.path == Quilter.Application.gsettings.get_string("current-file")) {
+                        row.file_remove_button.visible = false;
+                    } else {
+                        row.file_remove_button.visible = true;
+                    }
                 }
                 Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)selected_row).path);
                 row_selected ((Widgets.SideBarBox)selected_row);
@@ -123,7 +130,6 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_outline () {
-
             view = new Gtk.TreeView ();
             view.expand = true;
             view.hexpand = true;
@@ -254,7 +260,6 @@ namespace Quilter.Widgets {
             var filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
-            column.select_row (filebox);
 
             return filebox;
         }

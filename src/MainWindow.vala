@@ -318,6 +318,7 @@ namespace Quilter {
                 toolbar.side_button.set_active (false);
             }
             edit_view_content = new Widgets.EditView (this);
+            edit_view_content.vexpand = true;
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
 
@@ -362,7 +363,7 @@ namespace Quilter {
             focus_overlay_button.tooltip_text = _("Exit focus mode");
             focus_overlay_button.halign = Gtk.Align.END;
             focus_overlay_button.valign = Gtk.Align.START;
-            focus_overlay_button.margin = 12;
+            focus_overlay_button.margin = 6;
             var focus_overlay_button_context = focus_overlay_button.get_style_context ();
             focus_overlay_button_context.add_class ("quilter-focus-button");
             focus_overlay_button_context.add_class ("osd");

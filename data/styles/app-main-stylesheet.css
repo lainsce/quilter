@@ -64,7 +64,7 @@
 
 .quilter-toolbar-main {
     margin: 0 6px;
-    padding: 5px 0;
+    padding: 0;
 }
 
 .quilter-toolbar-side {
@@ -73,7 +73,7 @@
 }
 
 .quilter-toolbar-main .image-button {
-    padding: 6px;
+    padding: 11px;
     margin: 5px 0;
 }
 
@@ -144,7 +144,7 @@
   min-width: 48px;
   min-height: 48px;
   margin: 0;
-  padding: 0;
+  padding: 6px;
 }
 
 .sep {

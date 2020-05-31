@@ -70,6 +70,8 @@ window.background {
   background-color: #1A1A1A;
   box-shadow: none;
   border: 1px solid #1A1A1A;
+  color: #F7F7F7;
+  -gtk-icon-shadow: 1px 1px transparent;
 }
 
 .osd:active,
