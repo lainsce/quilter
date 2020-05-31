@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -22,9 +22,11 @@ namespace Quilter {
         delegate void HookFunc ();
         public Gtk.Adjustment eadj;
         public Gtk.Box box;
+        public Gtk.Box main_leaf;
+        public Gtk.Box side_leaf;
         public Gtk.Overlay overlay_editor;
         public Gtk.Button focus_overlay_button;
-        public Hdy.Leaflet grid;
+        public Gtk.Grid grid;
         public Gtk.Grid main_pane;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
@@ -223,12 +225,10 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@2, keycode)) {
                         debug ("Press to change view...");
-                        if (Quilter.Application.gsettings.get_boolean("sidebar") && Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+                        if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                             Quilter.Application.gsettings.set_boolean("sidebar", false);
-                            Quilter.Application.gsettings.set_boolean("sidebar-title", false);
                         } else {
                             Quilter.Application.gsettings.set_boolean("sidebar", true);
-                            Quilter.Application.gsettings.set_boolean("sidebar-title", true);
                         }
                         return true;
                     }
@@ -373,34 +373,26 @@ namespace Quilter {
 
             overlay_button_revealer.add (focus_overlay_button);
 
-            var side_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            side_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             side_leaf.add (side_toolbar);
             side_leaf.add (sidebar);
 
-            var main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (toolbar_revealer);
             main_leaf.add (searchbar);
             main_leaf.add (main_stack);
 
             var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            var separator_cx = separator.get_style_context ();
+            separator_cx.add_class ("vsep");
 
-            grid = new Hdy.Leaflet ();
+            grid = new Gtk.Grid ();
             grid.add (side_leaf);
             grid.add (separator);
             grid.add (main_leaf);
-            grid.transition_type = Hdy.LeafletTransitionType.UNDER;
-            grid.visible_child = main_leaf;
             grid.show_all ();
 
             grid.child_set_property (separator, "allow-visible", false);
-
-            grid.notify["folded"].connect (() => {
-                if (grid.folded) {
-                    toolbar.side_button.sensitive = false;
-                } else {
-                    toolbar.side_button.sensitive = true;
-                }
-            });
 
             var main_overlay = new Gtk.Overlay ();
             main_overlay.add_overlay (overlay_button_revealer);
@@ -528,10 +520,7 @@ namespace Quilter {
 
         public void show_sidebar () {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-        }
-
-        public void show_header () {
-            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
+            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public void show_searchbar () {
@@ -561,7 +550,6 @@ namespace Quilter {
 
         private void on_settings_changed () {
             show_sidebar ();
-            show_header ();
             show_searchbar ();
             show_statusbar ();
             update_count ();
@@ -592,12 +580,12 @@ namespace Quilter {
             if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
                 toolbar.side_button.set_active (false);
             } else {
-                if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                     toolbar.side_button.set_active (true);
                 }
             }
 
-            if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+            if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                 toolbar.set_decoration_layout (":maximize");
             } else {
                 toolbar.set_decoration_layout ("close:maximize");

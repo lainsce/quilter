@@ -60,13 +60,21 @@
 
 .quilter-toolbar {
     border-bottom: 1px solid alpha (black, 0.25);
-    margin-right: 6px;
-    margin-left: 6px;
 }
 
-.quilter-toolbar .image-button {
-    border-radius: 4px;
-    padding: 6px 7px;
+.quilter-toolbar-main {
+    margin: 0 6px;
+    padding: 5px 0;
+}
+
+.quilter-toolbar-side {
+    margin: 0 6px;
+    padding: 0;
+}
+
+.quilter-toolbar-main .image-button {
+    padding: 6px;
+    margin: 5px 0;
 }
 
 .quilter-toolbar .image-button:hover {
@@ -78,36 +86,13 @@
     background: shade(@colorPrimary, 0.88);
 }
 
-.quilter-toolbar-main {
-    margin: 1px 0;
-}
-
-.quilter-toolbar-side {
-    border-right: 1px solid alpha (black, 0.25);
-    margin: 0;
-    margin-right: 6px;
-    margin-left: 6px;
-    padding: 0;
-}
-
 .quilter-sidebar {
-    border-right: 1px solid alpha (black, 0.25);
     margin: 0px;
-}
-
-.quilter-sidebar button.radio {
-    border-radius: 0;
-    border-bottom: 1px solid alpha (black, 0.25);
-}
-
-.rounded .quilter-sidebar {
-    border-top-left-radius: 6px;
 }
 
 .quilter-sidebar-button {
     border: 1px solid alpha (black, 0.25);
     border-radius: 50%;
-    padding: 6px;
 }
 
 .quilter-sidebar-button:hover {
@@ -117,19 +102,6 @@
 .quilter-sidebar-button:active,
 .quilter-sidebar-button:selected {
     background: alpha (mix (@bg_color, @accentColor, 0.5), 0.88);
-}
-
-.quilter-task-button {
-    border: 1px solid alpha (black, 0.25);
-    background: transparent;
-    border-radius: 50%;
-    padding: 2px;
-}
-
-.quilter-task-button:active,
-.quilter-task-button:selected {
-    color: black;
-    -gtk-icon-shadow: 1px 1px transparent;
 }
 
 .quilter-sidebar-box {
@@ -177,7 +149,10 @@
 
 .sep {
     border-top: 1px solid alpha (black, 0.15);
-    margin-bottom: -7px;
+}
+
+.vsep {
+    border-left: 1px solid alpha (black, 0.15);
 }
 
 .quilter-header-paned separator {
@@ -193,6 +168,7 @@
 
 .subtitle {
     font-size: smaller;
+    opacity: 0.8;
 }
 
 .sb-sidebutton {
@@ -215,15 +191,7 @@ label:disabled {
 .quilter-dialog-hb headerbar {
     border-bottom: 1px solid alpha (black, 0.25);
     margin: 0;
-    padding: 0;
-}
-
-.quilter-dialog-hb headerbar .titlebutton {
-    margin-left: 6px;
-}
-
-.quilter-dialog-hb:dir(rtl) headerbar .titlebutton {
-    margin-right: 6px;
+    padding: 0 6px;
 }
 
 .quilter-sidebar button.radio {

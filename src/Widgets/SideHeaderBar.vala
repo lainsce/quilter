@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -18,46 +18,33 @@
 */
 namespace Quilter.Widgets {
     public class SideHeaderbar : Gtk.Revealer {
-        public EditView sourceview;
         public MainWindow win;
-        public Preview preview;
         public Hdy.ViewSwitcher stackswitcher;
         public Hdy.HeaderBar header;
 
         public SideHeaderbar (MainWindow win) {
             this.win = win;
 
-            build_ui ();
-            icons_toolbar ();
-        }
-
-        private void build_ui () {
             stackswitcher = new Hdy.ViewSwitcher ();
-            var stackswitcher_context = stackswitcher.get_style_context ();
-            stackswitcher_context.add_class ("sb-switcher");
 
             header = new Hdy.HeaderBar ();
+            header.set_size_request (256,-1);
+            header.set_custom_title (stackswitcher);
+            header.set_show_close_button (true);
+            header.has_subtitle = false;
+            header.set_title (null);
+            header.set_decoration_layout ("close:");
+
             var header_context = header.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
             header_context.add_class ("quilter-toolbar-side");
             header_context.add_class ("titlebar");
 
-            header.set_custom_title (stackswitcher);
-
-            header.set_show_close_button (true);
-            header.has_subtitle = false;
-            header.set_title (null);
-            header.set_decoration_layout ("close:");
-
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.add (header);
-            header.set_size_request (256,-1);
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
-            this.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
-        }
-
-        public void icons_toolbar () {
+            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            this.visible = Quilter.Application.gsettings.get_boolean("sidebar");
         }
     }
 }

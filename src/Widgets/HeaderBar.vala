@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -347,22 +347,20 @@ namespace Quilter.Widgets {
 
             if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
                 side_button.set_active (false);
-                side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.BUTTON));
+                side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
             } else {
                 side_button.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
-                side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.BUTTON));
+                side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
             }
 
             side_button.toggled.connect (() => {
     			if (side_button.active) {
                     Quilter.Application.gsettings.set_boolean("sidebar", true);
-                    Quilter.Application.gsettings.set_boolean("sidebar-title", true);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-show-symbolic", Gtk.IconSize.BUTTON));
+                    side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
                     set_decoration_layout (":maximize");
     			} else {
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
-                    Quilter.Application.gsettings.set_boolean("sidebar-title", false);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("pane-hide-symbolic", Gtk.IconSize.BUTTON));
+                    side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
                     set_decoration_layout ("close:maximize");
     			}
             });

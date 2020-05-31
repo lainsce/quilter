@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 Lains
+* Copyright (c) 2018-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -37,7 +37,7 @@ namespace Quilter.Widgets {
                     file_label.label = _("New File");
                 } else {
                     file_name_label.label = Path.get_basename (_path);
-                    file_label.label = path;
+                    file_label.label = path.replace (Environment.get_home_dir (), "~");
                 }
             }
         }
@@ -58,13 +58,12 @@ namespace Quilter.Widgets {
             this.win = win;
             this.activatable = true;
             this.set_size_request (180,-1);
-            this.hexpand = false;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
             file_name_label = new Gtk.Label ("");
+            file_name_label.hexpand = true;
             file_name_label.halign = Gtk.Align.START;
-            file_name_label.hexpand = false;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
             file_name_label.max_width_chars = 25;
             var fnl_context = file_name_label.get_style_context ();
@@ -74,16 +73,13 @@ namespace Quilter.Widgets {
             file_label.halign = Gtk.Align.START;
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
-            file_label.hexpand = false;
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
             file_remove_button = new Gtk.Button ();
             file_remove_button.always_show_image = true;
-            file_remove_button.vexpand = false;
-            file_remove_button.hexpand = true;
             file_remove_button.valign = Gtk.Align.CENTER;
-            file_remove_button.halign = Gtk.Align.END;
+            file_remove_button.halign = Gtk.Align.CENTER;
             file_remove_button.tooltip_text = _("Remove File from Sidebar");
             var file_remove_button_style_context = file_remove_button.get_style_context ();
             file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
@@ -111,8 +107,7 @@ namespace Quilter.Widgets {
             });
 
             file_grid = new Gtk.Grid ();
-            file_grid.hexpand = false;
-            file_grid.row_spacing = 3;
+            file_grid.row_spacing = 6;
             file_grid.column_spacing = 6;
             file_grid.margin = 6;
             file_grid.attach (file_icon, 0, 0, 1, 2);
@@ -121,7 +116,6 @@ namespace Quilter.Widgets {
             file_grid.attach (file_remove_button, 2, 0, 1, 2);
 
             this.add (file_grid);
-            this.hexpand = true;
             this.show_all ();
             this.path = path;
         }
