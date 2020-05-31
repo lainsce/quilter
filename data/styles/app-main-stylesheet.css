@@ -69,7 +69,7 @@
     padding: 6px 7px;
 }
 
-.quilter-toolbar .image-button:prelight {
+.quilter-toolbar .image-button:hover {
     background: shade(@colorPrimary, 0.88);
 }
 
@@ -184,7 +184,7 @@
     background-image:
         linear-gradient(
             to right,
-            rgba(black, 0.05) 1px,
+            alpha (black, 0.05) 1px,
             transparent 2px
         );
     margin-right: -7px;
@@ -208,7 +208,7 @@
     font-weight: 700;
 }
 
-label:insensitive {
+label:disabled {
     opacity: 0.8;
 }
 

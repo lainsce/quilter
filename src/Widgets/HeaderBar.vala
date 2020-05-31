@@ -21,20 +21,18 @@ namespace Quilter.Widgets {
         private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_as_button;
-        private Gtk.Button save_button;
         private Gtk.Grid menu_grid;
         private Gtk.Grid top_grid;
         private Gtk.MenuButton menu_button;
         private Gtk.MenuButton pmenu_button;
-        public Gtk.ToggleButton side_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
+        public Gtk.ToggleButton side_button;
         public Gtk.ToggleButton view_mode;
         public MainWindow win;
         public Preview preview;
         public signal void create_new ();
         public signal void open ();
-        public signal void save ();
         public signal void save_as ();
 
         public Headerbar (MainWindow win) {
@@ -68,15 +66,6 @@ namespace Quilter.Widgets {
             );
 
             save_as_button.clicked.connect (() => save_as ());
-
-            save_button = new Gtk.Button ();
-            save_button.has_tooltip = true;
-            save_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>s"},
-                _("Save file")
-            );
-
-            save_button.clicked.connect (() => save ());
 
             open_button = new Gtk.Button ();
 			open_button.has_tooltip = true;
@@ -388,16 +377,6 @@ namespace Quilter.Widgets {
             pack_start (open_button);
             pack_start (save_as_button);
 
-            // This makes the save button show or not, and it's necessary as-is.
-            if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                save_button.visible = false;
-                Quilter.Application.gsettings.set_boolean("autosave", true);
-            } else {
-                pack_start (save_button);
-                save_button.visible = true;
-                Quilter.Application.gsettings.set_boolean("autosave", false);
-            }
-
             var prefer_label_button = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small
             prefer_label_button.label = _("Changing modes is disabled due\nto the system dark style preference.");
@@ -441,7 +420,6 @@ namespace Quilter.Widgets {
             pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
-            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
             view_mode.set_image (new Gtk.Image.from_icon_name ("view-reveal-symbolic", Gtk.IconSize.BUTTON));
