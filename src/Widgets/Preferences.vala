@@ -263,17 +263,22 @@ namespace Quilter.Widgets {
             pos_switch_grid.add (pos_button);
             pos_switch_grid.add (custom_help);
 
+            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
+            var spellcheck = new SettingsSwitch ("spellcheck");
+
             editor_grid.attach (edit_header,  0, 0, 1, 1);
             editor_grid.attach (save_button_label,  0, 1, 1, 1);
             editor_grid.attach (save_button, 1, 1, 1, 1);
             editor_grid.attach (pos_button_label,  0, 2, 1, 1);
             editor_grid.attach (pos_switch_grid, 1, 2, 1, 1);
+            editor_grid.attach (spellcheck_label, 0, 3, 1, 1);
+            editor_grid.attach (spellcheck, 1, 3, 1, 1);
 
-            editor_grid.attach (geo_header, 0, 3, 3, 1);
-            editor_grid.attach (spacing_label, 0, 4, 1, 1);
-            editor_grid.attach (spacing_size, 1, 4, 1, 1);
-            editor_grid.attach (margins_label, 0, 5, 1, 1);
-            editor_grid.attach (margins_size, 1, 5, 1, 1);
+            editor_grid.attach (geo_header, 0, 4, 3, 1);
+            editor_grid.attach (spacing_label, 0, 5, 1, 1);
+            editor_grid.attach (spacing_size, 1, 5, 1, 1);
+            editor_grid.attach (margins_label, 0, 6, 1, 1);
+            editor_grid.attach (margins_size, 1, 6, 1, 1);
 
             editor_grid.attach (font_header, 0, 7, 3, 1);
             editor_grid.attach (font_type_label, 0, 8, 1, 1);
@@ -533,9 +538,6 @@ namespace Quilter.Widgets {
             mermaid_switch_grid.add (mermaid);
             mermaid_switch_grid.add (custom_help);
 
-            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
-            var spellcheck = new SettingsSwitch ("spellcheck");
-
             preview_grid.attach (preview_header,  0, 0, 1, 1);
             preview_grid.attach (preview_font_label, 0, 1, 1, 1);
             preview_grid.attach (preview_font_size, 1, 1, 1, 1);
@@ -548,8 +550,6 @@ namespace Quilter.Widgets {
             preview_grid.attach (latex, 1, 5, 1, 1);
             preview_grid.attach (mermaid_label, 0, 6, 1, 1);
             preview_grid.attach (mermaid_switch_grid, 1, 6, 1, 1);
-            preview_grid.attach (spellcheck_label, 0, 7, 1, 1);
-            preview_grid.attach (spellcheck, 1, 7, 1, 1);
         }
 
         private class SettingsLabel : Gtk.Label {

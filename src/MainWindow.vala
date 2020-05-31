@@ -315,6 +315,7 @@ namespace Quilter {
             var edit_view_context = edit_view.get_style_context ();
             if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
                 edit_view_context.add_class ("quilter-edit-view");
+                toolbar.side_button.set_active (false);
             }
             edit_view_content = new Widgets.EditView (this);
             edit_view_content.save.connect (() => on_save ());
@@ -586,6 +587,14 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = false;
                 overlay_button_revealer.visible = false;
                 toolbar_revealer.reveal_child = true;
+            }
+
+            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
+                toolbar.side_button.set_active (false);
+            } else {
+                if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
+                    toolbar.side_button.set_active (true);
+                }
             }
 
             if (Quilter.Application.gsettings.get_boolean("sidebar-title")) {
