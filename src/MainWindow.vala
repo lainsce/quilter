@@ -317,20 +317,16 @@ namespace Quilter {
                 edit_view_context.add_class ("quilter-edit-view");
             }
             edit_view_content = new Widgets.EditView (this);
-            edit_view_content.expand = true;
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
 
             preview_view_content = new Widgets.Preview (this, edit_view_content);
-            preview_view_content.expand = true;
 
             stack = new Gtk.Stack ();
-            stack.hexpand = true;
             stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
-            box.expand = true;
             
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             statusbar.valign = Gtk.Align.END;
@@ -340,7 +336,6 @@ namespace Quilter {
             overlay_editor.add_overlay (statusbar);
 
             main_stack = new Gtk.Stack ();
-            main_stack.hexpand = true;
             main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             main_stack.add_named (stack, "stack");
             main_stack.add_named (box, "paned");
@@ -386,12 +381,17 @@ namespace Quilter {
             main_leaf.add (searchbar);
             main_leaf.add (main_stack);
 
+            var separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+
             grid = new Hdy.Leaflet ();
             grid.add (side_leaf);
+            grid.add (separator);
             grid.add (main_leaf);
             grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.visible_child = main_leaf;
             grid.show_all ();
+
+            grid.child_set_property (separator, "allow-visible", false);
 
             grid.notify["folded"].connect (() => {
                 if (grid.folded) {

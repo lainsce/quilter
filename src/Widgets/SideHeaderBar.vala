@@ -52,6 +52,7 @@ namespace Quilter.Widgets {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.add (header);
+            header.set_size_request (256,-1);
             this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar-title");
             this.visible = Quilter.Application.gsettings.get_boolean("sidebar-title");
         }
