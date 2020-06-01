@@ -270,7 +270,7 @@ namespace Quilter {
             if (window_x != -1 || window_y != -1) {
                 this.move (window_x, window_y);
             }
-            this.resize (rect.width, rect.height);
+            this.set_allocation (rect);
 
             try {
                 this.icon = Gtk.IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
@@ -432,7 +432,6 @@ namespace Quilter {
                 sidebar.delete_row ();
             }
 
-            this.window_position = Gtk.WindowPosition.CENTER;
             this.set_size_request (720, 720);
             this.show_all ();
         }

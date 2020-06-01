@@ -420,7 +420,6 @@ namespace Quilter.Widgets {
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
-            view_mode.set_image (new Gtk.Image.from_icon_name ("view-reveal-symbolic", Gtk.IconSize.BUTTON));
         }
     }
 }

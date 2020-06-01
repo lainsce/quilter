@@ -42,7 +42,7 @@ namespace Quilter.Widgets {
         public bool should_scroll {get; set; default = false;}
         public bool should_update_preview { get; set; default = false; }
         public double cursor_position = 0;
-        public new Gtk.SourceBuffer buffer;
+        public new unowned Gtk.SourceBuffer buffer;
         public string scroll_text = "";
 
         public static EditView get_instance () {
@@ -74,6 +74,35 @@ namespace Quilter.Widgets {
             }
         }
 
+        public bool spellcheck {
+            set {
+                if (value) {
+                    error_tag = new Gtk.TextTag ();
+                    error_tag = buffer.create_tag("gtkspell-misspelled", "background-set", true, "background-rgba", Gdk.RGBA () { red = 1.0, green = 0.54, blue = 0.51, alpha = 1.0 });
+                    buffer.tag_table.add (error_tag);
+                    try {
+                        var lang_dict = Quilter.Application.gsettings.get_string ("spellcheck-language");
+                        var language_list = GtkSpell.Checker.get_language_list ();
+                        foreach (var element in language_list) {
+                            if (lang_dict == element) {
+                                spell.set_language (lang_dict);
+                                break;
+                            }
+                        }
+                        if (this != null) {
+                            debug ("Spellchecking active!");
+                            spell.attach (this);
+                        }
+                    } catch (Error e) {
+                        warning (e.message);
+                    }
+                } else if (!value && spell != null) {
+                    debug ("Spellchecking disabled!");
+                    spell.detach ();
+                }
+            }
+        }
+
         public signal void save ();
 
         public EditView (MainWindow window) {
@@ -83,7 +112,7 @@ namespace Quilter.Widgets {
         construct {
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/markdown");
-            buffer = new Gtk.SourceBuffer.with_language (language);
+            var buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (50);
@@ -150,6 +179,8 @@ namespace Quilter.Widgets {
                 });
             }
 
+            spell = new GtkSpell.Checker ();
+
             update_settings ();
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
@@ -173,39 +204,6 @@ namespace Quilter.Widgets {
                 });
             });
 
-            error_tag = new Gtk.TextTag ();
-            error_tag = buffer.create_tag("gtkspell-misspelled", "background-set", true, "background-rgba", Gdk.RGBA () { red = 1.0, green = 0.54, blue = 0.51, alpha = 1.0 });
-            buffer.tag_table.add (error_tag);
-
-            if (Quilter.Application.gsettings.get_boolean ("spellcheck") != false && spell == null) {
-                try {
-                    spell = new GtkSpell.Checker ();
-                    var lang_dict = Quilter.Application.gsettings.get_string ("spellcheck-language");
-                    var language_list = GtkSpell.Checker.get_language_list ();
-                    foreach (var element in language_list) {
-                        if (lang_dict == element) {
-                            spell.set_language (lang_dict);
-                            break;
-                        }
-                    }
-                    if (language_list.length () == 0) {
-                        spell.set_language (null);
-                    } else {
-                        spell.set_language (lang_dict);
-                    }
-                    if (this != null) {
-                        debug ("Spellchecking active!");
-                        spell.attach (this);
-                    }
-                } catch (Error e) {
-                    warning (e.message);
-                }
-            } else {
-                if (spell != null)
-                    debug ("Spellchecking disabled!");
-                    spell.detach ();
-            }
-
             var rect = Gtk.Allocation ();
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
             last_width = rect.width;
@@ -219,7 +217,6 @@ namespace Quilter.Widgets {
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
         }
-
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
             if (menu == null) return null;
             var active = menu.get_active () as Gtk.MenuItem;
@@ -304,6 +301,7 @@ namespace Quilter.Widgets {
             } else {
                 pos_syntax_start ();
             }
+            spellcheck = Quilter.Application.gsettings.get_boolean("spellcheck");
         }
 
         public void dynamic_margins () {
