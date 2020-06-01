@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017 Lains
+* Copyright (C) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -24,7 +24,6 @@ namespace Quilter.Widgets {
         private Gtk.TextTag lightsepiafont;
         private Gtk.TextTag sepiafont;
         private Gtk.TextTag whitefont;
-        private bool spellcheck_active;
         private int last_height = 0;
         private int last_width = 0;
         private static EditView? instance = null;
@@ -147,9 +146,6 @@ namespace Quilter.Widgets {
             if (Quilter.Application.gsettings.get_boolean("autosave")) {
                 Timeout.add_seconds (30, () => {
                     save ();
-                    if (spellcheck_active) {
-                        spell.recheck_all ();
-                    }
                     modified = false;
                     return true;
                 });
@@ -165,18 +161,6 @@ namespace Quilter.Widgets {
                 update_settings ();
             });
 
-            error_tag = new Gtk.TextTag ("error_bg");
-            error_tag.underline = Pango.Underline.ERROR;
-            buffer.tag_table.add (error_tag);
-
-            spell = new GtkSpell.Checker ();
-            if (Quilter.Application.gsettings.get_boolean("spellcheck")) {
-                spell.attach (this);
-                spellcheck_active = true;
-            } else {
-                spellcheck_active = false;
-            }
-
             this.populate_popup.connect ((menu) => {
                 menu.selection_done.connect (() => {
                     var selected = get_selected (menu);
@@ -190,6 +174,44 @@ namespace Quilter.Widgets {
                 });
             });
 
+            warning_tag = new Gtk.TextTag ("warning_bg");
+            warning_tag.underline = Pango.Underline.ERROR;
+            warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
+            error_tag = new Gtk.TextTag ("error_bg");
+            error_tag.underline = Pango.Underline.ERROR;
+            buffer.tag_table.add (error_tag);
+            buffer.tag_table.add (warning_tag);
+
+            spell = new GtkSpell.Checker ();
+            spell.decode_language_codes = true;
+
+            if (Quilter.Application.gsettings.get_boolean ("spellcheck") != false) {
+                try {
+                    var lang_dict = Quilter.Application.gsettings.get_string ("spellcheck-language");
+                    var language_list = GtkSpell.Checker.get_language_list ();
+                    foreach (var element in language_list) {
+                        if (lang_dict == element) {
+                            spell.set_language (lang_dict);
+                            break;
+                        }
+                    }
+                    if (language_list.length () == 0) {
+                        spell.set_language (null);
+                    } else {
+                        spell.set_language (lang_dict);
+                    }
+                    if (this != null) {
+                        debug ("Spellchecking active!");
+                        spell.attach (this);
+                    }
+                } catch (Error e) {
+                    warning (e.message);
+                }
+            } else {
+                debug ("Spellchecking disabled!");
+                spell.detach ();
+            }
+
             var rect = Gtk.Allocation ();
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
             last_width = rect.width;
@@ -202,45 +224,6 @@ namespace Quilter.Widgets {
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
-        }
-
-        private void spellcheck_enable () {
-            spellcheck = Quilter.Application.gsettings.get_boolean ("spellcheck");
-        }
-
-        public bool spellcheck {
-            set {
-                if (value && !spellcheck_active && spell != null) {
-                    debug ("Activate spellcheck\n");
-                    try {
-                        var last_language = Quilter.Application.gsettings.get_string ("spellcheck-language");
-                        bool language_set = false;
-                        var language_list = GtkSpell.Checker.get_language_list ();
-                        foreach (var element in language_list) {
-                            if (last_language == element) {
-                                language_set = true;
-                                spell.set_language (last_language);
-                                break;
-                            }
-                        }
-
-                        if (language_list.length () == 0) {
-                            spell.set_language (null);
-                        } else if (!language_set) {
-                            last_language = language_list.first ().data;
-                            spell.set_language (last_language);
-                        }
-                        spell.attach (this);
-                        spellcheck_active = true;
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else if (!value && spellcheck_active) {
-                    debug ("Disable spellcheck\n");
-                    spell.detach ();
-                    spellcheck_active = false;
-                }
-            }
         }
 
         private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
@@ -262,7 +245,6 @@ namespace Quilter.Widgets {
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
             this.set_pixels_below_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins ();
-            spellcheck_enable ();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;

@@ -27,7 +27,6 @@ namespace Quilter.Widgets {
         private Gtk.MenuButton pmenu_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
-        public Gtk.ToggleButton side_button;
         public Gtk.ToggleButton view_mode;
         public MainWindow win;
         public Preview preview;
@@ -212,6 +211,26 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_boolean("focus-mode", true);
             });
 
+            var view_mode = new Gtk.ModelButton ();
+            focusmode_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
+            view_mode.get_child ().destroy ();
+            var view_mode_accellabel = new Granite.AccelLabel.from_action_name (
+                _("Toggle View…"),
+                MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW
+            );
+            view_mode.add (view_mode_accellabel);
+
+            var view_mode_context = view_mode.get_style_context ();
+            view_mode_context.add_class ("flat");
+
+            view_mode.clicked.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("full-width-changed")) {
+                    Quilter.Application.gsettings.set_boolean("full-width-changed", false);
+                } else {
+                    Quilter.Application.gsettings.set_boolean("full-width-changed", true);
+                }
+            });
+
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             var separator_cx = separator.get_style_context ();
             separator_cx.add_class ("sep");
@@ -330,47 +349,10 @@ namespace Quilter.Widgets {
             menu_button.tooltip_text = (_("Settings"));
             menu_button.popover = menu;
 
-            view_mode = new Gtk.ToggleButton ();
-            view_mode.has_tooltip = true;
-            view_mode.set_active (false);
-            view_mode.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>3"},
-                _("Switch Editor/Preview")
-            );
-
-            side_button = new Gtk.ToggleButton ();
-            side_button.has_tooltip = true;
-            side_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>2"},
-                _("Show/Hide Sidebar")
-            );
-
-            if (Quilter.Application.gsettings.get_boolean("sidebar") == false) {
-                side_button.set_active (false);
-                side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
-            } else {
-                side_button.set_active (Quilter.Application.gsettings.get_boolean("sidebar") );
-                side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
-            }
-
-            side_button.toggled.connect (() => {
-    			if (side_button.active) {
-                    Quilter.Application.gsettings.set_boolean("sidebar", true);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
-                    set_decoration_layout (":maximize");
-    			} else {
-                    Quilter.Application.gsettings.set_boolean("sidebar", false);
-                    side_button.set_image (new Gtk.Image.from_icon_name ("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
-                    set_decoration_layout ("close:maximize");
-    			}
-            });
-
             pack_end (menu_button);
             pack_end (pmenu_button);
             pack_end (search_button);
-            pack_end (view_mode);
 
-            pack_start (side_button);
             pack_start (new_button);
             pack_start (open_button);
             pack_start (save_as_button);
@@ -408,8 +390,25 @@ namespace Quilter.Widgets {
                 }
             });
 
+            if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
+                top_grid.attach (view_mode, 0, 3, 3, 1);
+                view_mode.visible = true;
+            } else {
+                top_grid.remove (view_mode);
+                view_mode.visible = true;
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
+                    top_grid.attach (view_mode, 0, 3, 3, 1);
+                    view_mode.visible = true;
+                } else {
+                    top_grid.remove (view_mode);
+                    view_mode.visible = true;
+                }
+            });
+
             set_show_close_button (true);
-            set_decoration_layout (":maximize");
             this.show_all ();
             this.set_size_request (-1,46);
         }

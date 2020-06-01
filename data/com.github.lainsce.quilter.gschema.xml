@@ -56,6 +56,11 @@
       <summary>Preview type for the UI</summary>
       <description>The user-preferred preview type to use in Preview in Quilter</description>
     </key>
+    <key name="full-width-changed" type="b">
+      <default>false</default>
+      <summary>Full-Width Pane to Show</summary>
+      <description>The user-preferred full-width shown pane in Quilter</description>
+    </key>
     <key name="track-type" type="s">
       <default>''</default>
       <summary>Tracking type for the Statusbar</summary>

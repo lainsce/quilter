@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2019 Lains
+* Copyright (c) 2019-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public

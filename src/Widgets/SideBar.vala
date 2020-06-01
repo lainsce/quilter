@@ -83,7 +83,7 @@ namespace Quilter.Widgets {
 
             this.add (scrolled_box);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            this.reveal_child = true;
         }
 
         public Gtk.Widget sidebar_files_list () {
@@ -116,6 +116,7 @@ namespace Quilter.Widgets {
                 }
                 Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)selected_row).path);
                 row_selected ((Widgets.SideBarBox)selected_row);
+                win.grid.set_visible_child (win.main_leaf);
             });
 
 

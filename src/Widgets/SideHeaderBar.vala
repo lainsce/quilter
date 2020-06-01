@@ -43,8 +43,8 @@ namespace Quilter.Widgets {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.add (header);
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            this.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+            this.reveal_child = true;
+            this.visible = true;
         }
     }
 }

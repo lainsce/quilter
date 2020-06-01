@@ -26,7 +26,7 @@ namespace Quilter {
         public Gtk.Box side_leaf;
         public Gtk.Overlay overlay_editor;
         public Gtk.Button focus_overlay_button;
-        public Gtk.Grid grid;
+        public Hdy.Leaflet grid;
         public Gtk.Grid main_pane;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
@@ -47,6 +47,7 @@ namespace Quilter {
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_FOCUS = "action_focus";
+        public const string ACTION_TOGGLE_VIEW = "action_toggle_view";
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_PREFS = "action_preferences";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
@@ -56,6 +57,7 @@ namespace Quilter {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
             { ACTION_FOCUS, action_focus },
+            { ACTION_TOGGLE_VIEW, action_toggle_view },
             { ACTION_EXPORT_PDF, action_export_pdf },
             { ACTION_EXPORT_HTML, action_export_html }
         };
@@ -86,9 +88,7 @@ namespace Quilter {
                     var sb_context = statusbar.actionbar.get_style_context ();
                     sb_context.remove_class ("full-bar");
                     sb_context.add_class ("statusbar");
-                    if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                        sidebar.reveal_child = true;
-                    }
+                    sidebar.reveal_child = true;
                 }
 
                 edit_view_content.dynamic_margins ();
@@ -258,6 +258,7 @@ namespace Quilter {
             action_accelerators.set (ACTION_CHEATSHEET, "<Control>h");
             action_accelerators.set (ACTION_EXPORT_HTML, "<Control>g");
             action_accelerators.set (ACTION_EXPORT_PDF, "<Control>p");
+            action_accelerators.set (ACTION_TOGGLE_VIEW, "<Control>1");
             action_accelerators.set (ACTION_FOCUS, "<Control>3");
         }
 
@@ -269,7 +270,7 @@ namespace Quilter {
             if (window_x != -1 || window_y != -1) {
                 this.move (window_x, window_y);
             }
-            this.set_allocation (rect);
+            this.resize (rect.width, rect.height);
 
             try {
                 this.icon = Gtk.IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
@@ -301,7 +302,6 @@ namespace Quilter {
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
             toolbar.title = title;
-            toolbar.hexpand = true;
             var toolbar_context = toolbar.get_style_context ();
             toolbar_context.add_class ("titlebar");
 
@@ -317,19 +317,16 @@ namespace Quilter {
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             var edit_view_context = edit_view.get_style_context ();
-            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
-                edit_view_context.add_class ("quilter-edit-view");
-                toolbar.side_button.set_active (false);
-            }
             edit_view_content = new Widgets.EditView (this);
-            edit_view_content.vexpand = true;
+            edit_view.vexpand = true;
             edit_view_content.save.connect (() => on_save ());
             edit_view.add (edit_view_content);
 
             preview_view_content = new Widgets.Preview (this, edit_view_content);
+            preview_view_content.vexpand = true;
 
             stack = new Gtk.Stack ();
-            stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
+            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
@@ -391,11 +388,28 @@ namespace Quilter {
             var separator_cx = separator.get_style_context ();
             separator_cx.add_class ("vsep");
 
-            grid = new Gtk.Grid ();
+            grid = new Hdy.Leaflet ();
             grid.add (side_leaf);
             grid.add (separator);
             grid.add (main_leaf);
+            grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.show_all ();
+
+            grid.notify["folded"].connect (() => {
+                if (!grid.folded) {
+                    grid.visible_child = side_leaf;
+                    side_toolbar.header.set_decoration_layout ("close:");
+                    toolbar.set_decoration_layout (":maximize");
+                    sidebar.column.row_selected.connect ((selected_row) => {
+                        toolbar.set_decoration_layout (":maximize");
+                    });
+                } else {
+                    side_toolbar.header.set_decoration_layout ("close:maximize");
+                    sidebar.column.row_selected.connect ((selected_row) => {
+                        toolbar.set_decoration_layout ("close:maximize");
+                    });
+                }
+            });
 
             grid.child_set_property (separator, "allow-visible", false);
 
@@ -419,7 +433,7 @@ namespace Quilter {
             }
 
             this.window_position = Gtk.WindowPosition.CENTER;
-            this.set_size_request (600, 720);
+            this.set_size_request (720, 720);
             this.show_all ();
         }
 
@@ -503,6 +517,9 @@ namespace Quilter {
             var ch = new Widgets.Cheatsheet (this);
             ch.show_all ();
         }
+        private void action_toggle_view () {
+            Quilter.Application.gsettings.set_boolean("full-width-changed", true);
+        }
         private void action_focus () {
             Quilter.Application.gsettings.set_boolean("focus-mode", true);
         }
@@ -521,11 +538,6 @@ namespace Quilter {
                 preview_view_content.update_html_view ();
                 edit_view_content.buffer.set_modified (false);
             }
-        }
-
-        public void show_sidebar () {
-            sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public void show_searchbar () {
@@ -554,7 +566,6 @@ namespace Quilter {
         }
 
         private void on_settings_changed () {
-            show_sidebar ();
             show_searchbar ();
             show_statusbar ();
             update_count ();
@@ -580,20 +591,8 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = false;
                 overlay_button_revealer.visible = false;
                 toolbar_revealer.reveal_child = true;
-            }
-
-            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
-                toolbar.side_button.set_active (false);
-            } else {
-                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                    toolbar.side_button.set_active (true);
-                }
-            }
-
-            if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                toolbar.set_decoration_layout (":maximize");
-            } else {
-                toolbar.set_decoration_layout ("close:maximize");
+                sidebar.reveal_child = true;
+                side_toolbar.reveal_child = true;
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
@@ -615,15 +614,12 @@ namespace Quilter {
                 stack.child_set_property (overlay_editor, "icon-name", "text-x-generic-symbolic");
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
-
-                toolbar.view_mode.toggled.connect (() => {
-                    if (toolbar.view_mode.active) {
-                        stack.set_visible_child (preview_view_content);
-                    } else {
-                        stack.set_visible_child (overlay_editor);
-                    }
-                });
                 main_stack.set_visible_child (stack);
+                if (Quilter.Application.gsettings.get_boolean("full-width-changed")) {
+                    stack.set_visible_child (preview_view_content);
+                } else {
+                    stack.set_visible_child (overlay_editor);
+                }
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);
