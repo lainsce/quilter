@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2018 Lains
+* Copyright (C) 2018-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -55,6 +55,7 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
 
             var titlebar = new Gtk.HeaderBar ();
+            titlebar.set_decoration_layout ("close:");
             titlebar.set_custom_title (main_stackswitcher);
             titlebar.set_show_close_button (true);
 
@@ -73,12 +74,11 @@ namespace Quilter.Widgets {
 
         private void get_editor_grid () {
             editor_grid = new Gtk.Grid ();
-            editor_grid.orientation = Gtk.Orientation.VERTICAL;
             editor_grid.row_spacing = 6;
-            editor_grid.column_spacing = 12;
+            editor_grid.column_spacing = 6;
 
             var geo_header = new Granite.HeaderLabel (_("Geometry"));
-            var spacing_label = new SettingsLabel (_("Spacing of Text:"));
+            var spacing_label = new SettingsLabel (_("Text Spacing:"));
             var spacing_size = new Granite.Widgets.ModeButton ();
             spacing_size.append_text (_("Small"));
             spacing_size.append_text (_("Normal"));
@@ -118,7 +118,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var margins_label = new SettingsLabel (_("Margins of Text:"));
+            var margins_label = new SettingsLabel (_("Text Margins:"));
             var margins_size = new Granite.Widgets.ModeButton ();
             margins_size.append_text (_("Small"));
             margins_size.append_text (_("Normal"));
@@ -288,15 +288,9 @@ namespace Quilter.Widgets {
         }
 
         private void get_interface_grid () {
-            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-            default_theme.add_resource_path ("/com/github/lainsce/quilter");
-
-
             interface_grid = new Gtk.Grid ();
             interface_grid.row_spacing = 6;
-            interface_grid.column_spacing = 12;
-            interface_grid.orientation = Gtk.Orientation.VERTICAL;
-            interface_grid.set_column_homogeneous (false);
+            interface_grid.column_spacing = 6;
 
             var mode_header = new Granite.HeaderLabel (_("Modes"));
             var color_button_light = new Gtk.RadioButton (null);
@@ -367,7 +361,7 @@ namespace Quilter.Widgets {
             var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
-            var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
+            var focus_mode_type_label = new SettingsLabel (_("Focus Mode Type:"));
             var focus_mode_type_size = new Granite.Widgets.ModeButton ();
             focus_mode_type_size.append_text (_("Paragraph"));
             focus_mode_type_size.append_text (_("Sentence"));
@@ -468,12 +462,10 @@ namespace Quilter.Widgets {
         private void get_preview_grid () {
             preview_grid = new Gtk.Grid ();
             preview_grid.row_spacing = 6;
-            preview_grid.column_spacing = 12;
-            preview_grid.orientation = Gtk.Orientation.VERTICAL;
-            preview_grid.set_column_homogeneous (false);
+            preview_grid.column_spacing = 6;
 
             var preview_header = new Granite.HeaderLabel (_("Preview"));
-            var preview_font_label = new SettingsLabel (_("Preview Font Type:"));
+            var preview_font_label = new SettingsLabel (_("Font Type:"));
             var preview_font_size = new Granite.Widgets.ModeButton ();
             preview_font_size.append_text (_("Serif"));
             preview_font_size.append_text (_("Sans"));
@@ -513,21 +505,21 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var centering_preview_headers_label = new SettingsLabel (_("Center Preview Headers:"));
+            var centering_preview_headers_label = new SettingsLabel (_("Center Headers:"));
             var centering_preview_headers = new SettingsSwitch ("center-headers");
             centering_preview_headers.hexpand = true;
 
             var ext_header = new Granite.HeaderLabel (_("Extensions"));
 
-            var highlight_label = new SettingsLabel (_("Enable Code Highlighting:"));
+            var highlight_label = new SettingsLabel (_("Code Highlighting:"));
             var highlight = new SettingsSwitch ("highlight");
             highlight.hexpand = true;
 
-            var latex_label = new SettingsLabel (_("Enable LaTeX Processing:"));
+            var latex_label = new SettingsLabel (_("LaTeX Processing:"));
             var latex = new SettingsSwitch ("latex");
             latex.hexpand = true;
 
-            var mermaid_label = new SettingsLabel (_("Enable Mermaid.js Graphing:"));
+            var mermaid_label = new SettingsLabel (_("Mermaid.js Graphing:"));
             var mermaid = new SettingsSwitch ("mermaid");
             var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
             custom_help.halign = Gtk.Align.START;
@@ -556,7 +548,6 @@ namespace Quilter.Widgets {
             public SettingsLabel (string text) {
                 label = text;
                 halign = Gtk.Align.END;
-                margin_start = 12;
                 use_markup = true;
             }
         }

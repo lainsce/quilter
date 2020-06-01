@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -55,6 +55,7 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (tables_grid, "icon-name", "view-column-symbolic");
 
             var titlebar = new Gtk.HeaderBar ();
+            titlebar.set_decoration_layout ("close:");
             titlebar.set_custom_title (main_stackswitcher);
             titlebar.set_show_close_button (true);
 

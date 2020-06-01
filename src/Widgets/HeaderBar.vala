@@ -411,6 +411,7 @@ namespace Quilter.Widgets {
             set_show_close_button (true);
             set_decoration_layout (":maximize");
             this.show_all ();
+            this.set_size_request (-1,46);
         }
 
         public void icons_toolbar () {

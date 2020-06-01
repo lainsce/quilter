@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
                     file_name_label.label = _("New Document");
                     file_label.label = _("New File");
                 } else {
-                    file_name_label.label = Path.get_basename (_path);
+                    file_name_label.label = Path.get_basename (_path).replace (".md", "");;
                     file_label.label = path.replace (Environment.get_home_dir (), "~");
                 }
             }
@@ -67,12 +67,14 @@ namespace Quilter.Widgets {
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
             file_name_label.max_width_chars = 25;
             var fnl_context = file_name_label.get_style_context ();
-            fnl_context.add_class (Granite.STYLE_CLASS_H3_LABEL);
+            fnl_context.add_class ("title");
 
             file_label = new Gtk.Label ("");
             file_label.halign = Gtk.Align.START;
             file_label.ellipsize = Pango.EllipsizeMode.START;
             file_label.max_width_chars = 25;
+            var fl_context = file_label.get_style_context ();
+            fl_context.add_class ("subtitle");
 
             var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
 
@@ -85,8 +87,7 @@ namespace Quilter.Widgets {
             var file_remove_button_style_context = file_remove_button.get_style_context ();
             file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             file_remove_button_style_context.add_class ("quilter-sidebar-button");
-            file_remove_button_style_context.remove_class ("image-button");
-            file_remove_button.set_image (new Gtk.Image.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
             file_remove_button.clicked.connect (() => {
                 win.sidebar.delete_row_with_name ();
@@ -107,14 +108,18 @@ namespace Quilter.Widgets {
                 }
             });
 
+            var file_labels_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
+            var flb_context = file_labels_box.get_style_context ();
+            flb_context.add_class ("quilter-flb");
+            file_labels_box.pack_start (file_name_label);
+            file_labels_box.pack_start (file_label);
+
             file_grid = new Gtk.Grid ();
-            file_grid.row_spacing = 6;
-            file_grid.column_spacing = 6;
-            file_grid.margin = 6;
-            file_grid.attach (file_icon, 0, 0, 1, 2);
-            file_grid.attach (file_name_label, 1, 0, 1, 1);
-            file_grid.attach (file_label, 1, 1, 1, 1);
-            file_grid.attach (file_remove_button, 2, 0, 1, 2);
+            file_grid.column_spacing = 12;
+            file_grid.margin = 12;
+            file_grid.attach (file_icon, 0, 0, 1, 1);
+            file_grid.attach (file_labels_box, 1, 0, 1, 1);
+            file_grid.attach (file_remove_button, 2, 0, 1, 1);
 
             this.add (file_grid);
             this.show_all ();

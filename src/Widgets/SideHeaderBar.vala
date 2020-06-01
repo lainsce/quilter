@@ -28,7 +28,7 @@ namespace Quilter.Widgets {
             stackswitcher = new Hdy.ViewSwitcher ();
 
             header = new Hdy.HeaderBar ();
-            header.set_size_request (256,-1);
+            header.set_size_request (256,46);
             header.set_custom_title (stackswitcher);
             header.set_show_close_button (true);
             header.has_subtitle = false;

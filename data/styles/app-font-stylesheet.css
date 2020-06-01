@@ -1,16 +1,16 @@
 .small-text {
-    font-size: 1.22223em;
-    letter-spacing: 2px;
+    font-size: 1.1112em;
+    letter-spacing: 0.2em;
 }
 
 .medium-text {
-    font-size: 1.33334em;
-    letter-spacing: 2px;
+    font-size: 1.4445em;
+    letter-spacing: 0.2em;
 }
 
 .big-text {
-    font-size: 1.66667em;
-    letter-spacing: 2px;
+    font-size: 1.8889em;
+    letter-spacing: 0.2em;
 }
 
 .mono-font {
@@ -28,6 +28,12 @@
     font-weight: 500;
 }
 
-* {
-    font-family: 'Open Sans';
+.small-text *,
+.medium-text *,
+.big-text *,
+.mono-font *,
+.vier-font *,
+.zwei-font * {
+    font-family: 'Inter';
+    letter-spacing: 0em;
 }
