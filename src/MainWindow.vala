@@ -432,7 +432,7 @@ namespace Quilter {
                 sidebar.delete_row ();
             }
 
-            this.set_size_request (720, 720);
+            this.set_size_request (400, 648);
             this.show_all ();
         }
 
@@ -614,11 +614,7 @@ namespace Quilter {
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
-                if (Quilter.Application.gsettings.get_boolean("full-width-changed")) {
-                    stack.set_visible_child (preview_view_content);
-                } else {
-                    stack.set_visible_child (overlay_editor);
-                }
+                stack.set_visible_child (overlay_editor);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);
