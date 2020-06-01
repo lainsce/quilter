@@ -34,16 +34,15 @@ namespace Quilter.Widgets {
         public Gtk.TextTag adjfont;
         public Gtk.TextTag adverbfont;
         public Gtk.TextTag conjfont;
-        public Gtk.TextTag error_tag;
         public Gtk.TextTag verbfont;
-        public Gtk.TextTag warning_tag;
-        public GtkSpell.Checker spell = null;
+        public Gtk.TextTag error_tag;
+        public GtkSpell.Checker? spell = null;
         public MainWindow window;
         public Services.POSFiles pos;
         public bool should_scroll {get; set; default = false;}
         public bool should_update_preview { get; set; default = false; }
         public double cursor_position = 0;
-        public new unowned Gtk.SourceBuffer buffer;
+        public new Gtk.SourceBuffer buffer;
         public string scroll_text = "";
 
         public static EditView get_instance () {
@@ -83,8 +82,8 @@ namespace Quilter.Widgets {
 
         construct {
             var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/x-markdown");
-            var buffer = new Gtk.SourceBuffer.with_language (language);
+            var language = manager.guess_language (null, "text/markdown");
+            buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (50);
@@ -174,19 +173,13 @@ namespace Quilter.Widgets {
                 });
             });
 
-            warning_tag = new Gtk.TextTag ("warning_bg");
-            warning_tag.underline = Pango.Underline.ERROR;
-            warning_tag.underline_rgba = Gdk.RGBA () { red = 0.13, green = 0.55, blue = 0.13, alpha = 1.0 };
-            error_tag = new Gtk.TextTag ("error_bg");
-            error_tag.underline = Pango.Underline.ERROR;
+            error_tag = new Gtk.TextTag ();
+            error_tag = buffer.create_tag("gtkspell-misspelled", "background-set", true, "background-rgba", Gdk.RGBA () { red = 1.0, green = 0.54, blue = 0.51, alpha = 1.0 });
             buffer.tag_table.add (error_tag);
-            buffer.tag_table.add (warning_tag);
 
-            spell = new GtkSpell.Checker ();
-            spell.decode_language_codes = true;
-
-            if (Quilter.Application.gsettings.get_boolean ("spellcheck") != false) {
+            if (Quilter.Application.gsettings.get_boolean ("spellcheck") != false && spell == null) {
                 try {
+                    spell = new GtkSpell.Checker ();
                     var lang_dict = Quilter.Application.gsettings.get_string ("spellcheck-language");
                     var language_list = GtkSpell.Checker.get_language_list ();
                     foreach (var element in language_list) {
@@ -208,8 +201,9 @@ namespace Quilter.Widgets {
                     warning (e.message);
                 }
             } else {
-                debug ("Spellchecking disabled!");
-                spell.detach ();
+                if (spell != null)
+                    debug ("Spellchecking disabled!");
+                    spell.detach ();
             }
 
             var rect = Gtk.Allocation ();
