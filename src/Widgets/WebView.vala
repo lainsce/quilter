@@ -46,7 +46,6 @@ namespace Quilter {
 
         public Preview (MainWindow window, Widgets.EditView buf) {
             Object(user_content_manager: new WebKit.UserContentManager());
-            visible = true;
             this.buf = buf;
             var webkit_settings = get_settings ();
             webkit_settings.enable_page_cache = false;

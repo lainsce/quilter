@@ -288,7 +288,6 @@ namespace Quilter {
             }
 
             // Used for identification purposes, don't translate.
-            title = _("Quilter");
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
@@ -298,15 +297,15 @@ namespace Quilter {
 
             side_toolbar = new Widgets.SideHeaderbar (this);
 
+            side_toolbar.create_new.connect (on_create_new);
+
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
-            toolbar.title = title;
             var toolbar_context = toolbar.get_style_context ();
             toolbar_context.add_class ("titlebar");
 
             toolbar.open.connect (on_open);
             toolbar.save_as.connect (on_save_as);
-            toolbar.create_new.connect (on_create_new);
 
             toolbar_revealer = new Gtk.Revealer ();
             toolbar_revealer.add (toolbar);
@@ -400,12 +399,8 @@ namespace Quilter {
                     side_toolbar.header.set_decoration_layout ("close:");
                     toolbar.set_decoration_layout (":maximize");
                     sidebar.column.row_selected.connect ((selected_row) => {
+                        side_toolbar.header.set_decoration_layout ("close:");
                         toolbar.set_decoration_layout (":maximize");
-                    });
-                } else {
-                    side_toolbar.header.set_decoration_layout ("close:maximize");
-                    sidebar.column.row_selected.connect ((selected_row) => {
-                        toolbar.set_decoration_layout ("close:maximize");
                     });
                 }
             });
@@ -545,7 +540,7 @@ namespace Quilter {
         }
 
         public void show_searchbar () {
-            searchbar.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
+            searchbar.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
         public void show_statusbar () {
@@ -610,7 +605,6 @@ namespace Quilter {
             } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
                 stack.set_visible_child (overlay_editor);
             }
-
             render_func ();
         }
 

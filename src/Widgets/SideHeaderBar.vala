@@ -21,6 +21,8 @@ namespace Quilter.Widgets {
         public MainWindow win;
         public Hdy.ViewSwitcher stackswitcher;
         public Hdy.HeaderBar header;
+        private Gtk.Button new_button;
+        public signal void create_new ();
 
         public SideHeaderbar (MainWindow win) {
             this.win = win;
@@ -28,12 +30,24 @@ namespace Quilter.Widgets {
             stackswitcher = new Hdy.ViewSwitcher ();
 
             header = new Hdy.HeaderBar ();
-            header.set_size_request (256,46);
+            header.set_size_request (200,46);
             header.set_custom_title (stackswitcher);
             header.set_show_close_button (true);
             header.has_subtitle = false;
             header.set_title (null);
             header.set_decoration_layout ("close:");
+
+            new_button = new Gtk.Button ();
+            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
+            new_button.has_tooltip = true;
+            new_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>n"},
+                _("New file")
+            );
+
+            new_button.clicked.connect (() => create_new ());
+
+            header.pack_end (new_button);
 
             var header_context = header.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);

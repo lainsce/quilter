@@ -91,7 +91,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.set_size_request (256,-1);
+            column.set_size_request (200,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -124,7 +124,7 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (256, -1);
+            files_grid.set_size_request (200, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;

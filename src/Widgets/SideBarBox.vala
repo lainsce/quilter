@@ -35,9 +35,11 @@ namespace Quilter.Widgets {
                 if (Services.FileManager.is_temp_file (_path)) {
                     file_name_label.label = _("New Document");
                     file_label.label = _("New File");
+                    win.toolbar.title = _("New File");
                 } else {
                     file_name_label.label = Path.get_basename (_path).replace (".md", "");;
-                    file_label.label = path.replace (Environment.get_home_dir (), "~");
+                    file_label.label = path.replace (Environment.get_home_dir (), "~").replace (Path.get_basename (_path), "");
+                    win.toolbar.title = file_name_label.label;
                 }
             }
         }

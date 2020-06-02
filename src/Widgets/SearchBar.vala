@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SearchBar : Gtk.Revealer {
+    public class SearchBar : Gtk.SearchBar {
         private EditView? text_view = null;
         private Gtk.Button replace_all_tool_button;
         private Gtk.Button replace_tool_button;
@@ -76,14 +76,13 @@ namespace Quilter.Widgets {
 
             grid.attach (replace_grid, 0, 1);
 
-            var context = grid.get_style_context ();
+            var context = this.get_style_context ();
             context.add_class ("quilter-searchbar");
 
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             this.add (grid);
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
+            this.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
         public void search_entry_item () {

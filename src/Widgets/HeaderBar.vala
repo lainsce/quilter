@@ -18,19 +18,17 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Hdy.HeaderBar {
-        private Gtk.Button new_button;
         private Gtk.Button open_button;
         private Gtk.Button save_as_button;
         private Gtk.Grid menu_grid;
         private Gtk.Grid top_grid;
         private Gtk.MenuButton menu_button;
-        private Gtk.MenuButton pmenu_button;
+        public Gtk.MenuButton pmenu_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
         public Gtk.ToggleButton view_mode;
         public MainWindow win;
         public Preview preview;
-        public signal void create_new ();
         public signal void open ();
         public signal void save_as ();
 
@@ -47,15 +45,6 @@ namespace Quilter.Widgets {
 
         private void build_ui () {
             set_title (null);
-
-            new_button = new Gtk.Button ();
-            new_button.has_tooltip = true;
-            new_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>n"},
-                _("New file")
-            );
-
-            new_button.clicked.connect (() => create_new ());
 
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
@@ -254,7 +243,6 @@ namespace Quilter.Widgets {
             preview_full_box.add (preview_full_button);
             preview_full_box.add (preview_full_label_box);
 
-
             var preview_half_label_title = new Gtk.Label (_("Half-Width"));
             preview_half_label_title.halign = Gtk.Align.START;
             var preview_half_label_title_context = preview_half_label_title.get_style_context ();
@@ -346,7 +334,6 @@ namespace Quilter.Widgets {
             pack_end (pmenu_button);
             pack_end (search_button);
 
-            pack_start (new_button);
             pack_start (open_button);
             pack_start (save_as_button);
 
@@ -402,7 +389,6 @@ namespace Quilter.Widgets {
             });
 
             set_show_close_button (true);
-            this.show_all ();
             this.set_size_request (-1,46);
         }
 
@@ -410,7 +396,6 @@ namespace Quilter.Widgets {
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
             pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
-            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
         }

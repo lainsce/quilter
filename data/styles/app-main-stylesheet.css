@@ -72,9 +72,12 @@
     padding: 0;
 }
 
-.quilter-toolbar-main .image-button {
-    margin: 5px 0;
-    padding: 0 10px;
+.quilter-toolbar .image-button {
+    margin: 6px 0;
+}
+
+.quilter-toolbar .image-button image {
+    padding: 5px;
 }
 
 .quilter-toolbar .image-button:hover {
