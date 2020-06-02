@@ -238,7 +238,7 @@ namespace Quilter.Widgets {
             preview_full_label_title.halign = Gtk.Align.START;
             var preview_full_label_title_context = preview_full_label_title.get_style_context ();
             preview_full_label_title_context.add_class ("bold");
-            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change with Eye button"));
+            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change on the menu."));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
             var preview_full_button = new Gtk.RadioButton.from_widget (null);
@@ -259,7 +259,7 @@ namespace Quilter.Widgets {
             preview_half_label_title.halign = Gtk.Align.START;
             var preview_half_label_title_context = preview_half_label_title.get_style_context ();
             preview_half_label_title_context.add_class ("bold");
-            var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally"));
+            var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally."));
             preview_half_label_subtitle.halign = Gtk.Align.START;
             preview_half_label_subtitle.sensitive = false;
             var preview_half_button = new Gtk.RadioButton.from_widget (preview_full_button);
