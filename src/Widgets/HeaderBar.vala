@@ -64,17 +64,6 @@ namespace Quilter.Widgets {
 
             open_button.clicked.connect (() => open ());
 
-            string cache = Services.FileManager.get_cache_path ();
-            if (this.subtitle != cache) {
-                set_subtitle (Quilter.Application.gsettings.get_string("current-file"));
-            } else if (this.subtitle == cache) {
-                set_subtitle (_("No Documents Open"));
-            } else if (Quilter.Application.gsettings.get_string("current-file") == null) {
-                set_subtitle (_("No Documents Open"));
-            } else if (this.subtitle == Services.FileManager.get_temp_document_path ()) {
-                set_subtitle (_("No Documents Open"));
-            }
-
             search_button = new Gtk.ToggleButton ();
             search_button.has_tooltip = true;
             search_button.tooltip_markup = Granite.markup_accel_tooltip (

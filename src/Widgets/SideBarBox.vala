@@ -36,10 +36,12 @@ namespace Quilter.Widgets {
                     file_name_label.label = _("New Document");
                     file_label.label = _("New File");
                     win.toolbar.title = _("New File");
+                    win.toolbar.set_subtitle ("");
                 } else {
                     file_name_label.label = Path.get_basename (_path).replace (".md", "");;
-                    file_label.label = path.replace (Environment.get_home_dir (), "~").replace (Path.get_basename (_path), "");
+                    file_label.label = path.replace (Environment.get_home_dir (), "~");
                     win.toolbar.title = file_name_label.label;
+                    win.toolbar.subtitle = file_label.label.replace (Path.get_basename (_path), "");
                 }
             }
         }
@@ -95,7 +97,7 @@ namespace Quilter.Widgets {
                 win.sidebar.delete_row_with_name ();
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
-                win.toolbar.set_subtitle (_("No Documents Open"));
+                win.toolbar.set_subtitle ("");
                 win.sidebar.store.clear ();
 
                 var rows = win.sidebar.get_rows ();

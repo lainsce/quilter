@@ -392,16 +392,22 @@ namespace Quilter {
             grid.add (main_leaf);
             grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.show_all ();
+            grid.can_swipe_back = true;
 
             grid.notify["folded"].connect (() => {
                 if (!grid.folded) {
                     grid.visible_child = side_leaf;
+                    toolbar.pmenu_button.visible = true;
+                    toolbar.pmenu_button.no_show_all = false;
                     side_toolbar.header.set_decoration_layout ("close:");
                     toolbar.set_decoration_layout (":maximize");
                     sidebar.column.row_selected.connect ((selected_row) => {
                         side_toolbar.header.set_decoration_layout ("close:");
                         toolbar.set_decoration_layout (":maximize");
                     });
+                } else {
+                    toolbar.pmenu_button.visible = false;
+                    toolbar.pmenu_button.no_show_all = true;
                 }
             });
 
@@ -550,9 +556,9 @@ namespace Quilter {
         private void update_title () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
-                toolbar.set_subtitle (row.title);
+                toolbar.set_subtitle (row.title.replace (Path.get_basename (row.title), ""));
             } else {
-                toolbar.set_subtitle (_("No Documents Open"));
+                toolbar.set_subtitle ("");
             }
         }
 
