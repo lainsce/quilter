@@ -263,14 +263,13 @@ namespace Quilter {
         }
 
         construct {
-            var rect = Gtk.Allocation ();
-            int window_x, window_y;
+            int window_x, window_y, width, height;
             Quilter.Application.gsettings.get ("window-position", "(ii)", out window_x, out window_y);
-            Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
+            Quilter.Application.gsettings.get ("window-size", "(ii)", out width, out height);
             if (window_x != -1 || window_y != -1) {
                 this.move (window_x, window_y);
             }
-            this.set_allocation (rect);
+            this.resize (width, height);
 
             try {
                 this.icon = Gtk.IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);

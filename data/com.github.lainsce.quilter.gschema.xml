@@ -7,7 +7,7 @@
       <description>The x axis of window position</description>
     </key>
     <key name="window-size" type="(ii)">
-      <default>(800,920)</default>
+      <default>(870,690)</default>
       <summary>Window position</summary>
       <description>The height of the window</description>
     </key>
