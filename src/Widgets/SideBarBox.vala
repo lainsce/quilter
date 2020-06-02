@@ -61,22 +61,22 @@ namespace Quilter.Widgets {
         public SideBarBox (MainWindow win, string? path) {
             this.win = win;
             this.activatable = true;
-            this.set_size_request (180,-1);
+            this.set_size_request (330,-1);
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
             file_name_label = new Gtk.Label ("");
-            file_name_label.hexpand = true;
             file_name_label.halign = Gtk.Align.START;
+            file_name_label.hexpand = true;
+            file_name_label.xalign = 0;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
-            file_name_label.max_width_chars = 25;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class ("title");
 
             file_label = new Gtk.Label ("");
             file_label.halign = Gtk.Align.START;
+            file_name_label.xalign = 0;
             file_label.ellipsize = Pango.EllipsizeMode.START;
-            file_label.max_width_chars = 25;
             var fl_context = file_label.get_style_context ();
             fl_context.add_class ("subtitle");
 
