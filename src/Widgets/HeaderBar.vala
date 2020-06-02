@@ -212,7 +212,8 @@ namespace Quilter.Widgets {
             });
 
             var view_mode = new Gtk.ModelButton ();
-            focusmode_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
+            view_mode.role = Gtk.ButtonRole.CHECK;
+            view_mode.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
             view_mode.get_child ().destroy ();
             var view_mode_accellabel = new Granite.AccelLabel.from_action_name (
                 _("Toggle View…"),
@@ -222,14 +223,6 @@ namespace Quilter.Widgets {
 
             var view_mode_context = view_mode.get_style_context ();
             view_mode_context.add_class ("flat");
-
-            view_mode.clicked.connect (() => {
-                if (Quilter.Application.gsettings.get_boolean("full-width-changed")) {
-                    Quilter.Application.gsettings.set_boolean("full-width-changed", false);
-                } else {
-                    Quilter.Application.gsettings.set_boolean("full-width-changed", true);
-                }
-            });
 
             var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
             var separator_cx = separator.get_style_context ();

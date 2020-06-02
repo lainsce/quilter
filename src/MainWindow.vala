@@ -216,11 +216,11 @@ namespace Quilter {
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.@1, keycode)) {
                         debug ("Press to change view...");
-                        if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
+                        if (Quilter.Application.gsettings.get_boolean ("full-width-changed")) {
                             if (this.stack.get_visible_child_name () == "preview_view") {
                                 this.stack.set_visible_child (this.edit_view);
                             } else if (this.stack.get_visible_child_name () == "edit_view") {
-                                this.stack.set_visible_child (this.box);
+                                this.stack.set_visible_child (this.preview_view_content);
                             }
                         }
                         return true;
@@ -453,9 +453,9 @@ namespace Quilter {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            var rect = Gtk.Allocation ();
-            this.get_allocation (out rect);
-            Quilter.Application.gsettings.set ("window-size", "(ii)", rect.width, rect.height);
+            int w, h;
+            get_size (out w, out h);
+            Quilter.Application.gsettings.set ("window-size", "(ii)", w, h);
             int root_x, root_y;
             this.get_position (out root_x, out root_y);
             Quilter.Application.gsettings.set ("window-position", "(ii)", root_x, root_y);
@@ -516,7 +516,13 @@ namespace Quilter {
             ch.show_all ();
         }
         private void action_toggle_view () {
-            Quilter.Application.gsettings.set_boolean("full-width-changed", true);
+            if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
+                stack.set_visible_child (preview_view_content);
+                Quilter.Application.gsettings.set_boolean ("full-width-changed", true);
+            } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
+                stack.set_visible_child (overlay_editor);
+                Quilter.Application.gsettings.set_boolean ("full-width-changed", false);
+            }
         }
         private void action_focus () {
             Quilter.Application.gsettings.set_boolean("focus-mode", true);
@@ -593,12 +599,16 @@ namespace Quilter {
                 side_toolbar.reveal_child = true;
             }
 
-            if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
-                // pass
-            } else {
+            if (Quilter.Application.gsettings.get_string("current-file") == "" || Quilter.Application.gsettings.get_string("current-file") == _("No Documents Open")) {
                 Services.FileManager.get_cache_path ();
                 sidebar.add_file (Services.FileManager.get_temp_document_path ());
                 edit_view_content.buffer.text = "";
+            }
+
+            if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
+                stack.set_visible_child (preview_view_content);
+            } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
+                stack.set_visible_child (overlay_editor);
             }
 
             render_func ();
@@ -613,7 +623,6 @@ namespace Quilter {
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
-                stack.set_visible_child (overlay_editor);
             } else {
                 foreach (Gtk.Widget w in stack.get_children ()) {
                     stack.remove (w);
@@ -623,6 +632,8 @@ namespace Quilter {
                 box.add (overlay_editor);
                 box.add (preview_view_content);
                 main_stack.set_visible_child (box);
+                side_toolbar.reveal_child = false;
+                sidebar.reveal_child = false;
             }
         }
 
