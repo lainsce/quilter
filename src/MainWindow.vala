@@ -432,7 +432,7 @@ namespace Quilter {
                 sidebar.delete_row ();
             }
 
-            this.set_size_request (400, 648);
+            this.set_size_request (360, 648);
             this.show_all ();
         }
 
