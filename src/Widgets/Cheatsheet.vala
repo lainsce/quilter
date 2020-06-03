@@ -19,7 +19,6 @@
 namespace Quilter.Widgets {
     public class Cheatsheet : Hdy.Window {
         private Gtk.Grid links_grid;
-        private Gtk.Grid tables_grid;
         private Gtk.Grid textstyle_grid;
         private Gtk.Stack main_stack;
         private Hdy.ViewSwitcher main_stackswitcher;
@@ -28,6 +27,7 @@ namespace Quilter.Widgets {
             Object (
                 resizable: false,
                 title: _("Cheatsheet"),
+                type_hint: Gdk.WindowTypeHint.DIALOG,
                 transient_for: parent,
                 modal: true,
                 destroy_with_parent: true,
@@ -36,7 +36,6 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            this.set_size_request (360,-1);
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
 
@@ -46,18 +45,15 @@ namespace Quilter.Widgets {
 
             get_textstyle_grid ();
             get_links_grid ();
-            get_tables_grid ();
 
             main_stack.add_titled (textstyle_grid, "textstyle", _("Text"));
             main_stack.add_titled (links_grid, "links", _("Special"));
-            main_stack.add_titled (tables_grid, "tables", _("Tables"));
 
             main_stack.child_set_property (textstyle_grid, "icon-name", "font-select-symbolic");
-            main_stack.child_set_property (links_grid, "icon-name", "insert-link-symbolic");
-            main_stack.child_set_property (tables_grid, "icon-name", "view-column-symbolic");
+            main_stack.child_set_property (links_grid, "icon-name", "non-starred-symbolic");
 
             var titlebar = new Gtk.HeaderBar ();
-            titlebar.set_decoration_layout ("close:");
+            titlebar.spacing = 4;
             titlebar.set_custom_title (main_stackswitcher);
             titlebar.set_show_close_button (true);
 
@@ -86,109 +82,95 @@ namespace Quilter.Widgets {
 
         private void get_textstyle_grid () {
             textstyle_grid = new Gtk.Grid ();
-            textstyle_grid.row_spacing = 6;
+            textstyle_grid.row_spacing = 12;
             textstyle_grid.column_spacing = 6;
 
-            var header_header = new Granite.HeaderLabel (_("Heading"));
-            var header_one_label = new Label (_("# Heading 1"));
-            var header_two_label = new Label (_("## Heading 2"));
-            var header_three_label = new Label (_("### Heading 3"));
-            var header_four_label = new Label (_("#### Heading 4"));
-            var header_five_label = new Label (_("##### Heading 5"));
-            var header_six_label = new Label (_("###### Heading 6"));
+            var header_header = new Granite.HeaderLabel (_("Header"));
+            var header_one_label = new Label (_("# Header 1"));
+            var header_two_label = new Label (_("## Header 2"));
+            var header_three_label = new Label (_("### Header 3"));
+            var header_four_label = new Label (_("#### Header 4"));
+            var header_five_label = new Label (_("##### Header 5"));
+            var header_six_label = new Label (_("###### Header 6"));
 
             var font_header = new Granite.HeaderLabel (_("Special Text"));
             var bold_font_label = new Label (_("** Bold text **"));
             var emph_font_label = new Label (_("* Emphasized text *"));
             var code_font_label = new Label (_("` Code text `"));
-            var quote_font_label = new Label (_("> Quoting text"));
+            var quote_font_label = new Label (_("> Quote text"));
             var strike_font_label = new Label (_("~~Strikethrough text~~"));
             var high_font_label = new Label (_("==Highlight text=="));
-            var sub_font_label = new Label (_("Subscripted text: H~2~O"));
-            var sup_font_label = new Label (_("Superscripted text: E = MC^2^"));
+            var sub_font_label = new Label (_("Subscript text: H~2~O"));
+            var sup_font_label = new Label (_("Superscript text: E = MC^2^"));
 
             var header2_header = new Granite.HeaderLabel (_("Miscellaneous Styles"));
-            var checkbox_label = new Label (_("[] This Makes an empty Checkbox.\n[x] This makes a checked Checkbox.\n\n\tPlease note the period, it's necessary to avoid conflicts.\n\tAlso, it's not needed to put this on a new paragraph.\n\tJust one new line between content and Checkboxes.\n\tAdding a - before will result in text-only Checkboxes."));
+            var checkbox_label = new Label (_("[] Makes an empty Checkbox.\n[x] Makes a checked Checkbox.\nPlease note the period to avoid syntax conflicts."));
 
-            textstyle_grid.attach (header_header, 0, 0, 5, 1);
-            textstyle_grid.attach (header_one_label, 0, 1, 3, 1);
-            textstyle_grid.attach (header_two_label, 0, 2, 3, 1);
-            textstyle_grid.attach (header_three_label, 0, 3, 3, 1);
-            textstyle_grid.attach (header_four_label, 0, 4, 3, 1);
-            textstyle_grid.attach (header_five_label, 0, 5, 3, 1);
-            textstyle_grid.attach (header_six_label, 0, 6, 3, 1);
-            textstyle_grid.attach (font_header, 0, 7, 5, 1);
-            textstyle_grid.attach (bold_font_label , 0, 8, 3, 1);
-            textstyle_grid.attach (emph_font_label , 0, 9, 3, 1);
-            textstyle_grid.attach (code_font_label , 0, 10, 3, 1);
-            textstyle_grid.attach (quote_font_label , 0, 11, 3, 1);
-            textstyle_grid.attach (strike_font_label , 0, 12, 3, 1);
-            textstyle_grid.attach (header2_header , 0, 13, 5, 1);
-            textstyle_grid.attach (sub_font_label , 0, 14, 3, 1);
-            textstyle_grid.attach (sup_font_label , 0, 15, 3, 1);
-            textstyle_grid.attach (high_font_label , 0, 16, 3, 1);
-            textstyle_grid.attach (checkbox_label , 0, 17, 3, 1);
+            textstyle_grid.attach (header_header, 0, 0, 3, 1);
+            textstyle_grid.attach (header_one_label, 0, 1, 1, 1);
+            textstyle_grid.attach (header_two_label, 0, 2, 1, 1);
+            textstyle_grid.attach (header_three_label, 0, 3, 1, 1);
+            textstyle_grid.attach (header_four_label, 0, 4, 1, 1);
+            textstyle_grid.attach (header_five_label, 0, 5, 1, 1);
+            textstyle_grid.attach (header_six_label, 0, 6, 1, 1);
+            textstyle_grid.attach (font_header, 0, 7, 3, 1);
+            textstyle_grid.attach (bold_font_label , 0, 8, 1, 1);
+            textstyle_grid.attach (emph_font_label , 0, 9, 1, 1);
+            textstyle_grid.attach (code_font_label , 0, 10, 1, 1);
+            textstyle_grid.attach (quote_font_label , 0, 11, 1, 1);
+            textstyle_grid.attach (strike_font_label , 0, 12, 1, 1);
+            textstyle_grid.attach (header2_header , 0, 13, 3, 1);
+            textstyle_grid.attach (sub_font_label , 0, 14, 1, 1);
+            textstyle_grid.attach (sup_font_label , 0, 15, 1, 1);
+            textstyle_grid.attach (high_font_label , 0, 16, 1, 1);
+            textstyle_grid.attach (checkbox_label , 0, 17, 1, 1);
         }
 
         private void get_links_grid () {
             links_grid = new Gtk.Grid ();
-            links_grid.row_spacing = 6;
+            links_grid.row_spacing = 12;
             links_grid.column_spacing = 6;
 
             var link_header = new Granite.HeaderLabel (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.here.com)"));
             var image_label = new Label (_("![Image Label](http://image.url.here.com)"));
             var special_header = new Granite.HeaderLabel (_("Special"));
-            var codeblocks_label = new Label (_("```This is a code block```"));
-            var hr_label = new Label (_("This creates a horizontal rule → ---"));
-            var sp_image_label = new Label (_("This embeds a local image → /Folder/Image.png :image"));
-            var sp_file_label = new Label (_("This embeds a local Markdown file → /Folder/File.md :file"));
+            var codeblocks_label = new Label (_("```code block```"));
+            var hr_label = new Label (_("Horizontal rule → ---"));
+            var sp_image_label = new Label (_("Embeds a local image → /Folder/Image.png :image"));
+            var sp_file_label = new Label (_("Embeds a local Markdown file → /Folder/File.md :file"));
             var lx_label = new Label (_("LaTeX is processed with:\n\t- $$…$$ for equation block.\n\t- \\\\(…\\\\) for inline equation."));
-            var mm_label = new Label (_("Mermaid is processed with:\n\t<div class=\"mermaid\">...</div>\n\tUsing Mermaid.js in other forms may clash with\n\tthe Code Highlightning plugin."));
-
-            links_grid.attach (link_header, 0, 0, 5, 1);
-            links_grid.attach (link_label, 0, 1, 3, 1);
-            links_grid.attach (image_label, 0, 2, 3, 1);
-            links_grid.attach (special_header, 0, 3, 5, 1);
-            links_grid.attach (codeblocks_label, 0, 4, 3, 1);
-            links_grid.attach (hr_label, 0, 5, 3, 1);
-            links_grid.attach (sp_image_label, 0, 6, 3, 1);
-            links_grid.attach (sp_file_label, 0, 7, 3, 1);
-            links_grid.attach (lx_label, 0, 8, 3, 1);
-            links_grid.attach (mm_label, 0, 9, 3, 1);
-        }
-
-        private void get_tables_grid () {
-            tables_grid = new Gtk.Grid ();
-            tables_grid.row_spacing = 6;
-            tables_grid.column_spacing = 6;
+            var mm_label = new Label (_("Mermaid is processed with:\n\t- <div class=\"mermaid\">...</div>"));
 
             var table_header = new Granite.HeaderLabel (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
-            var table_explain_label = new Text (_("To make a column's content go to the left, change --- to :--- ."));
-            var table_explain_label2 = new Text (_("To make a column's content centered, change --- to :---: ."));
-            var table_explain_label3 = new Text (_("To make a column's content go to the right, change --- to ---: ."));
+            var table_explain_label = new Label (_("Left Column, change --- to :--- ."));
+            var table_explain_label2 = new Label (_("Centered Column, change --- to :---: ."));
+            var table_explain_label3 = new Label (_("Right Column, change --- to ---: ."));
 
-            tables_grid.attach (table_header, 0, 0, 5, 1);
-            tables_grid.attach (table_label, 0, 1, 1, 1);
-            tables_grid.attach (table_explain_label, 0, 2, 5, 1);
-            tables_grid.attach (table_explain_label2, 0, 3, 5, 1);
-            tables_grid.attach (table_explain_label3, 0, 4, 5, 1);
+            links_grid.attach (link_header, 0, 0, 5, 1);
+            links_grid.attach (link_label, 0, 1, 1, 1);
+            links_grid.attach (image_label, 0, 2, 1, 1);
+            links_grid.attach (special_header, 0, 3, 1, 1);
+            links_grid.attach (codeblocks_label, 0, 4, 1, 1);
+            links_grid.attach (hr_label, 0, 5, 1, 1);
+            links_grid.attach (sp_image_label, 0, 6, 1, 1);
+            links_grid.attach (sp_file_label, 0, 7, 1, 1);
+            links_grid.attach (lx_label, 0, 8, 1, 1);
+            links_grid.attach (mm_label, 0, 9, 1, 1);
+
+            links_grid.attach (table_header, 0, 10, 3, 1);
+            links_grid.attach (table_label, 0, 11, 1, 1);
+            links_grid.attach (table_explain_label, 0, 12, 1, 1);
+            links_grid.attach (table_explain_label2, 0, 13, 1, 1);
+            links_grid.attach (table_explain_label3, 0, 14, 1, 1);
         }
 
         private class Label : Gtk.Label {
             public Label (string text) {
                 label = text;
                 halign = Gtk.Align.START;
-                margin_start = 12;
-            }
-        }
-
-        private class Text : Gtk.Label {
-            public Text (string text) {
-                label = text;
-                halign = Gtk.Align.START;
-                margin_start = 6;
+                use_markup = true;
             }
         }
 

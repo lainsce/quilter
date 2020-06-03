@@ -120,7 +120,7 @@
       <summary>The spacing on the Editor View's lines</summary>
     </key>
     <key name="margins" type="i">
-      <default>80</default>
+      <default>40</default>
       <summary>The margins for the Editor View</summary>
     </key>
     <key name="font-sizing" type="i">

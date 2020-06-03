@@ -632,8 +632,6 @@ namespace Quilter {
                 box.add (overlay_editor);
                 box.add (preview_view_content);
                 main_stack.set_visible_child (box);
-                side_toolbar.reveal_child = false;
-                sidebar.reveal_child = false;
             }
         }
 
