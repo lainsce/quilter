@@ -32,10 +32,8 @@ namespace Quilter.Widgets {
             header = new Hdy.HeaderBar ();
             header.set_size_request (200,46);
             header.set_custom_title (stackswitcher);
-            header.set_show_close_button (true);
             header.has_subtitle = false;
             header.set_title (null);
-            header.set_decoration_layout ("close:");
 
             new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));

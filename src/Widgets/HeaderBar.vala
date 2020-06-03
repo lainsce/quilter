@@ -377,7 +377,6 @@ namespace Quilter.Widgets {
                 }
             });
 
-            set_show_close_button (true);
             this.set_size_request (-1,46);
         }
 

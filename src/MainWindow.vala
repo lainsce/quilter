@@ -395,20 +395,7 @@ namespace Quilter {
             grid.can_swipe_back = true;
 
             grid.notify["folded"].connect (() => {
-                if (!grid.folded) {
-                    grid.visible_child = side_leaf;
-                    toolbar.pmenu_button.visible = true;
-                    toolbar.pmenu_button.no_show_all = false;
-                    side_toolbar.header.set_decoration_layout ("close:");
-                    toolbar.set_decoration_layout (":maximize");
-                    sidebar.column.row_selected.connect ((selected_row) => {
-                        side_toolbar.header.set_decoration_layout ("close:");
-                        toolbar.set_decoration_layout (":maximize");
-                    });
-                } else {
-                    toolbar.pmenu_button.visible = false;
-                    toolbar.pmenu_button.no_show_all = true;
-                }
+                update ();
             });
 
             grid.child_set_property (separator, "allow-visible", false);
@@ -434,6 +421,25 @@ namespace Quilter {
 
             this.set_size_request (360, 648);
             this.show_all ();
+        }
+
+        private void update () {
+            if (grid.get_folded ()) {
+                side_toolbar.header.show_close_button = true;
+                toolbar.show_close_button = true;
+                side_toolbar.header.set_decoration_layout ("close:");
+                toolbar.set_decoration_layout ("close:maximize");
+                toolbar.pmenu_button.visible = false;
+                toolbar.pmenu_button.no_show_all = true;
+            } else {
+                side_toolbar.header.show_close_button = true;
+                toolbar.show_close_button = true;
+                side_toolbar.header.set_decoration_layout ("close:");
+                toolbar.set_decoration_layout (":maximize");
+                grid.visible_child = side_leaf;
+                toolbar.pmenu_button.visible = true;
+                toolbar.pmenu_button.no_show_all = false;
+            }
         }
 
 #if VALA_0_42
