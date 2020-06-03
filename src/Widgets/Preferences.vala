@@ -28,6 +28,8 @@ namespace Quilter.Widgets {
             Object (
                 resizable: false,
                 title: _("Preferences"),
+                modal: true,
+                type_hint: Gdk.WindowTypeHint.DIALOG,
                 transient_for: parent,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
@@ -37,6 +39,7 @@ namespace Quilter.Widgets {
         construct {
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
+            main_stack.hhomogeneous = false;
 
             // Let's make a new Dialog design for preferences, follow elementary OS UI cues.
             main_stackswitcher = new Hdy.ViewSwitcher ();
@@ -55,7 +58,7 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
 
             var titlebar = new Gtk.HeaderBar ();
-            titlebar.set_decoration_layout ("close:");
+            titlebar.spacing = 4;
             titlebar.set_custom_title (main_stackswitcher);
             titlebar.set_show_close_button (true);
 
@@ -252,7 +255,7 @@ namespace Quilter.Widgets {
             var edit_header = new Granite.HeaderLabel (_("Editor"));
             var save_button_label = new SettingsLabel (_("Save files when changed:"));
             var save_button = new SettingsSwitch ("autosave");
-            var pos_button_label = new SettingsLabel (_("Highlight Parts of Speech<sup>BETA</sup> :"));
+            var pos_button_label = new SettingsLabel (_("Highlight Speech Parts<sup>𝜷</sup>:"));
             var pos_button = new SettingsSwitch ("pos");
             var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
             custom_help.halign = Gtk.Align.START;

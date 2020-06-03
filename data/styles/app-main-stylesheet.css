@@ -150,10 +150,10 @@
 .quilter-focus-button {
   border-radius: 99999px;
   -gtk-outline-radius: 99999px;
-  min-width: 48px;
-  min-height: 48px;
+  min-width: 32px;
+  min-height: 32px;
   margin: 0;
-  padding: 6px;
+  padding: 4px;
 }
 
 .sep {

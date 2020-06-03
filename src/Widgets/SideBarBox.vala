@@ -61,7 +61,7 @@ namespace Quilter.Widgets {
         public SideBarBox (MainWindow win, string? path) {
             this.win = win;
             this.activatable = true;
-            this.set_size_request (330,-1);
+            this.set_size_request (300,-1);
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 

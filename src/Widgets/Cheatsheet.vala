@@ -29,12 +29,14 @@ namespace Quilter.Widgets {
                 resizable: false,
                 title: _("Cheatsheet"),
                 transient_for: parent,
+                modal: true,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
         }
 
         construct {
+            this.set_size_request (360,-1);
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
 
@@ -47,7 +49,7 @@ namespace Quilter.Widgets {
             get_tables_grid ();
 
             main_stack.add_titled (textstyle_grid, "textstyle", _("Text"));
-            main_stack.add_titled (links_grid, "links", _("Links & Special"));
+            main_stack.add_titled (links_grid, "links", _("Special"));
             main_stack.add_titled (tables_grid, "tables", _("Tables"));
 
             main_stack.child_set_property (textstyle_grid, "icon-name", "font-select-symbolic");
@@ -85,7 +87,7 @@ namespace Quilter.Widgets {
         private void get_textstyle_grid () {
             textstyle_grid = new Gtk.Grid ();
             textstyle_grid.row_spacing = 6;
-            textstyle_grid.column_spacing = 12;
+            textstyle_grid.column_spacing = 6;
 
             var header_header = new Granite.HeaderLabel (_("Heading"));
             var header_one_label = new Label (_("# Heading 1"));
@@ -131,7 +133,7 @@ namespace Quilter.Widgets {
         private void get_links_grid () {
             links_grid = new Gtk.Grid ();
             links_grid.row_spacing = 6;
-            links_grid.column_spacing = 12;
+            links_grid.column_spacing = 6;
 
             var link_header = new Granite.HeaderLabel (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.here.com)"));
@@ -159,7 +161,7 @@ namespace Quilter.Widgets {
         private void get_tables_grid () {
             tables_grid = new Gtk.Grid ();
             tables_grid.row_spacing = 6;
-            tables_grid.column_spacing = 12;
+            tables_grid.column_spacing = 6;
 
             var table_header = new Granite.HeaderLabel (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
