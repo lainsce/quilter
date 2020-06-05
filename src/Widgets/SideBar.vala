@@ -87,11 +87,10 @@ namespace Quilter.Widgets {
         }
 
         public Gtk.Widget sidebar_files_list () {
-
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.set_size_request (200,-1);
+            column.set_size_request (300,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -117,6 +116,7 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)selected_row).path);
                 row_selected ((Widgets.SideBarBox)selected_row);
                 win.grid.set_visible_child (win.main_leaf);
+                win.header.set_visible_child (win.toolbar);
             });
 
 
@@ -124,7 +124,7 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (200, -1);
+            files_grid.set_size_request (300, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;
@@ -196,9 +196,7 @@ namespace Quilter.Widgets {
                 if (found) {
                     ev.scroll_to_iter (match_start, 0.0, true, 0.5, 0.1);
                 }
-
-
-			}
+            }
         }
 
         public void outline_populate () {

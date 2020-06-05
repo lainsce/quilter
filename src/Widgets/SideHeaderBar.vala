@@ -17,23 +17,23 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SideHeaderbar : Gtk.Revealer {
+    public class SideHeaderbar : Hdy.HeaderBar {
         public MainWindow win;
         public Hdy.ViewSwitcher stackswitcher;
-        public Hdy.HeaderBar header;
         private Gtk.Button new_button;
         public signal void create_new ();
 
         public SideHeaderbar (MainWindow win) {
             this.win = win;
+            show_close_button = true;
 
             stackswitcher = new Hdy.ViewSwitcher ();
+            stackswitcher.policy = Hdy.ViewSwitcherPolicy.NARROW;
 
-            header = new Hdy.HeaderBar ();
-            header.set_size_request (200,46);
-            header.set_custom_title (stackswitcher);
-            header.has_subtitle = false;
-            header.set_title (null);
+            this.set_size_request (200,46);
+            this.set_custom_title (stackswitcher);
+            this.has_subtitle = false;
+            this.set_title (null);
 
             new_button = new Gtk.Button ();
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
@@ -45,18 +45,13 @@ namespace Quilter.Widgets {
 
             new_button.clicked.connect (() => create_new ());
 
-            header.pack_end (new_button);
+            this.pack_end (new_button);
 
-            var header_context = header.get_style_context ();
-            header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            header_context.add_class ("quilter-toolbar");
-            header_context.add_class ("quilter-toolbar-side");
-            header_context.add_class ("titlebar");
-
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.add (header);
-            this.reveal_child = true;
-            this.visible = true;
+            var this_context = this.get_style_context ();
+            this_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            this_context.add_class ("quilter-toolbar");
+            this_context.add_class ("quilter-toolbar-side");
+            this_context.add_class ("titlebar");
         }
     }
 }

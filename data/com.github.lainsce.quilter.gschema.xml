@@ -11,6 +11,11 @@
       <summary>Window position</summary>
       <description>The height of the window</description>
     </key>
+    <key name="header" type="b">
+      <default>true</default>
+      <summary>Window header state</summary>
+      <description>The header layout of the window if the Side or Main bar are visible</description>
+    </key>
     <key name="focus-mode" type="b">
       <default>false</default>
       <summary>Focus Mode</summary>
@@ -78,10 +83,6 @@
     <key name="show-filename" type="b">
       <default>false</default>
       <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
-    </key>
-    <key name="sidebar" type="b">
-      <default>false</default>
-      <summary>Show (true) or Hide (false) the sidebar</summary>
     </key>
     <key name="statusbar" type="b">
       <default>false</default>

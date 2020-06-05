@@ -293,8 +293,8 @@ namespace Quilter.Widgets {
             var mode_header = new Granite.HeaderLabel (_("Modes"));
             var color_button_light = new Gtk.RadioButton (null);
             color_button_light.halign = Gtk.Align.CENTER;
-            color_button_light.height_request = 40;
-            color_button_light.width_request = 40;
+            color_button_light.height_request = 32;
+            color_button_light.width_request = 32;
             color_button_light.tooltip_text = _("Light Mode");
 
             var color_button_light_context = color_button_light.get_style_context ();
@@ -303,8 +303,8 @@ namespace Quilter.Widgets {
 
             var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_sepia.halign = Gtk.Align.CENTER;
-            color_button_sepia.height_request = 40;
-            color_button_sepia.width_request = 40;
+            color_button_sepia.height_request = 32;
+            color_button_sepia.width_request = 32;
             color_button_sepia.tooltip_text = _("Sepia Mode");
 
             var color_button_sepia_context = color_button_sepia.get_style_context ();
@@ -313,8 +313,8 @@ namespace Quilter.Widgets {
 
             var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_dark.halign = Gtk.Align.CENTER;
-            color_button_dark.height_request = 40;
-            color_button_dark.width_request = 40;
+            color_button_dark.height_request = 32;
+            color_button_dark.width_request = 32;
             color_button_dark.tooltip_text = _("Dark Mode");
 
             var color_button_dark_context = color_button_dark.get_style_context ();
@@ -401,32 +401,20 @@ namespace Quilter.Widgets {
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            buttonbox.halign = Gtk.Align.FILL;
-            buttonbox.hexpand = true;
             buttonbox.set_homogeneous (true);
             buttonbox.pack_start (color_button_light, true, true, 6);
             buttonbox.pack_start (color_button_sepia, true, true, 6);
             buttonbox.pack_start (color_button_dark, true, true, 6);
 
             var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            textbox.halign = Gtk.Align.FILL;
-            textbox.hexpand = true;
             textbox.set_homogeneous (true);
             textbox.pack_start (color_button_light_text, true, true, 6);
             textbox.pack_start (color_button_sepia_text, true, true, 6);
             textbox.pack_start (color_button_dark_text, true, true, 6);
 
-            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            separator.hexpand = true;
-            separator.margin_top = 6;
-            separator.margin_bottom = 6;
-            var separator_cx = separator.get_style_context ();
-            separator_cx.add_class ("sep");
-
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (buttonbox, 0, 2, 3, 1);
             interface_grid.attach (textbox, 0, 3, 3, 1);
-            interface_grid.attach (separator, 0, 5, 3, 1);
 
             interface_grid.attach (ui_header,  0, 6, 3, 1);
             interface_grid.attach (focus_mode_label, 0, 7, 1, 1);
@@ -466,6 +454,7 @@ namespace Quilter.Widgets {
             var preview_font_label = new SettingsLabel (_("Font Type:"));
 
             var preview_font_type = new Gtk.ComboBoxText();
+            preview_font_type.set_halign (Gtk.Align.START);
             preview_font_type.append_text(_("Serif"));
             preview_font_type.append_text(_("Sans-serif"));
             preview_font_type.append_text(_("Monospace"));

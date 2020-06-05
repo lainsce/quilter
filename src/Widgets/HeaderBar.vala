@@ -18,6 +18,7 @@
 */
 namespace Quilter.Widgets {
     public class Headerbar : Hdy.HeaderBar {
+        public Gtk.Button back_button;
         private Gtk.Button open_button;
         private Gtk.Button save_as_button;
         private Gtk.Grid menu_grid;
@@ -34,10 +35,13 @@ namespace Quilter.Widgets {
 
         public Headerbar (MainWindow win) {
             this.win = win;
+            show_close_button = true;
+
             var header_context = this.get_style_context ();
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
             header_context.add_class ("quilter-toolbar-main");
+            header_context.add_class ("titlebar");
 
             build_ui ();
             icons_toolbar ();
@@ -46,13 +50,26 @@ namespace Quilter.Widgets {
         private void build_ui () {
             set_title (null);
 
+            back_button = new Gtk.Button ();
+            back_button.set_image (new Gtk.Image.from_icon_name ("back-symbolic", Gtk.IconSize.BUTTON));
+            back_button.has_tooltip = true;
+            back_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {""},
+                _("Go back")
+            );
+            pack_start (back_button);
+
+            back_button.clicked.connect (() => {
+                win.header.set_visible_child (win.side_toolbar);
+                win.grid.set_visible_child (win.sidebar);
+            });
+
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
             save_as_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {"<Ctrl><Shift>s"},
                 _("Save as…")
             );
-
             save_as_button.clicked.connect (() => save_as ());
 
             open_button = new Gtk.Button ();
@@ -61,7 +78,6 @@ namespace Quilter.Widgets {
                 {"<Ctrl>o"},
                 _("Open…")
             );
-
             open_button.clicked.connect (() => open ());
 
             search_button = new Gtk.ToggleButton ();
