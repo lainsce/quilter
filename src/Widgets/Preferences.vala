@@ -54,6 +54,7 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
 
             var window_title_vs = new Hdy.ViewSwitcherTitle ();
+            window_title_vs.policy = Hdy.ViewSwitcherPolicy.NARROW;
             window_title_vs.set_title (_("Preferences"));
             window_title_vs.set_stack (main_stack);
 
@@ -417,19 +418,17 @@ namespace Quilter.Widgets {
             var tracking = new SettingsSwitch ("statusbar");
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
-            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             buttonbox.set_homogeneous (true);
-            buttonbox.hexpand = true;
-            buttonbox.pack_start (color_button_light, true, true, 6);
-            buttonbox.pack_start (color_button_sepia, true, true, 6);
-            buttonbox.pack_start (color_button_dark, true, true, 6);
+            buttonbox.add (color_button_light);
+            buttonbox.add (color_button_sepia);
+            buttonbox.add (color_button_dark);
 
-            var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             textbox.set_homogeneous (true);
-            textbox.hexpand = true;
-            textbox.pack_start (color_button_light_text, true, true, 6);
-            textbox.pack_start (color_button_sepia_text, true, true, 6);
-            textbox.pack_start (color_button_dark_text, true, true, 6);
+            textbox.add (color_button_light_text);
+            textbox.add (color_button_sepia_text);
+            textbox.add (color_button_dark_text);
 
             interface_grid.attach (mode_header, 0, 1, 3, 1);
             interface_grid.attach (buttonbox, 0, 2, 3, 1);
@@ -473,6 +472,7 @@ namespace Quilter.Widgets {
             var preview_font_label = new SettingsLabel (_("Font Type:"));
 
             var preview_font_type = new Gtk.ComboBoxText();
+
             preview_font_type.append_text(_("Serif"));
             preview_font_type.append_text(_("Sans-serif"));
             preview_font_type.append_text(_("Monospace"));
