@@ -442,7 +442,7 @@ namespace Quilter {
             s_group.add_swipeable (((Hdy.Swipeable)header));
             s_group.add_swipeable (((Hdy.Swipeable)grid));
 
-            this.set_size_request (360, -1);
+            this.set_size_request (360, 435);
             this.show_all ();
         }
 
@@ -452,13 +452,21 @@ namespace Quilter {
                 toolbar.pmenu_button.no_show_all = true;
                 toolbar.back_button.visible = true;
                 toolbar.back_button.no_show_all = false;
+                toolbar.focusmode_button.visible = false;
+                toolbar.focusmode_button.no_show_all = true;
                 Quilter.Application.gsettings.set_boolean("header", false);
+                Quilter.Application.gsettings.set_boolean("focus-mode", false);
             } else {
                 toolbar.pmenu_button.visible = true;
                 toolbar.pmenu_button.no_show_all = false;
                 toolbar.back_button.visible = false;
                 toolbar.back_button.no_show_all = true;
+                toolbar.focusmode_button.visible = true;
+                toolbar.focusmode_button.no_show_all = false;
                 Quilter.Application.gsettings.set_boolean("header", true);
+                if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
+                    Quilter.Application.gsettings.set_boolean("focus-mode", true);
+                }
             }
 
             if (!Quilter.Application.gsettings.get_boolean("header")) {

@@ -28,6 +28,7 @@ namespace Quilter.Widgets {
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
         public Gtk.ToggleButton view_mode;
+        public Gtk.ModelButton focusmode_button;
         public MainWindow win;
         public Preview preview;
         public signal void open ();
@@ -192,7 +193,7 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
-            var focusmode_button = new Gtk.ModelButton ();
+            focusmode_button = new Gtk.ModelButton ();
             focusmode_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_FOCUS;
             focusmode_button.get_child ().destroy ();
             var focusmode_button_accellabel = new Granite.AccelLabel.from_action_name (
