@@ -25,13 +25,16 @@ namespace Quilter {
         public double scroll_value {
             set {
                 run_javascript ("""
+                    var b = document.body,
                     e = document.documentElement;
-                    canScroll = e.scrollHeight > e.clientHeight;
-                    if (canScroll) {
-                        e.scrollTop = (%.13f * e.scrollHeight);
-                        e.scrollTop;
-                    }
-
+                    var height = Math.max( b.scrollHeight,
+                                           b.offsetHeight,
+                                           e.clientHeight,
+                                           e.scrollHeight,
+                                           e.offsetHeight
+                                 );
+                    e.scrollTop = (%.13f * e.offsetHeight);
+                    e.scrollTop;
                 """.printf(value), null);
             }
         }
