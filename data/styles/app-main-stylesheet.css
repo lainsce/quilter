@@ -207,6 +207,13 @@ label:disabled {
     padding: 0 6px;
 }
 
+.quilter-dialog-hb actionbar {
+    background: @colorPrimary;
+    border-top: 1px solid alpha (black, 0.25);
+    margin: 0;
+    padding: 0 6px;
+}
+
 .quilter-sidebar button.radio {
     border-radius: 0;
     border: transparent;

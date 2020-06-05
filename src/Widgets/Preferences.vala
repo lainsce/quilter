@@ -25,7 +25,6 @@ namespace Quilter.Widgets {
 
         public Preferences (Gtk.Window? parent) {
             Object (
-                resizable: false,
                 title: _("Preferences"),
                 modal: true,
                 type_hint: Gdk.WindowTypeHint.DIALOG,
@@ -36,6 +35,7 @@ namespace Quilter.Widgets {
         }
 
         construct {
+            this.title = title;
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
             main_stack.margin_top = 6;
@@ -54,15 +54,32 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
 
             var window_title_vs = new Hdy.ViewSwitcherTitle ();
-            window_title_vs.stack = main_stack;
+            window_title_vs.set_title (_("Preferences"));
+            window_title_vs.set_stack (main_stack);
 
-            var window_title = new Gtk.HeaderBar ();
-            window_title.set_custom_title (window_title_vs);
-            window_title.set_show_close_button (true);
+            var titlebar = new Gtk.HeaderBar ();
+            titlebar.spacing = 4;
+            titlebar.set_custom_title (window_title_vs);
+            titlebar.set_show_close_button (true);
+
+            var window_bottom_bar = new Hdy.ViewSwitcherBar ();
+            window_bottom_bar.set_stack (main_stack);
+
+            var window_title = new Hdy.WindowHandle ();
+            window_title.add (titlebar);
+
+            window_title_vs.notify["title-visible"].connect (() => {
+                if (window_title_vs.title_visible) {
+                    window_bottom_bar.reveal = true;
+                } else {
+                    window_bottom_bar.reveal = false;
+                }
+            });
 
             var grid = new Gtk.Grid ();
             grid.attach (window_title, 0, 0);
             grid.attach (main_stack, 0, 1);
+            grid.attach (window_bottom_bar, 0, 2);
 
             add (grid);
 
@@ -402,12 +419,14 @@ namespace Quilter.Widgets {
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             buttonbox.set_homogeneous (true);
+            buttonbox.hexpand = true;
             buttonbox.pack_start (color_button_light, true, true, 6);
             buttonbox.pack_start (color_button_sepia, true, true, 6);
             buttonbox.pack_start (color_button_dark, true, true, 6);
 
             var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             textbox.set_homogeneous (true);
+            textbox.hexpand = true;
             textbox.pack_start (color_button_light_text, true, true, 6);
             textbox.pack_start (color_button_sepia_text, true, true, 6);
             textbox.pack_start (color_button_dark_text, true, true, 6);
@@ -454,7 +473,6 @@ namespace Quilter.Widgets {
             var preview_font_label = new SettingsLabel (_("Font Type:"));
 
             var preview_font_type = new Gtk.ComboBoxText();
-            preview_font_type.set_halign (Gtk.Align.START);
             preview_font_type.append_text(_("Serif"));
             preview_font_type.append_text(_("Sans-serif"));
             preview_font_type.append_text(_("Monospace"));
