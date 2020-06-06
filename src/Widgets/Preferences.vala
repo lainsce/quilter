@@ -61,8 +61,9 @@ namespace Quilter.Widgets {
             window_title_vs.set_title (_("Preferences"));
             window_title_vs.set_stack (main_stack);
 
-            var titlebar = new Gtk.HeaderBar ();
+            var titlebar = new Hdy.HeaderBar ();
             titlebar.spacing = 4;
+            titlebar.set_centering_policy (Hdy.CenteringPolicy.STRICT);
             titlebar.set_custom_title (window_title_vs);
             titlebar.set_show_close_button (true);
 
@@ -380,11 +381,12 @@ namespace Quilter.Widgets {
             var focus_mode_label = new SettingsLabel (_("Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
-            var focus_mode_type_label = new SettingsLabel (_("Focus Mode Type:"));
+            var focus_mode_type_label = new SettingsLabel (_("Focus Scope:"));
 
             var focus_mode_p_size = new Gtk.Image.from_icon_name ("paragraph-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             var focus_mode_s_size = new Gtk.Image.from_icon_name ("sentence-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             var focus_mode_type_size = new SettingsSwitch ("focus-mode-type");
+            focus_mode_type_size.halign = Gtk.Align.CENTER;
 
             var focus_mode_type_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
             focus_mode_type_box.pack_start (focus_mode_p_size);
