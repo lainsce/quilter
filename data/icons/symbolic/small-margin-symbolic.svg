@@ -7,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   height="16"
-   width="16"
-   version="1.1"
-   id="svg6"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="small-margin-symbolic.svg"
-   inkscape:version="1.0 (4035a4fb49, 2020-05-01)">
+   id="svg6"
+   version="1.1"
+   width="16"
+   height="16">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -28,42 +28,42 @@
   <defs
      id="defs10" />
   <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1249"
-     inkscape:window-height="767"
-     id="namedview8"
-     showgrid="true"
-     inkscape:zoom="41.7193"
-     inkscape:cx="7.5444438"
-     inkscape:cy="7.2764326"
-     inkscape:window-x="256"
-     inkscape:window-y="79"
-     inkscape:window-maximized="0"
+     inkscape:document-rotation="0"
      inkscape:current-layer="svg6"
-     inkscape:document-rotation="0">
+     inkscape:window-maximized="0"
+     inkscape:window-y="79"
+     inkscape:window-x="256"
+     inkscape:cy="7.2764326"
+     inkscape:cx="7.1968828"
+     inkscape:zoom="41.7193"
+     showgrid="true"
+     id="namedview8"
+     inkscape:window-height="767"
+     inkscape:window-width="1249"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0"
+     guidetolerance="10"
+     gridtolerance="10"
+     objecttolerance="10"
+     borderopacity="1"
+     bordercolor="#666666"
+     pagecolor="#ffffff">
     <inkscape:grid
-       type="xygrid"
-       id="grid822" />
+       id="grid822"
+       type="xygrid" />
   </sodipodi:namedview>
   <path
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999998;marker:none"
-     d="M 0,6.9999994 V 8.0000001 H 11.428572 V 6.9999994 Z"
+     inkscape:connector-curvature="0"
      id="path832"
-     inkscape:connector-curvature="0" />
+     d="M 0,6.9999994 V 8.0000001 H 11.428572 V 6.9999994 Z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999998;marker:none" />
   <path
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none"
-     d="M 0,3 V 4 H 15.999999 V 3 Z"
-     id="path828" />
+     id="path828"
+     d="M 0,2 V 3 H 15.999999 V 2 Z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none" />
   <path
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none"
-     d="m 0,12 v 1 h 16.000001 v -1 z"
+     inkscape:connector-curvature="0"
      id="path832-3"
-     inkscape:connector-curvature="0" />
+     d="m 0,12 v 1 h 16.000001 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none" />
 </svg>

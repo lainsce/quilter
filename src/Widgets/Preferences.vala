@@ -407,6 +407,7 @@ namespace Quilter.Widgets {
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             buttonbox.set_homogeneous (true);
+            buttonbox.hexpand = true;
             buttonbox.add (color_button_light);
             buttonbox.add (color_button_sepia);
             buttonbox.add (color_button_dark);

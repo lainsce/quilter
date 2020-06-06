@@ -164,6 +164,10 @@
     border-left: 1px solid alpha (black, 0.15);
 }
 
+.vseph {
+    border-left: 1px solid transparent;
+}
+
 .quilter-header-paned separator {
     background-image:
         linear-gradient(

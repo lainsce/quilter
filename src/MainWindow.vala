@@ -375,7 +375,7 @@ namespace Quilter {
             separator_cx.add_class ("vsep");
             separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             var separator2_cx = separator2.get_style_context ();
-            separator2_cx.add_class ("vsep");
+            separator2_cx.add_class ("vseph");
 
             header = new Hdy.Leaflet ();
             header.add (side_toolbar);
