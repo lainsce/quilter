@@ -3,9 +3,19 @@
 @define-color accentColor #00C6FF;
 @define-color accent_color_500 #00C6FF;
 
-window.background {
+window.background.quilter-dialog-hb,
+.quilter-dialog-hb headerbar,
+.quilter-dialog-hb actionbar,
+.quilter-dialog-hb .combo {
     background: @colorPrimary;
 }
+.quilter-dialog-hb button:not(:checked):not(:active):not(.titlebutton) {
+    background: shade(@colorPrimary, 1.5);
+}
+.quilter-dialog-hb switch slider {
+    background: shade(@colorPrimary, 1.5);
+}
+
 
 .quilter-toolbar {
     background: shade(@colorPrimary, 0.95);

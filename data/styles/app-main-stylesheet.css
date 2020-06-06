@@ -188,11 +188,6 @@
     opacity: 0.8;
 }
 
-.sb-sidebutton {
-	padding: 10px;
-	border-radius: 0 9999px 9999px 0;
-}
-
 .sb-switcher {
     padding: 0;
 }
@@ -212,7 +207,6 @@ label:disabled {
 }
 
 .quilter-dialog-hb actionbar {
-    background: @colorPrimary;
     border-top: 1px solid alpha (black, 0.25);
     margin: 0;
     padding: 0 6px;

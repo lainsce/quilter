@@ -51,7 +51,6 @@ namespace Quilter.Widgets {
             this_context.add_class (Gtk.STYLE_CLASS_FLAT);
             this_context.add_class ("quilter-toolbar");
             this_context.add_class ("quilter-toolbar-side");
-            this_context.add_class ("titlebar");
         }
     }
 }

@@ -42,7 +42,6 @@ namespace Quilter.Widgets {
             header_context.add_class (Gtk.STYLE_CLASS_FLAT);
             header_context.add_class ("quilter-toolbar");
             header_context.add_class ("quilter-toolbar-main");
-            header_context.add_class ("titlebar");
 
             build_ui ();
             icons_toolbar ();
