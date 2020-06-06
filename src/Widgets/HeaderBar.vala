@@ -235,18 +235,21 @@ namespace Quilter.Widgets {
             var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change on the menu."));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
-            var preview_full_button = new Gtk.RadioButton.from_widget (null);
-            preview_full_button.valign = Gtk.Align.START;
-	        preview_full_button.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-type", "full");
-            });
-            var preview_full_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-            preview_full_label_box.add (preview_full_label_title);
-            preview_full_label_box.add (preview_full_label_subtitle);
+            var preview_full_icon = new Gtk.Image.from_icon_name ("full-width-symbolic", Gtk.IconSize.DND);
 
-            var preview_full_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            preview_full_box.add (preview_full_button);
-            preview_full_box.add (preview_full_label_box);
+            var preview_full_box = new Gtk.Grid ();
+            preview_full_box.column_spacing = 12;
+            preview_full_box.row_spacing = 6;
+            preview_full_box.row_homogeneous = true;
+            preview_full_box.attach (preview_full_icon, 0, 0, 1, 2);
+            preview_full_box.attach (preview_full_label_title, 1, 0, 1, 1);
+            preview_full_box.attach (preview_full_label_subtitle, 1, 1, 1, 1);
+
+            var preview_full_row = new Gtk.ListBoxRow ();
+            var preview_full_row_context = preview_full_row.get_style_context ();
+            preview_full_row_context.add_class ("preview-row");
+            preview_full_row.margin = 6;
+            preview_full_row.add (preview_full_box);
 
             var preview_half_label_title = new Gtk.Label (_("Half-Width"));
             preview_half_label_title.halign = Gtk.Align.START;
@@ -255,43 +258,52 @@ namespace Quilter.Widgets {
             var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally."));
             preview_half_label_subtitle.halign = Gtk.Align.START;
             preview_half_label_subtitle.sensitive = false;
-            var preview_half_button = new Gtk.RadioButton.from_widget (preview_full_button);
-            preview_half_button.valign = Gtk.Align.START;
-	        preview_half_button.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-type", "half");
-	        });
-            preview_full_button.set_active (true);
+            var preview_half_icon = new Gtk.Image.from_icon_name ("half-width-symbolic", Gtk.IconSize.DND);
 
             var prev_type = Quilter.Application.gsettings.get_string("preview-type");
 
+            var preview_half_box = new Gtk.Grid ();
+            preview_half_box.column_spacing = 12;
+            preview_half_box.row_spacing = 6;
+            preview_half_box.row_homogeneous = true;
+            preview_half_box.attach (preview_half_icon, 0, 0, 1, 2);
+            preview_half_box.attach (preview_half_label_title, 1, 0, 1, 1);
+            preview_half_box.attach (preview_half_label_subtitle, 1, 1, 1, 1);
+
+            var preview_half_row = new Gtk.ListBoxRow ();
+            var preview_half_row_context = preview_half_row.get_style_context ();
+            preview_half_row_context.add_class ("preview-row");
+            preview_half_row.margin = 6;
+            preview_half_row.add (preview_half_box);
+
+            var preview_grid = new Gtk.ListBox ();
+            preview_grid.activate_on_single_click = true;
+            preview_grid.selection_mode = Gtk.SelectionMode.SINGLE;
+            preview_grid.hexpand = true;
+            preview_grid.margin = 6;
+            preview_grid.add (preview_full_row);
+            preview_grid.add (preview_half_row);
+            preview_grid.show_all ();
+
             switch (prev_type) {
                 case "half":
-                    preview_half_button.set_active (true);
+                    preview_grid.select_row (preview_half_row);
                     break;
                 case "full":
-                    preview_full_button.set_active (true);
+                    preview_grid.select_row (preview_full_row);
                     break;
                 default:
-                    preview_half_button.set_active (true);
+                    preview_grid.select_row (preview_half_row);
                     break;
             }
 
-            var preview_half_label_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
-            preview_half_label_box.add (preview_half_label_title);
-            preview_half_label_box.add (preview_half_label_subtitle);
-
-            var preview_half_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            preview_half_box.add (preview_half_button);
-            preview_half_box.add (preview_half_label_box);
-
-            var preview_grid = new Gtk.Grid ();
-            preview_grid.column_homogeneous = true;
-            preview_grid.hexpand = true;
-            preview_grid.margin = 12;
-            preview_grid.row_spacing = 12;
-            preview_grid.attach (preview_full_box, 0, 0, 1, 1);
-            preview_grid.attach (preview_half_box, 0, 1, 1, 1);
-            preview_grid.show_all ();
+            preview_grid.row_selected.connect ((selected_row) => {
+                if (selected_row == preview_half_row) {
+                    Quilter.Application.gsettings.set_string("preview-type", "half");
+                } else if (selected_row == preview_full_row) {
+                    Quilter.Application.gsettings.set_string("preview-type", "full");
+                }
+            });
 
             var pmenu = new Gtk.Popover (null);
             pmenu.add (preview_grid);
