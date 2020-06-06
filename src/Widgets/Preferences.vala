@@ -219,6 +219,7 @@ namespace Quilter.Widgets {
 
             var font_label = new SettingsLabel (_("Editor Font Size:"));
             var font_size = new Granite.Widgets.ModeButton ();
+            font_size.hexpand = true;
             font_size.append_icon ("small-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             font_size.append_icon ("normal-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
             font_size.append_icon ("large-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
