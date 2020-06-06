@@ -137,7 +137,7 @@ namespace Quilter.Widgets {
 
             crt = new Gtk.CellRendererText ();
             crt.font = "Inter 10";
-            crt.ellipsize =  = Pango.EllipsizeMode.END;
+            crt.ellipsize = Pango.EllipsizeMode.END;
 
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
 
