@@ -42,6 +42,7 @@ namespace Quilter.Widgets {
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
             main_stack.margin_top = 6;
+            main_stack.vexpand = true;
 
             // Let's make a new Dialog design for preferences, follow elementary OS UI cues.
             get_editor_grid ();
