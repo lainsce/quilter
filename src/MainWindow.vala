@@ -454,6 +454,7 @@ namespace Quilter {
                 toolbar.back_button.no_show_all = false;
                 toolbar.focusmode_button.visible = false;
                 toolbar.focusmode_button.no_show_all = true;
+                Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
             } else {
@@ -466,6 +467,9 @@ namespace Quilter {
                 Quilter.Application.gsettings.set_boolean("header", true);
                 if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                     Quilter.Application.gsettings.set_boolean("focus-mode", true);
+                }
+                if (!Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    Quilter.Application.gsettings.set_boolean("sidebar", false);
                 }
             }
 
@@ -593,6 +597,14 @@ namespace Quilter {
             searchbar.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
+        public void show_sidebar () {
+            sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            sidebar.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+            side_toolbar.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+            separator.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+            separator2.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+        }
+
         public void show_statusbar () {
             statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
         }
@@ -617,6 +629,7 @@ namespace Quilter {
         private void on_settings_changed () {
             show_searchbar ();
             show_statusbar ();
+            show_sidebar ();
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout ();
@@ -644,9 +657,6 @@ namespace Quilter {
                 overlay_button_revealer.no_show_all = true;
                 overlay_button_revealer.reveal_child = false;
                 overlay_button_revealer.visible = false;
-                sidebar.reveal_child = true;
-                sidebar.visible = true;
-                side_toolbar.visible = true;
                 separator.visible = true;
                 separator2.visible = true;
                 toolbar.visible = true;
@@ -665,6 +675,19 @@ namespace Quilter {
             } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
                 stack.set_visible_child (overlay_editor);
             }
+
+            if (Quilter.Application.gsettings.get_boolean ("sidebar") == false) {
+                toolbar.set_decoration_layout ("close:maximize");
+            } else {
+                if (!Quilter.Application.gsettings.get_boolean("header")) {
+                    // On Mobile size, so.... have to have no buttons anywhere.
+                    toolbar.set_decoration_layout (":");
+                } else {
+                    // Else you're on Desktop size, so business as usual.
+                    toolbar.set_decoration_layout (":maximize");
+                }
+            }
+
             render_func ();
         }
 

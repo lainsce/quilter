@@ -16,6 +16,11 @@
       <summary>Window header state</summary>
       <description>The header layout of the window if the Side or Main bar are visible</description>
     </key>
+    <key name="sidebar" type="b">
+      <default>true</default>
+      <summary>Sidebar state</summary>
+      <description>Whether the Sidebar is shown or not</description>
+    </key>
     <key name="focus-mode" type="b">
       <default>false</default>
       <summary>Focus Mode</summary>
@@ -128,8 +133,8 @@
       <default>2</default>
       <summary>The font size for the Editor View</summary>
     </key>
-    <key name="focus-mode-type" type="i">
-      <default>0</default>
+    <key name="focus-mode-type" type="b">
+      <default>false</default>
       <summary>The type of Focus Mode</summary>
     </key>
   </schema>

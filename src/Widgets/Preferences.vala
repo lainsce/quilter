@@ -36,6 +36,9 @@ namespace Quilter.Widgets {
 
         construct {
             this.title = title;
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+
             main_stack = new Gtk.Stack ();
             main_stack.margin = 12;
             main_stack.margin_top = 6;
@@ -54,7 +57,6 @@ namespace Quilter.Widgets {
             main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
 
             var window_title_vs = new Hdy.ViewSwitcherTitle ();
-            window_title_vs.policy = Hdy.ViewSwitcherPolicy.NARROW;
             window_title_vs.set_title (_("Preferences"));
             window_title_vs.set_stack (main_stack);
 
@@ -96,20 +98,20 @@ namespace Quilter.Widgets {
             var geo_header = new Granite.HeaderLabel (_("Geometry"));
             var spacing_label = new SettingsLabel (_("Text Spacing:"));
             var spacing_size = new Granite.Widgets.ModeButton ();
-            spacing_size.append_text (_("Small"));
-            spacing_size.append_text (_("Normal"));
-            spacing_size.append_text (_("Large"));
+            spacing_size.append_icon ("small-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            spacing_size.append_icon ("normal-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            spacing_size.append_icon ("large-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var spacing = Quilter.Application.gsettings.get_int("spacing");
 
             switch (spacing) {
-                case 2:
+                case Constants.NARROW_SPACING:
                     spacing_size.selected = 0;
                     break;
-                case 4:
+                case Constants.MEDIUM_SPACING:
                     spacing_size.selected = 1;
                     break;
-                case 6:
+                case Constants.WIDE_SPACING:
                     spacing_size.selected = 2;
                     break;
                 default:
@@ -120,13 +122,13 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        Quilter.Application.gsettings.set_int("spacing", 2);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.NARROW_SPACING);
                         break;
                     case 1:
-                        Quilter.Application.gsettings.set_int("spacing", 4);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.MEDIUM_SPACING);
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("spacing", 6);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.WIDE_SPACING);
                         break;
                     case 3:
                         Quilter.Application.gsettings.set_int("spacing", spacing);
@@ -136,9 +138,9 @@ namespace Quilter.Widgets {
 
             var margins_label = new SettingsLabel (_("Text Margins:"));
             var margins_size = new Granite.Widgets.ModeButton ();
-            margins_size.append_text (_("Small"));
-            margins_size.append_text (_("Normal"));
-            margins_size.append_text (_("Large"));
+            margins_size.append_icon ("small-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            margins_size.append_icon ("normal-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            margins_size.append_icon ("large-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var margins = Quilter.Application.gsettings.get_int("margins");
 
@@ -215,9 +217,9 @@ namespace Quilter.Widgets {
 
             var font_label = new SettingsLabel (_("Editor Font Size:"));
             var font_size = new Granite.Widgets.ModeButton ();
-            font_size.append_text (_("Small"));
-            font_size.append_text (_("Normal"));
-            font_size.append_text (_("Large"));
+            font_size.append_icon ("small-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            font_size.append_icon ("normal-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            font_size.append_icon ("large-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
 
@@ -279,7 +281,7 @@ namespace Quilter.Widgets {
             pos_switch_grid.add (pos_button);
             pos_switch_grid.add (custom_help);
 
-            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
+            var spellcheck_label = new SettingsLabel (_("Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
 
             editor_grid.attach (edit_header,  0, 0, 3, 1);
@@ -374,48 +376,32 @@ namespace Quilter.Widgets {
 
             var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
 
-            var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
+            var focus_mode_label = new SettingsLabel (_("Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
             var focus_mode_type_label = new SettingsLabel (_("Focus Mode Type:"));
-            var focus_mode_type_size = new Granite.Widgets.ModeButton ();
-            focus_mode_type_size.append_text (_("Paragraph"));
-            focus_mode_type_size.append_text (_("Sentence"));
 
-            var focus_mode_type = Quilter.Application.gsettings.get_int("focus-mode-type");
+            var focus_mode_p_size = new Gtk.Image.from_icon_name ("paragraph-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            var focus_mode_s_size = new Gtk.Image.from_icon_name ("sentence-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            var focus_mode_type_size = new SettingsSwitch ("focus-mode-type");
 
-            switch (focus_mode_type) {
-                case 0:
-                    focus_mode_type_size.selected = 0;
-                    break;
-                case 1:
-                    focus_mode_type_size.selected = 1;
-                    break;
-                default:
-                    focus_mode_type_size.selected = 0;
-                    break;
-            }
+            var focus_mode_type_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            focus_mode_type_box.pack_start (focus_mode_p_size);
+            focus_mode_type_box.pack_start (focus_mode_type_size);
+            focus_mode_type_box.pack_start (focus_mode_s_size);
 
-            focus_mode_type_size.mode_changed.connect (() => {
-                switch (focus_mode_type_size.selected) {
-                    case 0:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", 0);
-                        break;
-                    case 1:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", 1);
-                        break;
-                    case 2:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", focus_mode_type);
-                        break;
-                }
-            });
+            Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "active", SettingsBindFlags.DEFAULT);
 
             var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
             typewriterscrolling_label.set_halign (Gtk.Align.END);
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
-            var tracking_label = new SettingsLabel (_("Enable Type Counter:"));
+            var tracking_label = new SettingsLabel (_("Type Counter:"));
             tracking_label.set_halign (Gtk.Align.END);
             var tracking = new SettingsSwitch ("statusbar");
+
+            var sidebar_label = new SettingsLabel (_("Sidebar:"));
+            sidebar_label.set_halign (Gtk.Align.END);
+            var sidebar = new SettingsSwitch ("sidebar");
 
             var ui_header = new Granite.HeaderLabel (_("User Interface"));
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
@@ -438,11 +424,13 @@ namespace Quilter.Widgets {
             interface_grid.attach (focus_mode_label, 0, 7, 1, 1);
             interface_grid.attach (focus_mode, 1, 7, 1, 1);
             interface_grid.attach (focus_mode_type_label, 0, 8, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 8, 1, 1);
+            interface_grid.attach (focus_mode_type_box, 1, 8, 1, 1);
             interface_grid.attach (typewriterscrolling_label, 0, 9, 1, 1);
             interface_grid.attach (typewriterscrolling, 1, 9, 1, 1);
             interface_grid.attach (tracking_label, 0, 10, 1, 1);
             interface_grid.attach (tracking, 1, 10, 1, 1);
+            interface_grid.attach (sidebar_label, 0, 11, 1, 1);
+            interface_grid.attach (sidebar, 1, 11, 1, 1);
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {

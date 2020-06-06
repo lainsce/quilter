@@ -90,14 +90,12 @@ namespace Quilter.Widgets {
                             }
                         }
                         if (this != null) {
-                            debug ("Spellchecking active!");
                             spell.attach (this);
                         }
                     } catch (Error e) {
                         warning (e.message);
                     }
                 } else if (!value && spell != null) {
-                    debug ("Spellchecking disabled!");
                     spell.detach ();
                 }
             }
@@ -477,8 +475,6 @@ namespace Quilter.Widgets {
         public void set_focused_text () {
             Gtk.TextIter cursor_iter;
             Gtk.TextIter start, end;
-
-
             buffer.get_bounds (out start, out end);
 
             var cursor = buffer.get_insert ();
@@ -505,36 +501,18 @@ namespace Quilter.Widgets {
 
             if (cursor != null) {
                 var start_sentence = cursor_iter;
-                var focus_type = Quilter.Application.gsettings.get_int("focus-mode-type");
-                if (cursor_iter != start) {
-                    switch (focus_type) {
-                        case 0:
-                            start_sentence.backward_lines (1);
-                            break;
-                        case 1:
-                            start_sentence.backward_sentence_start ();
-                            break;
-                        default:
-                            start_sentence.backward_lines (1);
-                            break;
-                    }
-                }
-
                 var end_sentence = cursor_iter;
-                if (cursor_iter != end) {
-                    switch (focus_type) {
-                        case 0:
-                            end_sentence.forward_lines (2);
-                            break;
-                        case 1:
-                            end_sentence.forward_sentence_end ();
-                            break;
-                        default:
-                            end_sentence.forward_lines (2);
-                            break;
+                var focus_type = Quilter.Application.gsettings.get_boolean ("focus-mode-type");
+                if (cursor_iter != start && cursor_iter != end) {
+                    if (focus_type) {
+                        start_sentence.backward_sentence_start ();
+                        end_sentence.forward_sentence_end ();
+                    } else {
+                        start_sentence.backward_lines (1);
+                        end_sentence.forward_to_line_end ();
                     }
-
                 }
+
                 if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
                     buffer.remove_tag(sepiafont, start_sentence, end_sentence);
                     buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);

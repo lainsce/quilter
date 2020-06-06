@@ -80,7 +80,7 @@ namespace Quilter.Widgets {
 
             this.add (scrolled_box);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.reveal_child = true;
+            this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
 
         public Gtk.Widget sidebar_files_list () {
