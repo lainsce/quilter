@@ -35,9 +35,6 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
-        private Gtk.TreeIter subsection;
-        private Gtk.TreeIter subsubsection;
-        private Gtk.TreeIter paragraph;
         private Gtk.Label no_files;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -140,7 +137,7 @@ namespace Quilter.Widgets {
 
             crt = new Gtk.CellRendererText ();
             crt.font = "Inter 10";
-            crt.max_width_chars = 25;
+            crt.ellipsize =  = Pango.EllipsizeMode.END;
 
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
 
@@ -207,7 +204,7 @@ namespace Quilter.Widgets {
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                         GLib.MatchInfo match;
-                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.*\\$?)");
+                        var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
                         if (reg.match (buffer, 0, out match)) {
                             do {
                                 if (match.fetch_named ("header") == "#") {
@@ -219,15 +216,6 @@ namespace Quilter.Widgets {
                                 } else if (match.fetch_named ("header") == "###") {
                                     store.insert (out section, subheader, -1);
                                     store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "####") {
-                                    store.insert (out subsection, section, -1);
-                                    store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "#####") {
-                                    store.insert (out subsubsection, subsection, -1);
-                                    store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "######") {
-                                    store.insert (out paragraph, subsubsection, -1);
-                                    store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 }
                             } while (match.next ());
                             debug ("Outline populated");
@@ -243,7 +231,7 @@ namespace Quilter.Widgets {
         public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
                 if (files != null)
-	                s_files.add ((SideBarBox)item);
+                    s_files.add ((SideBarBox)item);
             }
             return s_files;
         }
