@@ -11,8 +11,8 @@
    sodipodi:docname="full-width-symbolic.svg"
    id="svg6"
    version="1.1"
-   width="16"
-   height="16">
+   width="48"
+   height="48">
   <metadata
      id="metadata12">
     <rdf:RDF>
@@ -33,9 +33,9 @@
      inkscape:window-maximized="0"
      inkscape:window-y="79"
      inkscape:window-x="256"
-     inkscape:cy="7.2764326"
-     inkscape:cx="7.1968828"
-     inkscape:zoom="41.7193"
+     inkscape:cy="25.610569"
+     inkscape:cx="24.701093"
+     inkscape:zoom="11.313708"
      showgrid="true"
      id="namedview8"
      inkscape:window-height="767"
@@ -53,34 +53,55 @@
        type="xygrid" />
   </sodipodi:namedview>
   <path
-     inkscape:connector-curvature="0"
      id="path832"
-     d="M 2.0000006,2 H 1 v 11 h 1.0000006 z"
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999996;marker:none" />
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:1;marker:none"
+     d="M 1,6 V 42 H 4.2857141 43.714285 47 V 6.0000001 H 43.714285 4.2857141 Z M 2,7 H 46 V 41 H 2 Z"
+     sodipodi:nodetypes="cccccccccccccc" />
   <path
-     id="path828"
-     d="M 2,2 V 3 H 14 V 2 Z"
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none" />
-  <path
-     inkscape:connector-curvature="0"
-     id="path832-3"
-     d="m 2,12 v 1 h 12 v -1 z"
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999997;marker:none" />
-  <path
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999996;marker:none"
-     d="M 15,2 H 13.999999 V 13 H 15 Z"
-     id="path832-36"
-     inkscape:connector-curvature="0" />
-  <path
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999996;marker:none"
-     d="m 4,5 v 1 h 8 V 5 Z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none"
+     d="m 17,13 v 1.000001 H 32.999999 V 13 Z"
      id="path828-7" />
   <path
-     id="path828-7-5"
-     d="m 4,7 v 1 h 6 V 7 Z"
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:1;marker:none" />
-  <path
      id="path828-7-3"
-     d="m 4,9 v 1 h 8 V 9 Z"
-     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999996;marker:none" />
+     d="m 17,17.000001 v 1 h 16 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none" />
+  <path
+     id="path828-7-36"
+     d="m 15.000001,19.000001 v 1 H 33 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999989;marker:none" />
+  <path
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none"
+     d="m 15,21 v 1 h 16 v -1 z"
+     id="path828-7-3-5" />
+  <path
+     id="path828-7-35"
+     d="m 17,24 v 1 h 15.999999 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none" />
+  <path
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999989;marker:none"
+     d="m 15,26 v 1 h 17.999999 v -1 z"
+     id="path828-7-3-2" />
+  <path
+     id="path828-7-9"
+     d="m 15,28 v 1 h 16 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none" />
+  <path
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none"
+     d="m 17,31 v 1 h 15.999999 v -1 z"
+     id="path828-7-35-3" />
+  <path
+     id="path828-7-3-2-6"
+     d="m 15,33 v 1 h 17.999999 v -1 z"
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.999989;marker:none" />
+  <path
+     style="color:#bebebe;overflow:visible;fill:#000000;stroke-width:0.99999;marker:none"
+     d="m 15,35 v 1 h 16 v -1 z"
+     id="path828-7-9-7" />
+  <rect
+     y="13"
+     x="15"
+     height="1"
+     width="1"
+     id="rect18"
+     style="fill:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;paint-order:fill markers stroke" />
 </svg>
