@@ -10,31 +10,25 @@
   <style name="search-match"    foreground="#1a1a1a" background="#EEAA00"/>
 
   <!-- Bold -->
-  <style name="def:statement" bold="true"/>
+  <style name="def:strong-emphasis" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#555" italic="true"/>
+  <style name="def:emphasis" foreground="#555" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#008ce6"/>
-  <style name="def:underlined" foreground="#008ce6"/>
+  <style name="def:link-text" foreground="#1a1a1a"/>
+  <style name="def:link-destination" foreground="#008ce6"/>
 
   <!-- Code -->
-  <style name="def:identifier" background="#F2F0F2" foreground="#1a1a1a"/>
+  <style name="def:inline-code" background="#F2F0F2" foreground="#1a1a1a"/>
+  <style name="def:preformatted-section" background="#F2F0F2" foreground="#1a1a1a"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#1a1a1a"/>
-
-  <!-- Label -->
-  <style name="def:preprocessor" foreground="#1a1a1a"/>
-
-  <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#008ce6"/>
-  <style name="def:constant" foreground="#008ce6"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#1a1a1a" bold="true"/>
+  <style name="def:heading" foreground="#1a1a1a" bold="true"/>
 </style-scheme>

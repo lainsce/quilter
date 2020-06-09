@@ -109,7 +109,7 @@ namespace Quilter.Widgets {
 
         construct {
             var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/markdown");
+            var language = manager.guess_language (null, "text/x-markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;

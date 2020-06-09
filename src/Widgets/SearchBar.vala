@@ -163,7 +163,7 @@ namespace Quilter.Widgets {
             if (search_for_iter (start_iter, out end_iter)) {
                 string replace_string = replace_entry.text;
                 try {
-                    search_context.replace2 (start_iter, end_iter, replace_string, replace_string.length);
+                    search_context.replace (start_iter, end_iter, replace_string, replace_string.length);
                     update_replace_tool_sensitivities (search_entry.text);
                     debug ("Replace \"%s\" with \"%s\"", search_entry.text, replace_entry.text);
                 } catch (Error e) {
@@ -192,7 +192,7 @@ namespace Quilter.Widgets {
 
         private bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
             end_iter = start_iter;
-            bool found = search_context.forward2 (start_iter, out start_iter, out end_iter, null);
+            bool found = search_context.forward (start_iter, out start_iter, out end_iter, null);
             if (found) {
                 text_buffer.select_range (start_iter, end_iter);
                 text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
@@ -203,7 +203,7 @@ namespace Quilter.Widgets {
 
         public bool search_for_iter_backward (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
             end_iter = start_iter;
-            bool found = search_context.backward2 (start_iter, out start_iter, out end_iter, null);
+            bool found = search_context.backward (start_iter, out start_iter, out end_iter, null);
             if (found) {
                 text_buffer.select_range (start_iter, end_iter);
                 text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
