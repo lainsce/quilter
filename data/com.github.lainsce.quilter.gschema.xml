@@ -72,7 +72,7 @@
       <description>The user-preferred full-width shown pane in Quilter</description>
     </key>
     <key name="track-type" type="s">
-      <default>''</default>
+      <default>'lines'</default>
       <summary>Tracking type for the Statusbar</summary>
       <description>The user-preferred tracking to use in Edit in Quilter</description>
     </key>

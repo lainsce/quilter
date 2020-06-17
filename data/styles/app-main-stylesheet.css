@@ -1,22 +1,11 @@
 .color-button radio,
 .color-button radio:checked {
-    border-color: alpha (#000, 0.3);
-    box-shadow:
-        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-        0 1px 0 0 alpha (@bg_highlight_color, 0.3);
     padding: 10px;
     -gtk-icon-shadow: none;
 }
 
 .color-button radio:focus {
     border-color: @accentColor;
-    box-shadow:
-        inset 0 1px 0 0 alpha (@inset_dark_color, 0.7),
-        inset 0 0 0 1px alpha (@inset_dark_color, 0.3),
-        inset 0 0 0 1px alpha (@bg_highlight_color, 0.05),
-        0 1px 0 0 alpha (@bg_highlight_color, 0.3),
-        0 0 0 1px alpha (@accentColor, 0.25);
 }
 
 .color-dark radio {
@@ -132,7 +121,7 @@
 }
 
 .quilter-menu:hover {
-    border: 1px solid alpha (black, 0.35);
+    border: 1px solid alpha (black, 0.25);
 }
 
 .quilter-cbt button {
@@ -144,7 +133,7 @@
 }
 
 .quilter-cbt button:hover {
-    border: 1px solid alpha (black, 0.35);
+    border: 1px solid alpha (black, 0.25);
 }
 
 .quilter-focus-button {
@@ -157,15 +146,15 @@
 }
 
 .sep {
-    border-top: 1px solid alpha (black, 0.15);
+    border-top: 1px solid alpha (black, 0.25);
 }
 
 .vsep {
-    border-left: 1px solid alpha (black, 0.15);
+    border-left: 1px solid alpha (black, 0.25);
 }
 
 .vseph {
-    border-left: 1px solid transparent;
+    border-left: 1px solid alpha (black, 0.25);
 }
 
 .quilter-header-paned separator {

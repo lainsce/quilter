@@ -289,13 +289,15 @@ namespace Quilter {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
 
-            // Used for identification purposes, don't translate.
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider2 = new Gtk.CssProvider ();
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+            var provider3 = new Gtk.CssProvider ();
+            provider3.load_from_resource ("/com/github/lainsce/quilter/app-handy-stylesheet.css");
+            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider3, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             side_toolbar = new Widgets.SideHeaderbar (this);
             side_toolbar.create_new.connect (on_create_new);
