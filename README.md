@@ -27,7 +27,7 @@ Please make sure you have these dependencies first before building.
 valac
 libgranite-dev
 gtk+-3.0
-gtksourceview-3.0-dev
+glibgtksourceview-3.0-dev
 libwebkit2gtk-4.0-dev
 libmarkdown2-dev
 libgtkspell3-3-dev
