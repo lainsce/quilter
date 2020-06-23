@@ -31,6 +31,8 @@ namespace Quilter.Widgets {
         public Gtk.ModelButton focusmode_button;
         public MainWindow win;
         public Preview preview;
+        private Gtk.Button new_button;
+        public signal void create_new ();
         public signal void open ();
         public signal void save_as ();
 
@@ -51,7 +53,6 @@ namespace Quilter.Widgets {
             set_title (null);
 
             back_button = new Gtk.Button ();
-            back_button.set_image (new Gtk.Image.from_icon_name ("back-symbolic", Gtk.IconSize.BUTTON));
             back_button.has_tooltip = true;
             back_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {""},
@@ -63,6 +64,15 @@ namespace Quilter.Widgets {
                 win.header.set_visible_child (win.side_toolbar);
                 win.grid.set_visible_child (win.sidebar);
             });
+
+            new_button = new Gtk.Button ();
+            new_button.has_tooltip = true;
+            new_button.tooltip_markup = Granite.markup_accel_tooltip (
+                {"<Ctrl>n"},
+                _("New file")
+            );
+
+            new_button.clicked.connect (() => create_new ());
 
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
@@ -351,6 +361,7 @@ namespace Quilter.Widgets {
             pack_end (pmenu_button);
             pack_end (search_button);
 
+            pack_start (new_button);
             pack_start (open_button);
             pack_start (save_as_button);
 
@@ -405,7 +416,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            this.set_size_request (-1,46);
+            this.set_size_request (-1,54);
         }
 
         public void icons_toolbar () {
@@ -414,6 +425,8 @@ namespace Quilter.Widgets {
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
+            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
+            back_button.set_image (new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON));
         }
     }
 }

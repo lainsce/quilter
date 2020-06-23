@@ -9,16 +9,21 @@ window.background.quilter-dialog-hb,
 .quilter-dialog-hb .combo {
     background: @colorPrimary;
 }
-.quilter-dialog-hb button:not(:checked):not(:active):not(.titlebutton) {
-    background: shade(@colorPrimary, 1.04);
+.quilter-dialog-hb button:not(:checked):not(:active):not(.titlebutton),
+.quilter-toolbar-side button:not(:checked):not(:active):not(.titlebutton) {
+    background: shade(@colorPrimary, 1.03);
 }
 .quilter-dialog-hb switch slider {
-    background: shade(@colorPrimary, 1.04);
+    background: shade(@colorPrimary, 1.03);
 }
 
 .quilter-toolbar {
-    background: shade(@colorPrimary, 0.95);
+    background: shade(@colorPrimary, 1.03);
     color: @textColorPrimary;
+}
+.quilter-toolbar-side {
+    background: @colorPrimary;
+    border: none;
 }
 .quilter-toolbar image {
   -gtk-icon-shadow: 1px 1px transparent;
@@ -31,7 +36,6 @@ window.background.quilter-dialog-hb,
     border-bottom-width: 1px;
     background: @colorPrimary;
     color: @textColorPrimary;
-    box-shadow: 0 1px transparent inset;
 }
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
@@ -50,7 +54,6 @@ window.background.quilter-dialog-hb,
 }
 
 .quilter-sidebar-box:hover {
-  border-left: 5px solid shade (@colorPrimary, 0.95);
   color: @textColorPrimary;
   background: shade (@colorPrimary, 0.95);
 }

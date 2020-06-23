@@ -132,7 +132,8 @@ namespace Quilter.Widgets {
             view.expand = true;
             view.hexpand = true;
             view.headers_visible = false;
-            view.margin_top = 6;
+            view.margin = 6;
+            view.margin_start = 12;
             view.activate_on_single_click = true;
 
             crt = new Gtk.CellRendererText ();

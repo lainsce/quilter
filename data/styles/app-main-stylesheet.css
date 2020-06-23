@@ -24,6 +24,11 @@
     color: #5D4738;
 }
 
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
+}
+
 .statusbar {
     background-color: transparent;
 	box-shadow: none;
@@ -62,20 +67,21 @@
 }
 
 .quilter-toolbar .image-button {
-    margin: 6px 0;
+    margin: 8px 0;
+    border-radius: 8px;
 }
 
 .quilter-toolbar .image-button image {
-    padding: 5px;
+    padding: 0 6px;
 }
 
 .quilter-toolbar .image-button:hover {
-    background: shade(@colorPrimary, 0.88);
+    background: shade(@colorPrimary, 0.95);
 }
 
 .quilter-toolbar .image-button:active,
 .quilter-toolbar .image-button.toggle:checked {
-    background: shade(@colorPrimary, 0.88);
+    background: shade(@colorPrimary, 0.95);
 }
 
 .quilter-sidebar {
@@ -99,21 +105,9 @@
 }
 
 .quilter-sidebar-box {
-    border-radius: 0;
-    margin-left: 0;
-    margin-bottom: 0;
-    border: 0px solid alpha (black, 0);
-    border-top: 1px solid alpha (black, 0.25);
-    border-bottom: 1px solid alpha (black, 0.25);
-    border-left: 5px solid @colorPrimary;
-}
-
-.quilter-sidebar-box:first-child {
-    border-top: 0px solid alpha (black, 0);
-}
-
-.quilter-sidebar-box + .quilter-sidebar-box {
-    border-top: 0px solid alpha (black, 0);
+    border-radius: 8px;
+    margin: 6px;
+    border: 1px solid alpha (black, 0.25);
 }
 
 .quilter-flb label {
@@ -153,19 +147,12 @@
     border-left: 1px solid alpha (black, 0.25);
 }
 
-.vseph {
-    border-left: 1px solid alpha (black, 0.25);
+.edit-view-paned {
+    border-right: 1px solid alpha (black, 0.25);
 }
 
-.quilter-header-paned separator {
-    background-image:
-        linear-gradient(
-            to right,
-            alpha (black, 0.05) 1px,
-            transparent 2px
-        );
-    margin-right: -7px;
-    min-width: 8px;
+.vseph {
+    border-left: 1px solid transparent;
 }
 
 .title {
@@ -190,23 +177,16 @@ label:disabled {
 }
 
 .quilter-dialog-hb headerbar {
-    border-bottom: 1px solid alpha (black, 0.25);
     margin: 0;
     padding: 0 6px;
 }
 
 .quilter-dialog-hb actionbar {
-    border-top: 1px solid alpha (black, 0.25);
     margin: 0;
     padding: 0 6px;
 }
 
-.quilter-sidebar button.radio {
-    border-radius: 0;
-    border: transparent;
-    border-bottom: 1px solid alpha (black, 0.25);
-}
-
-.preview-row:selected image {
-    color: @accentColor;
+.preview-row {
+    padding: 6px;
+    border-radius: 8px;
 }

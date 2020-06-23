@@ -300,16 +300,15 @@ namespace Quilter {
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider3, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             side_toolbar = new Widgets.SideHeaderbar (this);
-            side_toolbar.create_new.connect (on_create_new);
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
             toolbar.hexpand = true;
             toolbar.open.connect (on_open);
             toolbar.save_as.connect (on_save_as);
+            toolbar.create_new.connect (on_create_new);
 
             edit_view = new Gtk.ScrolledWindow (null, null);
-            var edit_view_context = edit_view.get_style_context ();
             edit_view_content = new Widgets.EditView (this);
             edit_view.vexpand = true;
             edit_view_content.save.connect (() => on_save ());
@@ -323,7 +322,7 @@ namespace Quilter {
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
-            
+
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             statusbar.valign = Gtk.Align.END;
 
@@ -428,14 +427,6 @@ namespace Quilter {
                 sidebar.delete_row ();
             }
 
-            var l_group = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
-            l_group.add_widget (side_toolbar);
-            l_group.add_widget (sidebar);
-
-            var r_group = new Gtk.SizeGroup (Gtk.SizeGroupMode.HORIZONTAL);
-            r_group.add_widget (toolbar);
-            r_group.add_widget (main_leaf);
-
             var h_group = new Hdy.HeaderGroup ();
             h_group.add_header_bar (((Gtk.HeaderBar)side_toolbar));
             h_group.add_header_bar (((Gtk.HeaderBar)toolbar));
@@ -477,11 +468,11 @@ namespace Quilter {
 
             if (!Quilter.Application.gsettings.get_boolean("header")) {
                 // On Mobile size, so.... have to have no buttons anywhere.
-                side_toolbar.set_decoration_layout (":");
+                side_toolbar.header.set_decoration_layout (":");
                 toolbar.set_decoration_layout (":");
             } else {
                 // Else you're on Desktop size, so business as usual.
-                side_toolbar.set_decoration_layout ("close:");
+                side_toolbar.header.set_decoration_layout ("close:");
                 toolbar.set_decoration_layout (":maximize");
             }
         }
@@ -601,8 +592,7 @@ namespace Quilter {
 
         public void show_sidebar () {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            sidebar.visible = Quilter.Application.gsettings.get_boolean("sidebar");
-            side_toolbar.visible = Quilter.Application.gsettings.get_boolean("sidebar");
+            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
             separator.visible = Quilter.Application.gsettings.get_boolean("sidebar");
             separator2.visible = Quilter.Application.gsettings.get_boolean("sidebar");
         }
@@ -659,8 +649,6 @@ namespace Quilter {
                 overlay_button_revealer.no_show_all = true;
                 overlay_button_revealer.reveal_child = false;
                 overlay_button_revealer.visible = false;
-                separator.visible = true;
-                separator2.visible = true;
                 toolbar.visible = true;
                 header.visible = true;
                 window_header.visible = true;
@@ -688,6 +676,13 @@ namespace Quilter {
                     // Else you're on Desktop size, so business as usual.
                     toolbar.set_decoration_layout (":maximize");
                 }
+            }
+
+            var edit_view_context = edit_view.get_style_context ();
+            if (Quilter.Application.gsettings.get_string("preview-type") == "half") {
+                edit_view_context.add_class ("edit-view-paned");
+            } else {
+                edit_view_context.remove_class ("edit-view-paned");
             }
 
             render_func ();

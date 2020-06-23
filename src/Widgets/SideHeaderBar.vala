@@ -17,40 +17,34 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SideHeaderbar : Hdy.HeaderBar {
+    public class SideHeaderbar : Gtk.Revealer {
         public MainWindow win;
         public Hdy.ViewSwitcher stackswitcher;
-        private Gtk.Button new_button;
-        public signal void create_new ();
+        public Hdy.HeaderBar header;
 
         public SideHeaderbar (MainWindow win) {
             this.win = win;
-            show_close_button = true;
+
+            header = new Hdy.HeaderBar ();
+            header.show_close_button = true;
 
             stackswitcher = new Hdy.ViewSwitcher ();
             stackswitcher.policy = Hdy.ViewSwitcherPolicy.NARROW;
 
-            this.set_size_request (200,46);
-            this.set_custom_title (stackswitcher);
-            this.has_subtitle = false;
-            this.set_title (null);
+            header.set_size_request (300,54);
+            header.set_custom_title (stackswitcher);
+            header.has_subtitle = false;
+            header.set_title (null);
 
-            new_button = new Gtk.Button ();
-            new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
-            new_button.has_tooltip = true;
-            new_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>n"},
-                _("New file")
-            );
-
-            new_button.clicked.connect (() => create_new ());
-
-            this.pack_end (new_button);
-
-            var this_context = this.get_style_context ();
+            var this_context = header.get_style_context ();
             this_context.add_class (Gtk.STYLE_CLASS_FLAT);
             this_context.add_class ("quilter-toolbar");
             this_context.add_class ("quilter-toolbar-side");
+            this_context.remove_class ("titlebar");
+
+            this.add (header);
+            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
+            this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
     }
 }
