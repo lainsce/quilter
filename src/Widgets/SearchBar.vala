@@ -25,8 +25,8 @@ namespace Quilter.Widgets {
         public Gtk.Grid grid;
         public Gtk.Grid prev_next_grid;
         public Gtk.Grid replace_grid;
-        public Gtk.SearchEntry replace_entry;
-        public Gtk.SearchEntry search_entry;
+        public Gtk.Entry replace_entry;
+        public Gtk.Entry search_entry;
         public Gtk.SourceSearchContext search_context = null;
         public weak MainWindow window { get; construct; }
 
@@ -35,21 +35,21 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            replace_entry = new Gtk.SearchEntry ();
+            replace_entry = new Gtk.Entry ();
             replace_entry.hexpand = true;
             replace_entry.placeholder_text = _("Replace with…");
-            replace_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-replace-symbolic");
             replace_entry.activate.connect (on_replace_entry_activate);
 
             replace_tool_button = new Gtk.Button ();
-            replace_tool_button.label = _("Replace");
+            replace_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-symbolic", Gtk.IconSize.BUTTON));
             replace_tool_button.clicked.connect (on_replace_entry_activate);
-            replace_tool_button.tooltip_text = (_("Use the arrows to target the text\nto replace before pressing this."));
+            replace_tool_button.tooltip_text = (_("Replace\nUse arrows before using."));
 
             replace_all_tool_button = new Gtk.Button ();
-            replace_all_tool_button.label = _("Replace all");
+            replace_all_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-all-symbolic", Gtk.IconSize.BUTTON));
             replace_all_tool_button.always_show_image = true;
             replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
+            replace_all_tool_button.tooltip_text = (_("Replace All"));
 
             grid = new Gtk.Grid ();
             grid.orientation = Gtk.Orientation.VERTICAL;
@@ -86,10 +86,9 @@ namespace Quilter.Widgets {
         }
 
         public void search_entry_item () {
-            search_entry = new Gtk.SearchEntry ();
+            search_entry = new Gtk.Entry ();
             search_entry.hexpand = true;
             search_entry.placeholder_text = _("Find text…");
-            search_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
             prev_next_grid.add (search_entry);
 
             var entry_path = new Gtk.WidgetPath ();
@@ -99,7 +98,7 @@ namespace Quilter.Widgets {
             entry_context.set_path (entry_path);
             entry_context.add_class ("entry");
 
-            search_entry.search_changed.connect (() => {
+            search_entry.activate.connect (() => {
                 search ();
             });
         }

@@ -245,7 +245,7 @@ namespace Quilter.Widgets {
             var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change on the menu."));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
-            var preview_full_icon = new Gtk.Image.from_icon_name ("full-width-symbolic", Gtk.IconSize.DIALOG);
+            var preview_full_icon = new Gtk.Image.from_icon_name ("full-width-symbolic", Gtk.IconSize.BUTTON);
 
             var preview_full_box = new Gtk.Grid ();
             preview_full_box.column_spacing = 12;
@@ -268,7 +268,7 @@ namespace Quilter.Widgets {
             var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally."));
             preview_half_label_subtitle.halign = Gtk.Align.START;
             preview_half_label_subtitle.sensitive = false;
-            var preview_half_icon = new Gtk.Image.from_icon_name ("half-width-symbolic", Gtk.IconSize.DIALOG);
+            var preview_half_icon = new Gtk.Image.from_icon_name ("half-width-symbolic", Gtk.IconSize.BUTTON);
 
             var prev_type = Quilter.Application.gsettings.get_string("preview-type");
 
