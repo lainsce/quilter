@@ -61,7 +61,6 @@ namespace Quilter.Widgets {
             pack_start (back_button);
 
             back_button.clicked.connect (() => {
-                win.header.set_visible_child (win.side_toolbar);
                 win.grid.set_visible_child (win.sidebar);
             });
 
@@ -416,7 +415,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            this.set_size_request (-1,54);
+            this.set_size_request (-1,50);
         }
 
         public void icons_toolbar () {

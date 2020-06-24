@@ -36,6 +36,8 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private Gtk.Label no_files;
+        public Hdy.ViewSwitcher stackswitcher;
+        public Hdy.HeaderBar header;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
 
@@ -78,7 +80,29 @@ namespace Quilter.Widgets {
 
             scrolled_box.add (stack);
 
-            this.add (scrolled_box);
+            header = new Hdy.HeaderBar ();
+            header.show_close_button = true;
+
+            stackswitcher = new Hdy.ViewSwitcher ();
+            stackswitcher.policy = Hdy.ViewSwitcherPolicy.NARROW;
+            stackswitcher.stack = stack;
+
+            header.set_size_request (250,50);
+            header.set_custom_title (stackswitcher);
+            header.has_subtitle = false;
+            header.set_title (null);
+
+            var this_context = header.get_style_context ();
+            this_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            this_context.add_class ("quilter-toolbar");
+            this_context.add_class ("quilter-toolbar-side");
+            this_context.remove_class ("titlebar");
+
+            var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            main_grid.add (header);
+            main_grid.add (scrolled_box);
+
+            add (main_grid);
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
@@ -87,7 +111,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.set_size_request (300,-1);
+            column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -121,7 +145,7 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (300, -1);
+            files_grid.set_size_request (250, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;

@@ -43,7 +43,6 @@ namespace Quilter {
         public Widgets.Preview preview_view_content;
         public Widgets.SearchBar searchbar;
         public Widgets.SideBar sidebar;
-        public Widgets.SideHeaderbar side_toolbar;
         public Widgets.StatusBar statusbar;
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_EXPORT_HTML = "action_export_html";
@@ -299,8 +298,6 @@ namespace Quilter {
             provider3.load_from_resource ("/com/github/lainsce/quilter/app-handy-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider3, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
-            side_toolbar = new Widgets.SideHeaderbar (this);
-
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
             toolbar.hexpand = true;
@@ -341,8 +338,6 @@ namespace Quilter {
             sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
 
-            side_toolbar.stackswitcher.stack = sidebar.stack;
-
             searchbar = new Widgets.SearchBar (this);
 
             overlay_button_revealer = new Gtk.Revealer ();
@@ -368,30 +363,15 @@ namespace Quilter {
             overlay_button_revealer.add (focus_overlay_button);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            main_leaf.add (toolbar);
             main_leaf.add (searchbar);
             main_leaf.add (main_stack);
 
             separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
             var separator_cx = separator.get_style_context ();
             separator_cx.add_class ("vsep");
-            separator2 = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            var separator2_cx = separator2.get_style_context ();
-            separator2_cx.add_class ("vseph");
-
-            header = new Hdy.Leaflet ();
-            header.add (side_toolbar);
-            header.add (separator2);
-            header.add (toolbar);
-            header.transition_type = Hdy.LeafletTransitionType.UNDER;
-            header.show_all ();
-            header.can_swipe_back = true;
 
             update ();
-            header.notify["folded"].connect (() => {
-                update ();
-            });
-
-            header.child_set_property (separator2, "allow-visible", false);
 
             grid = new Hdy.Leaflet ();
             grid.add (sidebar);
@@ -403,13 +383,16 @@ namespace Quilter {
 
             grid.child_set_property (separator, "allow-visible", false);
 
+            grid.notify["folded"].connect (() => {
+                update ();
+            });
+
             var main_overlay = new Gtk.Overlay ();
             main_overlay.add_overlay (overlay_button_revealer);
             main_overlay.add (grid);
 
             var window_grid = new Gtk.Grid ();
             window_grid.orientation = Gtk.Orientation.VERTICAL;
-            window_grid.add (header);
             window_grid.add (main_overlay);
 
             add (window_grid);
@@ -426,14 +409,6 @@ namespace Quilter {
                 sidebar.store.clear ();
                 sidebar.delete_row ();
             }
-
-            var h_group = new Hdy.HeaderGroup ();
-            h_group.add_header_bar (((Gtk.HeaderBar)side_toolbar));
-            h_group.add_header_bar (((Gtk.HeaderBar)toolbar));
-
-            var s_group = new Hdy.SwipeGroup ();
-            s_group.add_swipeable (((Hdy.Swipeable)header));
-            s_group.add_swipeable (((Hdy.Swipeable)grid));
 
             this.set_size_request (360, 435);
             this.show_all ();
@@ -468,11 +443,11 @@ namespace Quilter {
 
             if (!Quilter.Application.gsettings.get_boolean("header")) {
                 // On Mobile size, so.... have to have no buttons anywhere.
-                side_toolbar.header.set_decoration_layout (":");
+                sidebar.header.set_decoration_layout (":");
                 toolbar.set_decoration_layout (":");
             } else {
                 // Else you're on Desktop size, so business as usual.
-                side_toolbar.header.set_decoration_layout ("close:");
+                sidebar.header.set_decoration_layout ("close:");
                 toolbar.set_decoration_layout (":maximize");
             }
         }
@@ -592,7 +567,6 @@ namespace Quilter {
 
         public void show_sidebar () {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            side_toolbar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
             separator.visible = Quilter.Application.gsettings.get_boolean("sidebar");
             separator2.visible = Quilter.Application.gsettings.get_boolean("sidebar");
         }
@@ -632,7 +606,6 @@ namespace Quilter {
                 overlay_button_revealer.visible = true;
                 sidebar.reveal_child = false;
                 sidebar.visible = false;
-                side_toolbar.visible = false;
                 toolbar.visible = false;
                 header.visible = false;
                 separator.visible = false;

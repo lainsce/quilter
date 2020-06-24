@@ -52,10 +52,6 @@ window.unified decoration-overlay {
     padding: 6px;
 }
 
-.quilter-toolbar {
-    border-bottom: 1px solid alpha (black, 0.25);
-}
-
 .quilter-toolbar-main {
     margin: 0 6px;
     padding: 0;
