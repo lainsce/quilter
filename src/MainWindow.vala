@@ -627,6 +627,7 @@ namespace Quilter {
                 window_header.visible = true;
                 if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                     sidebar.reveal_child = true;
+                    sidebar.visible = true;
                 }
             }
 
