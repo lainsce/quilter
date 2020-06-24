@@ -625,6 +625,9 @@ namespace Quilter {
                 toolbar.visible = true;
                 header.visible = true;
                 window_header.visible = true;
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    sidebar.reveal_child = true;
+                }
             }
 
             if (Quilter.Application.gsettings.get_string("current-file") == "" || Quilter.Application.gsettings.get_string("current-file") == _("No Documents Open")) {
