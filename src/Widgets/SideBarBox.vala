@@ -38,7 +38,7 @@ namespace Quilter.Widgets {
                     win.toolbar.title = _("New File");
                     win.toolbar.set_subtitle ("");
                 } else {
-                    file_name_label.label = Path.get_basename (_path).replace (".md", "");;
+                    file_name_label.label = Path.get_basename (_path).replace (".md", "");
                     file_label.label = path.replace (Environment.get_home_dir (), "~");
                     win.toolbar.title = file_name_label.label;
                     win.toolbar.subtitle = file_label.label.replace (Path.get_basename (_path), "");
@@ -87,7 +87,6 @@ namespace Quilter.Widgets {
             file_remove_button.valign = Gtk.Align.CENTER;
             file_remove_button.halign = Gtk.Align.CENTER;
             file_remove_button.tooltip_text = _("Remove File from Sidebar");
-            file_remove_button.visible = false;
             var file_remove_button_style_context = file_remove_button.get_style_context ();
             file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             file_remove_button_style_context.add_class ("quilter-sidebar-button");

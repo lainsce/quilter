@@ -315,7 +315,6 @@ namespace Quilter {
             preview_view_content.vexpand = true;
 
             stack = new Gtk.Stack ();
-            stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
@@ -328,7 +327,6 @@ namespace Quilter {
             overlay_editor.add_overlay (statusbar);
 
             main_stack = new Gtk.Stack ();
-            main_stack.transition_type = Gtk.StackTransitionType.CROSSFADE;
             main_stack.add_named (stack, "stack");
             main_stack.add_named (box, "paned");
 
@@ -415,7 +413,7 @@ namespace Quilter {
         }
 
         private void update () {
-            if (grid.get_folded ()) {
+            if (grid != null && grid.get_folded ()) {
                 toolbar.pmenu_button.visible = false;
                 toolbar.pmenu_button.no_show_all = true;
                 toolbar.back_button.visible = true;
@@ -478,7 +476,7 @@ namespace Quilter {
             Quilter.Application.gsettings.set ("window-position", "(ii)", root_x, root_y);
 
             string[] files = {};
-            foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
+            foreach (var row in sidebar.get_rows ()) {
                 if (row.path != _("No Documents Open")) {
                     files += row.path;
                 }
@@ -504,12 +502,13 @@ namespace Quilter {
         }
 
         private static void widget_unparent (Gtk.Widget widget) {
-            unowned Gtk.Container? parent = widget.get_parent ();
+            unowned Gtk.Container parent = widget.get_parent ();
             if (parent == null) {
                 return;
+            } else {
+                parent.remove (widget);
+                widget.unparent ();
             }
-
-            parent.remove (widget);
         }
 
         private void update_count () {
@@ -607,10 +606,8 @@ namespace Quilter {
                 sidebar.reveal_child = false;
                 sidebar.visible = false;
                 toolbar.visible = false;
-                header.visible = false;
                 separator.visible = false;
                 separator2.visible = false;
-                window_header.visible = false;
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
                         begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
@@ -623,8 +620,6 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = false;
                 overlay_button_revealer.visible = false;
                 toolbar.visible = true;
-                header.visible = true;
-                window_header.visible = true;
                 if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                     sidebar.reveal_child = true;
                     sidebar.visible = true;
@@ -669,17 +664,16 @@ namespace Quilter {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
+
                 stack.add_titled (overlay_editor, "overlay_editor", _("Edit"));
                 stack.child_set_property (overlay_editor, "icon-name", "text-x-generic-symbolic");
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
                 stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
                 main_stack.set_visible_child (stack);
             } else {
-                foreach (Gtk.Widget w in stack.get_children ()) {
-                    stack.remove (w);
-                }
                 widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
+
                 box.add (overlay_editor);
                 box.add (preview_view_content);
                 main_stack.set_visible_child (box);
@@ -793,6 +787,13 @@ namespace Quilter {
                     string file_path = box.path;
 
                     Quilter.Application.gsettings.set_string("current-file", box.path);
+
+                    File file = File.new_for_path (box.path);
+                    if (Services.FileManager.is_temp_file (box.path)) {
+                        toolbar.title = _("New File");
+                    } else {
+                        toolbar.title = file.get_basename ().replace(".md", "");
+                    }
 
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);

@@ -118,29 +118,24 @@ namespace Quilter.Widgets {
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
-                foreach (var row in get_rows ()) {
-                    if (row.path == Quilter.Application.gsettings.get_string("current-file")) {
-                        column.select_row (row);
-                    }
+            }
+
+            foreach (var row in get_rows ()) {
+                if (row.path == Quilter.Application.gsettings.get_string("current-file")) {
+                    column.select_row (row);
                 }
             }
 
             column.row_selected.connect ((selected_row) => {
                 foreach (var row in rows) {
-                    if (row.path == Quilter.Application.gsettings.get_string("current-file")) {
-                        row.file_remove_button.visible = false;
-                    } else {
-                        row.file_remove_button.visible = true;
-                    }
+                    row.file_remove_button.visible = (row == get_selected_row ());
+                    Quilter.Application.gsettings.set_string("current-file", row.path);
                 }
-                Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)selected_row).path);
-                row_selected ((Widgets.SideBarBox)selected_row);
+
                 win.grid.set_visible_child (win.main_leaf);
                 win.header.set_visible_child (win.toolbar);
             });
 
-
-            column.show_all ();
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
