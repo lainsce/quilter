@@ -55,6 +55,8 @@ window.unified decoration-overlay {
 .quilter-toolbar-main {
     margin: 0 6px;
     padding: 0;
+    box-shadow: none;
+    border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .quilter-toolbar-side {

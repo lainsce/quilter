@@ -22,7 +22,7 @@ window.background.quilter-dialog-hb,
     color: @textColorPrimary;
 }
 .quilter-toolbar-side {
-    background: @colorPrimary;
+    background: mix(@accentColor, @colorPrimary, 0.96);
     border: none;
 }
 .quilter-toolbar image {
@@ -39,7 +39,7 @@ window.background.quilter-dialog-hb,
 }
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
-    background: @colorPrimary;
+    background: mix(@accentColor, @colorPrimary, 0.96);
     color: @textColorPrimary;
     box-shadow: 0 1px transparent inset;
 }
@@ -61,13 +61,13 @@ window.background.quilter-dialog-hb,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected {
-  border-left: 5px solid alpha (@accent_color_500, 0.5);
+    box-shadow: inset 5px 0 0 alpha (@accentColor, 0.5);
 }
 
 .quilter-sidebar-box:active:hover,
 .quilter-sidebar-box:focus:hover,
 .quilter-sidebar-box:selected:hover {
-  border-left: 5px solid alpha (@accent_color_500, 0.7);
+    box-shadow: inset 5px 0 0 alpha (@accentColor, 0.7);
 }
 
 .quilter-menu {
