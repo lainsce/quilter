@@ -26,7 +26,7 @@ namespace Quilter.Widgets {
         public Gtk.Grid prev_next_grid;
         public Gtk.Grid replace_grid;
         public Gtk.Entry replace_entry;
-        public Gtk.Entry search_entry;
+        public Gtk.SearchEntry search_entry;
         public Gtk.SourceSearchContext search_context = null;
         public weak MainWindow window { get; construct; }
 
@@ -86,7 +86,7 @@ namespace Quilter.Widgets {
         }
 
         public void search_entry_item () {
-            search_entry = new Gtk.Entry ();
+            search_entry = new Gtk.SearchEntry ();
             search_entry.hexpand = true;
             search_entry.placeholder_text = _("Find text…");
             prev_next_grid.add (search_entry);
@@ -98,7 +98,7 @@ namespace Quilter.Widgets {
             entry_context.set_path (entry_path);
             entry_context.add_class ("entry");
 
-            search_entry.activate.connect (() => {
+            search_entry.search_changed.connect (() => {
                 search ();
             });
         }

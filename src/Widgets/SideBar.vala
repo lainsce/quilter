@@ -84,7 +84,6 @@ namespace Quilter.Widgets {
             header.show_close_button = true;
 
             stackswitcher = new Hdy.ViewSwitcher ();
-            stackswitcher.policy = Hdy.ViewSwitcherPolicy.NARROW;
             stackswitcher.stack = stack;
 
             header.set_size_request (250,42);
