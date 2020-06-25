@@ -415,7 +415,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            this.set_size_request (-1,50);
+            this.set_size_request (-1,42);
         }
 
         public void icons_toolbar () {

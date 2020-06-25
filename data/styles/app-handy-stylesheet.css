@@ -1,4 +1,5 @@
-viewswitcher, viewswitcher button { margin: 4px 0; padding: 0; }
+viewswitcher, viewswitcher button { margin: 4px 0 0; padding: 0; }
+viewswitcher button > stack > box { padding: 0 8px; }
 viewswitcher button { border-radius: 8px; box-shadow: none; font-size: 1rem; }
 viewswitcher button:not(:checked):not(:hover) { background: transparent; }
 viewswitcher button:not(:only-child) { border-radius: 0; }
@@ -13,4 +14,4 @@ viewswitcher button > stack > box.wide { padding: 8px 12px; }
 viewswitcher button > stack > box.wide label:dir(ltr) { padding-right: 7px; }
 viewswitcher button > stack > box.wide label:dir(rtl) { padding-left: 7px; }
 viewswitcher button > stack > box label.active { font-weight: bold; }
-viewswitcherbar actionbar > revealer > box { padding: 0; }
+viewswitcherbar actionbar > revealer > box { padding: 0 8px; }
