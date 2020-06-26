@@ -86,7 +86,7 @@ namespace Quilter.Widgets {
             stackswitcher = new Hdy.ViewSwitcher ();
             stackswitcher.stack = stack;
 
-            header.set_size_request (250,45);
+            header.set_size_request (250,40);
             header.set_custom_title (stackswitcher);
             header.has_subtitle = false;
             header.set_title (null);
@@ -110,6 +110,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
+            column.margin_top = 6;
             column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
