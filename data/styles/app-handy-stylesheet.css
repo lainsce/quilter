@@ -1,5 +1,4 @@
-viewswitcher, viewswitcher button { margin: 4px 0 0; padding: 0; }
-viewswitcher button box { padding: 0 8px; }
+viewswitcher, viewswitcher button { margin: 4px 0 0; padding: 0 5px; }
 viewswitcher button { border-radius: 8px; box-shadow: none; font-size: 1rem; }
 viewswitcher button:not(:checked):not(:hover) { background: transparent; }
 viewswitcher button:not(:only-child) { border-radius: 0; }

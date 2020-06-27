@@ -80,7 +80,7 @@ namespace Quilter.Widgets {
             var fl_context = file_label.get_style_context ();
             fl_context.add_class ("subtitle");
 
-            var file_icon = new Gtk.Image.from_icon_name ("text-markdown", Gtk.IconSize.DND);
+            var file_icon = new Gtk.Image.from_icon_name ("markdown-symbolic", Gtk.IconSize.BUTTON);
 
             file_remove_button = new Gtk.Button ();
             file_remove_button.always_show_image = true;

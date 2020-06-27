@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class Preferences : Hdy.Window {
+    public class Preferences : Gtk.Dialog {
         private Gtk.Grid editor_grid;
         private Gtk.Grid interface_grid;
         private Gtk.Grid preview_grid;
@@ -53,40 +53,16 @@ namespace Quilter.Widgets {
             main_stack.add_titled (editor_grid, "editor", _("Editor"));
             main_stack.add_titled (preview_grid, "preview", _("Preview"));
 
-            main_stack.child_set_property (interface_grid, "icon-name", "preferences-desktop-display-symbolic");
-            main_stack.child_set_property (editor_grid, "icon-name", "edit-symbolic");
-            main_stack.child_set_property (preview_grid, "icon-name", "view-reveal-symbolic");
-
-            var window_title_vs = new Hdy.ViewSwitcherTitle ();
-            window_title_vs.set_title (_("Preferences"));
+            var window_title_vs = new Hdy.ViewSwitcher ();
+            window_title_vs.margin_start = window_title_vs.margin_end = 12;
             window_title_vs.set_stack (main_stack);
 
-            var titlebar = new Hdy.HeaderBar ();
-            titlebar.spacing = 4;
-            titlebar.set_centering_policy (Hdy.CenteringPolicy.STRICT);
-            titlebar.set_custom_title (window_title_vs);
-            titlebar.set_show_close_button (true);
-
-            var window_bottom_bar = new Hdy.ViewSwitcherBar ();
-            window_bottom_bar.set_stack (main_stack);
-
-            var window_title = new Hdy.WindowHandle ();
-            window_title.add (titlebar);
-
-            window_title_vs.notify["title-visible"].connect (() => {
-                if (window_title_vs.title_visible) {
-                    window_bottom_bar.reveal = true;
-                } else {
-                    window_bottom_bar.reveal = false;
-                }
-            });
-
             var grid = new Gtk.Grid ();
-            grid.attach (window_title, 0, 0);
+            grid.attach (window_title_vs, 0, 0);
             grid.attach (main_stack, 0, 1);
-            grid.attach (window_bottom_bar, 0, 2);
 
-            add (grid);
+            var content = this.get_content_area () as Gtk.Box;
+            content.add (grid);
 
             var context = this.get_style_context ();
             context.add_class ("quilter-dialog-hb");

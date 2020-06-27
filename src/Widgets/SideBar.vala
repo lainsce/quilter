@@ -61,8 +61,6 @@ namespace Quilter.Widgets {
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
             scrolled_box.max_content_height = 500;
             scrolled_box.propagate_natural_height = true;
-            var sb_context = scrolled_box.get_style_context ();
-            sb_context.add_class ("quilter-sidebar");
 
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
@@ -74,9 +72,7 @@ namespace Quilter.Widgets {
 
             stack = new Gtk.Stack ();
             stack.add_titled (sidebar_files_list (), "files", _("Files"));
-            stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.add_titled (sidebar_outline (), "outline", _("Outline"));
-            stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
             scrolled_box.add (stack);
 
@@ -84,10 +80,13 @@ namespace Quilter.Widgets {
             header.show_close_button = true;
 
             stackswitcher = new Hdy.ViewSwitcher ();
+            stackswitcher.margin_start = stackswitcher.margin_end = 6;
+            stackswitcher.margin_top = 6;
+            var sw_context = stackswitcher.get_style_context ();
+            sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
             header.set_size_request (250,40);
-            header.set_custom_title (stackswitcher);
             header.has_subtitle = false;
             header.set_title (null);
 
@@ -99,9 +98,14 @@ namespace Quilter.Widgets {
 
             var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_grid.add (header);
+            main_grid.add (stackswitcher);
             main_grid.add (scrolled_box);
+            main_grid.get_style_context ().add_class ("quilter-sidebar");
 
             add (main_grid);
+
+            var sb_context = this.get_style_context ();
+            sb_context.add_class ("quilter-sidebar");
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }

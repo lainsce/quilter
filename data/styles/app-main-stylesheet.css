@@ -5,11 +5,11 @@
 }
 
 .color-button radio:focus {
-    border-color: @accentColor;
+    border-color: @accent;
 }
 
 .color-dark radio {
-    background: #151515;
+    background: @BLACK_500;
     border-color: @BLACK_700;
     color: #a5a5a5;
 }
@@ -46,7 +46,7 @@ window.unified decoration-overlay {
 .quilter-searchbar {
     border-top-color: transparent;
     border-bottom: 1px solid alpha (black, 0.25);
-    background: @colorPrimary;
+    background: @color_primary;
     color: black;
     box-shadow: 0 1px transparent inset;
     padding: 6px;
@@ -73,43 +73,21 @@ window.unified decoration-overlay {
     padding: 0 6px;
 }
 
-.quilter-toolbar .image-button:hover {
-    background: shade(@colorPrimary, 0.95);
-}
-
-.quilter-toolbar .image-button:active,
-.quilter-toolbar .image-button.toggle:checked {
-    background: shade(@colorPrimary, 0.95);
-}
-
 .quilter-sidebar {
     margin: 0px;
 }
 
-.quilter-sidebar-button {
-    border: 1px solid alpha (black, 0.25);
-    border-radius: 9999px;
-    padding: 3px;
-    background: mix (@bg_color, @accent_color, 0.5);
+.quilter-sidebar-switcher {
+    margin: 5px;
 }
 
-.quilter-sidebar-button:hover {
-    background: alpha (mix (@bg_color, @accent_color, 0.5), 0.58);
-}
-
-.quilter-sidebar-button:active,
-.quilter-sidebar-button:selected {
-    background: alpha (mix (@bg_color, @accent_color, 0.5), 0.88);
-}
-
-.quilter-sidebar-box {
-    border-radius: 8px;
-    margin: 6px;
-    border: 1px solid alpha (black, 0.25);
+.quilter-sidebar-switcher button label,
+viewswitcher button label {
+    padding: 5px;
 }
 
 .quilter-flb label {
-    color: @textColorPrimary;
+    color: @text_color;
 }
 
 .quilter-menu:hover {
@@ -174,17 +152,8 @@ label:disabled {
     opacity: 0.8;
 }
 
-.quilter-dialog-hb headerbar {
-    margin: 0;
-    padding: 0 6px;
-}
-
-.quilter-dialog-hb actionbar {
-    margin: 0;
-    padding: 0 6px;
-}
-
 .preview-row {
+    border: 1px solid transparent;
     padding: 6px;
     border-radius: 8px;
 }

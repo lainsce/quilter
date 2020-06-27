@@ -23,5 +23,6 @@
         <file alias="full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
         <file alias="half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
         <file alias="edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
+        <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
     </gresource>
 </gresources>
