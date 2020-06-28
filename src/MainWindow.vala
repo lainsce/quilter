@@ -295,8 +295,6 @@ namespace Quilter {
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider3 = new Gtk.CssProvider ();
-            provider3.load_from_resource ("/com/github/lainsce/quilter/app-handy-stylesheet.css");
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider3, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.has_subtitle = false;
@@ -365,21 +363,15 @@ namespace Quilter {
             main_leaf.add (searchbar);
             main_leaf.add (main_stack);
 
-            separator = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            var separator_cx = separator.get_style_context ();
-            separator_cx.add_class ("vsep");
-
             update ();
 
             grid = new Hdy.Leaflet ();
             grid.add (sidebar);
-            grid.add (separator);
             grid.add (main_leaf);
             grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.show_all ();
             grid.can_swipe_back = true;
-
-            grid.child_set_property (separator, "allow-visible", false);
+            grid.set_visible_child (main_leaf);
 
             grid.notify["folded"].connect (() => {
                 update ();

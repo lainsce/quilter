@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private Gtk.Label no_files;
-        public Hdy.ViewSwitcher stackswitcher;
+        public Gtk.StackSwitcher stackswitcher;
         public Hdy.HeaderBar header;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -65,7 +65,8 @@ namespace Quilter.Widgets {
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class ("h2");
+            no_files_style_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             no_files.sensitive = false;
             no_files.margin = 12;
             no_files.show_all ();
@@ -79,14 +80,15 @@ namespace Quilter.Widgets {
             header = new Hdy.HeaderBar ();
             header.show_close_button = true;
 
-            stackswitcher = new Hdy.ViewSwitcher ();
+            stackswitcher = new Gtk.StackSwitcher ();
             stackswitcher.margin_start = stackswitcher.margin_end = 6;
-            stackswitcher.margin_top = 6;
+            stackswitcher.homogeneous = true;
+            stackswitcher.halign = Gtk.Align.CENTER;
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
-            header.set_size_request (250,40);
+            header.set_size_request (200,45);
             header.has_subtitle = false;
             header.set_title (null);
 
@@ -115,7 +117,6 @@ namespace Quilter.Widgets {
             column.hexpand = true;
             column.vexpand = true;
             column.margin_top = 6;
-            column.set_size_request (250,-1);
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -144,7 +145,6 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (250, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;
@@ -153,14 +153,13 @@ namespace Quilter.Widgets {
         public Gtk.Widget sidebar_outline () {
             view = new Gtk.TreeView ();
             view.expand = true;
-            view.hexpand = true;
             view.headers_visible = false;
-            view.margin = 6;
-            view.margin_start = 12;
+            view.show_expanders = false;
+            view.margin_top = 6;
+            view.margin_start = 8;
             view.activate_on_single_click = true;
 
             crt = new Gtk.CellRendererText ();
-            crt.font = "Inter 10";
             crt.ellipsize = Pango.EllipsizeMode.END;
 
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
@@ -194,7 +193,6 @@ namespace Quilter.Widgets {
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
             outline_grid.vexpand = false;
-            outline_grid.set_size_request (250, -1);
             outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
 

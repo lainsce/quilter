@@ -11,7 +11,7 @@
 .color-dark radio {
     background: @BLACK_500;
     border-color: @BLACK_700;
-    color: #a5a5a5;
+    color: #f7f7f7;
 }
 
 .color-light radio {
@@ -75,15 +75,7 @@ window.unified decoration-overlay {
 
 .quilter-sidebar {
     margin: 0px;
-}
-
-.quilter-sidebar-switcher {
-    margin: 5px;
-}
-
-.quilter-sidebar-switcher button label,
-viewswitcher button label {
-    padding: 5px;
+    border-right: 1px solid alpha(black, 0.25);
 }
 
 .quilter-flb label {
@@ -119,16 +111,28 @@ viewswitcher button label {
     border-top: 1px solid alpha (black, 0.25);
 }
 
-.vsep {
-    border-left: 1px solid alpha (black, 0.25);
-}
-
 .edit-view-paned {
     border-right: 1px solid alpha (black, 0.25);
 }
 
-.vseph {
-    border-left: 1px solid transparent;
+.quilter-sidebar-switcher button {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 8px 0 0 8px;
+}
+
+.quilter-sidebar-switcher button:last-child {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0 8px 8px 0;
+}
+
+.quilter-sidebar-switcher button label {
+    font-weight: 700;
+}
+
+.quilter-sidebar-switcher button:not(:checked):not(:active) label {
+    font-weight: 500;
 }
 
 .title {
