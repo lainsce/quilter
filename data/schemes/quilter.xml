@@ -4,9 +4,9 @@
   <_description>Emphasis on focus.</_description>
 
   <style name="text"            foreground="#1a1a1a" background="#F7F7F7"/>
-  <style name="cursor"          foreground="#47a1e5"/>
+  <style name="cursor"          foreground="#4792de"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#1a1a1a" background="#47a1e5"/>
+  <style name="selection"       foreground="#1a1a1a" background="#4792de"/>
   <style name="search-match"    foreground="#1a1a1a" background="#EEAA00"/>
 
   <!-- Bold -->
@@ -17,7 +17,7 @@
 
   <!-- Links -->
   <style name="def:link-text" foreground="#1a1a1a"/>
-  <style name="def:link-destination" foreground="#47a1e5"/>
+  <style name="def:link-destination" foreground="#4792de"/>
 
   <!-- Code -->
   <style name="def:inline-code" background="#F2F0F2" foreground="#1a1a1a"/>

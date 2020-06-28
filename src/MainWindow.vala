@@ -297,6 +297,7 @@ namespace Quilter {
             var provider3 = new Gtk.CssProvider ();
 
             toolbar = new Widgets.Headerbar (this);
+            toolbar.set_title ("Quilter");
             toolbar.has_subtitle = false;
             toolbar.hexpand = true;
             toolbar.open.connect (on_open);
@@ -779,13 +780,6 @@ namespace Quilter {
                     string file_path = box.path;
 
                     Quilter.Application.gsettings.set_string("current-file", box.path);
-
-                    File file = File.new_for_path (box.path);
-                    if (Services.FileManager.is_temp_file (box.path)) {
-                        toolbar.title = _("New File");
-                    } else {
-                        toolbar.title = file.get_basename ().replace(".md", "");
-                    }
 
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);

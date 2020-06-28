@@ -1,7 +1,7 @@
 @define-color color_primary #FFF;
 @define-color text_color #1a1a1a;
-@define-color accent #47a1e5;
-@define-color accent_color_500 #47a1e5;
+@define-color accent #4792de;
+@define-color accent_color_500 #4792de;
 
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
@@ -82,7 +82,7 @@
 
 .quilter-sidebar-box {
     padding: 2px;
-    margin: 6px;
+    margin: 6px 8px;
     border-radius: 8px;
     border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
     background-color: mix (@accent, @color_primary, 0.95);

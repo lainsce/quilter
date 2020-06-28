@@ -72,8 +72,8 @@ namespace Quilter.Widgets {
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stack.add_titled (sidebar_files_list (), "files", _("Files"));
-            stack.add_titled (sidebar_outline (), "outline", _("Outline"));
+            stack.add_titled (sidebar_files_list (), "files", _("FILES"));
+            stack.add_titled (sidebar_outline (), "outline", _("OUTLINE"));
 
             scrolled_box.add (stack);
 
@@ -83,7 +83,6 @@ namespace Quilter.Widgets {
             stackswitcher = new Gtk.StackSwitcher ();
             stackswitcher.margin_start = stackswitcher.margin_end = 6;
             stackswitcher.homogeneous = true;
-            stackswitcher.halign = Gtk.Align.CENTER;
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
