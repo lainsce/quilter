@@ -53,7 +53,7 @@ window.unified decoration-overlay {
 }
 
 .quilter-toolbar-main {
-    margin: 0 6px;
+    margin: 6px 6px;
     padding: 0;
     box-shadow: none;
     border-bottom: 1px solid alpha (black, 0.25);
@@ -65,7 +65,6 @@ window.unified decoration-overlay {
 }
 
 .quilter-toolbar .image-button {
-    margin: 8px 0;
     border-radius: 8px;
 }
 

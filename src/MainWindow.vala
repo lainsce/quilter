@@ -396,7 +396,6 @@ namespace Quilter {
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
                 Services.FileManager.file = null;
-                toolbar.set_subtitle (_("No Documents Open"));
                 sidebar.store.clear ();
                 sidebar.delete_row ();
             }
@@ -570,7 +569,7 @@ namespace Quilter {
         private void update_title () {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
-                toolbar.set_subtitle (row.title.replace (Path.get_basename (row.title), ""));
+                toolbar.set_subtitle (row.title);
             } else {
                 toolbar.set_subtitle ("");
             }
