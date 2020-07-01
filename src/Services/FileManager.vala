@@ -63,6 +63,7 @@ namespace Quilter.Services.FileManager {
 
     // File I/O
     public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
+        Widgets.SideBarBox filebox;
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();
@@ -70,7 +71,7 @@ namespace Quilter.Services.FileManager {
             files += file_path;
             Quilter.Application.gsettings.set_strv("last-files", files);
             if (win.sidebar != null && f != null) {
-                win.sidebar.add_file (file_path);
+                win.sidebar.add_file (file_path, out filebox);
             }
             try {
                 GLib.FileUtils.get_contents (file_path, out text);

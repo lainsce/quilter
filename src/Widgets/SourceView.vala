@@ -38,6 +38,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public GtkSpell.Checker? spell = null;
         public MainWindow window;
+        public Widgets.SideBar sidebar;
         public Services.POSFiles pos;
         public bool should_scroll {get; set; default = false;}
         public bool should_update_preview { get; set; default = false; }
@@ -143,6 +144,7 @@ namespace Quilter.Widgets {
                 if (Quilter.Application.gsettings.get_boolean("pos")) {
                     pos_syntax_start ();
                 }
+                sidebar.outline_populate ();
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -170,7 +172,7 @@ namespace Quilter.Widgets {
             }
 
             if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                Timeout.add_seconds (30, () => {
+                Timeout.add_seconds (10, () => {
                     save ();
                     modified = false;
                     return true;

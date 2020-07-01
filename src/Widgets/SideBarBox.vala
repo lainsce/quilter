@@ -34,10 +34,8 @@ namespace Quilter.Widgets {
                 _path = value;
                 if (Services.FileManager.is_temp_file (_path)) {
                     file_name_label.label = _("New Document");
-                    file_label.label = _("New File");
                 } else {
                     file_name_label.label = Path.get_basename (_path).replace (".md", "");
-                    file_label.label = path.replace (Environment.get_home_dir (), "~");
                 }
             }
         }
@@ -49,6 +47,9 @@ namespace Quilter.Widgets {
                 } else {
                     return file_label.label;
                 }
+            }
+            set {
+                file_label.label = value;
             }
         }
 
@@ -72,8 +73,6 @@ namespace Quilter.Widgets {
             file_label.halign = Gtk.Align.START;
             file_name_label.xalign = 0;
             file_label.ellipsize = Pango.EllipsizeMode.START;
-            var fl_context = file_label.get_style_context ();
-            fl_context.add_class ("subtitle");
 
             var file_icon = new Gtk.Image.from_icon_name ("markdown-symbolic", Gtk.IconSize.BUTTON);
 
@@ -92,17 +91,6 @@ namespace Quilter.Widgets {
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
                 win.sidebar.store.clear ();
-
-                var rows = win.sidebar.get_rows ();
-                for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                    if (Quilter.Application.gsettings.get_strv("last-files")[i] != null) {
-                        foreach (unowned SideBarBox r in rows) {
-                            win.sidebar.column.select_row (r);
-                        }
-                    } else if (Quilter.Application.gsettings.get_strv("last-files")[i] == null) {
-                        win.sidebar.add_file (Services.FileManager.get_temp_document_path ());
-                    }
-                }
             });
 
             var file_labels_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);

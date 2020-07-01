@@ -122,7 +122,9 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+                SideBarBox row;
+                rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i], out row);
+                column.select_row (row);
             }
 
             foreach (var row in get_rows ()) {
@@ -134,7 +136,6 @@ namespace Quilter.Widgets {
             column.row_selected.connect ((selected_row) => {
                 foreach (var row in rows) {
                     row.file_remove_button.visible = (row == get_selected_row ());
-                    Quilter.Application.gsettings.set_string("current-file", row.path);
                 }
 
                 win.grid.set_visible_child (win.main_leaf);
@@ -231,6 +232,7 @@ namespace Quilter.Widgets {
                                 if (match.fetch_named ("header") == "#") {
                                     store.insert (out root, null, -1);
                                     store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                    get_selected_row ().title = match.fetch_named ("header") + " " + match.fetch_named ("text");
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
                                     store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
@@ -264,18 +266,16 @@ namespace Quilter.Widgets {
             return (SideBarBox) column.get_selected_row ();
         }
 
-        public SideBarBox add_file (string file) {
-            var filebox = new SideBarBox (this.win, file);
+        public SideBarBox add_file (string file, out SideBarBox filebox) {
+            filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
 
             return filebox;
         }
 
-        public void delete_row () {
-            foreach (Gtk.Widget item in column.get_children ()) {
-                item.destroy ();
-            }
+        public void delete_rows () {
+            column.foreach ((element) => column.remove (element));
         }
 
         public void delete_row_with_name () {
@@ -283,7 +283,7 @@ namespace Quilter.Widgets {
                 get_selected_row ().destroy ();
             } else {
                 foreach (var row in get_rows ()) {
-                    if (row != get_selected_row ()) {
+                    if (row == get_selected_row ()) {
                         row.destroy ();
                     }
                 }
