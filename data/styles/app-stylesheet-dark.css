@@ -1,7 +1,7 @@
 @define-color color_primary #242424;
-@define-color text_color #C3C3C1;
-@define-color accent #4793f5;
-@define-color accent_color_500 #4793f5;
+@define-color text_color #EEE;
+@define-color accent #70C0FF;
+@define-color accent_color_500 #70C0FF;
 
 .title {
     color: #FFF;

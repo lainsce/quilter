@@ -20,8 +20,8 @@
   <style name="def:link-destination" foreground="#50a6ad"/>
 
   <!-- Code -->
-  <style name="def:inline-code" background="#d0c6bb" foreground="#c1a075"/>
-  <style name="def:preformatted-section" background="#d0c6bb" foreground="#c1a075"/>
+  <style name="def:inline-code" background="#d0c6bb" foreground="#a17055"/>
+  <style name="def:preformatted-section" background="#d0c6bb" foreground="#a17055"/>
 
   <!-- Line-break -->
   <style name="def:note" foreground="#3b3228"/>

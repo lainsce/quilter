@@ -1,7 +1,7 @@
 @define-color color_primary #f0e8dd;
 @define-color text_color #3b3228;
-@define-color accent #50a6ad;
-@define-color accent_color_500 #50a6ad;
+@define-color accent #60C9C2;
+@define-color accent_color_500 #60C9C2;
 
 .title {
     color: #000;
@@ -33,7 +33,7 @@
     border: 1px solid shade(@color_primary, 0.77);
 }
 .quilter-dialog-hb switch {
-    background: shade(@color_primary, 1.04);
+    background: shade(@color_primary, 0.77);
 }
 .quilter-dialog-hb switch:checked {
     background: @accent;

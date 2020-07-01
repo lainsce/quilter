@@ -125,9 +125,9 @@ namespace Quilter.Widgets {
             sepiafont = new Gtk.TextTag();
 
             darkgrayfont = buffer.create_tag(null, "foreground", "#888");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#999");
-            blackfont = buffer.create_tag(null, "foreground", "#1a1a1a");
-            whitefont = buffer.create_tag(null, "foreground", "#b8b8b8");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#888");
+            blackfont = buffer.create_tag(null, "foreground", "#151515");
+            whitefont = buffer.create_tag(null, "foreground", "#f7f7f7");
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
 

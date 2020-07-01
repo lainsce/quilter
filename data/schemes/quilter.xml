@@ -3,11 +3,11 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#1a1a1a" background="#F7F7F7"/>
-  <style name="cursor"          foreground="#4792de"/>
+  <style name="text"            foreground="#151515" background="#F7F7F7"/>
+  <style name="cursor"          foreground="#70C0FF"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#1a1a1a" background="#4792de"/>
-  <style name="search-match"    foreground="#1a1a1a" background="#EEAA00"/>
+  <style name="selection"       foreground="#151515" background="#70C0FF"/>
+  <style name="search-match"    foreground="#151515" background="#EEAA00"/>
 
   <!-- Bold -->
   <style name="def:strong-emphasis" bold="true"/>
@@ -16,19 +16,19 @@
   <style name="def:emphasis" foreground="#555" italic="true"/>
 
   <!-- Links -->
-  <style name="def:link-text" foreground="#1a1a1a"/>
-  <style name="def:link-destination" foreground="#4792de"/>
+  <style name="def:link-text" foreground="#151515"/>
+  <style name="def:link-destination" foreground="#70C0FF"/>
 
   <!-- Code -->
-  <style name="def:inline-code" background="#F2F0F2" foreground="#1a1a1a"/>
-  <style name="def:preformatted-section" background="#F2F0F2" foreground="#1a1a1a"/>
+  <style name="def:inline-code" background="#F0F0F0" foreground="#151515"/>
+  <style name="def:preformatted-section" background="#F0F0F0" foreground="#151515"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#1a1a1a"/>
+  <style name="def:note" foreground="#151515"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
-  <style name="def:heading" foreground="#1a1a1a" bold="true"/>
+  <style name="def:heading" foreground="#151515" bold="true"/>
 </style-scheme>
