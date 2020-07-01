@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 
-// TODO: Fix duplicate listboxrows when opening files.
+// TODO: Fix Save As… doing some weird stuff.
 
 namespace Quilter {
     public class MainWindow : Hdy.ApplicationWindow {
@@ -55,6 +55,8 @@ namespace Quilter {
         public const string ACTION_PREFS = "action_preferences";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
         public weak Quilter.Application app { get; construct; }
+
+        private string [] files = {};
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
             { ACTION_CHEATSHEET, action_cheatsheet },
@@ -113,15 +115,6 @@ namespace Quilter {
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
-            if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                Widgets.SideBarBox filebox;
-                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
-                edit_view_content.buffer.text = "";
-                sidebar.add_file (Services.FileManager.get_temp_document_path (), out filebox);
-                sidebar.store.clear ();
-                sidebar.outline_populate ();
-                sidebar.view.expand_all ();
-            }
 
             on_settings_changed ();
 
@@ -473,9 +466,7 @@ namespace Quilter {
 
             string[] files = {};
             foreach (var row in sidebar.get_rows ()) {
-                if (row.path != _("No Documents Open")) {
-                    files += row.path;
-                }
+                files += row.path;
             }
             if (sidebar.column.get_children () == null) {
                 Quilter.Application.gsettings.set_string("current-file", "");
@@ -579,7 +570,6 @@ namespace Quilter {
         }
 
         private void on_settings_changed () {
-            Widgets.SideBarBox filebox;
             show_searchbar ();
             show_statusbar ();
             show_sidebar ();
@@ -612,12 +602,6 @@ namespace Quilter {
                     sidebar.reveal_child = true;
                     sidebar.visible = true;
                 }
-            }
-
-            if (Quilter.Application.gsettings.get_string("current-file") == "" || Quilter.Application.gsettings.get_string("current-file") == _("No Documents Open")) {
-                Services.FileManager.get_cache_path ();
-                sidebar.add_file (Services.FileManager.get_temp_document_path (), out filebox);
-                edit_view_content.buffer.text = "";
             }
 
             if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
@@ -706,9 +690,15 @@ namespace Quilter {
                 dialog.run ();
             }
 
+            var path = Services.FileManager.get_temp_document_path ();
+
+            files += path;
+            Quilter.Application.gsettings.set_strv("last-files", files);
+            Quilter.Application.gsettings.set_string("current-file", path);
+
             debug ("Creating new document");
             on_save ();
-            sidebar.add_file (Services.FileManager.get_temp_document_path (), out filebox);
+            sidebar.add_file (path, out filebox);
             sidebar.column.select_row (filebox);
             edit_view_content.text = "";
             edit_view_content.modified = true;
@@ -720,25 +710,23 @@ namespace Quilter {
             string path = Services.FileManager.open (out contents);
 
             edit_view_content.text = contents;
+            files += path;
+            Quilter.Application.gsettings.set_strv("last-files", files);
             Quilter.Application.gsettings.set_string("current-file", path);
 
-            if (path == Quilter.Application.gsettings.get_string("current-file")) {
-                Widgets.SideBarBox filebox;
-                sidebar.add_file (path, out filebox);
-                sidebar.column.select_row (filebox);
-                sidebar.store.clear ();
-                sidebar.outline_populate ();
-                sidebar.view.expand_all ();
-            } else {
-                Widgets.SideBarBox filebox;
-                sidebar.add_file (path, out filebox);
-                sidebar.column.select_row (filebox);
-                sidebar.store.clear ();
-                sidebar.outline_populate ();
-                sidebar.view.expand_all ();
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
+                    sidebar.delete_row_with_name ();
+                }
+
             }
 
-
+            Widgets.SideBarBox filebox;
+            sidebar.add_file (path, out filebox);
+            sidebar.column.select_row (filebox);
+            sidebar.store.clear ();
+            sidebar.outline_populate ();
+            sidebar.view.expand_all ();
         }
 
         private void on_save () {
@@ -781,9 +769,6 @@ namespace Quilter {
             if (box != null) {
                 try {
                     string file_path = box.path;
-
-                    Quilter.Application.gsettings.set_string("current-file", box.path);
-
                     string text;
                     GLib.FileUtils.get_contents (file_path, out text);
 

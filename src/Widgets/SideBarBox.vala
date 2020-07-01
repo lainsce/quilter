@@ -87,7 +87,13 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
             file_remove_button.clicked.connect (() => {
-                win.sidebar.delete_row_with_name ();
+                for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                    if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
+                        win.sidebar.delete_row_with_name ();
+                    }
+
+                }
+                Quilter.Application.gsettings.set_string("current-file", "");
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
                 win.sidebar.store.clear ();

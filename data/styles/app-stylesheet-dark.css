@@ -3,6 +3,10 @@
 @define-color accent #4793f5;
 @define-color accent_color_500 #4793f5;
 
+.title {
+    color: #FFF;
+}
+
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar,
@@ -46,7 +50,6 @@
 
 .quilter-toolbar {
     background: shade(@color_primary, 0.0);
-    color: @text_color;
 }
 
 .quilter-toolbar-side {

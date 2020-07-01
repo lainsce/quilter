@@ -124,7 +124,6 @@ namespace Quilter.Widgets {
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 SideBarBox row;
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i], out row);
-                column.select_row (row);
             }
 
             foreach (var row in get_rows ()) {
@@ -279,12 +278,10 @@ namespace Quilter.Widgets {
         }
 
         public void delete_row_with_name () {
-            if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
-                get_selected_row ().destroy ();
-            } else {
-                foreach (var row in get_rows ()) {
-                    if (row == get_selected_row ()) {
-                        row.destroy ();
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
+                    if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
+                        get_selected_row ().destroy ();
                     }
                 }
             }

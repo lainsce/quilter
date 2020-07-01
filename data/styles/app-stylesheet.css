@@ -3,6 +3,10 @@
 @define-color accent #4792de;
 @define-color accent_color_500 #4792de;
 
+.title {
+    color: #000;
+}
+
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar,
@@ -14,7 +18,7 @@
 }
 .quilter-sidebar-switcher button:not(:checked):not(:active) {
     border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
-    background: mix (@accent, @color_primary, 0.95);
+    background: mix(@accent, @color_primary, 0.95);
 }
 .quilter-sidebar-switcher button {
     background: shade(mix (@accent, @color_primary, 0.95), 0.77);
