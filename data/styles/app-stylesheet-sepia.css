@@ -50,7 +50,6 @@
 
 .quilter-toolbar {
     background: shade(@color_primary, 1.04);
-    color: @text_color;
 }
 
 .quilter-toolbar-side {
@@ -58,9 +57,6 @@
     border: none;
 }
 
-.quilter-toolbar image {
-  -gtk-icon-shadow: 1px 1px transparent;
-}
 .sb-sidebutton {
 	background: shade(@color_primary, 0.88);
 }
@@ -75,13 +71,6 @@
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
     background: mix(@accent, @color_primary, 0.85);
-    color: @text_color;
-    box-shadow: 0 1px transparent inset;
-}
-.quilter-sidebar image,
-.quilter-task-button image {
-    color: @text_color;
-    -gtk-icon-shadow: 1px 1px transparent;
 }
 
 .quilter-sidebar-box {
@@ -90,7 +79,6 @@
     border-radius: 8px;
     border: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.88);
     background-color: mix (@accent, @color_primary, 0.85);
-    color: @text_color;
 }
 
 .quilter-sidebar-box:selected,
