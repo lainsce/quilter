@@ -17,23 +17,23 @@
     background: mix(@accent, @color_primary, 0.95);
 }
 .quilter-sidebar-switcher button:not(:checked):not(:active) {
-    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.88);
     background: mix(@accent, @color_primary, 0.95);
 }
 .quilter-sidebar-switcher button {
-    background: shade(mix (@accent, @color_primary, 0.95), 0.77);
-    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
+    background: shade(mix (@accent, @color_primary, 0.95), 0.88);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.88);
 }
 .quilter-dialog-hb button.radio:not(:checked):not(:active):not(.titlebutton) {
-    border: 1px solid shade(@color_primary, 0.77);
+    border: 1px solid shade(@color_primary, 0.88);
     background: @color_primary;
 }
 .quilter-dialog-hb button.radio:not(.titlebutton):not(.combo) {
-    background: shade(@color_primary, 0.77);
-    border: 1px solid shade(@color_primary, 0.77);
+    background: shade(@color_primary, 0.88);
+    border: 1px solid shade(@color_primary, 0.88);
 }
 .quilter-dialog-hb switch {
-    background: shade(@color_primary, 0.77);
+    background: shade(@color_primary, 0.88);
 }
 .quilter-dialog-hb switch:checked {
     background: @accent;
@@ -86,20 +86,21 @@
 
 .quilter-sidebar-box {
     padding: 2px;
-    margin: 6px 8px;
+    margin: 6px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.88);
     background-color: mix (@accent, @color_primary, 0.95);
     color: @text_color;
 }
 
 .quilter-sidebar-box:selected,
-.quilter-sidebar-box:active {
+.quilter-sidebar-box:active,
+.quilter-sidebar-box:hover {
     padding: 2px;
     margin: 6px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
-    background-color: shade(mix (@accent, @color_primary, 0.95), 0.77);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.88);
+    background-color: shade(mix (@accent, @color_primary, 0.95), 0.88);
     color: @text_color;
 }
 
@@ -121,8 +122,8 @@
 
 .preview-row:active,
 .preview-row:selected {
-    border: 1px solid alpha(shade(mix (@accent, @color_primary, 0.95), 0.77), 0.25);
-    background-color: alpha(shade(mix (@accent, @color_primary, 0.95), 0.77), 0.25);
+    border: 1px solid alpha(shade(mix (@accent, @color_primary, 0.95), 0.88), 0.25);
+    background-color: alpha(shade(mix (@accent, @color_primary, 0.95), 0.88), 0.25);
     color: @text_color;
 }
 
