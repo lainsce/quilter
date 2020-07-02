@@ -105,8 +105,8 @@
 
 .preview-row:active,
 .preview-row:selected {
-    border: 1px solid shade(mix (@accent, @color_primary, 0.95), 0.77);
-    background-color: shade(mix (@accent, @color_primary, 0.95), 0.77);
+    border: 1px solid alpha(shade(mix (@accent, @color_primary, 0.95), 0.77), 0.25);
+    background-color: alpha(shade(mix (@accent, @color_primary, 0.95), 0.77), 0.25);
     color: @text_color;
 }
 

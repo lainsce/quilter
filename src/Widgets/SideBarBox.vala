@@ -33,23 +33,23 @@ namespace Quilter.Widgets {
             set {
                 _path = value;
                 if (Services.FileManager.is_temp_file (_path)) {
-                    file_name_label.label = _("New Document");
+                    file_name_label.label = _("New File");
                 } else {
-                    file_name_label.label = Path.get_basename (_path).replace (".md", "");
+                    file_name_label.label = Path.get_basename (_path);
                 }
             }
         }
 
         public string title {
             owned get {
-                if (Services.FileManager.is_temp_file (path)) {
-                    return _("No Documents Open");
-                } else {
-                    return file_label.label;
-                }
+                return file_label.label;
             }
             set {
-                file_label.label = value;
+                if (Services.FileManager.is_temp_file (_path)) {
+                    file_label.label = _("No header…");
+                } else {
+                    file_label.label = value;
+                }
             }
         }
 
@@ -87,16 +87,13 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
             file_remove_button.clicked.connect (() => {
-                for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                    if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
-                        win.sidebar.delete_row_with_name ();
-                    }
-
+                if ((Widgets.SideBarBox) win.sidebar.column.get_selected_row () != null) {
+                    ((Widgets.SideBarBox) win.sidebar.column.get_selected_row ()).destroy ();
+                    win.edit_view_content.buffer.text = "";
+                    win.edit_view_content.modified = false;
+                    win.sidebar.store.clear ();
+                    win.save_last_files ();
                 }
-                Quilter.Application.gsettings.set_string("current-file", "");
-                win.edit_view_content.buffer.text = "";
-                win.edit_view_content.modified = false;
-                win.sidebar.store.clear ();
             });
 
             var file_labels_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
@@ -107,7 +104,7 @@ namespace Quilter.Widgets {
 
             file_grid = new Gtk.Grid ();
             file_grid.column_spacing = 12;
-            file_grid.margin = 12;
+            file_grid.margin = 6;
             file_grid.attach (file_icon, 0, 0, 1, 1);
             file_grid.attach (file_labels_box, 1, 0, 1, 1);
             file_grid.attach (file_remove_button, 2, 0, 1, 1);

@@ -36,9 +36,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag conjfont;
         public Gtk.TextTag verbfont;
         public Gtk.TextTag error_tag;
-        public GtkSpell.Checker? spell = null;
         public MainWindow window;
-        public Widgets.SideBar sidebar;
         public Services.POSFiles pos;
         public bool should_scroll {get; set; default = false;}
         public bool should_update_preview { get; set; default = false; }
@@ -75,40 +73,11 @@ namespace Quilter.Widgets {
             }
         }
 
-        public bool spellcheck {
-            set {
-                if (value) {
-                    error_tag = new Gtk.TextTag ();
-                    error_tag = buffer.create_tag("gtkspell-misspelled", "background-set", true, "background-rgba", Gdk.RGBA () { red = 1.0, green = 0.54, blue = 0.51, alpha = 1.0 });
-                    buffer.tag_table.add (error_tag);
-                    try {
-                        var lang_dict = Quilter.Application.gsettings.get_string ("spellcheck-language");
-                        var language_list = GtkSpell.Checker.get_language_list ();
-                        foreach (var element in language_list) {
-                            if (lang_dict == element) {
-                                spell.set_language (lang_dict);
-                                break;
-                            }
-                        }
-                        if (this != null) {
-                            spell.attach (this);
-                        }
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else if (!value && spell != null) {
-                    spell.detach ();
-                }
-            }
-        }
-
         public signal void save ();
 
         public EditView (MainWindow window) {
             this.window = window;
-        }
 
-        construct {
             var manager = Gtk.SourceLanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
             var buffer = new Gtk.SourceBuffer.with_language (language);
@@ -144,7 +113,6 @@ namespace Quilter.Widgets {
                 if (Quilter.Application.gsettings.get_boolean("pos")) {
                     pos_syntax_start ();
                 }
-                sidebar.outline_populate ();
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -172,14 +140,13 @@ namespace Quilter.Widgets {
             }
 
             if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                Timeout.add_seconds (10, () => {
+                Timeout.add_seconds (30, () => {
                     save ();
                     modified = false;
                     return true;
                 });
-            }
 
-            spell = new GtkSpell.Checker ();
+            }
 
             update_settings ();
 
@@ -189,19 +156,6 @@ namespace Quilter.Widgets {
 
             Quilter.Application.gsettings.changed.connect (() => {
                 update_settings ();
-            });
-
-            this.populate_popup.connect ((menu) => {
-                menu.selection_done.connect (() => {
-                    var selected = get_selected (menu);
-
-                    if (selected != null) {
-                        try {
-                            spell.set_language (selected.label);
-                            Quilter.Application.gsettings.set_string("spellcheck-language", selected.label);
-                        } catch (Error e) {}
-                    }
-                });
             });
 
             var rect = Gtk.Allocation ();
@@ -216,18 +170,6 @@ namespace Quilter.Widgets {
             this.set_tab_width (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
-        }
-        private Gtk.MenuItem? get_selected (Gtk.Menu? menu) {
-            if (menu == null) return null;
-            var active = menu.get_active () as Gtk.MenuItem;
-
-            if (active == null) return null;
-            var sub_menu = active.get_submenu () as Gtk.Menu;
-            if (sub_menu != null) {
-                return sub_menu.get_active () as Gtk.MenuItem;
-            }
-
-            return null;
         }
 
         private void update_settings () {
@@ -301,7 +243,6 @@ namespace Quilter.Widgets {
             } else {
                 pos_syntax_start ();
             }
-            spellcheck = Quilter.Application.gsettings.get_boolean("spellcheck");
         }
 
         public void dynamic_margins () {
