@@ -29,6 +29,7 @@ namespace Quilter {
         public Hdy.Leaflet header;
         public Hdy.TitleBar window_header;
         public Gtk.Grid main_pane;
+        public Gtk.Grid normal_view;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
         public Gtk.Revealer overlay_button_revealer;
@@ -358,10 +359,48 @@ namespace Quilter {
             main_stack.add_named (stack, "stack");
             main_stack.add_named (box, "paned");
 
+            var normal_icon = new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.DND);
+            var normal_label = new Gtk.Label (_("Start by creating a new story…"));
+            normal_label.halign = Gtk.Align.START;
+            var normal_label_context = normal_label.get_style_context ();
+            normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+            var onormal_icon = new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.DND);
+            var onormal_label = new Gtk.Label (_("Or open a saved story…"));
+            onormal_label.halign = Gtk.Align.START;
+            var onormal_label_context = onormal_label.get_style_context ();
+            onormal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            onormal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+            normal_view = new Gtk.Grid ();
+            normal_view.orientation = Gtk.Orientation.VERTICAL;
+            normal_view.column_spacing = 12;
+            normal_view.row_spacing = 24;
+            normal_view.margin = 24;
+            normal_view.expand = true;
+            normal_view.halign = normal_view.valign = Gtk.Align.CENTER;
+            normal_view.attach (normal_icon,0,0);
+            normal_view.attach (normal_label,1,0);
+            normal_view.attach (onormal_icon,0,1);
+            normal_view.attach (onormal_label,1,1);
+
             change_layout ();
 
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
+
+            var win_stack  = new Gtk.Stack ();
+            win_stack.add_named (normal_view, "welcome");
+            win_stack.add_named (main_stack, "doc");
+
+            if (sidebar.is_modified == false) {
+                normal_view.visible = true;
+                main_stack.visible = false;
+            } else {
+                normal_view.visible = false;
+                main_stack.visible = true;
+            }
 
             searchbar = new Widgets.SearchBar (this);
 
@@ -390,7 +429,7 @@ namespace Quilter {
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (toolbar);
             main_leaf.add (searchbar);
-            main_leaf.add (main_stack);
+            main_leaf.add (win_stack);
 
             update ();
 
@@ -720,6 +759,7 @@ namespace Quilter {
             debug ("Creating new document");
             on_save ();
             sidebar.add_file (Services.FileManager.get_temp_document_path ());
+            sidebar.is_modified = true;
             save_last_files ();
             edit_view_content.text = "";
             edit_view_content.modified = true;
@@ -727,6 +767,8 @@ namespace Quilter {
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
             on_save ();
+            normal_view.visible = false;
+            main_stack.visible = true;
         }
 
         private void on_open () {
@@ -740,11 +782,17 @@ namespace Quilter {
                         break;
                     } else {
                         sidebar.add_file (path);
+                        sidebar.is_modified = true;
+                        normal_view.visible = false;
+                        main_stack.visible = true;
                         break;
                     }
                 }
             } else {
                 sidebar.add_file (path);
+                sidebar.is_modified = true;
+                normal_view.visible = false;
+                main_stack.visible = true;
             }
             edit_view_content.text = contents;
             save_last_files ();

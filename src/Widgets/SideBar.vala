@@ -40,6 +40,7 @@ namespace Quilter.Widgets {
         public Hdy.HeaderBar header;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
+        public bool is_modified {get; set; default = false;}
 
         public signal void save_as ();
 
@@ -55,6 +56,7 @@ namespace Quilter.Widgets {
         public SideBar (MainWindow win, Widgets.EditView ev) {
             this.win = win;
             this.ev = ev;
+            this.is_modified = false;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;

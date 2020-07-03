@@ -24,6 +24,8 @@ namespace Quilter.Widgets {
         public Gtk.Button file_remove_button;
         public Gtk.Grid file_grid;
         public MainWindow win;
+        private int uid;
+        private static int uid_counter;
 
         private string? _path;
         public new string? path {
@@ -57,6 +59,7 @@ namespace Quilter.Widgets {
 
         public SideBarBox (MainWindow win, string? path) {
             this.win = win;
+            this.uid = uid_counter++;
             this.activatable = true;
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
@@ -93,6 +96,12 @@ namespace Quilter.Widgets {
                     win.edit_view_content.modified = false;
                     win.sidebar.store.clear ();
                     win.save_last_files ();
+                }
+                if (win.sidebar.column.get_children () == null) {
+                    win.normal_view.visible = true;
+                    win.main_stack.visible = false;
+                } else {
+                    win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
                 }
             });
 
