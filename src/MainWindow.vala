@@ -394,7 +394,7 @@ namespace Quilter {
             win_stack.add_named (normal_view, "welcome");
             win_stack.add_named (main_stack, "doc");
 
-            if (sidebar.is_modified == false) {
+            if (sidebar.column.get_children () == null) {
                 normal_view.visible = true;
                 main_stack.visible = false;
             } else {
