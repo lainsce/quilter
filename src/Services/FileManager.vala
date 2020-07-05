@@ -81,6 +81,8 @@ namespace Quilter.Services.FileManager {
             }
         }
         win.save_last_files ();
+        win.normal_view.visible = false;
+        win.main_stack.visible = true;
         return true;
     }
 
