@@ -67,14 +67,12 @@ namespace Quilter.Widgets {
             file_name_label = new Gtk.Label ("");
             file_name_label.halign = Gtk.Align.START;
             file_name_label.hexpand = true;
-            file_name_label.xalign = 0;
             file_name_label.ellipsize = Pango.EllipsizeMode.END;
             var fnl_context = file_name_label.get_style_context ();
             fnl_context.add_class ("title");
 
             file_label = new Gtk.Label ("");
             file_label.halign = Gtk.Align.START;
-            file_name_label.xalign = 0;
             file_label.ellipsize = Pango.EllipsizeMode.START;
 
             var file_icon = new Gtk.Image.from_icon_name ("markdown-symbolic", Gtk.IconSize.BUTTON);
