@@ -117,7 +117,7 @@ namespace Quilter.Widgets {
             column = new Gtk.ListBox ();
             column.hexpand = true;
             column.vexpand = true;
-            column.margin_top = 12;
+            column.margin_top = 6;
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -168,7 +168,7 @@ namespace Quilter.Widgets {
             view.expand = true;
             view.headers_visible = false;
             view.show_expanders = false;
-            view.margin_top = 12;
+            view.margin_top = 18;
             view.margin_start = view.margin_end = 12;
             view.activate_on_single_click = true;
 
