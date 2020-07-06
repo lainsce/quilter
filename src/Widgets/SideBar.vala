@@ -84,6 +84,7 @@ namespace Quilter.Widgets {
             stackswitcher = new Gtk.StackSwitcher ();
             stackswitcher.margin_start = stackswitcher.margin_end = 12;
             stackswitcher.homogeneous = true;
+            stackswitcher.margin_top = 1;
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
