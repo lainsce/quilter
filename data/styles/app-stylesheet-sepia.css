@@ -106,6 +106,10 @@
   border: 1px solid #e8dccb;
 }
 
+.quilter-normal-view {
+	background-color: #f0e8dd;
+}
+
 .osd {
   background-image: none;
   background-color: #e8dccb;

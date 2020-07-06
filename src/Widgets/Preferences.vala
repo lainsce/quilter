@@ -49,16 +49,19 @@ namespace Quilter.Widgets {
             get_interface_grid ();
             get_preview_grid ();
 
-            main_stack.add_titled (interface_grid, "interface", _("Interface"));
-            main_stack.add_titled (editor_grid, "editor", _("Editor"));
-            main_stack.add_titled (preview_grid, "preview", _("Preview"));
+            main_stack.add_titled (interface_grid, "interface", _("INTERFACE"));
+            main_stack.add_titled (editor_grid, "editor", _("EDITOR"));
+            main_stack.add_titled (preview_grid, "preview", _("PREVIEW"));
 
-            var window_title_vs = new Hdy.ViewSwitcher ();
+            var window_title_vs = new Gtk.StackSwitcher ();
+            window_title_vs.get_style_context ().add_class ("quilter-prefs-vs");
+            window_title_vs.hexpand = true;
+            window_title_vs.homogeneous = true;
             window_title_vs.margin_start = window_title_vs.margin_end = 12;
             window_title_vs.set_stack (main_stack);
 
             var grid = new Gtk.Grid ();
-            grid.attach (window_title_vs, 0, 0);
+            grid.attach (window_title_vs, 0, 0, 3, 1);
             grid.attach (main_stack, 0, 1);
 
             var content = this.get_content_area () as Gtk.Box;

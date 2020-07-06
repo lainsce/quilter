@@ -391,6 +391,7 @@ namespace Quilter {
             sidebar.save_as.connect (() => on_save_as ());
 
             var win_stack  = new Gtk.Stack ();
+            win_stack.get_style_context ().add_class ("quilter-normal-view");
             win_stack.add_named (normal_view, "welcome");
             win_stack.add_named (main_stack, "doc");
 
