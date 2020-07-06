@@ -130,10 +130,16 @@ window.unified decoration-overlay {
 
 .quilter-sidebar-switcher button label {
     font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 
 .quilter-sidebar-switcher button:not(:checked):not(:active) label {
     font-weight: 500;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 
 .quilter-prefs-vs button {
@@ -160,9 +166,15 @@ window.unified decoration-overlay {
 }
 .quilter-prefs-vs button label {
     font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 .quilter-prefs-vs button:not(:checked):not(:active) label {
     font-weight: 500;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
 }
 .quilter-prefs-vs button:not(:checked):not(:active) {
     border: 1px solid shade(mix (@prefs_accent, @color_primary, 0.95), 0.88);
