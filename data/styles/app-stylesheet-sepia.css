@@ -3,10 +3,6 @@
 @define-color accent #60C9C2;
 @define-color accent_color_500 #60C9C2;
 
-.title {
-    color: #000;
-}
-
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar,

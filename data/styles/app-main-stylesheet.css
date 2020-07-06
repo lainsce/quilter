@@ -175,6 +175,7 @@ window.unified decoration-overlay {
 
 .title {
     font-weight: 700;
+    color: #000;
 }
 
 .subtitle {
