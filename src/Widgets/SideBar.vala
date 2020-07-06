@@ -99,7 +99,8 @@ namespace Quilter.Widgets {
             this_context.add_class ("quilter-toolbar-side");
             this_context.remove_class ("titlebar");
 
-            var main_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
+            var main_grid = new Gtk.Grid ();
+            main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.add (header);
             main_grid.add (stackswitcher);
             main_grid.add (scrolled_box);
@@ -115,14 +116,13 @@ namespace Quilter.Widgets {
 
         public Gtk.Widget sidebar_files_list () {
             column = new Gtk.ListBox ();
-            column.hexpand = true;
-            column.vexpand = true;
-            column.margin_top = 6;
+            column.expand = true;
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
-            column.margin_start = column.margin_end = 6;
+            column.margin_top = 6;
+            column.margin_start = column.margin_end = 12;
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
@@ -168,7 +168,7 @@ namespace Quilter.Widgets {
             view.expand = true;
             view.headers_visible = false;
             view.show_expanders = false;
-            view.margin_top = 18;
+            view.margin_top = 12;
             view.margin_start = view.margin_end = 12;
             view.activate_on_single_click = true;
 
