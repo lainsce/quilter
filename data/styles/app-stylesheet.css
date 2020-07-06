@@ -1,4 +1,4 @@
-@define-color color_primary #FFF;
+@define-color color_primary #F7F7F7;
 @define-color text_color #151515;
 @define-color accent #70C0FF;
 @define-color accent_color_500 #70C0FF;
@@ -88,19 +88,19 @@
 .quilter-menu {
   border-radius: 99999px;
   -gtk-outline-radius: 99999px;
-  background-color: #E8E8E8;
-  border: 1px solid #E8E8E8;
+  background-color: shade(@color_primary, 0.9);
+  border: 1px solid shade(@color_primary, 0.9);
 }
 
 .quilter-normal-view {
-	background-color: #F7F7F7;
+	background-color: @color_primary;
 }
 
 .osd {
   background-image: none;
-  background-color: #E8E8E8;
+  background-color: shade(@color_primary, 0.9);
   box-shadow: none;
-  border: 1px solid #E8E8E8;
+  border: 1px solid shade(@color_primary, 0.9);
   color: #333;
   -gtk-icon-shadow: 1px 1px transparent;
 }
@@ -115,7 +115,7 @@
 .osd:active,
 .osd:focus {
   background-image: none;
-  background-color: shade(#E8E8E8,0.88);
+  background-color: shade(shade(@color_primary, 0.9),0.88);
   box-shadow: none;
-  border: 1px solid shade(#E8E8E8,0.88);
+  border: 1px solid shade(shade(@color_primary, 0.9),0.88);
 }
