@@ -29,14 +29,6 @@
     background: shade(mix (@accent, @color_primary, 0.85), 0.88);
     border-right: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.88);;
 }
-.quilter-dialog-hb button.radio:not(:checked):not(:active):not(.titlebutton) {
-    border: 1px solid shade(@color_primary, 0.88);
-    background: @color_primary;
-}
-.quilter-dialog-hb button.radio:not(.titlebutton):not(.combo) {
-    background: shade(@color_primary, 0.88);
-    border: 1px solid shade(@color_primary, 0.88);
-}
 .quilter-dialog-hb switch {
     background: shade(@color_primary, 0.88);
 }
@@ -45,12 +37,12 @@
 }
 
 .quilter-toolbar .image-button:hover {
-    background: shade(@color_primary, 0.85);
+    background: shade(@color_primary, 0.88);
 }
 
 .quilter-toolbar .image-button:active,
 .quilter-toolbar .image-button.toggle:checked {
-    background: shade(@color_primary, 0.85);
+    background: shade(@color_primary, 0.88);
 }
 
 .quilter-toolbar {

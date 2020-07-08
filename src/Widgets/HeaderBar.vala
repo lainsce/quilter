@@ -387,6 +387,7 @@ namespace Quilter.Widgets {
 
                     top_grid.attach (prefer_label_button, 0, 1, 3, 1);
                     prefer_label_button.visible = true;
+                    color_button_dark.set_active (true);
                 } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
                     color_button_light.sensitive = true;
                     color_button_sepia.sensitive = true;
