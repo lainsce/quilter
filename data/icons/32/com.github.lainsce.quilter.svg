@@ -30,8 +30,8 @@
      showguides="false"
      inkscape:guide-bbox="true"
      inkscape:zoom="16"
-     inkscape:cx="-7.873166"
-     inkscape:cy="11.373617"
+     inkscape:cx="-19.060666"
+     inkscape:cy="10.842367"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
@@ -43,6 +43,18 @@
   </sodipodi:namedview>
   <defs
      id="defs13988">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient980">
+      <stop
+         style="stop-color:#f7f7f7;stop-opacity:1;"
+         offset="0"
+         id="stop976" />
+      <stop
+         style="stop-color:#e6e6e6;stop-opacity:1"
+         offset="1"
+         id="stop978" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5742">
       <stop
@@ -876,14 +888,13 @@
        y2="47.013336" />
     <linearGradient
        inkscape:collect="always"
-       xlink:href="#linearGradient4441"
-       id="linearGradient1288"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(0.78080127,-0.06831126,0.05417789,0.61925614,0.65915536,3.3369435)"
-       x1="23.999998"
-       y1="3.0869503"
-       x2="23.99999"
-       y2="41.695648" />
+       xlink:href="#linearGradient980"
+       id="linearGradient982"
+       x1="13.993881"
+       y1="3.1875"
+       x2="17.079666"
+       y2="28.8125"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata13991">
@@ -898,14 +909,9 @@
     </rdf:RDF>
   </metadata>
   <path
-     style="display:inline;fill:#f7f7f7;fill-opacity:1;stroke:#555761;stroke-linejoin:round;stroke-opacity:0.49803922"
+     style="display:inline;fill:url(#linearGradient982);fill-opacity:1;stroke:#555761;stroke-linejoin:round;stroke-opacity:0.49803922"
      id="path860"
      d="M 3.9938766,3.4657083 24.914068,1.6370349 27.26717,28.532695 6.3470816,30.362965 Z"
-     inkscape:connector-curvature="0" />
-  <path
-     style="opacity:0.3;fill:none;stroke:url(#linearGradient1288);stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-     id="path862"
-     d="M 26.183816,27.623654 7.2561184,29.279613 5.0772249,4.3747455 24.004922,2.7187865 Z"
      inkscape:connector-curvature="0" />
   <g
      id="layer4-0"

@@ -29,20 +29,33 @@
      showgrid="true"
      showguides="false"
      inkscape:zoom="23.70801"
-     inkscape:cx="6.2841411"
-     inkscape:cy="10.065026"
+     inkscape:cx="-1.2660497"
+     inkscape:cy="9.7064974"
      inkscape:window-x="0"
      inkscape:window-y="30"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg3426"
      inkscape:measure-start="0,0"
-     inkscape:measure-end="0,0">
+     inkscape:measure-end="0,0"
+     inkscape:snap-global="true">
     <inkscape:grid
        type="xygrid"
        id="grid5006" />
   </sodipodi:namedview>
   <defs
      id="defs3428">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient955">
+      <stop
+         style="stop-color:#f7f7f7;stop-opacity:1;"
+         offset="0"
+         id="stop951" />
+      <stop
+         style="stop-color:#e6e6e6;stop-opacity:1"
+         offset="1"
+         id="stop953" />
+    </linearGradient>
     <linearGradient
        id="linearGradient5006">
       <stop
@@ -716,6 +729,15 @@
        y1="-3.7500062"
        x2="22.972212"
        y2="41.178566" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient955"
+       id="linearGradient957"
+       x1="11"
+       y1="2"
+       x2="13"
+       y2="21.438559"
+       gradientUnits="userSpaceOnUse" />
   </defs>
   <metadata
      id="metadata3431">
@@ -749,68 +771,68 @@
   <path
      d="M 2.321576,2.5577537 C 6.887151,2.1583175 19.256947,1.0771044 19.256947,1.0771044 L 21,21 4.06469,22.481647 2.321578,2.5577685 Z"
      id="path4526"
-     style="display:inline;fill:#f7f7f7;fill-opacity:1;stroke:#555761;stroke-linejoin:round;stroke-opacity:0.49803922"
+     style="display:inline;fill:url(#linearGradient957);fill-opacity:1;stroke:#555761;stroke-linejoin:round;stroke-opacity:0.49803922"
      inkscape:connector-curvature="0" />
   <rect
      style="opacity:1;fill:#273445;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00251257;stroke-opacity:1"
      id="rect4305"
      width="8.5702372"
      height="0.95224863"
-     x="4.8368115"
-     y="8.0432806"
+     x="4.4542384"
+     y="8.3339901"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <rect
      style="opacity:1;fill:#273445;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00048113;stroke-opacity:1"
      id="rect4305-7"
      width="9.5224857"
      height="0.95224863"
-     x="4.8368115"
-     y="10.900026"
+     x="4.4542384"
+     y="11.190736"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <rect
      style="opacity:1;fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.00982451;stroke-opacity:1"
      id="rect4305-3"
      width="7.6179891"
      height="0.95224863"
-     x="4.8368115"
-     y="13.756772"
+     x="4.4542384"
+     y="14.047482"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <rect
      style="opacity:1;fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.01945698;stroke-opacity:1"
      id="rect4305-7-6"
      width="8.5702372"
      height="0.95224863"
-     x="4.8368115"
-     y="16.613518"
+     x="4.4542384"
+     y="16.904228"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <rect
      style="opacity:1;fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.01945698;stroke-opacity:1"
      id="rect4305-7-6-3"
      width="3.8089945"
      height="0.95224863"
-     x="4.8368115"
-     y="19.470264"
+     x="4.4542384"
+     y="19.760975"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <rect
      style="opacity:1;fill:#d4d4d4;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.01945698;stroke-opacity:1"
      id="rect4305-7-6-36"
      width="8.5702372"
      height="0.95224863"
-     x="4.8368115"
-     y="5.1865335"
+     x="4.4542384"
+     y="5.4772434"
      rx="0"
      ry="0"
-     transform="rotate(-3.5117696)" />
+     transform="rotate(-5.1972698)" />
   <path
      d="m 16.044953,17.552868 c -0.723102,1.05044 -1.739492,1.607463 -1.809201,1.559599 -0.06232,-0.04304 0.08769,-1.196281 0.8108,-2.246723 0.723101,-1.050441 1.52587,-1.754911 1.8092,-1.559599 0.283651,0.194989 -0.08769,1.196282 -0.810799,2.246723 z"
      sodipodi:nodetypes="cszsc"
