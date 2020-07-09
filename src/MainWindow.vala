@@ -325,6 +325,9 @@ namespace Quilter {
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider3 = new Gtk.CssProvider ();
+            // Ensure use of elementary theme and icons, accent color doesn't matter
+            Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
+            Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
 
             toolbar = new Widgets.Headerbar (this);
             toolbar.set_title ("Quilter");
