@@ -329,10 +329,11 @@ namespace Quilter {
             Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
             Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
 
-            toolbar = new Widgets.Headerbar (this);
-            toolbar.set_title ("Quilter");
-            toolbar.has_subtitle = false;
-            toolbar.hexpand = true;
+            toolbar = new Widgets.Headerbar (this) {
+                has_subtitle = false,
+                hexpand = true,
+                title = "Quilter"
+            };
             toolbar.open.connect (on_open);
             toolbar.save_as.connect (on_save_as);
             toolbar.create_new.connect (on_create_new);
