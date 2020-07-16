@@ -294,6 +294,7 @@ namespace Quilter {
         }
 
         construct {
+            Hdy.init ();
             int window_x, window_y, width, height;
             Quilter.Application.gsettings.get ("window-position", "(ii)", out window_x, out window_y);
             Quilter.Application.gsettings.get ("window-size", "(ii)", out width, out height);
