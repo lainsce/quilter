@@ -1,190 +1,187 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
-"POT-Creation-Date: 2020-01-07 08:32-0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-21 11:21-0300\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: eo\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.0.6\n"
-"Last-Translator: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Language: eo\n"
 
-#: src/MainWindow.vala:87
-msgid "Quilter"
-msgstr "Quilter"
+#: src/MainWindow.vala:368
+msgid "Start by creating a new story…"
+msgstr ""
 
-#: src/MainWindow.vala:247
-msgid "Use Sans-serif"
-msgstr "Uzi senserifan tiparon"
+#: src/MainWindow.vala:375
+msgid "Or open a saved story…"
+msgstr ""
 
-#: src/MainWindow.vala:252
-msgid "Use Serif"
-msgstr "Uzi serifan tiparon"
+#: src/MainWindow.vala:420
+#, fuzzy
+msgid "Exit focus mode"
+msgstr "Enigi fokusan reĝimon"
 
-#: src/MainWindow.vala:258
-msgid "Use Monospace"
-msgstr "Uzi egallarĝan tiparon"
-
-#: src/MainWindow.vala:277
-msgid "Set Preview Font"
-msgstr "Agordi antaŭrigardan tiparon"
-
-#: src/MainWindow.vala:309
-msgid "Change view"
-msgstr "Ŝanĝi vidon"
-
-#: src/MainWindow.vala:377 src/MainWindow.vala:422 src/MainWindow.vala:538
-#: src/MainWindow.vala:545 src/MainWindow.vala:565 src/MainWindow.vala:647
-#: src/MainWindow.vala:702 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/HeaderBar.vala:65
-#: src/Widgets/SideBar.vala:200 src/Widgets/SideBarBox.vala:47
-#: src/Widgets/SideBarBox.vala:98
-msgid "No Documents Open"
-msgstr "Neniu dokumento malferma"
-
-#: src/MainWindow.vala:380 src/Widgets/SideBarBox.vala:100
-#: src/Widgets/StatusBar.vala:189
-msgid "Reading Time: "
-msgstr "Lega daŭro: "
-
-#: src/MainWindow.vala:580
+#: src/MainWindow.vala:704
 msgid "Edit"
 msgstr "Redakti"
 
-#: src/MainWindow.vala:581
+#: src/MainWindow.vala:706 src/Widgets/Preferences.vala:463
 msgid "Preview"
 msgstr "Antaŭrigardi"
 
-#: src/Widgets/Cheatsheet.vala:29
+#: src/Widgets/Cheatsheet.vala:26
 msgid "Cheatsheet"
 msgstr "Gvidfolio"
 
-#: src/Widgets/Cheatsheet.vala:47
-msgid "Text"
-msgstr "Teksto"
-
-#: src/Widgets/Cheatsheet.vala:48
-msgid "Links & Special"
-msgstr "Ligiloj k specialaĵoj"
-
-#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:143
-msgid "Tables"
-msgstr "Tabelo"
-
-#. Close button
-#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
-msgid "Close"
-msgstr "Fermi"
+#: src/Widgets/Cheatsheet.vala:78
+#, fuzzy
+msgid "Headers & Text"
+msgstr "Flankaj marĝenoj:"
 
 #: src/Widgets/Cheatsheet.vala:79
-msgid "Heading"
-msgstr "Titolo"
-
-#: src/Widgets/Cheatsheet.vala:80
-msgid "# Heading 1"
+#, fuzzy
+msgid "# Header 1"
 msgstr "# Titolo 1a"
 
-#: src/Widgets/Cheatsheet.vala:81
-msgid "## Heading 2"
+#: src/Widgets/Cheatsheet.vala:80
+#, fuzzy
+msgid "## Header 2"
 msgstr "## Titolo 2a"
 
-#: src/Widgets/Cheatsheet.vala:82
-msgid "### Heading 3"
+#: src/Widgets/Cheatsheet.vala:81
+#, fuzzy
+msgid "### Header 3"
 msgstr "### Titolo 3a"
 
-#: src/Widgets/Cheatsheet.vala:83
-msgid "#### Heading 4"
-msgstr "#### Titolo 4a"
-
-#: src/Widgets/Cheatsheet.vala:84
-msgid "##### Heading 5"
-msgstr "##### Titolo 5a"
-
-#: src/Widgets/Cheatsheet.vala:85
-msgid "###### Heading 6"
-msgstr "###### Titolo 6a"
-
-#: src/Widgets/Cheatsheet.vala:86
-msgid "Special Text"
-msgstr "Speciala teksto"
-
-#: src/Widgets/Cheatsheet.vala:87
-msgid "** Bold text **"
+#: src/Widgets/Cheatsheet.vala:82
+#, fuzzy
+msgid "** Bold **"
 msgstr "** Grasa teksto **"
 
-#: src/Widgets/Cheatsheet.vala:88
-msgid "* Emphasized text *"
+#: src/Widgets/Cheatsheet.vala:83
+#, fuzzy
+msgid "* Emphasized *"
 msgstr "* Emfazigita teksto *"
 
-#: src/Widgets/Cheatsheet.vala:89
-msgid "` Code text `"
+#: src/Widgets/Cheatsheet.vala:84
+#, fuzzy
+msgid "` Code Line `"
 msgstr "` Koda teksto `"
 
-#: src/Widgets/Cheatsheet.vala:90
-msgid "> Quoting text"
+#: src/Widgets/Cheatsheet.vala:85
+#, fuzzy
+msgid "``` Code Block ```"
+msgstr "```Jen koda bloko```"
+
+#: src/Widgets/Cheatsheet.vala:86
+#, fuzzy
+msgid "> Quote"
 msgstr "> Citita teksto"
 
-#: src/Widgets/Cheatsheet.vala:91
-msgid "~~Strikethrough text~~"
-msgstr "~~ Trastrekita teksto ~~"
-
-#: src/Widgets/Cheatsheet.vala:115
+#: src/Widgets/Cheatsheet.vala:88
 msgid "Links"
 msgstr "Ligoj"
 
-#: src/Widgets/Cheatsheet.vala:116
-msgid "[Link Label](http://link.url.here.com)"
+#: src/Widgets/Cheatsheet.vala:89
+#, fuzzy
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
 msgstr "[Ligila etikedo](http://jen.ligilo.com)"
 
-#: src/Widgets/Cheatsheet.vala:117
-msgid "![Image Label](http://image.url.here.com)"
-msgstr "![Bilda etikedo](http://jen.bilda.ligilo.com)"
-
-#: src/Widgets/Cheatsheet.vala:118
+#: src/Widgets/Cheatsheet.vala:91
 msgid "Special"
 msgstr "Specialaĵoj"
 
-#: src/Widgets/Cheatsheet.vala:119
-msgid "```This is a code block```"
-msgstr "```Jen koda bloko```"
-
-#: src/Widgets/Cheatsheet.vala:120
-msgid "This creates a horizontal rule → ---"
-msgstr "Tio kreas horizontalan strekon → ---"
-
-#: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → /Folder/Image.png :image"
-msgstr "Tio enkorpigas lokan bildon → /Dosierujo/bildo.png :image"
-
-#: src/Widgets/Cheatsheet.vala:122
-msgid "This embeds a local Markdown file → /Folder/File.md :file"
-msgstr ""
-"Tio enkorpigas lokan Markdown-md-dosieron → /Dosierujo/dosiero.png :file"
-
-#: src/Widgets/Cheatsheet.vala:123
+#: src/Widgets/Cheatsheet.vala:92
+#, fuzzy
 msgid ""
-"LaTeX is processed with:\n"
+"LaTeX:\n"
 "\t- $$…$$ for equation block.\n"
-"\t- \\(…\\) or \\[\\] for inline equation."
+"\t- \\\\(…\\\\) for inline equation."
 msgstr ""
 "LaTeX procezita per:\n"
 "\t- $$…$$ por ekvacia bloko.\n"
 "\t- \\(…\\) aŭ \\[\\] por ekvacio ene de la teksto."
 
-#: src/Widgets/Cheatsheet.vala:145
-msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "Por maldekstrigi la enhavon en kolumno, ŝanĝu --- al :--- ."
+#: src/Widgets/Cheatsheet.vala:93
+msgid ""
+"Mermaid.js:\n"
+"\t- <div class=\"mermaid\">...</div>"
+msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:146
-msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Por centrigi la enhavon en kolumno, ŝanĝu --- al :---: ."
+#: src/Widgets/Cheatsheet.vala:117
+msgid "Extras"
+msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:147
-msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "Por dekstrigi la enhavon en kolumno, ŝanĝu --- al ---: ."
+#: src/Widgets/Cheatsheet.vala:118
+#, fuzzy
+msgid "Horizontal rule → ---"
+msgstr "Tio kreas horizontalan strekon → ---"
+
+#: src/Widgets/Cheatsheet.vala:119
+#, fuzzy
+msgid "~~Strikethrough~~"
+msgstr "~~ Trastrekita teksto ~~"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "==Highlight=="
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:121
+msgid "Subscript: H~2~O"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:122
+msgid "Superscript: E = MC^2^"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:123
+msgid "[] Empty Checkbox."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:124
+msgid "[x] Checked Checkbox."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:128
+msgid "Period needed to avoid conflicts."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:133
+#, fuzzy
+msgid ""
+"Embeds a local image\n"
+"\t/Folder/Image.png :image"
+msgstr "Tio enkorpigas lokan bildon → /Dosierujo/bildo.png :image"
+
+#: src/Widgets/Cheatsheet.vala:134
+#, fuzzy
+msgid ""
+"Embeds a local Markdown file\n"
+"\t/Folder/File.md :file"
+msgstr ""
+"Tio enkorpigas lokan Markdown-md-dosieron → /Dosierujo/dosiero.png :file"
+
+#: src/Widgets/Cheatsheet.vala:135
+msgid "Tables"
+msgstr "Tabelo"
+
+#: src/Widgets/Cheatsheet.vala:140
+msgid ""
+"Left Column, change --- to :--- .\n"
+"Centered Column, change --- to :---: .\n"
+"Right Column, change --- to ---: ."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:59
+msgid "Go back"
+msgstr ""
 
 #: src/Widgets/HeaderBar.vala:71
 msgid "New file"
@@ -194,272 +191,336 @@ msgstr "Nova dosiero"
 msgid "Save as…"
 msgstr "Konservi kiel…"
 
-#: src/Widgets/HeaderBar.vala:89 src/Services/FileManager.vala:104
-msgid "Save file"
-msgstr "Konservi dosieron"
-
-#: src/Widgets/HeaderBar.vala:98
+#: src/Widgets/HeaderBar.vala:88
 msgid "Open…"
 msgstr "Malfermi…"
 
-#: src/Widgets/HeaderBar.vala:107
+#: src/Widgets/HeaderBar.vala:96
 msgid "Find…"
 msgstr "Trovi…"
 
-#: src/Widgets/HeaderBar.vala:126
+#: src/Widgets/HeaderBar.vala:118
 msgid "Export to PDF…"
 msgstr "Eksporti al PDF…"
 
-#: src/Widgets/HeaderBar.vala:130
+#: src/Widgets/HeaderBar.vala:127
 msgid "Export to HTML…"
 msgstr "Eksporti al HTML…"
 
-#: src/Widgets/HeaderBar.vala:146
-msgid "Export"
-msgstr "Eksporti"
-
-#: src/Widgets/HeaderBar.vala:150
+#: src/Widgets/HeaderBar.vala:136
 msgid "Markdown Cheatsheet"
 msgstr "Markdown-gvidfolio"
 
-#: src/Widgets/HeaderBar.vala:154 src/Widgets/Preferences.vala:27
+#: src/Widgets/HeaderBar.vala:143 src/Widgets/Preferences.vala:28
 msgid "Preferences"
 msgstr "Aliaj agordoj"
 
-#: src/Widgets/HeaderBar.vala:162 src/Widgets/Preferences.vala:278
+#: src/Widgets/HeaderBar.vala:149 src/Widgets/Preferences.vala:300
+#: src/Widgets/Preferences.vala:355
 msgid "Light Mode"
 msgstr "Hela kolorskemo"
 
-#: src/Widgets/HeaderBar.vala:173 src/Widgets/Preferences.vala:291
+#: src/Widgets/HeaderBar.vala:159 src/Widgets/Preferences.vala:310
+#: src/Widgets/Preferences.vala:357
 msgid "Sepia Mode"
 msgstr "Sepia kolorskemo"
 
-#: src/Widgets/HeaderBar.vala:184 src/Widgets/Preferences.vala:304
-msgid "Moon Mode"
-msgstr "Luna kolorskemo"
-
-#: src/Widgets/HeaderBar.vala:195 src/Widgets/Preferences.vala:317
+#: src/Widgets/HeaderBar.vala:169 src/Widgets/Preferences.vala:320
+#: src/Widgets/Preferences.vala:359
 msgid "Dark Mode"
 msgstr "Malhela kolorskemo"
 
-#: src/Widgets/HeaderBar.vala:225
-msgid "Focus Mode"
+#: src/Widgets/HeaderBar.vala:208
+#, fuzzy
+msgid "Focus Mode…"
 msgstr "Fokusa reĝimo"
 
-#: src/Widgets/HeaderBar.vala:228
-msgid "Enter focus mode"
-msgstr "Enigi fokusan reĝimon"
+#: src/Widgets/HeaderBar.vala:222
+msgid "Toggle View…"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:273
+#. _("Full-Width\nFull Editor, change with switcher")
+#: src/Widgets/HeaderBar.vala:240
+msgid "Full-Width"
+msgstr "Plena larĝo"
+
+#: src/Widgets/HeaderBar.vala:244
+msgid "Editor or Preview, change on the menu."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:263
+msgid "Half-Width"
+msgstr "Duon-larĝo"
+
+#: src/Widgets/HeaderBar.vala:267
+msgid "Editor & Preview, divided equally."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:324
+#, fuzzy
+msgid "Interface Modes"
+msgstr "Fasado"
+
+#: src/Widgets/HeaderBar.vala:356
 msgid "Settings"
 msgstr "Ĉiuj agordoj"
 
-#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:232
-msgid "Editor"
-msgstr "Redaktilo"
+#. Please take note of the \n, keep it where you'd want a line break because the space is small
+#: src/Widgets/HeaderBar.vala:369 src/Widgets/Preferences.vala:391
+msgid ""
+"Changing modes is disabled due\n"
+"to the system dark style preference."
+msgstr ""
 
-#: src/Widgets/Preferences.vala:47
-msgid "Interface"
-msgstr "Fasado"
+#: src/Widgets/Preferences.vala:52
+msgid "INTERFACE"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:443
-msgid "Extensions"
-msgstr "Kromaĵoj"
+#: src/Widgets/Preferences.vala:53
+msgid "EDITOR"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:68
+#: src/Widgets/Preferences.vala:54
+msgid "PREVIEW"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:79
 msgid "Geometry"
 msgstr "Geometrio"
 
-#: src/Widgets/Preferences.vala:69
-msgid "Spacing of Text:"
-msgstr "Interlinia spaco:"
+#: src/Widgets/Preferences.vala:80
+msgid "Text Spacing:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
-#: src/Widgets/Preferences.vala:182
-msgid "Small"
-msgstr "Malgranda"
+#: src/Widgets/Preferences.vala:120
+msgid "Text Margins:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
-#: src/Widgets/Preferences.vala:183
-msgid "Normal"
-msgstr "Normala"
-
-#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
-#: src/Widgets/Preferences.vala:184
-msgid "Large"
-msgstr "Larĝa"
-
-#: src/Widgets/Preferences.vala:109
-msgid "Margins of Text:"
-msgstr "Flankaj marĝenoj:"
-
-#: src/Widgets/Preferences.vala:149
+#: src/Widgets/Preferences.vala:160
 msgid "Fonts & Type"
 msgstr "Tiparoj k redakto"
 
-#: src/Widgets/Preferences.vala:150
+#: src/Widgets/Preferences.vala:161
 msgid "Editor Font Type:"
 msgstr "Redaktila tiparo:"
 
-#: src/Widgets/Preferences.vala:152
+#: src/Widgets/Preferences.vala:163
 msgid "Quilt Mono"
 msgstr "Quilt Mono (egalpaŝa)"
 
-#: src/Widgets/Preferences.vala:153
+#: src/Widgets/Preferences.vala:164
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: src/Widgets/Preferences.vala:165
 msgid "Quilt Vier"
 msgstr "Quilt Vier (proporcia)"
 
-#: src/Widgets/Preferences.vala:180
+#: src/Widgets/Preferences.vala:199
 msgid "Editor Font Size:"
 msgstr "Redakta tipa amplekso:"
 
-#: src/Widgets/Preferences.vala:233
+#: src/Widgets/Preferences.vala:252
+msgid "Editor"
+msgstr "Redaktilo"
+
+#: src/Widgets/Preferences.vala:253
 msgid "Save files when changed:"
 msgstr "Konservi dosierojn dum redaktado:"
 
+#: src/Widgets/Preferences.vala:255
+msgid "Highlight Speech Parts<sup>𝜷</sup>:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:260
+msgid ""
+"Only available in English.\n"
+"\n"
+"Colors words based on type:\n"
+"- Nouns are Black\n"
+"- Verbs are Blue\n"
+"- Adjectives are Yellow\n"
+"- Adverbs are Purple\n"
+"- Conjunctions are Green"
+msgstr ""
+
 #: src/Widgets/Preferences.vala:266
+#, fuzzy
+msgid "Spellchecking:"
+msgstr "Ebligi literumadon:"
+
+#: src/Widgets/Preferences.vala:295
 msgid "Modes"
 msgstr "Kolorskemo"
 
-#: src/Widgets/Preferences.vala:343
-msgid "Enable Focus Mode:"
-msgstr "Ebligi fokusan reĝimon:"
+#: src/Widgets/Preferences.vala:361
+#, fuzzy
+msgid "Focus Mode:"
+msgstr "Fokusa reĝimo"
 
-#: src/Widgets/Preferences.vala:346
-msgid "Type of Focus Mode:"
-msgstr "Fokusa reĝima tipo:"
+#: src/Widgets/Preferences.vala:364
+#, fuzzy
+msgid "Focus Scope:"
+msgstr "Fokusa reĝimo"
 
-#: src/Widgets/Preferences.vala:348
-msgid "Paragraph"
-msgstr "Paragrafo"
-
-#: src/Widgets/Preferences.vala:349
-msgid "Sentence"
-msgstr "Frazo"
-
-#: src/Widgets/Preferences.vala:379
+#: src/Widgets/Preferences.vala:378
 msgid "Typewriter Scrolling:"
 msgstr "Skribmaŝina rulumado:"
 
-#: src/Widgets/Preferences.vala:383
+#: src/Widgets/Preferences.vala:381
+msgid "Type Counter:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:385
+msgid "Sidebar:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:404
 msgid "User Interface"
 msgstr "Uzanta fasado"
 
-#: src/Widgets/Preferences.vala:384
-msgid "Show Statusbar:"
-msgstr "Montri statan breton:"
+#: src/Widgets/Preferences.vala:464
+#, fuzzy
+msgid "Font Type:"
+msgstr "Tiparoj k redakto"
 
-#: src/Widgets/Preferences.vala:387
-msgid "Show Searchbar:"
-msgstr "Montri serĉan breton:"
+#: src/Widgets/Preferences.vala:468
+#, fuzzy
+msgid "Serif"
+msgstr "Uzi serifan tiparon"
 
-#: src/Widgets/Preferences.vala:445
-msgid "Enable Code Highlighting:"
+#: src/Widgets/Preferences.vala:469
+#, fuzzy
+msgid "Sans-serif"
+msgstr "Uzi senserifan tiparon"
+
+#: src/Widgets/Preferences.vala:470
+#, fuzzy
+msgid "Monospace"
+msgstr "Uzi egallarĝan tiparon"
+
+#: src/Widgets/Preferences.vala:504
+msgid "Center Headers:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:508
+msgid "Extensions"
+msgstr "Kromaĵoj"
+
+#: src/Widgets/Preferences.vala:510
+#, fuzzy
+msgid "Code Highlighting:"
 msgstr "Ebligi kodan emfazon:"
 
-#: src/Widgets/Preferences.vala:449
-msgid "Enable LaTeX Processing:"
+#: src/Widgets/Preferences.vala:514
+#, fuzzy
+msgid "LaTeX Processing:"
 msgstr "Ebligi LaTeX procezadon:"
 
-#: src/Widgets/Preferences.vala:453
-msgid "Enable Spellchecking:"
-msgstr "Ebligi literumadon:"
+#: src/Widgets/Preferences.vala:518
+msgid "Mermaid.js Graphing:"
+msgstr ""
 
-#: src/Widgets/SearchBar.vala:39
+#: src/Widgets/Preferences.vala:523
+msgid "Disable Code Highlighting for optimal use of Mermaid.js"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
 msgstr "Anstataŭigi per…"
 
-#: src/Widgets/SearchBar.vala:43
-msgid "Replace"
-msgstr "Anstataŭigi"
+#: src/Widgets/SearchBar.vala:46
+msgid ""
+"Replace\n"
+"Use arrows before using."
+msgstr ""
 
-#: src/Widgets/SearchBar.vala:45
-msgid "Use the arrows to target the text to replace before pressing this."
-msgstr "Uzi sagoklavojn por celi anstataŭotan tekston antaŭ ol premi tion."
-
-#: src/Widgets/SearchBar.vala:47
-msgid "Replace all"
+#: src/Widgets/SearchBar.vala:52
+#, fuzzy
+msgid "Replace All"
 msgstr "Anstataŭigi ĉion"
 
-#: src/Widgets/SearchBar.vala:72
+#: src/Widgets/SearchBar.vala:91
 msgid "Find text…"
 msgstr "Trovi tekston…"
 
-#: src/Widgets/SearchBar.vala:91
+#: src/Widgets/SearchBar.vala:110
 msgid "Search previous"
 msgstr "Trovi antaŭan"
 
-#: src/Widgets/SearchBar.vala:110
+#: src/Widgets/SearchBar.vala:130
 msgid "Search next"
 msgstr "Trovi sekvan"
 
-#: src/Widgets/SideBar.vala:67
+#: src/Widgets/SideBar.vala:66
 msgid "No files…"
 msgstr "Neniu dosiero…"
 
-#: src/Widgets/SideBar.vala:83
-msgid "Files"
-msgstr "Dosieroj"
+#: src/Widgets/SideBar.vala:76
+msgid "FILES"
+msgstr ""
 
-#: src/Widgets/SideBar.vala:85
-msgid "Outline"
-msgstr "Dosierstrukturo"
+#: src/Widgets/SideBar.vala:77
+msgid "OUTLINE"
+msgstr ""
 
-#: src/Widgets/SideBarBox.vala:35
-msgid "New Document"
-msgstr "Nova dokumento"
+#: src/Widgets/SideBar.vala:234
+msgid "No Documents Open"
+msgstr "Neniu dokumento malferma"
 
-#: src/Widgets/SideBarBox.vala:36
+#: src/Widgets/SideBarBox.vala:38
 msgid "New File"
 msgstr "Nova dosiero"
 
-#: src/Widgets/SideBarBox.vala:87
+#: src/Widgets/SideBarBox.vala:51
+msgid "No header…"
+msgstr ""
+
+#: src/Widgets/SideBarBox.vala:84
 msgid "Remove File from Sidebar"
 msgstr "Forigi dosieron el la flankbreto"
 
 #: src/Widgets/StatusBar.vala:45
-msgid "Show/Hide Sidebar"
-msgstr "Montri/kaŝi flankbreton"
-
-#: src/Widgets/StatusBar.vala:88
-msgid "Full-Width"
-msgstr "Plena larĝo"
-
-#: src/Widgets/StatusBar.vala:89
-msgid "Half-Width"
-msgstr "Duon-larĝo"
-
-#: src/Widgets/StatusBar.vala:117
 msgid "Track Characters"
 msgstr "Sekvi signojn"
 
-#: src/Widgets/StatusBar.vala:122
+#: src/Widgets/StatusBar.vala:50
 msgid "Track Words"
 msgstr "Sekvi vortojn"
 
-#: src/Widgets/StatusBar.vala:127
+#: src/Widgets/StatusBar.vala:55
 msgid "Track Lines"
 msgstr "Sekvi liniojn"
 
-#: src/Widgets/StatusBar.vala:147
+#: src/Widgets/StatusBar.vala:60
+#, fuzzy
+msgid "Track Read Time"
+msgstr "Lega daŭro: "
+
+#: src/Widgets/StatusBar.vala:80
 msgid "Set Tracking Type"
 msgstr "Agordi sekvan reĝimon"
 
-#: src/Widgets/StatusBar.vala:161
+#: src/Widgets/StatusBar.vala:107
 msgid "Words: "
 msgstr "Vortoj: "
 
-#: src/Widgets/StatusBar.vala:168
+#: src/Widgets/StatusBar.vala:112
 msgid "Lines: "
 msgstr "Linioj: "
 
-#: src/Widgets/StatusBar.vala:175
+#: src/Widgets/StatusBar.vala:117
 msgid "Characters: "
 msgstr "Signoj: "
 
+#: src/Widgets/StatusBar.vala:123
+msgid "Reading Time: "
+msgstr "Lega daŭro: "
+
 #: src/Services/DialogUtils.vala:21 src/Services/DialogUtils.vala:51
-#: src/Services/DialogUtils.vala:68 src/Services/ExportUtils.vala:166
-#: src/Services/ExportUtils.vala:214
+#: src/Services/DialogUtils.vala:68 src/Services/ExportUtils.vala:170
+#: src/Services/ExportUtils.vala:218
 msgid "Cancel"
 msgstr "Nuligi"
 
@@ -468,8 +529,8 @@ msgid "Open"
 msgstr "Malfermi"
 
 #: src/Services/DialogUtils.vala:25 src/Services/DialogUtils.vala:49
-#: src/Services/DialogUtils.vala:66 src/Services/ExportUtils.vala:146
-#: src/Services/ExportUtils.vala:195
+#: src/Services/DialogUtils.vala:66 src/Services/ExportUtils.vala:150
+#: src/Services/ExportUtils.vala:199
 msgid "Save"
 msgstr "Konservi"
 
@@ -517,26 +578,126 @@ msgstr "Forigi sen konservi"
 msgid "Print to File"
 msgstr "Presi en dosieron"
 
-#: src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:148
 msgid "Select destination PDF file"
 msgstr "Elekti celan PDF-dosieron"
 
-#: src/Services/ExportUtils.vala:149
+#: src/Services/ExportUtils.vala:153
 msgid "PDF File"
 msgstr "PDF-dosiero"
 
-#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
+#: src/Services/ExportUtils.vala:161 src/Services/ExportUtils.vala:209
 msgid "All Files"
 msgstr "Ĉiuj dosieroj"
 
-#: src/Services/ExportUtils.vala:193
+#: src/Services/ExportUtils.vala:197
 msgid "Select destination HTML file"
 msgstr "Elekti celan HTML-dosieron"
 
-#: src/Services/ExportUtils.vala:198
+#: src/Services/ExportUtils.vala:202
 msgid "HTML File"
 msgstr "HTML-dosiero"
 
-#: src/Services/FileManager.vala:90
+#: src/Services/FileManager.vala:91
 msgid "Open file"
 msgstr "Malfermi dosieron"
+
+#: src/Services/FileManager.vala:105
+msgid "Save file"
+msgstr "Konservi dosieron"
+
+#~ msgid "Set Preview Font"
+#~ msgstr "Agordi antaŭrigardan tiparon"
+
+#~ msgid "Change view"
+#~ msgstr "Ŝanĝi vidon"
+
+#~ msgid "Text"
+#~ msgstr "Teksto"
+
+#~ msgid "Links & Special"
+#~ msgstr "Ligiloj k specialaĵoj"
+
+#~ msgid "Close"
+#~ msgstr "Fermi"
+
+#~ msgid "Heading"
+#~ msgstr "Titolo"
+
+#~ msgid "#### Heading 4"
+#~ msgstr "#### Titolo 4a"
+
+#~ msgid "##### Heading 5"
+#~ msgstr "##### Titolo 5a"
+
+#~ msgid "###### Heading 6"
+#~ msgstr "###### Titolo 6a"
+
+#~ msgid "Special Text"
+#~ msgstr "Speciala teksto"
+
+#~ msgid "![Image Label](http://image.url.here.com)"
+#~ msgstr "![Bilda etikedo](http://jen.bilda.ligilo.com)"
+
+#~ msgid "To make a column's content go to the left, change --- to :--- ."
+#~ msgstr "Por maldekstrigi la enhavon en kolumno, ŝanĝu --- al :--- ."
+
+#~ msgid "To make a column's content centered, change --- to :---: ."
+#~ msgstr "Por centrigi la enhavon en kolumno, ŝanĝu --- al :---: ."
+
+#~ msgid "To make a column's content go to the right, change --- to ---: ."
+#~ msgstr "Por dekstrigi la enhavon en kolumno, ŝanĝu --- al ---: ."
+
+#~ msgid "Export"
+#~ msgstr "Eksporti"
+
+#~ msgid "Moon Mode"
+#~ msgstr "Luna kolorskemo"
+
+#~ msgid "Spacing of Text:"
+#~ msgstr "Interlinia spaco:"
+
+#~ msgid "Small"
+#~ msgstr "Malgranda"
+
+#~ msgid "Normal"
+#~ msgstr "Normala"
+
+#~ msgid "Large"
+#~ msgstr "Larĝa"
+
+#~ msgid "Enable Focus Mode:"
+#~ msgstr "Ebligi fokusan reĝimon:"
+
+#~ msgid "Type of Focus Mode:"
+#~ msgstr "Fokusa reĝima tipo:"
+
+#~ msgid "Paragraph"
+#~ msgstr "Paragrafo"
+
+#~ msgid "Sentence"
+#~ msgstr "Frazo"
+
+#~ msgid "Show Statusbar:"
+#~ msgstr "Montri statan breton:"
+
+#~ msgid "Show Searchbar:"
+#~ msgstr "Montri serĉan breton:"
+
+#~ msgid "Replace"
+#~ msgstr "Anstataŭigi"
+
+#~ msgid "Use the arrows to target the text to replace before pressing this."
+#~ msgstr "Uzi sagoklavojn por celi anstataŭotan tekston antaŭ ol premi tion."
+
+#~ msgid "Files"
+#~ msgstr "Dosieroj"
+
+#~ msgid "Outline"
+#~ msgstr "Dosierstrukturo"
+
+#~ msgid "New Document"
+#~ msgstr "Nova dokumento"
+
+#~ msgid "Show/Hide Sidebar"
+#~ msgstr "Montri/kaŝi flankbreton"

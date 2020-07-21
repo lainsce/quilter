@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-28 18:11+0200\n"
+"POT-Creation-Date: 2020-07-21 11:21-0300\n"
 "PO-Revision-Date: 2019-06-09 11:34+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
@@ -18,395 +18,526 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.3\n"
 
-#: src/MainWindow.vala:82
-msgid "Quilter"
-msgstr "Quilter"
+#: src/MainWindow.vala:368
+msgid "Start by creating a new story…"
+msgstr ""
 
-#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
-msgid "No Documents Open"
-msgstr "開いているドキュメントはありません"
+#: src/MainWindow.vala:375
+msgid "Or open a saved story…"
+msgstr ""
 
-#: src/MainWindow.vala:231
-msgid "Use Sans-serif"
-msgstr "サンセリフを使う"
+#: src/MainWindow.vala:420
+#, fuzzy
+msgid "Exit focus mode"
+msgstr "集中モードを有効にします"
 
-#: src/MainWindow.vala:236
-msgid "Use Serif"
-msgstr "セリフを使う"
-
-#: src/MainWindow.vala:242
-msgid "Use Monospace"
-msgstr "等幅を使う"
-
-#: src/MainWindow.vala:261
-msgid "Set Preview Font"
-msgstr "プレビューに使うフォントを設定します"
-
-#: src/MainWindow.vala:277
+#: src/MainWindow.vala:704
 msgid "Edit"
 msgstr "編集"
 
-#: src/MainWindow.vala:278
+#: src/MainWindow.vala:706 src/Widgets/Preferences.vala:463
 msgid "Preview"
 msgstr "プレビュー"
 
-#: src/Widgets/Cheatsheet.vala:29
+#: src/Widgets/Cheatsheet.vala:26
 msgid "Cheatsheet"
 msgstr "チートシート"
 
-#: src/Widgets/Cheatsheet.vala:47
-msgid "Text"
-msgstr "テキスト"
-
-#: src/Widgets/Cheatsheet.vala:48
-msgid "Links & Special"
-msgstr "リンクと特殊なもの"
-
-#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
-msgid "Tables"
-msgstr "表"
-
-#. Close button
-#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
-msgid "Close"
-msgstr "閉じる"
+#: src/Widgets/Cheatsheet.vala:78
+#, fuzzy
+msgid "Headers & Text"
+msgstr "テキストの余白:"
 
 #: src/Widgets/Cheatsheet.vala:79
-msgid "Heading"
-msgstr "見出し"
-
-#: src/Widgets/Cheatsheet.vala:80
-msgid "# Heading 1"
+#, fuzzy
+msgid "# Header 1"
 msgstr "# 見出し 1"
 
-#: src/Widgets/Cheatsheet.vala:81
-msgid "## Heading 2"
+#: src/Widgets/Cheatsheet.vala:80
+#, fuzzy
+msgid "## Header 2"
 msgstr "## 見出し 2"
 
-#: src/Widgets/Cheatsheet.vala:82
-msgid "### Heading 3"
+#: src/Widgets/Cheatsheet.vala:81
+#, fuzzy
+msgid "### Header 3"
 msgstr "### 見出し 3"
 
-#: src/Widgets/Cheatsheet.vala:83
-msgid "#### Heading 4"
-msgstr "#### 見出し 4"
-
-#: src/Widgets/Cheatsheet.vala:84
-msgid "##### Heading 5"
-msgstr "##### 見出し 5"
-
-#: src/Widgets/Cheatsheet.vala:85
-msgid "###### Heading 6"
-msgstr "###### 見出し 6"
-
-#: src/Widgets/Cheatsheet.vala:86
-msgid "Special Text"
-msgstr "特殊なテキスト"
-
-#: src/Widgets/Cheatsheet.vala:87
-msgid "** Bold text **"
+#: src/Widgets/Cheatsheet.vala:82
+#, fuzzy
+msgid "** Bold **"
 msgstr "** 太字 **"
 
-#: src/Widgets/Cheatsheet.vala:88
-msgid "* Emphasized text *"
+#: src/Widgets/Cheatsheet.vala:83
+#, fuzzy
+msgid "* Emphasized *"
 msgstr "* 強調 *"
 
-#: src/Widgets/Cheatsheet.vala:89
-msgid "` Code text `"
+#: src/Widgets/Cheatsheet.vala:84
+#, fuzzy
+msgid "` Code Line `"
 msgstr "` コード `"
 
-#: src/Widgets/Cheatsheet.vala:90
-msgid "> Quoting text"
+#: src/Widgets/Cheatsheet.vala:85
+#, fuzzy
+msgid "``` Code Block ```"
+msgstr "``` コードブロック ```"
+
+#: src/Widgets/Cheatsheet.vala:86
+#, fuzzy
+msgid "> Quote"
 msgstr "> 引用"
 
-#: src/Widgets/Cheatsheet.vala:91
-msgid "~~Strikethrough text~~"
-msgstr "~~ 打ち消し線 ~~"
-
-#: src/Widgets/Cheatsheet.vala:115
+#: src/Widgets/Cheatsheet.vala:88
 msgid "Links"
 msgstr "リンク"
 
-#: src/Widgets/Cheatsheet.vala:116
-msgid "[Link Label](http://link.url.here.com)"
+#: src/Widgets/Cheatsheet.vala:89
+#, fuzzy
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
 msgstr "[リンクのラベル](http://link.url.here.com)"
 
-#: src/Widgets/Cheatsheet.vala:117
-msgid "![Image Label](http://image.url.here.com)"
-msgstr "![画像のラベル](http://image.url.here.com)"
-
-#: src/Widgets/Cheatsheet.vala:118
+#: src/Widgets/Cheatsheet.vala:91
 msgid "Special"
 msgstr "特殊なもの"
 
-#: src/Widgets/Cheatsheet.vala:119
-msgid "```This is a code block```"
-msgstr "``` コードブロック ```"
+#: src/Widgets/Cheatsheet.vala:92
+msgid ""
+"LaTeX:\n"
+"\t- $$…$$ for equation block.\n"
+"\t- \\\\(…\\\\) for inline equation."
+msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:120
-msgid "This creates a horizontal rule → ---"
+#: src/Widgets/Cheatsheet.vala:93
+msgid ""
+"Mermaid.js:\n"
+"\t- <div class=\"mermaid\">...</div>"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "Extras"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:118
+#, fuzzy
+msgid "Horizontal rule → ---"
 msgstr "水平線を作成 → ---"
 
+#: src/Widgets/Cheatsheet.vala:119
+#, fuzzy
+msgid "~~Strikethrough~~"
+msgstr "~~ 打ち消し線 ~~"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "==Highlight=="
+msgstr ""
+
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → | Folder/Image.png |"
-msgstr "ローカルの画像を埋め込む → | Folder/Image.png |"
+msgid "Subscript: H~2~O"
+msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:122
-msgid "This embeds a local Markdown file → % Folder/File.md %"
+msgid "Superscript: E = MC^2^"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:123
+msgid "[] Empty Checkbox."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:124
+msgid "[x] Checked Checkbox."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:128
+msgid "Period needed to avoid conflicts."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:133
+#, fuzzy
+msgid ""
+"Embeds a local image\n"
+"\t/Folder/Image.png :image"
+msgstr "ローカルの画像を埋め込む → | Folder/Image.png |"
+
+#: src/Widgets/Cheatsheet.vala:134
+#, fuzzy
+msgid ""
+"Embeds a local Markdown file\n"
+"\t/Folder/File.md :file"
 msgstr "ローカルの Markdown ファイルを埋め込む → % Folder/File.md %"
 
-#: src/Widgets/Cheatsheet.vala:143
-msgid "To make a column's content go to the left, change --- to :--- ."
-msgstr "列の中身を左寄せするには、--- を :--- に変更します。"
+#: src/Widgets/Cheatsheet.vala:135
+msgid "Tables"
+msgstr "表"
 
-#: src/Widgets/Cheatsheet.vala:144
-msgid "To make a column's content centered, change --- to :---: ."
-msgstr "列の中身を中央寄せするには、--- を :---: に変更します。"
+#: src/Widgets/Cheatsheet.vala:140
+msgid ""
+"Left Column, change --- to :--- .\n"
+"Centered Column, change --- to :---: .\n"
+"Right Column, change --- to ---: ."
+msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:145
-msgid "To make a column's content go to the right, change --- to ---: ."
-msgstr "列の中身を右寄せするには、--- を ---: に変更します。"
+#: src/Widgets/HeaderBar.vala:59
+msgid "Go back"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:67
+#: src/Widgets/HeaderBar.vala:71
 msgid "New file"
 msgstr "新しいファイル"
 
-#: src/Widgets/HeaderBar.vala:73
+#: src/Widgets/HeaderBar.vala:80
 msgid "Save as…"
 msgstr "名前を付けて保存…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
-msgid "Save file"
-msgstr "ファイルを保存"
-
-#: src/Widgets/HeaderBar.vala:85
+#: src/Widgets/HeaderBar.vala:88
 msgid "Open…"
 msgstr "開く…"
 
-#: src/Widgets/HeaderBar.vala:91
-msgid "Start search"
-msgstr "検索を開始"
+#: src/Widgets/HeaderBar.vala:96
+#, fuzzy
+msgid "Find…"
+msgstr "テキストを検索…"
 
-#: src/Widgets/HeaderBar.vala:109
+#: src/Widgets/HeaderBar.vala:118
 msgid "Export to PDF…"
 msgstr "PDF にエクスポート…"
 
-#: src/Widgets/HeaderBar.vala:113
+#: src/Widgets/HeaderBar.vala:127
 msgid "Export to HTML…"
 msgstr "HTML にエクスポート…"
 
-#: src/Widgets/HeaderBar.vala:129
-msgid "Export"
-msgstr "エクスポート"
-
-#: src/Widgets/HeaderBar.vala:133
+#: src/Widgets/HeaderBar.vala:136
 msgid "Markdown Cheatsheet"
 msgstr "Markdown チートシート"
 
-#: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
+#: src/Widgets/HeaderBar.vala:143 src/Widgets/Preferences.vala:28
 msgid "Preferences"
 msgstr "設定"
 
-#: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
+#: src/Widgets/HeaderBar.vala:149 src/Widgets/Preferences.vala:300
+#: src/Widgets/Preferences.vala:355
 msgid "Light Mode"
 msgstr "ライトモード"
 
-#: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
+#: src/Widgets/HeaderBar.vala:159 src/Widgets/Preferences.vala:310
+#: src/Widgets/Preferences.vala:357
 msgid "Sepia Mode"
 msgstr "セピアモード"
 
-#: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
-msgid "Moon Mode"
-msgstr "月下モード"
-
-#: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
+#: src/Widgets/HeaderBar.vala:169 src/Widgets/Preferences.vala:320
+#: src/Widgets/Preferences.vala:359
 msgid "Dark Mode"
 msgstr "ダークモード"
 
 #: src/Widgets/HeaderBar.vala:208
-msgid "Focus Mode"
+#, fuzzy
+msgid "Focus Mode…"
 msgstr "集中モード"
 
-#: src/Widgets/HeaderBar.vala:211
-msgid "Enter focus mode"
-msgstr "集中モードを有効にします"
+#: src/Widgets/HeaderBar.vala:222
+msgid "Toggle View…"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:256
+#. _("Full-Width\nFull Editor, change with switcher")
+#: src/Widgets/HeaderBar.vala:240
+msgid "Full-Width"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:244
+msgid "Editor or Preview, change on the menu."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:263
+msgid "Half-Width"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:267
+msgid "Editor & Preview, divided equally."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:324
+#, fuzzy
+msgid "Interface Modes"
+msgstr "インターフェース"
+
+#: src/Widgets/HeaderBar.vala:356
 msgid "Settings"
 msgstr "設定"
 
-#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:202
-msgid "Editor"
-msgstr "エディター"
+#. Please take note of the \n, keep it where you'd want a line break because the space is small
+#: src/Widgets/HeaderBar.vala:369 src/Widgets/Preferences.vala:391
+msgid ""
+"Changing modes is disabled due\n"
+"to the system dark style preference."
+msgstr ""
 
-#: src/Widgets/Preferences.vala:47
-msgid "Interface"
-msgstr "インターフェース"
+#: src/Widgets/Preferences.vala:52
+msgid "INTERFACE"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
-msgid "Extensions"
-msgstr "拡張機能"
+#: src/Widgets/Preferences.vala:53
+msgid "EDITOR"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:68
+#: src/Widgets/Preferences.vala:54
+msgid "PREVIEW"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:79
 msgid "Geometry"
 msgstr "位置調整"
 
-#: src/Widgets/Preferences.vala:69
-msgid "Spacing of Text:"
-msgstr "テキストの行間:"
+#: src/Widgets/Preferences.vala:80
+msgid "Text Spacing:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
-#: src/Widgets/Preferences.vala:152
-msgid "Small"
-msgstr "狭い"
+#: src/Widgets/Preferences.vala:120
+msgid "Text Margins:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
-#: src/Widgets/Preferences.vala:153
-msgid "Normal"
-msgstr "標準"
-
-#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
-#: src/Widgets/Preferences.vala:154
-msgid "Large"
-msgstr "広い"
-
-#: src/Widgets/Preferences.vala:109
-msgid "Margins of Text:"
-msgstr "テキストの余白:"
-
-#: src/Widgets/Preferences.vala:149
+#: src/Widgets/Preferences.vala:160
 msgid "Fonts & Type"
 msgstr "フォントと入力"
 
-#: src/Widgets/Preferences.vala:150
+#: src/Widgets/Preferences.vala:161
+#, fuzzy
+msgid "Editor Font Type:"
+msgstr "エディターのフォントサイズ:"
+
+#: src/Widgets/Preferences.vala:163
+msgid "Quilt Mono"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:164
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: src/Widgets/Preferences.vala:165
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: src/Widgets/Preferences.vala:199
 msgid "Editor Font Size:"
 msgstr "エディターのフォントサイズ:"
 
-#: src/Widgets/Preferences.vala:203
+#: src/Widgets/Preferences.vala:252
+msgid "Editor"
+msgstr "エディター"
+
+#: src/Widgets/Preferences.vala:253
 msgid "Save files when changed:"
 msgstr "変更が加えられた時にファイルを保存:"
 
-#: src/Widgets/Preferences.vala:234
+#: src/Widgets/Preferences.vala:255
+msgid "Highlight Speech Parts<sup>𝜷</sup>:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:260
+msgid ""
+"Only available in English.\n"
+"\n"
+"Colors words based on type:\n"
+"- Nouns are Black\n"
+"- Verbs are Blue\n"
+"- Adjectives are Yellow\n"
+"- Adverbs are Purple\n"
+"- Conjunctions are Green"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:266
+#, fuzzy
+msgid "Spellchecking:"
+msgstr "スペルチェックを有効にする:"
+
+#: src/Widgets/Preferences.vala:295
 msgid "Modes"
 msgstr "モード"
 
-#: src/Widgets/Preferences.vala:311
-msgid "Enable Focus Mode:"
-msgstr "集中モードを有効にする:"
+#: src/Widgets/Preferences.vala:361
+#, fuzzy
+msgid "Focus Mode:"
+msgstr "集中モード"
 
-#: src/Widgets/Preferences.vala:314
-msgid "Type of Focus Mode:"
-msgstr "集中モードの種類:"
+#: src/Widgets/Preferences.vala:364
+#, fuzzy
+msgid "Focus Scope:"
+msgstr "集中モード"
 
-#: src/Widgets/Preferences.vala:316
-msgid "Paragraph"
-msgstr "段落"
-
-#: src/Widgets/Preferences.vala:317
-msgid "Sentence"
-msgstr "文"
-
-#: src/Widgets/Preferences.vala:347
+#: src/Widgets/Preferences.vala:378
 msgid "Typewriter Scrolling:"
 msgstr "タイプライター風のスクロール:"
 
-#: src/Widgets/Preferences.vala:351
+#: src/Widgets/Preferences.vala:381
+msgid "Type Counter:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:385
+msgid "Sidebar:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:404
 msgid "User Interface"
 msgstr "ユーザーインターフェース"
 
-#: src/Widgets/Preferences.vala:352
-msgid "Show Statusbar:"
-msgstr "ステータスバーを表示:"
+#: src/Widgets/Preferences.vala:464
+#, fuzzy
+msgid "Font Type:"
+msgstr "フォントと入力"
 
-#: src/Widgets/Preferences.vala:355
-msgid "Show Searchbar:"
-msgstr "検索バーを表示:"
+#: src/Widgets/Preferences.vala:468
+#, fuzzy
+msgid "Serif"
+msgstr "セリフを使う"
 
-#: src/Widgets/Preferences.vala:413
-msgid "Enable Code Highlighting:"
+#: src/Widgets/Preferences.vala:469
+#, fuzzy
+msgid "Sans-serif"
+msgstr "サンセリフを使う"
+
+#: src/Widgets/Preferences.vala:470
+#, fuzzy
+msgid "Monospace"
+msgstr "等幅を使う"
+
+#: src/Widgets/Preferences.vala:504
+msgid "Center Headers:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:508
+msgid "Extensions"
+msgstr "拡張機能"
+
+#: src/Widgets/Preferences.vala:510
+#, fuzzy
+msgid "Code Highlighting:"
 msgstr "コードのハイライトを有効にする:"
 
-#: src/Widgets/Preferences.vala:417
-msgid "Enable Spellchecking:"
-msgstr "スペルチェックを有効にする:"
+#: src/Widgets/Preferences.vala:514
+msgid "LaTeX Processing:"
+msgstr ""
 
-#: src/Widgets/SearchBar.vala:39
+#: src/Widgets/Preferences.vala:518
+msgid "Mermaid.js Graphing:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:523
+msgid "Disable Code Highlighting for optimal use of Mermaid.js"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
 msgstr "以下の文字で置き換え…"
 
-#: src/Widgets/SearchBar.vala:43
-msgid "Replace"
-msgstr "置き換え"
-
 #: src/Widgets/SearchBar.vala:46
-msgid "Replace all"
+msgid ""
+"Replace\n"
+"Use arrows before using."
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:52
+#, fuzzy
+msgid "Replace All"
 msgstr "すべて置き換え"
 
-#: src/Widgets/SearchBar.vala:71
+#: src/Widgets/SearchBar.vala:91
 msgid "Find text…"
 msgstr "テキストを検索…"
 
-#: src/Widgets/SearchBar.vala:90
+#: src/Widgets/SearchBar.vala:110
 msgid "Search previous"
 msgstr "前を検索"
 
-#: src/Widgets/SearchBar.vala:109
+#: src/Widgets/SearchBar.vala:130
 msgid "Search next"
 msgstr "次を検索"
 
-#: src/Widgets/SideBar.vala:64
+#: src/Widgets/SideBar.vala:66
 msgid "No files…"
 msgstr "ファイルがありません…"
 
-#: src/Widgets/SideBar.vala:80
-msgid "Files"
-msgstr "ファイル"
+#: src/Widgets/SideBar.vala:76
+msgid "FILES"
+msgstr ""
 
-#: src/Widgets/SideBar.vala:82
-msgid "Outline"
-msgstr "アウトライン"
+#: src/Widgets/SideBar.vala:77
+msgid "OUTLINE"
+msgstr ""
 
-#: src/Widgets/SideBar.vala:148
+#: src/Widgets/SideBar.vala:234
+msgid "No Documents Open"
+msgstr "開いているドキュメントはありません"
+
+#: src/Widgets/SideBarBox.vala:38
 #, fuzzy
-msgid "Remove All Files"
-msgstr "ファイルを削除"
+msgid "New File"
+msgstr "新しいファイル"
 
-#: src/Widgets/StatusBar.vala:42
-msgid "Show/Hide Sidebar"
-msgstr "サイドバーを表示／非表示"
+#: src/Widgets/SideBarBox.vala:51
+msgid "No header…"
+msgstr ""
 
-#: src/Widgets/StatusBar.vala:81
+#: src/Widgets/SideBarBox.vala:84
+#, fuzzy
+msgid "Remove File from Sidebar"
+msgstr "サイドバーからファイルを削除しますか？"
+
+#: src/Widgets/StatusBar.vala:45
 msgid "Track Characters"
 msgstr "文字数をカウント"
 
-#: src/Widgets/StatusBar.vala:86
+#: src/Widgets/StatusBar.vala:50
 msgid "Track Words"
 msgstr "単語数をカウント"
 
-#: src/Widgets/StatusBar.vala:91
+#: src/Widgets/StatusBar.vala:55
 msgid "Track Lines"
 msgstr "行数をカウント"
 
-#: src/Widgets/StatusBar.vala:111
+#: src/Widgets/StatusBar.vala:60
+#, fuzzy
+msgid "Track Read Time"
+msgstr "読むのにかかる時間: "
+
+#: src/Widgets/StatusBar.vala:80
 msgid "Set Tracking Type"
 msgstr "カウントの種類を設定します"
 
-#: src/Widgets/StatusBar.vala:125
+#: src/Widgets/StatusBar.vala:107
 msgid "Words: "
 msgstr "単語数: "
 
-#: src/Widgets/StatusBar.vala:132
+#: src/Widgets/StatusBar.vala:112
 msgid "Lines: "
 msgstr "行数: "
 
-#: src/Widgets/StatusBar.vala:139
+#: src/Widgets/StatusBar.vala:117
 msgid "Characters: "
 msgstr "文字数: "
 
-#: src/Widgets/StatusBar.vala:153
+#: src/Widgets/StatusBar.vala:123
 msgid "Reading Time: "
 msgstr "読むのにかかる時間: "
+
+#: src/Services/DialogUtils.vala:21 src/Services/DialogUtils.vala:51
+#: src/Services/DialogUtils.vala:68 src/Services/ExportUtils.vala:170
+#: src/Services/ExportUtils.vala:218
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/Services/DialogUtils.vala:23
+#, fuzzy
+msgid "Open"
+msgstr "開く…"
+
+#: src/Services/DialogUtils.vala:25 src/Services/DialogUtils.vala:49
+#: src/Services/DialogUtils.vala:66 src/Services/ExportUtils.vala:150
+#: src/Services/ExportUtils.vala:199
+msgid "Save"
+msgstr "保存"
 
 #: src/Services/DialogUtils.vala:29
 msgid "Markdown files"
@@ -428,19 +559,9 @@ msgstr ""
 "ファイルに保存されていない変更があります。保存しない場合、変更は破棄されま"
 "す。"
 
-#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
-#: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
-msgid "Save"
-msgstr "保存"
-
 #: src/Services/DialogUtils.vala:50
 msgid "Close Without Saving"
 msgstr "保存せずに閉じる"
-
-#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
-#: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
-msgid "Cancel"
-msgstr "キャンセル"
 
 #: src/Services/DialogUtils.vala:61
 msgid "Remove File from Sidebar?"
@@ -463,29 +584,127 @@ msgstr "保存せずに削除"
 msgid "Print to File"
 msgstr "ファイルに出力"
 
-#: src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:148
 msgid "Select destination PDF file"
 msgstr "保存先の PDF ファイルを選択"
 
-#: src/Services/ExportUtils.vala:149
+#: src/Services/ExportUtils.vala:153
 msgid "PDF File"
 msgstr "PDF ファイル"
 
-#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
+#: src/Services/ExportUtils.vala:161 src/Services/ExportUtils.vala:209
 msgid "All Files"
 msgstr "すべてのファイル"
 
-#: src/Services/ExportUtils.vala:193
+#: src/Services/ExportUtils.vala:197
 msgid "Select destination HTML file"
 msgstr "保存先の HTML ファイルを選択"
 
-#: src/Services/ExportUtils.vala:198
+#: src/Services/ExportUtils.vala:202
 msgid "HTML File"
 msgstr "HTML ファイル"
 
-#: src/Services/FileManager.vala:84
+#: src/Services/FileManager.vala:91
 msgid "Open file"
 msgstr "ファイルを開く"
+
+#: src/Services/FileManager.vala:105
+msgid "Save file"
+msgstr "ファイルを保存"
+
+#~ msgid "Set Preview Font"
+#~ msgstr "プレビューに使うフォントを設定します"
+
+#~ msgid "Text"
+#~ msgstr "テキスト"
+
+#~ msgid "Links & Special"
+#~ msgstr "リンクと特殊なもの"
+
+#~ msgid "Close"
+#~ msgstr "閉じる"
+
+#~ msgid "Heading"
+#~ msgstr "見出し"
+
+#~ msgid "#### Heading 4"
+#~ msgstr "#### 見出し 4"
+
+#~ msgid "##### Heading 5"
+#~ msgstr "##### 見出し 5"
+
+#~ msgid "###### Heading 6"
+#~ msgstr "###### 見出し 6"
+
+#~ msgid "Special Text"
+#~ msgstr "特殊なテキスト"
+
+#~ msgid "![Image Label](http://image.url.here.com)"
+#~ msgstr "![画像のラベル](http://image.url.here.com)"
+
+#~ msgid "To make a column's content go to the left, change --- to :--- ."
+#~ msgstr "列の中身を左寄せするには、--- を :--- に変更します。"
+
+#~ msgid "To make a column's content centered, change --- to :---: ."
+#~ msgstr "列の中身を中央寄せするには、--- を :---: に変更します。"
+
+#~ msgid "To make a column's content go to the right, change --- to ---: ."
+#~ msgstr "列の中身を右寄せするには、--- を ---: に変更します。"
+
+#~ msgid "Start search"
+#~ msgstr "検索を開始"
+
+#~ msgid "Export"
+#~ msgstr "エクスポート"
+
+#~ msgid "Moon Mode"
+#~ msgstr "月下モード"
+
+#~ msgid "Spacing of Text:"
+#~ msgstr "テキストの行間:"
+
+#~ msgid "Small"
+#~ msgstr "狭い"
+
+#~ msgid "Normal"
+#~ msgstr "標準"
+
+#~ msgid "Large"
+#~ msgstr "広い"
+
+#~ msgid "Enable Focus Mode:"
+#~ msgstr "集中モードを有効にする:"
+
+#~ msgid "Type of Focus Mode:"
+#~ msgstr "集中モードの種類:"
+
+#~ msgid "Paragraph"
+#~ msgstr "段落"
+
+#~ msgid "Sentence"
+#~ msgstr "文"
+
+#~ msgid "Show Statusbar:"
+#~ msgstr "ステータスバーを表示:"
+
+#~ msgid "Show Searchbar:"
+#~ msgstr "検索バーを表示:"
+
+#~ msgid "Replace"
+#~ msgstr "置き換え"
+
+#~ msgid "Files"
+#~ msgstr "ファイル"
+
+#~ msgid "Outline"
+#~ msgstr "アウトライン"
+
+#, fuzzy
+#~ msgid "Remove All Files"
+#~ msgstr "ファイルを削除"
+
+#~ msgid "Show/Hide Sidebar"
+#~ msgstr "サイドバーを表示／非表示"
 
 #~ msgid "No File"
 #~ msgstr "すべてのファイル"
