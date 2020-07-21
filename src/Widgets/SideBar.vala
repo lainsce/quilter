@@ -155,7 +155,6 @@ namespace Quilter.Widgets {
                 }
             });
 
-
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
             files_grid.attach (column, 0, 0, 1, 1);

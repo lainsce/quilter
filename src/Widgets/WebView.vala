@@ -327,6 +327,7 @@ namespace Quilter {
                     </div>
                 </body>
             </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md);
+
             this.load_html (html, "file:///");
         }
 

@@ -391,7 +391,6 @@ namespace Quilter {
             normal_view.attach (onormal_label,1,1);
 
             change_layout ();
-
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
