@@ -19,6 +19,7 @@
 namespace Quilter.Widgets {
     public class SideBar : Gtk.Revealer {
         public Gtk.ListBox column;
+        private Widgets.SideBarBox[] rows;
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
@@ -41,6 +42,7 @@ namespace Quilter.Widgets {
         private Gtk.Label no_files;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
+        public bool is_modified {get; set; default = false;}
 
         public signal void save_as ();
         public signal void row_selected (Widgets.SideBarBox box);
@@ -124,20 +126,30 @@ namespace Quilter.Widgets {
             column.set_placeholder (no_files);
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                var row = add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
-                if (Quilter.Application.gsettings.get_strv("last-files")[i] == Quilter.Application.gsettings.get_string("current-file")) {
-                    column.select_row (row);
-                }
+                rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
             }
 
-            column.row_selected.connect ((row) => {
-                if (((Widgets.SideBarBox)row) != null) {
-                    row_selected ((Widgets.SideBarBox)row);
+            column.row_selected.connect ((selected_row) => {
+                foreach (var row in rows) {
+                    row.file_remove_button.visible = (row == get_selected_row ());
+                }
+
+                try {
+                    row = get_selected_row ();
+                    string text = "";
+                    GLib.FileUtils.get_contents (row.path, out text);
+                    Quilter.Application.gsettings.set_string("current-file", row.path);
+
+                    if (win.edit_view_content.modified) {
+                        Services.FileManager.save_file (row.path, text);
+                        win.edit_view_content.modified = false;
+                    }
+
+                    win.edit_view_content.text = text;
+                } catch (Error e) {
+                    warning ("Unexpected error during selection: " + e.message);
                 }
             });
-
-
-            column.show_all ();
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;

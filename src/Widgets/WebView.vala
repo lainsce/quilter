@@ -235,13 +235,13 @@ namespace Quilter.Widgets {
         public void update_html_view () {
             string processed_mk;
             process_frontmatter (buf.text, out processed_mk);
-            var mkd = new Markdown.Document.from_string (processed_mk.data,
+            var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
                                                          0x00000100 +
                                                          0x00001000 +
                                                          0x00040000 +
                                                          0x00200000 );
-            mkd.compile (0x00001000 +
-                         0x00000100 +
+            mkd.compile (0x00000100 +
+                         0x00001000 +
                          0x00040000 +
                          0x00200000 );
 
@@ -250,26 +250,42 @@ namespace Quilter.Widgets {
             string highlight = set_highlight();
             string latex = set_latex();
             string mermaid = set_mermaid();
-            string font_stylesheet = set_font_stylesheet ();
-            string stylesheet = set_stylesheet ();
-            string markdown = process_plugins (result);
+            string font = set_font_stylesheet ();
+            string style = set_stylesheet ();
+            string md = process_plugins (result);
+
+            bool focus_active = Quilter.Application.gsettings.get_boolean("focus-mode");
+            bool typewriter_active = Quilter.Application.gsettings.get_boolean("typewriter-scrolling");
+            if (focus_active && typewriter_active) {
+                style += """
+                html {
+                    padding-top: 50%;
+                    padding-bottom: 50%;
+                }
+                """;
+            } else {
+                style += """
+                html {
+                    padding-bottom: 10%;
+                }
+                """;
+            }
+
             html = """
             <!doctype html>
             <html>
                 <head>
                     <meta charset="utf-8">
+                    <style>%s</style>
                     %s
                     %s
                     <link rel="stylesheet" href="%s"/>
-                    <style>"%s"</style>
                 </head>
                 <body>
                     %s
-                    <div class=\"markdown-body\">
-                        %s
-                    </div>
+                    %s
                 </body>
-            </html>""".printf(highlight, latex, font_stylesheet, stylesheet, mermaid, markdown);
+            </html>""".printf(style, highlight, latex, font, mermaid, md);
             this.load_html (html, "file:///");
         }
 

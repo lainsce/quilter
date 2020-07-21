@@ -358,7 +358,6 @@ namespace Quilter {
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             sidebar = new Widgets.SideBar (this);
-            sidebar.row_selected.connect (on_sidebar_row_selected);
             sidebar.save_as.connect (() => on_save_as ());
             searchbar = new Widgets.SearchBar (this);
 
@@ -413,9 +412,6 @@ namespace Quilter {
             }
 
             update_title ();
-            if (Quilter.Application.gsettings.get_string("current-file") != "") {
-                on_sidebar_row_selected (sidebar.get_selected_row ());
-            }
 
             Gtk.Adjustment eadj = edit_view.get_vadjustment ();
             Gtk.Adjustment padj = preview_view.get_vadjustment ();
@@ -671,131 +667,124 @@ namespace Quilter {
             }
         }
 
-        private void on_create_new () {
-            var dialog = new Services.DialogUtils.Dialog ();
-            dialog.transient_for = this;
-
-            dialog.response.connect ((response_id) => {
-                switch (response_id) {
-                    case Gtk.ResponseType.OK:
-                        debug ("User saves the file.");
-                        unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-                        if (row != null && row.path != null) {
-                            on_save ();
-                        } else {
-                            on_save_as ();
-                        }
-
-                        edit_view_content.modified = false;
-                        dialog.close ();
-                        break;
-                    case Gtk.ResponseType.NO:
-                        edit_view_content.modified = false;
-                        dialog.close ();
-                        break;
-                    case Gtk.ResponseType.CANCEL:
-                    case Gtk.ResponseType.CLOSE:
-                    case Gtk.ResponseType.DELETE_EVENT:
-                        dialog.close ();
-                        return;
-                    default:
-                        assert_not_reached ();
-                }
-            });
-
-
-            if (edit_view_content.modified) {
-                dialog.run ();
+        public void save_last_files () {
+            string[] rows = {};
+            foreach (var child in sidebar.column.get_children ()) {
+              rows += ((Widgets.SideBarBox)child).path;
             }
-
-            debug ("Creating new document");
-            on_save ();
-            sidebar.add_file (Services.FileManager.get_temp_document_path ());
-            edit_view_content.text = "";
-            edit_view_content.modified = true;
-            on_save ();
-        }
-
-        private void on_open () {
-            string contents;
-            string path = Services.FileManager.open (out contents);
-
-            edit_view_content.text = contents;
-
-            if (path == Quilter.Application.gsettings.get_string("current-file")) {
-                sidebar.delete_row ();
-                sidebar.add_file (path);
-            } else {
-                sidebar.add_file (path);
-            }
-        }
-
-        private void on_save () {
-            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row != null) {
-                try {
-                    Services.FileManager.save_file (row.path ?? Services.FileManager.get_temp_document_path (), edit_view_content.text);
-                    edit_view_content.modified = false;
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-        }
-
-        private void on_save_as () {
-            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row != null) {
-                try {
-
-                    string path;
-                    Services.FileManager.save_as (edit_view_content.text, out path);
-                    edit_view_content.modified = false;
-
-                    for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                        if (Quilter.Application.gsettings.get_strv("last-files")[i] != null) {
-                            sidebar.delete_row_with_name ();
-                            sidebar.add_file (path);
-                        } else {
-                            sidebar.delete_row ();
-                            sidebar.add_file (path);
-                        }
-                    }
-                } catch (Error e) {
-                    warning ("Unexpected error during save: " + e.message);
-                }
-            }
-        }
-
-        private void on_sidebar_row_selected (Widgets.SideBarBox? box) {
-            if (box != null) {
-                try {
-                    string file_path = box.path;
-
-                    Quilter.Application.gsettings.set_string("current-file", box.path);
-
-                    string text;
-                    GLib.FileUtils.get_contents (file_path, out text);
-
-                    if (Quilter.Application.gsettings.get_string("current-file") != file_path) {
-                        if (Quilter.Application.gsettings.get_boolean("autosave") == true) {
-                            on_save ();
-                        }
-                    } else if (Quilter.Application.gsettings.get_string("current-file") == _("No Documents Open")) {
-                        return;
-                    }
-
-                    if (edit_view_content.modified) {
-                        Services.FileManager.save_file (file_path, text);
-                        edit_view_content.modified = false;
-                    }
-
-                    edit_view_content.text = text;
-                } catch (Error e) {
-                    warning ("Unexpected error during selection: " + e.message);
-                }
-            }
-
-            update_title ();
-        }
+            Quilter.Application.gsettings.set_strv ("last-files", rows);
+          }
+  
+          private void on_create_new () {
+              var dialog = new Services.DialogUtils.Dialog ();
+              dialog.transient_for = this;
+  
+              dialog.response.connect ((response_id) => {
+                  switch (response_id) {
+                      case Gtk.ResponseType.OK:
+                          debug ("User saves the file.");
+                          unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+                          if (row != null && row.path != null) {
+                              on_save ();
+                          } else {
+                              on_save_as ();
+                          }
+  
+                          edit_view_content.modified = false;
+                          dialog.close ();
+                          break;
+                      case Gtk.ResponseType.NO:
+                          edit_view_content.modified = false;
+                          dialog.close ();
+                          break;
+                      case Gtk.ResponseType.CANCEL:
+                      case Gtk.ResponseType.CLOSE:
+                      case Gtk.ResponseType.DELETE_EVENT:
+                          dialog.close ();
+                          return;
+                      default:
+                          assert_not_reached ();
+                  }
+              });
+  
+  
+              if (edit_view_content.modified) {
+                  dialog.run ();
+              }
+  
+              debug ("Creating new document");
+              on_save ();
+              sidebar.add_file (Services.FileManager.get_temp_document_path ());
+              sidebar.is_modified = true;
+              save_last_files ();
+              edit_view_content.text = "";
+              edit_view_content.modified = true;
+              sidebar.store.clear ();
+              sidebar.outline_populate ();
+              sidebar.view.expand_all ();
+              on_save ();
+          }
+  
+          private void on_open () {
+              string contents;
+              string path = Services.FileManager.open (out contents);
+  
+              if (sidebar.column.get_children () != null) {
+                  foreach (var child in sidebar.column.get_children ()) {
+                      if (((Widgets.SideBarBox)child).path == path) {
+                          sidebar.column.select_row (((Widgets.SideBarBox)child));
+                          break;
+                      } else {
+                          sidebar.add_file (path);
+                          sidebar.is_modified = true;
+                          break;
+                      }
+                  }
+              } else {
+                  sidebar.add_file (path);
+                  sidebar.is_modified = true;
+              }
+              edit_view_content.text = contents;
+              save_last_files ();
+              sidebar.store.clear ();
+              sidebar.outline_populate ();
+              sidebar.view.expand_all ();
+          }
+  
+          public void on_save () {
+              unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+              if (row != null) {
+                  try {
+                      Services.FileManager.save_file (row.path, edit_view_content.text);
+                      edit_view_content.modified = false;
+                  } catch (Error e) {
+                      warning ("Unexpected error during save: " + e.message);
+                  }
+              }
+          }
+  
+          private void on_save_as () {
+              unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+              if (row != null) {
+                  try {
+  
+                      string path;
+                      Services.FileManager.save_as (edit_view_content.text, out path);
+                      edit_view_content.modified = false;
+                      sidebar.store.clear ();
+                      sidebar.outline_populate ();
+                      sidebar.view.expand_all ();
+  
+                      foreach (var child in sidebar.column.get_children ()) {
+                          if (((Widgets.SideBarBox)child).path == Services.FileManager.get_temp_document_path ()) {
+                              ((Widgets.SideBarBox)child).path = path;
+                              break;
+                          }
+                      }
+                  } catch (Error e) {
+                      warning ("Unexpected error during save: " + e.message);
+                  }
+              }
+          }
     }
 }
