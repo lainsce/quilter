@@ -148,6 +148,11 @@ namespace Quilter {
 
             on_settings_changed ();
 
+            eadj = edit_view.get_vadjustment ();
+            eadj.notify["value"].connect (() => {
+                scroll_to ();
+            });
+
             Quilter.Application.gsettings.changed.connect (() => {
                 on_settings_changed ();
             });

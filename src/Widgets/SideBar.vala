@@ -73,8 +73,8 @@ namespace Quilter.Widgets {
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stack.add_titled (sidebar_files_list (), "files", _("FILES"));
-            stack.add_titled (sidebar_outline (), "outline", _("OUTLINE"));
+            stack.add_titled (sidebar_files_list (), "files", _("Files").up ());
+            stack.add_titled (sidebar_outline (), "outline", _("Outline").up ());
 
             scrolled_box.add (stack);
 
