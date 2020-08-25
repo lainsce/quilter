@@ -26,8 +26,7 @@
     color: #5D4738;
 }
 
-window.unified decoration,
-window.unified decoration-overlay {
+window.unified {
   border-radius: 8px;
 }
 

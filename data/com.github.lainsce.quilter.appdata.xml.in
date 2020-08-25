@@ -77,6 +77,8 @@
                 <li>Fix: Exported PDF margins</li>
                 <li>Fix: Many style fixes for Odin</li>
                 <li>Fix: Many minor backend fixes</li>
+            </ul>
+            </description>
         </release>
         <release version="2.5.1" date="2020-08-28">
          <description>

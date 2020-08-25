@@ -40,8 +40,6 @@ namespace Quilter.Widgets {
             var window_pager = new Hdy.Carousel ();
             window_pager.margin = 12;
             window_pager.margin_top = 0;
-            window_pager.indicator_style = Hdy.CarouselIndicatorStyle.DOTS;
-            window_pager.indicator_spacing = 12;
             window_pager.insert (chgrid, 0);
             window_pager.insert (exgrid, 1);
 
