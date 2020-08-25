@@ -92,7 +92,6 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
             file_remove_button.clicked.connect (() => {
-                win.sidebar.delete_row_with_name ();
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
                 win.toolbar.set_subtitle (_("No Documents Open"));

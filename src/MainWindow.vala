@@ -22,6 +22,7 @@ using Granite.Services;
 
 namespace Quilter {
     public class MainWindow : Gtk.ApplicationWindow {
+        public Gtk.Adjustment eadj;
         public Widgets.StatusBar statusbar;
         public Widgets.SideBar sidebar;
         public Widgets.SearchBar searchbar;
@@ -97,6 +98,11 @@ namespace Quilter {
             }
 
             on_settings_changed ();
+
+            eadj = edit_view.get_vadjustment ();
+            eadj.notify["value"].connect (() => {
+                scroll_to ();
+            });
 
             Quilter.Application.gsettings.changed.connect (() => {
                 on_settings_changed ();
@@ -235,6 +241,14 @@ namespace Quilter {
             provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
 
+            int window_x, window_y, width, height;
+            Quilter.Application.gsettings.get ("window-position", "(ii)", out window_x, out window_y);
+            Quilter.Application.gsettings.get ("window-size", "(ii)", out width, out height);
+            if (window_x != -1 || window_y != -1) {
+                this.move (window_x, window_y);
+            }
+            this.resize (width, height);
+
             toolbar = new Widgets.Headerbar (this);
             toolbar.open.connect (on_open);
             toolbar.save.connect (on_save);
@@ -295,9 +309,8 @@ namespace Quilter {
             edit_view.add (edit_view_content);
 
             preview_view = new Gtk.ScrolledWindow (null, null);
-            preview_view_content = new Widgets.Preview (this, edit_view_content.buffer);
+            preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view.add (preview_view_content);
-            ((Gtk.Viewport) preview_view.get_child ()).set_vscroll_policy (Gtk.ScrollablePolicy.NATURAL);
             var preview_view_context = preview_view.get_style_context ();
             preview_view_context.add_class ("quilter-preview-view");
 
@@ -342,7 +355,6 @@ namespace Quilter {
             toolbar.pack_end (view_mode);
 
             paned = new Gtk.Paned (Gtk.Orientation.HORIZONTAL);
-            paned.set_position (Quilter.Application.gsettings.get_int("window-width")/2);
 
             main_stack = new Gtk.Stack ();
             main_stack.hexpand = true;
@@ -357,7 +369,7 @@ namespace Quilter {
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
-            sidebar = new Widgets.SideBar (this);
+            sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
             searchbar = new Widgets.SearchBar (this);
 
@@ -399,36 +411,13 @@ namespace Quilter {
 
             add (overlay);
 
-            int x = Quilter.Application.gsettings.get_int("window-x");
-            int y = Quilter.Application.gsettings.get_int("window-y");
-            int w = Quilter.Application.gsettings.get_int("window-width");
-            int h = Quilter.Application.gsettings.get_int("window-height");
-
-            if (x != -1 && y != -1) {
-                this.move (x, y);
-            }
-            if (w != 0 && h != 0) {
-                this.resize (w, h);
-            }
-
             update_title ();
-
-            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
-            Gtk.Adjustment padj = preview_view.get_vadjustment ();
-            eadj.value_changed.connect (() => {
-                scroll_to ();
-            });
-            padj.value_changed.connect (() => {
-                scroll_to_fix ();
-            });
-            padj.set_lower(1);
 
             if (!Granite.Services.System.history_is_enabled ()) {
                 edit_view_content.buffer.text = "";
                 Services.FileManager.file = null;
                 toolbar.set_subtitle (_("No Documents Open"));
                 sidebar.store.clear ();
-                sidebar.delete_row ();
                 statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
             }
 
@@ -460,14 +449,12 @@ namespace Quilter {
         }
 
         public override bool delete_event (Gdk.EventAny event) {
-            int x, y, w, h;
-            get_position (out x, out y);
+            int w, h;
             get_size (out w, out h);
-
-            Quilter.Application.gsettings.set_int("window-x", x);
-            Quilter.Application.gsettings.set_int("window-y", y);
-            Quilter.Application.gsettings.set_int("window-width", w);
-            Quilter.Application.gsettings.set_int("window-height", h);
+            Quilter.Application.gsettings.set ("window-size", "(ii)", w, h);
+            int root_x, root_y;
+            this.get_position (out root_x, out root_y);
+            Quilter.Application.gsettings.set ("window-position", "(ii)", root_x, root_y);
 
             string[] files = {};
             foreach (unowned Widgets.SideBarBox row in sidebar.get_rows ()) {
@@ -489,33 +476,10 @@ namespace Quilter {
         }
 
         public void scroll_to () {
-            Gtk.Adjustment eadj = edit_view.get_vadjustment ();
-            Gtk.Adjustment padj = preview_view.get_vadjustment ();
-            var value = eadj.get_value();
-            var psize_edit = eadj.get_page_size();
-            var psize_prev = padj.get_page_size();
-            var upper_edit = eadj.get_upper();
-            var upper_prev = padj.get_upper();
-
-            if (value >= (upper_edit - psize_edit)) {
-                padj.set_value(upper_prev - psize_prev);
-            } else {
-                padj.set_value(value / upper_edit * upper_prev);
-            }
-
-            padj.value_changed.connect (() => {
-                scroll_to_fix ();
-            });
-        }
-
-        public void scroll_to_fix () {
-            Gtk.Adjustment adj = preview_view.get_vadjustment ();
-            var value = adj.get_value();
-            if (value == 0) {
-                scroll_to ();
-            } else {
-                // pass
-            }
+            Gtk.Adjustment vap = edit_view.get_vadjustment ();
+            var upper = vap.get_upper();
+            var value = vap.get_value();
+            preview_view_content.scroll_value = value/upper;
         }
 
         private static void widget_unparent (Gtk.Widget widget) {

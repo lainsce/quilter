@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 Lains
+* Copyright (c) 2018-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -28,36 +28,34 @@ namespace Quilter.Widgets {
         public Gtk.Grid files_grid;
         public Gtk.Grid outline_grid;
         public Gtk.Stack stack;
-        private Gtk.StackSwitcher stackswitcher;
         public Gtk.TreeStore store;
         public Gtk.TreeView view;
-        public Gtk.TreeViewColumn tvc;
+        public Gtk.TreeSelection selection;
         public Gtk.CellRendererText crt;
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
-        private Gtk.TreeIter subsection;
-        private Gtk.TreeIter subsubsection;
-        private Gtk.TreeIter paragraph;
         private Gtk.Label no_files;
+        public Gtk.StackSwitcher stackswitcher;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool is_modified {get; set; default = false;}
 
         public signal void save_as ();
-        public signal void row_selected (Widgets.SideBarBox box);
 
         private static SideBar? instance = null;
         public static SideBar get_instance () {
             if (instance == null) {
-                instance = new Widgets.SideBar (Quilter.Application.win);
+                instance = new Widgets.SideBar (Quilter.Application.win, Quilter.Application.win.edit_view_content);
             }
 
             return instance;
         }
 
-        public SideBar (MainWindow win) {
+        public SideBar (MainWindow win, Widgets.EditView ev) {
             this.win = win;
+            this.ev = ev;
+            this.is_modified = false;
 
             var scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
@@ -67,59 +65,43 @@ namespace Quilter.Widgets {
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class ("h2");
+            no_files_style_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             no_files.sensitive = false;
             no_files.margin = 12;
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stackswitcher = new Gtk.StackSwitcher ();
-            var s_context = stackswitcher.get_style_context ();
-            s_context.add_class ("linked");
-            stackswitcher.halign = Gtk.Align.FILL;
-            stackswitcher.homogeneous = true;
-            stackswitcher.margin = 0;
-            stackswitcher.stack = stack;
-            stack.add_titled (sidebar_files_list (), "files", _("Files"));
-            stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
-            stack.add_titled (sidebar_outline (), "outline", _("Outline"));
-            stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
-
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                s_context.add_class ("dark-switcher");
-            } else {
-                s_context.remove_class ("dark-switcher");
-            }
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                    s_context.add_class ("dark-switcher");
-                } else {
-                    s_context.remove_class ("dark-switcher");
-                }
-            });
+            stack.add_titled (sidebar_files_list (), "files", _("Files").up());
+            stack.add_titled (sidebar_outline (), "outline", _("Outline").up());
 
             scrolled_box.add (stack);
 
-            var grid = new Gtk.Grid ();
-            var g_context = grid.get_style_context ();
-            g_context.add_class ("quilter-sidebar");
-            g_context.add_class (Gtk.STYLE_CLASS_SIDEBAR);
-            grid.margin_top = 0;
-            grid.attach (stackswitcher, 0, 0, 1, 1);
-            grid.attach (scrolled_box, 0, 1, 1, 1);
+            stackswitcher = new Gtk.StackSwitcher ();
+            stackswitcher.margin_start = stackswitcher.margin_end = 12;
+            stackswitcher.homogeneous = true;
+            stackswitcher.margin_top = stackswitcher.margin_bottom = 1;
+            var sw_context = stackswitcher.get_style_context ();
+            sw_context.add_class ("quilter-sidebar-switcher");
+            stackswitcher.stack = stack;
 
-            this.add (grid);
+            var main_grid = new Gtk.Grid ();
+            main_grid.orientation = Gtk.Orientation.VERTICAL;
+            main_grid.add (stackswitcher);
+            main_grid.add (scrolled_box);
+            main_grid.get_style_context ().add_class ("quilter-sidebar");
+
+            add (main_grid);
+
+            var sb_context = this.get_style_context ();
+            sb_context.add_class ("quilter-sidebar");
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
 
         public Gtk.Widget sidebar_files_list () {
-            
             column = new Gtk.ListBox ();
-            column.hexpand = true;
-            column.vexpand = true;
-            column.set_size_request (280,-1);
+            column.expand = true;
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
@@ -153,58 +135,86 @@ namespace Quilter.Widgets {
 
             files_grid = new Gtk.Grid ();
             files_grid.hexpand = false;
-            files_grid.set_size_request (280, -1);
             files_grid.attach (column, 0, 0, 1, 1);
             files_grid.show_all ();
             return files_grid;
         }
 
         public Gtk.Widget sidebar_outline () {
-            
             view = new Gtk.TreeView ();
             view.expand = true;
-            view.hexpand = true;
             view.headers_visible = false;
-            view.margin_top = 6;
-            view.set_activate_on_single_click (true);
+            view.show_expanders = false;
+            view.activate_on_single_click = true;
+
+            crt = new Gtk.CellRendererText ();
+            crt.ellipsize = Pango.EllipsizeMode.END;
+
+            view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
 
             store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
 
-            crt = new Gtk.CellRendererText ();
-            crt.font = "Open Sans 11";
-
-            tvc = new Gtk.TreeViewColumn.with_attributes ("Outline", crt, "text", 0, null);
-            tvc.set_spacing (6);
-            tvc.set_sort_column_id (0);
-            tvc.set_sort_order (Gtk.SortType.DESCENDING);
-            view.append_column (tvc);
-
             store.clear ();
-            view.expand_all ();
             outline_populate ();
+            view.expand_all ();
+
+            selection = view.get_selection ();
+            selection.set_mode (Gtk.SelectionMode.SINGLE);
+
+            view.button_press_event.connect ((widget, event) => {
+                //capture which mouse button
+                uint clicked_button;
+                event.get_button(out clicked_button);
+				//handle right button click for context menu
+                if (event.get_event_type ()  == Gdk.EventType.BUTTON_PRESS  &&  clicked_button == 1){
+                    Gtk.TreePath path; Gtk.TreeViewColumn column; int cell_x; int cell_y;
+			        view.get_path_at_pos ((int)event.x, (int)event.y, out path, out column, out cell_x, out cell_y);
+			        view.grab_focus ();
+                    view.set_cursor (path, column, false);
+
+					selchanged (selection);
+				}
+				return false;
+            });
 
             outline_grid = new Gtk.Grid ();
             outline_grid.hexpand = false;
             outline_grid.vexpand = false;
-            outline_grid.set_size_request (280, -1);
             outline_grid.attach (view, 0, 0, 1, 1);
             outline_grid.show_all ();
 
             return outline_grid;
         }
 
+        public void selchanged (Gtk.TreeSelection row) {
+            // Get string value from row clicked from TreeView and scroll to it in Editor
+            Gtk.TreeModel pathmodel;
+            Gtk.TreeIter pathiter;
+            if (row.count_selected_rows () == 1){
+                row.get_selected (out pathmodel, out pathiter);
+                Value val;
+                pathmodel.get_value (pathiter, 0, out val);
+
+                Gtk.TextIter start, end, match_start, match_end;
+                ev.buffer.get_bounds (out start, out end);
+
+                bool found = start.forward_search (val.get_string (), 0, out match_start, out match_end, null);
+                if (found) {
+                    ev.scroll_to_iter (match_start, 0.0, true, 0.5, 0.1);
+                }
+            }
+        }
+
         public void outline_populate () {
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
-                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
-
-                if (file != null && file.query_exists ()) {
+               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
+               if (file != null && file.query_exists ()) {
                     try {
-                        var reg = new Regex("(?m)^(?<header>\\#{1,6})\\s(?<text>.{0,26}\\$?)");
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
                         GLib.MatchInfo match;
-
+                        var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
                         if (reg.match (buffer, 0, out match)) {
                             do {
                                 if (match.fetch_named ("header") == "#") {
@@ -216,15 +226,6 @@ namespace Quilter.Widgets {
                                 } else if (match.fetch_named ("header") == "###") {
                                     store.insert (out section, subheader, -1);
                                     store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "####") {
-                                    store.insert (out subsection, section, -1);
-                                    store.set (subsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "#####") {
-                                    store.insert (out subsubsection, subsection, -1);
-                                    store.set (subsubsection, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                } else if (match.fetch_named ("header") == "######") {
-                                    store.insert (out paragraph, subsubsection, -1);
-                                    store.set (paragraph, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 }
                             } while (match.next ());
                             debug ("Outline populated");
@@ -233,13 +234,14 @@ namespace Quilter.Widgets {
                         warning ("ERR: %s", e.message);
                     }
                 }
+
             }
         }
 
         public Gee.LinkedList<SideBarBox> get_files () {
             foreach (Gtk.Widget item in column.get_children ()) {
                 if (files != null)
-	                s_files.add ((SideBarBox)item);
+                    s_files.add ((SideBarBox)item);
             }
             return s_files;
         }
@@ -260,21 +262,9 @@ namespace Quilter.Widgets {
             return filebox;
         }
 
-        public void delete_row () {
+        public void delete_rows () {
             foreach (Gtk.Widget item in column.get_children ()) {
                 item.destroy ();
-            }
-        }
-
-        public void delete_row_with_name () {
-            if (get_selected_row ().path == Quilter.Application.gsettings.get_string("current-file")) {
-                get_selected_row ().destroy ();
-            } else {
-                foreach (Gtk.Widget item in column.get_children ()) {
-                    if (item != get_selected_row ()) {
-                        item.destroy ();
-                    }
-                }
             }
         }
 

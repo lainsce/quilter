@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -17,41 +17,56 @@
 * Boston, MA 02110-1301 USA
 *
 */
-using WebKit;
-
-namespace Quilter.Widgets {
-    public class Preview : WebKit.WebView {
+namespace Quilter {
+    public class Widgets.Preview : WebKit.WebView {
         private static Preview? instance = null;
+        public Widgets.EditView buf;
         public string html;
-        public Gtk.SourceBuffer buf;
+        public double scroll_value {
+            set {
+                run_javascript ("""
+                    var b = document.body,
+                    e = document.documentElement;
+                    var height = Math.max( b.scrollHeight,
+                                           b.offsetHeight,
+                                           e.clientHeight,
+                                           e.scrollHeight,
+                                           e.offsetHeight
+                                 );
+                    e.scrollTop = (%.13f * e.offsetHeight);
+                    e.scrollTop;
+                """.printf(value), null);
+            }
+        }
 
         public static Preview get_instance () {
             if (instance == null) {
-                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content.buffer);
+                instance = new Widgets.Preview (Application.win, Application.win.edit_view_content);
             }
 
             return instance;
         }
 
-        public Preview (MainWindow window, Gtk.SourceBuffer buf) {
-            Object(user_content_manager: new UserContentManager());
-            visible = true;
-            vexpand = true;
-            hexpand = true;
-            this.margin = 2;
+        public Preview (MainWindow window, Widgets.EditView buf) {
+            Object(user_content_manager: new WebKit.UserContentManager());
             this.buf = buf;
-            var settingsweb = get_settings ();
-            settingsweb.enable_page_cache = false;
-            settingsweb.javascript_can_open_windows_automatically = false;
+            var webkit_settings = get_settings ();
+            webkit_settings.enable_page_cache = false;
+            webkit_settings.javascript_can_open_windows_automatically = false;
+            webkit_settings.enable_java = false;
+            webkit_settings.enable_mediasource = true;
+            webkit_settings.enable_plugins = false;
+
+            this.scroll_value = -1;
 
             update_html_view ();
             connect_signals ();
         }
 
         protected override bool context_menu (
-            ContextMenu context_menu,
+            WebKit.ContextMenu context_menu,
             Gdk.Event event,
-            HitTestResult hit_test_result
+            WebKit.HitTestResult hit_test_result
         ) {
             return true;
         }
@@ -135,25 +150,21 @@ namespace Quilter.Widgets {
         }
 
         private void connect_signals () {
-            create.connect ((navigation_action) => {
-                launch_browser (navigation_action.get_request().get_uri ());
-                return (Gtk.Widget) null;
-            });
-
             decide_policy.connect ((decision, type) => {
                 switch (type) {
                     case WebKit.PolicyDecisionType.NEW_WINDOW_ACTION:
                         if (decision is WebKit.ResponsePolicyDecision) {
-                            launch_browser ((decision as WebKit.ResponsePolicyDecision).request.get_uri ());
+                            var policy = (WebKit.ResponsePolicyDecision) decision;
+                            launch_browser (policy.request.get_uri ());
                         }
-                    break;
+                        break;
                     case WebKit.PolicyDecisionType.RESPONSE:
                         if (decision is WebKit.ResponsePolicyDecision) {
                             var policy = (WebKit.ResponsePolicyDecision) decision;
                             launch_browser (policy.request.get_uri ());
                             return false;
                         }
-                    break;
+                        break;
                 }
 
                 return true;
@@ -283,7 +294,9 @@ namespace Quilter.Widgets {
                 </head>
                 <body>
                     %s
-                    %s
+                    <div class="markdown-body">
+                        %s
+                    </div>
                 </body>
             </html>""".printf(style, highlight, latex, font, mermaid, md);
             this.load_html (html, "file:///");
