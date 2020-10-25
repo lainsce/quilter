@@ -34,6 +34,9 @@ namespace Quilter.Widgets {
         }
 
         construct {
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+
             get_chgrid ();
             get_exgrid ();
 
@@ -42,6 +45,9 @@ namespace Quilter.Widgets {
             window_pager.margin_top = 0;
             window_pager.insert (chgrid, 0);
             window_pager.insert (exgrid, 1);
+
+            var window_pager_indicators = new Hdy.CarouselIndicatorLines ();
+            window_pager_indicators.set_carousel (window_pager);
 
             var titlebar = new Gtk.HeaderBar ();
             titlebar.spacing = 4;
@@ -53,6 +59,7 @@ namespace Quilter.Widgets {
             var grid = new Gtk.Grid ();
             grid.attach (window_title, 0, 0);
             grid.attach (window_pager, 0, 1);
+            grid.attach (window_pager_indicators, 0, 2);
 
             add (grid);
 
@@ -65,6 +72,9 @@ namespace Quilter.Widgets {
                 }
                 return false;
             });
+
+            var context = this.get_style_context ();
+            context.add_class ("quilter-dialog-hb");
         }
 
         private void get_chgrid () {

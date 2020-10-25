@@ -1,70 +1,136 @@
 @define-color text_color #EEE;
 @define-color accent #70C0FF;
 @define-color accent_color_500 #70C0FF;
+@define-color color_primary #333;
+
+@define-color prefs_accent #6A7D85;
+@define-color prefs_primary #333;
+@define-color prefs_fg #FFF;
 
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar,
 .quilter-dialog-hb .combo {
-    background: @base_color;
+    background: @prefs_primary;
+    color: @prefs_fg;
 }
+.quilter-dialog-hb switch {
+    background: shade(@prefs_primary, 0.75);
+}
+.quilter-dialog-hb switch slider {
+    background: shade(@prefs_primary, 1.1);
+}
+.quilter-dialog-hb button:not(:checked):not(.titlebutton) {
+    background: shade(@prefs_primary, 1.2);
+    color: @prefs_fg;
+}
+.quilter-dialog-hb button.titlebutton {
+    background: transparent;
+    color: @prefs_fg;
+    padding: 4px;
+    margin: 5px;
+}
+.quilter-dialog-hb switch:checked {
+    background: @prefs_accent;
+}
+
+.quilter-prefs-vs button {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 8px 0 0 8px;
+    color: @prefs_fg;
+}
+.quilter-prefs-vs button:not(:first-child):not(:last-child) {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0;
+}
+.quilter-prefs-vs button:last-child {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0 8px 8px 0;
+}
+.quilter-prefs-vs button label {
+    font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+.quilter-prefs-vs button:not(:checked):not(:active) label {
+    font-weight: 500;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+.quilter-prefs-vs button:not(:checked):not(:active) {
+    border-top: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+    border-bottom: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+    background: mix(@prefs_accent, @prefs_primary, 0.85);
+}
+.quilter-prefs-vs button {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+    border: 1px solid transparent;
+}
+.quilter-prefs-vs button:first-child {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+    border-left: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+}
+.quilter-prefs-vs button:last-child {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+    border-right: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.85), 0.57);
+}
+
 .quilter-sidebar-switcher {
-    background: mix(@accent, @base_color, 0.85);
+    background: mix(@accent, @color_primary, 0.85);
 }
 .quilter-sidebar-switcher button:not(:checked):not(:active) {
-    border-top: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-    border-bottom: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-    background: mix (@accent, @base_color, 0.85);
+    border-top: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
+    border-bottom: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
+    background: mix (@accent, @color_primary, 0.85);
 }
 .quilter-sidebar-switcher button {
-    background: shade(mix (@accent, @base_color, 0.85), 0.77);
+    background: shade(mix (@accent, @color_primary, 0.85), 0.77);
     border: 1px solid transparent;
 }
 .quilter-sidebar-switcher button:first-child {
-    border-left: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
+    border-left: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
 }
 .quilter-sidebar-switcher button:last-child {
-    border-right: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-}
-.quilter-dialog-hb switch {
-    background: shade(@base_color, 0.5);
-}
-.quilter-dialog-hb switch:checked {
-    background: @accent;
+    border-right: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
 }
 
 .quilter-toolbar .image-button:hover {
-    background: shade(@base_color, 0.88);
+    background: shade(@color_primary, 0.88);
 }
 
 .quilter-toolbar .image-button:active,
 .quilter-toolbar .image-button.toggle:checked {
-    background: shade(@base_color, 0.88);
+    background: shade(@color_primary, 0.88);
 }
 
 .quilter-toolbar {
-    background: shade(@base_color, 0.0);
+    background: shade(@color_primary, 0.0);
 }
 
 .quilter-toolbar-side {
-    background: mix(@accent, @base_color, 0.85);
+    background: mix(@accent, @color_primary, 0.85);
     border: none;
 }
 
 .sb-sidebutton {
-	background: shade(@base_color, 0.88);
+	background: shade(@color_primary, 0.88);
 }
 
 .quilter-sidebar {
     border-bottom-color: transparent;
     border-bottom-width: 1px;
-    background: mix(@accent, @base_color, 0.85);
+    background: mix(@accent, @color_primary, 0.85);
     color: @text_color;
 }
 
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
-    background: mix(@accent, @base_color, 0.85);
+    background: mix(@accent, @color_primary, 0.85);
     color: @text_color;
     box-shadow: 0 1px transparent inset;
 }
@@ -72,8 +138,8 @@
 .quilter-sidebar-box {
     padding: 3px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-    background-color: mix (@accent, @base_color, 0.85);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
+    background-color: mix (@accent, @color_primary, 0.85);
 }
 
 .quilter-sidebar-box:selected,
@@ -81,15 +147,15 @@
 .quilter-sidebar-box:hover {
     padding: 3px;
     border-radius: 8px;
-    border: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-    background-color: shade(mix (@accent, @base_color, 0.85), 0.77);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
+    background-color: shade(mix (@accent, @color_primary, 0.85), 0.77);
     color: @text_color;
 }
 
 .preview-row:active,
 .preview-row:selected {
-    border: 1px solid shade(mix (@accent, @base_color, 0.85), 0.77);
-    background-color: shade(mix (@accent, @base_color, 0.85), 0.77);
+    border: 1px solid shade(mix (@accent, @color_primary, 0.85), 0.77);
+    background-color: shade(mix (@accent, @color_primary, 0.85), 0.77);
     color: @text_color;
 }
 

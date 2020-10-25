@@ -3,12 +3,84 @@
 @define-color accent #60C9C2;
 @define-color accent_color_500 #60C9C2;
 
+@define-color prefs_accent #AA9D85;
+@define-color prefs_primary #e6e5e1;
+@define-color prefs_fg #363431;
+
 .quilter-dialog-hb,
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar,
 .quilter-dialog-hb .combo {
-    background: @color_primary;
+    background: @prefs_primary;
+    color: @prefs_fg;
 }
+.quilter-dialog-hb switch {
+    background: shade(@prefs_primary, 0.75);
+}
+.quilter-dialog-hb switch slider {
+    background: shade(@prefs_primary, 1.1);
+}
+.quilter-dialog-hb button:not(:checked):not(.titlebutton) {
+    background: shade(@prefs_primary, 1.2);
+    color: @prefs_fg;
+}
+.quilter-dialog-hb button.titlebutton {
+    background: transparent;
+    color: @prefs_fg;
+    padding: 4px;
+    margin: 5px;
+}
+.quilter-dialog-hb switch:checked {
+    background: @prefs_accent;
+}
+
+.quilter-prefs-vs button {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 8px 0 0 8px;
+    color: @prefs_fg;
+}
+.quilter-prefs-vs button:not(:first-child):not(:last-child) {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0;
+}
+.quilter-prefs-vs button:last-child {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0 8px 8px 0;
+}
+.quilter-prefs-vs button label {
+    font-weight: 700;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+.quilter-prefs-vs button:not(:checked):not(:active) label {
+    font-weight: 500;
+    opacity: 0.8;
+    padding-bottom: 0.5em;
+    padding-top: 0.5em;
+}
+.quilter-prefs-vs button:not(:checked):not(:active) {
+
+    border-top: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+    border-bottom: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+    background: mix(@prefs_accent, @prefs_primary, 0.95);
+}
+.quilter-prefs-vs button {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+    border: 1px solid transparent;
+}
+.quilter-prefs-vs button:first-child {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+    border-left: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+}
+.quilter-prefs-vs button:last-child {
+    background: shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+    border-right: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+}
+
 .quilter-sidebar-switcher {
     background: mix(@accent, @color_primary, 0.85);
 }
@@ -25,12 +97,6 @@
 }
 .quilter-sidebar-switcher button:last-child {
     border-right: 1px solid shade(@accent, 1.1);;
-}
-.quilter-dialog-hb switch {
-    background: shade(@color_primary, 0.88);
-}
-.quilter-dialog-hb switch:checked {
-    background: @accent;
 }
 
 .quilter-toolbar .image-button:hover {
