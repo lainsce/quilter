@@ -146,7 +146,7 @@ namespace Quilter {
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
 
-            on_settings_changed ();
+            on_settings_changed.begin ();
 
             eadj = edit_view.get_vadjustment ();
             eadj.notify["value"].connect (() => {
@@ -154,7 +154,7 @@ namespace Quilter {
             });
 
             Quilter.Application.gsettings.changed.connect (() => {
-                on_settings_changed ();
+                on_settings_changed.begin ();
             });
 
             spell = new GtkSpell.Checker ();
@@ -395,7 +395,7 @@ namespace Quilter {
             normal_view.attach (onormal_icon,0,1);
             normal_view.attach (onormal_label,1,1);
 
-            change_layout ();
+            change_layout.begin ();
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
@@ -638,13 +638,13 @@ namespace Quilter {
             }
         }
 
-        private void on_settings_changed () {
+        private async void on_settings_changed () {
             show_searchbar ();
             show_statusbar ();
             show_sidebar ();
             update_count ();
             edit_view_content.dynamic_margins ();
-            change_layout ();
+            change_layout.begin ();
 
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.no_show_all = false;
@@ -701,7 +701,7 @@ namespace Quilter {
             render_func ();
         }
 
-        private void change_layout () {
+        private async void change_layout () {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (overlay_editor);
                 widget_unparent (preview_view_content);
