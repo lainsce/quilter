@@ -140,7 +140,7 @@ namespace Quilter.Widgets {
             }
 
             if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                Timeout.add_seconds (30, () => {
+                Timeout.add_seconds (Quilter.Application.gsettings.get_int("autosave-delay"), () => {
                     save ();
                     modified = false;
                     return true;

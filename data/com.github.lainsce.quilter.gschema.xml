@@ -41,6 +41,10 @@
       <summary>Autosave edited files</summary>
       <description>Autosave edited files.</description>
     </key>
+    <key name="autosave-delay" type="i">
+      <default>30</default>
+      <summary>The autosave delay between saves</summary>
+    </key>
     <key name="current-file" type="s">
       <default>''</default>
       <summary>Current working file</summary>

@@ -250,18 +250,57 @@ namespace Quilter.Widgets {
             });
 
             var edit_header = new Granite.HeaderLabel (_("Editor"));
-            var save_button_label = new SettingsLabel (_("Save files when changed:"));
+
+            var save_button_label = new SettingsLabel (_("Autosave opened document:"));
             var save_button = new SettingsSwitch ("autosave");
+            var save_revealer = new Gtk.Revealer ();
+            var save_time_label = new SettingsLabel (_("Autosave every:"));
+
+            var save_time_spinbutton = new Gtk.SpinButton.with_range (5, 60, 5);
+            save_time_spinbutton.set_value (Quilter.Application.gsettings.get_int("autosave-delay"));
+            Quilter.Application.gsettings.bind ("autosave-delay", save_time_spinbutton, "value", SettingsBindFlags.DEFAULT);
+
+            var save_time_unit = new SettingsLabel (_("seconds."));
+
+            var custom_help1 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            custom_help1.halign = Gtk.Align.START;
+            custom_help1.margin_start = 6;
+            custom_help1.tooltip_text = _("Warning: Values below 15 seconds may affect your storage medium negatively.");
+
+            var save_grid = new Gtk.Grid ();
+            save_grid.row_homogeneous = false;
+            save_grid.column_spacing = 6;
+            save_grid.halign = Gtk.Align.CENTER;
+            save_grid.attach (save_time_label, 0, 0);
+            save_grid.attach (save_time_spinbutton, 1, 0);
+            save_grid.attach (save_time_unit, 2, 0);
+            save_grid.attach (custom_help1, 3, 0);
+
+            save_revealer.add (save_grid);
+
+            if (save_button.active) {
+                save_revealer.reveal_child = true;
+            } else {
+                save_revealer.reveal_child = false;
+            }
+
+            save_button.bind_property (
+                "active",
+                save_revealer,
+                "reveal-child",
+                GLib.BindingFlags.SYNC_CREATE
+            );
+
             var pos_button_label = new SettingsLabel (_("Highlight Speech Parts<sup>𝜷</sup>:"));
             var pos_button = new SettingsSwitch ("pos");
-            var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
-            custom_help.halign = Gtk.Align.START;
-            custom_help.margin_start = 6;
-            custom_help.tooltip_text = _("Only available in English.\n\nColors words based on type:\n- Nouns are Black\n- Verbs are Blue\n- Adjectives are Yellow\n- Adverbs are Purple\n- Conjunctions are Green");
+            var custom_help2 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            custom_help2.halign = Gtk.Align.START;
+            custom_help2.margin_start = 6;
+            custom_help2.tooltip_text = _("Only available in English.\n\nColors words based on type:\n- Nouns are Black\n- Verbs are Blue\n- Adjectives are Yellow\n- Adverbs are Purple\n- Conjunctions are Green");
 
             var pos_switch_grid = new Gtk.Grid ();
             pos_switch_grid.add (pos_button);
-            pos_switch_grid.add (custom_help);
+            pos_switch_grid.add (custom_help2);
 
             var spellcheck_label = new SettingsLabel (_("Spellchecking:"));
             var spellcheck = new SettingsSwitch ("spellcheck");
@@ -269,22 +308,23 @@ namespace Quilter.Widgets {
             editor_grid.attach (edit_header,  0, 0, 3, 1);
             editor_grid.attach (save_button_label,  0, 1, 1, 1);
             editor_grid.attach (save_button, 1, 1, 1, 1);
-            editor_grid.attach (pos_button_label,  0, 2, 1, 1);
-            editor_grid.attach (pos_switch_grid, 1, 2, 1, 1);
-            editor_grid.attach (spellcheck_label, 0, 3, 1, 1);
-            editor_grid.attach (spellcheck, 1, 3, 1, 1);
+            editor_grid.attach (save_revealer, 0, 2, 3, 1);
+            editor_grid.attach (pos_button_label,  0, 3, 1, 1);
+            editor_grid.attach (pos_switch_grid, 1, 3, 1, 1);
+            editor_grid.attach (spellcheck_label, 0, 4, 1, 1);
+            editor_grid.attach (spellcheck, 1, 4, 1, 1);
 
-            editor_grid.attach (geo_header, 0, 4, 3, 1);
-            editor_grid.attach (spacing_label, 0, 5, 1, 1);
-            editor_grid.attach (spacing_size, 1, 5, 1, 1);
-            editor_grid.attach (margins_label, 0, 6, 1, 1);
-            editor_grid.attach (margins_size, 1, 6, 1, 1);
+            editor_grid.attach (geo_header, 0, 5, 3, 1);
+            editor_grid.attach (spacing_label, 0, 6, 1, 1);
+            editor_grid.attach (spacing_size, 1, 6, 1, 1);
+            editor_grid.attach (margins_label, 0, 7, 1, 1);
+            editor_grid.attach (margins_size, 1, 7, 1, 1);
 
-            editor_grid.attach (font_header, 0, 7, 3, 1);
-            editor_grid.attach (font_type_label, 0, 8, 1, 1);
-            editor_grid.attach (font_type, 1, 8, 1, 1);
-            editor_grid.attach (font_label, 0, 9, 1, 1);
-            editor_grid.attach (font_size, 1, 9, 1, 1);
+            editor_grid.attach (font_header, 0, 8, 3, 1);
+            editor_grid.attach (font_type_label, 0, 9, 1, 1);
+            editor_grid.attach (font_type, 1, 9, 1, 1);
+            editor_grid.attach (font_label, 0, 10, 1, 1);
+            editor_grid.attach (font_size, 1, 10, 1, 1);
         }
 
         private void get_interface_grid () {
