@@ -89,7 +89,7 @@ namespace Quilter.Widgets {
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
-            header.set_size_request (199,45);
+            header.set_size_request (199,38);
             header.has_subtitle = false;
             header.set_title (null);
 
