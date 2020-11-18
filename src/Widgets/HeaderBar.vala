@@ -379,6 +379,32 @@ namespace Quilter.Widgets {
                 }
             });
 
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                color_button_light.sensitive = false;
+                color_button_sepia.sensitive = false;
+                color_button_dark.sensitive = false;
+
+                top_grid.attach (prefer_label_button, 0, 1, 3, 1);
+                prefer_label_button.visible = true;
+                color_button_dark.set_active (true);
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                color_button_light.sensitive = true;
+                color_button_sepia.sensitive = true;
+                color_button_dark.sensitive = true;
+
+                top_grid.remove (prefer_label_button);
+                prefer_label_button.visible = false;
+                color_button_light.set_active (true);
+            } else {
+                color_button_light.sensitive = true;
+                color_button_sepia.sensitive = true;
+                color_button_dark.sensitive = true;
+
+                top_grid.remove (prefer_label_button);
+                prefer_label_button.visible = false;
+                color_button_light.set_active (true);
+            }
+
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                     color_button_light.sensitive = false;
@@ -395,6 +421,15 @@ namespace Quilter.Widgets {
 
                     top_grid.remove (prefer_label_button);
                     prefer_label_button.visible = false;
+                    color_button_light.set_active (true);
+                } else {
+                    color_button_light.sensitive = true;
+                    color_button_sepia.sensitive = true;
+                    color_button_dark.sensitive = true;
+
+                    top_grid.remove (prefer_label_button);
+                    prefer_label_button.visible = false;
+                    color_button_light.set_active (true);
                 }
             });
 
