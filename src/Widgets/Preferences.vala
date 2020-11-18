@@ -426,14 +426,14 @@ namespace Quilter.Widgets {
             sidebar_label.set_halign (Gtk.Align.END);
             var sidebar = new SettingsSwitch ("sidebar");
 
-            var prefer_label_button = new Gtk.Button ();
+            var prefer_label_button_prefs = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small
-            prefer_label_button.label = _("Changing modes is disabled due\nto the system dark style preference.");
-            var prefer_label_button_context = prefer_label_button.get_style_context ();
-            prefer_label_button_context.add_class ("flat");
-            prefer_label_button.margin_start = prefer_label_button.margin_end = 3;
+            prefer_label_button_prefs.label = _("Changing modes is disabled due\nto the system dark style preference.");
+            var prefer_label_button_prefs_context = prefer_label_button_prefs.get_style_context ();
+            prefer_label_button_prefs_context.add_class ("flat");
+            prefer_label_button_prefs.margin_start = prefer_label_button_prefs.margin_end = 3;
 
-            prefer_label_button.clicked.connect (() => {
+            prefer_label_button_prefs.clicked.connect (() => {
                 try {
                     AppInfo.launch_default_for_uri ("settings://desktop/appearance", null);
                 } catch (Error e) {
@@ -455,42 +455,54 @@ namespace Quilter.Widgets {
             textbox.add (color_button_sepia_text);
             textbox.add (color_button_dark_text);
 
-            interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (buttonbox, 0, 2, 3, 1);
-            interface_grid.attach (textbox, 0, 3, 3, 1);
+            var modesbox = new Gtk.Box (Gtk.Orientation.VERTICAL, 6);
+            modesbox.set_homogeneous (true);
+            modesbox.add (buttonbox);
+            modesbox.add (textbox);
 
-            interface_grid.attach (ui_header,  0, 5, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 6, 1, 1);
-            interface_grid.attach (focus_mode, 1, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 7, 1, 1);
-            interface_grid.attach (focus_mode_type_box, 1, 7, 1, 1);
-            interface_grid.attach (typewriterscrolling_label, 0, 8, 1, 1);
-            interface_grid.attach (typewriterscrolling, 1, 8, 1, 1);
-            interface_grid.attach (tracking_label, 0, 9, 1, 1);
-            interface_grid.attach (tracking, 1, 9, 1, 1);
-            interface_grid.attach (sidebar_label, 0, 10, 1, 1);
-            interface_grid.attach (sidebar, 1, 10, 1, 1);
+            interface_grid.attach (mode_header, 0, 1, 3, 1);
+            interface_grid.attach (modesbox, 0, 2, 3, 1);
+            interface_grid.attach (ui_header,  0, 4, 3, 1);
+            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
+            interface_grid.attach (focus_mode, 1, 5, 1, 1);
+            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
+            interface_grid.attach (focus_mode_type_box, 1, 6, 1, 1);
+            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
+            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
+            interface_grid.attach (tracking_label, 0, 8, 1, 1);
+            interface_grid.attach (tracking, 1, 8, 1, 1);
+            interface_grid.attach (sidebar_label, 0, 9, 1, 1);
+            interface_grid.attach (sidebar, 1, 9, 1, 1);
+        
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                modesbox.sensitive = false;
+                interface_grid.attach (prefer_label_button_prefs, 0, 3, 3, 1);
+                prefer_label_button_prefs.visible = true;
+                color_button_dark.set_active (true);
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                modesbox.sensitive = true;
+                interface_grid.remove (prefer_label_button_prefs);
+                prefer_label_button_prefs.visible = false;
+            } else {
+                modesbox.sensitive = true;
+                interface_grid.remove (prefer_label_button_prefs);
+                prefer_label_button_prefs.visible = false;
+            }
 
             Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
                 if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    color_button_light.sensitive = false;
-                    color_button_sepia.sensitive = false;
-                    color_button_dark.sensitive = false;
-                    color_button_light_text.sensitive = false;
-                    color_button_sepia_text.sensitive = false;
-                    color_button_dark_text.sensitive = false;
-                    interface_grid.attach (prefer_label_button, 0, 4, 3, 1);
-                    prefer_label_button.visible = true;
+                    modesbox.sensitive = false;
+                    interface_grid.attach (prefer_label_button_prefs, 0, 3, 3, 1);
+                    prefer_label_button_prefs.visible = true;
                     color_button_dark.set_active (true);
                 } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    color_button_light.sensitive = true;
-                    color_button_sepia.sensitive = true;
-                    color_button_dark.sensitive = true;
-                    color_button_light_text.sensitive = true;
-                    color_button_sepia_text.sensitive = true;
-                    color_button_dark_text.sensitive = true;
-                    interface_grid.remove (prefer_label_button);
-                    prefer_label_button.visible = false;
+                    modesbox.sensitive = true;
+                    interface_grid.remove (prefer_label_button_prefs);
+                    prefer_label_button_prefs.visible = false;
+                } else {
+                    modesbox.sensitive = true;
+                    interface_grid.remove (prefer_label_button_prefs);
+                    prefer_label_button_prefs.visible = false;
                 }
             });
         }
