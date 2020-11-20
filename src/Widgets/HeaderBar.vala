@@ -19,19 +19,22 @@
 namespace Quilter.Widgets {
     public class Headerbar : Hdy.HeaderBar {
         public Gtk.Button back_button;
-        private Gtk.Button open_button;
-        private Gtk.Button save_as_button;
+        public Gtk.Button new_button;
+        public Gtk.Button open_button;
+        public Gtk.Button save_as_button;
         private Gtk.Grid menu_grid;
+        public Gtk.Grid fmenu_grid;
         private Gtk.Grid top_grid;
         private Gtk.MenuButton menu_button;
         public Gtk.MenuButton pmenu_button;
+        public Gtk.MenuButton fmenu_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
         public Gtk.ToggleButton view_mode;
         public Gtk.ModelButton focusmode_button;
         public MainWindow win;
         public Preview preview;
-        private Gtk.Button new_button;
+        
         public signal void create_new ();
         public signal void open ();
         public signal void save_as ();
@@ -66,6 +69,7 @@ namespace Quilter.Widgets {
 
             new_button = new Gtk.Button ();
             new_button.has_tooltip = true;
+            new_button.halign = Gtk.Align.START;
             new_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {"<Ctrl>n"},
                 _("New file")
@@ -75,6 +79,7 @@ namespace Quilter.Widgets {
 
             save_as_button = new Gtk.Button ();
             save_as_button.has_tooltip = true;
+            save_as_button.halign = Gtk.Align.START;
             save_as_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {"<Ctrl><Shift>s"},
                 _("Save as…")
@@ -82,7 +87,8 @@ namespace Quilter.Widgets {
             save_as_button.clicked.connect (() => save_as ());
 
             open_button = new Gtk.Button ();
-			open_button.has_tooltip = true;
+            open_button.has_tooltip = true;
+            open_button.halign = Gtk.Align.START;
             open_button.tooltip_markup = Granite.markup_accel_tooltip (
                 {"<Ctrl>o"},
                 _("Open…")
@@ -364,6 +370,23 @@ namespace Quilter.Widgets {
             pack_start (open_button);
             pack_start (save_as_button);
 
+            fmenu_grid = new Gtk.Grid ();
+            fmenu_grid.margin_top = 12;
+            fmenu_grid.margin = 6;
+            fmenu_grid.column_homogeneous = true;
+            fmenu_grid.row_spacing = 6;
+            fmenu_grid.show_all ();
+
+            var fmenu = new Gtk.Popover (null);
+            fmenu.add (fmenu_grid);
+
+            fmenu_button = new Gtk.MenuButton ();
+            fmenu_button.has_tooltip = true;
+            fmenu_button.tooltip_text = (_("Settings"));
+            fmenu_button.popover = fmenu;
+
+            pack_start (fmenu_button);
+
             var prefer_label_button = new Gtk.Button ();
             // Please take note of the \n, keep it where you'd want a line break because the space is small
             prefer_label_button.label = _("Changing modes is disabled due\nto the system dark style preference.");
@@ -456,6 +479,7 @@ namespace Quilter.Widgets {
 
         public void icons_toolbar () {
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
+            fmenu_button.set_image (new Gtk.Image.from_icon_name ("folder-symbolic", Gtk.IconSize.BUTTON));
             pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));

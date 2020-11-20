@@ -480,6 +480,23 @@ namespace Quilter {
             if (grid != null && grid.get_folded ()) {
                 toolbar.pmenu_button.visible = false;
                 toolbar.pmenu_button.no_show_all = true;
+                toolbar.fmenu_button.visible = true;
+                toolbar.fmenu_button.no_show_all = false;
+                toolbar.remove (toolbar.new_button);
+                toolbar.remove (toolbar.open_button);
+                toolbar.remove (toolbar.save_as_button);
+                toolbar.fmenu_grid.attach (toolbar.new_button, 0, 0);
+                toolbar.fmenu_grid.attach (toolbar.open_button, 0, 1);
+                toolbar.fmenu_grid.attach (toolbar.save_as_button, 0, 2);
+                toolbar.new_button.label = (_("New Document"));
+                toolbar.open_button.label = (_("Open Document…"));
+                toolbar.save_as_button.label = (_("Save As…"));
+                toolbar.new_button.always_show_image = true;
+                toolbar.open_button.always_show_image = true;
+                toolbar.save_as_button.always_show_image = true;
+                toolbar.new_button.get_style_context ().add_class ("flat");
+                toolbar.open_button.get_style_context ().add_class ("flat");
+                toolbar.save_as_button.get_style_context ().add_class ("flat");
                 toolbar.back_button.visible = true;
                 toolbar.back_button.no_show_all = false;
                 toolbar.focusmode_button.visible = false;
@@ -487,9 +504,27 @@ namespace Quilter {
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
+                sidebar.scrolled_box.hexpand = true;
             } else {
                 toolbar.pmenu_button.visible = true;
                 toolbar.pmenu_button.no_show_all = false;
+                toolbar.fmenu_button.visible = false;
+                toolbar.fmenu_button.no_show_all = true;
+                toolbar.fmenu_grid.remove (toolbar.new_button);
+                toolbar.fmenu_grid.remove (toolbar.open_button);
+                toolbar.fmenu_grid.remove (toolbar.save_as_button);
+                toolbar.new_button.label = null;
+                toolbar.open_button.label = null;
+                toolbar.save_as_button.label = null;
+                toolbar.new_button.always_show_image = false;
+                toolbar.open_button.always_show_image = false;
+                toolbar.save_as_button.always_show_image = false;
+                toolbar.new_button.get_style_context ().remove_class ("flat");
+                toolbar.open_button.get_style_context ().remove_class ("flat");
+                toolbar.save_as_button.get_style_context ().remove_class ("flat");
+                toolbar.pack_start (toolbar.new_button);
+                toolbar.pack_start (toolbar.open_button);
+                toolbar.pack_start (toolbar.save_as_button);
                 toolbar.back_button.visible = false;
                 toolbar.back_button.no_show_all = true;
                 toolbar.focusmode_button.visible = true;
@@ -501,6 +536,7 @@ namespace Quilter {
                 if (!Quilter.Application.gsettings.get_boolean("sidebar")) {
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
                 }
+                sidebar.scrolled_box.hexpand = false;
             }
 
             if (!Quilter.Application.gsettings.get_boolean("header")) {

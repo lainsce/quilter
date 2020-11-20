@@ -37,6 +37,7 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter section;
         private Gtk.Label no_files;
         public Gtk.StackSwitcher stackswitcher;
+        public Gtk.ScrolledWindow scrolled_box;
         public Hdy.HeaderBar header;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
@@ -58,7 +59,7 @@ namespace Quilter.Widgets {
             this.ev = ev;
             this.is_modified = false;
 
-            var scrolled_box = new Gtk.ScrolledWindow (null, null);
+            scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
             scrolled_box.max_content_height = 500;
             scrolled_box.propagate_natural_height = true;
@@ -89,9 +90,9 @@ namespace Quilter.Widgets {
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
-            header.set_size_request (199,38);
             header.has_subtitle = false;
             header.set_title (null);
+            header.set_size_request (199,38);
 
             var this_context = header.get_style_context ();
             this_context.add_class (Gtk.STYLE_CLASS_FLAT);
@@ -133,11 +134,6 @@ namespace Quilter.Widgets {
                     row.file_remove_button.visible = (row == get_selected_row ());
                 }
 
-                if (win.grid != null && win.header != null && win.main_leaf != null && win.toolbar != null) {
-                    win.grid.set_visible_child (win.main_leaf);
-                    win.header.set_visible_child (win.toolbar);
-                }
-
                 try {
                     row = get_selected_row ();
                     string text = "";
@@ -150,6 +146,9 @@ namespace Quilter.Widgets {
                     }
 
                     win.edit_view_content.text = text;
+
+                    win.grid.set_visible_child (win.main_leaf);
+                    win.header.set_visible_child (win.toolbar);
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }

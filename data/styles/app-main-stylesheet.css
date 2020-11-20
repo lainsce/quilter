@@ -46,7 +46,7 @@ window.unified {
 .quilter-searchbar {
     border-top-color: transparent;
     border-bottom: 1px solid alpha (black, 0.25);
-    background: @color_primary;
+    background: shade(@base_color, 0.5);
     color: black;
     box-shadow: 0 1px transparent inset;
     padding: 6px;
