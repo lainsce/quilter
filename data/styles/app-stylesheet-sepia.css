@@ -18,7 +18,7 @@
     background: shade(@prefs_primary, 0.75);
 }
 .quilter-dialog-hb switch slider {
-    background: shade(@prefs_primary, 1.1);
+    background: shade(@prefs_primary, 1.2);
 }
 .quilter-dialog-hb button:not(:checked):not(.titlebutton) {
     background: shade(@prefs_primary, 1.2);
@@ -82,21 +82,21 @@
 }
 
 .quilter-sidebar-switcher {
-    background: mix(@accent, @color_primary, 0.85);
+    background: mix(@accent, @color_primary, 0.90);
 }
 .quilter-sidebar-switcher button:not(:checked):not(:active) {
-    border: 1px solid shade(@accent, 1.1);
-    background: mix(@accent, @color_primary, 0.85);
+    border: 1px solid mix(shade(@accent, 1.2), @color_primary, 0.5);
+    background: mix(@accent, @color_primary, 0.90);
 }
 .quilter-sidebar-switcher button {
-    background: shade(@accent, 1.1);
+    background: mix(shade(@accent, 1.2), @color_primary, 0.5);
     border: 1px solid transparent;
 }
 .quilter-sidebar-switcher button:first-child {
-    border-left: 1px solid shade(@accent, 1.1);;
+    border-left: 1px solid mix(shade(@accent, 1.2), @color_primary, 0.5);
 }
 .quilter-sidebar-switcher button:last-child {
-    border-right: 1px solid shade(@accent, 1.1);;
+    border-right: 1px solid mix(shade(@accent, 1.2), @color_primary, 0.5);
 }
 
 .quilter-toolbar .image-button:hover {
@@ -113,7 +113,7 @@
 }
 
 .quilter-toolbar-side {
-    background: mix(@accent, @color_primary, 0.85);
+    background: mix(@accent, @color_primary, 0.90);
     border: none;
 }
 
@@ -124,20 +124,20 @@
 .quilter-sidebar {
     border-bottom-color: transparent;
     border-bottom-width: 1px;
-    background: mix(@accent, @color_primary, 0.85);
+    background: mix(@accent, @color_primary, 0.90);
     color: @text_color;
 }
 
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
-    background: mix(@accent, @color_primary, 0.85);
+    background: mix(@accent, @color_primary, 0.90);
 }
 
 .quilter-sidebar-box {
     padding: 3px;
     border-radius: 8px;
-    border: 1px solid shade(@accent, 1.1);
-    background-color: mix (@accent, @color_primary, 0.85);
+    border: 1px solid mix(shade(@accent, 1.2), @color_primary, 0.5);
+    background-color: mix (@accent, @color_primary, 0.90);
 }
 
 .quilter-sidebar-box:selected,
@@ -145,15 +145,15 @@
 .quilter-sidebar-box:hover {
     padding: 3px;
     border-radius: 8px;
-    border: 1px solid shade(@accent, 1.1);
-    background-color: shade(@accent, 1.1);
+    border: 1px solid mix(shade(@accent, 1.2), @color_primary, 0.5);
+    background-color: mix(shade(@accent, 1.2), @color_primary, 0.5);
     color: @text_color;
 }
 
 .preview-row:active,
 .preview-row:selected {
-    border: 1px solid alpha(shade(mix (@accent, @color_primary, 0.85), 0.88), 0.25);
-    background-color: alpha(shade(mix (@accent, @color_primary, 0.85), 0.88), 0.25);
+    border: 1px solid alpha(shade(mix (@accent, @color_primary, 0.90), 0.88), 0.25);
+    background-color: alpha(shade(mix (@accent, @color_primary, 0.90), 0.88), 0.25);
     color: @text_color;
 }
 
