@@ -74,7 +74,7 @@ window.unified {
 
 .quilter-sidebar {
     margin: 0px;
-    border-right: 2px solid alpha(black, 0.25);
+    border-right: 1px solid alpha(black, 0.25);
 }
 
 .quilter-flb label {
