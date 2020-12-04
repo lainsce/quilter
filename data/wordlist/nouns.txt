@@ -11570,6 +11570,7 @@ chamisos
 chamomile
 chamomiles
 chamonix
+champ
 champac
 champacs
 champagne
@@ -28798,6 +28799,7 @@ glottochronology
 glottology
 gloucester
 gloucestershire
+gloves
 glover
 glovers
 glow-worm
@@ -58058,6 +58060,7 @@ rinaldo
 rind
 rinderpest
 rinds
+ring
 ring-dyke
 ring-dykes
 ringbone
@@ -68083,6 +68086,7 @@ tessera
 tesseract
 tessitura
 tessituras
+test
 test-bed
 test-beds
 testa

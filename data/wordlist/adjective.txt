@@ -17734,6 +17734,7 @@ rotted
 rotten
 rotting
 rotund
+rough
 rough-and-ready
 rough-and-tumble
 rough-spoken

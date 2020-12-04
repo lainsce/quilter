@@ -4226,6 +4226,7 @@ bebop
 bebops
 becalm
 becalms
+become
 became
 bechance
 becharm
@@ -7137,6 +7138,7 @@ gilly
 gimlet
 gimlets
 gimme
+giving
 ginning
 girded
 girding
@@ -8574,6 +8576,7 @@ natters
 neaten
 neatens
 necrose
+needed
 negate
 negates
 neglect
@@ -20931,6 +20934,7 @@ manufactures
 manumitted
 manumitting
 marginated
+marking
 marinated
 marinating
 martyrises
@@ -22406,6 +22410,7 @@ terrorizes
 terrorizing
 tessellating
 testifying
+testing
 tetanises
 tetanising
 tetanizes

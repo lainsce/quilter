@@ -356,56 +356,58 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end, match_start, match_end;
             buffer.get_bounds (out start, out end);
 
-            string no_punct_buffer = buffer.get_text (start, end, false).delimit (".,/!?<>;:{}[]()\'\"", ' ');
-
+            string no_punct_buffer = buffer.get_text (start, end, false).delimit (".,/!?<>;:\'\"{}[]()", ' ').down ();
             string[] words = no_punct_buffer.strip ().split (" ");
+            string[] articles = {"the", "an", "a"};
             int p = 0;
+
             foreach (string word in words) {
-                if (word.strip ().length == 0) {
+                if (word.length == 0) {
                     p += word.length + 1;
                     continue;
                 }
-                if (word in pos.vbuf_list) {
+                if (word in pos.vbuf_list || word.has_suffix ("ing") && !word.has_prefix ("ing")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(verbfont, match_start, match_end);
 
+                    if (word in get_words(words, articles)) {
+                        buffer.remove_tag(verbfont, match_start, match_end);
+    
+                        debug ("Nounified verbs found!");
+                    }
+
                     debug ("Verbs found!");
                 }
-
                 if (word in pos.abuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(adjfont, match_start, match_end);
+                    buffer.remove_tag(verbfont, match_start, match_end);
+                    buffer.remove_tag(adverbfont, match_start, match_end);
+                    buffer.remove_tag(conjfont, match_start, match_end);
 
                     debug ("Adjectives found!");
                 }
-
-                if (word in pos.adbuf_list) {
+                if (word in pos.adbuf_list || word.has_suffix ("ly") && !word.has_prefix ("ly")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(adverbfont, match_start, match_end);
+                    buffer.remove_tag(verbfont, match_start, match_end);
+                    buffer.remove_tag(adjfont, match_start, match_end);
+                    buffer.remove_tag(conjfont, match_start, match_end);
 
                     debug ("Adverbs found!");
                 }
-
                 if (word in pos.cnbuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(conjfont, match_start, match_end);
+                    buffer.remove_tag(verbfont, match_start, match_end);
+                    buffer.remove_tag(adjfont, match_start, match_end);
+                    buffer.remove_tag(adverbfont, match_start, match_end);
 
                     debug ("Conjunctions found!");
-                }
-
-                if (word in pos.nbuf_list) {
-                    buffer.get_iter_at_offset (out match_start, p);
-                    buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.remove_tag(conjfont, match_start, match_end);
-                    buffer.remove_tag(adverbfont, match_start, match_end);
-                    buffer.remove_tag(adjfont, match_start, match_end);
-                    buffer.remove_tag(verbfont, match_start, match_end);
-
-                    debug ("Nouns found!");
                 }
 
                 p += word.length + 1;
@@ -413,6 +415,16 @@ namespace Quilter.Widgets {
 
             update_idle_source = 0;
             return GLib.Source.REMOVE;
+        }
+
+        public static string[] get_words (string[] source, string[] tokens) {
+            string[] words = {};
+            for (int i = 0; i < source.length - 1; i++) {
+                if (source[i] in tokens) {
+                    words += source[i + 1];
+                }
+            }
+            return words;
         }
 
         public void set_focused_text () {
