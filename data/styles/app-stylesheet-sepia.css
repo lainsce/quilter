@@ -112,9 +112,17 @@
     background: shade(@color_primary, 1.04);
 }
 
+.quilter-toolbar:backdrop {
+    background: shade(@color_primary, 0.90);
+}
+
 .quilter-toolbar-side {
     background: mix(@accent, @color_primary, 0.90);
     border: none;
+}
+
+.quilter-toolbar-side:backdrop {
+    background: mix(@accent, @color_primary, 0.90);
 }
 
 .sb-sidebutton {
