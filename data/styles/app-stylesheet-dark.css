@@ -113,7 +113,7 @@
 }
 
 .quilter-toolbar:backdrop {
-    background: shade(@color_primary, 0.6);
+    background: #333333;
 }
 
 .quilter-toolbar .image-button,
