@@ -112,11 +112,23 @@
 }
 
 .quilter-toolbar {
-    background: white;
+    background: #FFF;
 }
 
 .quilter-toolbar:backdrop {
     background: #F0F0F0;
+}
+
+.quilter-toolbar .image-button,
+.quilter-toolbar .title,
+.quilter-toolbar .titlebutton {
+    color: #000;
+}
+
+.quilter-toolbar:backdrop .image-button,
+.quilter-toolbar:backdrop .title,
+.quilter-toolbar:backdrop .titlebutton {
+    color: #333;
 }
 
 .quilter-toolbar-side {

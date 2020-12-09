@@ -116,6 +116,18 @@
     background: shade(@color_primary, 0.6);
 }
 
+.quilter-toolbar .image-button,
+.quilter-toolbar .title,
+.quilter-toolbar .titlebutton {
+    color: #FFF;
+}
+
+.quilter-toolbar:backdrop .image-button,
+.quilter-toolbar:backdrop .title,
+.quilter-toolbar:backdrop .titlebutton {
+    color: #CCC;
+}
+
 .quilter-toolbar-side {
     background: mix(@accent, @color_primary, 0.90);
     border: none;
