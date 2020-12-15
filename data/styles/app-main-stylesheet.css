@@ -24,7 +24,11 @@
     color: #5D4738;
 }
 
-window.unified {
+window .csd:not(.popup):not(.menu) .titlebar,
+window:not(.popup):not(.menu) > decoration,
+window.unified,
+window.unified decoration,
+window.unified decoration-overlay {
   border-radius: 8px;
 }
 
