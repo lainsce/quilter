@@ -81,6 +81,7 @@ namespace Quilter.Widgets {
             stackswitcher.margin_start = stackswitcher.margin_end = 12;
             stackswitcher.homogeneous = true;
             stackswitcher.margin_top = stackswitcher.margin_bottom = 1;
+            stackswitcher.set_size_request (180, -1);
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
@@ -92,6 +93,7 @@ namespace Quilter.Widgets {
             main_grid.get_style_context ().add_class ("quilter-sidebar");
 
             add (main_grid);
+            set_size_request (180, -1);
 
             var sb_context = this.get_style_context ();
             sb_context.add_class ("quilter-sidebar");
@@ -109,6 +111,10 @@ namespace Quilter.Widgets {
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+            }
+
+            foreach (var row in rows) {
+                row.file_remove_button.visible = (row == get_selected_row ());
             }
 
             column.row_selected.connect ((selected_row) => {

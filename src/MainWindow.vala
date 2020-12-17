@@ -30,6 +30,7 @@ namespace Quilter {
         public Gtk.Revealer toolbar_revealer;
         public Gtk.Revealer overlay_button_revealer;
         public Gtk.Button focus_overlay_button;
+        public Gtk.Grid normal_view;
         public Gtk.MenuButton set_font_menu;
         public Widgets.EditView edit_view_content;
         public Widgets.Preview preview_view_content;
@@ -88,14 +89,6 @@ namespace Quilter {
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
-            if (Quilter.Application.gsettings.get_string("current-file") == "") {
-                Quilter.Application.gsettings.set_string("current-file", Services.FileManager.get_temp_document_path ());
-                edit_view_content.buffer.text = "";
-                sidebar.add_file (Services.FileManager.get_temp_document_path ());
-                sidebar.store.clear ();
-                sidebar.outline_populate ();
-                sidebar.view.expand_all ();
-            }
 
             on_settings_changed ();
 
@@ -268,20 +261,20 @@ namespace Quilter {
             toolbar_revealer_context.remove_class ("titlebar");
 
             var set_font_sans = new Gtk.RadioButton.with_label_from_widget (null, _("Use Sans-serif"));
-	        set_font_sans.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "sans");
-	        });
+            set_font_sans.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string("preview-font", "sans");
+            });
 
-	        var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
-	        set_font_serif.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "serif");
-	        });
-	        set_font_serif.set_active (true);
+            var set_font_serif = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Serif"));
+            set_font_serif.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string("preview-font", "serif");
+            });
+            set_font_serif.set_active (true);
 
-	        var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
-	        set_font_mono.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("preview-font", "mono");
-	        });
+            var set_font_mono = new Gtk.RadioButton.with_label_from_widget (set_font_sans, _("Use Monospace"));
+            set_font_mono.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string("preview-font", "mono");
+            });
 
             var set_font_menu_grid = new Gtk.Grid ();
             set_font_menu_grid.margin = 12;
@@ -362,7 +355,48 @@ namespace Quilter {
             main_stack.add_named (stack, "stack");
             main_stack.add_named (paned, "paned");
 
-            change_layout ();
+            var normal_icon = new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.DND);
+            var normal_label = new Gtk.Label (_("Start by creating a new story…"));
+            normal_label.halign = Gtk.Align.START;
+            var normal_label_context = normal_label.get_style_context ();
+            normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+            var onormal_icon = new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.DND);
+            var onormal_label = new Gtk.Label (_("Or open a saved story…"));
+            onormal_label.halign = Gtk.Align.START;
+            var onormal_label_context = onormal_label.get_style_context ();
+            onormal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            onormal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+
+            normal_view = new Gtk.Grid ();
+            normal_view.orientation = Gtk.Orientation.VERTICAL;
+            normal_view.column_spacing = 12;
+            normal_view.row_spacing = 24;
+            normal_view.margin = 24;
+            normal_view.expand = true;
+            normal_view.halign = normal_view.valign = Gtk.Align.CENTER;
+            normal_view.attach (normal_icon,0,0);
+            normal_view.attach (normal_label,1,0);
+            normal_view.attach (onormal_icon,0,1);
+            normal_view.attach (onormal_label,1,1);
+
+            change_layout.begin ();
+            sidebar = new Widgets.SideBar (this, edit_view_content);
+            sidebar.save_as.connect (() => on_save_as ());
+
+            var win_stack  = new Gtk.Stack ();
+            win_stack.get_style_context ().add_class ("quilter-normal-view");
+            win_stack.add_named (normal_view, "welcome");
+            win_stack.add_named (main_stack, "doc");
+
+            if (sidebar.column.get_children () == null) {
+                normal_view.visible = true;
+                main_stack.visible = false;
+            } else {
+                normal_view.visible = false;
+                main_stack.visible = true;
+            }
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (action_entries, this);
@@ -379,7 +413,7 @@ namespace Quilter {
             grid.orientation = Gtk.Orientation.VERTICAL;
             grid.attach (searchbar, 0, 0, 2, 1);
             grid.attach (sidebar, 0, 1, 1, 1);
-            grid.attach (main_stack, 1, 1, 1, 1);
+            grid.attach (win_stack, 1, 1, 1, 1);
             grid.attach (statusbar, 0, 2, 2, 1);
             grid.show_all ();
 
@@ -400,7 +434,7 @@ namespace Quilter {
             focus_overlay_button_context.add_class ("osd");
 
             focus_overlay_button.clicked.connect (() => {
-    			Quilter.Application.gsettings.set_boolean("focus-mode", false);
+                Quilter.Application.gsettings.set_boolean("focus-mode", false);
             });
 
             overlay_button_revealer.add (focus_overlay_button);
@@ -441,9 +475,9 @@ namespace Quilter {
             if (keymap.get_entries_for_keyval (keyval, out keys)) {
                 foreach (var key in keys) {
                     if (code == key.keycode)
-                        return true;
-                    }
+                    return true;
                 }
+            }
 
             return false;
         }
@@ -570,7 +604,7 @@ namespace Quilter {
             show_searchbar ();
             update_count ();
             edit_view_content.dynamic_margins ();
-            change_layout ();
+            change_layout.begin ();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.visible = false;
@@ -593,7 +627,7 @@ namespace Quilter {
                     }
                     return false;
                 });
-                
+
                 if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                     context.add_class ("focus-full");
                 } else {
@@ -612,7 +646,7 @@ namespace Quilter {
             render_func ();
         }
 
-        private void change_layout () {
+        private async void change_layout () {
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 widget_unparent (edit_view);
                 widget_unparent (preview_view);
@@ -634,121 +668,127 @@ namespace Quilter {
         public void save_last_files () {
             string[] rows = {};
             foreach (var child in sidebar.column.get_children ()) {
-              rows += ((Widgets.SideBarBox)child).path;
+                rows += ((Widgets.SideBarBox)child).path;
             }
             Quilter.Application.gsettings.set_strv ("last-files", rows);
-          }
-  
-          private void on_create_new () {
-              var dialog = new Services.DialogUtils.Dialog ();
-              dialog.transient_for = this;
-  
-              dialog.response.connect ((response_id) => {
-                  switch (response_id) {
-                      case Gtk.ResponseType.OK:
-                          debug ("User saves the file.");
-                          unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-                          if (row != null && row.path != null) {
-                              on_save ();
-                          } else {
-                              on_save_as ();
-                          }
-  
-                          edit_view_content.modified = false;
-                          dialog.close ();
-                          break;
-                      case Gtk.ResponseType.NO:
-                          edit_view_content.modified = false;
-                          dialog.close ();
-                          break;
-                      case Gtk.ResponseType.CANCEL:
-                      case Gtk.ResponseType.CLOSE:
-                      case Gtk.ResponseType.DELETE_EVENT:
-                          dialog.close ();
-                          return;
-                      default:
-                          assert_not_reached ();
-                  }
-              });
-  
-  
-              if (edit_view_content.modified) {
-                  dialog.run ();
-              }
-  
-              debug ("Creating new document");
-              on_save ();
-              sidebar.add_file (Services.FileManager.get_temp_document_path ());
-              sidebar.is_modified = true;
-              save_last_files ();
-              edit_view_content.text = "";
-              edit_view_content.modified = true;
-              sidebar.store.clear ();
-              sidebar.outline_populate ();
-              sidebar.view.expand_all ();
-              on_save ();
-          }
-  
-          private void on_open () {
-              string contents;
-              string path = Services.FileManager.open (out contents);
-  
-              if (sidebar.column.get_children () != null) {
-                  foreach (var child in sidebar.column.get_children ()) {
-                      if (((Widgets.SideBarBox)child).path == path) {
-                          sidebar.column.select_row (((Widgets.SideBarBox)child));
-                          break;
-                      } else {
-                          sidebar.add_file (path);
-                          sidebar.is_modified = true;
-                          break;
-                      }
-                  }
-              } else {
-                  sidebar.add_file (path);
-                  sidebar.is_modified = true;
-              }
-              edit_view_content.text = contents;
-              save_last_files ();
-              sidebar.store.clear ();
-              sidebar.outline_populate ();
-              sidebar.view.expand_all ();
-          }
-  
-          public void on_save () {
-              unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-              if (row != null) {
-                  try {
-                      Services.FileManager.save_file (row.path, edit_view_content.text);
-                      edit_view_content.modified = false;
-                  } catch (Error e) {
-                      warning ("Unexpected error during save: " + e.message);
-                  }
-              }
-          }
-  
-          private void on_save_as () {
-              unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-              if (row != null) {
-                  try {
-  
-                      string path;
-                      Services.FileManager.save_as (edit_view_content.text, out path);
-                      edit_view_content.modified = false;
-                      sidebar.store.clear ();
-                      sidebar.outline_populate ();
-                      sidebar.view.expand_all ();
-  
-                      foreach (var child in sidebar.column.get_children ()) {
-                          if (((Widgets.SideBarBox)child).path == Services.FileManager.get_temp_document_path ()) {
-                              ((Widgets.SideBarBox)child).path = path;
-                              break;
-                          }
-                      }
-                  } catch (Error e) {
-                      warning ("Unexpected error during save: " + e.message);
-                  }
-              }
-          }
+        }
+
+        private void on_create_new () {
+            var dialog = new Services.DialogUtils.Dialog ();
+            dialog.transient_for = this;
+
+            dialog.response.connect ((response_id) => {
+                switch (response_id) {
+                    case Gtk.ResponseType.OK:
+                    debug ("User saves the file.");
+                    unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+                    if (row != null && row.path != null) {
+                        on_save ();
+                    } else {
+                        on_save_as ();
+                    }
+
+                    edit_view_content.modified = false;
+                    dialog.close ();
+                    break;
+                    case Gtk.ResponseType.NO:
+                    edit_view_content.modified = false;
+                    dialog.close ();
+                    break;
+                    case Gtk.ResponseType.CANCEL:
+                    case Gtk.ResponseType.CLOSE:
+                    case Gtk.ResponseType.DELETE_EVENT:
+                    dialog.close ();
+                    return;
+                    default:
+                    assert_not_reached ();
+                }
+            });
+
+
+            if (edit_view_content.modified) {
+                dialog.run ();
+            }
+
+            debug ("Creating new document");
+            on_save ();
+            sidebar.add_file (Services.FileManager.get_temp_document_path ());
+            sidebar.is_modified = true;
+            save_last_files ();
+            edit_view_content.text = "";
+            edit_view_content.modified = true;
+            sidebar.store.clear ();
+            sidebar.outline_populate ();
+            sidebar.view.expand_all ();
+            on_save ();
+            normal_view.visible = false;
+            main_stack.visible = true;
+        }
+
+        private void on_open () {
+            string contents;
+            string path = Services.FileManager.open (out contents);
+
+            if (sidebar.column.get_children () != null) {
+                foreach (var child in sidebar.column.get_children ()) {
+                    if (((Widgets.SideBarBox)child).path == path) {
+                        sidebar.column.select_row (((Widgets.SideBarBox)child));
+                        break;
+                    } else {
+                        sidebar.add_file (path);
+                        sidebar.is_modified = true;
+                        normal_view.visible = false;
+                        main_stack.visible = true;
+                        break;
+                    }
+                }
+            } else {
+                sidebar.add_file (path);
+                sidebar.is_modified = true;
+                normal_view.visible = false;
+                main_stack.visible = true;
+            }
+            edit_view_content.text = contents;
+            save_last_files ();
+            sidebar.store.clear ();
+            sidebar.outline_populate ();
+            sidebar.view.expand_all ();
+        }
+
+        public void on_save () {
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                try {
+                    Services.FileManager.save_file (row.path, edit_view_content.text);
+                    edit_view_content.modified = false;
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
+            }
+        }
+
+        private void on_save_as () {
+            unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
+            if (row != null) {
+                try {
+
+                    string path;
+                    Services.FileManager.save_as (edit_view_content.text, out path);
+                    edit_view_content.modified = false;
+                    sidebar.store.clear ();
+                    sidebar.outline_populate ();
+                    sidebar.view.expand_all ();
+
+                    foreach (var child in sidebar.column.get_children ()) {
+                        if (((Widgets.SideBarBox)child).path == Services.FileManager.get_temp_document_path ()) {
+                            ((Widgets.SideBarBox)child).path = path;
+                            break;
+                        }
+                    }
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                }
+            }
+        }
     }
 }

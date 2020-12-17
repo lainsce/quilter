@@ -24,7 +24,7 @@ namespace Quilter {
         public string html;
         public double scroll_value {
             set {
-                run_javascript ("""
+                run_javascript.begin ("""
                     var b = document.body,
                     e = document.documentElement;
                     var height = Math.max( b.scrollHeight,

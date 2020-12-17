@@ -24,6 +24,8 @@ namespace Quilter.Widgets {
         public Gtk.Grid file_grid;
         public EditView ev;
         public Gtk.Button file_remove_button;
+        private int uid;
+        private static int uid_counter;
 
         private string? _path;
         public new string? path {
@@ -56,6 +58,7 @@ namespace Quilter.Widgets {
 
         public SideBarBox (MainWindow win, string? path) {
             this.win = win;
+            this.uid = uid_counter++;
             this.activatable = true;
             this.set_size_request (180,-1);
             this.hexpand = false;
@@ -92,21 +95,18 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("close-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
 
             file_remove_button.clicked.connect (() => {
-                win.edit_view_content.buffer.text = "";
-                win.edit_view_content.modified = false;
-                win.toolbar.set_subtitle (_("No Documents Open"));
-                win.sidebar.store.clear ();
-                win.statusbar.readtimecount_label.set_text((_("Reading Time: ")) + "0m");
-
-                var rows = win.sidebar.get_rows ();
-                for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                    if (Quilter.Application.gsettings.get_strv("last-files")[i] != null) {
-                        foreach (unowned SideBarBox r in rows) {
-                            win.sidebar.column.select_row (r);
-                        }
-                    } else if (Quilter.Application.gsettings.get_strv("last-files")[i] == null) {
-                        win.sidebar.add_file (Services.FileManager.get_temp_document_path ());
-                    }
+                if ((Widgets.SideBarBox) win.sidebar.column.get_selected_row () != null) {
+                    ((Widgets.SideBarBox) win.sidebar.column.get_selected_row ()).destroy ();
+                    win.edit_view_content.buffer.text = "";
+                    win.edit_view_content.modified = false;
+                    win.sidebar.store.clear ();
+                    win.save_last_files ();
+                }
+                if (win.sidebar.column.get_children () == null) {
+                    win.normal_view.visible = true;
+                    win.main_stack.visible = false;
+                } else {
+                    win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
                 }
             });
 
