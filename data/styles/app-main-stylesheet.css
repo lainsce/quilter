@@ -1,6 +1,7 @@
 .color-button radio,
 .color-button radio:checked {
     padding: 10px;
+    border-radius: 8px;
     -gtk-icon-shadow: none;
 }
 
