@@ -117,6 +117,7 @@ namespace Quilter.Widgets {
             file_grid.attach (file_remove_button, 2, 0, 1, 1);
 
             this.add (file_grid);
+            this.margin_bottom = 6;
             this.show_all ();
             this.path = path;
         }

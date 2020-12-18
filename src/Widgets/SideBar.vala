@@ -83,9 +83,9 @@ namespace Quilter.Widgets {
             header.show_close_button = true;
 
             stackswitcher = new Gtk.StackSwitcher ();
+            stackswitcher.margin_top = stackswitcher.margin_bottom = 6;
             stackswitcher.margin_start = stackswitcher.margin_end = 12;
             stackswitcher.homogeneous = true;
-            stackswitcher.margin_top = stackswitcher.margin_bottom = 1;
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
@@ -96,9 +96,7 @@ namespace Quilter.Widgets {
 
             var this_context = header.get_style_context ();
             this_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            this_context.add_class ("quilter-toolbar");
             this_context.add_class ("quilter-toolbar-side");
-            this_context.remove_class ("titlebar");
 
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;

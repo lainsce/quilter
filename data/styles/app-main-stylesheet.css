@@ -36,15 +36,22 @@ window.unified decoration-overlay {
     background-color: transparent;
     box-shadow: none;
     background-image: none;
-	border: none;
+	border: 1px solid transparent;
     padding: 6px;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 8px 8px;
+}
+
+.statusbar box {
+    background-color: transparent;
+    box-shadow: none;
+    background-image: none;
+    border: 1px solid transparent;
 }
 
 .full-bar {
     border-top: 1px solid transparent;
     background-color: transparent;
-    border-radius: 0 0 6px 6px;
+    border-radius: 0 0 8px 8px;
 }
 
 .quilter-searchbar {
@@ -52,22 +59,23 @@ window.unified decoration-overlay {
     border-bottom: 1px solid alpha (black, 0.25);
     box-shadow: 0 1px transparent inset;
     padding: 6px;
+    background-color: shade(@color_primary, 0.95);
 }
 
 .quilter-toolbar-main {
-    margin: 6px 6px;
-    padding: 0;
     box-shadow: none;
     border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .quilter-toolbar-side {
-    margin: 0 6px;
-    padding: 0;
+    box-shadow: none;
 }
 
 .quilter-toolbar .image-button {
     border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
 }
 
 .quilter-toolbar .image-button image {
@@ -106,10 +114,6 @@ window.unified decoration-overlay {
   min-height: 32px;
   margin: 0;
   padding: 4px;
-}
-
-.sep {
-    border-top: 1px solid alpha (black, 0.25);
 }
 
 .edit-view-paned {
