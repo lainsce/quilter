@@ -514,11 +514,11 @@ namespace Quilter.Services {
         public Gee.TreeSet<string> nbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
-            file_verbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/verb.txt");
-            file_adj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adjective.txt");
-            file_adverbs = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/adverb.txt");
-            file_conj = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/conjunction.txt");
-            file_nouns = File.new_for_path("/usr/share/com.github.lainsce.quilter/wordlist/nouns.txt");
+            file_verbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/verb.txt");
+            file_adj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adjective.txt");
+            file_adverbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adverb.txt");
+            file_conj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
+            file_nouns = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/nouns.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);

@@ -382,7 +382,7 @@ namespace Quilter.Widgets {
 
             fmenu_button = new Gtk.MenuButton ();
             fmenu_button.has_tooltip = true;
-            fmenu_button.tooltip_text = (_("Settings"));
+            fmenu_button.tooltip_text = (_("File"));
             fmenu_button.popover = fmenu;
 
             pack_start (fmenu_button);
