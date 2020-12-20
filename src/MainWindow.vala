@@ -403,8 +403,6 @@ namespace Quilter {
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
-            sidebar = new Widgets.SideBar (this, edit_view_content);
-            sidebar.save_as.connect (() => on_save_as ());
             searchbar = new Widgets.SearchBar (this);
 
             grid = new Gtk.Grid ();
@@ -568,6 +566,7 @@ namespace Quilter {
         }
 
         public void show_sidebar () {
+            sidebar.visible = Quilter.Application.gsettings.get_boolean("sidebar");
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
