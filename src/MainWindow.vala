@@ -414,7 +414,7 @@ namespace Quilter {
             }
 
             actions = new SimpleActionGroup ();
-            actions.add_action_entries (action_entries, this);
+            actions.add_action_entries (ACTION_ENTRIES, this);
             insert_action_group ("win", actions);
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
