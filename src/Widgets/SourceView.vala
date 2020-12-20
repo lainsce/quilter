@@ -78,9 +78,7 @@ namespace Quilter.Widgets {
         public EditView (MainWindow window) {
             this.window = window;
 
-            var manager = Gtk.SourceLanguageManager.get_default ();
-            var language = manager.guess_language (null, "text/x-markdown");
-            var buffer = new Gtk.SourceBuffer.with_language (language);
+            var buffer = new Gtk.SourceBuffer (null);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (50);
@@ -100,16 +98,18 @@ namespace Quilter.Widgets {
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
 
-            adverbfont = buffer.create_tag(null, "foreground", "#a56de2");
-            verbfont = buffer.create_tag(null, "foreground", "#3689e6");
-            adjfont = buffer.create_tag(null, "foreground", "#d48e15");
-            conjfont = buffer.create_tag(null, "foreground", "#3a9104");
+            adverbfont = buffer.create_tag(null, "foreground", "#6060c5");
+            verbfont = buffer.create_tag(null, "foreground", "#45a5c5");
+            adjfont = buffer.create_tag(null, "foreground", "#e58256");
+            conjfont = buffer.create_tag(null, "foreground", "#74c02e");
 
             pos = new Services.POSFiles ();
 
             modified = false;
+            indent_text ();
             buffer.changed.connect (() => {
                 modified = true;
+                indent_text ();
                 if (Quilter.Application.gsettings.get_boolean("pos")) {
                     pos_syntax_start ();
                 }
@@ -332,6 +332,49 @@ namespace Quilter.Widgets {
 
         }
 
+        public void indent_text () {
+            if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
+               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
+               if (file != null && file.query_exists ()) {
+                    try {
+                        string buffer = "";
+                        GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
+                        GLib.MatchInfo match;
+                        var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
+                        var tab_array = new Pango.TabArray (1, true);
+                        if (reg.match (buffer, 0, out match)) {
+                            do {
+                                if (match.fetch_named ("header") == "#") {
+                                    this.indent = get_char_width (this) * -1 + left_margin;
+                                    tab_array.set_tab (0, Pango.TabAlign.LEFT, 4 * get_char_width (this));
+                                    this.set_tabs(tab_array);
+                                } else if (match.fetch_named ("header") == "##") {
+                                    this.indent = get_char_width (this) * -2 + left_margin;
+                                    tab_array.set_tab (0, Pango.TabAlign.LEFT, 4 * get_char_width (this));
+                                    this.set_tabs(tab_array);
+                                } else if (match.fetch_named ("header") == "###") {
+                                    this.indent = get_char_width (this) * -3 + left_margin;
+                                    tab_array.set_tab (0, Pango.TabAlign.LEFT, 4 * get_char_width (this));
+                                    this.set_tabs(tab_array);
+                                } else {
+                                    this.indent = 0;
+                                    tab_array.set_tab (0, Pango.TabAlign.LEFT, 4);
+                                    this.set_tabs(tab_array);
+                                }
+                            } while (match.next ());
+                        }
+                    } catch (GLib.Error e) {
+                        warning ("ERR: %s", e.message);
+                    }
+                }
+
+            }
+        }
+
+        public int get_char_width (Gtk.Widget widget) {
+            return (int)(Pango.units_to_double(widget.get_pango_context().get_metrics(null, null).get_approximate_char_width()));
+        }
+
         public bool move_typewriter_scrolling () {
             if (should_scroll) {
                 var cursor = buffer.get_insert ();
@@ -373,11 +416,7 @@ namespace Quilter.Widgets {
 
                     if (word in get_words(words, articles)) {
                         buffer.remove_tag(verbfont, match_start, match_end);
-    
-                        debug ("Nounified verbs found!");
                     }
-
-                    debug ("Verbs found!");
                 }
                 if (word in pos.abuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
@@ -387,7 +426,9 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(adverbfont, match_start, match_end);
                     buffer.remove_tag(conjfont, match_start, match_end);
 
-                    debug ("Adjectives found!");
+                    if (word in get_words(words, articles)) {
+                        buffer.remove_tag(adjfont, match_start, match_end);
+                    }
                 }
                 if (word in pos.adbuf_list || word.has_suffix ("ly") && !word.has_prefix ("ly")) {
                     buffer.get_iter_at_offset (out match_start, p);
@@ -397,7 +438,9 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(adjfont, match_start, match_end);
                     buffer.remove_tag(conjfont, match_start, match_end);
 
-                    debug ("Adverbs found!");
+                    if (word in get_words(words, articles)) {
+                        buffer.remove_tag(adverbfont, match_start, match_end);
+                    }
                 }
                 if (word in pos.cnbuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
@@ -406,8 +449,6 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(verbfont, match_start, match_end);
                     buffer.remove_tag(adjfont, match_start, match_end);
                     buffer.remove_tag(adverbfont, match_start, match_end);
-
-                    debug ("Conjunctions found!");
                 }
 
                 p += word.length + 1;
@@ -501,37 +542,31 @@ namespace Quilter.Services {
         public File file_conj;
         public File file_adverbs;
         public File file_adj;
-        public File file_nouns;
         public string vbuf = "";
         public string abuf = "";
         public string adbuf = "";
         public string cnbuf = "";
-        public string nbuf = "";
         public Gee.TreeSet<string> vbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> abuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> adbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
-        public Gee.TreeSet<string> nbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
             file_verbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/verb.txt");
             file_adj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adjective.txt");
             file_adverbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adverb.txt");
             file_conj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
-            file_nouns = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/nouns.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
                 GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
                 GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                 GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
-                GLib.FileUtils.get_contents (file_nouns.get_path (), out nbuf, null);
 
                 vbuf_list.add_all_array (vbuf.strip ().split ("\n"));
                 abuf_list.add_all_array (abuf.strip ().split ("\n"));
                 adbuf_list.add_all_array (adbuf.strip ().split ("\n"));
                 cnbuf_list.add_all_array (cnbuf.strip ().split ("\n"));
-                nbuf_list.add_all_array (nbuf.strip ().split ("\n"));
             } catch (Error e) {
                 var msg = e.message;
                 warning (@"Error: $msg");

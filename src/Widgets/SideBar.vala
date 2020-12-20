@@ -250,7 +250,6 @@ namespace Quilter.Widgets {
                                     store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 }
                             } while (match.next ());
-                            debug ("Outline populated");
                         }
                     } catch (GLib.Error e) {
                         warning ("ERR: %s", e.message);

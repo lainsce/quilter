@@ -120,6 +120,10 @@ window.unified decoration-overlay {
     border-right: 1px solid alpha (black, 0.25);
 }
 
+.quilter-sidebar-box button {
+  color: @text_color;
+}
+
 .quilter-sidebar-switcher button {
     box-shadow: none;
     background-image: none;
