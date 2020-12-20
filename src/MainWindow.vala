@@ -413,6 +413,11 @@ namespace Quilter {
                 main_stack.visible = true;
             }
 
+            actions = new SimpleActionGroup ();
+            actions.add_action_entries (action_entries, this);
+            insert_action_group ("win", actions);
+
+            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
             searchbar = new Widgets.SearchBar (this);
 
             overlay_button_revealer = new Gtk.Revealer ();
