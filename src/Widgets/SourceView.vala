@@ -443,7 +443,8 @@ namespace Quilter.Widgets {
 
             string no_punct_buffer = buffer.get_text (start, end, false).delimit (".,/!?<>;:\'\"{}[]()", ' ').down ();
             string[] words = no_punct_buffer.strip ().split (" ");
-            string[] articles = {"the", "an", "a"};
+            string[] nounifier = {"the", "an", "a", "and", "or", "this"};
+            string[] verbifier = {"be", "to", "and"};
             int p = 0;
 
             foreach (string word in words) {
@@ -456,8 +457,12 @@ namespace Quilter.Widgets {
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(verbfont, match_start, match_end);
 
-                    if (word in get_words(words, articles)) {
+                    if (word in get_words(words, nounifier) || word.has_suffix ("ction") && !word.has_prefix ("ction")) {
                         buffer.remove_tag(verbfont, match_start, match_end);
+                    }
+
+                    if (word in get_words(words, verbifier)) {
+                        buffer.apply_tag(verbfont, match_start, match_end);
                     }
                 }
                 if (word in pos.abuf_list) {
@@ -468,7 +473,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(adverbfont, match_start, match_end);
                     buffer.remove_tag(conjfont, match_start, match_end);
 
-                    if (word in get_words(words, articles)) {
+                    if (word in get_words(words, nounifier)) {
                         buffer.remove_tag(adjfont, match_start, match_end);
                     }
                 }
@@ -480,7 +485,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(adjfont, match_start, match_end);
                     buffer.remove_tag(conjfont, match_start, match_end);
 
-                    if (word in get_words(words, articles)) {
+                    if (word in get_words(words, nounifier)) {
                         buffer.remove_tag(adverbfont, match_start, match_end);
                     }
                 }
