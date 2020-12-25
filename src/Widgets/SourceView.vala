@@ -278,8 +278,8 @@ namespace Quilter.Widgets {
                     case Constants.WIDE_MARGIN:
                         m = (rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
                         break;
-                    default:
                     case Constants.MEDIUM_MARGIN:
+                    default:
                         m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
                         break;
                 }

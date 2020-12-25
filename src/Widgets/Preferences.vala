@@ -22,13 +22,14 @@ namespace Quilter.Widgets {
         private Gtk.Grid interface_grid;
         private Gtk.Grid preview_grid;
         private Gtk.Stack main_stack;
+        public weak MainWindow win { get; construct; }
 
-        public Preferences (Gtk.Window? parent) {
+        public Preferences (MainWindow win) {
             Object (
                 title: _("Preferences"),
-                modal: true,
                 type_hint: Gdk.WindowTypeHint.DIALOG,
-                transient_for: parent,
+                transient_for: win,
+                win: win,
                 destroy_with_parent: true,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
@@ -296,14 +297,12 @@ namespace Quilter.Widgets {
             var custom_help2 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
             custom_help2.halign = Gtk.Align.START;
             custom_help2.margin_start = 6;
+            // Please mind the line breaks (\n).
             custom_help2.tooltip_text = _("Only available in English.\n\nColors words based on type:\n- Nouns are Black\n- Verbs are Blue\n- Adjectives are Yellow\n- Adverbs are Purple\n- Conjunctions are Green");
 
             var pos_switch_grid = new Gtk.Grid ();
             pos_switch_grid.add (pos_button);
             pos_switch_grid.add (custom_help2);
-
-            var spellcheck_label = new SettingsLabel (_("Spellchecking:"));
-            var spellcheck = new SettingsSwitch ("spellcheck");
 
             editor_grid.attach (edit_header,  0, 0, 3, 1);
             editor_grid.attach (save_button_label,  0, 1, 1, 1);
@@ -311,8 +310,6 @@ namespace Quilter.Widgets {
             editor_grid.attach (save_revealer, 0, 2, 3, 1);
             editor_grid.attach (pos_button_label,  0, 3, 1, 1);
             editor_grid.attach (pos_switch_grid, 1, 3, 1, 1);
-            editor_grid.attach (spellcheck_label, 0, 4, 1, 1);
-            editor_grid.attach (spellcheck, 1, 4, 1, 1);
 
             editor_grid.attach (geo_header, 0, 5, 3, 1);
             editor_grid.attach (spacing_label, 0, 6, 1, 1);
@@ -401,10 +398,14 @@ namespace Quilter.Widgets {
             var focus_mode_label = new SettingsLabel (_("Focus Mode:"));
             var focus_mode = new SettingsSwitch ("focus-mode");
 
+            var focus_revealer = new Gtk.Revealer ();
+
             var focus_mode_type_label = new SettingsLabel (_("Focus Scope:"));
 
             var focus_mode_p_size = new Gtk.Image.from_icon_name ("paragraph-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            focus_mode_p_size.tooltip_text = (_("Focus on Paragraph"));
             var focus_mode_s_size = new Gtk.Image.from_icon_name ("sentence-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            focus_mode_s_size.tooltip_text = (_("Focus on Sentence"));
             var focus_mode_type_size = new SettingsSwitch ("focus-mode-type");
             focus_mode_type_size.halign = Gtk.Align.CENTER;
 
@@ -416,8 +417,34 @@ namespace Quilter.Widgets {
             Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "active", SettingsBindFlags.DEFAULT);
 
             var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
-            typewriterscrolling_label.set_halign (Gtk.Align.END);
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
+
+            var focus_grid = new Gtk.Grid ();
+            focus_grid.row_homogeneous = false;
+            focus_grid.column_spacing = 6;
+            focus_grid.row_spacing = 6;
+            focus_grid.margin_end = 32;
+            focus_grid.halign = Gtk.Align.CENTER;
+            focus_grid.attach (focus_mode_type_label, 0, 0);
+            focus_grid.attach (focus_mode_type_box, 1, 0);
+            focus_grid.attach (typewriterscrolling_label, 0, 1);
+            focus_grid.attach (typewriterscrolling, 1, 1);
+
+            focus_revealer.add (focus_grid);
+
+            if (focus_mode.active) {
+                focus_revealer.reveal_child = true;
+            } else {
+                focus_revealer.reveal_child = false;
+            }
+
+            focus_mode.bind_property (
+                "active",
+                focus_revealer,
+                "reveal-child",
+                GLib.BindingFlags.SYNC_CREATE
+            );
+
             var tracking_label = new SettingsLabel (_("Type Counter:"));
             tracking_label.set_halign (Gtk.Align.END);
             var tracking = new SettingsSwitch ("statusbar");
@@ -460,19 +487,16 @@ namespace Quilter.Widgets {
             modesbox.add (buttonbox);
             modesbox.add (textbox);
 
-            interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (modesbox, 0, 2, 3, 1);
-            interface_grid.attach (ui_header,  0, 4, 3, 1);
-            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
-            interface_grid.attach (focus_mode, 1, 5, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_box, 1, 6, 1, 1);
-            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
-            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
-            interface_grid.attach (tracking_label, 0, 8, 1, 1);
-            interface_grid.attach (tracking, 1, 8, 1, 1);
-            interface_grid.attach (sidebar_label, 0, 9, 1, 1);
-            interface_grid.attach (sidebar, 1, 9, 1, 1);
+            interface_grid.attach (mode_header, 0, 0, 3, 1);
+            interface_grid.attach (modesbox, 0, 1, 3, 1);
+            interface_grid.attach (ui_header,  0, 2, 3, 1);
+            interface_grid.attach (focus_mode_label, 0, 4, 1, 1);
+            interface_grid.attach (focus_mode, 1, 4, 1, 1);
+            interface_grid.attach (focus_revealer, 0, 5, 3, 1);
+            interface_grid.attach (tracking_label, 0, 6, 1, 1);
+            interface_grid.attach (tracking, 1, 6, 1, 1);
+            interface_grid.attach (sidebar_label, 0, 7, 1, 1);
+            interface_grid.attach (sidebar, 1, 7, 1, 1);
         
             if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
                 modesbox.sensitive = false;
@@ -569,14 +593,13 @@ namespace Quilter.Widgets {
 
             var mermaid_label = new SettingsLabel (_("Mermaid.js Graphing:"));
             var mermaid = new SettingsSwitch ("mermaid");
-            var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
-            custom_help.halign = Gtk.Align.START;
-            custom_help.margin_start = 6;
-            custom_help.tooltip_text = _("Disable Code Highlighting for optimal use of Mermaid.js");
 
-            var mermaid_switch_grid = new Gtk.Grid ();
-            mermaid_switch_grid.add (mermaid);
-            mermaid_switch_grid.add (custom_help);
+            mermaid.bind_property (
+                "active",
+                highlight,
+                "active",
+                GLib.BindingFlags.INVERT_BOOLEAN
+            );
 
             preview_grid.attach (preview_header,  0, 0, 3, 1);
             preview_grid.attach (preview_font_label, 0, 1, 1, 1);
@@ -590,7 +613,7 @@ namespace Quilter.Widgets {
             preview_grid.attach (latex_label, 0, 5, 1, 1);
             preview_grid.attach (latex, 1, 5, 1, 1);
             preview_grid.attach (mermaid_label, 0, 6, 1, 1);
-            preview_grid.attach (mermaid_switch_grid, 1, 6, 1, 1);
+            preview_grid.attach (mermaid, 1, 6, 1, 1);
         }
 
         private class SettingsLabel : Gtk.Label {
@@ -612,7 +635,7 @@ namespace Quilter.Widgets {
         private class SettingsSwitch : Gtk.Switch {
             public SettingsSwitch (string setting) {
                 halign = Gtk.Align.START;
-                Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+                Quilter.Application.gsettings.bind (setting, this, "active", GLib.SettingsBindFlags.DEFAULT);
             }
         }
     }

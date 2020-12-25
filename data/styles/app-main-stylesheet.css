@@ -108,8 +108,7 @@ window.unified decoration-overlay {
 }
 
 .quilter-focus-button {
-  border-radius: 99999px;
-  -gtk-outline-radius: 99999px;
+  border-radius: 8px;
   min-width: 32px;
   min-height: 32px;
   margin: 0;

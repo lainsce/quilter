@@ -32,6 +32,7 @@ namespace Quilter {
         public Gtk.Grid normal_view;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
+        public Gtk.Revealer toolbar_revealer;
         public Gtk.Revealer overlay_button_revealer;
         public Gtk.ScrolledWindow edit_view;
         public Gtk.Stack main_stack;
@@ -125,8 +126,6 @@ namespace Quilter {
                     sb_context.add_class ("statusbar");
                     sidebar.reveal_child = true;
                 }
-
-                edit_view_content.dynamic_margins ();
             }
         }
 
@@ -166,7 +165,6 @@ namespace Quilter {
             spell.language_changed.connect (() => {
                 Quilter.Application.gsettings.set_string ("spellcheck-language", spell.get_language ());
             });
-
 
             eadj = edit_view.get_vadjustment ();
             eadj.notify["value"].connect (() => {
@@ -345,6 +343,11 @@ namespace Quilter {
             toolbar.save_as.connect (on_save_as);
             toolbar.create_new.connect (on_create_new);
 
+            toolbar_revealer = new Gtk.Revealer ();
+            toolbar_revealer.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            toolbar_revealer.add (toolbar);
+            toolbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView (this);
             edit_view.vexpand = true;
@@ -360,11 +363,9 @@ namespace Quilter {
             box.homogeneous = true;
 
             statusbar = new Widgets.StatusBar (edit_view_content.buffer);
-            statusbar.valign = Gtk.Align.END;
 
             overlay_editor = new Gtk.Overlay ();
             overlay_editor.add (edit_view);
-            overlay_editor.add_overlay (statusbar);
 
             main_stack = new Gtk.Stack ();
             main_stack.add_named (stack, "stack");
@@ -443,7 +444,7 @@ namespace Quilter {
             overlay_button_revealer.add (focus_overlay_button);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            main_leaf.add (toolbar);
+            main_leaf.add (toolbar_revealer);
             main_leaf.add (searchbar);
             main_leaf.add (win_stack);
 
@@ -666,12 +667,17 @@ namespace Quilter {
 
         public void show_sidebar () {
             sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            separator.visible = Quilter.Application.gsettings.get_boolean("sidebar");
-            separator2.visible = Quilter.Application.gsettings.get_boolean("sidebar");
         }
 
         public void show_statusbar () {
             statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
+
+            if (Quilter.Application.gsettings.get_boolean("statusbar")) {
+                overlay_editor.add_overlay (statusbar);
+                statusbar.valign = Gtk.Align.END;
+            } else {
+                overlay_editor.remove (statusbar);
+            }
         }
 
         private void set_prev_workfile () {
@@ -689,14 +695,10 @@ namespace Quilter {
             change_layout.begin ();
 
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
-                overlay_button_revealer.no_show_all = false;
                 overlay_button_revealer.reveal_child = true;
-                overlay_button_revealer.visible = true;
                 sidebar.reveal_child = false;
-                sidebar.visible = false;
-                toolbar.visible = false;
-                separator.visible = false;
-                separator2.visible = false;
+                statusbar.reveal_child = false;
+                toolbar_revealer.reveal_child = false;
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
                         begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
@@ -705,13 +707,13 @@ namespace Quilter {
                     return false;
                 });
             } else {
-                overlay_button_revealer.no_show_all = true;
                 overlay_button_revealer.reveal_child = false;
-                overlay_button_revealer.visible = false;
-                toolbar.visible = true;
+                toolbar_revealer.reveal_child = true;
+                if (Quilter.Application.gsettings.get_boolean("statusbar")) {
+                    statusbar.reveal_child = true;
+                }
                 if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                     sidebar.reveal_child = true;
-                    sidebar.visible = true;
                 }
             }
 

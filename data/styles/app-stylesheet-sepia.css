@@ -178,29 +178,29 @@
 }
 
 .quilter-menu {
-  border-radius: 99999px;
-  -gtk-outline-radius: 99999px;
-  background-color: #e8dccb;
-  border: 1px solid #e8dccb;
+  border-radius: 8px;
+  -gtk-outline-radius: 8px;
+  background-color: shade(@color_primary, 1.04);
+  border: 1px solid alpha(black, 0.25);
 }
 
 .quilter-normal-view {
-	background-color: #f0e8dd;
+	background-color: @color_primary;
 }
 
 .osd {
   background-image: none;
-  background-color: #e8dccb;
+  background-color: shade(@color_primary, 1.04);
   box-shadow: none;
-  border: 1px solid #e8dccb;
-  color: #3b3228;
+  border: 1px solid alpha(black, 0.25);
+  color: @text_color;
   -gtk-icon-shadow: 1px 1px transparent;
 }
 
 .osd:active,
 .osd:focus {
   background-image: none;
-  background-color: shade(#e8dccb,0.88);
+  background-color: shade(shade(@color_primary, 1.04),0.88);
   box-shadow: none;
-  border: 1px solid shade(#e8dccb,0.88);
+  border: 1px solid shade(shade(@color_primary, 1.04),0.88);
 }

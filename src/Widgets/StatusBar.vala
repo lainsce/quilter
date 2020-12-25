@@ -43,21 +43,25 @@ namespace Quilter {
             track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
 	        track_chars.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "chars");
+	            update_charcount ();
 	        });
 
 	        track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
 	        track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
+	            update_wordcount ();
 	        });
 
 	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
+	            update_linecount ();
             });
             
             track_rtc = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Read Time"));
 	        track_rtc.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "rtc");
+	            update_readtimecount ();
 	        });
 
             var track_type_grid = new Gtk.Grid ();
