@@ -113,6 +113,7 @@
 
 .quilter-toolbar {
     background: #FFF;
+    border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .quilter-toolbar:backdrop {
@@ -147,6 +148,7 @@
 .quilter-sidebar {
     border-bottom-color: transparent;
     border-bottom-width: 1px;
+    border-right: 1px solid alpha(black, 0.25);
     background: mix(@accent, @color_primary, 0.90);
 }
 

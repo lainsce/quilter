@@ -64,7 +64,6 @@ window.unified decoration-overlay {
 
 .quilter-toolbar-main {
     box-shadow: none;
-    border-bottom: 1px solid alpha (black, 0.25);
 }
 
 .quilter-toolbar-side {
@@ -84,7 +83,6 @@ window.unified decoration-overlay {
 
 .quilter-sidebar {
     margin: 0px;
-    border-right: 1px solid alpha(black, 0.25);
 }
 
 .quilter-flb label {

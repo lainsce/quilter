@@ -110,6 +110,7 @@
 
 .quilter-toolbar {
     background: shade(@color_primary, 0.0);
+    border-bottom: 1px solid alpha (white, 0.25);
 }
 
 .quilter-toolbar:backdrop {
@@ -144,6 +145,7 @@
 .quilter-sidebar {
     border-bottom-color: transparent;
     border-bottom-width: 1px;
+    border-right: 1px solid alpha(white, 0.25);
     background: mix(@accent, @color_primary, 0.90);
     color: @text_color;
 }
@@ -182,7 +184,7 @@
 .quilter-menu {
   border-radius: 8px;
   -gtk-outline-radius: 8px;
-  background-color: shade(@color_primary, 1.04);
+  background-color: black;
   border: 1px solid alpha(white, 0.25);
 }
 
@@ -192,7 +194,7 @@
 
 .osd {
   background-image: none;
-  background-color: shade(@color_primary, 1.04);
+  background-color: black;
   box-shadow: none;
   border: 1px solid alpha(white, 0.25);
   color: @text_color;
@@ -202,7 +204,7 @@
 .osd:active,
 .osd:focus {
   background-image: none;
-  background-color: shade(shade(@color_primary, 1.04),0.88);
+  background-color: shade(shade(black,1.04);
   box-shadow: none;
-  border: 1px solid shade(shade(@color_primary, 1.04),0.88);
+  border: 1px solid shade(shade(black,1.04);
 }
