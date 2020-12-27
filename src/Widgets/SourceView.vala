@@ -268,7 +268,7 @@ namespace Quilter.Widgets {
             Quilter.Application.gsettings.get ("window-size", "(ii)", out rect.width, out rect.height);
 
             if (window != null) {
-                p = (window.is_fullscreen) ? 40 : 0;
+                p = (window.is_fullscreen) ? 80 : 0;
 
                 var margins = Quilter.Application.gsettings.get_int("margins");
                 switch (margins) {
@@ -358,13 +358,13 @@ namespace Quilter.Widgets {
                         GLib.MatchInfo match;
                         Gtk.TextIter start, end, start_sentence, end_sentence;
                         buffer.get_bounds (out start, out end);
-                        var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
+                        var reg = new Regex("(?im)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
                         if (reg.match (b, 0, out match)) {
                             do {
-                                if (match.fetch_named ("header") == "#") {
-                                    if (start.forward_search(match.fetch_named ("header"), 0, out start_sentence, out end_sentence, end)) {
-                                        this.text_indent = -36;
-                                        this.text_margin = 36;
+                                if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, null)) {
+                                    if (match.fetch_named ("header") == "#") {
+                                        this.text_indent = -44;
+                                        this.text_margin = 44;
                                         var tab_array = new Pango.TabArray (1, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4);
                                         this.set_tabs(tab_array);
@@ -372,14 +372,10 @@ namespace Quilter.Widgets {
                                         tmargin1.indent = (int)(text_indent);
                                         tmargin1.left_margin = (int)(text_margin);
 
-                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
-                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
                                         buffer.apply_tag(tmargin1, start_sentence, end_sentence);
-                                    }
-                                } else if (match.fetch_named ("header") == "##") {
-                                    if (start.forward_search(match.fetch_named ("header"), 0, out start_sentence, out end_sentence, end)) {
-                                        this.text_indent = -26;
-                                        this.text_margin = 26;
+                                    } else if (match.fetch_named ("header") == "##") {
+                                        this.text_indent = -34;
+                                        this.text_margin = 34;
                                         var tab_array = new Pango.TabArray (2, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 2);
                                         this.set_tabs(tab_array);
@@ -387,14 +383,10 @@ namespace Quilter.Widgets {
                                         tmargin2.indent = (int)(text_indent);
                                         tmargin2.left_margin = (int)(text_margin);
 
-                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
-                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
                                         buffer.apply_tag(tmargin2, start_sentence, end_sentence);
-                                    }
-                                } else if (match.fetch_named ("header") == "###") {
-                                    if (start.forward_search(match.fetch_named ("header"), 0, out start_sentence, out end_sentence, end)) {
-                                        this.text_indent = -16;
-                                        this.text_margin = 16;
+                                    } else if (match.fetch_named ("header") == "###") {
+                                        this.text_indent = -24;
+                                        this.text_margin = 24;
                                         var tab_array = new Pango.TabArray (3, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 3);
                                         this.set_tabs(tab_array);
@@ -402,8 +394,6 @@ namespace Quilter.Widgets {
                                         tmargin3.indent = (int)(text_indent);
                                         tmargin3.left_margin = (int)(text_margin);
 
-                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
-                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
                                         buffer.apply_tag(tmargin3, start_sentence, end_sentence);
                                     }
                                 }
