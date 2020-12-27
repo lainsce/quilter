@@ -34,7 +34,7 @@ namespace Quilter.Widgets {
         public Gtk.ModelButton focusmode_button;
         public MainWindow win;
         public Preview preview;
-        
+
         public signal void create_new ();
         public signal void open ();
         public signal void save_as ();

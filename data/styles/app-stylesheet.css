@@ -201,3 +201,13 @@
   box-shadow: none;
   border: 1px solid shade(shade(@color_primary, 1.04),0.88);
 }
+
+.welcome-title {
+  background: @color_primary;
+  border-bottom: 1px solid transparent;
+}
+
+.welcome-title > *:disabled {
+  background: @color_primary;
+  border-bottom: 1px solid transparent;
+}

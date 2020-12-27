@@ -146,7 +146,7 @@ namespace Quilter.Widgets {
                     win.edit_view_content.text = text;
 
                     win.grid.set_visible_child (win.main_leaf);
-                    win.header.set_visible_child (win.toolbar);
+                    win.header.set_visible_child (win.titlebar);
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }

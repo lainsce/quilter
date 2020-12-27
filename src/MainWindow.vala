@@ -28,20 +28,23 @@ namespace Quilter {
         public Hdy.Leaflet grid;
         public Hdy.Leaflet header;
         public Hdy.TitleBar window_header;
+        public Hdy.HeaderBar welcome_titlebar;
         public Gtk.Grid main_pane;
-        public Gtk.Grid normal_view;
+        public Granite.Widgets.Welcome welcome_view;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
-        public Gtk.Revealer toolbar_revealer;
+        public Gtk.Revealer titlebar_revealer;
         public Gtk.Revealer overlay_button_revealer;
         public Gtk.ScrolledWindow edit_view;
         public Gtk.Stack main_stack;
         public Gtk.Stack stack;
+        public Gtk.Stack titlebar_stack;
+        public Gtk.Stack win_stack;
         public Gtk.Separator separator;
         public Gtk.Separator separator2;
         public SimpleActionGroup actions { get; construct; }
         public Widgets.EditView edit_view_content;
-        public Widgets.Headerbar toolbar;
+        public Widgets.Headerbar titlebar;
         public Widgets.Preview preview_view_content;
         public Widgets.SearchBar searchbar;
         public Widgets.SideBar sidebar;
@@ -334,19 +337,40 @@ namespace Quilter {
             Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
             Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
 
-            toolbar = new Widgets.Headerbar (this) {
+            titlebar = new Widgets.Headerbar (this) {
                 has_subtitle = false,
                 hexpand = true,
                 title = "Quilter"
             };
-            toolbar.open.connect (on_open);
-            toolbar.save_as.connect (on_save_as);
-            toolbar.create_new.connect (on_create_new);
+            titlebar.open.connect (on_open);
+            titlebar.save_as.connect (on_save_as);
+            titlebar.create_new.connect (on_create_new);
 
-            toolbar_revealer = new Gtk.Revealer ();
-            toolbar_revealer.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            toolbar_revealer.add (toolbar);
-            toolbar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+            // Used so the welcome titlebar, which is flat, and with no buttons
+            // doesn't jump in size when transtitioning to the preview titlebar.
+            var dummy_welcome_title_button = new Gtk.Button ();
+            dummy_welcome_title_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            dummy_welcome_title_button.sensitive = false;
+
+            welcome_titlebar = new Hdy.HeaderBar ();
+            welcome_titlebar.show_close_button = true;
+            welcome_titlebar.has_subtitle = false;
+            welcome_titlebar.title = "Quilter";
+            welcome_titlebar.set_decoration_layout ("close:maximize");
+            welcome_titlebar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
+            welcome_titlebar.get_style_context ().add_class ("welcome-title");
+
+            welcome_titlebar.pack_start (dummy_welcome_title_button);
+
+            titlebar_stack = new Gtk.Stack ();
+            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
+            titlebar_stack.add_named (welcome_titlebar, "welcome-title");
+            titlebar_stack.add_named (titlebar, "title");
+
+            titlebar_revealer = new Gtk.Revealer ();
+            titlebar_revealer.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            titlebar_revealer.add (titlebar_stack);
+            titlebar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView (this);
@@ -371,47 +395,47 @@ namespace Quilter {
             main_stack.add_named (stack, "stack");
             main_stack.add_named (box, "paned");
 
-            var normal_icon = new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.DND);
-            var normal_label = new Gtk.Label (_("Start by creating a new story…"));
-            normal_label.halign = Gtk.Align.START;
-            var normal_label_context = normal_label.get_style_context ();
-            normal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
-            normal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
+            var welcome_view = new Granite.Widgets.Welcome (
+                _("No File Open"),
+                _("Open a markdown file to start writing")
+            );
+            welcome_view.get_style_context ().add_class ("quilter-normal-view");
+            welcome_view.append ("document-new-symbolic", _("New Markdown File"), "Creates a story for writiing.");
+            welcome_view.append ("document-open-symbolic", _("Open Markdown File"), "Opens a story for writiing.");
 
-            var onormal_icon = new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.DND);
-            var onormal_label = new Gtk.Label (_("Or open a saved story…"));
-            onormal_label.halign = Gtk.Align.START;
-            var onormal_label_context = onormal_label.get_style_context ();
-            onormal_label_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
-            onormal_label_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
-
-            normal_view = new Gtk.Grid ();
-            normal_view.orientation = Gtk.Orientation.VERTICAL;
-            normal_view.column_spacing = 12;
-            normal_view.row_spacing = 24;
-            normal_view.margin = 24;
-            normal_view.expand = true;
-            normal_view.halign = normal_view.valign = Gtk.Align.CENTER;
-            normal_view.attach (normal_icon,0,0);
-            normal_view.attach (normal_label,1,0);
-            normal_view.attach (onormal_icon,0,1);
-            normal_view.attach (onormal_label,1,1);
+            welcome_view.activated.connect ((option) => {
+                switch (option) {
+                    case 0:
+                        on_create_new ();
+                        break;
+                    case 1:
+                        on_open ();
+					    break;
+                }
+            });
 
             change_layout.begin ();
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
-            var win_stack  = new Gtk.Stack ();
+            win_stack  = new Gtk.Stack ();
             win_stack.get_style_context ().add_class ("quilter-normal-view");
-            win_stack.add_named (normal_view, "welcome");
+            win_stack.add_named (welcome_view, "welcome");
             win_stack.add_named (main_stack, "doc");
 
             if (sidebar.column.get_children () == null) {
-                normal_view.visible = true;
+                win_stack.set_visible_child (welcome_view);
+                welcome_titlebar.visible = true;
+                titlebar.visible = false;
                 main_stack.visible = false;
+                Quilter.Application.gsettings.set_boolean("sidebar", false);
             } else {
-                normal_view.visible = false;
+                win_stack.set_visible_child (main_stack);
+                welcome_titlebar.visible = false;
+                titlebar.visible = true;
                 main_stack.visible = true;
+                sidebar.reveal_child = true;
+                Quilter.Application.gsettings.set_boolean("sidebar", true);
             }
 
             actions = new SimpleActionGroup ();
@@ -427,7 +451,7 @@ namespace Quilter {
             overlay_button_revealer.valign = Gtk.Align.START;
 
             focus_overlay_button = new Gtk.Button ();
-            focus_overlay_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.SMALL_TOOLBAR));
+            focus_overlay_button.set_image (new Gtk.Image.from_icon_name ("zoom-fit-best-symbolic", Gtk.IconSize.BUTTON));
             focus_overlay_button.set_always_show_image (true);
             focus_overlay_button.tooltip_text = _("Exit focus mode");
             focus_overlay_button.halign = Gtk.Align.END;
@@ -444,7 +468,7 @@ namespace Quilter {
             overlay_button_revealer.add (focus_overlay_button);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            main_leaf.add (toolbar_revealer);
+            main_leaf.add (titlebar_revealer);
             main_leaf.add (searchbar);
             main_leaf.add (win_stack);
 
@@ -485,63 +509,64 @@ namespace Quilter {
 
         private void update () {
             if (grid != null && grid.get_folded ()) {
-                toolbar.pmenu_button.visible = false;
-                toolbar.pmenu_button.no_show_all = true;
-                toolbar.fmenu_button.visible = true;
-                toolbar.fmenu_button.no_show_all = false;
-                toolbar.remove (toolbar.new_button);
-                toolbar.remove (toolbar.open_button);
-                toolbar.remove (toolbar.save_as_button);
-                toolbar.fmenu_grid.attach (toolbar.new_button, 0, 0);
-                toolbar.fmenu_grid.attach (toolbar.open_button, 0, 1);
-                toolbar.fmenu_grid.attach (toolbar.save_as_button, 0, 2);
-                toolbar.new_button.label = (_("New Document"));
-                toolbar.open_button.label = (_("Open Document…"));
-                toolbar.save_as_button.label = (_("Save As…"));
-                toolbar.new_button.always_show_image = true;
-                toolbar.open_button.always_show_image = true;
-                toolbar.save_as_button.always_show_image = true;
-                toolbar.new_button.get_style_context ().add_class ("flat");
-                toolbar.open_button.get_style_context ().add_class ("flat");
-                toolbar.save_as_button.get_style_context ().add_class ("flat");
-                toolbar.back_button.visible = true;
-                toolbar.back_button.no_show_all = false;
-                toolbar.focusmode_button.visible = false;
-                toolbar.focusmode_button.no_show_all = true;
+                titlebar.pmenu_button.visible = false;
+                titlebar.pmenu_button.no_show_all = true;
+                titlebar.fmenu_button.visible = true;
+                titlebar.fmenu_button.no_show_all = false;
+                titlebar.remove (titlebar.new_button);
+                titlebar.remove (titlebar.open_button);
+                titlebar.remove (titlebar.save_as_button);
+                titlebar.fmenu_grid.attach (titlebar.new_button, 0, 0);
+                titlebar.fmenu_grid.attach (titlebar.open_button, 0, 1);
+                titlebar.fmenu_grid.attach (titlebar.save_as_button, 0, 2);
+                titlebar.new_button.label = (_("New Document"));
+                titlebar.open_button.label = (_("Open Document…"));
+                titlebar.save_as_button.label = (_("Save As…"));
+                titlebar.new_button.always_show_image = true;
+                titlebar.open_button.always_show_image = true;
+                titlebar.save_as_button.always_show_image = true;
+                titlebar.new_button.get_style_context ().add_class ("flat");
+                titlebar.open_button.get_style_context ().add_class ("flat");
+                titlebar.save_as_button.get_style_context ().add_class ("flat");
+                titlebar.back_button.visible = true;
+                titlebar.back_button.no_show_all = false;
+                titlebar.focusmode_button.visible = false;
+                titlebar.focusmode_button.no_show_all = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
                 sidebar.scrolled_box.hexpand = true;
             } else {
-                toolbar.pmenu_button.visible = true;
-                toolbar.pmenu_button.no_show_all = false;
-                toolbar.fmenu_button.visible = false;
-                toolbar.fmenu_button.no_show_all = true;
-                toolbar.fmenu_grid.remove (toolbar.new_button);
-                toolbar.fmenu_grid.remove (toolbar.open_button);
-                toolbar.fmenu_grid.remove (toolbar.save_as_button);
-                toolbar.new_button.label = null;
-                toolbar.open_button.label = null;
-                toolbar.save_as_button.label = null;
-                toolbar.new_button.always_show_image = false;
-                toolbar.open_button.always_show_image = false;
-                toolbar.save_as_button.always_show_image = false;
-                toolbar.new_button.get_style_context ().remove_class ("flat");
-                toolbar.open_button.get_style_context ().remove_class ("flat");
-                toolbar.save_as_button.get_style_context ().remove_class ("flat");
-                toolbar.pack_start (toolbar.new_button);
-                toolbar.pack_start (toolbar.open_button);
-                toolbar.pack_start (toolbar.save_as_button);
-                toolbar.back_button.visible = false;
-                toolbar.back_button.no_show_all = true;
-                toolbar.focusmode_button.visible = true;
-                toolbar.focusmode_button.no_show_all = false;
+                titlebar.pmenu_button.visible = true;
+                titlebar.pmenu_button.no_show_all = false;
+                titlebar.fmenu_button.visible = false;
+                titlebar.fmenu_button.no_show_all = true;
+                titlebar.fmenu_grid.remove (titlebar.new_button);
+                titlebar.fmenu_grid.remove (titlebar.open_button);
+                titlebar.fmenu_grid.remove (titlebar.save_as_button);
+                titlebar.new_button.label = null;
+                titlebar.open_button.label = null;
+                titlebar.save_as_button.label = null;
+                titlebar.new_button.always_show_image = false;
+                titlebar.open_button.always_show_image = false;
+                titlebar.save_as_button.always_show_image = false;
+                titlebar.new_button.get_style_context ().remove_class ("flat");
+                titlebar.open_button.get_style_context ().remove_class ("flat");
+                titlebar.save_as_button.get_style_context ().remove_class ("flat");
+                titlebar.pack_start (titlebar.new_button);
+                titlebar.pack_start (titlebar.open_button);
+                titlebar.pack_start (titlebar.save_as_button);
+                titlebar.back_button.visible = false;
+                titlebar.back_button.no_show_all = true;
+                titlebar.focusmode_button.visible = true;
+                titlebar.focusmode_button.no_show_all = false;
                 Quilter.Application.gsettings.set_boolean("header", true);
                 if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                     Quilter.Application.gsettings.set_boolean("focus-mode", true);
-                }
-                if (!Quilter.Application.gsettings.get_boolean("sidebar")) {
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
+                }
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    Quilter.Application.gsettings.set_boolean("sidebar", true);
                 }
                 sidebar.scrolled_box.hexpand = false;
             }
@@ -549,11 +574,11 @@ namespace Quilter {
             if (!Quilter.Application.gsettings.get_boolean("header")) {
                 // On Mobile size, so.... have to have no buttons anywhere.
                 sidebar.header.set_decoration_layout (":");
-                toolbar.set_decoration_layout (":");
+                titlebar.set_decoration_layout (":");
             } else {
                 // Else you're on Desktop size, so business as usual.
                 sidebar.header.set_decoration_layout ("close:");
-                toolbar.set_decoration_layout (":maximize");
+                titlebar.set_decoration_layout (":maximize");
             }
         }
 
@@ -666,7 +691,11 @@ namespace Quilter {
         }
 
         public void show_sidebar () {
-            sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            if (win_stack.get_visible_child () == welcome_view) {
+                sidebar.reveal_child = false;
+            } else {
+                sidebar.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            }
         }
 
         public void show_statusbar () {
@@ -688,8 +717,6 @@ namespace Quilter {
 
         private async void on_settings_changed () {
             show_searchbar ();
-            show_statusbar ();
-            show_sidebar ();
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout.begin ();
@@ -698,7 +725,7 @@ namespace Quilter {
                 overlay_button_revealer.reveal_child = true;
                 sidebar.reveal_child = false;
                 statusbar.reveal_child = false;
-                toolbar_revealer.reveal_child = false;
+                titlebar_revealer.reveal_child = false;
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
                         begin_move_drag ((int) e.button, (int) e.x_root, (int) e.y_root, e.time);
@@ -708,13 +735,9 @@ namespace Quilter {
                 });
             } else {
                 overlay_button_revealer.reveal_child = false;
-                toolbar_revealer.reveal_child = true;
-                if (Quilter.Application.gsettings.get_boolean("statusbar")) {
-                    statusbar.reveal_child = true;
-                }
-                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                    sidebar.reveal_child = true;
-                }
+                titlebar_revealer.reveal_child = true;
+                show_statusbar ();
+                show_sidebar ();
             }
 
             if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
@@ -724,14 +747,14 @@ namespace Quilter {
             }
 
             if (Quilter.Application.gsettings.get_boolean ("sidebar") == false) {
-                toolbar.set_decoration_layout ("close:maximize");
+                titlebar.set_decoration_layout ("close:maximize");
             } else {
                 if (!Quilter.Application.gsettings.get_boolean("header")) {
                     // On Mobile size, so.... have to have no buttons anywhere.
-                    toolbar.set_decoration_layout (":");
+                    titlebar.set_decoration_layout (":");
                 } else {
                     // Else you're on Desktop size, so business as usual.
-                    toolbar.set_decoration_layout (":maximize");
+                    titlebar.set_decoration_layout (":maximize");
                 }
             }
 
@@ -821,8 +844,11 @@ namespace Quilter {
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
             on_save ();
-            normal_view.visible = false;
+            win_stack.set_visible_child (main_stack);
             main_stack.visible = true;
+            welcome_titlebar.visible = false;
+            titlebar.visible = true;
+            Quilter.Application.gsettings.set_boolean("sidebar", true);
         }
 
         private void on_open () {
@@ -837,16 +863,22 @@ namespace Quilter {
                     } else {
                         sidebar.add_file (path);
                         sidebar.is_modified = true;
-                        normal_view.visible = false;
+                        win_stack.set_visible_child (main_stack);
                         main_stack.visible = true;
+                        welcome_titlebar.visible = false;
+                        titlebar.visible = true;
+                        Quilter.Application.gsettings.set_boolean("sidebar", true);
                         break;
                     }
                 }
             } else {
                 sidebar.add_file (path);
                 sidebar.is_modified = true;
-                normal_view.visible = false;
+                win_stack.set_visible_child (main_stack);
                 main_stack.visible = true;
+                welcome_titlebar.visible = false;
+                titlebar.visible = true;
+                Quilter.Application.gsettings.set_boolean("sidebar", true);
             }
             edit_view_content.text = contents;
             save_last_files ();

@@ -173,3 +173,13 @@ label:disabled {
     padding: 6px;
     border-radius: 8px;
 }
+
+.welcome-title {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}

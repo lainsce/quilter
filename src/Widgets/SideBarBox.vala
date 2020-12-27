@@ -96,8 +96,11 @@ namespace Quilter.Widgets {
                     win.save_last_files ();
                 }
                 if (win.sidebar.column.get_children () == null) {
-                    win.normal_view.visible = true;
+                    win.win_stack.set_visible_child (win.welcome_view);
+                    win.welcome_titlebar.visible = true;
+                    win.titlebar.visible = false;
                     win.main_stack.visible = false;
+                    Quilter.Application.gsettings.set_boolean("sidebar", false);
                 } else {
                     win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
                 }
