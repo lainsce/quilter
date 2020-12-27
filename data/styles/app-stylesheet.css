@@ -212,7 +212,8 @@
   border-bottom: 1px solid transparent;
 }
 
-.welcome-title:backdrop {
+.welcome-title:backdrop,
+.welcome-title:backdrop > *:disabled:backdrop {
 	background: #F0F0F0;
 }
 
