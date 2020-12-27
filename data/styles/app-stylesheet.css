@@ -211,3 +211,11 @@
   background: @color_primary;
   border-bottom: 1px solid transparent;
 }
+
+.welcome-title:backdrop {
+	background: #F0F0F0;
+}
+
+.quilter-normal-view:backdrop {
+	background-color: #F0F0F0;
+}
