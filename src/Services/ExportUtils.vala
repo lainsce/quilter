@@ -45,18 +45,15 @@ namespace Quilter.Services.ExportUtils {
     }
 
     public static File? export_pdf (string? file_path = null) {
-
+        window.render_func ();
         int type_of_mode = 0;
 
         if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
             Quilter.Application.gsettings.set_string("visual-mode", "light");
             type_of_mode = 1;
-        } else if (Quilter.Application.gsettings.get_string("visual-mode") == "moon") {
-            Quilter.Application.gsettings.set_string("visual-mode", "light");
-            type_of_mode = 2;
         } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
             Quilter.Application.gsettings.set_string("visual-mode", "light");
-            type_of_mode = 3;
+            type_of_mode = 2;
         }
 
         Widgets.Preview.get_instance ().update_html_view ();
@@ -88,8 +85,8 @@ namespace Quilter.Services.ExportUtils {
 
         var psize = new Gtk.PaperSize(Gtk.PAPER_NAME_A4);
 		var psetup = new Gtk.PageSetup();
-		psetup.set_top_margin (1.0, Gtk.Unit.INCH);
-		psetup.set_bottom_margin (1.20, Gtk.Unit.INCH);
+		psetup.set_top_margin (0.75, Gtk.Unit.INCH);
+		psetup.set_bottom_margin (0.75, Gtk.Unit.INCH);
 		psetup.set_left_margin (0.75, Gtk.Unit.INCH);
 		psetup.set_right_margin (0.75, Gtk.Unit.INCH);
         psetup.set_paper_size(psize);
@@ -103,9 +100,6 @@ namespace Quilter.Services.ExportUtils {
             Quilter.Application.gsettings.set_string("visual-mode", "dark");
             type_of_mode = 0;
         } else if (type_of_mode == 2) {
-            Quilter.Application.gsettings.set_string("visual-mode", "moon");
-            type_of_mode = 0;
-        } else if (type_of_mode == 3) {
             Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             type_of_mode = 0;
         }
@@ -113,8 +107,8 @@ namespace Quilter.Services.ExportUtils {
         return file;
     }
 
-    public static void write_file (File file, string contents, bool overrite = false) throws Error {
-        if (file.query_exists () && overrite) {
+    public static void write_file (File file, string contents, bool overwrite = false) throws Error {
+        if (file.query_exists () && overwrite) {
             file.delete ();
         }
 

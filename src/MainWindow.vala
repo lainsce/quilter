@@ -678,7 +678,7 @@ namespace Quilter {
             Services.ExportUtils.export_html ();
         }
 
-        private void render_func () {
+        public void render_func () {
             preview_view_content.update_html_view ();
             if (edit_view_content.buffer.get_modified () == true) {
                 preview_view_content.update_html_view ();

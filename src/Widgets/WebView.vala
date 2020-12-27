@@ -54,8 +54,6 @@ namespace Quilter {
             webkit_settings.enable_page_cache = false;
             webkit_settings.javascript_can_open_windows_automatically = false;
             webkit_settings.enable_java = false;
-            webkit_settings.enable_mediasource = true;
-            webkit_settings.enable_plugins = false;
 
             this.scroll_value = -1;
 
@@ -167,7 +165,18 @@ namespace Quilter {
             if (Quilter.Application.gsettings.get_boolean("mermaid")) {
                 string render = "/usr/share/com.github.lainsce.quilter/mermaid/mermaid.js";
                 string mermaid = """
-                    <script defer src="%s" onload="mermaid.initialize({startOnLoad:true;});"></script>
+                    <script src="%s"></script>
+                    <script>
+                        var config = {
+                            startOnLoad: true,
+                            pie:{
+                                    useMaxWidth:false,
+                                    htmlLabels:true
+                            }
+                        };
+                        mermaid.initialize(config);
+                        mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+                    </script>
                 """.printf (render);
                 return mermaid;
             } else {
@@ -272,7 +281,7 @@ namespace Quilter {
         public void update_html_view () {
             string processed_mk;
             process_frontmatter (buf.text, out processed_mk);
-            var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
+            var mkd = new Markdown.Document.from_string (processed_mk.data,
                                                          0x00000100 +
                                                          0x00001000 +
                                                          0x00040000 +
