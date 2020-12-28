@@ -263,7 +263,7 @@ namespace Quilter.Widgets {
 
             var save_time_unit = new SettingsLabel (_("seconds."));
 
-            var custom_help1 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            var custom_help1 = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.BUTTON);
             custom_help1.halign = Gtk.Align.START;
             custom_help1.margin_start = 6;
             custom_help1.tooltip_text = _("Warning: Values below 15 seconds may affect your storage medium negatively.");
@@ -294,7 +294,7 @@ namespace Quilter.Widgets {
 
             var pos_button_label = new SettingsLabel (_("Highlight Speech Parts<sup>𝜷</sup>:"));
             var pos_button = new SettingsSwitch ("pos");
-            var custom_help2 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            var custom_help2 = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.BUTTON);
             custom_help2.halign = Gtk.Align.START;
             custom_help2.margin_start = 6;
             // Please mind the line breaks (\n).
