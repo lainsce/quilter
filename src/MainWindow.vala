@@ -715,6 +715,7 @@ namespace Quilter {
 
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.reveal_child = true;
+                overlay_button_revealer.no_show_all = false;
                 sidebar.reveal_child = false;
                 statusbar.reveal_child = false;
                 titlebar_revealer.reveal_child = false;
@@ -727,6 +728,7 @@ namespace Quilter {
                 });
             } else {
                 overlay_button_revealer.reveal_child = false;
+                overlay_button_revealer.no_show_all = true;
                 titlebar_revealer.reveal_child = true;
                 show_statusbar ();
                 show_sidebar ();
