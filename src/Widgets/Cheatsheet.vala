@@ -130,7 +130,7 @@ namespace Quilter.Widgets {
             var sup_font_label = new Label (_("Superscript: E = MC^2^"));
             var checkbox_label = new Label (_("[] Empty Checkbox."));
             var checkedbox_label = new Label (_("[x] Checked Checkbox."));
-            var custom_help = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            var custom_help = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.BUTTON);
             custom_help.halign = Gtk.Align.START;
             custom_help.margin_start = 6;
             custom_help.tooltip_text = _("Period needed to avoid conflicts.");
@@ -142,7 +142,7 @@ namespace Quilter.Widgets {
             var sp_file_label = new Label (_("Embeds a local Markdown file\n\t/Folder/File.md :file"));
             var table_header = new Granite.HeaderLabel (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
-            var custom_help2 = new Gtk.Image.from_icon_name ("help-info-symbolic", Gtk.IconSize.BUTTON);
+            var custom_help2 = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.BUTTON);
             custom_help2.halign = Gtk.Align.START;
             custom_help2.margin_start = 6;
             custom_help2.tooltip_text = _("Left Column, change --- to :--- .\nCentered Column, change --- to :---: .\nRight Column, change --- to ---: .");
