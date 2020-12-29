@@ -1,7 +1,7 @@
 .color-button radio,
 .color-button radio:checked {
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 50px;
     -gtk-icon-shadow: none;
 }
 
@@ -147,13 +147,8 @@ window.unified decoration-overlay {
     padding-top: 0.5em;
 }
 
-.title {
+.quilter-toolbar .title {
     font-weight: 700;
-}
-
-.subtitle {
-    font-size: smaller;
-    opacity: 0.8;
 }
 
 .sb-switcher {

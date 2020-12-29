@@ -123,10 +123,10 @@ namespace Quilter.Widgets {
             indent_text ();
             buffer.changed.connect (() => {
                 modified = true;
-                indent_text ();
                 if (Quilter.Application.gsettings.get_boolean("pos")) {
                     pos_syntax_start ();
                 }
+                indent_text ();
             });
 
             if (Quilter.Application.gsettings.get_string("current-file") == "") {
@@ -170,7 +170,6 @@ namespace Quilter.Widgets {
 
             Quilter.Application.gsettings.changed.connect (() => {
                 update_settings ();
-                indent_text ();
             });
 
             var rect = Gtk.Allocation ();
@@ -194,6 +193,7 @@ namespace Quilter.Widgets {
             this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
             this.set_pixels_below_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins ();
+            //indent_text ();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;
