@@ -16,6 +16,11 @@
     border: none;
     box-shadow: none;
 }
+.quilter-dialog-hb .titlebar .image-button.toggle {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
 .quilter-dialog-hb headerbar {
     margin: 4px 0;
 }
@@ -86,6 +91,14 @@
 .quilter-dialog-hb viewswitcher button:last-child {
     background: shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
     border-right: 1px solid shade(mix (@prefs_accent, @prefs_primary, 0.95), 0.88);
+}
+.quilter-dialog-hb .header .title {
+    font-size: 10pt;
+    font-weight: 500px;
+}
+.quilter-dialog-hb .header .subtitle {
+    padding-top: 5px;
+    font-size: 9pt;
 }
 
 .quilter-sidebar-switcher {
