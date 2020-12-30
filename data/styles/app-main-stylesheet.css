@@ -105,7 +105,7 @@ window.unified decoration-overlay {
     color: black;
     border: 1px solid alpha (black, 0);
 	box-shadow: none;
-	border-radius: 6px;
+	border-radius: 8px;
 }
 
 .quilter-cbt button:hover {
@@ -113,11 +113,11 @@ window.unified decoration-overlay {
 }
 
 .quilter-focus-button {
-  border-radius: 8px;
-  min-width: 32px;
-  min-height: 32px;
-  margin: 0;
-  padding: 4px;
+    -gtk-icon-shadow: none;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 10px;
+    border-radius: 8px;
 }
 
 .edit-view-paned {

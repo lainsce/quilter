@@ -35,6 +35,7 @@ namespace Quilter {
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
+            this.valign = Gtk.Align.END;
             actionbar = new Gtk.ActionBar ();
 
             var sb_context = actionbar.get_style_context ();

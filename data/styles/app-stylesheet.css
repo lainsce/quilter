@@ -205,23 +205,6 @@
 	background-color: @color_primary;
 }
 
-.osd {
-  background-image: none;
-  background-color: shade(@color_primary, 1.04);
-  box-shadow: none;
-  border: 1px solid alpha(black, 0.25);
-  color: @text_color;
-  -gtk-icon-shadow: 1px 1px transparent;
-}
-
-.osd:active,
-.osd:focus {
-  background-image: none;
-  background-color: shade(shade(@color_primary, 1.04),0.88);
-  box-shadow: none;
-  border: 1px solid shade(shade(@color_primary, 1.04),0.88);
-}
-
 .welcome-title {
   background: @color_primary;
   border-bottom: 1px solid transparent;
@@ -239,4 +222,10 @@
 
 .quilter-normal-view:backdrop {
 	background-color: #F0F0F0;
+}
+
+.quilter-focus-button {
+    background: shade(@color_primary, 1.1);
+    border: 1px solid alpha (black, 0.25);
+    color: @theme_fg_color;
 }
