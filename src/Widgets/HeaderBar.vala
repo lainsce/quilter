@@ -348,7 +348,7 @@ namespace Quilter.Widgets {
 
             var button_grid = new Gtk.Grid ();
             button_grid.column_homogeneous = true;
-            button_grid.margin_start = button_grid.margin_end = 12;
+            button_grid.hexpand = true;
             button_grid.margin_bottom = 6;
             button_grid.attach (color_button_prefs, 0, 0, 1, 1);
             button_grid.attach (color_button_light, 1, 0, 1, 1);
