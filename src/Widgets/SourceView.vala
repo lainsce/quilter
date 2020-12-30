@@ -327,7 +327,7 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(whitefont, start, end);
                     buffer.remove_tag(blackfont, start, end);
                     return "quilter-sepia";
-                } else {
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
                     provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
                     Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                     Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
@@ -335,6 +335,25 @@ namespace Quilter.Widgets {
                     buffer.remove_tag(lightsepiafont, start, end);
                     buffer.remove_tag(sepiafont, start, end);
                     return "quilter";
+                // Follow System Preference
+                } else {
+                    if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                        provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+                        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                        buffer.remove_tag(whitefont, start, end);
+                        buffer.remove_tag(lightsepiafont, start, end);
+                        buffer.remove_tag(sepiafont, start, end);
+                        return "quilter";
+                    } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                        provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
+                        Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+                        Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                        buffer.remove_tag(lightsepiafont, start, end);
+                        buffer.remove_tag(sepiafont, start, end);
+                        buffer.remove_tag(blackfont, start, end);
+                        return "quilter-dark";
+                    }
                 }
             } else {
                 provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
@@ -345,7 +364,7 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(sepiafont, start, end);
                 return "quilter";
             }
-
+            return "";
         }
 
         public void indent_text () {

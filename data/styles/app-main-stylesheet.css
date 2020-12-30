@@ -11,17 +11,22 @@
 
 .color-dark radio {
     background: #151515;
-    color: #f7f7f7;
+    color: @accent;
 }
 
 .color-light radio {
     background: #f7f7f7;
-    color: #151515;
+    color: @accent;
 }
 
 .color-sepia radio {
     background: #F0E8DD;
-    color: #5D4738;
+    color: @accent;
+}
+
+.color-prefs radio {
+    background: linear-gradient(45deg, #fafafa 50%, #333 1px);
+    color: #3689e6;
 }
 
 window .csd:not(.popup):not(.menu) .titlebar,
@@ -38,7 +43,6 @@ window.unified decoration-overlay {
     background-image: none;
 	border: 1px solid transparent;
     padding: 6px;
-    border-radius: 0 0 8px 8px;
 }
 
 .statusbar box {
@@ -51,7 +55,6 @@ window.unified decoration-overlay {
 .full-bar {
     border-top: 1px solid transparent;
     background-color: transparent;
-    border-radius: 0 0 8px 8px;
 }
 
 .quilter-searchbar {

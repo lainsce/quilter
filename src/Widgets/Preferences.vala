@@ -310,7 +310,17 @@ namespace Quilter.Widgets {
             var visual_row = new Hdy.ActionRow ();
             visual_row.set_title (_("Visual Mode"));
 
-            var color_button_light = new Gtk.RadioButton (null);
+            var color_button_prefs = new Gtk.RadioButton (null);
+            color_button_prefs.halign = Gtk.Align.CENTER;
+            color_button_prefs.height_request = 32;
+            color_button_prefs.width_request = 32;
+            color_button_prefs.tooltip_text = _("Follow System Appearance");
+
+            var color_button_prefs_context = color_button_prefs.get_style_context ();
+            color_button_prefs_context.add_class ("color-button");
+            color_button_prefs_context.add_class ("color-prefs");
+
+            var color_button_light = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 32;
             color_button_light.width_request = 32;
@@ -320,7 +330,7 @@ namespace Quilter.Widgets {
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 32;
             color_button_sepia.width_request = 32;
@@ -330,7 +340,7 @@ namespace Quilter.Widgets {
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 32;
             color_button_dark.width_request = 32;
@@ -343,7 +353,7 @@ namespace Quilter.Widgets {
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 
             switch (mode_type) {
-                case "":
+                case "light":
                     color_button_light.set_active (true);
                     break;
                 case "sepia":
@@ -352,8 +362,9 @@ namespace Quilter.Widgets {
                 case "dark":
                     color_button_dark.set_active (true);
                     break;
+                case "":
                 default:
-                    color_button_light.set_active (true);
+                    color_button_prefs.set_active (true);
                     break;
             }
 
@@ -366,11 +377,16 @@ namespace Quilter.Widgets {
             });
 
             color_button_light.clicked.connect (() => {
+                Quilter.Application.gsettings.set_string("visual-mode", "light");
+            });
+
+            color_button_prefs.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 20);
             buttonbox.halign = Gtk.Align.CENTER;
+            buttonbox.add (color_button_prefs);
             buttonbox.add (color_button_light);
             buttonbox.add (color_button_sepia);
             buttonbox.add (color_button_dark);

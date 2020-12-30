@@ -85,14 +85,20 @@ namespace Quilter {
                 } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
                     string sepia = Styles.quiltersepia.css;
                     return sepia;
-                } else {
+                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
                     string normal = Styles.quilter.css;
                     return normal;
                 }
             } else {
-                string normal = Styles.quilter.css;
-                return normal;
+                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    string dark = Styles.quilterdark.css;
+                    return dark;
+                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    string normal = Styles.quilter.css;
+                    return normal;
+                }
             }
+            return "";
         }
 
         private string set_font_stylesheet () {
