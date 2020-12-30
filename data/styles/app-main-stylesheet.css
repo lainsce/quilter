@@ -5,6 +5,10 @@
     -gtk-icon-shadow: none;
 }
 
+.color-button radio label {
+    display: none;
+}
+
 .color-button radio:focus {
     border-color: @accent;
 }
@@ -25,7 +29,7 @@
 }
 
 .color-prefs radio {
-    background: linear-gradient(45deg, #fafafa 50%, #333 1px);
+    background: linear-gradient(135deg, #fafafa 50%, #333 1px);
     color: #3689e6;
 }
 
