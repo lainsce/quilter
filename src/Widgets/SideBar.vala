@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018-2020 Lains
+* Copyright (c) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private Gtk.Label no_files;
-        public Gtk.StackSwitcher stackswitcher;
+        public Hdy.ViewSwitcher stackswitcher;
         public Gtk.ScrolledWindow scrolled_box;
         public Hdy.HeaderBar header;
         private string[] files;
@@ -76,23 +76,23 @@ namespace Quilter.Widgets {
             stack = new Gtk.Stack ();
             stack.add_titled (sidebar_files_list (), "files", _("Files").up ());
             stack.add_titled (sidebar_outline (), "outline", _("Outline").up ());
+            stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
+            stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
             scrolled_box.add (stack);
 
             header = new Hdy.HeaderBar ();
             header.show_close_button = true;
 
-            stackswitcher = new Gtk.StackSwitcher ();
-            stackswitcher.margin_top = stackswitcher.margin_bottom = 6;
-            stackswitcher.margin_start = stackswitcher.margin_end = 12;
-            stackswitcher.homogeneous = true;
+            stackswitcher = new Hdy.ViewSwitcher ();
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
             header.has_subtitle = false;
             header.set_title (null);
-            header.set_size_request (199,38);
+            header.set_custom_title (stackswitcher);
+            header.set_size_request (200,38);
 
             var this_context = header.get_style_context ();
             this_context.add_class (Gtk.STYLE_CLASS_FLAT);
@@ -101,7 +101,6 @@ namespace Quilter.Widgets {
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.add (header);
-            main_grid.add (stackswitcher);
             main_grid.add (scrolled_box);
             main_grid.get_style_context ().add_class ("quilter-sidebar");
 

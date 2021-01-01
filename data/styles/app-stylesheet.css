@@ -105,8 +105,6 @@
     background: mix(@accent, @color_primary, 0.90);
 }
 .quilter-sidebar-switcher button:not(:checked):not(:active) {
-    border-top: 1px solid shade(@accent, 1.2);
-    border-bottom: 1px solid shade(@accent, 1.2);
     background: mix(@accent, @color_primary, 0.90);
 }
 .quilter-sidebar-switcher button {
@@ -154,7 +152,7 @@
 
 .quilter-toolbar-side {
     background: mix(@accent, @color_primary, 0.90);
-    border: none;
+    border-bottom: 1px solid alpha(black, 0.25);
 }
 
 .quilter-toolbar-side:backdrop {
@@ -166,8 +164,6 @@
 }
 
 .quilter-sidebar {
-    border-bottom-color: transparent;
-    border-bottom-width: 1px;
     border-right: 1px solid alpha(black, 0.25);
     background: mix(@accent, @color_primary, 0.90);
 }

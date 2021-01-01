@@ -24,6 +24,12 @@ namespace Quilter.Widgets {
         private Gtk.TextTag lightsepiafont;
         private Gtk.TextTag sepiafont;
         private Gtk.TextTag whitefont;
+        private Gtk.TextTag tmargin1;
+        private Gtk.TextTag tmargin2;
+        private Gtk.TextTag tmargin3;
+        private Gtk.TextTag tmargin4;
+        private Gtk.TextTag tmargin5;
+        private Gtk.TextTag tmargin6;
         private int last_height = 0;
         private int last_width = 0;
         private double text_indent = 0.0;
@@ -38,9 +44,6 @@ namespace Quilter.Widgets {
         public Gtk.TextTag conjfont;
         public Gtk.TextTag verbfont;
         public Gtk.TextTag error_tag;
-        public Gtk.TextTag tmargin1;
-        public Gtk.TextTag tmargin2;
-        public Gtk.TextTag tmargin3;
         public MainWindow window;
         public Services.POSFiles pos;
         public bool should_scroll {get; set; default = false;}
@@ -110,12 +113,12 @@ namespace Quilter.Widgets {
             adjfont = buffer.create_tag(null, "foreground", "#e58256");
             conjfont = buffer.create_tag(null, "foreground", "#74c02e");
 
-            tmargin1 = new Gtk.TextTag();
-            tmargin1 = buffer.create_tag(null, "indent", 0, "left_margin", 0);
-            tmargin2 = new Gtk.TextTag();
-            tmargin2 = buffer.create_tag(null, "indent", 0, "left_margin", 0);
-            tmargin3 = new Gtk.TextTag();
-            tmargin3 = buffer.create_tag(null, "indent", 0, "left_margin", 0);
+            tmargin1 = buffer.create_tag("tmargin_1", "indent", 0, "left_margin", 0);
+            tmargin2 = buffer.create_tag("tmargin_2", "indent", 0, "left_margin", 0);
+            tmargin3 = buffer.create_tag("tmargin_3", "indent", 0, "left_margin", 0);
+            tmargin4 = buffer.create_tag("tmargin_4", "indent", 0, "left_margin", 0);
+            tmargin5 = buffer.create_tag("tmargin_5", "indent", 0, "left_margin", 0);
+            tmargin6 = buffer.create_tag("tmargin_6", "indent", 0, "left_margin", 0);
 
             pos = new Services.POSFiles ();
 
@@ -349,23 +352,29 @@ namespace Quilter.Widgets {
             return "";
         }
 
+        public double get_char_width (Gtk.Widget widget) {
+            return Pango.units_to_double(widget.get_pango_context().get_metrics(null, null).get_approximate_char_width());
+        }
+
         public void indent_text () {
             if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
-               if (file != null && file.query_exists ()) {
+               if (file.query_exists ()) {
                     try {
                         string b = "";
                         GLib.FileUtils.get_contents (file.get_path (), out b, null);
                         GLib.MatchInfo match;
-                        Gtk.TextIter start, end, start_sentence, end_sentence;
-                        buffer.get_bounds (out start, out end);
-                        var reg = new Regex("(?im)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
+
+                        var reg = new Regex("(?im)^(?<header>\\#{1,6})\\s(?<text>.*\\$?)");
                         if (reg.match (b, 0, out match)) {
-                            do {
-                                if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, null)) {
-                                    if (match.fetch_named ("header") == "#") {
-                                        this.text_indent = -44;
-                                        this.text_margin = 44;
+                            while (match.next ()) {
+                                if (match.fetch_named ("header") == "#") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 1);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 1, 0);
                                         var tab_array = new Pango.TabArray (1, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4);
                                         this.set_tabs(tab_array);
@@ -374,9 +383,19 @@ namespace Quilter.Widgets {
                                         tmargin1.left_margin = (int)(text_margin);
 
                                         buffer.apply_tag(tmargin1, start_sentence, end_sentence);
-                                    } else if (match.fetch_named ("header") == "##") {
-                                        this.text_indent = -34;
-                                        this.text_margin = 34;
+                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin5, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin6, start_sentence, end_sentence);
+                                    }
+                                } else if (match.fetch_named ("header") == "##") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 2);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 2, 0);
                                         var tab_array = new Pango.TabArray (2, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 2);
                                         this.set_tabs(tab_array);
@@ -385,9 +404,19 @@ namespace Quilter.Widgets {
                                         tmargin2.left_margin = (int)(text_margin);
 
                                         buffer.apply_tag(tmargin2, start_sentence, end_sentence);
-                                    } else if (match.fetch_named ("header") == "###") {
-                                        this.text_indent = -24;
-                                        this.text_margin = 24;
+                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin5, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin6, start_sentence, end_sentence);
+                                    }
+                                } else if (match.fetch_named ("header") == "###") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 3);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 3, 0);
                                         var tab_array = new Pango.TabArray (3, true);
                                         tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 3);
                                         this.set_tabs(tab_array);
@@ -396,9 +425,77 @@ namespace Quilter.Widgets {
                                         tmargin3.left_margin = (int)(text_margin);
 
                                         buffer.apply_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin5, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin6, start_sentence, end_sentence);
+                                    }
+                                } else if (match.fetch_named ("header") == "####") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 4);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 4, 0);
+                                        var tab_array = new Pango.TabArray (3, true);
+                                        tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 4);
+                                        this.set_tabs(tab_array);
+
+                                        tmargin4.indent = (int)(text_indent);
+                                        tmargin4.left_margin = (int)(text_margin);
+
+                                        buffer.apply_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin5, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin6, start_sentence, end_sentence);
+                                    }
+                                } else if (match.fetch_named ("header") == "#####") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 5);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 5, 0);
+                                        var tab_array = new Pango.TabArray (3, true);
+                                        tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 5);
+                                        this.set_tabs(tab_array);
+
+                                        tmargin5.indent = (int)(text_indent);
+                                        tmargin5.left_margin = (int)(text_margin);
+
+                                        buffer.apply_tag(tmargin5, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin6, start_sentence, end_sentence);
+                                    }
+                                } else if (match.fetch_named ("header") == "######") {
+                                    Gtk.TextIter start, end;
+                                    buffer.get_bounds (out start, out end);
+                                    Gtk.TextIter start_sentence, end_sentence;
+                                    if (start.forward_search(match.fetch_named ("header"), Gtk.TextSearchFlags.TEXT_ONLY, out start_sentence, out end_sentence, end)) {
+                                        this.text_indent = (get_char_width (this) * 6);
+                                        this.text_margin = GLib.Math.fmax(this.left_margin + get_char_width (this) * 6, 0);
+                                        var tab_array = new Pango.TabArray (3, true);
+                                        tab_array.set_tab(0, Pango.TabAlign.LEFT, 4 * 6);
+                                        this.set_tabs(tab_array);
+
+                                        tmargin6.indent = (int)(text_indent);
+                                        tmargin6.left_margin = (int)(text_margin);
+
+                                        buffer.apply_tag(tmargin6, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin1, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin2, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin3, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin4, start_sentence, end_sentence);
+                                        buffer.remove_tag(tmargin5, start_sentence, end_sentence);
                                     }
                                 }
-                            } while (match.next ());
+                            };
                         }
                     } catch (GLib.Error e) {
                         warning ("ERR: %s", e.message);

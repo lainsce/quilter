@@ -63,6 +63,7 @@ dependencies = [
     dependency('gtkspell3-3.0'),
     dependency('libhandy-1'),
     libmarkdown,
+    cc.find_library('m', required: true)
 ]
 
 executable(

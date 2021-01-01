@@ -75,6 +75,12 @@ window.unified decoration-overlay {
 
 .quilter-toolbar-side {
     box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+
+.quilter-toolbar-side .titlebutton {
+    margin: 0 8px;
 }
 
 .quilter-toolbar .image-button {
@@ -82,10 +88,7 @@ window.unified decoration-overlay {
     background: transparent;
     box-shadow: none;
     border: none;
-}
-
-.quilter-toolbar .image-button image {
-    padding: 0 6px;
+    padding: 8px;
 }
 
 .quilter-sidebar {
@@ -128,38 +131,28 @@ window.unified decoration-overlay {
   color: @text_color;
 }
 
+.quilter-sidebar-switcher label {
+    font-size: 0.9rem;
+}
+
 .quilter-sidebar-switcher button {
     box-shadow: none;
     background-image: none;
-    border-radius: 8px 0 0 8px;
-}
-
-.quilter-sidebar-switcher button:last-child {
-    box-shadow: none;
-    background-image: none;
-    border-radius: 0 8px 8px 0;
+    border-radius: 0px;
 }
 
 .quilter-sidebar-switcher button label {
     font-weight: 700;
     opacity: 0.8;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
 }
 
 .quilter-sidebar-switcher button:not(:checked):not(:active) label {
     font-weight: 500;
     opacity: 0.8;
-    padding-bottom: 0.5em;
-    padding-top: 0.5em;
 }
 
 .quilter-toolbar .title {
     font-weight: 700;
-}
-
-.sb-switcher {
-    padding: 0;
 }
 
 .bold {
@@ -174,6 +167,20 @@ label:disabled {
     border: 1px solid transparent;
     padding: 6px;
     border-radius: 8px;
+    box-shadow: none;
+}
+.preview-row:active,
+.preview-row:hover,
+.preview-row:selected {
+    background: shade(@color_primary, 1.2);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
+}
+.preview-row:active:hover,
+.preview-row:selected:hover {
+    background: shade(@color_primary, 0.9);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
 }
 
 .welcome-title {
