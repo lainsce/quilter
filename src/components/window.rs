@@ -41,7 +41,7 @@ impl Window {
 
         let style = CssProvider::new();
         let _ = CssProviderExt::load_from_data(&style, CSS.as_bytes());
-        StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &style, STYLE_PROVIDER_PRIORITY_USER);
+        StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &style, STYLE_PROVIDER_PRIORITY_APPLICATION);
 
         let header = Header::new();
         let sidebar = Sidebar::new();
