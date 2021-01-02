@@ -36,20 +36,9 @@ iconsdir = datadir / 'icons'
 podir = meson.source_root() / 'po'
 gettext_package = meson.project_name()
 
-if get_option('profile') == 'development'
-  profile = 'Devel'
-  name_suffix = ' (Devel)'
-  vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
-  if vcs_tag == ''
-    version_suffix = '-devel'
-  else
-    version_suffix = '-@0@'.format(vcs_tag)
-  endif
-else
-  profile = ''
-  name_suffix = ''
-  version_suffix = ''
-endif
+profile = ''
+name_suffix = ''
+version_suffix = ''
 
 application_id = '@0@@1@'.format(base_id, profile)
 
@@ -58,12 +47,6 @@ meson.add_dist_script(
   meson.build_root() / 'meson-dist' / meson.project_name() + '-' + version,
   meson.source_root()
 )
-
-if get_option('profile') == 'development'
-  # Setup pre-commit hook for ensuring coding style is always consistent
-  message('Setting up git pre-commit hook..')
-  run_command('cp', '-f', 'hooks/pre-commit.hook', '.git/hooks/pre-commit')
-endif
 
 subdir('data')
 subdir('po')

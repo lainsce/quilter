@@ -1,5 +1,7 @@
 extern crate sourceview4;
 
+pub mod window_state;
+
 pub mod window;
 use self::window::Window;
 

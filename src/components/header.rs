@@ -7,19 +7,18 @@ use crate::components::popover::Popover;
 pub struct Header {
     pub container: libhandy::HeaderBar,
     pub popover: Popover,
-    pub new_button: Button,
-    pub new_image: Image,
-    pub open_button: Button,
-    pub open_image: Image,
-    pub save_button: Button,
-    pub save_image: Image,
-    pub menu_button: MenuButton,
-    pub menu_image: Image,
+    pub new_button: gtk::Button,
+    pub new_image: gtk::Image,
+    pub open_button: gtk::Button,
+    pub open_image: gtk::Image,
+    pub save_button: gtk::Button,
+    pub save_image: gtk::Image,
+    pub menu_button: gtk::MenuButton,
+    pub menu_image: gtk::Image,
 }
 
 impl Header {
     pub fn new() -> Header {
-        let popover = Popover::new();
         let container = libhandy::HeaderBar::new();
         container.set_show_close_button(true);
         container.set_title(Some("Quilter"));
@@ -53,7 +52,8 @@ impl Header {
         menu_button.get_style_context().add_class("image-button");
         menu_button.set_image(Some(&menu_image));
         menu_button.set_always_show_image(true);
-        menu_button.set_popup(Some(&popover.container));
+        let popover = Popover::new(menu_button.as_ref());
+        menu_button.set_popover(Some(&popover.container));
         container.pack_end(&menu_button);
 
         Header {

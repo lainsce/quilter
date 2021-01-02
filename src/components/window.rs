@@ -13,8 +13,12 @@ use webkit2gtk::{WebContext, WebView, WebViewExt};
 
 const CSS: &str = include_str!("styles/app.css");
 
+use crate::config::APP_ID;
+use crate::components::window_state;
+
 pub struct Window {
     pub container: libhandy::ApplicationWindow,
+    settings: gio::Settings,
     pub header:  Header,
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
@@ -22,6 +26,8 @@ pub struct Window {
 
 impl Window {
     pub fn new() -> Window {
+        let settings = gio::Settings::new(APP_ID);
+
         let container = libhandy::ApplicationWindow::new();
         let settingsgtk = gtk::Settings::get_default();
         settingsgtk.clone ().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
@@ -137,11 +143,30 @@ impl Window {
         container.set_size_request(600, 350);
 
         //return
-        Window {
+        let window_widget = Window {
             container,
+            settings,
             header,
             view,
             webview,
-        }
+        };
+
+        window_widget.init();
+        window_widget
+    }
+
+    fn init(&self) {
+        // load latest window state
+        window_state::load(&self.container, &self.settings);
+
+        // save window state on delete event
+        self.container.connect_delete_event(
+            glib::clone!(@strong self.settings as settings => move |window, _| {
+                if let Err(err) = window_state::save(&window, &settings) {
+                    log::warn!("Failed to save window state, {}", err);
+                }
+                Inhibit(false)
+            }),
+        );
     }
 }

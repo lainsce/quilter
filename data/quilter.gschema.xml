@@ -1,14 +1,24 @@
 <?xml version="1.0"?>
 <schemalist>
   <schema id="com.github.lainsce.quilter" path="/com/github/lainsce/quilter/">
-    <key name="window-position" type="(ii)">
-      <default>(-1,-1)</default>
-      <summary>Window position</summary>
-      <description>The axis of window position</description>
+    <key name="window-x" type="i">
+      <default>-1</default>
+      <summary>Window X position</summary>
+      <description>The axis x of window position</description>
     </key>
-    <key name="window-size" type="(ii)">
-      <default>(870,690)</default>
-      <summary>Window position</summary>
+    <key name="window-y" type="i">
+      <default>-1</default>
+      <summary>Window Y position</summary>
+      <description>The axis y of window position</description>
+    </key>
+    <key name="window-width" type="i">
+      <default>870</default>
+      <summary>Window W position</summary>
+      <description>The width of the window</description>
+    </key>
+    <key name="window-height" type="i">
+      <default>690</default>
+      <summary>Window H position</summary>
       <description>The height of the window</description>
     </key>
     <key name="header" type="b">
