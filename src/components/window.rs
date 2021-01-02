@@ -1,6 +1,7 @@
 extern crate sourceview4;
 
 use crate::components::header::Header;
+use crate::components::sidebar::Sidebar;
 
 use gtk;
 use gtk::*;
@@ -8,18 +9,22 @@ use gtk::prelude::*;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use sourceview4::StyleSchemeManagerExt;
-use gtk::SettingsExt;
+use gtk::SettingsExt as GtkSettings;
+use gio::SettingsExt;
 use webkit2gtk::{WebContext, WebView, WebViewExt};
 
 const CSS: &str = include_str!("styles/app.css");
+const CSSLIGHT: &str = include_str!("styles/light.css");
+const CSSDARK: &str = include_str!("styles/dark.css");
 
 use crate::config::APP_ID;
 use crate::components::window_state;
 
 pub struct Window {
     pub container: libhandy::ApplicationWindow,
-    settings: gio::Settings,
+    pub settings: gio::Settings,
     pub header:  Header,
+    pub sidebar:  Sidebar,
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
 }
@@ -34,15 +39,18 @@ impl Window {
         settingsgtk.clone ().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
         settingsgtk.clone ().unwrap().set_property_gtk_font_name(Some("Inter Regular 9"));
 
+        let style = CssProvider::new();
+        let _ = CssProviderExt::load_from_data(&style, CSS.as_bytes());
+        StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &style, STYLE_PROVIDER_PRIORITY_USER);
+
         let header = Header::new();
-        header.container.set_hexpand(true);
-        header.container.get_style_context().add_class("titlebar");
-        header.container.get_style_context().add_class("windowhandle");
+        let sidebar = Sidebar::new();
         
         let table = gtk::TextTagTable::new();
         let buffer = sourceview4::Buffer::new(Some(&table));
         let view = sourceview4::View::with_buffer(&buffer);
         view.get_style_context().add_class("medium-font");
+        view.get_style_context().add_class("mono-font");
         view.set_monospace(true);
         view.set_wrap_mode(gtk::WrapMode::Word);
         view.set_vexpand(true);
@@ -51,8 +59,6 @@ impl Window {
         view.set_right_margin(40);
         view.set_bottom_margin(40);
 
-        let style = sourceview4::StyleSchemeManager::get_default()
-            .map_or(None, |sm| sm.get_scheme ("quilter"));
         let md_lang = sourceview4::LanguageManager::get_default()
             .map_or(None, |lm| lm.get_language("markdown"));
         
@@ -60,9 +66,64 @@ impl Window {
             buffer.set_highlight_matching_brackets(true);
             buffer.set_language(Some(&md_lang));
             buffer.set_highlight_syntax(true);
-            buffer.set_style_scheme(style.as_ref());
         }
         
+                // Add custom CSS
+
+        let vm = settings.get_string("visual-mode").unwrap();
+        if vm.as_str() == "light" {
+            header.popover.color_button_light.set_active (true);
+        } else if vm.as_str() == "dark" {
+            header.popover.color_button_dark.set_active (true);
+        }
+
+        let settingsgtk = gtk::Settings::get_default();
+
+        let lstylem = sourceview4::StyleSchemeManager::get_default()
+            .map_or(None, |sm| sm.get_scheme ("quilter"));
+        let dstylem = sourceview4::StyleSchemeManager::get_default()
+            .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
+        if vm.as_str() == "light" {
+            let _ = CssProviderExt::load_from_data(&style, CSSLIGHT.as_bytes());
+            let stylevml = CssProvider::new();
+            StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, STYLE_PROVIDER_PRIORITY_USER);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+            buffer.set_style_scheme(lstylem.as_ref());
+        } else if vm.as_str() == "dark" {
+            let _ = CssProviderExt::load_from_data(&style, CSSDARK.as_bytes());
+            let stylevmd = CssProvider::new();
+            StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, STYLE_PROVIDER_PRIORITY_USER);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
+
+            buffer.set_style_scheme(dstylem.as_ref());
+        }
+
+        settings.connect_changed (move |settings, _| {
+            let vm = settings.get_string("visual-mode").unwrap();
+            let lstylem = sourceview4::StyleSchemeManager::get_default()
+                .map_or(None, |sm| sm.get_scheme ("quilter"));
+            let dstylem = sourceview4::StyleSchemeManager::get_default()
+                .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
+            if vm.as_str() == "light" {
+                let _ = CssProviderExt::load_from_data(&style, CSSLIGHT.as_bytes());
+                let stylevml = CssProvider::new();
+                StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, STYLE_PROVIDER_PRIORITY_USER);
+                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+                buffer.set_style_scheme(lstylem.as_ref());
+            } else if vm.as_str() == "dark" {
+                let _ = CssProviderExt::load_from_data(&style, CSSDARK.as_bytes());
+                let stylevmd = CssProvider::new();
+                StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, STYLE_PROVIDER_PRIORITY_USER);
+                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
+
+                buffer.set_style_scheme(dstylem.as_ref());
+            }
+        });
+
+        //
+
         header.open_button.connect_clicked(glib::clone!(@weak container, @weak view => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Open File"),
@@ -115,10 +176,14 @@ impl Window {
             view.get_buffer ().unwrap ().set_text("");
         }));
         
-        header.menu_button.connect_clicked(glib::clone!(@weak container => move |_| {
-            //implement Popup opening here or something
+        header.popover.color_button_light.connect_toggled(glib::clone!(@weak settings => move |_| {
+            settings.set_string("visual-mode", "light").unwrap();
         }));
-        
+
+        header.popover.color_button_dark.connect_toggled(glib::clone!(@weak settings => move |_| {
+            settings.set_string("visual-mode", "dark").unwrap();
+        }));
+
         let context = WebContext::get_default().unwrap();
         let webview = WebView::with_context(&context);
         webview.load_uri("file:///");
@@ -130,23 +195,18 @@ impl Window {
         let grid = gtk::Grid::new();
         grid.set_hexpand(true);
         grid.set_orientation(gtk::Orientation::Vertical);
-        grid.attach (&header.container, 0, 0, 1, 1);
-        grid.attach (&stack, 0, 1, 1, 1);
-        container.add(&grid);
-        
-        //Add custom CSS
-        let screen = container.get_screen().unwrap();
-        let style = CssProvider::new();
-        let _ = CssProviderExt::load_from_data(&style, CSS.as_bytes());
-        StyleContext::add_provider_for_screen(&screen, &style, STYLE_PROVIDER_PRIORITY_USER);
+        grid.attach (&sidebar.container, 0, 0, 1, 2);
+        grid.attach (&header.container, 1, 0, 1, 1);
+        grid.attach (&stack, 1, 1, 1, 1);
 
+        container.add(&grid);
         container.set_size_request(600, 350);
 
-        //return
         let window_widget = Window {
             container,
             settings,
             header,
+            sidebar,
             view,
             webview,
         };

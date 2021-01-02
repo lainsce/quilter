@@ -13,9 +13,14 @@
     "desktop-file-name-suffix" : " (Devel)",
     "finish-args" : [
         "--share=ipc",
+        "--share=network",
         "--socket=fallback-x11",
         "--socket=wayland",
-        "--device=dri"
+        "--device=dri",
+        "--filesystem=xdg-run/dconf",
+        "--filesystem=~/.config/dconf:ro",
+        "--talk-name=ca.desrt.dconf",
+        "--env=DCONF_USER_CONFIG_DIR=.config/dconf"
     ],
     "build-options" : {
         "append-path" : "/usr/lib/sdk/rust-stable/bin",

@@ -6,11 +6,13 @@ pub mod window;
 use self::window::Window;
 
 pub mod header;
+pub mod sidebar;
 
 pub mod popover;
 
 use gtk;
 use gtk::*;
+use gtk::SettingsExt;
 
 pub struct App {
     pub window:  Window,

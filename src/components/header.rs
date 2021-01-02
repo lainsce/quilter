@@ -23,7 +23,7 @@ impl Header {
         container.set_show_close_button(true);
         container.set_title(Some("Quilter"));
         container.set_has_subtitle(false);
-        container.set_decoration_layout(Some("close:maximize"));
+        container.set_decoration_layout(Some(":maximize"));
         container.set_size_request(-1, 38);
 
         let new_image = gtk::Image::from_icon_name(Some("list-add-symbolic"), gtk::IconSize::Button);
@@ -55,6 +55,12 @@ impl Header {
         let popover = Popover::new(menu_button.as_ref());
         menu_button.set_popover(Some(&popover.container));
         container.pack_end(&menu_button);
+
+        container.set_hexpand(true);
+
+        container.get_style_context().add_class("quilter-toolbar");
+        container.get_style_context().add_class("quilter-toolbar-main");
+        container.get_style_context().add_class("flat");
 
         Header {
             container,

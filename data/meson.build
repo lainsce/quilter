@@ -6,26 +6,26 @@ configdir = fs.expanduser('~/.local/share/com.github.lainsce.quilter')
 
 foreach i : icon_sizes
     install_data(
-        join_paths('icons', i, meson.project_name() + '.svg'),
+        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
     )
 endforeach
 
 foreach i : icon_sizes
     install_data(
-        join_paths('icons', i, meson.project_name() + '.svg'),
+        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
     )
 endforeach
 
 install_data(
-    meson.project_name() + '.gschema.xml',
+    'com.github.lainsce.quilter.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
 
 i18n.merge_file(
-    input: meson.project_name() + '.desktop.in',
-    output: meson.project_name() + '.desktop',
+    input: 'com.github.lainsce.quilter.desktop.in',
+    output: 'com.github.lainsce.quilter.desktop',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     type: 'desktop',
     install: true,
@@ -33,25 +33,25 @@ i18n.merge_file(
 )
 
 i18n.merge_file(
-    input: meson.project_name() + '.appdata.xml.in',
-    output: meson.project_name() + '.appdata.xml',
+    input: 'com.github.lainsce.quilter.appdata.xml.in',
+    output: 'com.github.lainsce.quilter.appdata.xml',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 install_data(
-    join_paths('schemes', 'quilter.xml'),
+    join_paths('schemes', 'com.github.lainsce.quilter.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'quilter-sepia.xml'),
+    join_paths('schemes', 'com.github.lainsce.quilter-sepia.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'quilter-dark.xml'),
+    join_paths('schemes', 'com.github.lainsce.quilter-dark.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
@@ -103,7 +103,7 @@ install_subdir(
 # Resources
 resources = gnome.compile_resources(
   'resources',
-  'resources.gresource.xml',
+  'com.github.lainsce.quilter.gresource.xml',
   gresource_bundle: true,
   source_dir: meson.current_build_dir()
 )

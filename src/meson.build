@@ -40,6 +40,7 @@ sources = files(
   'main.rs',
   'static_resources.rs',
   'components/header.rs',
+  'components/sidebar.rs',
   'components/window.rs',
   'components/window_state.rs',
   'components/mod.rs',
