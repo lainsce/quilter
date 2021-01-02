@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="quilter-dark" _name="Quilter Dark" version="1.0">
+  <author>Lains</author>
+  <_description>Emphasis on focus.</_description>
+
+  <style name="text"            foreground="#f7f7f7" background="#151515"/>
+  <style name="cursor"          foreground="#70C0FF"/>
+  <style name="current-line"    background="#4D4D4D"/>
+  <style name="selection"       foreground="#191919" background="#0D89CC"/>
+  <style name="search-match"    foreground="#191919" background="#CC890D"/>
+
+  <!-- Bold -->
+  <style name="def:strong-emphasis" bold="true"/>
+
+  <!-- Italic -->
+  <style name="def:emphasis" foreground="#7E8087" italic="true"/>
+
+  <!-- Links -->
+  <style name="def:link-text" foreground="#C3C3C3"/>
+  <style name="def:link-destination" foreground="#70C0FF"/>
+
+  <!-- Code -->
+  <style name="def:inline-code" background="#191919" foreground="#7E8089"/>
+  <style name="def:preformatted-section" background="#191919" foreground="#7E8089"/>
+
+  <!-- Line-break -->
+  <style name="def:note" foreground="#C3C3C1"/>
+
+  <!-- Backslash Escaping -->
+  <style name="def:special-char" foreground="#7E8087"/>
+
+  <!-- Headers -->
+  <style name="def:heading" foreground="#F7F7F7" bold="true"/>
+</style-scheme>
