@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-28 18:11+0200\n"
+"POT-Creation-Date: 2020-07-21 11:21-0300\n"
 "PO-Revision-Date: 2018-10-19 15:58-0500\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -17,399 +17,522 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.1.1\n"
 
-#: src/MainWindow.vala:82
-msgid "Quilter"
-msgstr "Quilter"
-
-#: src/MainWindow.vala:97 src/MainWindow.vala:457 src/Widgets/HeaderBar.vala:61
-#: src/Widgets/HeaderBar.vala:63 src/Widgets/SideBar.vala:157
-msgid "No Documents Open"
+#: src/MainWindow.vala:368
+msgid "Start by creating a new story…"
 msgstr ""
 
-#: src/MainWindow.vala:231
-msgid "Use Sans-serif"
-msgstr "Palo seco"
+#: src/MainWindow.vala:375
+msgid "Or open a saved story…"
+msgstr ""
 
-#: src/MainWindow.vala:236
-msgid "Use Serif"
-msgstr "Remates"
+#: src/MainWindow.vala:420
+#, fuzzy
+msgid "Exit focus mode"
+msgstr "Activar el modo de concentración:"
 
-#: src/MainWindow.vala:242
-msgid "Use Monospace"
-msgstr "Anchura fija"
-
-#: src/MainWindow.vala:261
-msgid "Set Preview Font"
-msgstr "Establecer tipo de letra de previsualización"
-
-#: src/MainWindow.vala:277
+#: src/MainWindow.vala:704
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:278
+#: src/MainWindow.vala:706 src/Widgets/Preferences.vala:463
 msgid "Preview"
 msgstr "Previsualización"
 
-#: src/Widgets/Cheatsheet.vala:29
+#: src/Widgets/Cheatsheet.vala:26
 msgid "Cheatsheet"
 msgstr "Uso"
 
-#: src/Widgets/Cheatsheet.vala:47
-msgid "Text"
-msgstr "Texto"
-
-#: src/Widgets/Cheatsheet.vala:48
-msgid "Links & Special"
-msgstr "Enlaces y texto especial"
-
-#: src/Widgets/Cheatsheet.vala:49 src/Widgets/Cheatsheet.vala:141
-msgid "Tables"
-msgstr "Tablas"
-
-#. Close button
-#: src/Widgets/Cheatsheet.vala:52 src/Widgets/Preferences.vala:50
-msgid "Close"
-msgstr "Cerrar"
+#: src/Widgets/Cheatsheet.vala:78
+#, fuzzy
+msgid "Headers & Text"
+msgstr "Márgenes del texto:"
 
 #: src/Widgets/Cheatsheet.vala:79
-msgid "Heading"
-msgstr "Título"
-
-#: src/Widgets/Cheatsheet.vala:80
-msgid "# Heading 1"
+#, fuzzy
+msgid "# Header 1"
 msgstr "# Título 1"
 
-#: src/Widgets/Cheatsheet.vala:81
-msgid "## Heading 2"
+#: src/Widgets/Cheatsheet.vala:80
+#, fuzzy
+msgid "## Header 2"
 msgstr "## Título 2"
 
-#: src/Widgets/Cheatsheet.vala:82
-msgid "### Heading 3"
+#: src/Widgets/Cheatsheet.vala:81
+#, fuzzy
+msgid "### Header 3"
 msgstr "### Título 3"
 
-#: src/Widgets/Cheatsheet.vala:83
-msgid "#### Heading 4"
-msgstr "#### Título 4"
-
-#: src/Widgets/Cheatsheet.vala:84
-msgid "##### Heading 5"
-msgstr "##### Título 5"
-
-#: src/Widgets/Cheatsheet.vala:85
-msgid "###### Heading 6"
-msgstr "###### Título 6"
-
-#: src/Widgets/Cheatsheet.vala:86
-msgid "Special Text"
-msgstr "Texto especial"
-
-#: src/Widgets/Cheatsheet.vala:87
-msgid "** Bold text **"
+#: src/Widgets/Cheatsheet.vala:82
+#, fuzzy
+msgid "** Bold **"
 msgstr "** Negritas **"
 
-#: src/Widgets/Cheatsheet.vala:88
-msgid "* Emphasized text *"
+#: src/Widgets/Cheatsheet.vala:83
+#, fuzzy
+msgid "* Emphasized *"
 msgstr "* Énfasis *"
 
-#: src/Widgets/Cheatsheet.vala:89
-msgid "` Code text `"
+#: src/Widgets/Cheatsheet.vala:84
+#, fuzzy
+msgid "` Code Line `"
 msgstr "` Código `"
 
-#: src/Widgets/Cheatsheet.vala:90
-msgid "> Quoting text"
+#: src/Widgets/Cheatsheet.vala:85
+#, fuzzy
+msgid "``` Code Block ```"
+msgstr "```Bloque de código```"
+
+#: src/Widgets/Cheatsheet.vala:86
+#, fuzzy
+msgid "> Quote"
 msgstr "> Cita"
 
-#: src/Widgets/Cheatsheet.vala:91
-msgid "~~Strikethrough text~~"
-msgstr "~~Tachado~~"
-
-#: src/Widgets/Cheatsheet.vala:115
+#: src/Widgets/Cheatsheet.vala:88
 msgid "Links"
 msgstr "Enlaces"
 
-#: src/Widgets/Cheatsheet.vala:116
-msgid "[Link Label](http://link.url.here.com)"
+#: src/Widgets/Cheatsheet.vala:89
+#, fuzzy
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
 msgstr "[Etiqueta del enlace](http://su-enlace.com)"
 
-#: src/Widgets/Cheatsheet.vala:117
-msgid "![Image Label](http://image.url.here.com)"
-msgstr "![Etiqueta de la imagen](http://su-imagen.com)"
-
-#: src/Widgets/Cheatsheet.vala:118
+#: src/Widgets/Cheatsheet.vala:91
 msgid "Special"
 msgstr "Especial"
 
-#: src/Widgets/Cheatsheet.vala:119
-msgid "```This is a code block```"
-msgstr "```Bloque de código```"
+#: src/Widgets/Cheatsheet.vala:92
+msgid ""
+"LaTeX:\n"
+"\t- $$…$$ for equation block.\n"
+"\t- \\\\(…\\\\) for inline equation."
+msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:120
+#: src/Widgets/Cheatsheet.vala:93
+msgid ""
+"Mermaid.js:\n"
+"\t- <div class=\"mermaid\">...</div>"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:117
+msgid "Extras"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:118
 #, fuzzy
-msgid "This creates a horizontal rule → ---"
+msgid "Horizontal rule → ---"
 msgstr "--- ← Línea horizontal"
 
+#: src/Widgets/Cheatsheet.vala:119
+#, fuzzy
+msgid "~~Strikethrough~~"
+msgstr "~~Tachado~~"
+
+#: src/Widgets/Cheatsheet.vala:120
+msgid "==Highlight=="
+msgstr ""
+
 #: src/Widgets/Cheatsheet.vala:121
-msgid "This embeds a local image → | Folder/Image.png |"
+msgid "Subscript: H~2~O"
 msgstr ""
 
 #: src/Widgets/Cheatsheet.vala:122
-msgid "This embeds a local Markdown file → % Folder/File.md %"
+msgid "Superscript: E = MC^2^"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:143
-msgid "To make a column's content go to the left, change --- to :--- ."
+#: src/Widgets/Cheatsheet.vala:123
+msgid "[] Empty Checkbox."
 msgstr ""
-"Para mover el contenido de una columna a la izquierda, cambie «---» a «:---»."
 
-#: src/Widgets/Cheatsheet.vala:144
-msgid "To make a column's content centered, change --- to :---: ."
-msgstr "Para centrar el contenido de la columna, cambie «---» a «:---:»."
-
-#: src/Widgets/Cheatsheet.vala:145
-msgid "To make a column's content go to the right, change --- to ---: ."
+#: src/Widgets/Cheatsheet.vala:124
+msgid "[x] Checked Checkbox."
 msgstr ""
-"Para mover el contenido de la columna a la derecha, cambie «---» a «---:»."
 
-#: src/Widgets/HeaderBar.vala:67
+#: src/Widgets/Cheatsheet.vala:128
+msgid "Period needed to avoid conflicts."
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:133
+msgid ""
+"Embeds a local image\n"
+"\t/Folder/Image.png :image"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:134
+msgid ""
+"Embeds a local Markdown file\n"
+"\t/Folder/File.md :file"
+msgstr ""
+
+#: src/Widgets/Cheatsheet.vala:135
+msgid "Tables"
+msgstr "Tablas"
+
+#: src/Widgets/Cheatsheet.vala:140
+msgid ""
+"Left Column, change --- to :--- .\n"
+"Centered Column, change --- to :---: .\n"
+"Right Column, change --- to ---: ."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:59
+msgid "Go back"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:71
 msgid "New file"
 msgstr "Archivo nuevo"
 
-#: src/Widgets/HeaderBar.vala:73
+#: src/Widgets/HeaderBar.vala:80
 msgid "Save as…"
 msgstr "Guardar como…"
 
-#: src/Widgets/HeaderBar.vala:79 src/Services/FileManager.vala:98
-msgid "Save file"
-msgstr "Guardar el archivo"
-
-#: src/Widgets/HeaderBar.vala:85
+#: src/Widgets/HeaderBar.vala:88
 msgid "Open…"
 msgstr "Abrir…"
 
-#: src/Widgets/HeaderBar.vala:91
-msgid "Start search"
+#: src/Widgets/HeaderBar.vala:96
+msgid "Find…"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:109
+#: src/Widgets/HeaderBar.vala:118
 msgid "Export to PDF…"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:113
+#: src/Widgets/HeaderBar.vala:127
 msgid "Export to HTML…"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:129
-msgid "Export"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:133
+#: src/Widgets/HeaderBar.vala:136
 msgid "Markdown Cheatsheet"
 msgstr "Uso de Markdown"
 
-#: src/Widgets/HeaderBar.vala:137 src/Widgets/Preferences.vala:27
+#: src/Widgets/HeaderBar.vala:143 src/Widgets/Preferences.vala:28
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/Widgets/HeaderBar.vala:145 src/Widgets/Preferences.vala:246
+#: src/Widgets/HeaderBar.vala:149 src/Widgets/Preferences.vala:300
+#: src/Widgets/Preferences.vala:355
 msgid "Light Mode"
 msgstr "Modo claro"
 
-#: src/Widgets/HeaderBar.vala:156 src/Widgets/Preferences.vala:259
+#: src/Widgets/HeaderBar.vala:159 src/Widgets/Preferences.vala:310
+#: src/Widgets/Preferences.vala:357
 msgid "Sepia Mode"
 msgstr "Modo sepia"
 
-#: src/Widgets/HeaderBar.vala:167 src/Widgets/Preferences.vala:272
-msgid "Moon Mode"
-msgstr "Modo de concentración"
-
-#: src/Widgets/HeaderBar.vala:178 src/Widgets/Preferences.vala:285
+#: src/Widgets/HeaderBar.vala:169 src/Widgets/Preferences.vala:320
+#: src/Widgets/Preferences.vala:359
 msgid "Dark Mode"
 msgstr "Modo oscuro"
 
 #: src/Widgets/HeaderBar.vala:208
-msgid "Focus Mode"
+#, fuzzy
+msgid "Focus Mode…"
 msgstr "Modo de concentración"
 
-#: src/Widgets/HeaderBar.vala:211
-msgid "Enter focus mode"
-msgstr "Activar el modo de concentración:"
+#: src/Widgets/HeaderBar.vala:222
+msgid "Toggle View…"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:256
+#. _("Full-Width\nFull Editor, change with switcher")
+#: src/Widgets/HeaderBar.vala:240
+msgid "Full-Width"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:244
+msgid "Editor or Preview, change on the menu."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:263
+msgid "Half-Width"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:267
+msgid "Editor & Preview, divided equally."
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:324
+#, fuzzy
+msgid "Interface Modes"
+msgstr "Interfaz"
+
+#: src/Widgets/HeaderBar.vala:356
 msgid "Settings"
 msgstr "Configuración"
 
-#: src/Widgets/Preferences.vala:46 src/Widgets/Preferences.vala:202
-msgid "Editor"
-msgstr "Editor"
-
-#: src/Widgets/Preferences.vala:47
-msgid "Interface"
-msgstr "Interfaz"
-
-#: src/Widgets/Preferences.vala:48 src/Widgets/Preferences.vala:411
-msgid "Extensions"
+#. Please take note of the \n, keep it where you'd want a line break because the space is small
+#: src/Widgets/HeaderBar.vala:369 src/Widgets/Preferences.vala:391
+msgid ""
+"Changing modes is disabled due\n"
+"to the system dark style preference."
 msgstr ""
 
-#: src/Widgets/Preferences.vala:68
+#: src/Widgets/Preferences.vala:52
+msgid "INTERFACE"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:53
+msgid "EDITOR"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:54
+msgid "PREVIEW"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:79
 msgid "Geometry"
 msgstr "Geometría"
 
-#: src/Widgets/Preferences.vala:69
-msgid "Spacing of Text:"
-msgstr "Espaciado del texto:"
+#: src/Widgets/Preferences.vala:80
+msgid "Text Spacing:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:71 src/Widgets/Preferences.vala:111
-#: src/Widgets/Preferences.vala:152
-msgid "Small"
-msgstr "Pequeño"
+#: src/Widgets/Preferences.vala:120
+msgid "Text Margins:"
+msgstr ""
 
-#: src/Widgets/Preferences.vala:72 src/Widgets/Preferences.vala:112
-#: src/Widgets/Preferences.vala:153
-msgid "Normal"
-msgstr "Normal"
-
-#: src/Widgets/Preferences.vala:73 src/Widgets/Preferences.vala:113
-#: src/Widgets/Preferences.vala:154
-msgid "Large"
-msgstr "Grande"
-
-#: src/Widgets/Preferences.vala:109
-msgid "Margins of Text:"
-msgstr "Márgenes del texto:"
-
-#: src/Widgets/Preferences.vala:149
+#: src/Widgets/Preferences.vala:160
 msgid "Fonts & Type"
 msgstr "Tipo de letra"
 
-#: src/Widgets/Preferences.vala:150
+#: src/Widgets/Preferences.vala:161
+#, fuzzy
+msgid "Editor Font Type:"
+msgstr "Tamaño de letra del editor:"
+
+#: src/Widgets/Preferences.vala:163
+msgid "Quilt Mono"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:164
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: src/Widgets/Preferences.vala:165
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: src/Widgets/Preferences.vala:199
 msgid "Editor Font Size:"
 msgstr "Tamaño de letra del editor:"
 
-#: src/Widgets/Preferences.vala:203
+#: src/Widgets/Preferences.vala:252
+msgid "Editor"
+msgstr "Editor"
+
+#: src/Widgets/Preferences.vala:253
 msgid "Save files when changed:"
 msgstr "Guardar archivos al modificarlos:"
 
-#: src/Widgets/Preferences.vala:234
+#: src/Widgets/Preferences.vala:255
+msgid "Highlight Speech Parts<sup>𝜷</sup>:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:260
+msgid ""
+"Only available in English.\n"
+"\n"
+"Colors words based on type:\n"
+"- Nouns are Black\n"
+"- Verbs are Blue\n"
+"- Adjectives are Yellow\n"
+"- Adverbs are Purple\n"
+"- Conjunctions are Green"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:266
+#, fuzzy
+msgid "Spellchecking:"
+msgstr "Activar el corrector ortográfico:"
+
+#: src/Widgets/Preferences.vala:295
 msgid "Modes"
 msgstr "Modos"
 
-#: src/Widgets/Preferences.vala:311
-msgid "Enable Focus Mode:"
-msgstr "Activar el modo de concentración:"
+#: src/Widgets/Preferences.vala:361
+#, fuzzy
+msgid "Focus Mode:"
+msgstr "Modo de concentración"
 
-#: src/Widgets/Preferences.vala:314
-msgid "Type of Focus Mode:"
-msgstr "Tipo de modo de concentración:"
+#: src/Widgets/Preferences.vala:364
+#, fuzzy
+msgid "Focus Scope:"
+msgstr "Modo de concentración"
 
-#: src/Widgets/Preferences.vala:316
-msgid "Paragraph"
-msgstr "Párrafo"
-
-#: src/Widgets/Preferences.vala:317
-msgid "Sentence"
-msgstr "Oración"
-
-#: src/Widgets/Preferences.vala:347
+#: src/Widgets/Preferences.vala:378
 msgid "Typewriter Scrolling:"
 msgstr "Desplazamiento de máquina de escribir:"
 
-#: src/Widgets/Preferences.vala:351
+#: src/Widgets/Preferences.vala:381
+msgid "Type Counter:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:385
+msgid "Sidebar:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:404
 msgid "User Interface"
 msgstr "Interfaz de usuario"
 
-#: src/Widgets/Preferences.vala:352
-msgid "Show Statusbar:"
-msgstr "Mostrar la barra de estado:"
+#: src/Widgets/Preferences.vala:464
+#, fuzzy
+msgid "Font Type:"
+msgstr "Tipo de letra"
 
-#: src/Widgets/Preferences.vala:355
-msgid "Show Searchbar:"
-msgstr "Mostrar la barra de búsqueda:"
+#: src/Widgets/Preferences.vala:468
+#, fuzzy
+msgid "Serif"
+msgstr "Remates"
 
-#: src/Widgets/Preferences.vala:413
-msgid "Enable Code Highlighting:"
+#: src/Widgets/Preferences.vala:469
+#, fuzzy
+msgid "Sans-serif"
+msgstr "Palo seco"
+
+#: src/Widgets/Preferences.vala:470
+#, fuzzy
+msgid "Monospace"
+msgstr "Anchura fija"
+
+#: src/Widgets/Preferences.vala:504
+msgid "Center Headers:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:508
+msgid "Extensions"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:510
+#, fuzzy
+msgid "Code Highlighting:"
 msgstr "Activar el resaltado de código:"
 
-#: src/Widgets/Preferences.vala:417
-msgid "Enable Spellchecking:"
-msgstr "Activar el corrector ortográfico:"
+#: src/Widgets/Preferences.vala:514
+msgid "LaTeX Processing:"
+msgstr ""
 
-#: src/Widgets/SearchBar.vala:39
+#: src/Widgets/Preferences.vala:518
+msgid "Mermaid.js Graphing:"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:523
+msgid "Disable Code Highlighting for optimal use of Mermaid.js"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
 msgstr ""
 
-#: src/Widgets/SearchBar.vala:43
-msgid "Replace"
-msgstr ""
-
 #: src/Widgets/SearchBar.vala:46
-msgid "Replace all"
+msgid ""
+"Replace\n"
+"Use arrows before using."
 msgstr ""
 
-#: src/Widgets/SearchBar.vala:71
+#: src/Widgets/SearchBar.vala:52
+msgid "Replace All"
+msgstr ""
+
+#: src/Widgets/SearchBar.vala:91
 msgid "Find text…"
 msgstr ""
 
-#: src/Widgets/SearchBar.vala:90
+#: src/Widgets/SearchBar.vala:110
 msgid "Search previous"
 msgstr ""
 
-#: src/Widgets/SearchBar.vala:109
+#: src/Widgets/SearchBar.vala:130
 msgid "Search next"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:64
+#: src/Widgets/SideBar.vala:66
 #, fuzzy
 msgid "No files…"
 msgstr "Archivo nuevo"
 
-#: src/Widgets/SideBar.vala:80
-msgid "Files"
+#: src/Widgets/SideBar.vala:76
+msgid "FILES"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:82
-msgid "Outline"
+#: src/Widgets/SideBar.vala:77
+msgid "OUTLINE"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:148
+#: src/Widgets/SideBar.vala:234
+msgid "No Documents Open"
+msgstr ""
+
+#: src/Widgets/SideBarBox.vala:38
 #, fuzzy
-msgid "Remove All Files"
-msgstr "Todos los archivos"
+msgid "New File"
+msgstr "Archivo nuevo"
 
-#: src/Widgets/StatusBar.vala:42
-msgid "Show/Hide Sidebar"
-msgstr "Mostrar u ocultar barra de estado"
+#: src/Widgets/SideBarBox.vala:51
+msgid "No header…"
+msgstr ""
 
-#: src/Widgets/StatusBar.vala:81
+#: src/Widgets/SideBarBox.vala:84
+msgid "Remove File from Sidebar"
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:45
 msgid "Track Characters"
 msgstr "Seguimiento de caracteres"
 
-#: src/Widgets/StatusBar.vala:86
+#: src/Widgets/StatusBar.vala:50
 msgid "Track Words"
 msgstr "Seguimiento de palabras"
 
-#: src/Widgets/StatusBar.vala:91
+#: src/Widgets/StatusBar.vala:55
 msgid "Track Lines"
 msgstr "Seguimiento de renglones"
 
-#: src/Widgets/StatusBar.vala:111
+#: src/Widgets/StatusBar.vala:60
+#, fuzzy
+msgid "Track Read Time"
+msgstr "Tiempo de lectura: "
+
+#: src/Widgets/StatusBar.vala:80
 msgid "Set Tracking Type"
 msgstr "Establecer tipo de seguimiento"
 
-#: src/Widgets/StatusBar.vala:125
+#: src/Widgets/StatusBar.vala:107
 msgid "Words: "
 msgstr "Palabras: "
 
-#: src/Widgets/StatusBar.vala:132
+#: src/Widgets/StatusBar.vala:112
 msgid "Lines: "
 msgstr "Renglones: "
 
-#: src/Widgets/StatusBar.vala:139
+#: src/Widgets/StatusBar.vala:117
 msgid "Characters: "
 msgstr "Caracteres: "
 
-#: src/Widgets/StatusBar.vala:153
+#: src/Widgets/StatusBar.vala:123
 msgid "Reading Time: "
 msgstr "Tiempo de lectura: "
+
+#: src/Services/DialogUtils.vala:21 src/Services/DialogUtils.vala:51
+#: src/Services/DialogUtils.vala:68 src/Services/ExportUtils.vala:170
+#: src/Services/ExportUtils.vala:218
+msgid "Cancel"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:23
+#, fuzzy
+msgid "Open"
+msgstr "Abrir…"
+
+#: src/Services/DialogUtils.vala:25 src/Services/DialogUtils.vala:49
+#: src/Services/DialogUtils.vala:66 src/Services/ExportUtils.vala:150
+#: src/Services/ExportUtils.vala:199
+msgid "Save"
+msgstr "Guardar el archivo"
 
 #: src/Services/DialogUtils.vala:29
 msgid "Markdown files"
@@ -429,19 +552,9 @@ msgid ""
 "lost forever."
 msgstr "Si no los guarda, los cambios se perderán permanentemente."
 
-#: src/Services/DialogUtils.vala:49 src/Services/DialogUtils.vala:66
-#: src/Services/ExportUtils.vala:146 src/Services/ExportUtils.vala:195
-msgid "Save"
-msgstr "Guardar el archivo"
-
 #: src/Services/DialogUtils.vala:50
 msgid "Close Without Saving"
 msgstr "Cerrar sin guardar"
-
-#: src/Services/DialogUtils.vala:51 src/Services/DialogUtils.vala:68
-#: src/Services/ExportUtils.vala:166 src/Services/ExportUtils.vala:214
-msgid "Cancel"
-msgstr ""
 
 #: src/Services/DialogUtils.vala:61
 msgid "Remove File from Sidebar?"
@@ -462,29 +575,115 @@ msgstr "Cerrar sin guardar"
 msgid "Print to File"
 msgstr "Imprimir Archivio"
 
-#: src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:148
 msgid "Select destination PDF file"
 msgstr "Seleccionar Archivio PDF de destino"
 
-#: src/Services/ExportUtils.vala:149
+#: src/Services/ExportUtils.vala:153
 msgid "PDF File"
 msgstr "Archivio PDF"
 
-#: src/Services/ExportUtils.vala:157 src/Services/ExportUtils.vala:205
+#: src/Services/ExportUtils.vala:161 src/Services/ExportUtils.vala:209
 msgid "All Files"
 msgstr "Todos los archivos"
 
-#: src/Services/ExportUtils.vala:193
+#: src/Services/ExportUtils.vala:197
 msgid "Select destination HTML file"
 msgstr "Seleccionar Archivio HTML de destino"
 
-#: src/Services/ExportUtils.vala:198
+#: src/Services/ExportUtils.vala:202
 msgid "HTML File"
 msgstr "Archivio HTML"
 
-#: src/Services/FileManager.vala:84
+#: src/Services/FileManager.vala:91
 msgid "Open file"
 msgstr "Abrir un archivo"
+
+#: src/Services/FileManager.vala:105
+msgid "Save file"
+msgstr "Guardar el archivo"
+
+#~ msgid "Set Preview Font"
+#~ msgstr "Establecer tipo de letra de previsualización"
+
+#~ msgid "Text"
+#~ msgstr "Texto"
+
+#~ msgid "Links & Special"
+#~ msgstr "Enlaces y texto especial"
+
+#~ msgid "Close"
+#~ msgstr "Cerrar"
+
+#~ msgid "Heading"
+#~ msgstr "Título"
+
+#~ msgid "#### Heading 4"
+#~ msgstr "#### Título 4"
+
+#~ msgid "##### Heading 5"
+#~ msgstr "##### Título 5"
+
+#~ msgid "###### Heading 6"
+#~ msgstr "###### Título 6"
+
+#~ msgid "Special Text"
+#~ msgstr "Texto especial"
+
+#~ msgid "![Image Label](http://image.url.here.com)"
+#~ msgstr "![Etiqueta de la imagen](http://su-imagen.com)"
+
+#~ msgid "To make a column's content go to the left, change --- to :--- ."
+#~ msgstr ""
+#~ "Para mover el contenido de una columna a la izquierda, cambie «---» a "
+#~ "«:---»."
+
+#~ msgid "To make a column's content centered, change --- to :---: ."
+#~ msgstr "Para centrar el contenido de la columna, cambie «---» a «:---:»."
+
+#~ msgid "To make a column's content go to the right, change --- to ---: ."
+#~ msgstr ""
+#~ "Para mover el contenido de la columna a la derecha, cambie «---» a «---:»."
+
+#~ msgid "Moon Mode"
+#~ msgstr "Modo de concentración"
+
+#~ msgid "Spacing of Text:"
+#~ msgstr "Espaciado del texto:"
+
+#~ msgid "Small"
+#~ msgstr "Pequeño"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Large"
+#~ msgstr "Grande"
+
+#~ msgid "Enable Focus Mode:"
+#~ msgstr "Activar el modo de concentración:"
+
+#~ msgid "Type of Focus Mode:"
+#~ msgstr "Tipo de modo de concentración:"
+
+#~ msgid "Paragraph"
+#~ msgstr "Párrafo"
+
+#~ msgid "Sentence"
+#~ msgstr "Oración"
+
+#~ msgid "Show Statusbar:"
+#~ msgstr "Mostrar la barra de estado:"
+
+#~ msgid "Show Searchbar:"
+#~ msgstr "Mostrar la barra de búsqueda:"
+
+#, fuzzy
+#~ msgid "Remove All Files"
+#~ msgstr "Todos los archivos"
+
+#~ msgid "Show/Hide Sidebar"
+#~ msgstr "Mostrar u ocultar barra de estado"
 
 #~ msgid "No File"
 #~ msgstr "Todos los archivos"

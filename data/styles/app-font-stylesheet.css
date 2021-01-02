@@ -1,26 +1,39 @@
 .small-text {
-    font-size: 13.2px;
-    letter-spacing: 2px;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
 }
 
 .medium-text {
-    font-size: 16.4px;
-    letter-spacing: 2px;
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
 }
 
 .big-text {
-    font-size: 19.6px;
-    letter-spacing: 2px;
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
 }
 
 .mono-font {
     font-family: 'Quilt Mono';
+    font-weight: 500;
 }
 
 .vier-font {
     font-family: 'Quilt Vier';
+    font-weight: 500;
 }
 
-* {
-    font-family: 'Open Sans';
+.zwei-font {
+    font-family: 'Quilt Zwei';
+    font-weight: 500;
+}
+
+.small-text *,
+.medium-text *,
+.big-text *,
+.mono-font *,
+.vier-font *,
+.zwei-font * {
+    font-family: 'Inter';
+    letter-spacing: 0em;
 }

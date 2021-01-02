@@ -1,68 +1,73 @@
-project('com.github.lainsce.quilter', 'vala', 'c', version: '2.5.2')
+project('quilter',
+        'rust',
+        version: '4.0.0',
+        license: 'gpl3')
 
-gnome = import('gnome')
 i18n = import('i18n')
+gnome = import('gnome')
 
-add_global_arguments(
-    '-DGETTEXT_PACKAGE="@0@"'.format (meson.project_name()),
-    language:'c'
+base_id = 'com.github.lainsce.quilter'
+
+dependency('glib-2.0', version: '>= 2.56')
+dependency('gio-2.0', version: '>= 2.56')
+dependency('gdk-pixbuf-2.0')
+dependency('gtk+-3.0', version: '>= 3.24.7')
+dependency('libhandy-1')
+glib_compile_resources = find_program('glib-compile-resources', required: true)
+glib_compile_schemas = find_program('glib-compile-schemas', required: true)
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+appstream_util = find_program('appstream-util', required: false)
+cargo = find_program('cargo', required: false)
+cargo_script = find_program('build-aux/cargo.sh')
+
+version = meson.project_version()
+version_array = version.split('.')
+major_version = version_array[0].to_int()
+minor_version = version_array[1].to_int()
+version_micro = version_array[2].to_int()
+
+prefix = get_option('prefix')
+bindir = prefix / get_option('bindir')
+localedir = prefix / get_option('localedir')
+
+datadir = prefix / get_option('datadir')
+pkgdatadir = datadir / meson.project_name()
+iconsdir = datadir / 'icons'
+podir = meson.source_root() / 'po'
+gettext_package = meson.project_name()
+
+if get_option('profile') == 'development'
+  profile = 'Devel'
+  name_suffix = ' (Devel)'
+  vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+  if vcs_tag == ''
+    version_suffix = '-devel'
+  else
+    version_suffix = '-@0@'.format(vcs_tag)
+  endif
+else
+  profile = ''
+  name_suffix = ''
+  version_suffix = ''
+endif
+
+application_id = '@0@@1@'.format(base_id, profile)
+
+meson.add_dist_script(
+  'build-aux/dist-vendor.sh',
+  meson.build_root() / 'meson-dist' / meson.project_name() + '-' + version,
+  meson.source_root()
 )
 
-asresources = gnome.compile_resources(
-    'as-resources', join_paths('data', 'app.gresource.xml'),
-    source_dir: 'data',
-    c_name: 'as'
-)
-
-cc = meson.get_compiler('c')
-libmarkdown = cc.find_library('markdown', required: true)
-
-executable(
-    meson.project_name(),
-    'src/Application.vala',
-    'src/MainWindow.vala',
-    'src/Widgets/HeaderBar.vala',
-    'src/Widgets/SourceView.vala',
-    'src/Widgets/WebView.vala',
-    'src/Widgets/StatusBar.vala',
-    'src/Widgets/SearchBar.vala',
-    'src/Widgets/SideBar.vala',
-    'src/Widgets/SideBarBox.vala',
-    'src/Widgets/Preferences.vala',
-    'src/Widgets/Cheatsheet.vala',
-    'src/Plugins/PluginManager.vala',
-    'src/Plugins/Plugin.vala',
-    'src/Plugins/Image.vala',
-    'src/Plugins/Filep.vala',
-    'src/Plugins/Checkbox.vala',
-    'src/Plugins/CheckboxChecked.vala',
-    'src/Plugins/Highlighter.vala',
-    'src/Plugins/Superscript.vala',
-    'src/Plugins/Subscript.vala',
-    'src/Styles/quilter.vala',
-    'src/Styles/quilterdark.vala',
-    'src/Styles/quiltersepia.vala',
-    'src/Constants/AppSettings.vala',
-    'src/Services/FileManager.vala',
-    'src/Services/ExportUtils.vala',
-    'src/Services/DialogUtils.vala',
-    asresources,
-    dependencies: [
-        dependency('granite'),
-        dependency('gobject-2.0'),
-        dependency('gtksourceview-3.0'),
-        dependency('gtk+-3.0'),
-        dependency('webkit2gtk-4.0'),
-        dependency('gtkspell3-3.0'),
-        libmarkdown,
-    ],
-    vala_args: [
-        meson.source_root() + '/vapi/libmarkdown.vapi',
-    ],
-    install : true
-)
-
-meson.add_install_script('meson/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+if get_option('profile') == 'development'
+  # Setup pre-commit hook for ensuring coding style is always consistent
+  message('Setting up git pre-commit hook..')
+  run_command('cp', '-f', 'hooks/pre-commit.hook', '.git/hooks/pre-commit')
+endif
 
 subdir('data')
 subdir('po')
+subdir('src')
+
+meson.add_install_script('build-aux/meson_post_install.py')
+

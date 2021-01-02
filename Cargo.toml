@@ -1,0 +1,24 @@
+[package]
+name = "quilter"
+version = "4.0.0"
+authors = ["Lains <lainsce@airmail.cc>"]
+edition = "2018"
+
+[dependencies]
+log = "0.4.11"
+lazy_static = "1.4.0"
+futures = "0.3.5"
+futures-io = "0.3.5"
+futures-util = "0.3.5"
+async-std = "1.6.2"
+regex = "1.3.9"
+gdk = "0.13.0"
+glib = { version = "0.10.0" }
+gtk = { version = "0.9.0", features = ["v3_22"] }
+gio = { version = "0.9.0", features = ["v2_46"] }
+gdk-pixbuf = { version = "0.9.0", features = ["v2_36"] }
+gettext-rs = { version = "0.5.0", features = ["gettext-system"] }
+libhandy = "0.7.1"
+gtk-macros = "0.2.0"
+sourceview4 = "*"
+webkit2gtk = "0.11.0"

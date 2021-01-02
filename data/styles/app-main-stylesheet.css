@@ -1,226 +1,194 @@
-.color-button {
-    border-radius: 8px;
-    -gtk-outline-radius: 8px;
-    text-shadow: 1px 1px transparent;
+.color-button radio,
+.color-button radio:checked {
+    padding: 10px;
+    border-radius: 50px;
+    -gtk-icon-shadow: none;
+}
+
+.color-button radio label {
+    display: none;
+}
+
+.color-button radio:focus {
+    border-color: @accent;
+}
+
+.color-dark radio {
+    background: #151515;
+    color: @accent;
+}
+
+.color-light radio {
+    background: #f7f7f7;
+    color: @accent;
+}
+
+.color-sepia radio {
+    background: #F0E8DD;
+    color: @accent;
+}
+
+.color-prefs radio {
+    background: linear-gradient(135deg, #fafafa 50%, #333 1px);
+    color: #3689e6;
+}
+
+window .csd:not(.popup):not(.menu) .titlebar,
+window:not(.popup):not(.menu) > decoration,
+window.unified,
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
+}
+
+.statusbar {
+    background-color: transparent;
+    box-shadow: none;
+    background-image: none;
+	border: 1px solid transparent;
     padding: 6px;
 }
 
-.color-dark {
-    background-color: #151515;
-    border: 1px solid #717171;
-    box-shadow:
-    inset 0 0 0 1px alpha (shade (#3b3b3b, 1.4), 0.05),
-    inset 0 1px 0 0 alpha (#3b3b3b, 0.45),
-    inset 0 -1px 0 0 alpha (#5b5b5b, 0.15);
-    background-image:
-    linear-gradient(
-        to bottom,
-        transparent,
-        transparent 50%,
-        alpha (#333, 0.04)
-    );
+.statusbar box {
+    background-color: transparent;
+    box-shadow: none;
+    background-image: none;
+    border: 1px solid transparent;
 }
 
-.color-dark:active {
-    border-color: #0DBCEE;
-    box-shadow:
-    inset 0 1px 0 0 alpha (#3b3b3b, 0.45),
-    inset 0 -1px 0 0 alpha (#3b3b3b, 0.15),
-    0 0 0 1px alpha (#AbAbAb, 0.25);
-    transition: all 100ms ease-out;
-}
-
-.color-dark image {
-    color: #C3C3C3;
-    -gtk-icon-shadow: 1px 1px transparent;
-}
-
-.color-light {
-    background-color: #FAFAFA;
-    border: 1px solid #BFBFBF;
-    box-shadow:
-    inset 0 0 0 1px alpha (shade (#dddddd, 1.4), 0.05),
-    inset 0 1px 0 0 alpha (#dddddd, 0.45),
-    inset 0 -1px 0 0 alpha (#cccccc, 0.15);
-    background-image:
-    linear-gradient(
-        to bottom,
-        transparent,
-        transparent 50%,
-        alpha (#000,0.04)
-    );
-}
-
-.color-light:active {
-    border-color: #0073c5;
-    box-shadow:
-    inset 0 1px 0 0 alpha (#dddddd, 0.45),
-    inset 0 -1px 0 0 alpha (#dddddd, 0.15),
-    0 0 0 1px alpha (#eeeeee, 0.25);
-    transition: all 100ms ease-out;
-}
-
-.color-light image {
-    color: #191919;
-    -gtk-icon-shadow: 1px 1px transparent;
-}
-
-.color-sepia {
-    background-color: #F0E8DD;
-    border: 1px solid #d0b896;
-    box-shadow:
-    inset 0 0 0 1px alpha (shade (#e0c8a6, 1.4), 0.05),
-    inset 0 1px 0 0 alpha (#e0c8a6, 0.45),
-    inset 0 -1px 0 0 alpha (#8D7768, 0.15);
-    background-image:
-    linear-gradient(
-        to bottom,
-        transparent,
-        transparent 50%,
-        alpha (#807452,0.04)
-    );
-}
-
-.color-sepia:active {
-    border-color: #00897b;
-    box-shadow:
-    inset 0 1px 0 0 alpha (#e0c8a6, 0.45),
-    inset 0 -1px 0 0 alpha (#e0c8a6, 0.15),
-    0 0 0 1px alpha (#d0b896, 0.25);
-    transition: all 100ms ease-out;
-}
-
-.color-sepia image {
-    color: #5D4738;
-    -gtk-icon-shadow: 1px 1px transparent;
-}
-
-actionbar,
-.action-bar {
-    border-top: 1px solid alpha (#000, 0.25);
+.full-bar {
+    border-top: 1px solid transparent;
+    background-color: transparent;
 }
 
 .quilter-searchbar {
     border-top-color: transparent;
-    border-bottom: 1px solid alpha (#000, 0.25);
-    background: @colorPrimary;
-    color: @textColorPrimary;
+    border-bottom: 1px solid alpha (black, 0.25);
     box-shadow: 0 1px transparent inset;
     padding: 6px;
+    background-color: shade(@color_primary, 0.95);
 }
 
-.quilter-toolbar {
-    border-bottom: 1px solid alpha (#000, 0.25);
-}
-
-.quilter-sidebar {
-    border-right: 1px solid alpha (#000, 0.25);
-    margin: 0px;
-}
-
-.quilter-sidebar button.radio {
-    border-radius: 0;
-}
-
-.quilter-sidebar-button {
-    background: alpha (mix (@bg_color, @fg_color, 0.5), 0.38);
-    border: 1px solid alpha (#000, 0.25);
-    border-radius: 50px;
-    padding: 4px;
-}
-
-.quilter-sidebar-button:hover {
-    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.58);
-}
-
-.quilter-sidebar-button:active,
-.quilter-sidebar-button:selected {
-    background: alpha (mix (@bg_color, @accentColor, 0.5), 0.88);
-}
-
-.quilter-task-button {
-    border: 1px solid alpha (#000, 0.25);
-    background: transparent;
-    border-radius: 50%;
-    padding: 2px;
-}
-
-.quilter-task-button:active,
-.quilter-task-button:selected {
-    color: @textColorPrimary;
-    -gtk-icon-shadow: 1px 1px transparent;
-}
-
-.quilter-sidebar-box {
-    border-radius: 0;
-    margin-left: 0;
-    margin-bottom: 0;
-    border: 0px solid alpha (#000, 0);
-    border-top: 1px solid alpha (#000, 0);
-    border-bottom: 1px solid alpha (#000, 0);
-    border-left: 5px solid @colorPrimary;
-}
-
-.quilter-sidebar-box:active,
-.quilter-sidebar-box:focus,
-.quilter-sidebar-box:selected {
-    border-top: 1px solid alpha (#000, 0.25);
-    border-bottom: 1px solid alpha (#000, 0.25);
-}
-
-.quilter-sidebar-box > grid > label {
-    color: @textColorPrimary;
-}
-
-.quilter-menu {
-    background: @colorPrimary;
-    color: @textColorPrimary;
-    border: 1px solid alpha (@textColorPrimary, 0);
-    background-image: none;
-    padding: 3px;
-}
-
-.quilter-menu:hover {
-    border: 1px solid alpha (@textColorPrimary, 0.35);
-}
-
-.quilter-cbt button {
-    background: @colorPrimary;
-    color: @textColorPrimary;
-    border: 1px solid alpha (@textColorPrimary, 0);
-    background-image: none;
+.quilter-toolbar-main {
     box-shadow: none;
 }
 
-.quilter-cbt button:hover {
-    border: 1px solid alpha (@textColorPrimary, 0.35);
-}
-
-.quilter-focus-button {
-    border-radius: 100px;
-    -gtk-outline-radius: 100px;
-    min-width: 48px;
-    min-height: 48px;
+.quilter-toolbar-side {
+    box-shadow: none;
     margin: 0;
     padding: 0;
 }
 
-.focus {
-    border-radius: 4px;
+.quilter-toolbar-side .titlebutton {
+    margin: 0 8px;
 }
 
-.focus-full .quilter-edit-view {
-    border-bottom-right-radius: 4px;
-    border-top-right-radius: 4px;
+.quilter-toolbar .image-button {
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 8px;
 }
 
-.dark-switcher .radio:checked {
-    background-color: #0f0f0f;
+.quilter-sidebar {
+    margin: 0px;
+}
+
+.quilter-flb label {
+    color: @text_color;
+}
+
+.quilter-menu:hover {
+    border: 1px solid alpha (black, 0.25);
+}
+
+.quilter-cbt button {
+    background: none;
+    color: black;
+    border: 1px solid alpha (black, 0);
+	box-shadow: none;
+	border-radius: 8px;
+}
+
+.quilter-cbt button:hover {
+    border: 1px solid alpha (black, 0.25);
+}
+
+.quilter-focus-button {
+    -gtk-icon-shadow: none;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.edit-view-paned {
+    border-right: 1px solid alpha (black, 0.25);
+}
+
+.quilter-sidebar-box button {
+  color: @text_color;
+}
+
+.quilter-sidebar-switcher label {
+    font-size: 0.9rem;
+}
+
+.quilter-sidebar-switcher button {
+    box-shadow: none;
     background-image: none;
-    box-shadow: none;
+    border-radius: 0px;
 }
 
-.dark-switcher .radio:not(checked) {
-    background-image: linear-gradient(0deg, #121212, #242424);
+.quilter-sidebar-switcher button label {
+    font-weight: 700;
+    opacity: 0.8;
+}
+
+.quilter-sidebar-switcher button:not(:checked):not(:active) label {
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.quilter-toolbar .title {
+    font-weight: 700;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+label:disabled {
+    opacity: 0.8;
+}
+
+.preview-row {
+    border: 1px solid transparent;
+    padding: 6px;
+    border-radius: 8px;
     box-shadow: none;
+}
+.preview-row:active,
+.preview-row:hover,
+.preview-row:selected {
+    background: shade(@color_primary, 1.2);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
+}
+.preview-row:active:hover,
+.preview-row:selected:hover {
+    background: shade(@color_primary, 0.9);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
+}
+
+.welcome-title {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+
+.welcome-title > *:disabled {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
 }

@@ -1,0 +1,141 @@
+{
+    "app-id" : "com.github.lainsce.Quilter",
+    "runtime" : "org.gnome.Platform",
+    "runtime-version" : "3.38",
+    "sdk" : "org.gnome.Sdk",
+    "sdk-extensions" : [
+        "org.freedesktop.Sdk.Extension.rust-stable"
+    ],
+    "command" : "quilter",
+    "finish-args" : [
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland",
+        "--device=dri"
+    ],
+    "build-options" : {
+        "append-path" : "/usr/lib/sdk/rust-stable/bin",
+        "build-args" : [
+            "--share=network"
+        ],
+        "env" : {
+            "RUSTFLAGS" : "--remap-path-prefix =../",
+            "CARGO_HOME" : "/run/build/quilter/cargo"
+        }
+    },
+    "modules" : [
+                {
+            "name" : "libsass",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/libsass.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "sassc",
+            "buildsystem" : "meson",
+            "builddir" : true,
+            "config-opts" : [
+                "--libdir=/app/lib"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lazka/sassc.git",
+                    "branch" : "meson"
+                }
+            ]
+        },
+        {
+            "name" : "elementary-stylesheet",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "git://github.com/elementary/stylesheet.git"
+                }
+            ]
+        },
+        {
+            "name" : "elementary-icons",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "git://github.com/elementary/icons.git"
+                }
+            ],
+            "modules": [
+                {
+                    "name": "xcursorgen",
+                    "cleanup": [ "*" ],
+                    "sources": [
+                        {
+                            "type": "git",
+                            "url": "https://gitlab.freedesktop.org/xorg/app/xcursorgen.git",
+                            "tag": "xcursorgen-1.0.7"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name" : "gtksourceview",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dgtk_doc=false"
+            ],
+            "cleanup" : [
+                "/include",
+                "/lib/pkgconfig"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/gtksourceview",
+                    "branch" : "gtksourceview-4-8"
+                }
+            ]
+        },
+        {
+            "name" : "libhandy",
+            "buildsystem" : "meson",
+            "config-opts" : [
+                "-Dintrospection=enabled",
+                "-Dtests=false",
+                "-Dexamples=false",
+                "-Dvapi=false",
+                "-Dglade_catalog=disabled"
+            ],
+            "cleanup" : [
+                "/include",
+                "/lib/pkgconfig"
+            ],
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://gitlab.gnome.org/GNOME/libhandy"
+                }
+            ]
+        },
+        {
+            "name" : "quilter",
+            "buildsystem" : "meson",
+            "sources" : [
+                {
+                    "type" : "git",
+                    "url" : "https://github.com/lainsce/quilter.git",
+                    "branch" : "quilter-rs"
+                }
+            ]
+        }
+    ]
+}

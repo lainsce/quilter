@@ -3,38 +3,32 @@
   <author>Lains</author>
   <_description>Emphasis on focus.</_description>
 
-  <style name="text"            foreground="#333" background="#F7F7F7"/>
-  <style name="cursor"          foreground="#0EBAFB"/>
+  <style name="text"            foreground="#151515" background="#F7F7F7"/>
+  <style name="cursor"          foreground="#70C0FF"/>
   <style name="current-line"    background="#eff0f1"/>
-  <style name="selection"       foreground="#333" background="#0EBAFB"/>
-  <style name="search-match"    foreground="#333" background="#EEAA00"/>
+  <style name="selection"       foreground="#151515" background="#70C0FF"/>
+  <style name="search-match"    foreground="#151515" background="#EEAA00"/>
 
   <!-- Bold -->
-  <style name="def:statement" bold="true"/>
+  <style name="def:strong-emphasis" bold="true"/>
 
   <!-- Italic -->
-  <style name="def:doc-comment-element" foreground="#555" italic="true"/>
+  <style name="def:emphasis" foreground="#555" italic="true"/>
 
   <!-- Links -->
-  <style name="def:comment" foreground="#0EBAFB"/>
-  <style name="def:underlined" foreground="#0EBAFB"/>
+  <style name="def:link-text" foreground="#151515"/>
+  <style name="def:link-destination" foreground="#70C0FF"/>
 
   <!-- Code -->
-  <style name="def:identifier" background="#F2F0F2" foreground="#333"/>
+  <style name="def:inline-code" background="#F0F0F0" foreground="#151515"/>
+  <style name="def:preformatted-section" background="#F0F0F0" foreground="#151515"/>
 
   <!-- Line-break -->
-  <style name="def:note" foreground="#333"/>
-
-  <!-- Label -->
-  <style name="def:preprocessor" foreground="#333"/>
-
-  <!-- Image marking in Links -->
-  <style name="def:shebang" foreground="#0EBAFB"/>
-  <style name="def:constant" foreground="#0EBAFB"/>
+  <style name="def:note" foreground="#151515"/>
 
   <!-- Backslash Escaping -->
   <style name="def:special-char" foreground="#B7B6B7"/>
 
   <!-- Headers -->
-  <style name="def:type" foreground="#333" bold="true"/>
+  <style name="def:heading" foreground="#151515" bold="true"/>
 </style-scheme>
