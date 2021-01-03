@@ -13,6 +13,8 @@ pub struct Header {
     pub open_image: gtk::Image,
     pub save_button: gtk::Button,
     pub save_image: gtk::Image,
+    pub search_button: gtk::ToggleButton,
+    pub search_image: gtk::Image,
     pub menu_button: gtk::MenuButton,
     pub menu_image: gtk::Image,
 }
@@ -56,6 +58,13 @@ impl Header {
         menu_button.set_popover(Some(&popover.container));
         container.pack_end(&menu_button);
 
+        let search_image = gtk::Image::from_icon_name(Some("system-search-symbolic"), gtk::IconSize::Button);
+        let search_button = gtk::ToggleButton::new ();
+        search_button.get_style_context().add_class("image-button");
+        search_button.set_image(Some(&search_image));
+        search_button.set_always_show_image(true);
+        container.pack_end(&search_button);
+
         container.set_hexpand(true);
 
         container.get_style_context().add_class("quilter-toolbar");
@@ -73,6 +82,8 @@ impl Header {
             save_image,
             menu_button,
             menu_image,
+            search_button,
+            search_image,
         }
     }
 }

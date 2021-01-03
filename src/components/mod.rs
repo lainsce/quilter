@@ -1,14 +1,12 @@
 extern crate sourceview4;
 
 pub mod window_state;
-
 pub mod window;
 use self::window::Window;
-
 pub mod header;
 pub mod sidebar;
-
 pub mod popover;
+pub mod searchbar;
 
 use gtk;
 use gtk::*;

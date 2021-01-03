@@ -24,6 +24,9 @@ fn main() {
     static_resources::init().expect("GResource initialization failed.");
     libhandy::init();
 
+    glib::set_program_name("Quilter".into());
+    glib::set_application_name("Quilter");
+
     let app = App::new();
     app.window.container.show_all();
 
