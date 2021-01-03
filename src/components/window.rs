@@ -17,11 +17,11 @@ use gio::SettingsExt;
 use gtk::RevealerExt;
 use webkit2gtk::WebViewExt;
 
-use crate::config::APP_ID;
+use crate::config::{APP_ID, PROFILE};
 use crate::components::window_state;
 
 pub struct Window {
-    pub container: libhandy::ApplicationWindow,
+    pub widget: libhandy::ApplicationWindow,
     pub settings: gio::Settings,
     pub header:  Header,
     pub sidebar:  Sidebar,
@@ -38,45 +38,40 @@ pub struct Window {
 impl Window {
     pub fn new() -> Window {
         let settings = gio::Settings::new(APP_ID);
-
-        let container = libhandy::ApplicationWindow::new();
-        let settingsgtk = gtk::Settings::get_default();
-        settingsgtk.clone ().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
-        settingsgtk.clone ().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
-        settingsgtk.clone ().unwrap().set_property_gtk_font_name(Some("Inter Regular 9"));
-
-        let p = gtk::CssProvider::new();
-        gtk::CssProviderExt::load_from_resource(&p, "/com/github/lainsce/quilter/app.css");
-        gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &p, 500);
-
         let header = Header::new();
         let sidebar = Sidebar::new();
-        
-        let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
-        get_widget!(builder, gtk::Stack, main);
-        main.set_visible (true);
-
-        get_widget!(builder, gtk::Grid, half_stack);
-        half_stack.set_visible (true);
-
-        get_widget!(builder, gtk::Stack, full_stack);
-        full_stack.set_visible (true);
-
         let table = gtk::TextTagTable::new();
         let buffer = sourceview4::Buffer::new(Some(&table));
-        get_widget!(builder, sourceview4::View, view);
+        let last_file = settings.get_string("current-file").unwrap();
+        let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
+        get_widget!(builder, libhandy::ApplicationWindow, win);
+        
+        let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
+        get_widget!(builder2, gtk::Stack, main);
+        main.set_visible (true);
+
+        get_widget!(builder2, gtk::ScrolledWindow, sc);
+        sc.get_style_context().remove_class("frame");
+        get_widget!(builder2, gtk::ScrolledWindow, sc1);
+        sc1.get_style_context().remove_class("frame");
+
+        get_widget!(builder2, gtk::Grid, half_stack);
+        half_stack.set_visible (true);
+
+        get_widget!(builder2, gtk::Stack, full_stack);
+        full_stack.set_visible (true);
+
+        get_widget!(builder2, sourceview4::View, view);
         view.set_visible (true);
         view.set_buffer(Some(&buffer));
-        get_widget!(builder, sourceview4::View, view1);
+        get_widget!(builder2, sourceview4::View, view1);
         view1.set_visible (true);
         view1.set_buffer(Some(&buffer));
 
-        get_widget!(builder, webkit2gtk::WebView, webview);
+        get_widget!(builder2, webkit2gtk::WebView, webview);
         webview.set_visible (true);
-        get_widget!(builder, webkit2gtk::WebView, webview1);
+        get_widget!(builder2, webkit2gtk::WebView, webview1);
         webview1.set_visible (true);
-
-        let last_file = settings.get_string("current-file").unwrap();
 
         if last_file.as_str() != "" {
             let filename = last_file.as_str();
@@ -162,17 +157,17 @@ impl Window {
 
         //
 
-        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak container, @weak view, @weak view1 => move |_| {
+        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak win, @weak view, @weak view1 => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Open File"),
-                Some(&container),
+                Some(&win),
                 gtk::FileChooserAction::Open,
             );
             file_chooser.add_buttons(&[
                 ("Open", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@strong settings, @weak container, @weak view, @weak view1 => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@strong settings, @weak win, @weak view, @weak view1 => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     settings.set_string("current-file", &filename.clone ().into_os_string().into_string().unwrap()).expect("Unable to set filename for GSchema");
@@ -188,17 +183,17 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.save_button.connect_clicked(glib::clone!(@weak container, @weak view, @weak view1 => move |_| {
+        header.save_button.connect_clicked(glib::clone!(@weak win, @weak view, @weak view1 => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Save File"),
-                Some(&container),
+                Some(&win),
                 gtk::FileChooserAction::Save,
             );
             file_chooser.add_buttons(&[
                 ("Save", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@weak container, @weak view, @weak view1 => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@weak win, @weak view, @weak view1 => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
@@ -232,26 +227,29 @@ impl Window {
         grid.attach (&main, 1, 2, 1, 1);
         grid.show_all ();
 
-        container.add(&grid);
-        container.set_size_request(600, 350);
-        container.set_icon_name(Some(APP_ID));
+        win.add(&grid);
+        win.set_size_request(600, 350);
+        win.set_icon_name(Some(APP_ID));
 
         let def = gtk::IconTheme::get_default ();
         gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
-        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view1, @weak webview1 => move |_| {
+        reload_func(&view, &webview);
+        reload_func(&view1, &webview1);
+
+        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view1, @weak sc1, @weak webview1 => move |_| {
             let key: glib::GString = "editor".into();
             if full_stack.get_visible_child_name() == Some(key) {
                 full_stack.set_visible_child(&webview1);
                 reload_func(&view1, &webview1);
             } else {
-                full_stack.set_visible_child(&view1);
+                full_stack.set_visible_child(&sc1);
                 reload_func(&view1, &webview1);
             }
         }));
 
         header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
-            let key: glib::GString = "half".into();
+            let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&full_stack);
             } else {
@@ -260,7 +258,7 @@ impl Window {
         }));
 
         header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
-            let key: glib::GString = "full".into();
+            let key: glib::GString = "half".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&half_stack);
             } else {
@@ -268,15 +266,29 @@ impl Window {
             }
         }));
 
-        view1.get_buffer ().unwrap ().connect_changed(glib::clone!(@weak view1, @weak webview1 => move |_| {
+        view1.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view1, @weak webview1 => move |_| {
             reload_func (&view1, &webview1);
+
+            let last_file = settings.get_string("current-file").unwrap();
+            let filename = last_file.as_str();
+            let (start, end) = view1.clone ().get_buffer ().unwrap ().get_bounds();
+            let contents = view1.clone ().get_buffer ().unwrap ().get_text(&start, &end, true);
+
+            glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
         }));
-        view.get_buffer ().unwrap ().connect_changed(glib::clone!(@weak view, @weak webview => move |_| {
+        view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
             reload_func (&view, &webview);
+
+            let last_file = settings.get_string("current-file").unwrap();
+            let filename = last_file.as_str();
+            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+            let contents = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true);
+
+            glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
         }));
 
-        let window = Window {
-            container,
+        let window_widget = Window {
+            widget: win,
             settings,
             header,
             sidebar,
@@ -289,18 +301,23 @@ impl Window {
             view1,
             webview1,
         };
-        window.init ();
-        window
+        window_widget.init ();
+        window_widget
     }
 
     fn init(&self) {
+        // Devel Profile
+        if PROFILE == "Devel" {
+            self.widget.get_style_context().add_class("devel");
+        }
+
         // load latest window state
-        window_state::load(&self.container, &self.settings);
+        window_state::load(&self.widget, &self.settings);
 
         // save window state on delete event
-        self.container.connect_delete_event(
-            glib::clone!(@strong self.settings as settings => move |window, _| {
-                if let Err(err) = window_state::save(&window, &settings) {
+        self.widget.connect_delete_event(
+            glib::clone!(@strong self.settings as settings => move |win, _| {
+                if let Err(err) = window_state::save(&win, &settings) {
                     log::warn!("Failed to save window state, {}", err);
                 }
                 Inhibit(false)

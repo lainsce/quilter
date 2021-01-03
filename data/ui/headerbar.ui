@@ -7,6 +7,7 @@
     <property name="height-request">38</property>
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="valign">start</property>
     <property name="hexpand">True</property>
     <property name="title">Quilter</property>
     <property name="has-subtitle">False</property>
@@ -26,7 +27,7 @@
           </object>
         </child>
         <style>
-            <class name="image-button"/>
+          <class name="image-button"/>
         </style>
       </object>
     </child>
@@ -136,9 +137,9 @@
       </packing>
     </child>
     <style>
-        <class name="titlebar"/>
-        <class name="quilter-toolbar"/>
-        <class name="quilter-toolbar-main"/>
+      <class name="titlebar"/>
+      <class name="quilter-toolbar"/>
+      <class name="quilter-toolbar-main"/>
     </style>
   </object>
 </interface>

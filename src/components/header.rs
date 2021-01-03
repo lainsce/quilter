@@ -22,6 +22,7 @@ impl Header {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/headerbar.ui");
         get_widget!(builder, libhandy::HeaderBar, container);
         container.set_visible (true);
+        container.set_size_request(-1, 38);
 
         get_widget!(builder, gtk::Button, new_button);
         new_button.set_visible (true);

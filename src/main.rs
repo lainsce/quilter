@@ -12,7 +12,6 @@ mod config;
 mod static_resources;
 
 use config::{GETTEXT_PACKAGE, LOCALEDIR};
-use gtk::*;
 
 fn main() {
     // Prepare i18n
@@ -28,7 +27,7 @@ fn main() {
     glib::set_application_name("Quilter");
 
     let app = App::new();
-    app.window.container.show_all();
+    app.run();
 
     gtk::main();
 }

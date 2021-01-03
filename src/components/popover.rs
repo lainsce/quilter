@@ -39,6 +39,7 @@ impl Popover {
         get_widget!(builder, gtk::ModelButton, prefs_button);
         prefs_button.set_visible (true);
 
+
         get_widget!(builder, gtk::ModelButton, toggle_view_button);
         toggle_view_button.set_visible (true);
         

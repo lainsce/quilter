@@ -32,9 +32,20 @@ iconsdir = datadir / 'icons'
 podir = meson.source_root() / 'po'
 gettext_package = meson.project_name()
 
-profile = ''
-name_suffix = ''
-version_suffix = ''
+if get_option('profile') == 'development'
+  profile = 'Devel'
+  name_suffix = ' (Devel)'
+  vcs_tag = run_command('git', 'rev-parse', '--short', 'HEAD').stdout().strip()
+  if vcs_tag == ''
+    version_suffix = '-devel'
+  else
+    version_suffix = '-@0@'.format(vcs_tag)
+  endif
+else
+  profile = ''
+  name_suffix = ''
+  version_suffix = ''
+endif
 
 application_id = '@0@@1@'.format(base_id, profile)
 
