@@ -248,6 +248,13 @@ impl Window {
             }
         }));
 
+        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window => move |_| {
+            let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
+            get_widget!(builder, libhandy::PreferencesWindow, prefs);
+            prefs.set_transient_for(Some(&window));
+            prefs.show();
+        }));
+
         header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
             let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {

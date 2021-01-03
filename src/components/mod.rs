@@ -16,7 +16,6 @@ use gtk;
 use gtk::*;
 use gio::*;
 use gio::prelude::*;
-use gtk::prelude::*;
 use crate::config::APP_ID;
 use std::env;
 
@@ -52,19 +51,6 @@ impl App {
             })
         );
         self.app.set_accels_for_action("app.quit", &["<primary>q"]);
-
-        // Prefs
-        action!(
-            self.app,
-            "prefs",
-            glib::clone!(@weak self.window.widget as window => move |_, _| {
-                let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/show_prefs.ui");
-                get_widget!(builder, libhandy::PreferencesWindow, prefs);
-                prefs.set_transient_for(Some(&window));
-                prefs.show();
-
-            })
-        );
     }
 
     fn setup_signals(&self) {
