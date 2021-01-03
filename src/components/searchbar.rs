@@ -1,23 +1,18 @@
-use gtk::*;
-use gtk::SearchBarExt;
+use crate::gtk::prelude::BuilderExtManual;
+use crate::gtk::WidgetExt;
 
 pub struct Searchbar {
-    pub container:  gtk::Revealer,
-    pub searchbar: gtk::SearchBar,
+    pub container: gtk::Revealer,
 }
 
 impl Searchbar {
     pub fn new() -> Searchbar {
-        let container = gtk::Revealer::new();
-        let searchbar = gtk::SearchBar::new();
-        searchbar.set_show_close_button(false);
-        searchbar.set_visible(true);
-        container.add (&searchbar);
-        container.show_all();
+        let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/searchbar.ui");
+        get_widget!(builder, gtk::Revealer, container);
+        container.set_visible (true);
 
         Searchbar {
             container,
-            searchbar,
         }
     }
 }

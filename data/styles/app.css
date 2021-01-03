@@ -66,7 +66,7 @@ label:disabled {
 }
 
 .color-button radio label {
-    display: none;
+    font-size: 0px;
 }
 
 .color-dark radio {
@@ -77,6 +77,11 @@ label:disabled {
 .color-light radio {
     background: #f7f7f7;
     color: #70C0FF;
+}
+
+.color-sepia radio {
+    background: #F0E8DD;
+    color: #00897b;
 }
 
 .color-prefs radio {

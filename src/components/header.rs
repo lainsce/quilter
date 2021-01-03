@@ -13,7 +13,7 @@ pub struct Header {
     pub open_image: gtk::Image,
     pub save_button: gtk::Button,
     pub save_image: gtk::Image,
-    pub search_button: gtk::ToggleButton,
+    pub search_button: gtk::Button,
     pub search_image: gtk::Image,
     pub menu_button: gtk::MenuButton,
     pub menu_image: gtk::Image,
@@ -59,7 +59,7 @@ impl Header {
         container.pack_end(&menu_button);
 
         let search_image = gtk::Image::from_icon_name(Some("system-search-symbolic"), gtk::IconSize::Button);
-        let search_button = gtk::ToggleButton::new ();
+        let search_button = gtk::Button::new ();
         search_button.get_style_context().add_class("image-button");
         search_button.set_image(Some(&search_image));
         search_button.set_always_show_image(true);

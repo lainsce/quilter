@@ -36,13 +36,23 @@ impl Popover {
         color_button_dark.get_style_context().add_class("color-button");
         color_button_dark.get_style_context().add_class("color-dark");
 
+        let color_button_sepia = gtk::RadioButton::from_widget(&color_button_light);
+        color_button_sepia.set_halign(gtk::Align::Center);
+        color_button_sepia.set_property_height_request(40);
+        color_button_sepia.set_property_width_request(40);
+        color_button_sepia.set_label ("");
+
+        color_button_sepia.get_style_context().add_class("color-button");
+        color_button_sepia.get_style_context().add_class("color-sepia");
+
         let colors_grid = gtk::Grid::new ();
         colors_grid.set_margin_top(12);
         colors_grid.set_margin_bottom(12);
         colors_grid.set_column_homogeneous(true);
         colors_grid.set_hexpand(true);
         colors_grid.attach(&color_button_light, 0, 0, 1, 1);
-        colors_grid.attach(&color_button_dark, 1, 0, 1, 1);
+        colors_grid.attach(&color_button_sepia, 1, 0, 1, 1);
+        colors_grid.attach(&color_button_dark, 2, 0, 1, 1);
         colors_grid.show_all();
 
         let prefs_button = gtk::ModelButton::new ();
@@ -67,6 +77,8 @@ impl Popover {
             color_button_light.set_active (true);
         } else if vm.as_str() == "dark" {
             color_button_dark.set_active (true);
+        } if vm.as_str() == "sepia" {
+            color_button_sepia.set_active (true);
         }
 
         color_button_light.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
@@ -75,6 +87,10 @@ impl Popover {
 
         color_button_dark.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
             settings.set_string("visual-mode", "dark").unwrap();
+        }));
+
+        color_button_sepia.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
+            settings.set_string("visual-mode", "sepia").unwrap();
         }));
 
         Popover {

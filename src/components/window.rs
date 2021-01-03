@@ -83,11 +83,12 @@ impl Window {
         // Add custom CSS
         let settingsgtk = gtk::Settings::get_default();
         let vm = settings.get_string("visual-mode").unwrap();
-
         let lstylem = sourceview4::StyleSchemeManager::get_default()
             .map_or(None, |sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default()
             .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
+        let sstylem = sourceview4::StyleSchemeManager::get_default()
+            .map_or(None, |sm| sm.get_scheme ("quilter-sepia"));
         if vm.as_str() == "light" {
             let stylevml = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
@@ -102,6 +103,13 @@ impl Window {
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
 
             buffer.set_style_scheme(dstylem.as_ref());
+        } else if vm.as_str() == "sepia" {
+            let stylevms = CssProvider::new();
+            gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
+            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+            buffer.set_style_scheme(sstylem.as_ref());
         }
 
         settings.connect_changed (move |settings, _| {
@@ -110,6 +118,8 @@ impl Window {
                 .map_or(None, |sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default()
                 .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
+            let sstylem = sourceview4::StyleSchemeManager::get_default()
+                .map_or(None, |sm| sm.get_scheme ("quilter-sepia"));
             if vm.as_str() == "light" {
                 let stylevml = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
@@ -124,6 +134,13 @@ impl Window {
                 settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
 
                 buffer.set_style_scheme(dstylem.as_ref());
+            } else if vm.as_str() == "sepia" {
+                let stylevms = CssProvider::new();
+                gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
+                gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
+                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+                buffer.set_style_scheme(sstylem.as_ref());
             }
         });
 
@@ -192,12 +209,8 @@ impl Window {
 
         let searchbar = Searchbar::new();
 
-        header.search_button.connect_toggled(glib::clone!(@weak header.search_button as sb, @weak searchbar.container as revealer => move |_| {
-            if sb.get_active() == true {
-                revealer.set_reveal_child(true);
-            } else {
-                revealer.set_reveal_child(false);
-            }
+        header.search_button.connect_clicked(glib::clone!(@weak searchbar.container as r => move |_| {
+            r.set_reveal_child (true);
         }));
 
         let grid = gtk::Grid::new();

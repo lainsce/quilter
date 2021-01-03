@@ -3,7 +3,9 @@
     <gresource prefix="/com/github/lainsce/quilter">
         <file alias="app.css" compressed="true">styles/app.css</file>
         <file alias="light.css" compressed="true">styles/light.css</file>
+        <file alias="sepia.css" compressed="true">styles/sepia.css</file>
         <file alias="dark.css" compressed="true">styles/dark.css</file>
+
         <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
         <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
         <file alias="small-spacing-symbolic.svg">icons/symbolic/small-spacing-symbolic.svg</file>
@@ -21,5 +23,7 @@
         <file alias="half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
         <file alias="edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
         <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
+
+        <file alias="searchbar.ui" compressed="true">ui/searchbar.ui</file>
     </gresource>
 </gresources>
