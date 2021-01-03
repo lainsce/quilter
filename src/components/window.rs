@@ -31,8 +31,6 @@ pub struct Window {
     pub full_stack: gtk::Stack,
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
-    pub view1: sourceview4::View,
-    pub webview1: webkit2gtk::WebView,
 }
 
 impl Window {
@@ -52,8 +50,6 @@ impl Window {
 
         get_widget!(builder2, gtk::ScrolledWindow, sc);
         sc.get_style_context().remove_class("frame");
-        get_widget!(builder2, gtk::ScrolledWindow, sc1);
-        sc1.get_style_context().remove_class("frame");
 
         get_widget!(builder2, gtk::Grid, half_stack);
         half_stack.set_visible (true);
@@ -64,14 +60,9 @@ impl Window {
         get_widget!(builder2, sourceview4::View, view);
         view.set_visible (true);
         view.set_buffer(Some(&buffer));
-        get_widget!(builder2, sourceview4::View, view1);
-        view1.set_visible (true);
-        view1.set_buffer(Some(&buffer));
 
         get_widget!(builder2, webkit2gtk::WebView, webview);
         webview.set_visible (true);
-        get_widget!(builder2, webkit2gtk::WebView, webview1);
-        webview1.set_visible (true);
 
         if last_file.as_str() != "" {
             let filename = last_file.as_str();
@@ -79,7 +70,6 @@ impl Window {
             let contents = String::from_utf8_lossy(&buf);
 
             view.clone ().get_buffer ().unwrap ().set_text(&contents);
-            view1.clone ().get_buffer ().unwrap ().set_text(&contents);
         }
 
         let md_lang = sourceview4::LanguageManager::get_default()
@@ -157,7 +147,7 @@ impl Window {
 
         //
 
-        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak win, @weak view, @weak view1 => move |_| {
+        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak win, @weak view => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Open File"),
                 Some(&win),
@@ -167,14 +157,13 @@ impl Window {
                 ("Open", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@strong settings, @weak win, @weak view, @weak view1 => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@strong settings, @weak win, @weak view => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     settings.set_string("current-file", &filename.clone ().into_os_string().into_string().unwrap()).expect("Unable to set filename for GSchema");
                     let buf = glib::file_get_contents(filename).expect("Unable to get data");
                     let contents = String::from_utf8_lossy(&buf);
 
-                    view1.clone ().get_buffer ().unwrap ().set_text(&contents);
                     view.clone ().get_buffer ().unwrap ().set_text(&contents);
                 }
                 file_chooser.close();
@@ -183,7 +172,7 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.save_button.connect_clicked(glib::clone!(@weak win, @weak view, @weak view1 => move |_| {
+        header.save_button.connect_clicked(glib::clone!(@weak win, @weak view => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Save File"),
                 Some(&win),
@@ -193,7 +182,7 @@ impl Window {
                 ("Save", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@weak win, @weak view, @weak view1 => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@weak win, @weak view => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
@@ -207,9 +196,8 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.new_button.connect_clicked(glib::clone!(@weak view, @weak view1 => move |_| {
+        header.new_button.connect_clicked(glib::clone!(@weak view => move |_| {
             view.get_buffer ().unwrap ().set_text("");
-            view1.get_buffer ().unwrap ().set_text("");
         }));
 
         let searchbar = Searchbar::new();
@@ -235,16 +223,15 @@ impl Window {
         gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
         reload_func(&view, &webview);
-        reload_func(&view1, &webview1);
 
-        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view1, @weak sc1, @weak webview1 => move |_| {
+        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view, @weak sc, @weak webview => move |_| {
             let key: glib::GString = "editor".into();
             if full_stack.get_visible_child_name() == Some(key) {
-                full_stack.set_visible_child(&webview1);
-                reload_func(&view1, &webview1);
+                full_stack.set_visible_child(&webview);
+                reload_func(&view, &webview);
             } else {
-                full_stack.set_visible_child(&sc1);
-                reload_func(&view1, &webview1);
+                full_stack.set_visible_child(&sc);
+                reload_func(&view, &webview);
             }
         }));
 
@@ -273,16 +260,6 @@ impl Window {
             }
         }));
 
-        view1.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view1, @weak webview1 => move |_| {
-            reload_func (&view1, &webview1);
-
-            let last_file = settings.get_string("current-file").unwrap();
-            let filename = last_file.as_str();
-            let (start, end) = view1.clone ().get_buffer ().unwrap ().get_bounds();
-            let contents = view1.clone ().get_buffer ().unwrap ().get_text(&start, &end, true);
-
-            glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
-        }));
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
             reload_func (&view, &webview);
 
@@ -305,8 +282,6 @@ impl Window {
             full_stack,
             view,
             webview,
-            view1,
-            webview1,
         };
         window_widget.init ();
         window_widget

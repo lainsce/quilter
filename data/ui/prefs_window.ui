@@ -30,6 +30,7 @@
                 <child>
                   <!-- n-columns=3 n-rows=1 -->
                   <object class="GtkGrid" id="grid">
+                    <property name="visible">True</property>
                     <property name="can-focus">False</property>
                     <property name="valign">center</property>
                     <property name="margin-start">6</property>
@@ -37,6 +38,7 @@
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="column-homogeneous">True</property>
+                    <property name="column-spacing">20</property>
                     <child>
                       <object class="GtkRadioButton" id="light">
                         <property name="visible">True</property>
@@ -126,37 +128,64 @@
                   </object>
                 </child>
                 <child>
-                  <object class="HdyActionRow" id="typewriter">
+                  <object class="HdyActionRow">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="selectable">False</property>
                     <property name="title" translatable="yes">Typewriter Scrolling</property>
                     <child>
-                      <placeholder/>
+                      <object class="GtkSwitch" id="typewriter">
+                        <property name="visible">True</property>
+                        <property name="can-focus">True</property>
+                        <property name="receives-default">False</property>
+                        <property name="valign">center</property>
+                        <property name="margin-start">6</property>
+                        <property name="margin-end">6</property>
+                        <property name="margin-top">6</property>
+                        <property name="margin-bottom">6</property>
+                      </object>
                     </child>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="counter">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">Type Counter</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="statusbar">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="sidebar">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">Sidebar</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="sidebar">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
@@ -197,7 +226,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="pos">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
@@ -210,7 +239,16 @@ Colors words based on type:
 - Adverbs are purple
 - Conjunctions are green</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="pos">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">start</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
@@ -306,7 +344,16 @@ Colors words based on type:
                 <property name="title" translatable="yes">Header Centering</property>
                 <property name="subtitle" translatable="yes">This affects H1, H2, and H3 type headers.</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="centering">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
@@ -318,38 +365,65 @@ Colors words based on type:
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Extensions</property>
             <child>
-              <object class="HdyActionRow" id="code">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">Code Highlight</property>
                 <property name="subtitle" translatable="yes">Code blocks will have the contents receive color.</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="highlight">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="latex">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">LaTeX Math</property>
                 <property name="subtitle" translatable="yes">Text inside LaTeX math block will be processed into LaTeX output.</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="latex">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow" id="mermaid">
+              <object class="HdyActionRow">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">Mermaid.js Graph</property>
                 <property name="subtitle" translatable="yes">Text inside Mermaid blocks will become graphs.</property>
                 <child>
-                  <placeholder/>
+                  <object class="GtkSwitch" id="mermaid">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="receives-default">False</property>
+                    <property name="valign">center</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                  </object>
                 </child>
               </object>
             </child>
