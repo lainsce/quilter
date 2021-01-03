@@ -1,0 +1,179 @@
+/*
+ *
+ *  Generics
+ *
+ */
+
+window .csd:not(.popup):not(.menu) .titlebar,
+window:not(.popup):not(.menu) > decoration,
+window.unified,
+window.unified decoration,
+window.unified decoration-overlay {
+  border-radius: 8px;
+}
+
+label:disabled {
+    opacity: 0.8;
+}
+
+/*
+ *
+ *  Fonts
+ *
+ */
+
+.small-font {
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+}
+
+.medium-font {
+    font-size: 1.4rem;
+    letter-spacing: 0.2em;
+}
+
+.big-font {
+    font-size: 1.8rem;
+    letter-spacing: 0.2em;
+}
+
+.mono-font {
+    font-family: 'Quilt Mono';
+    font-weight: 500;
+}
+
+.vier-font {
+    font-family: 'Quilt Vier';
+    font-weight: 500;
+}
+
+.zwei-font {
+    font-family: 'Quilt Zwei';
+    font-weight: 500;
+}
+
+/*
+ *
+ *  Widgets
+ *
+ */
+
+.color-button radio,
+.color-button radio:checked {
+    padding: 10px;
+    border-radius: 9999999px;
+    -gtk-icon-shadow: none;
+}
+
+.color-button radio label {
+    display: none;
+}
+
+.color-dark radio {
+    background: #151515;
+    color: #70C0FF;
+}
+
+.color-light radio {
+    background: #f7f7f7;
+    color: #70C0FF;
+}
+
+.color-prefs radio {
+    background: linear-gradient(135deg, #fafafa 50%, #333 1px);
+    color: #3689e6;
+}
+
+.quilter-searchbar {
+    border-top-color: transparent;
+    border-bottom: 1px solid alpha (black, 0.25);
+    box-shadow: 0 1px transparent inset;
+    padding: 6px;
+    background-color: shade(@color_primary, 0.95);
+}
+
+.quilter-toolbar-main {
+    box-shadow: none;
+}
+
+.quilter-toolbar .image-button {
+    border-radius: 8px;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    padding: 8px;
+}
+.quilter-toolbar .title {
+    font-weight: 700;
+}
+
+.quilter-toolbar-side {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+}
+.quilter-toolbar-side .titlebutton {
+    margin: 0 8px;
+}
+
+.quilter-sidebar {
+    margin: 0px;
+}
+
+.quilter-sidebar-box button {
+  color: @text_color;
+}
+
+.quilter-sidebar-switcher label {
+    font-size: 0.9rem;
+}
+.quilter-sidebar-switcher button {
+    box-shadow: none;
+    background-image: none;
+    border-radius: 0px;
+}
+.quilter-sidebar-switcher button label {
+    font-weight: 700;
+    opacity: 0.8;
+}
+.quilter-sidebar-switcher button:not(:checked):not(:active) label {
+    font-weight: 500;
+    opacity: 0.8;
+}
+
+.quilter-focus-button {
+    -gtk-icon-shadow: none;
+    min-width: 24px;
+    min-height: 24px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.quilter-preview-row {
+    border: 1px solid transparent;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: none;
+}
+.quilter-preview-row:active,
+.quilter-preview-row:hover,
+.quilter-preview-row:selected {
+    background: shade(@color_primary, 1.2);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
+}
+.quilter-preview-row:active:hover,
+.quilter-preview-row:selected:hover {
+    background: shade(@color_primary, 0.9);
+    color: @theme_fg_color;
+    border: 1px solid alpha(black, 0.25);
+}
+
+.quilter-welcome-title {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
+.quilter-welcome-title > *:disabled {
+  box-shadow: 0 1px 3px transparent,
+              0 1px 2px transparent;
+}
