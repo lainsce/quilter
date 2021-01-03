@@ -43,6 +43,7 @@ sources = files(
   'components/header.rs',
   'components/sidebar.rs',
   'components/window.rs',
+  'components/viewpopover.rs',
   'components/popover.rs',
   'components/searchbar.rs',
   'components/window_state.rs',

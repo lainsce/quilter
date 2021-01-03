@@ -8,6 +8,7 @@ pub mod window;
 use self::window::Window;
 pub mod header;
 pub mod sidebar;
+pub mod viewpopover;
 pub mod popover;
 pub mod searchbar;
 

@@ -1,89 +1,60 @@
 use gtk::*;
 
-use libhandy::HeaderBarExt;
-
 use crate::components::popover::Popover;
+use crate::components::viewpopover::ViewPopover;
+use gtk::prelude::BuilderExtManual;
+use gtk::MenuButtonExt;
 
 pub struct Header {
     pub container: libhandy::HeaderBar,
     pub popover: Popover,
+    pub viewpopover: ViewPopover,
     pub new_button: gtk::Button,
-    pub new_image: gtk::Image,
     pub open_button: gtk::Button,
-    pub open_image: gtk::Image,
     pub save_button: gtk::Button,
-    pub save_image: gtk::Image,
-    pub search_button: gtk::Button,
-    pub search_image: gtk::Image,
+    pub search_button: gtk::ToggleButton,
+    pub toggle_view_button: gtk::MenuButton,
     pub menu_button: gtk::MenuButton,
-    pub menu_image: gtk::Image,
 }
 
 impl Header {
     pub fn new() -> Header {
-        let container = libhandy::HeaderBar::new();
-        container.set_show_close_button(true);
-        container.set_title(Some("Quilter"));
-        container.set_has_subtitle(false);
-        container.set_decoration_layout(Some(":maximize"));
-        container.set_size_request(-1, 38);
+        let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/headerbar.ui");
+        get_widget!(builder, libhandy::HeaderBar, container);
+        container.set_visible (true);
 
-        let new_image = gtk::Image::from_icon_name(Some("list-add-symbolic"), gtk::IconSize::Button);
-        let new_button = gtk::Button::new ();
-        new_button.get_style_context().add_class("image-button");
-        new_button.set_image(Some(&new_image));
-        new_button.set_always_show_image(true);
-        container.pack_start(&new_button);
+        get_widget!(builder, gtk::Button, new_button);
+        new_button.set_visible (true);
 
-        let open_image = gtk::Image::from_icon_name(Some("document-open-symbolic"), gtk::IconSize::Button);
-        let open_button = gtk::Button::new ();
-        open_button.get_style_context().add_class("image-button");
-        open_button.set_image(Some(&open_image));
-        open_button.set_always_show_image(true);
-        container.pack_start(&open_button);
+        get_widget!(builder, gtk::Button, open_button);
+        open_button.set_visible (true);
 
-        let save_image = gtk::Image::from_icon_name(Some("document-save-as-symbolic"), gtk::IconSize::Button);
-        let save_button = gtk::Button::new ();
-        save_button.get_style_context().add_class("image-button");
-        save_button.set_image(Some(&save_image));
-        save_button.set_always_show_image(true);
-        container.pack_start(&save_button);
+        get_widget!(builder, gtk::Button, save_button);
+        save_button.set_visible (true);
 
-        let menu_image = gtk::Image::from_icon_name(Some("open-menu-symbolic"), gtk::IconSize::Button);
-        let menu_button = gtk::MenuButton::new ();
-        menu_button.get_style_context().add_class("image-button");
-        menu_button.set_image(Some(&menu_image));
-        menu_button.set_always_show_image(true);
-        let popover = Popover::new(menu_button.as_ref());
+        get_widget!(builder, gtk::ToggleButton, search_button);
+        search_button.set_visible (true);
+
+        get_widget!(builder, gtk::MenuButton, toggle_view_button);
+        toggle_view_button.set_visible (true);
+        let viewpopover = ViewPopover::new(toggle_view_button.clone());
+        toggle_view_button.set_popover(Some(&viewpopover.container));
+
+        get_widget!(builder, gtk::MenuButton, menu_button);
+        menu_button.set_visible (true);
+        let popover = Popover::new(menu_button.clone());
         menu_button.set_popover(Some(&popover.container));
-        container.pack_end(&menu_button);
-
-        let search_image = gtk::Image::from_icon_name(Some("system-search-symbolic"), gtk::IconSize::Button);
-        let search_button = gtk::Button::new ();
-        search_button.get_style_context().add_class("image-button");
-        search_button.set_image(Some(&search_image));
-        search_button.set_always_show_image(true);
-        container.pack_end(&search_button);
-
-        container.set_hexpand(true);
-
-        container.get_style_context().add_class("quilter-toolbar");
-        container.get_style_context().add_class("quilter-toolbar-main");
-        container.get_style_context().add_class("flat");
 
         Header {
             container,
             popover,
+            viewpopover,
             new_button,
-            new_image,
             open_button,
-            open_image,
             save_button,
-            save_image,
-            menu_button,
-            menu_image,
             search_button,
-            search_image,
+            toggle_view_button,
+            menu_button,
         }
     }
 }

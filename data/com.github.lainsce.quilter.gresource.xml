@@ -25,5 +25,9 @@
         <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
 
         <file alias="searchbar.ui" compressed="true">ui/searchbar.ui</file>
+        <file alias="headerbar.ui" compressed="true">ui/headerbar.ui</file>
+        <file alias="menu_popover.ui" compressed="true">ui/menu_popover.ui</file>
+        <file alias="view_popover.ui" compressed="true">ui/view_popover.ui</file>
+        <file alias="main_view.ui" compressed="true">ui/main_view.ui</file>
     </gresource>
 </gresources>

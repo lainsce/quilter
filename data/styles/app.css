@@ -160,19 +160,6 @@ label:disabled {
     border-radius: 8px;
     box-shadow: none;
 }
-.quilter-preview-row:active,
-.quilter-preview-row:hover,
-.quilter-preview-row:selected {
-    background: shade(@color_primary, 1.2);
-    color: @theme_fg_color;
-    border: 1px solid alpha(black, 0.25);
-}
-.quilter-preview-row:active:hover,
-.quilter-preview-row:selected:hover {
-    background: shade(@color_primary, 0.9);
-    color: @theme_fg_color;
-    border: 1px solid alpha(black, 0.25);
-}
 
 .quilter-welcome-title {
   box-shadow: 0 1px 3px transparent,

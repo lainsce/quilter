@@ -15,7 +15,7 @@ use sourceview4::StyleSchemeManagerExt;
 use gtk::SettingsExt as GtkSettings;
 use gio::SettingsExt;
 use gtk::RevealerExt;
-use webkit2gtk::{WebContext, WebView, WebViewExt};
+use webkit2gtk::WebViewExt;
 
 use crate::config::APP_ID;
 use crate::components::window_state;
@@ -26,9 +26,13 @@ pub struct Window {
     pub header:  Header,
     pub sidebar:  Sidebar,
     pub searchbar: Searchbar,
-    pub stack: gtk::Stack,
+    pub main: gtk::Stack,
+    pub half_stack: gtk::Grid,
+    pub full_stack: gtk::Stack,
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
+    pub view1: sourceview4::View,
+    pub webview1: webkit2gtk::WebView,
 }
 
 impl Window {
@@ -48,18 +52,29 @@ impl Window {
         let header = Header::new();
         let sidebar = Sidebar::new();
         
+        let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
+        get_widget!(builder, gtk::Stack, main);
+        main.set_visible (true);
+
+        get_widget!(builder, gtk::Grid, half_stack);
+        half_stack.set_visible (true);
+
+        get_widget!(builder, gtk::Stack, full_stack);
+        full_stack.set_visible (true);
+
         let table = gtk::TextTagTable::new();
         let buffer = sourceview4::Buffer::new(Some(&table));
-        let view = sourceview4::View::with_buffer(&buffer);
-        view.get_style_context().add_class("medium-font");
-        view.get_style_context().add_class("mono-font");
-        view.set_monospace(true);
-        view.set_wrap_mode(gtk::WrapMode::Word);
-        view.set_vexpand(true);
-        view.set_left_margin(40);
-        view.set_top_margin(40);
-        view.set_right_margin(40);
-        view.set_bottom_margin(40);
+        get_widget!(builder, sourceview4::View, view);
+        view.set_visible (true);
+        view.set_buffer(Some(&buffer));
+        get_widget!(builder, sourceview4::View, view1);
+        view1.set_visible (true);
+        view1.set_buffer(Some(&buffer));
+
+        get_widget!(builder, webkit2gtk::WebView, webview);
+        webview.set_visible (true);
+        get_widget!(builder, webkit2gtk::WebView, webview1);
+        webview1.set_visible (true);
 
         let last_file = settings.get_string("current-file").unwrap();
 
@@ -69,6 +84,7 @@ impl Window {
             let contents = String::from_utf8_lossy(&buf);
 
             view.clone ().get_buffer ().unwrap ().set_text(&contents);
+            view1.clone ().get_buffer ().unwrap ().set_text(&contents);
         }
 
         let md_lang = sourceview4::LanguageManager::get_default()
@@ -146,7 +162,7 @@ impl Window {
 
         //
 
-        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak container, @weak view => move |_| {
+        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak container, @weak view, @weak view1 => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Open File"),
                 Some(&container),
@@ -156,13 +172,14 @@ impl Window {
                 ("Open", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@strong settings, @weak container, @weak view => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@strong settings, @weak container, @weak view, @weak view1 => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     settings.set_string("current-file", &filename.clone ().into_os_string().into_string().unwrap()).expect("Unable to set filename for GSchema");
                     let buf = glib::file_get_contents(filename).expect("Unable to get data");
                     let contents = String::from_utf8_lossy(&buf);
 
+                    view1.clone ().get_buffer ().unwrap ().set_text(&contents);
                     view.clone ().get_buffer ().unwrap ().set_text(&contents);
                 }
                 file_chooser.close();
@@ -171,7 +188,7 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.save_button.connect_clicked(glib::clone!(@weak container, @weak view => move |_| {
+        header.save_button.connect_clicked(glib::clone!(@weak container, @weak view, @weak view1 => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Save File"),
                 Some(&container),
@@ -181,7 +198,7 @@ impl Window {
                 ("Save", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@weak container, @weak view => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@weak container, @weak view, @weak view1 => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
@@ -195,17 +212,10 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.new_button.connect_clicked(glib::clone!(@weak view => move |_| {
+        header.new_button.connect_clicked(glib::clone!(@weak view, @weak view1 => move |_| {
             view.get_buffer ().unwrap ().set_text("");
+            view1.get_buffer ().unwrap ().set_text("");
         }));
-
-        let context = WebContext::get_default().unwrap();
-        let webview = WebView::with_context(&context);
-
-        let stack = gtk::Stack::new();
-        stack.add_named(&view, "editor");
-        stack.add_named(&webview, "previewer");
-        stack.set_visible_child(&view);
 
         let searchbar = Searchbar::new();
 
@@ -219,7 +229,7 @@ impl Window {
         grid.attach (&sidebar.container, 0, 0, 1, 3);
         grid.attach (&header.container, 1, 0, 1, 1);
         grid.attach (&searchbar.container, 1, 1, 1, 1);
-        grid.attach (&stack, 1, 2, 1, 1);
+        grid.attach (&main, 1, 2, 1, 1);
         grid.show_all ();
 
         container.add(&grid);
@@ -229,17 +239,38 @@ impl Window {
         let def = gtk::IconTheme::get_default ();
         gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
-        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak stack, @weak view, @weak webview => move |_| {
+        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view1, @weak webview1 => move |_| {
             let key: glib::GString = "editor".into();
-            if stack.get_visible_child_name() == Some(key) {
-                stack.set_visible_child(&webview);
-                reload_func(&view, &webview);
+            if full_stack.get_visible_child_name() == Some(key) {
+                full_stack.set_visible_child(&webview1);
+                reload_func(&view1, &webview1);
             } else {
-                stack.set_visible_child(&view);
-                reload_func(&view, &webview);
+                full_stack.set_visible_child(&view1);
+                reload_func(&view1, &webview1);
             }
         }));
 
+        header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
+            let key: glib::GString = "half".into();
+            if settings.get_string("preview-type") == Some(key) {
+                main.set_visible_child(&full_stack);
+            } else {
+                main.set_visible_child(&half_stack);
+            }
+        }));
+
+        header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
+            let key: glib::GString = "full".into();
+            if settings.get_string("preview-type") == Some(key) {
+                main.set_visible_child(&half_stack);
+            } else {
+                main.set_visible_child(&full_stack);
+            }
+        }));
+
+        view1.get_buffer ().unwrap ().connect_changed(glib::clone!(@weak view1, @weak webview1 => move |_| {
+            reload_func (&view1, &webview1);
+        }));
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@weak view, @weak webview => move |_| {
             reload_func (&view, &webview);
         }));
@@ -250,9 +281,13 @@ impl Window {
             header,
             sidebar,
             searchbar,
-            stack,
+            main,
+            half_stack,
+            full_stack,
             view,
             webview,
+            view1,
+            webview1,
         };
         window.init ();
         window
