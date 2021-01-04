@@ -81,11 +81,6 @@ install_subdir(
 )
 
 install_subdir(
-    'plugin/center_headers',
-    install_dir: configdir
-)
-
-install_subdir(
     'plugin/katex',
     install_dir: configdir
 )

@@ -59,11 +59,7 @@
               <object class="GtkSourceView" id="view">
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="pixels-above-lines">5</property>
-                <property name="pixels-inside-wrap">5</property>
                 <property name="wrap-mode">word</property>
-                <property name="left-margin">40</property>
-                <property name="right-margin">40</property>
                 <property name="top-margin">40</property>
                 <property name="bottom-margin">40</property>
                 <property name="monospace">True</property>
@@ -72,7 +68,6 @@
                 <property name="insert-spaces-instead-of-tabs">True</property>
                 <style>
                   <class name="mono-font"/>
-                  <class name="medium-font"/>
                 </style>
               </object>
             </child>

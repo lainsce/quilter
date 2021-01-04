@@ -21,16 +21,6 @@
       <summary>Window H position</summary>
       <description>The height of the window</description>
     </key>
-    <key name="header" type="b">
-      <default>true</default>
-      <summary>Window header state</summary>
-      <description>The header layout of the window if the Side or Main bar are visible</description>
-    </key>
-    <key name="sidebar" type="b">
-      <default>true</default>
-      <summary>Sidebar state</summary>
-      <description>Whether the Sidebar is shown or not</description>
-    </key>
     <key name="focus-mode" type="b">
       <default>false</default>
       <summary>Focus Mode</summary>
@@ -42,35 +32,35 @@
       <description>Whether Quilter should use Typewriter Scrolling</description>
     </key>
     <key name="visual-mode" type="s">
-      <default>''</default>
+      <default>'light'</default>
       <summary>Visual Mode</summary>
-      <description>What visual style to use for Quilter (Default is blank which means Light UI)</description>
+      <description>What visual style to use for Quilter (Default is light which means Light UI)</description>
     </key>
     <key name="autosave" type="b">
       <default>true</default>
       <summary>Autosave edited files</summary>
-      <description>Autosave edited files.</description>
+      <description>Autosave edited files or not.</description>
     </key>
     <key name="autosave-delay" type="i">
       <default>30</default>
-      <summary>The autosave delay between saves</summary>
+      <summary>The delay between autosave operations.</summary>
     </key>
     <key name="current-file" type="s">
       <default>''</default>
       <summary>Current working file</summary>
-      <description>The c.w.f. in Quilter</description>
+      <description>The current file being worked on in Quilter</description>
     </key>
     <key name="last-files" type="as">
       <default>[]</default>
       <summary>Last opened files</summary>
-      <description>The last opened files in Quilter</description>
+      <description>The last opened files in Quilter to be used for the Sidebar</description>
     </key>
     <key name="edit-font-type" type="s">
       <default>'mono'</default>
       <summary>Font used on Edit View</summary>
       <description>The user-preferred font to use in Edit in Quilter</description>
     </key>
-    <key name="preview-font" type="s">
+    <key name="preview-font-type" type="s">
       <default>'serif'</default>
       <summary>Font used on Preview View</summary>
       <description>The user-preferred font to use in Preview in Quilter</description>
@@ -78,12 +68,7 @@
     <key name="preview-type" type="s">
       <default>'full'</default>
       <summary>Preview type for the UI</summary>
-      <description>The user-preferred preview type to use in Preview in Quilter</description>
-    </key>
-    <key name="full-width-changed" type="b">
-      <default>true</default>
-      <summary>Full-Width Pane to Show</summary>
-      <description>The user-preferred full-width shown pane in Quilter</description>
+      <description>Whether Preview is half-width or full-width in Quilter</description>
     </key>
     <key name="track-type" type="s">
       <default>'lines'</default>
@@ -97,19 +82,15 @@
     <key name="spellcheck-language" type="s">
       <default>"en"</default>
       <summary>Spell check language used</summary>
-      <description>This must be the name of one of the installed languages, by default the fallback</description>
-    </key>
-    <key name="show-filename" type="b">
-      <default>false</default>
-      <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
+      <description>This must be the name of one of the installed languages, by default the fallback is English</description>
     </key>
     <key name="statusbar" type="b">
       <default>false</default>
       <summary>Show (true) or Hide (false) the statusbar</summary>
     </key>
-    <key name="searchbar" type="b">
+    <key name="sidebar" type="b">
       <default>false</default>
-      <summary>Show (true) or Hide (false) the searchbar</summary>
+      <summary>Show (true) or Hide (false) the sidebar</summary>
     </key>
     <key name="highlight" type="b">
       <default>true</default>
@@ -122,10 +103,6 @@
     <key name="mermaid" type="b">
       <default>false</default>
       <summary>Use the Mermaid.js built-in extension</summary>
-    </key>
-    <key name="fullscreen" type="b">
-      <default>false</default>
-      <summary>Whether Quilter should be fullscreen or not</summary>
     </key>
     <key name="pos" type="b">
       <default>false</default>
@@ -149,7 +126,7 @@
     </key>
     <key name="focus-mode-type" type="b">
       <default>false</default>
-      <summary>The type of Focus Mode</summary>
+      <summary>The type of Focus Mode (False for Paragraph, True for Sentence)</summary>
     </key>
   </schema>
 </schemalist>
