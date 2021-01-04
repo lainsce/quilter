@@ -110,6 +110,16 @@ impl Window {
             buffer.set_highlight_syntax(true);
         }
         
+
+        let eadj = view.get_vadjustment ().unwrap();
+        eadj.connect_property_value_notify(glib::clone!(@weak view, @weak webview  => move |_| {
+            let vap: gtk::Adjustment = view.get_vadjustment ().unwrap();
+            let upper = vap.get_upper();
+            let valued = vap.get_value();
+            let scroll_value = valued/upper;
+            set_scrvalue(&webview, scroll_value);
+        }));
+
         //
         //
         //
@@ -585,14 +595,11 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
 
     let mut style = "";
     let mut font = "";
-    let mut render;
-    render = "".to_string();
-    let mut stringhl;
-    stringhl = "".to_string();
+    let render;
+    let stringhl;
     let mut cheader;
     cheader = "".to_string();
-    let mut highlight;
-    highlight = "".to_string();
+    let mut highlight = "".to_string();
 
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
@@ -615,14 +622,10 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     ", highlight, render);
 
     // LaTeX (Katex)
-    let mut renderl;
-    renderl = "".to_string();
-    let mut stringtex;
-    stringtex = "".to_string();
-    let mut katexmain;
-    katexmain = "".to_string();
-    let mut katexjs;
-    katexjs = "".to_string();
+    let renderl;
+    let stringtex;
+    let katexmain;
+    let katexjs;
     katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
     katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
     renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
@@ -679,4 +682,27 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
        md);
 
     webview.load_html(&html, Some("file:///"));
+}
+
+fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: f64) {
+    let cl = gio::Cancellable::new();
+    webview.run_javascript (
+        format! ("
+            var b = document.body,
+            e = document.documentElement;
+            var height = Math.max( b.scrollHeight,
+                                   b.offsetHeight,
+                                   e.clientHeight,
+                                   e.scrollHeight,
+                                   e.offsetHeight
+                         );
+            e.scrollTop = ({:?} * e.offsetHeight);
+            e.scrollTop;
+        ", scroll_value).as_str(),
+         Some(&cl),
+         move |v| {
+            let jsg = webkit2gtk::JavascriptResult::get_global_context(&v.clone ().unwrap());
+            webkit2gtk::JavascriptResult::get_value(&v.as_ref ().unwrap()).unwrap().to_number(&jsg.unwrap()).unwrap();
+         }
+    );
 }
