@@ -497,9 +497,10 @@ impl Window {
             }
         }));
 
-        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window, @weak prefs_win.prefs as pw => move |_| {
-            pw.set_transient_for(Some(&window));
-            pw.show();
+        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window => move |_| {
+            let pw = PreferencesWindow::new();
+            pw.prefs.set_transient_for(Some(&window));
+            pw.prefs.show();
         }));
 
 
