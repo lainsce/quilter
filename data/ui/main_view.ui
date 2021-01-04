@@ -4,26 +4,75 @@
   <requires lib="gtk+" version="3.24"/>
   <requires lib="gtksourceview" version="4.0"/>
   <requires lib="webkit2gtk" version="2.28"/>
-  <object class="GtkStack" id="main">
-    <property name="visible">True</property>
+  <object class="GtkPopover" id="type_pop">
     <property name="can-focus">False</property>
-    <property name="vexpand">True</property>
-    <property name="hexpand">True</property>
-    <property name="transition-type">slide-left-right</property>
     <child>
-      <object class="GtkStack" id="full_stack">
-        <property name="name">full</property>
+      <object class="GtkBox">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="transition-type">slide-left-right</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <property name="homogeneous">True</property>
         <child>
-          <placeholder />
+          <object class="GtkRadioButton" id="words">
+            <property name="label" translatable="yes">Words</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
-          <placeholder />
+          <object class="GtkRadioButton" id="lines">
+            <property name="label" translatable="yes">Lines</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="reading_time">
+            <property name="label" translatable="yes">Reading Time</property>
+            <property name="visible">True</property>
+            <property name="can-focus">True</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
       </object>
     </child>
+  </object>
+  <object class="GtkStack" id="main">
+    <property name="visible">True</property>
+    <property name="can-focus">False</property>
+    <property name="hexpand">True</property>
+    <property name="vexpand">True</property>
+    <property name="transition-type">slide-left-right</property>
     <child>
       <!-- n-columns=2 n-rows=1 -->
       <object class="GtkGrid" id="half_stack">
@@ -38,10 +87,18 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <child>
-              <object class="WebKitWebView" type-func="webkit_web_view_get_type" id="webview">
-                <property name="name">preview</property>
+              <object class="GtkViewport">
                 <property name="visible">True</property>
-                <property name="can-focus">True</property>
+                <property name="can-focus">False</property>
+                <child>
+                  <object class="WebKitWebView" type-func="webkit_web_view_get_type" id="webview">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <child>
+                      <placeholder/>
+                    </child>
+                  </object>
+                </child>
               </object>
             </child>
           </object>
@@ -51,34 +108,88 @@
           </packing>
         </child>
         <child>
-          <object class="GtkScrolledWindow" id="sc">
-            <property name="name">editor</property>
+          <object class="GtkOverlay" id="sc">
             <property name="visible">True</property>
-            <property name="can-focus">True</property>
+            <property name="can-focus">False</property>
             <child>
-              <object class="GtkSourceView" id="view">
+              <object class="GtkScrolledWindow">
+                <property name="name">editor</property>
                 <property name="visible">True</property>
                 <property name="can-focus">True</property>
-                <property name="wrap-mode">word</property>
-                <property name="top-margin">40</property>
-                <property name="bottom-margin">40</property>
-                <property name="monospace">True</property>
-                <property name="tab-width">4</property>
-                <property name="auto-indent">True</property>
-                <property name="insert-spaces-instead-of-tabs">True</property>
+                <child>
+                  <object class="GtkSourceView" id="view">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="wrap-mode">word</property>
+                    <property name="top-margin">40</property>
+                    <property name="bottom-margin">40</property>
+                    <property name="monospace">True</property>
+                    <property name="tab-width">4</property>
+                    <property name="auto-indent">True</property>
+                    <property name="insert-spaces-instead-of-tabs">True</property>
+                    <style>
+                      <class name="mono-font"/>
+                    </style>
+                  </object>
+                </child>
                 <style>
-                  <class name="mono-font"/>
+                  <class name="quilter-half-edit"/>
                 </style>
               </object>
+              <packing>
+                <property name="index">-1</property>
+              </packing>
             </child>
-            <style>
-              <class name="quilter-half-edit"/>
-            </style>
+            <child type="overlay">
+              <object class="GtkRevealer" id="statusbar">
+                <property name="visible">True</property>
+                <property name="can-focus">False</property>
+                <property name="halign">end</property>
+                <property name="valign">end</property>
+                <property name="transition-type">slide-up</property>
+                <child>
+                  <object class="GtkMenuButton" id="bar">
+                    <property name="visible">True</property>
+                    <property name="can-focus">True</property>
+                    <property name="focus-on-click">False</property>
+                    <property name="receives-default">True</property>
+                    <property name="tooltip-text" translatable="yes">Choose Track Type</property>
+                    <property name="halign">end</property>
+                    <property name="valign">end</property>
+                    <property name="margin-start">6</property>
+                    <property name="margin-end">6</property>
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="popover">type_pop</property>
+                    <child>
+                      <object class="GtkLabel" id="type_label">
+                        <property name="visible">True</property>
+                        <property name="can-focus">False</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="pass-through">True</property>
+              </packing>
+            </child>
           </object>
           <packing>
             <property name="left-attach">0</property>
             <property name="top-attach">0</property>
           </packing>
+        </child>
+      </object>
+    </child>
+    <child>
+      <object class="GtkStack" id="full_stack">
+        <property name="name">full</property>
+        <property name="visible">True</property>
+        <property name="can-focus">False</property>
+        <property name="transition-type">slide-left-right</property>
+        <child>
+          <placeholder/>
         </child>
       </object>
       <packing>

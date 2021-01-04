@@ -34,6 +34,7 @@ pub struct Window {
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
     pub prefs_win: PreferencesWindow,
+    pub statusbar: gtk::Revealer,
 }
 
 impl Window {
@@ -50,7 +51,7 @@ impl Window {
         get_widget!(builder2, gtk::Stack, main);
         main.set_visible (true);
 
-        get_widget!(builder2, gtk::ScrolledWindow, sc);
+        get_widget!(builder2, gtk::Overlay, sc);
         sc.get_style_context().remove_class("frame");
 
         get_widget!(builder2, gtk::ScrolledWindow, sc1);
@@ -72,6 +73,57 @@ impl Window {
 
         get_widget!(builder2, webkit2gtk::WebView, webview);
         webview.set_visible (true);
+
+        get_widget!(builder2, gtk::Revealer, statusbar);
+        statusbar.set_visible (true);
+
+        get_widget!(builder2, gtk::MenuButton, bar);
+        bar.get_style_context().add_class("quilter-menu");
+        bar.set_visible (true);
+
+        get_widget!(builder2, gtk::RadioButton, words);
+        get_widget!(builder2, gtk::RadioButton, lines);
+        get_widget!(builder2, gtk::RadioButton, reading_time);
+        get_widget!(builder2, gtk::Label, type_label);
+
+        let tt = settings.get_string("track-type").unwrap();
+        if tt.as_str() == "words" {
+            words.set_active (true);
+        } else if tt.as_str() == "lines" {
+            lines.set_active (true);
+        } else if tt.as_str() == "rtc" {
+            reading_time.set_active (true);
+        }
+
+        if settings.get_boolean("statusbar") == true {
+            statusbar.set_reveal_child(true);
+        } else {
+            statusbar.set_reveal_child(false);
+        }
+
+        words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
+            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+            let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+
+            type_label.set_text (&format!("Words: {}", &words).to_string());
+            settings.set_string("track-type", "words").unwrap();
+        }));
+
+        lines.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
+            let lines = view.get_buffer ().unwrap ().get_line_count();
+
+            type_label.set_text (&format!("Lines: {}", &lines).to_string());
+            settings.set_string("track-type", "lines").unwrap();
+        }));
+
+        reading_time.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
+            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+            let rt = (view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count()) / 200;
+            let rt_min = rt;
+
+            type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min).to_string());
+            settings.set_string("track-type", "rtc").unwrap();
+        }));
 
         //
         //
@@ -181,6 +233,7 @@ impl Window {
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
                                                 @weak view,
+                                                @weak statusbar,
                                                 @weak prefs_win.ptype as pt,
                                                 @weak prefs_win.light as light,
                                                 @weak prefs_win.sepia as sepia,
@@ -193,7 +246,12 @@ impl Window {
                                                 @weak prefs_win.large1 as pwl1,
                                                 @weak prefs_win.small2 as pws2,
                                                 @weak prefs_win.medium2 as pwm2,
-                                                @weak prefs_win.large2 as pwl2
+                                                @weak prefs_win.large2 as pwl2,
+                                                @weak prefs_win.sb as sb,
+                                                @weak type_label as tl,
+                                                @weak words as w,
+                                                @weak lines as l,
+                                                @weak reading_time as rtc
                                                 => move |settings, _| {
             let vm = settings.get_string("visual-mode").unwrap();
             let lstylem = sourceview4::StyleSchemeManager::get_default()
@@ -226,6 +284,12 @@ impl Window {
             }
 
             reload_func(&view, &webview);
+
+            if sb.get_active() == true {
+                statusbar.set_reveal_child(true);
+            } else {
+                statusbar.set_reveal_child(false);
+            }
 
             pws.connect_toggled(glib::clone!(@weak view => move |_| {
                 view.set_pixels_above_lines (2);
@@ -274,6 +338,24 @@ impl Window {
                 view.get_style_context().remove_class("medium-font");
                 view.get_style_context().remove_class("small-font");
             }));
+
+            let tt = settings.get_string("track-type").unwrap();
+            if tt.as_str() == "words" {
+                let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+                let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+
+                tl.set_text (&format!("Words: {}", &words).to_string());
+            } else if tt.as_str() == "lines" {
+                let lines = view.get_buffer ().unwrap ().get_line_count();
+
+                tl.set_text (&format!("Lines: {}", &lines).to_string());
+            } else if tt.as_str() == "rtc" {
+                let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+                let rt = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+                let rt_min = rt / 200;
+
+                type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min).to_string());
+            }
         }));
 
         //
@@ -283,6 +365,14 @@ impl Window {
         //
         //
         //
+
+        settings.bind ("statusbar", &prefs_win.sb, "active", gio::SettingsBindFlags::DEFAULT);
+
+        prefs_win.sb.bind_property (
+            "active",
+            &statusbar,
+            "reveal-child"
+        );
 
         if vm.as_str() == "light" {
             prefs_win.light.set_active (true);
@@ -497,12 +587,10 @@ impl Window {
             }
         }));
 
-        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window => move |_| {
-            let pw = PreferencesWindow::new();
-            pw.prefs.set_transient_for(Some(&window));
-            pw.prefs.show();
+        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window, @weak prefs_win.prefs as pw => move |_| {
+            pw.set_transient_for(Some(&window));
+            pw.show();
         }));
-
 
         let grid = gtk::Grid::new();
         grid.set_hexpand(true);
@@ -511,6 +599,7 @@ impl Window {
         grid.attach (&header.container, 1, 0, 1, 1);
         grid.attach (&searchbar.container, 1, 1, 1, 1);
         grid.attach (&main, 1, 2, 1, 1);
+        grid.attach (&statusbar, 1, 3, 1, 1);
         grid.show_all ();
 
         win.add(&grid);
@@ -532,6 +621,7 @@ impl Window {
             view,
             webview,
             prefs_win,
+            statusbar,
         };
 
         window_widget.init ();
@@ -567,7 +657,7 @@ impl Window {
 //
 //
 
-fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::Grid, sc: &gtk::ScrolledWindow, sc1: &gtk::ScrolledWindow,) {
+fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::Grid, sc: &gtk::Overlay, sc1: &gtk::ScrolledWindow,) {
     let settings = gio::Settings::new(APP_ID);
     let layout = settings.get_string("preview-type").unwrap();
     if layout.as_str() == "full" {

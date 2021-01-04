@@ -213,7 +213,7 @@
                 <property name="selectable">False</property>
                 <property name="title" translatable="yes">Type Counter</property>
                 <child>
-                  <object class="GtkSwitch" id="statusbar">
+                  <object class="GtkSwitch" id="sb">
                     <property name="visible">True</property>
                     <property name="can-focus">True</property>
                     <property name="receives-default">False</property>

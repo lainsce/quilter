@@ -4,6 +4,7 @@ use gtk::*;
 pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
     pub ptype: gtk::ComboBoxText,
+    pub sb: gtk::Switch,
     pub centering: gtk::Switch,
     pub highlight: gtk::Switch,
     pub latex: gtk::Switch,
@@ -27,16 +28,11 @@ impl PreferencesWindow {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
         get_widget!(builder, libhandy::PreferencesWindow, prefs);
 
-        get_widget!(builder, gtk::ComboBoxText, ptype);
-        ptype.set_visible(true);
-        get_widget!(builder, gtk::Switch, centering);
-        centering.set_visible(true);
-        get_widget!(builder, gtk::Switch, highlight);
-        highlight.set_visible(true);
-        get_widget!(builder, gtk::Switch, latex);
-        latex.set_visible(true);
-        get_widget!(builder, gtk::Switch, mermaid);
-        mermaid.set_visible(true);
+        //
+        //
+        // General Page
+        //
+        //
 
         //
         // Visual Style
@@ -47,6 +43,19 @@ impl PreferencesWindow {
         light.set_visible(true);
         sepia.set_visible(true);
         dark.set_visible(true);
+
+        //
+        // Interface
+        //
+
+        get_widget!(builder, gtk::Switch, sb);
+        sb.set_visible(true);
+
+        //
+        //
+        // Editor Page
+        //
+        //
 
         //
         // Text Spacing
@@ -78,9 +87,28 @@ impl PreferencesWindow {
         medium2.set_visible(true);
         large2.set_visible(true);
 
+        //
+        //
+        // Preview Page
+        //
+        //
+
+        get_widget!(builder, gtk::ComboBoxText, ptype);
+        ptype.set_visible(true);
+        get_widget!(builder, gtk::Switch, centering);
+        centering.set_visible(true);
+
+        get_widget!(builder, gtk::Switch, highlight);
+        highlight.set_visible(true);
+        get_widget!(builder, gtk::Switch, latex);
+        latex.set_visible(true);
+        get_widget!(builder, gtk::Switch, mermaid);
+        mermaid.set_visible(true);
+
         PreferencesWindow {
             prefs,
             ptype,
+            sb,
             centering,
             highlight,
             latex,
