@@ -215,17 +215,6 @@ impl Window {
                 buffer.set_style_scheme(sstylem.as_ref());
             }
 
-            let pft = settings.get_string("preview-font-type").unwrap();
-            if pft.as_str() == "mono" {
-                pt.set_active(Some(2));
-            } else if pft.as_str() == "sans" {
-                pt.set_active(Some(0));
-            } else if pft.as_str() == "serif" {
-                pt.set_active(Some(1));
-            } else {
-                pt.set_active(Some(1));
-            }
-
             reload_func(&view, &webview);
 
             pws.connect_toggled(glib::clone!(@weak view => move |_| {
@@ -315,15 +304,17 @@ impl Window {
             prefs_win.ptype.set_active(Some(1));
         }
 
-        if prefs_win.ptype.get_active() == Some(1) {
-            settings.set_string("preview-font-type", "serif").expect ("Oops!");
-        } else if prefs_win.ptype.get_active() == Some(0) {
-            settings.set_string("preview-font-type", "sans").expect ("Oops!");
-        } else if prefs_win.ptype.get_active() == Some(2) {
-            settings.set_string("preview-font-type", "mono").expect ("Oops!");
-        } else {
-            settings.set_string("preview-font-type", "serif").expect ("Oops!");
-        }
+        prefs_win.ptype.connect_changed (glib::clone!(@strong settings, @weak prefs_win.ptype as pw => move |_| {
+            if pw.get_active() == Some(1) {
+                settings.set_string("preview-font-type", "serif").expect ("Oops!");
+            } else if pw.get_active() == Some(0) {
+                settings.set_string("preview-font-type", "sans").expect ("Oops!");
+            } else if pw.get_active() == Some(2) {
+                settings.set_string("preview-font-type", "mono").expect ("Oops!");
+            } else {
+                settings.set_string("preview-font-type", "serif").expect ("Oops!");
+            }
+        }));
 
         settings.bind ("center-headers", &prefs_win.centering, "active", gio::SettingsBindFlags::DEFAULT);
         settings.bind ("highlight", &prefs_win.highlight, "active", gio::SettingsBindFlags::DEFAULT);
@@ -594,18 +585,52 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
 
     let mut style = "";
     let mut font = "";
+    let mut render;
+    render = "".to_string();
+    let mut stringhl;
+    stringhl = "".to_string();
     let mut cheader;
     cheader = "".to_string();
+    let mut highlight;
+    highlight = "".to_string();
 
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
     if vm.as_str() == "dark" {
         style = &css.dark;
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
     } else if vm.as_str() == "sepia" {
         style = &css.sepia;
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
     } else if vm.as_str() == "light" {
         style = &css.light;
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/light.min.css";
     }
+
+    // Highlight.js
+    render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
+    stringhl = format! ("
+        <link rel=\"stylesheet\" href=\"{}\">
+        <script defer src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
+    ", highlight, render);
+
+    // LaTeX (Katex)
+    let mut renderl;
+    renderl = "".to_string();
+    let mut stringtex;
+    stringtex = "".to_string();
+    let mut katexmain;
+    katexmain = "".to_string();
+    let mut katexjs;
+    katexjs = "".to_string();
+    katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
+    katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
+    renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
+    stringtex = format!( "
+                    <link rel=\"stylesheet\" href=\"{}\">
+                    <script defer src=\"{}\"></script>
+                    <script defer src=\"{}\" onload=\"renderMathInElement(document.body);\"></script>
+                ",  katexmain, katexjs, renderl);
 
     let pft = settings.get_string("preview-font-type").unwrap();
     if pft.as_str() == "serif" {
@@ -621,9 +646,12 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
         cheader = (&css.center).to_string();
     }
 
-    let mut options = Options::empty();
-    options.insert(Options::ENABLE_STRIKETHROUGH);
-    let parser = Parser::new_ext(&contents, options);
+    let mut opts = Options::empty();
+        opts.insert(Options::ENABLE_TABLES);
+        opts.insert(Options::ENABLE_FOOTNOTES);
+        opts.insert(Options::ENABLE_STRIKETHROUGH);
+        opts.insert(Options::ENABLE_TASKLISTS);
+    let parser = Parser::new_ext(&contents, opts);
 
     let mut md = String::new();
     html::push_html(&mut md, parser);
@@ -633,8 +661,9 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     <html>
       <head>
           <meta charset=\"utf-8\">
-          <style>{}<style>
-          <style>{}{}</style>
+          <style>{}{}{}</style>
+          {}
+          {}
       </head>
       <body>
           <div class=\"markdown-body\">
@@ -645,6 +674,8 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     ", style,
        cheader,
        font,
+       stringhl,
+       stringtex,
        md);
 
     webview.load_html(&html, Some("file:///"));
