@@ -3,7 +3,11 @@ use gtk::*;
 
 pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
+    pub ptype: gtk::ComboBoxText,
     pub centering: gtk::Switch,
+    pub highlight: gtk::Switch,
+    pub latex: gtk::Switch,
+    pub mermaid: gtk::Switch,
     pub light: gtk::RadioButton,
     pub sepia: gtk::RadioButton,
     pub dark: gtk::RadioButton,
@@ -23,8 +27,16 @@ impl PreferencesWindow {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
         get_widget!(builder, libhandy::PreferencesWindow, prefs);
 
+        get_widget!(builder, gtk::ComboBoxText, ptype);
+        ptype.set_visible(true);
         get_widget!(builder, gtk::Switch, centering);
         centering.set_visible(true);
+        get_widget!(builder, gtk::Switch, highlight);
+        highlight.set_visible(true);
+        get_widget!(builder, gtk::Switch, latex);
+        latex.set_visible(true);
+        get_widget!(builder, gtk::Switch, mermaid);
+        mermaid.set_visible(true);
 
         //
         // Visual Style
@@ -68,7 +80,11 @@ impl PreferencesWindow {
 
         PreferencesWindow {
             prefs,
+            ptype,
             centering,
+            highlight,
+            latex,
+            mermaid,
             light,
             sepia,
             dark,

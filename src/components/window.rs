@@ -138,6 +138,7 @@ impl Window {
 
         let settingsgtk = gtk::Settings::get_default();
         let vm = settings.get_string("visual-mode").unwrap();
+        let pft = settings.get_string("preview-font-type").unwrap();
         let lstylem = sourceview4::StyleSchemeManager::get_default()
             .map_or(None, |sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default()
@@ -170,6 +171,7 @@ impl Window {
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
                                                 @weak view,
+                                                @weak prefs_win.ptype as pt,
                                                 @weak prefs_win.light as light,
                                                 @weak prefs_win.sepia as sepia,
                                                 @weak prefs_win.dark as dark,
@@ -211,6 +213,17 @@ impl Window {
                 settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
 
                 buffer.set_style_scheme(sstylem.as_ref());
+            }
+
+            let pft = settings.get_string("preview-font-type").unwrap();
+            if pft.as_str() == "mono" {
+                pt.set_active(Some(2));
+            } else if pft.as_str() == "sans" {
+                pt.set_active(Some(0));
+            } else if pft.as_str() == "serif" {
+                pt.set_active(Some(1));
+            } else {
+                pt.set_active(Some(1));
             }
 
             reload_func(&view, &webview);
@@ -292,7 +305,36 @@ impl Window {
             s.set_string("visual-mode", "sepia").unwrap();
         }));
 
+        if pft.as_str() == "mono" {
+            prefs_win.ptype.set_active(Some(2));
+        } else if pft.as_str() == "sans" {
+            prefs_win.ptype.set_active(Some(0));
+        } else if pft.as_str() == "serif" {
+            prefs_win.ptype.set_active(Some(1));
+        } else {
+            prefs_win.ptype.set_active(Some(1));
+        }
+
+        if prefs_win.ptype.get_active() == Some(1) {
+            settings.set_string("preview-font-type", "serif").expect ("Oops!");
+        } else if prefs_win.ptype.get_active() == Some(0) {
+            settings.set_string("preview-font-type", "sans").expect ("Oops!");
+        } else if prefs_win.ptype.get_active() == Some(2) {
+            settings.set_string("preview-font-type", "mono").expect ("Oops!");
+        } else {
+            settings.set_string("preview-font-type", "serif").expect ("Oops!");
+        }
+
         settings.bind ("center-headers", &prefs_win.centering, "active", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("highlight", &prefs_win.highlight, "active", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("latex", &prefs_win.latex, "active", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("mermaid", &prefs_win.mermaid, "active", gio::SettingsBindFlags::DEFAULT);
+
+        prefs_win.mermaid.bind_property (
+            "active",
+            &prefs_win.highlight,
+            "active"
+        );
 
         if settings.get_int("spacing") == 2 {
             prefs_win.small.set_active (true);
@@ -551,8 +593,9 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let css = CSS::new();
 
     let mut style = "";
-    let mut center_header;
-    center_header = "".to_string();
+    let mut font = "";
+    let mut cheader;
+    cheader = "".to_string();
 
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
@@ -564,23 +607,33 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
         style = &css.light;
     }
 
+    let pft = settings.get_string("preview-font-type").unwrap();
+    if pft.as_str() == "serif" {
+        font = &css.serif;
+    } else if pft.as_str() == "sans" {
+        font = &css.sans;
+    } else if pft.as_str() == "mono" {
+        font = &css.mono;
+    }
+
     let ch = settings.get_boolean("center-headers");
     if ch == true {
-        center_header = (&css.center).to_string();
+        cheader = (&css.center).to_string();
     }
 
     let mut options = Options::empty();
     options.insert(Options::ENABLE_STRIKETHROUGH);
     let parser = Parser::new_ext(&contents, options);
 
-    let mut html_output = String::new();
-    html::push_html(&mut html_output, parser);
+    let mut md = String::new();
+    html::push_html(&mut md, parser);
 
     let html = format! ("
     <!doctype html>
     <html>
       <head>
           <meta charset=\"utf-8\">
+          <style>{}<style>
           <style>{}{}</style>
       </head>
       <body>
@@ -589,7 +642,10 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
           </div>
       </body>
     </html>
-    ", center_header, style, html_output);
+    ", style,
+       cheader,
+       font,
+       md);
 
     webview.load_html(&html, Some("file:///"));
 }

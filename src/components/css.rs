@@ -3,6 +3,9 @@ pub struct CSS {
     pub sepia: &'static str,
     pub light: &'static str,
     pub center: &'static str,
+    pub serif: &'static str,
+    pub sans: &'static str,
+    pub mono: &'static str,
 }
 
 impl CSS {
@@ -486,12 +489,36 @@ impl CSS {
         }
         "[..];
 
+        let serif = &"
+        body,
+        html {
+            font-family: Times New Roman, Times, serif;
+        }
+        "[..];
+
+        let sans = &"
+        body,
+        html {
+            font-family: Open Sans, Verdana, Geneva, Tahoma, sans-serif;
+        }
+        "[..];
+
+        let mono = &"
+        body,
+        html {
+            font-family: Quilter Mono, Courier, monospace;
+        }
+        "[..];
+
 
         CSS {
             dark,
             light,
             sepia,
             center,
+            serif,
+            sans,
+            mono,
         }
     }
 }
