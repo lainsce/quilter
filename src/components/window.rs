@@ -1,11 +1,14 @@
 extern crate sourceview4;
+extern crate foreach;
 
-use pulldown_cmark::{Parser, Options, html};
-
+use crate::config::{APP_ID, PROFILE};
+use crate::components::window_state;
+use crate::components::css::CSS;
 use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
 use crate::components::searchbar::Searchbar;
-
+use crate::components::prefs_window::PreferencesWindow;
+use pulldown_cmark::{Parser, Options, html};
 use gtk::*;
 use gtk::prelude::*;
 use gtk::IconThemeExt;
@@ -15,10 +18,8 @@ use sourceview4::StyleSchemeManagerExt;
 use gtk::SettingsExt as GtkSettings;
 use gio::SettingsExt;
 use gtk::RevealerExt;
+use gtk::WidgetExt;
 use webkit2gtk::WebViewExt;
-
-use crate::config::{APP_ID, PROFILE};
-use crate::components::window_state;
 
 pub struct Window {
     pub widget: libhandy::ApplicationWindow,
@@ -50,6 +51,9 @@ impl Window {
 
         get_widget!(builder2, gtk::ScrolledWindow, sc);
         sc.get_style_context().remove_class("frame");
+
+        get_widget!(builder2, gtk::ScrolledWindow, sc1);
+        sc1.get_style_context().remove_class("frame");
 
         get_widget!(builder2, gtk::Grid, half_stack);
         half_stack.set_visible (true);
@@ -113,7 +117,7 @@ impl Window {
             buffer.set_style_scheme(sstylem.as_ref());
         }
 
-        settings.connect_changed (move |settings, _| {
+        settings.connect_changed (glib::clone!(@strong settings, @weak webview, @weak view => move |settings, _| {
             let vm = settings.get_string("visual-mode").unwrap();
             let lstylem = sourceview4::StyleSchemeManager::get_default()
                 .map_or(None, |sm| sm.get_scheme ("quilter"));
@@ -143,7 +147,15 @@ impl Window {
 
                 buffer.set_style_scheme(sstylem.as_ref());
             }
-        });
+
+            reload_func(&view, &webview);
+        }));
+
+
+        // Preferences Window Block
+
+        let prefswin = PreferencesWindow::new();
+        settings.bind ("center-headers", &prefswin.centering, "active", gio::SettingsBindFlags::DEFAULT);
 
         //
 
@@ -224,10 +236,10 @@ impl Window {
 
         reload_func(&view, &webview);
 
-        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view, @weak sc, @weak webview => move |_| {
+        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view, @weak webview, @weak sc, @weak sc1 => move |_| {
             let key: glib::GString = "editor".into();
             if full_stack.get_visible_child_name() == Some(key) {
-                full_stack.set_visible_child(&webview);
+                full_stack.set_visible_child(&sc1);
                 reload_func(&view, &webview);
             } else {
                 full_stack.set_visible_child(&sc);
@@ -235,30 +247,35 @@ impl Window {
             }
         }));
 
-        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window => move |_| {
-            let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
-            get_widget!(builder, libhandy::PreferencesWindow, prefs);
-            prefs.set_transient_for(Some(&window));
-            prefs.show();
+        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window, @weak prefswin.prefs as a => move |_| {
+            a.set_transient_for(Some(&window));
+            a.show();
         }));
 
-        header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
+        change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+
+        header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack, @weak sc1, @weak sc => move |_| {
             let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&full_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
             } else {
                 main.set_visible_child(&half_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
             }
         }));
 
-        header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack => move |_| {
+        header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack, @weak sc1, @weak sc => move |_| {
             let key: glib::GString = "half".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&half_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
             } else {
                 main.set_visible_child(&full_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
             }
         }));
+
 
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
             reload_func (&view, &webview);
@@ -283,6 +300,7 @@ impl Window {
             view,
             webview,
         };
+
         window_widget.init ();
         window_widget
     }
@@ -308,10 +326,51 @@ impl Window {
     }
 }
 
+fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::Grid, sc: &gtk::ScrolledWindow, sc1: &gtk::ScrolledWindow,) {
+    let settings = gio::Settings::new(APP_ID);
+    let layout = settings.get_string("preview-type").unwrap();
+    if layout.as_str() == "full" {
+        for w in half_stack.get_children () {
+            half_stack.remove (&w);
+        }
+        full_stack.add_titled (sc, "editor", &"Edit");
+        full_stack.add_titled (sc1, "preview", &"Preview");
+        main.set_visible_child (full_stack);
+    } else {
+        for w in full_stack.get_children () {
+            full_stack.remove (&w);
+        }
+        half_stack.add (sc);
+        half_stack.add (sc1);
+        main.set_visible_child (half_stack);
+    }
+}
+
 fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
     let buf = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true).unwrap();
     let contents = buf.as_str();
+
+    let css = CSS::new();
+
+    let mut style = "";
+    let mut center_header;
+    center_header = "".to_string();
+
+    let settings = gio::Settings::new(APP_ID);
+    let vm = settings.get_string("visual-mode").unwrap();
+    if vm.as_str() == "dark" {
+        style = &css.dark;
+    } else if vm.as_str() == "sepia" {
+        style = &css.sepia;
+    } else if vm.as_str() == "light" {
+        style = &css.light;
+    }
+
+    let ch = settings.get_boolean("center-headers");
+    if ch == true {
+        center_header = (&css.center).to_string();
+    }
 
     let mut options = Options::empty();
     options.insert(Options::ENABLE_STRIKETHROUGH);
@@ -320,5 +379,20 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let mut html_output = String::new();
     html::push_html(&mut html_output, parser);
 
-    webview.load_html(&html_output, Some("file:///"));
+    let html = format! ("
+    <!doctype html>
+    <html>
+      <head>
+          <meta charset=\"utf-8\">
+          <style>{}{}</style>
+      </head>
+      <body>
+          <div class=\"markdown-body\">
+              {}
+          </div>
+      </body>
+    </html>
+    ", center_header, style, html_output);
+
+    webview.load_html(&html, Some("file:///"));
 }

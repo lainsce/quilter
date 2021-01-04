@@ -3,6 +3,7 @@ extern crate sourceview4;
 #[macro_use]
 mod utils;
 
+pub mod prefs_window;
 pub mod window_state;
 pub mod window;
 use window::Window;
@@ -11,6 +12,7 @@ pub mod sidebar;
 pub mod viewpopover;
 pub mod popover;
 pub mod searchbar;
+pub mod css;
 
 use gtk;
 use gtk::*;
@@ -33,6 +35,11 @@ impl App {
 
         let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
         let window = Window::new();
+
+        window.widget.connect_delete_event(move |_, _| {
+            main_quit();
+            Inhibit(false)
+        });
 
         let application = App { app, window };
         application.setup_gactions();

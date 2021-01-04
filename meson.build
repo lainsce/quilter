@@ -21,7 +21,6 @@ cargo = find_program('cargo', required: false)
 cargo_script = find_program('build-aux/cargo.sh')
 
 version = meson.project_version()
-
 prefix = get_option('prefix')
 bindir = prefix / get_option('bindir')
 localedir = prefix / get_option('localedir')

@@ -48,6 +48,7 @@ sources = files(
   'components/searchbar.rs',
   'components/window_state.rs',
   'components/mod.rs',
+  'components/css.rs',
 )
 
 custom_target(
