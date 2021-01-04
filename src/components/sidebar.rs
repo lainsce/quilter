@@ -7,6 +7,7 @@ pub struct Sidebar {
     pub container: gtk::Grid,
     pub sideheader: libhandy::HeaderBar,
     pub stack: gtk::Stack,
+    pub files_list: gtk::ListBox,
 }
 
 impl Sidebar {
@@ -27,6 +28,11 @@ impl Sidebar {
         placeholder.show_all ();
 
         let files_list = gtk::ListBox::new();
+        files_list.set_size_request(200, -1);
+        files_list.set_margin_top(6);
+        files_list.set_margin_bottom(6);
+        files_list.set_margin_start(12);
+        files_list.set_margin_end(12);
         files_list.set_placeholder(Some(&placeholder));
         files_list.show_all ();
 
@@ -60,6 +66,7 @@ impl Sidebar {
             container,
             sideheader,
             stack,
+            files_list,
         }
     }
 }

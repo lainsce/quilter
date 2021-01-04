@@ -12,6 +12,7 @@ pub mod sidebar;
 pub mod viewpopover;
 pub mod popover;
 pub mod searchbar;
+pub mod listboxrow;
 pub mod css;
 
 use gtk;
@@ -31,7 +32,7 @@ impl App {
         let settingsgtk = gtk::Settings::get_default();
         settingsgtk.clone ().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
         settingsgtk.clone ().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
-        settingsgtk.clone ().unwrap().set_property_gtk_font_name(Some("Inter Regular 9"));
+        settingsgtk.clone ().unwrap().set_property_gtk_font_name(Some("Inter 9"));
 
         let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
         let window = Window::new();

@@ -7,6 +7,7 @@ use crate::components::css::CSS;
 use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
 use crate::components::searchbar::Searchbar;
+use crate::components::listboxrow::ListBoxRow;
 use crate::components::prefs_window::PreferencesWindow;
 use pulldown_cmark::{Parser, Options, html};
 use gtk::*;
@@ -28,6 +29,7 @@ pub struct Window {
     pub header:  Header,
     pub sidebar:  Sidebar,
     pub searchbar: Searchbar,
+    pub lbr: ListBoxRow,
     pub main: gtk::Stack,
     pub half_stack: gtk::Grid,
     pub full_stack: gtk::Stack,
@@ -42,6 +44,8 @@ impl Window {
         let settings = gio::Settings::new(APP_ID);
         let header = Header::new();
         let sidebar = Sidebar::new();
+        let searchbar = Searchbar::new();
+        let lbr = ListBoxRow::new();
         let prefs_win = PreferencesWindow::new();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
@@ -101,6 +105,12 @@ impl Window {
             statusbar.set_reveal_child(false);
         }
 
+        if settings.get_boolean("searchbar") == true {
+            searchbar.container.set_search_mode(true);
+        } else {
+            searchbar.container.set_search_mode(false);
+        }
+
         words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
             let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
             let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
@@ -140,6 +150,12 @@ impl Window {
             let contents = String::from_utf8_lossy(&buf);
 
             view.clone ().get_buffer ().unwrap ().set_text(&contents);
+
+            lbr.title.set_label (&("...".to_owned() + &crop_letters(&mut last_file.to_string(), 22).as_str()));
+            lbr.subtitle.set_label ("");
+
+            sidebar.files_list.add(&lbr.container);
+            sidebar.files_list.select_row(Some(&lbr.container));
         }
 
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
@@ -234,6 +250,8 @@ impl Window {
                                                 @weak webview,
                                                 @weak view,
                                                 @weak statusbar,
+                                                @weak searchbar.container as sbc,
+                                                @weak header.search_button as hsb,
                                                 @weak prefs_win.ptype as pt,
                                                 @weak prefs_win.light as light,
                                                 @weak prefs_win.sepia as sepia,
@@ -290,6 +308,14 @@ impl Window {
             } else {
                 statusbar.set_reveal_child(false);
             }
+
+            hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
+                if hsb.get_active() == true {
+                    sbc.set_search_mode(true);
+                } else {
+                    sbc.set_search_mode(false);
+                }
+            }));
 
             pws.connect_toggled(glib::clone!(@weak view => move |_| {
                 view.set_pixels_above_lines (2);
@@ -371,7 +397,7 @@ impl Window {
         prefs_win.sb.bind_property (
             "active",
             &statusbar,
-            "reveal-child"
+            "search-mode"
         );
 
         if vm.as_str() == "light" {
@@ -548,12 +574,6 @@ impl Window {
             view.get_buffer ().unwrap ().set_text("");
         }));
 
-        let searchbar = Searchbar::new();
-
-        header.search_button.connect_clicked(glib::clone!(@weak searchbar.container as r => move |_| {
-            r.set_reveal_child (true);
-        }));
-
         header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack, @weak sc1, @weak sc => move |_| {
             let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {
@@ -615,6 +635,7 @@ impl Window {
             header,
             sidebar,
             searchbar,
+            lbr,
             main,
             half_stack,
             full_stack,
@@ -796,4 +817,17 @@ fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: f64) {
             webkit2gtk::JavascriptResult::get_value(&v.as_ref ().unwrap()).unwrap().to_number(&jsg.unwrap()).unwrap();
          }
     );
+}
+
+fn crop_letters(s: &mut str, pos: usize) -> String {
+    let mut z = s.to_string ();
+    match z.char_indices().nth(pos) {
+        Some((pos, _)) => {
+            z.drain(..pos);
+        }
+        None => {
+            z.clear();
+        }
+    }
+    return z;
 }

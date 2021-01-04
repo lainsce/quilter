@@ -91,10 +91,9 @@ label:disabled {
 
 .quilter-searchbar {
     border-top-color: transparent;
-    border-bottom: 1px solid alpha (black, 0.25);
     box-shadow: 0 1px transparent inset;
     padding: 6px;
-    background-color: shade(@color_primary, 0.95);
+    background-color: shade(@color_primary, 0.98);
 }
 
 .quilter-toolbar-main {
@@ -152,6 +151,10 @@ label:disabled {
     min-height: 24px;
     padding: 10px;
     border-radius: 8px;
+}
+
+.quilter-menu {
+    font-size: 1.1rem;
 }
 
 .quilter-preview-row {

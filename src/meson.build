@@ -45,7 +45,7 @@ sources = files(
   'components/window.rs',
   'components/viewpopover.rs',
   'components/popover.rs',
-  'components/searchbar.rs',
+  'components/listboxrow.rs',
   'components/window_state.rs',
   'components/mod.rs',
   'components/css.rs',

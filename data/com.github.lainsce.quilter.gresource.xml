@@ -27,6 +27,7 @@
         <file alias="window.ui" compressed="true">ui/window.ui</file>
         <file alias="searchbar.ui" compressed="true">ui/searchbar.ui</file>
         <file alias="headerbar.ui" compressed="true">ui/headerbar.ui</file>
+        <file alias="listboxrow.ui" compressed="true">ui/listboxrow.ui</file>
         <file alias="menu_popover.ui" compressed="true">ui/menu_popover.ui</file>
         <file alias="view_popover.ui" compressed="true">ui/view_popover.ui</file>
         <file alias="main_view.ui" compressed="true">ui/main_view.ui</file>

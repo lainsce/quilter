@@ -84,6 +84,10 @@
       <summary>Spell check language used</summary>
       <description>This must be the name of one of the installed languages, by default the fallback is English</description>
     </key>
+    <key name="searchbar" type="b">
+      <default>false</default>
+      <summary>Show (true) or Hide (false) the searchbar [Internal]</summary>
+    </key>
     <key name="statusbar" type="b">
       <default>false</default>
       <summary>Show (true) or Hide (false) the statusbar</summary>
