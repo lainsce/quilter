@@ -5,6 +5,7 @@ pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
     pub ptype: gtk::ComboBoxText,
     pub sb: gtk::Switch,
+    pub sdbs: gtk::Switch,
     pub centering: gtk::Switch,
     pub highlight: gtk::Switch,
     pub latex: gtk::Switch,
@@ -50,6 +51,9 @@ impl PreferencesWindow {
 
         get_widget!(builder, gtk::Switch, sb);
         sb.set_visible(true);
+
+        get_widget!(builder, gtk::Switch, sdbs);
+        sdbs.set_visible(true);
 
         //
         //
@@ -109,6 +113,7 @@ impl PreferencesWindow {
             prefs,
             ptype,
             sb,
+            sdbs,
             centering,
             highlight,
             latex,

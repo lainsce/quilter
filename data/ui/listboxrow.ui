@@ -3,6 +3,7 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkListBoxRow" id="container">
+    <property name="width-request">200</property>
     <property name="visible">True</property>
     <property name="can-focus">False</property>
     <child>
@@ -23,17 +24,17 @@
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="halign">end</property>
+            <property name="margin-start">100</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
-                <property name="pixel-size">10</property>
                 <property name="icon-name">close-symbolic</property>
-                <property name="icon_size">1</property>
               </object>
             </child>
             <style>
               <class name="flat"/>
+              <class name="quilter-sidebar-button"/>
             </style>
           </object>
           <packing>
@@ -47,7 +48,6 @@
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <property name="icon-name">markdown-symbolic</property>
-            <property name="icon_size">2</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -66,9 +66,13 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
+                <property name="ellipsize">end</property>
+                <attributes>
+                  <attribute name="weight" value="bold"/>
+                </attributes>
               </object>
               <packing>
-                <property name="expand">False</property>
+                <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
@@ -80,7 +84,7 @@
                 <property name="halign">start</property>
               </object>
               <packing>
-                <property name="expand">False</property>
+                <property name="expand">True</property>
                 <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>

@@ -22,6 +22,8 @@ use gtk::RevealerExt;
 use gtk::WidgetExt;
 use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
+use libhandy::LeafletExt;
+use libhandy::HeaderBarExt;
 
 pub struct Window {
     pub widget: libhandy::ApplicationWindow,
@@ -97,6 +99,12 @@ impl Window {
             lines.set_active (true);
         } else if tt.as_str() == "rtc" {
             reading_time.set_active (true);
+        }
+
+        if settings.get_boolean("sidebar") == true {
+            sidebar.container.set_reveal_child(true);
+        } else {
+            sidebar.container.set_reveal_child(false);
         }
 
         if settings.get_boolean("statusbar") == true {
@@ -251,7 +259,9 @@ impl Window {
                                                 @weak view,
                                                 @weak statusbar,
                                                 @weak searchbar.container as sbc,
+                                                @weak header.container as hc,
                                                 @weak header.search_button as hsb,
+                                                @weak sidebar.container as sdb,
                                                 @weak prefs_win.ptype as pt,
                                                 @weak prefs_win.light as light,
                                                 @weak prefs_win.sepia as sepia,
@@ -266,6 +276,7 @@ impl Window {
                                                 @weak prefs_win.medium2 as pwm2,
                                                 @weak prefs_win.large2 as pwl2,
                                                 @weak prefs_win.sb as sb,
+                                                @weak prefs_win.sdbs as sdbs,
                                                 @weak type_label as tl,
                                                 @weak words as w,
                                                 @weak lines as l,
@@ -309,6 +320,14 @@ impl Window {
                 statusbar.set_reveal_child(false);
             }
 
+            if sdbs.get_active() == true {
+                sdb.set_reveal_child(true);
+                hc.set_decoration_layout (Some(&":maximize"));
+            } else {
+                sdb.set_reveal_child(false);
+                hc.set_decoration_layout (Some(&"close:maximize"));
+            }
+
             hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
                 if hsb.get_active() == true {
                     sbc.set_search_mode(true);
@@ -332,19 +351,23 @@ impl Window {
                 view.set_pixels_inside_wrap (8);
             }));
 
+            let width = settings.get_int("window-width") as f32;
             pws1.connect_toggled(glib::clone!(@weak view => move |_| {
-                view.set_left_margin (20);
-                view.set_right_margin (20);
+                let m = (width * (1.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
             }));
 
             pwm1.connect_toggled(glib::clone!(@weak view => move |_| {
-                view.set_left_margin (40);
-                view.set_right_margin (40);
+                let m = (width * (8.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
             }));
 
             pwl1.connect_toggled(glib::clone!(@weak view => move |_| {
-                view.set_left_margin (80);
-                view.set_right_margin (80);
+                let m = (width * (16.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
             }));
 
             pws2.connect_toggled(glib::clone!(@weak view => move |_| {
@@ -393,6 +416,7 @@ impl Window {
         //
 
         settings.bind ("statusbar", &prefs_win.sb, "active", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("sidebar", &prefs_win.sdbs, "active", gio::SettingsBindFlags::DEFAULT);
 
         prefs_win.sb.bind_property (
             "active",
@@ -473,24 +497,37 @@ impl Window {
             settings.set_int("spacing", 4).expect ("Oops!");
         }
 
-        if settings.get_int("margins") == 20 {
+        let width = settings.get_int("window-width") as f32;
+        if settings.get_int("margins") == 1 {
             prefs_win.small1.set_active (true);
-        } else if settings.get_int("margins") == 40 {
+        } else if settings.get_int("margins") == 8 {
             prefs_win.medium1.set_active (true);
-        } else if settings.get_int("margins") == 80 {
+        } else if settings.get_int("margins") == 16 {
             prefs_win.large1.set_active (true);
         } else {
             prefs_win.medium1.set_active (true);
         }
 
         if prefs_win.small1.get_active () == true {
-            settings.set_int("margins", 20).expect ("Oops!");
+            let m = (width * (1.0 / 100.0)) as i32;
+            settings.set_int("margins", m).expect ("Oops!");
+            view.set_left_margin (m);
+            view.set_right_margin (m);
         } else if prefs_win.medium1.get_active () == true {
-            settings.set_int("margins", 40).expect ("Oops!");
+            let m = (width * (8.0 / 100.0)) as i32;
+            settings.set_int("margins", m).expect ("Oops!");
+            view.set_left_margin (m);
+            view.set_right_margin (m);
         } else if prefs_win.large1.get_active() == true {
-            settings.set_int("margins", 80).expect ("Oops!");
+            let m = (width * (16.0 / 100.0)) as i32;
+            settings.set_int("margins", m).expect ("Oops!");
+            view.set_left_margin (m);
+            view.set_right_margin (m);
         } else {
-            settings.set_int("margins", 40).expect ("Oops!");
+            let m = (width * (8.0 / 100.0)) as i32;
+            settings.set_int("margins", m).expect ("Oops!");
+            view.set_left_margin (m);
+            view.set_right_margin (m);
         }
 
         if settings.get_int("font-sizing") == 1 {
@@ -612,17 +649,39 @@ impl Window {
             pw.show();
         }));
 
+        let sgrid = gtk::Grid::new();
+        sgrid.set_orientation(gtk::Orientation::Vertical);
+        sgrid.attach (&sidebar.container, 0, 0, 1, 3);
+        sgrid.show_all ();
+
         let grid = gtk::Grid::new();
         grid.set_hexpand(true);
         grid.set_orientation(gtk::Orientation::Vertical);
-        grid.attach (&sidebar.container, 0, 0, 1, 3);
-        grid.attach (&header.container, 1, 0, 1, 1);
-        grid.attach (&searchbar.container, 1, 1, 1, 1);
-        grid.attach (&main, 1, 2, 1, 1);
-        grid.attach (&statusbar, 1, 3, 1, 1);
+        grid.attach (&header.container, 0, 0, 1, 1);
+        grid.attach (&searchbar.container, 0, 1, 1, 1);
+        grid.attach (&main, 0, 2, 1, 1);
+        grid.attach (&statusbar, 0, 3, 1, 1);
         grid.show_all ();
 
-        win.add(&grid);
+        let leaflet = libhandy::Leaflet::new();
+        leaflet.add (&sgrid);
+        leaflet.add (&grid);
+        leaflet.set_transition_type (libhandy::LeafletTransitionType::Under);
+        leaflet.set_can_swipe_back (true);
+        leaflet.set_visible_child (&grid);
+        leaflet.show_all ();
+
+        leaflet.connect_property_folded_notify (glib::clone!(@weak leaflet, @weak header.container as hcs, @weak sidebar.sideheader as sbcs => move |_| {
+            if leaflet.get_folded() == true {
+                hcs.set_decoration_layout (Some(&":"));
+                sbcs.set_decoration_layout (Some(&":"));
+            } else {
+                hcs.set_decoration_layout (Some(&":maximize"));
+                sbcs.set_decoration_layout (Some(&"close:"));
+            }
+        }));
+
+        win.add(&leaflet);
         win.set_size_request(600, 350);
         win.set_icon_name(Some(APP_ID));
 
