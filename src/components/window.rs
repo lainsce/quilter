@@ -101,45 +101,45 @@ impl Window {
             reading_time.set_active (true);
         }
 
-        if settings.get_boolean("sidebar") == true {
+        if settings.get_boolean("sidebar"){
             sidebar.container.set_reveal_child(true);
         } else {
             sidebar.container.set_reveal_child(false);
         }
 
-        if settings.get_boolean("statusbar") == true {
+        if settings.get_boolean("statusbar") {
             statusbar.set_reveal_child(true);
         } else {
             statusbar.set_reveal_child(false);
         }
 
-        if settings.get_boolean("searchbar") == true {
+        if settings.get_boolean("searchbar") {
             searchbar.container.set_search_mode(true);
         } else {
             searchbar.container.set_search_mode(false);
         }
 
         words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
-            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
             let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
 
-            type_label.set_text (&format!("Words: {}", &words).to_string());
+            type_label.set_text (&format!("Words: {}", &words));
             settings.set_string("track-type", "words").unwrap();
         }));
 
         lines.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
             let lines = view.get_buffer ().unwrap ().get_line_count();
 
-            type_label.set_text (&format!("Lines: {}", &lines).to_string());
+            type_label.set_text (&format!("Lines: {}", &lines));
             settings.set_string("track-type", "lines").unwrap();
         }));
 
         reading_time.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak view => move |_| {
-            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
             let rt = (view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count()) / 200;
             let rt_min = rt;
 
-            type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min).to_string());
+            type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
             settings.set_string("track-type", "rtc").unwrap();
         }));
 
@@ -157,9 +157,9 @@ impl Window {
             let buf = glib::file_get_contents(filename).expect("Unable to get data");
             let contents = String::from_utf8_lossy(&buf);
 
-            view.clone ().get_buffer ().unwrap ().set_text(&contents);
+            view.get_buffer ().unwrap ().set_text(&contents);
 
-            lbr.title.set_label (&("...".to_owned() + &crop_letters(&mut last_file.to_string(), 22).as_str()));
+            lbr.title.set_label (&crop_letters(&mut last_file.to_string(), 22).as_str());
             lbr.subtitle.set_label ("");
 
             sidebar.files_list.add(&lbr.container);
@@ -171,16 +171,15 @@ impl Window {
 
             let last_file = settings.get_string("current-file").unwrap();
             let filename = last_file.as_str();
-            let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
-            let contents = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true);
+            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+            let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
 
             glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
         }));
 
-        let md_lang = sourceview4::LanguageManager::get_default()
-            .map_or(None, |lm| lm.get_language("markdown"));
+        let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
         
-        if let Some(md_lang) = md_lang.clone() {
+        if let Some(md_lang) = md_lang {
             buffer.set_highlight_matching_brackets(true);
             buffer.set_language(Some(&md_lang));
             buffer.set_highlight_syntax(true);
@@ -225,12 +224,9 @@ impl Window {
         let settingsgtk = gtk::Settings::get_default();
         let vm = settings.get_string("visual-mode").unwrap();
         let pft = settings.get_string("preview-font-type").unwrap();
-        let lstylem = sourceview4::StyleSchemeManager::get_default()
-            .map_or(None, |sm| sm.get_scheme ("quilter"));
-        let dstylem = sourceview4::StyleSchemeManager::get_default()
-            .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
-        let sstylem = sourceview4::StyleSchemeManager::get_default()
-            .map_or(None, |sm| sm.get_scheme ("quilter-sepia"));
+        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
         if vm.as_str() == "light" {
             let stylevml = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
@@ -283,12 +279,9 @@ impl Window {
                                                 @weak reading_time as rtc
                                                 => move |settings, _| {
             let vm = settings.get_string("visual-mode").unwrap();
-            let lstylem = sourceview4::StyleSchemeManager::get_default()
-                .map_or(None, |sm| sm.get_scheme ("quilter"));
-            let dstylem = sourceview4::StyleSchemeManager::get_default()
-                .map_or(None, |sm| sm.get_scheme ("quilter-dark"));
-            let sstylem = sourceview4::StyleSchemeManager::get_default()
-                .map_or(None, |sm| sm.get_scheme ("quilter-sepia"));
+            let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+            let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+            let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
             if vm.as_str() == "light" {
                 let stylevml = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
@@ -314,13 +307,13 @@ impl Window {
 
             reload_func(&view, &webview);
 
-            if sb.get_active() == true {
+            if sb.get_active() {
                 statusbar.set_reveal_child(true);
             } else {
                 statusbar.set_reveal_child(false);
             }
 
-            if sdbs.get_active() == true {
+            if sdbs.get_active() {
                 sdb.set_reveal_child(true);
                 hc.set_decoration_layout (Some(&":maximize"));
             } else {
@@ -329,7 +322,7 @@ impl Window {
             }
 
             hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
-                if hsb.get_active() == true {
+                if hsb.get_active() {
                     sbc.set_search_mode(true);
                 } else {
                     sbc.set_search_mode(false);
@@ -390,20 +383,20 @@ impl Window {
 
             let tt = settings.get_string("track-type").unwrap();
             if tt.as_str() == "words" {
-                let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+                let (start, end) = view.get_buffer ().unwrap ().get_bounds();
                 let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
 
-                tl.set_text (&format!("Words: {}", &words).to_string());
+                tl.set_text (&format!("Words: {}", &words));
             } else if tt.as_str() == "lines" {
                 let lines = view.get_buffer ().unwrap ().get_line_count();
 
-                tl.set_text (&format!("Lines: {}", &lines).to_string());
+                tl.set_text (&format!("Lines: {}", &lines));
             } else if tt.as_str() == "rtc" {
-                let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
+                let (start, end) = view.get_buffer ().unwrap ().get_bounds();
                 let rt = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
                 let rt_min = rt / 200;
 
-                type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min).to_string());
+                type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
             }
         }));
 
@@ -428,7 +421,7 @@ impl Window {
             prefs_win.light.set_active (true);
         } else if vm.as_str() == "dark" {
             prefs_win.dark.set_active (true);
-        } if vm.as_str() == "sepia" {
+        } else if vm.as_str() == "sepia" {
             prefs_win.sepia.set_active (true);
         }
 
@@ -450,8 +443,6 @@ impl Window {
             prefs_win.ptype.set_active(Some(0));
         } else if pft.as_str() == "serif" {
             prefs_win.ptype.set_active(Some(1));
-        } else {
-            prefs_win.ptype.set_active(Some(1));
         }
 
         prefs_win.ptype.connect_changed (glib::clone!(@strong settings, @weak prefs_win.ptype as pw => move |_| {
@@ -461,8 +452,6 @@ impl Window {
                 settings.set_string("preview-font-type", "sans").expect ("Oops!");
             } else if pw.get_active() == Some(2) {
                 settings.set_string("preview-font-type", "mono").expect ("Oops!");
-            } else {
-                settings.set_string("preview-font-type", "serif").expect ("Oops!");
             }
         }));
 
@@ -487,11 +476,11 @@ impl Window {
             prefs_win.medium.set_active (true);
         }
 
-        if prefs_win.small.get_active () == true {
+        if prefs_win.small.get_active () {
             settings.set_int("spacing", 2).expect ("Oops!");
-        } else if prefs_win.medium.get_active () == true {
+        } else if prefs_win.medium.get_active () {
             settings.set_int("spacing", 4).expect ("Oops!");
-        } else if prefs_win.large.get_active() == true {
+        } else if prefs_win.large.get_active() {
             settings.set_int("spacing", 8).expect ("Oops!");
         } else {
             settings.set_int("spacing", 4).expect ("Oops!");
@@ -508,17 +497,17 @@ impl Window {
             prefs_win.medium1.set_active (true);
         }
 
-        if prefs_win.small1.get_active () == true {
+        if prefs_win.small1.get_active () {
             let m = (width * (1.0 / 100.0)) as i32;
             settings.set_int("margins", m).expect ("Oops!");
             view.set_left_margin (m);
             view.set_right_margin (m);
-        } else if prefs_win.medium1.get_active () == true {
+        } else if prefs_win.medium1.get_active () {
             let m = (width * (8.0 / 100.0)) as i32;
             settings.set_int("margins", m).expect ("Oops!");
             view.set_left_margin (m);
             view.set_right_margin (m);
-        } else if prefs_win.large1.get_active() == true {
+        } else if prefs_win.large1.get_active() {
             let m = (width * (16.0 / 100.0)) as i32;
             settings.set_int("margins", m).expect ("Oops!");
             view.set_left_margin (m);
@@ -540,11 +529,11 @@ impl Window {
             prefs_win.medium2.set_active (true);
         }
 
-        if prefs_win.small2.get_active () == true {
+        if prefs_win.small2.get_active () {
             settings.set_int("font-sizing", 1).expect ("Oops!");
-        } else if prefs_win.medium2.get_active () == true {
+        } else if prefs_win.medium2.get_active () {
             settings.set_int("font-sizing", 2).expect ("Oops!");
-        } else if prefs_win.large2.get_active() == true {
+        } else if prefs_win.large2.get_active() {
             settings.set_int("font-sizing", 3).expect ("Oops!");
         } else {
             settings.set_int("font-sizing", 2).expect ("Oops!");
@@ -575,7 +564,7 @@ impl Window {
                     let buf = glib::file_get_contents(filename).expect("Unable to get data");
                     let contents = String::from_utf8_lossy(&buf);
 
-                    view.clone ().get_buffer ().unwrap ().set_text(&contents);
+                    view.get_buffer ().unwrap ().set_text(&contents);
                 }
                 file_chooser.close();
             }));
@@ -596,8 +585,8 @@ impl Window {
             file_chooser.connect_response(glib::clone!(@weak win, @weak view => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
-                    let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
-                    let contents = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true);
+                    let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+                    let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
                     
                     glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
                 }
@@ -637,7 +626,6 @@ impl Window {
             let key: glib::GString = "editor".into();
             if full_stack.get_visible_child_name() == Some(key) {
                 full_stack.set_visible_child(&sc1);
-                reload_func(&view, &webview)
             } else {
                 full_stack.set_visible_child(&sc);
                 reload_func(&view, &webview);
@@ -672,7 +660,7 @@ impl Window {
         leaflet.show_all ();
 
         leaflet.connect_property_folded_notify (glib::clone!(@weak leaflet, @weak header.container as hcs, @weak sidebar.sideheader as sbcs => move |_| {
-            if leaflet.get_folded() == true {
+            if leaflet.get_folded() {
                 hcs.set_decoration_layout (Some(&":"));
                 sbcs.set_decoration_layout (Some(&":"));
             } else {
@@ -815,8 +803,7 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
         font = &css.mono;
     }
 
-    let ch = settings.get_boolean("center-headers");
-    if ch == true {
+    if settings.get_boolean("center-headers") {
         cheader = (&css.center).to_string();
     }
 
@@ -888,5 +875,5 @@ fn crop_letters(s: &mut str, pos: usize) -> String {
             z.clear();
         }
     }
-    return z;
+    z
 }

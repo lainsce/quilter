@@ -15,7 +15,6 @@ pub mod searchbar;
 pub mod listboxrow;
 pub mod css;
 
-use gtk;
 use gtk::*;
 use gio::*;
 use gio::prelude::*;
@@ -29,10 +28,9 @@ pub struct App {
 
 impl App {
     pub fn new() -> App {
-        let settingsgtk = gtk::Settings::get_default();
-        settingsgtk.clone ().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
-        settingsgtk.clone ().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
-        settingsgtk.clone ().unwrap().set_property_gtk_font_name(Some("Inter 9"));
+        gtk::Settings::get_default().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
+        gtk::Settings::get_default().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
+        gtk::Settings::get_default().unwrap().set_property_gtk_font_name(Some("Inter 9"));
 
         let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
         let window = Window::new();
