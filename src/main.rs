@@ -25,6 +25,7 @@ fn main() {
 
     glib::set_program_name("Quilter".into());
     glib::set_application_name("Quilter");
+    glib::set_prgname(Some("com.github.lainsce.quilter"));
 
     let app = App::new();
     app.run();

@@ -41,9 +41,9 @@ impl App {
         });
 
         let application = App { app, window };
+        application.setup_css();
         application.setup_gactions();
         application.setup_signals();
-        application.setup_css();
         application
     }
 
