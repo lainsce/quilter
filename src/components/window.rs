@@ -223,7 +223,6 @@ impl Window {
 
         let settingsgtk = gtk::Settings::get_default();
         let vm = settings.get_string("visual-mode").unwrap();
-        let pft = settings.get_string("preview-font-type").unwrap();
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
         let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
@@ -258,7 +257,6 @@ impl Window {
                                                 @weak header.container as hc,
                                                 @weak header.search_button as hsb,
                                                 @weak sidebar.container as sdb,
-                                                @weak prefs_win.ptype as pt,
                                                 @weak prefs_win.light as light,
                                                 @weak prefs_win.sepia as sepia,
                                                 @weak prefs_win.dark as dark,
@@ -273,6 +271,7 @@ impl Window {
                                                 @weak prefs_win.large2 as pwl2,
                                                 @weak prefs_win.sb as sb,
                                                 @weak prefs_win.sdbs as sdbs,
+                                                @weak prefs_win.ftype as ft,
                                                 @weak type_label as tl,
                                                 @weak words as w,
                                                 @weak lines as l,
@@ -381,6 +380,22 @@ impl Window {
                 view.get_style_context().remove_class("small-font");
             }));
 
+            ft.connect_changed (glib::clone!(@strong settings, @weak ft, @weak view => move |_| {
+                if ft.get_active() == Some(0) {
+                    view.get_style_context().add_class("mono-font");
+                    view.get_style_context().remove_class("zwei-font");
+                    view.get_style_context().remove_class("vier-font");
+                } else if ft.get_active() == Some(1) {
+                    view.get_style_context().add_class("zwei-font");
+                    view.get_style_context().remove_class("mono-font");
+                    view.get_style_context().remove_class("vier-font");
+                } else if ft.get_active() == Some(2) {
+                    view.get_style_context().add_class("vier-font");
+                    view.get_style_context().remove_class("zwei-font");
+                    view.get_style_context().remove_class("mono-font");
+                }
+            }));
+
             let tt = settings.get_string("track-type").unwrap();
             if tt.as_str() == "words" {
                 let (start, end) = view.get_buffer ().unwrap ().get_bounds();
@@ -407,6 +422,9 @@ impl Window {
         //
         //
         //
+
+        let pft = settings.get_string("preview-font-type").unwrap();
+        let fft = settings.get_string("edit-font-type").unwrap();
 
         settings.bind ("statusbar", &prefs_win.sb, "active", gio::SettingsBindFlags::DEFAULT);
         settings.bind ("sidebar", &prefs_win.sdbs, "active", gio::SettingsBindFlags::DEFAULT);
@@ -452,6 +470,24 @@ impl Window {
                 settings.set_string("preview-font-type", "sans").expect ("Oops!");
             } else if pw.get_active() == Some(2) {
                 settings.set_string("preview-font-type", "mono").expect ("Oops!");
+            }
+        }));
+
+        if fft.as_str() == "vier" {
+            prefs_win.ftype.set_active(Some(2));
+        } else if fft.as_str() == "mono" {
+            prefs_win.ftype.set_active(Some(0));
+        } else if fft.as_str() == "zwei" {
+            prefs_win.ptype.set_active(Some(1));
+        }
+
+        prefs_win.ftype.connect_changed (glib::clone!(@strong settings, @weak prefs_win.ftype as fw => move |_| {
+            if fw.get_active() == Some(0) {
+                settings.set_string("edit-font-type", "mono").expect ("Oops!");
+            } else if fw.get_active() == Some(1) {
+                settings.set_string("edit-font-type", "zwei").expect ("Oops!");
+            } else if fw.get_active() == Some(2) {
+                settings.set_string("edit-font-type", "vier").expect ("Oops!");
             }
         }));
 

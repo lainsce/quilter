@@ -3,6 +3,7 @@ use gtk::*;
 
 pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
+    pub ftype: gtk::ComboBoxText,
     pub ptype: gtk::ComboBoxText,
     pub sb: gtk::Switch,
     pub sdbs: gtk::Switch,
@@ -82,6 +83,13 @@ impl PreferencesWindow {
         large1.set_visible(true);
 
         //
+        // Font Type
+        //
+
+        get_widget!(builder, gtk::ComboBoxText, ftype);
+        ftype.set_visible(true);
+
+        //
         // Font Size
         //
         get_widget!(builder, gtk::RadioButton, small2);
@@ -111,6 +119,7 @@ impl PreferencesWindow {
 
         PreferencesWindow {
             prefs,
+            ftype,
             ptype,
             sb,
             sdbs,
