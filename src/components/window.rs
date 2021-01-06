@@ -29,6 +29,7 @@ use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
 use libhandy::ExpanderRowExt;
 use std::env;
+use std::time::{Duration, Instant};
 
 pub struct Window {
     pub app: gtk::Application,
@@ -208,12 +209,14 @@ impl Window {
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
             reload_func (&view, &webview);
 
-            let last_file = settings.get_string("current-file").unwrap();
-            let filename = last_file.as_str();
-            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
-            let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
-
-            glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
+            glib::timeout_add_local(3500, glib::clone!(@strong settings, @weak view => @default-return glib::Continue(false), move || {
+                let last_file = settings.get_string("current-file").unwrap();
+                let filename = last_file.as_str();
+                let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+                let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
+                glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
+                glib::Continue(false)
+            }));
         }));
 
         let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
@@ -718,7 +721,7 @@ impl Window {
 
         let sgrid = gtk::Grid::new();
         sgrid.set_orientation(gtk::Orientation::Vertical);
-        sgrid.attach (&sidebar.clm, 0, 0, 1, 3);
+        sgrid.attach (&sidebar.container, 0, 0, 1, 1);
         sgrid.show_all ();
 
         let grid = gtk::Grid::new();
@@ -748,7 +751,12 @@ impl Window {
             }
         }));
 
-        win.add(&leaflet);
+        let mgrid = gtk::Grid::new ();
+        mgrid.set_orientation(gtk::Orientation::Vertical);
+        mgrid.attach (&leaflet,0,0,1,1);
+        mgrid.show_all ();
+
+        win.add(&mgrid);
         win.set_size_request(600, 350);
         win.set_icon_name(Some(APP_ID));
 

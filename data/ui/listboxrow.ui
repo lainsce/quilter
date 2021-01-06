@@ -3,9 +3,10 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <object class="GtkListBoxRow" id="container">
-    <property name="width-request">200</property>
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="hexpand">False</property>
+    <property name="vexpand">False</property>
     <child>
       <!-- n-columns=3 n-rows=2 -->
       <object class="GtkGrid" id="filebox">
@@ -15,6 +16,8 @@
         <property name="margin-end">12</property>
         <property name="margin-top">12</property>
         <property name="margin-bottom">12</property>
+        <property name="hexpand">False</property>
+        <property name="vexpand">False</property>
         <property name="row-spacing">12</property>
         <property name="column-spacing">24</property>
         <property name="row-homogeneous">True</property>
@@ -59,6 +62,8 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="hexpand">True</property>
+            <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <property name="homogeneous">True</property>
             <child>
@@ -66,6 +71,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
+                <property name="hexpand">True</property>
                 <property name="ellipsize">end</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
@@ -82,6 +88,7 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
+                <property name="hexpand">True</property>
               </object>
               <packing>
                 <property name="expand">True</property>

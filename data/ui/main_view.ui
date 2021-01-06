@@ -73,6 +73,7 @@
   <object class="GtkOverlay" id="over">
     <property name="visible">True</property>
     <property name="can-focus">False</property>
+    <property name="hexpand">True</property>
     <child>
       <object class="GtkStack" id="main">
         <property name="visible">True</property>

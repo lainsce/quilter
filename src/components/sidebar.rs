@@ -1,7 +1,6 @@
 use gtk::prelude::*;
 
 pub struct Sidebar {
-    pub clm: libhandy::Clamp,
     pub container: gtk::Revealer,
     pub sideheader: libhandy::HeaderBar,
     pub stack: gtk::Stack,
@@ -14,7 +13,6 @@ pub struct Sidebar {
 impl Sidebar {
     pub fn new() -> Sidebar {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/sidebar.ui");
-        get_widget!(builder, libhandy::Clamp, clm);
         get_widget!(builder, gtk::Revealer, container);
         get_widget!(builder, libhandy::HeaderBar, sideheader);
         get_widget!(builder, gtk::Stack, stack);
@@ -23,10 +21,7 @@ impl Sidebar {
         get_widget!(builder, gtk::Label, placeholder);
         get_widget!(builder, gtk::TreeView, outline);
 
-        sideheader.set_size_request(200, 38);
-
         Sidebar {
-            clm,
             container,
             sideheader,
             stack,
