@@ -33,5 +33,6 @@
         <file alias="view_popover.ui" compressed="true">ui/view_popover.ui</file>
         <file alias="main_view.ui" compressed="true">ui/main_view.ui</file>
         <file alias="prefs_window.ui" compressed="true">ui/prefs_window.ui</file>
+        <file alias="cheatsheet.ui" compressed="true">ui/cheatsheet.ui</file>
     </gresource>
 </gresources>

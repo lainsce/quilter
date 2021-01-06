@@ -139,7 +139,8 @@
             "sources" : [
                 {
                     "type" : "git",
-                    "url" : "https://github.com/lainsce/quilter.git"
+                    "url" : "https://github.com/lainsce/quilter.git",
+                    "branch" : "quilter-rust"
                 }
             ]
         }

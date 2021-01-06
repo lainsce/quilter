@@ -8,6 +8,7 @@ use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
 use crate::components::searchbar::Searchbar;
 use crate::components::listboxrow::ListBoxRow;
+use crate::components::cheatsheet::Cheatsheet;
 use crate::components::prefs_window::PreferencesWindow;
 use pulldown_cmark::{Parser, Options, html};
 use gtk::*;
@@ -275,7 +276,13 @@ impl Window {
         webview.set_settings (&webkit_settings);
 
         reload_func(&view, &webview);
-        change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+        change_layout (&main,
+                       &full_stack,
+                       &half_stack,
+                       &sc,
+                       &sc1,
+                       &view,
+                       &header.popover.toggle_view_button);
 
         //
         //
@@ -734,15 +741,16 @@ impl Window {
                                                                     @weak half_stack,
                                                                     @weak sc1,
                                                                     @weak sc,
-                                                                    @weak view
+                                                                    @weak view,
+                                                                    @weak header.popover.toggle_view_button as hpt
         => move |_| {
             let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&full_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view, &hpt);
             } else {
                 main.set_visible_child(&half_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view, &hpt);
             }
         }));
 
@@ -752,15 +760,16 @@ impl Window {
                                                                     @weak half_stack,
                                                                     @weak sc1,
                                                                     @weak sc,
-                                                                    @weak view
+                                                                    @weak view,
+                                                                    @weak header.popover.toggle_view_button as hpt
         => move |_| {
             let key: glib::GString = "half".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&half_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view, &hpt);
             } else {
                 main.set_visible_child(&full_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view, &hpt);
             }
         }));
 
@@ -852,6 +861,15 @@ impl Window {
     fn setup_actions(&self) {
         action!(
             self.widget,
+            "cheatsheet",
+            glib::clone!(@strong self.settings as settings => move |_, _| {
+                let cheat = Cheatsheet::new();
+                cheat.cheatsheet.show();
+            })
+        );
+
+        action!(
+            self.widget,
             "prefs",
             glib::clone!(@strong self.settings as settings, @weak self.widget as win  => move |_, _| {
                 let prefs_win = PreferencesWindow::new(&win, &settings);
@@ -929,7 +947,9 @@ fn change_layout (main: &gtk::Stack,
                   half_stack: &gtk::Grid,
                   sc: &gtk::Overlay,
                   sc1: &gtk::ScrolledWindow,
-                  view: &sourceview4::View) {
+                  view: &sourceview4::View,
+                  toggle_view_button: &gtk::ModelButton
+) {
     let settings = gio::Settings::new(APP_ID);
     let layout = settings.get_string("preview-type").unwrap();
     if layout.as_str() == "full" {
@@ -940,6 +960,7 @@ fn change_layout (main: &gtk::Stack,
         full_stack.add_titled (sc1, "preview", &"Preview");
         main.set_visible_child (full_stack);
         view.get_style_context().remove_class("quilter-half-edit");
+        toggle_view_button.set_visible (true);
     } else {
         for w in full_stack.get_children () {
             full_stack.remove (&w);
@@ -948,6 +969,7 @@ fn change_layout (main: &gtk::Stack,
         half_stack.add (sc1);
         main.set_visible_child (half_stack);
         view.get_style_context().add_class("quilter-half-edit");
+        toggle_view_button.set_visible (false);
     }
 }
 
