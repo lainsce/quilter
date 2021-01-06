@@ -80,7 +80,7 @@
       <summary>Enable spellcheck</summary>
     </key>
     <key name="spellcheck-language" type="s">
-      <default>"en"</default>
+      <default>'en'</default>
       <summary>Spell check language used</summary>
       <description>This must be the name of one of the installed languages, by default the fallback is English</description>
     </key>

@@ -7,7 +7,7 @@ use crate::components::css::CSS;
 use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
 use crate::components::searchbar::Searchbar;
-use crate::components::listboxrow::ListBoxRow;
+// use crate::components::listboxrow::ListBoxRow;
 use crate::components::cheatsheet::Cheatsheet;
 use crate::components::prefs_window::PreferencesWindow;
 use pulldown_cmark::{Parser, Options, html};
@@ -308,32 +308,10 @@ impl Window {
         let ts = settings.get_int("spacing");
         let tm = settings.get_int("margins");
         let tx = settings.get_int("font-sizing");
-
-        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
-        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
-        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
-        if vm.as_str() == "light" {
-            let stylevml = CssProvider::new();
-            gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
-            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
-
-            buffer.set_style_scheme(lstylem.as_ref());
-        } else if vm.as_str() == "dark" {
-            let stylevmd = CssProvider::new();
-            gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
-            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
-
-            buffer.set_style_scheme(dstylem.as_ref());
-        } else if vm.as_str() == "sepia" {
-            let stylevms = CssProvider::new();
-            gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
-            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
-
-            buffer.set_style_scheme(sstylem.as_ref());
-        }
+        let fft = settings.get_string("edit-font-type").unwrap();
+        let tt = settings.get_string("track-type").unwrap();
+        let width = settings.get_int("window-width") as f32;
+        let height = settings.get_int("window-height") as f32;
 
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
@@ -364,8 +342,6 @@ impl Window {
             buffer.set_style_scheme(sstylem.as_ref());
             header.popover.color_button_sepia.set_active (true);
         }
-
-        reload_func(&view, &webview);
 
         if st {
             statusbar.set_reveal_child(true);
@@ -410,7 +386,6 @@ impl Window {
             view.set_pixels_inside_wrap (8);
         }
 
-        let width = settings.get_int("window-width") as f32;
         if tm == 1 {
             let m = (width * (1.0 / 100.0)) as i32;
             view.set_left_margin (m);
@@ -425,7 +400,6 @@ impl Window {
             view.set_right_margin (m);
         }
 
-        let height = settings.get_int("window-height") as f32;
         if tw && fs {
             let titlebar_h = header.container.get_allocated_height() as f32;
             let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
@@ -451,7 +425,6 @@ impl Window {
             view.get_style_context().remove_class("small-font");
         }
 
-        let fft = settings.get_string("edit-font-type").unwrap();
         if fft.as_str() == "mono" {
             view.get_style_context().add_class("mono-font");
             view.get_style_context().remove_class("zwei-font");
@@ -466,7 +439,6 @@ impl Window {
             view.get_style_context().remove_class("mono-font");
         }
 
-        let tt = settings.get_string("track-type").unwrap();
         if tt.as_str() == "words" {
             let (start, end) = view.get_buffer ().unwrap ().get_bounds();
             let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
@@ -483,6 +455,8 @@ impl Window {
 
             type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
         }
+
+        reload_func(&view, &webview);
 
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
@@ -505,6 +479,8 @@ impl Window {
             let tm = settings.get_int("margins");
             let tx = settings.get_int("font-sizing");
             let tw = settings.get_boolean("typewriter-scrolling");
+            let width = settings.get_int("window-width") as f32;
+            let height = settings.get_int("window-height") as f32;
 
             let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
@@ -531,8 +507,6 @@ impl Window {
 
                 buffer.set_style_scheme(sstylem.as_ref());
             }
-
-            reload_func(&view, &webview);
 
             if st {
                 statusbar.set_reveal_child(true);
@@ -584,7 +558,6 @@ impl Window {
                 view.set_pixels_inside_wrap (8);
             }
 
-            let width = settings.get_int("window-width") as f32;
             if tm == 1 {
                 let m = (width * (1.0 / 100.0)) as i32;
                 view.set_left_margin (m);
@@ -599,7 +572,6 @@ impl Window {
                 view.set_right_margin (m);
             }
 
-            let height = settings.get_int("window-height") as f32;
             if tw && fs {
                 let titlebar_h = hc.get_allocated_height() as f32;
                 let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
@@ -611,15 +583,15 @@ impl Window {
                 view.set_bottom_margin (40);
             }
 
-            if tx == 1 {
+            if tx == 0 {
                 view.get_style_context().add_class("small-font");
                 view.get_style_context().remove_class("medium-font");
                 view.get_style_context().remove_class("large-font");
-            } else if tx == 2 {
+            } else if tx == 1 {
                 view.get_style_context().add_class("medium-font");
                 view.get_style_context().remove_class("small-font");
                 view.get_style_context().remove_class("large-font");
-            } else if tx == 3 {
+            } else if tx == 2 {
                 view.get_style_context().add_class("large-font");
                 view.get_style_context().remove_class("medium-font");
                 view.get_style_context().remove_class("small-font");
@@ -657,6 +629,8 @@ impl Window {
 
                 type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
             }
+
+            reload_func(&view, &webview);
         }));
 
         //

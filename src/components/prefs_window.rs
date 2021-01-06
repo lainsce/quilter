@@ -19,15 +19,9 @@ pub struct PreferencesWindow {
     pub light: gtk::RadioButton,
     pub sepia: gtk::RadioButton,
     pub dark: gtk::RadioButton,
-    pub small: gtk::RadioButton,
-    pub medium: gtk::RadioButton,
-    pub large: gtk::RadioButton,
-    pub small1: gtk::RadioButton,
-    pub medium1: gtk::RadioButton,
-    pub large1: gtk::RadioButton,
-    pub small2: gtk::RadioButton,
-    pub medium2: gtk::RadioButton,
-    pub large2: gtk::RadioButton,
+    pub stype: gtk::ComboBoxText,
+    pub mtype: gtk::ComboBoxText,
+    pub ztype: gtk::ComboBoxText,
     pub focus_mode: libhandy::ExpanderRow,
     pub autosave: libhandy::ExpanderRow,
     pub delay: gtk::SpinButton,
@@ -90,22 +84,14 @@ impl PreferencesWindow {
         //
         // Text Spacing
         //
-        get_widget!(builder, gtk::RadioButton, small);
-        get_widget!(builder, gtk::RadioButton, medium);
-        get_widget!(builder, gtk::RadioButton, large);
-        small.set_visible(true);
-        medium.set_visible(true);
-        large.set_visible(true);
+        get_widget!(builder, gtk::ComboBoxText, stype);
+        stype.set_visible(true);
 
         //
         // Text Margins
         //
-        get_widget!(builder, gtk::RadioButton, small1);
-        get_widget!(builder, gtk::RadioButton, medium1);
-        get_widget!(builder, gtk::RadioButton, large1);
-        small1.set_visible(true);
-        medium1.set_visible(true);
-        large1.set_visible(true);
+        get_widget!(builder, gtk::ComboBoxText, mtype);
+        mtype.set_visible(true);
 
         //
         // Font Type
@@ -117,12 +103,8 @@ impl PreferencesWindow {
         //
         // Font Size
         //
-        get_widget!(builder, gtk::RadioButton, small2);
-        get_widget!(builder, gtk::RadioButton, medium2);
-        get_widget!(builder, gtk::RadioButton, large2);
-        small2.set_visible(true);
-        medium2.set_visible(true);
-        large2.set_visible(true);
+        get_widget!(builder, gtk::ComboBoxText, ztype);
+        ztype.set_visible(true);
 
         //
         //
@@ -171,64 +153,58 @@ impl PreferencesWindow {
         }
 
         if ts == 1 {
-            small.set_active (true);
+            stype.set_active(Some(0));
         } else if ts == 4 {
-            medium.set_active (true);
+            stype.set_active(Some(1));
         } else if ts == 8 {
-            large.set_active (true);
-        } else {
-            medium.set_active (true);
+            stype.set_active(Some(2));
         }
 
-        if small.get_active () {
-            gschema.set_int("spacing", 1).expect ("Oops!");
-        } else if medium.get_active () {
-            gschema.set_int("spacing", 4).expect ("Oops!");
-        } else if large.get_active() {
-            gschema.set_int("spacing", 8).expect ("Oops!");
-        } else {
-            gschema.set_int("spacing", 4).expect ("Oops!");
-        }
+        stype.connect_changed (glib::clone!(@strong gschema, @weak stype as sw => move |_| {
+            if sw.get_active() == Some(0) {
+                gschema.set_int("spacing", 1).expect ("Oops!");
+            } else if sw.get_active() == Some(1) {
+                gschema.set_int("spacing", 4).expect ("Oops!");
+            } else if sw.get_active() == Some(2) {
+                gschema.set_int("spacing", 8).expect ("Oops!");
+            }
+        }));
 
         if tm == 1 {
-            small1.set_active (true);
+            mtype.set_active(Some(0));
         } else if tm == 8 {
-            medium1.set_active (true);
+            mtype.set_active(Some(1));
         } else if tm == 16 {
-            large1.set_active (true);
-        } else {
-            medium1.set_active (true);
+            mtype.set_active(Some(2));
         }
 
-        if small1.get_active () {
-            gschema.set_int("margins", 1).expect ("Oops!");
-        } else if medium1.get_active () {
-            gschema.set_int("margins", 8).expect ("Oops!");
-        } else if large1.get_active() {
-            gschema.set_int("margins", 16).expect ("Oops!");
-        } else {
-            gschema.set_int("margins", 8).expect ("Oops!");
-        }
+        mtype.connect_changed (glib::clone!(@strong gschema, @weak mtype as mw => move |_| {
+            if mw.get_active() == Some(0) {
+                gschema.set_int("margins", 1).expect ("Oops!");
+            } else if mw.get_active() == Some(1) {
+                gschema.set_int("margins", 8).expect ("Oops!");
+            } else if mw.get_active() == Some(2) {
+                gschema.set_int("margins", 16).expect ("Oops!");
+            }
+        }));
 
         if tx == 1 {
-            small2.set_active (true);
+            ztype.set_active(Some(0));
         } else if tx == 2 {
-            medium2.set_active (true);
+            ztype.set_active(Some(1));
         } else if tx == 3 {
-            large2.set_active (true);
-        } else {
-            medium2.set_active (true);
+            ztype.set_active(Some(2))
         }
 
-        if small2.get_active () {
-            gschema.set_int("font-sizing", 1).expect ("Oops!");
-        } else if medium2.get_active () {
-            gschema.set_int("font-sizing", 2).expect ("Oops!");
-        } else if large2.get_active() {
-            gschema.set_int("font-sizing", 3).expect ("Oops!");
-        } else {
-            gschema.set_int("font-sizing", 2).expect ("Oops!");
-        }
+        ztype.connect_changed (glib::clone!(@strong gschema, @weak ztype as zw => move |_| {
+            if zw.get_active() == Some(0) {
+                gschema.set_int("font-sizing", 0).expect ("Oops!");
+            } else if zw.get_active() == Some(1) {
+                gschema.set_int("font-sizing", 1).expect ("Oops!");
+            } else if zw.get_active() == Some(2) {
+                gschema.set_int("font-sizing", 2).expect ("Oops!");
+            }
+        }));
 
         light.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
             g.set_string("visual-mode", "light").unwrap();
@@ -305,15 +281,9 @@ impl PreferencesWindow {
             light,
             sepia,
             dark,
-            small,
-            medium,
-            large,
-            small1,
-            medium1,
-            large1,
-            small2,
-            medium2,
-            large2,
+            stype,
+            mtype,
+            ztype,
             focus_mode,
             autosave,
             delay,
