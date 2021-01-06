@@ -1,5 +1,4 @@
 # ![icon](data/images/icon.png) Quilter
-
 ## Focus on your writing
 
 [![Get it on AppCenter](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.quilter)
@@ -36,12 +35,7 @@ meson
 
 ## Building
 
-Simply clone this repo, then:
-
-```bash
-meson build --prefix=/usr && cd build
-sudo ninja install
-```
+Simply clone this repo, then open the cloned folder on GNOME Builder, build and export the bundle as an installable Flatpak.
 
 ## Arch Linux
 

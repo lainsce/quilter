@@ -150,15 +150,11 @@ impl PreferencesWindow {
 
         gschema.bind ("statusbar", &sb, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("sidebar", &sdbs, "active", gio::SettingsBindFlags::DEFAULT);
-
         gschema.bind ("focus-mode", &focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("focus-mode", &focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
-
         gschema.bind ("autosave", &autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("autosave", &autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
-
         gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
-
         gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
 
         let vm = gschema.get_string("visual-mode").unwrap();

@@ -209,7 +209,7 @@ impl Window {
         let tw = settings.get_boolean("typewriter-scrolling");
         if tw {
             glib::timeout_add_seconds_local(
-                1, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
+                3, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
                 let cursor = buffer.get_insert ().unwrap();
                 view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
                 glib::Continue(false)
@@ -271,11 +271,11 @@ impl Window {
         webkit_settings.set_javascript_can_open_windows_automatically (false);
         webkit_settings.set_enable_java (false);
         webkit_settings.set_enable_page_cache (true);
-        webkit_settings.set_enable_plugins (false);
+        webkit_settings.set_enable_plugins (true);
         webview.set_settings (&webkit_settings);
 
         reload_func(&view, &webview);
-        change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+        change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
 
         //
         //
@@ -324,6 +324,7 @@ impl Window {
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
         let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
+
         if vm.as_str() == "light" {
             let stylevml = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
@@ -331,6 +332,7 @@ impl Window {
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
 
             buffer.set_style_scheme(lstylem.as_ref());
+            header.popover.color_button_light.set_active (true);
         } else if vm.as_str() == "dark" {
             let stylevmd = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
@@ -338,6 +340,7 @@ impl Window {
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
 
             buffer.set_style_scheme(dstylem.as_ref());
+            header.popover.color_button_dark.set_active (true);
         } else if vm.as_str() == "sepia" {
             let stylevms = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
@@ -345,6 +348,7 @@ impl Window {
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
 
             buffer.set_style_scheme(sstylem.as_ref());
+            header.popover.color_button_sepia.set_active (true);
         }
 
         reload_func(&view, &webview);
@@ -474,7 +478,8 @@ impl Window {
                                                 @weak searchbar.container as sbc,
                                                 @weak header.container as hc,
                                                 @weak sidebar.container as sdb,
-                                                @weak type_label
+                                                @weak type_label,
+                                                @weak header.search_button as hsb
                                                 => move |settings, _| {
             let vm = settings.get_string("visual-mode").unwrap();
             let sm = settings.get_boolean("sidebar");
@@ -545,6 +550,13 @@ impl Window {
             } else {
                 sbc.set_search_mode(false);
             }
+            hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
+                if hsb.get_active() {
+                    sbc.set_search_mode(true);
+                } else {
+                    sbc.set_search_mode(false);
+                }
+            }));
 
             if ts == 2 {
                 view.set_pixels_above_lines (2);
@@ -695,25 +707,60 @@ impl Window {
             view.get_buffer ().unwrap ().set_text("");
         }));
 
-        header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack, @weak sc1, @weak sc => move |_| {
-            let key: glib::GString = "full".into();
-            if settings.get_string("preview-type") == Some(key) {
-                main.set_visible_child(&full_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+        header.search_button.connect_toggled(glib::clone!(@weak searchbar.container as sbc,
+                                                          @weak header.search_button as hsb => move |_| {
+            if hsb.get_active() {
+                sbc.set_search_mode(true);
             } else {
-                main.set_visible_child(&half_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+                sbc.set_search_mode(false);
             }
         }));
 
-        header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings, @weak main, @weak full_stack, @weak half_stack, @weak sc1, @weak sc => move |_| {
+        header.popover.color_button_light.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
+            settings.set_string("visual-mode", "light").unwrap();
+        }));
+
+        header.popover.color_button_dark.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
+            settings.set_string("visual-mode", "dark").unwrap();
+        }));
+
+        header.popover.color_button_sepia.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
+            settings.set_string("visual-mode", "sepia").unwrap();
+        }));
+
+        header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings,
+                                                                    @weak main,
+                                                                    @weak full_stack,
+                                                                    @weak half_stack,
+                                                                    @weak sc1,
+                                                                    @weak sc,
+                                                                    @weak view
+        => move |_| {
+            let key: glib::GString = "full".into();
+            if settings.get_string("preview-type") == Some(key) {
+                main.set_visible_child(&full_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+            } else {
+                main.set_visible_child(&half_stack);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
+            }
+        }));
+
+        header.viewpopover.half_button.connect_toggled(glib::clone!(@strong settings,
+                                                                    @weak main,
+                                                                    @weak full_stack,
+                                                                    @weak half_stack,
+                                                                    @weak sc1,
+                                                                    @weak sc,
+                                                                    @weak view
+        => move |_| {
             let key: glib::GString = "half".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&half_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
             } else {
                 main.set_visible_child(&full_stack);
-                change_layout (&main, &full_stack, &half_stack, &sc, &sc1);
+                change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &view);
             }
         }));
 
@@ -877,7 +924,12 @@ impl Window {
 //
 //
 
-fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::Grid, sc: &gtk::Overlay, sc1: &gtk::ScrolledWindow,) {
+fn change_layout (main: &gtk::Stack,
+                  full_stack: &gtk::Stack,
+                  half_stack: &gtk::Grid,
+                  sc: &gtk::Overlay,
+                  sc1: &gtk::ScrolledWindow,
+                  view: &sourceview4::View) {
     let settings = gio::Settings::new(APP_ID);
     let layout = settings.get_string("preview-type").unwrap();
     if layout.as_str() == "full" {
@@ -887,6 +939,7 @@ fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::
         full_stack.add_titled (sc, "editor", &"Edit");
         full_stack.add_titled (sc1, "preview", &"Preview");
         main.set_visible_child (full_stack);
+        view.get_style_context().remove_class("quilter-half-edit");
     } else {
         for w in full_stack.get_children () {
             full_stack.remove (&w);
@@ -894,20 +947,21 @@ fn change_layout (main: &gtk::Stack, full_stack: &gtk::Stack, half_stack: &gtk::
         half_stack.add (sc);
         half_stack.add (sc1);
         main.set_visible_child (half_stack);
+        view.get_style_context().add_class("quilter-half-edit");
     }
 }
 
 fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
     let buf = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true).unwrap();
-    let contents = buf.as_str();
+    let mut contents = buf.as_str();
 
     let css = CSS::new();
 
     let mut style = "";
     let mut font = "";
-    let render;
-    let stringhl;
+    let mut render;
+    let mut stringhl;
     let mut cheader;
     cheader = "".to_string();
     let mut highlight = "".to_string();
@@ -933,10 +987,10 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     ", highlight, render);
 
     // LaTeX (Katex)
-    let renderl;
-    let stringtex;
-    let katexmain;
-    let katexjs;
+    let mut renderl;
+    let mut stringtex;
+    let mut katexmain;
+    let mut katexjs;
     katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
     katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
     renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
@@ -969,7 +1023,7 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let mut md = String::new();
     html::push_html(&mut md, parser);
 
-    let html = format! ("
+    let mut html = format! ("
     <!doctype html>
     <html>
       <head>

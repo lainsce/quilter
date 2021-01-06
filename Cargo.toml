@@ -20,8 +20,8 @@ gdk-pixbuf = { version = "0.9.0", features = ["v2_36"] }
 gettext-rs = { version = "0.5.0", features = ["gettext-system"] }
 libhandy = "0.7.1"
 gtk-macros = "0.2.0"
-sourceview4 = "*"
+sourceview4 = "0.2.0"
 webkit2gtk = "0.11.0"
 pulldown-cmark = "0.8.0"
-foreach = "*"
+foreach = "0.3.0"
 javascriptcore-rs = "0.10.0"

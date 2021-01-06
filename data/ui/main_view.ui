@@ -136,9 +136,6 @@
                         </style>
                       </object>
                     </child>
-                    <style>
-                      <class name="quilter-half-edit"/>
-                    </style>
                   </object>
                   <packing>
                     <property name="index">-1</property>

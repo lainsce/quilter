@@ -1,16 +1,12 @@
 {
-    "app-id" : "com.github.lainsce.QuilterDevel",
-    "runtime" : "org.gnome.Platform",
+    "app-id" : "com.github.lainsce.quilter",
+    "runtime" : "org.gnome.Sdk",
     "runtime-version" : "3.38",
     "sdk" : "org.gnome.Sdk",
     "sdk-extensions" : [
         "org.freedesktop.Sdk.Extension.rust-stable"
     ],
     "command" : "quilter",
-    "tags" : [
-        "nightly"
-    ],
-    "desktop-file-name-suffix" : " (Devel)",
     "finish-args" : [
         "--share=ipc",
         "--share=network",
@@ -140,9 +136,6 @@
         {
             "name" : "quilter",
             "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dprofile=development"
-            ],
             "sources" : [
                 {
                     "type" : "git",
