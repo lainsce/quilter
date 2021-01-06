@@ -24,6 +24,8 @@ pub struct PreferencesWindow {
     pub medium2: gtk::RadioButton,
     pub large2: gtk::RadioButton,
     pub focus_mode: libhandy::ExpanderRow,
+    pub autosave: libhandy::ExpanderRow,
+    pub delay: gtk::SpinButton,
 }
 
 impl PreferencesWindow {
@@ -65,6 +67,14 @@ impl PreferencesWindow {
         // Editor Page
         //
         //
+
+        //
+        // Autosave
+        //
+        get_widget!(builder, libhandy::ExpanderRow, autosave);
+        autosave.set_visible(true);
+        get_widget!(builder, gtk::SpinButton, delay);
+        delay.set_visible(true);
 
         //
         // Text Spacing
@@ -144,6 +154,8 @@ impl PreferencesWindow {
             medium2,
             large2,
             focus_mode,
+            autosave,
+            delay
         };
 
         prefswin

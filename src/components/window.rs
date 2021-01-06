@@ -29,7 +29,6 @@ use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
 use libhandy::ExpanderRowExt;
 use std::env;
-use std::time::{Duration, Instant};
 
 pub struct Window {
     pub app: gtk::Application,
@@ -206,18 +205,22 @@ impl Window {
             sidebar.files_list.select_row(Some(&lbr.container));
         }
 
-        view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
-            reload_func (&view, &webview);
+        let asv = settings.get_boolean("autosave");
+        if asv {
+            view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
+                reload_func (&view, &webview);
 
-            glib::timeout_add_local(3500, glib::clone!(@strong settings, @weak view => @default-return glib::Continue(false), move || {
-                let last_file = settings.get_string("current-file").unwrap();
-                let filename = last_file.as_str();
-                let (start, end) = view.get_buffer ().unwrap ().get_bounds();
-                let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
-                glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
-                glib::Continue(false)
+                let delay = settings.get_int("autosave-delay") as u32;
+                glib::timeout_add_seconds_local(delay, glib::clone!(@strong settings, @weak view => @default-return glib::Continue(false), move || {
+                    let last_file = settings.get_string("current-file").unwrap();
+                    let filename = last_file.as_str();
+                    let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+                    let contents = view.get_buffer ().unwrap ().get_text(&start, &end, true);
+                    glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
+                    glib::Continue(false)
+                }));
             }));
-        }));
+        }
 
         let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
         
@@ -489,6 +492,11 @@ impl Window {
 
         settings.bind ("focus-mode", &prefs_win.focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
         settings.bind ("focus-mode", &prefs_win.focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
+
+        settings.bind ("autosave", &prefs_win.autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("autosave", &prefs_win.autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
+
+        settings.bind ("autosave-delay", &prefs_win.delay, "value", gio::SettingsBindFlags::DEFAULT);
 
         prefs_win.sb.bind_property (
             "active",
