@@ -38,7 +38,7 @@ pub struct Window {
     pub header:  Header,
     pub sidebar:  Sidebar,
     pub searchbar: Searchbar,
-    pub lbr: ListBoxRow,
+    // pub lbr: ListBoxRow,
     pub main: gtk::Stack,
     pub sc: gtk::Overlay,
     pub sc1: gtk::ScrolledWindow,
@@ -62,7 +62,7 @@ impl Window {
         let header = Header::new();
         let sidebar = Sidebar::new();
         let searchbar = Searchbar::new();
-        let lbr = ListBoxRow::new();
+        // let lbr = ListBoxRow::new();
         let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
@@ -206,11 +206,11 @@ impl Window {
 
             view.get_buffer ().unwrap ().set_text(&contents);
 
-            lbr.title.set_label (&crop_letters(&mut last_file.to_string(), 22).as_str());
-            lbr.subtitle.set_label ("");
+            // lbr.title.set_label (&last_file.to_string());
+            // lbr.subtitle.set_label ("");
 
-            sidebar.files_list.add(&lbr.container);
-            sidebar.files_list.select_row(Some(&lbr.container));
+            // sidebar.files_list.add(&lbr.container);
+            // sidebar.files_list.select_row(Some(&lbr.container));
         }
 
         let asv = settings.get_boolean("autosave");
@@ -669,7 +669,11 @@ impl Window {
         //
         //
 
-        header.open_button.connect_clicked(glib::clone!(@strong settings, @weak win, @weak view => move |_| {
+        header.open_button.connect_clicked(glib::clone!(@strong settings,
+                                                        @weak win,
+                                                        @weak view,
+                                                        @weak sidebar.files_list as files_list
+                                                        => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Open File"),
                 Some(&win),
@@ -679,14 +683,26 @@ impl Window {
                 ("Open", gtk::ResponseType::Ok),
                 ("Cancel", gtk::ResponseType::Cancel),
             ]);
-            file_chooser.connect_response(glib::clone!(@strong settings, @weak win, @weak view => move |file_chooser, response| {
+            file_chooser.connect_response(glib::clone!(@strong settings,
+                                                       @weak win,
+                                                       @weak view,
+                                                       @weak files_list
+                                                       => move |file_chooser, response| {
                 if response == gtk::ResponseType::Ok {
                     let filename = file_chooser.get_filename().expect("Couldn't get filename");
                     settings.set_string("current-file", &filename.clone ().into_os_string().into_string().unwrap()).expect("Unable to set filename for GSchema");
                     let buf = glib::file_get_contents(filename).expect("Unable to get data");
                     let contents = String::from_utf8_lossy(&buf);
 
+                    // let nlbr = ListBoxRow::new();
+
                     view.get_buffer ().unwrap ().set_text(&contents);
+
+                    // nlbr.title.set_label (&this_file.to_string());
+                    // nlbr.subtitle.set_label ("");
+
+                    // files_list.insert (&nlbr.container, 1);
+                    // files_list.select_row(Some(&nlbr.container));
                 }
                 file_chooser.close();
             }));
@@ -721,6 +737,11 @@ impl Window {
         header.new_button.connect_clicked(glib::clone!(@weak view => move |_| {
             view.get_buffer ().unwrap ().set_text("");
         }));
+
+        // lbr.row_destroy_button.connect_clicked(glib::clone!(@weak view, @weak lbr.container as container => move |_| {
+        //     view.get_buffer ().unwrap ().set_text("");
+        //     unsafe { container.destroy () }
+        // }));
 
         header.search_button.connect_toggled(glib::clone!(@weak searchbar.container as sbc,
                                                           @weak header.search_button as hsb => move |_| {
@@ -783,6 +804,29 @@ impl Window {
 
         //
 
+        //
+        //
+        //
+        //
+        //
+        // sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak settings as settings => move |_,row| {
+            // TODO: Implement loading the file and then going and making a new LBR
+            //       based on the file, and save if changed rows.
+        //     let selected_row = row.clone().unwrap () as <listboxrow::ListBoxRow>::container;
+
+        //     if selected_row != lbr {
+        //         let buf = glib::file_get_contents(filename).expect("Unable to get data");
+        //         let contents = String::from_utf8_lossy(&buf);
+
+        //         view.get_buffer ().unwrap ().set_text(&contents);
+        //     }
+        // }));
+
+        //
+        //
+        // Window
+        //
+        //
         let sgrid = gtk::Grid::new();
         sgrid.set_orientation(gtk::Orientation::Vertical);
         sgrid.attach (&sidebar.container, 0, 0, 1, 1);
@@ -828,7 +872,7 @@ impl Window {
             header,
             sidebar,
             searchbar,
-            lbr,
+            // lbr,
             main,
             sc,
             sc1,
@@ -1102,17 +1146,4 @@ fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: f64) {
             webkit2gtk::JavascriptResult::get_value(&v.as_ref ().unwrap()).unwrap().to_number(&jsg.unwrap()).unwrap();
          }
     );
-}
-
-fn crop_letters(s: &mut str, pos: usize) -> String {
-    let mut z = s.to_string ();
-    match z.char_indices().nth(pos) {
-        Some((pos, _)) => {
-            z.drain(..pos);
-        }
-        None => {
-            z.clear();
-        }
-    }
-    z
 }

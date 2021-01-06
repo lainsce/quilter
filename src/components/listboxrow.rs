@@ -23,10 +23,6 @@ impl ListBoxRow {
         get_widget!(builder, gtk::Button, row_destroy_button);
         row_destroy_button.set_visible (true);
 
-        row_destroy_button.connect_clicked(glib::clone! (@weak container => move |_| {
-            // Implement destroy function somehow
-        }));
-
         ListBoxRow {
             container,
             title,
