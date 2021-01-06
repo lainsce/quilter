@@ -209,7 +209,7 @@ impl Window {
         let tw = settings.get_boolean("typewriter-scrolling");
         if tw {
             glib::timeout_add_seconds_local(
-                5, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
+                1, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
                 let cursor = buffer.get_insert ().unwrap();
                 view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
                 glib::Continue(false)
