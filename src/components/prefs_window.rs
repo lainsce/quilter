@@ -1,8 +1,12 @@
 use gtk::prelude::BuilderExtManual;
 use gtk::*;
+use gio::{Settings, SettingsExt};
+use gtk::WidgetExt;
+use glib::ObjectExt;
+use gtk::prelude::ComboBoxExtManual;
 
 pub struct PreferencesWindow {
-    pub prefsw: libhandy::PreferencesWindow,
+    pub prefs: libhandy::PreferencesWindow,
     pub ftype: gtk::ComboBoxText,
     pub ptype: gtk::ComboBoxText,
     pub sb: gtk::Switch,
@@ -29,9 +33,12 @@ pub struct PreferencesWindow {
 }
 
 impl PreferencesWindow {
-    pub fn new() -> PreferencesWindow {
+    pub fn new(parent: &libhandy::ApplicationWindow, gschema: &Settings) -> PreferencesWindow {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
         get_widget!(builder, libhandy::PreferencesWindow, prefs);
+        prefs.set_modal (false);
+        prefs.set_transient_for(Some(parent));
+        prefs.show_all();
 
         //
         //
@@ -131,8 +138,156 @@ impl PreferencesWindow {
         get_widget!(builder, gtk::Switch, mermaid);
         mermaid.set_visible(true);
 
+        //
+        //
+        // gschema Binds
+        //
+        //
+
+        gschema.bind ("statusbar", &sb, "active", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("sidebar", &sdbs, "active", gio::SettingsBindFlags::DEFAULT);
+
+        gschema.bind ("focus-mode", &focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("focus-mode", &focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
+
+        gschema.bind ("autosave", &autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("autosave", &autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
+
+        gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
+
+        let vm = gschema.get_string("visual-mode").unwrap();
+        if vm.as_str() == "light" {
+            light.set_active (true);
+        } else if vm.as_str() == "dark" {
+            dark.set_active (true);
+        } else if vm.as_str() == "sepia" {
+            sepia.set_active (true);
+        }
+
+        if gschema.get_int("spacing") == 2 {
+            small.set_active (true);
+        } else if gschema.get_int("spacing") == 4 {
+            medium.set_active (true);
+        } else if gschema.get_int("spacing") == 8 {
+            large.set_active (true);
+        } else {
+            medium.set_active (true);
+        }
+
+        if small.get_active () {
+            gschema.set_int("spacing", 2).expect ("Oops!");
+        } else if medium.get_active () {
+            gschema.set_int("spacing", 4).expect ("Oops!");
+        } else if large.get_active() {
+            gschema.set_int("spacing", 8).expect ("Oops!");
+        } else {
+            gschema.set_int("spacing", 4).expect ("Oops!");
+        }
+
+        if gschema.get_int("margins") == 1 {
+            small1.set_active (true);
+        } else if gschema.get_int("margins") == 8 {
+            medium1.set_active (true);
+        } else if gschema.get_int("margins") == 16 {
+            large1.set_active (true);
+        } else {
+            medium1.set_active (true);
+        }
+
+        if small1.get_active () {
+            gschema.set_int("margins", 1).expect ("Oops!");
+        } else if medium1.get_active () {
+            gschema.set_int("margins", 8).expect ("Oops!");
+        } else if large1.get_active() {
+            gschema.set_int("margins", 16).expect ("Oops!");
+        } else {
+            gschema.set_int("margins", 8).expect ("Oops!");
+        }
+
+        if gschema.get_int("font-sizing") == 1 {
+            small2.set_active (true);
+        } else if gschema.get_int("font-sizing") == 2 {
+            medium2.set_active (true);
+        } else if gschema.get_int("font-sizing") == 3 {
+            large2.set_active (true);
+        } else {
+            medium2.set_active (true);
+        }
+
+        if small2.get_active () {
+            gschema.set_int("font-sizing", 1).expect ("Oops!");
+        } else if medium2.get_active () {
+            gschema.set_int("font-sizing", 2).expect ("Oops!");
+        } else if large2.get_active() {
+            gschema.set_int("font-sizing", 3).expect ("Oops!");
+        } else {
+            gschema.set_int("font-sizing", 2).expect ("Oops!");
+        }
+
+        light.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
+            s.set_string("visual-mode", "light").unwrap();
+        }));
+
+        dark.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
+            s.set_string("visual-mode", "dark").unwrap();
+        }));
+
+        sepia.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
+            s.set_string("visual-mode", "sepia").unwrap();
+        }));
+
+        let pft = gschema.get_string("preview-font-type").unwrap();
+        let fft = gschema.get_string("edit-font-type").unwrap();
+
+        if pft.as_str() == "mono" {
+            ptype.set_active(Some(2));
+        } else if pft.as_str() == "sans" {
+            ptype.set_active(Some(0));
+        } else if pft.as_str() == "serif" {
+            ptype.set_active(Some(1));
+        }
+
+        ptype.connect_changed (glib::clone!(@strong gschema, @weak ptype as pw => move |_| {
+            if pw.get_active() == Some(1) {
+                gschema.set_string("preview-font-type", "serif").expect ("Oops!");
+            } else if pw.get_active() == Some(0) {
+                gschema.set_string("preview-font-type", "sans").expect ("Oops!");
+            } else if pw.get_active() == Some(2) {
+                gschema.set_string("preview-font-type", "mono").expect ("Oops!");
+            }
+        }));
+
+        if fft.as_str() == "vier" {
+            ftype.set_active(Some(2));
+        } else if fft.as_str() == "mono" {
+            ftype.set_active(Some(0));
+        } else if fft.as_str() == "zwei" {
+            ptype.set_active(Some(1));
+        }
+
+        ftype.connect_changed (glib::clone!(@strong gschema, @weak ftype as fw => move |_| {
+            if fw.get_active() == Some(0) {
+                gschema.set_string("edit-font-type", "mono").expect ("Oops!");
+            } else if fw.get_active() == Some(1) {
+                gschema.set_string("edit-font-type", "zwei").expect ("Oops!");
+            } else if fw.get_active() == Some(2) {
+                gschema.set_string("edit-font-type", "vier").expect ("Oops!");
+            }
+        }));
+
+        gschema.bind ("center-headers", &centering, "active", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("highlight", &highlight, "active", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("latex", &latex, "active", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("mermaid", &mermaid, "active", gio::SettingsBindFlags::DEFAULT);
+
+        mermaid.bind_property (
+            "active",
+            &highlight,
+            "active"
+        );
+
         let prefswin = PreferencesWindow {
-            prefsw: prefs,
+            prefs,
             ftype,
             ptype,
             sb,

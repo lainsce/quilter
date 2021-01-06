@@ -27,7 +27,6 @@ use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
 use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
-use libhandy::ExpanderRowExt;
 use std::env;
 
 pub struct Window {
@@ -45,7 +44,6 @@ pub struct Window {
     pub full_stack: gtk::Stack,
     pub view: sourceview4::View,
     pub webview: webkit2gtk::WebView,
-    pub prefs_win: PreferencesWindow,
     pub statusbar: gtk::Revealer,
     pub focus_bar: gtk::Revealer,
 }
@@ -55,21 +53,24 @@ impl Window {
         gtk::Settings::get_default().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
         gtk::Settings::get_default().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
         gtk::Settings::get_default().unwrap().set_property_gtk_font_name(Some("Inter 9"));
+        let def = gtk::IconTheme::get_default ();
+        gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
         let settings = gio::Settings::new(APP_ID);
         let header = Header::new();
         let sidebar = Sidebar::new();
         let searchbar = Searchbar::new();
         let lbr = ListBoxRow::new();
-        let prefs_win = PreferencesWindow::new();
         let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
 
         win.set_application(Some(&app));
-        app.add_window(&win);
         win.show_all();
+        win.set_size_request(600, 350);
+        win.set_icon_name(Some(APP_ID));
+        app.add_window(&win);
 
         win.connect_delete_event(move |_, _| {
             main_quit();
@@ -261,13 +262,20 @@ impl Window {
         //
         //
         //
-        // CSS Block
+        // Settings Block
         //
         //
         //
 
         let settingsgtk = gtk::Settings::get_default();
         let vm = settings.get_string("visual-mode").unwrap();
+        let sm = settings.get_boolean("sidebar");
+        let st = settings.get_boolean("statusbar");
+        let sh = settings.get_boolean("searchbar");
+        let fs = settings.get_boolean("focus-mode");
+        let ts = settings.get_int("spacing");
+        let tm = settings.get_int("margins");
+        let tx = settings.get_int("font-sizing");
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
         let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
@@ -294,37 +302,158 @@ impl Window {
             buffer.set_style_scheme(sstylem.as_ref());
         }
 
+        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
+        if vm.as_str() == "light" {
+            let stylevml = CssProvider::new();
+            gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
+            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+            buffer.set_style_scheme(lstylem.as_ref());
+        } else if vm.as_str() == "dark" {
+            let stylevmd = CssProvider::new();
+            gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
+            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
+
+            buffer.set_style_scheme(dstylem.as_ref());
+        } else if vm.as_str() == "sepia" {
+            let stylevms = CssProvider::new();
+            gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
+            gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
+            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+
+            buffer.set_style_scheme(sstylem.as_ref());
+        }
+
+        reload_func(&view, &webview);
+
+        if st {
+            statusbar.set_reveal_child(true);
+        } else {
+            statusbar.set_reveal_child(false);
+        }
+
+        if sm {
+            sidebar.container.set_reveal_child(true);
+            header.container.set_decoration_layout (Some(&":maximize"));
+        } else {
+            sidebar.container.set_reveal_child(false);
+            header.container.set_decoration_layout (Some(&"close:maximize"));
+        }
+
+        if fs {
+            focus_bar.set_reveal_child(true);
+            header.container.set_visible (false);
+            sidebar.container.set_reveal_child(false);
+            statusbar.set_reveal_child(false);
+        } else {
+            focus_bar.set_reveal_child(false);
+            header.container.set_visible (true);
+            sidebar.container.set_reveal_child(sm);
+            statusbar.set_reveal_child(st);
+        }
+
+        if sh {
+            searchbar.container.set_search_mode(true);
+        } else {
+            searchbar.container.set_search_mode(false);
+        }
+
+        if ts == 2 {
+            view.set_pixels_above_lines (2);
+            view.set_pixels_inside_wrap (2);
+        } else if ts == 4 {
+            view.set_pixels_above_lines (4);
+            view.set_pixels_inside_wrap (4);
+        } else if ts == 8 {
+            view.set_pixels_above_lines (8);
+            view.set_pixels_inside_wrap (8);
+        }
+
+        let width = settings.get_int("window-width") as f32;
+        if tm == 1 {
+            let m = (width * (1.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        } else if tm == 8 {
+            let m = (width * (8.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        } else if tm == 16 {
+            let m = (width * (16.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        }
+
+        if tx == 1 {
+            view.get_style_context().add_class("small-font");
+            view.get_style_context().remove_class("medium-font");
+            view.get_style_context().remove_class("large-font");
+        } else if tx == 2 {
+            view.get_style_context().add_class("medium-font");
+            view.get_style_context().remove_class("small-font");
+            view.get_style_context().remove_class("large-font");
+        } else if tx == 3 {
+            view.get_style_context().add_class("large-font");
+            view.get_style_context().remove_class("medium-font");
+            view.get_style_context().remove_class("small-font");
+        }
+
+        let fft = settings.get_string("edit-font-type").unwrap();
+        if fft.as_str() == "mono" {
+            view.get_style_context().add_class("mono-font");
+            view.get_style_context().remove_class("zwei-font");
+            view.get_style_context().remove_class("vier-font");
+        } else if fft.as_str() == "zwei" {
+            view.get_style_context().add_class("zwei-font");
+            view.get_style_context().remove_class("mono-font");
+            view.get_style_context().remove_class("vier-font");
+        } else if fft.as_str() == "vier" {
+            view.get_style_context().add_class("vier-font");
+            view.get_style_context().remove_class("zwei-font");
+            view.get_style_context().remove_class("mono-font");
+        }
+
+        let tt = settings.get_string("track-type").unwrap();
+        if tt.as_str() == "words" {
+            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+            let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+
+            type_label.set_text (&format!("Words: {}", &words));
+        } else if tt.as_str() == "lines" {
+            let lines = view.get_buffer ().unwrap ().get_line_count();
+
+            type_label.set_text (&format!("Lines: {}", &lines));
+        } else if tt.as_str() == "rtc" {
+            let (start, end) = view.get_buffer ().unwrap ().get_bounds();
+            let reading_time = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+            let rt_min = reading_time / 200;
+
+            type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
+        }
+
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
                                                 @weak view,
                                                 @weak statusbar,
-                                                @weak focus_bar as fb,
+                                                @weak focus_bar,
                                                 @weak searchbar.container as sbc,
                                                 @weak header.container as hc,
-                                                @weak header.search_button as hsb,
                                                 @weak sidebar.container as sdb,
-                                                @weak prefs_win.light as light,
-                                                @weak prefs_win.sepia as sepia,
-                                                @weak prefs_win.dark as dark,
-                                                @weak prefs_win.small as pws,
-                                                @weak prefs_win.medium as pwm,
-                                                @weak prefs_win.large as pwl,
-                                                @weak prefs_win.small1 as pws1,
-                                                @weak prefs_win.medium1 as pwm1,
-                                                @weak prefs_win.large1 as pwl1,
-                                                @weak prefs_win.small2 as pws2,
-                                                @weak prefs_win.medium2 as pwm2,
-                                                @weak prefs_win.large2 as pwl2,
-                                                @weak prefs_win.sb as sb,
-                                                @weak prefs_win.sdbs as sdbs,
-                                                @weak prefs_win.ftype as ft,
-                                                @weak prefs_win.focus_mode as fm,
-                                                @weak type_label as tl,
-                                                @weak words as w,
-                                                @weak lines as l,
-                                                @weak reading_time as rtc
+                                                @weak type_label
                                                 => move |settings, _| {
             let vm = settings.get_string("visual-mode").unwrap();
+            let sm = settings.get_boolean("sidebar");
+            let st = settings.get_boolean("statusbar");
+            let sh = settings.get_boolean("searchbar");
+            let fs = settings.get_boolean("focus-mode");
+            let ts = settings.get_int("spacing");
+            let tm = settings.get_int("margins");
+            let tx = settings.get_int("font-sizing");
+
             let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
             let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
@@ -353,13 +482,13 @@ impl Window {
 
             reload_func(&view, &webview);
 
-            if sb.get_active() {
+            if st {
                 statusbar.set_reveal_child(true);
             } else {
                 statusbar.set_reveal_child(false);
             }
 
-            if sdbs.get_active() {
+            if sm {
                 sdb.set_reveal_child(true);
                 hc.set_decoration_layout (Some(&":maximize"));
             } else {
@@ -367,282 +496,99 @@ impl Window {
                 hc.set_decoration_layout (Some(&"close:maximize"));
             }
 
-            let sm = settings.get_boolean("sidebar");
-            let st = settings.get_boolean("statusbar");
-            if fm.get_expanded() {
-                fb.set_reveal_child(true);
+            if fs {
+                focus_bar.set_reveal_child(true);
                 hc.set_visible (false);
                 sdb.set_reveal_child(false);
                 statusbar.set_reveal_child(false);
             } else {
-                fb.set_reveal_child(false);
+                focus_bar.set_reveal_child(false);
                 hc.set_visible (true);
                 sdb.set_reveal_child(sm);
                 statusbar.set_reveal_child(st);
             }
 
-            hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
-                if hsb.get_active() {
-                    sbc.set_search_mode(true);
-                } else {
-                    sbc.set_search_mode(false);
-                }
-            }));
+            if sh {
+                sbc.set_search_mode(true);
+            } else {
+                sbc.set_search_mode(false);
+            }
 
-            pws.connect_toggled(glib::clone!(@weak view => move |_| {
+            if ts == 2 {
                 view.set_pixels_above_lines (2);
                 view.set_pixels_inside_wrap (2);
-            }));
-
-            pwm.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if ts == 4 {
                 view.set_pixels_above_lines (4);
                 view.set_pixels_inside_wrap (4);
-            }));
-
-            pwl.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if ts == 8 {
                 view.set_pixels_above_lines (8);
                 view.set_pixels_inside_wrap (8);
-            }));
+            }
 
             let width = settings.get_int("window-width") as f32;
-            pws1.connect_toggled(glib::clone!(@weak view => move |_| {
+            if tm == 1 {
                 let m = (width * (1.0 / 100.0)) as i32;
                 view.set_left_margin (m);
                 view.set_right_margin (m);
-            }));
-
-            pwm1.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if tm == 8 {
                 let m = (width * (8.0 / 100.0)) as i32;
                 view.set_left_margin (m);
                 view.set_right_margin (m);
-            }));
-
-            pwl1.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if tm == 16 {
                 let m = (width * (16.0 / 100.0)) as i32;
                 view.set_left_margin (m);
                 view.set_right_margin (m);
-            }));
+            }
 
-            pws2.connect_toggled(glib::clone!(@weak view => move |_| {
+            if tx == 1 {
                 view.get_style_context().add_class("small-font");
                 view.get_style_context().remove_class("medium-font");
                 view.get_style_context().remove_class("large-font");
-            }));
-
-            pwm2.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if tx == 2 {
                 view.get_style_context().add_class("medium-font");
                 view.get_style_context().remove_class("small-font");
                 view.get_style_context().remove_class("large-font");
-            }));
-
-            pwl2.connect_toggled(glib::clone!(@weak view => move |_| {
+            } else if tx == 3 {
                 view.get_style_context().add_class("large-font");
                 view.get_style_context().remove_class("medium-font");
                 view.get_style_context().remove_class("small-font");
-            }));
+            }
 
-            ft.connect_changed (glib::clone!(@strong settings, @weak ft, @weak view => move |_| {
-                if ft.get_active() == Some(0) {
-                    view.get_style_context().add_class("mono-font");
-                    view.get_style_context().remove_class("zwei-font");
-                    view.get_style_context().remove_class("vier-font");
-                } else if ft.get_active() == Some(1) {
-                    view.get_style_context().add_class("zwei-font");
-                    view.get_style_context().remove_class("mono-font");
-                    view.get_style_context().remove_class("vier-font");
-                } else if ft.get_active() == Some(2) {
-                    view.get_style_context().add_class("vier-font");
-                    view.get_style_context().remove_class("zwei-font");
-                    view.get_style_context().remove_class("mono-font");
-                }
-            }));
+            let fft = settings.get_string("edit-font-type").unwrap();
+            if fft.as_str() == "mono" {
+                view.get_style_context().add_class("mono-font");
+                view.get_style_context().remove_class("zwei-font");
+                view.get_style_context().remove_class("vier-font");
+            } else if fft.as_str() == "zwei" {
+                view.get_style_context().add_class("zwei-font");
+                view.get_style_context().remove_class("mono-font");
+                view.get_style_context().remove_class("vier-font");
+            } else if fft.as_str() == "vier" {
+                view.get_style_context().add_class("vier-font");
+                view.get_style_context().remove_class("zwei-font");
+                view.get_style_context().remove_class("mono-font");
+            }
 
             let tt = settings.get_string("track-type").unwrap();
             if tt.as_str() == "words" {
                 let (start, end) = view.get_buffer ().unwrap ().get_bounds();
                 let words = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
 
-                tl.set_text (&format!("Words: {}", &words));
+                type_label.set_text (&format!("Words: {}", &words));
             } else if tt.as_str() == "lines" {
                 let lines = view.get_buffer ().unwrap ().get_line_count();
 
-                tl.set_text (&format!("Lines: {}", &lines));
+                type_label.set_text (&format!("Lines: {}", &lines));
             } else if tt.as_str() == "rtc" {
                 let (start, end) = view.get_buffer ().unwrap ().get_bounds();
-                let rt = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
-                let rt_min = rt / 200;
+                let reading_time = view.get_buffer ().unwrap ().get_text (&start, &end, false).unwrap ().split_whitespace().count();
+                let rt_min = reading_time / 200;
 
                 type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
             }
         }));
 
         //
-        //
-        //
-        // Preferences Window
-        //
-        //
-        //
-
-        let pft = settings.get_string("preview-font-type").unwrap();
-        let fft = settings.get_string("edit-font-type").unwrap();
-
-        settings.bind ("statusbar", &prefs_win.sb, "active", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("sidebar", &prefs_win.sdbs, "active", gio::SettingsBindFlags::DEFAULT);
-
-        settings.bind ("focus-mode", &prefs_win.focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("focus-mode", &prefs_win.focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
-
-        settings.bind ("autosave", &prefs_win.autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("autosave", &prefs_win.autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
-
-        settings.bind ("autosave-delay", &prefs_win.delay, "value", gio::SettingsBindFlags::DEFAULT);
-
-        prefs_win.sb.bind_property (
-            "active",
-            &statusbar,
-            "search-mode"
-        );
-
-        if vm.as_str() == "light" {
-            prefs_win.light.set_active (true);
-        } else if vm.as_str() == "dark" {
-            prefs_win.dark.set_active (true);
-        } else if vm.as_str() == "sepia" {
-            prefs_win.sepia.set_active (true);
-        }
-
-        prefs_win.light.connect_toggled(glib::clone!(@weak settings as s => move |_| {
-            s.set_string("visual-mode", "light").unwrap();
-        }));
-
-        prefs_win.dark.connect_toggled(glib::clone!(@weak settings as s => move |_| {
-            s.set_string("visual-mode", "dark").unwrap();
-        }));
-
-        prefs_win.sepia.connect_toggled(glib::clone!(@weak settings as s => move |_| {
-            s.set_string("visual-mode", "sepia").unwrap();
-        }));
-
-        if pft.as_str() == "mono" {
-            prefs_win.ptype.set_active(Some(2));
-        } else if pft.as_str() == "sans" {
-            prefs_win.ptype.set_active(Some(0));
-        } else if pft.as_str() == "serif" {
-            prefs_win.ptype.set_active(Some(1));
-        }
-
-        prefs_win.ptype.connect_changed (glib::clone!(@strong settings, @weak prefs_win.ptype as pw => move |_| {
-            if pw.get_active() == Some(1) {
-                settings.set_string("preview-font-type", "serif").expect ("Oops!");
-            } else if pw.get_active() == Some(0) {
-                settings.set_string("preview-font-type", "sans").expect ("Oops!");
-            } else if pw.get_active() == Some(2) {
-                settings.set_string("preview-font-type", "mono").expect ("Oops!");
-            }
-        }));
-
-        if fft.as_str() == "vier" {
-            prefs_win.ftype.set_active(Some(2));
-        } else if fft.as_str() == "mono" {
-            prefs_win.ftype.set_active(Some(0));
-        } else if fft.as_str() == "zwei" {
-            prefs_win.ptype.set_active(Some(1));
-        }
-
-        prefs_win.ftype.connect_changed (glib::clone!(@strong settings, @weak prefs_win.ftype as fw => move |_| {
-            if fw.get_active() == Some(0) {
-                settings.set_string("edit-font-type", "mono").expect ("Oops!");
-            } else if fw.get_active() == Some(1) {
-                settings.set_string("edit-font-type", "zwei").expect ("Oops!");
-            } else if fw.get_active() == Some(2) {
-                settings.set_string("edit-font-type", "vier").expect ("Oops!");
-            }
-        }));
-
-        settings.bind ("center-headers", &prefs_win.centering, "active", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("highlight", &prefs_win.highlight, "active", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("latex", &prefs_win.latex, "active", gio::SettingsBindFlags::DEFAULT);
-        settings.bind ("mermaid", &prefs_win.mermaid, "active", gio::SettingsBindFlags::DEFAULT);
-
-        prefs_win.mermaid.bind_property (
-            "active",
-            &prefs_win.highlight,
-            "active"
-        );
-
-        if settings.get_int("spacing") == 2 {
-            prefs_win.small.set_active (true);
-        } else if settings.get_int("spacing") == 4 {
-            prefs_win.medium.set_active (true);
-        } else if settings.get_int("spacing") == 8 {
-            prefs_win.large.set_active (true);
-        } else {
-            prefs_win.medium.set_active (true);
-        }
-
-        if prefs_win.small.get_active () {
-            settings.set_int("spacing", 2).expect ("Oops!");
-        } else if prefs_win.medium.get_active () {
-            settings.set_int("spacing", 4).expect ("Oops!");
-        } else if prefs_win.large.get_active() {
-            settings.set_int("spacing", 8).expect ("Oops!");
-        } else {
-            settings.set_int("spacing", 4).expect ("Oops!");
-        }
-
-        let width = settings.get_int("window-width") as f32;
-        if settings.get_int("margins") == 1 {
-            prefs_win.small1.set_active (true);
-        } else if settings.get_int("margins") == 8 {
-            prefs_win.medium1.set_active (true);
-        } else if settings.get_int("margins") == 16 {
-            prefs_win.large1.set_active (true);
-        } else {
-            prefs_win.medium1.set_active (true);
-        }
-
-        if prefs_win.small1.get_active () {
-            let m = (width * (1.0 / 100.0)) as i32;
-            settings.set_int("margins", m).expect ("Oops!");
-            view.set_left_margin (m);
-            view.set_right_margin (m);
-        } else if prefs_win.medium1.get_active () {
-            let m = (width * (8.0 / 100.0)) as i32;
-            settings.set_int("margins", m).expect ("Oops!");
-            view.set_left_margin (m);
-            view.set_right_margin (m);
-        } else if prefs_win.large1.get_active() {
-            let m = (width * (16.0 / 100.0)) as i32;
-            settings.set_int("margins", m).expect ("Oops!");
-            view.set_left_margin (m);
-            view.set_right_margin (m);
-        } else {
-            let m = (width * (8.0 / 100.0)) as i32;
-            settings.set_int("margins", m).expect ("Oops!");
-            view.set_left_margin (m);
-            view.set_right_margin (m);
-        }
-
-        if settings.get_int("font-sizing") == 1 {
-            prefs_win.small2.set_active (true);
-        } else if settings.get_int("font-sizing") == 2 {
-            prefs_win.medium2.set_active (true);
-        } else if settings.get_int("font-sizing") == 3 {
-            prefs_win.large2.set_active (true);
-        } else {
-            prefs_win.medium2.set_active (true);
-        }
-
-        if prefs_win.small2.get_active () {
-            settings.set_int("font-sizing", 1).expect ("Oops!");
-        } else if prefs_win.medium2.get_active () {
-            settings.set_int("font-sizing", 2).expect ("Oops!");
-        } else if prefs_win.large2.get_active() {
-            settings.set_int("font-sizing", 3).expect ("Oops!");
-        } else {
-            settings.set_int("font-sizing", 2).expect ("Oops!");
-        }
 
         //
         //
@@ -727,6 +673,8 @@ impl Window {
             }
         }));
 
+        //
+
         let sgrid = gtk::Grid::new();
         sgrid.set_orientation(gtk::Orientation::Vertical);
         sgrid.attach (&sidebar.container, 0, 0, 1, 1);
@@ -763,13 +711,7 @@ impl Window {
         mgrid.set_orientation(gtk::Orientation::Vertical);
         mgrid.attach (&leaflet,0,0,1,1);
         mgrid.show_all ();
-
         win.add(&mgrid);
-        win.set_size_request(600, 350);
-        win.set_icon_name(Some(APP_ID));
-
-        let def = gtk::IconTheme::get_default ();
-        gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
         let window_widget = Window {
             app,
@@ -786,9 +728,8 @@ impl Window {
             full_stack,
             view,
             webview,
-            prefs_win,
             statusbar,
-            focus_bar,
+            focus_bar
         };
 
         window_widget.init ();
@@ -821,9 +762,9 @@ impl Window {
         action!(
             self.widget,
             "prefs",
-            glib::clone!(@weak self.widget as widget, @weak self.prefs_win.prefsw as pw  => move |_, _| {
-                pw.set_transient_for(Some(&widget));
-                pw.show();
+            glib::clone!(@strong self.settings as settings, @weak self.widget as win  => move |_, _| {
+                let prefs_win = PreferencesWindow::new(&win, &settings);
+                prefs_win.prefs.show();
             })
         );
 
