@@ -127,8 +127,6 @@
                         <property name="has-focus">True</property>
                         <property name="is-focus">True</property>
                         <property name="wrap-mode">word</property>
-                        <property name="top-margin">40</property>
-                        <property name="bottom-margin">40</property>
                         <property name="monospace">True</property>
                         <property name="tab-width">4</property>
                         <property name="auto-indent">True</property>

@@ -9,6 +9,7 @@ pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
     pub ftype: gtk::ComboBoxText,
     pub ptype: gtk::ComboBoxText,
+    pub typewriter: gtk::Switch,
     pub sb: gtk::Switch,
     pub sdbs: gtk::Switch,
     pub centering: gtk::Switch,
@@ -62,6 +63,9 @@ impl PreferencesWindow {
 
         get_widget!(builder, libhandy::ExpanderRow, focus_mode);
         focus_mode.set_visible(true);
+
+        get_widget!(builder, gtk::Switch, typewriter);
+        typewriter.set_visible(true);
 
         get_widget!(builder, gtk::Switch, sb);
         sb.set_visible(true);
@@ -154,6 +158,8 @@ impl PreferencesWindow {
         gschema.bind ("autosave", &autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
 
         gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
+
+        gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
 
         let vm = gschema.get_string("visual-mode").unwrap();
         if vm.as_str() == "light" {
@@ -310,7 +316,8 @@ impl PreferencesWindow {
             large2,
             focus_mode,
             autosave,
-            delay
+            delay,
+            typewriter
         };
 
         prefswin

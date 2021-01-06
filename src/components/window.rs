@@ -190,7 +190,6 @@ impl Window {
         //
         //
         //
-
         let last_file = settings.get_string("current-file").unwrap();
         if last_file.as_str() != "" {
             let filename = last_file.as_str();
@@ -207,10 +206,29 @@ impl Window {
         }
 
         let asv = settings.get_boolean("autosave");
-        if asv {
-            view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview => move |_| {
-                reload_func (&view, &webview);
+        let tw = settings.get_boolean("typewriter-scrolling");
+        if tw {
+            glib::timeout_add_seconds_local(
+                5, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
+                let cursor = buffer.get_insert ().unwrap();
+                view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                glib::Continue(false)
+            }));
+        }
 
+        view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview, @weak buffer => move |_| {
+            reload_func (&view, &webview);
+
+            if tw {
+                glib::timeout_add_seconds_local(
+                    5, glib::clone!(@weak view => @default-return glib::Continue(false), move || {
+                    let cursor = buffer.get_insert ().unwrap();
+                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                    glib::Continue(false)
+                }));
+            }
+
+            if asv {
                 let delay = settings.get_int("autosave-delay") as u32;
                 glib::timeout_add_seconds_local(delay, glib::clone!(@strong settings, @weak view => @default-return glib::Continue(false), move || {
                     let last_file = settings.get_string("current-file").unwrap();
@@ -220,8 +238,8 @@ impl Window {
                     glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
                     glib::Continue(false)
                 }));
-            }));
-        }
+            }
+        }));
 
         let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
         
@@ -276,6 +294,7 @@ impl Window {
         let ts = settings.get_int("spacing");
         let tm = settings.get_int("margins");
         let tx = settings.get_int("font-sizing");
+
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
         let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
@@ -388,6 +407,18 @@ impl Window {
             view.set_right_margin (m);
         }
 
+        let height = settings.get_int("window-height") as f32;
+        if tw && fs {
+            let titlebar_h = header.container.get_allocated_height() as f32;
+            let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
+            let typewriterposition2 = ((height * 0.55) - titlebar_h) as i32;
+            view.set_top_margin (typewriterposition1);
+            view.set_bottom_margin (typewriterposition2);
+        } else {
+            view.set_top_margin (40);
+            view.set_bottom_margin (40);
+        }
+
         if tx == 1 {
             view.get_style_context().add_class("small-font");
             view.get_style_context().remove_class("medium-font");
@@ -453,6 +484,7 @@ impl Window {
             let ts = settings.get_int("spacing");
             let tm = settings.get_int("margins");
             let tx = settings.get_int("font-sizing");
+            let tw = settings.get_boolean("typewriter-scrolling");
 
             let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
@@ -538,6 +570,18 @@ impl Window {
                 let m = (width * (16.0 / 100.0)) as i32;
                 view.set_left_margin (m);
                 view.set_right_margin (m);
+            }
+
+            let height = settings.get_int("window-height") as f32;
+            if tw && fs {
+                let titlebar_h = hc.get_allocated_height() as f32;
+                let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
+                let typewriterposition2 = ((height * 0.55) - titlebar_h) as i32;
+                view.set_top_margin (typewriterposition1);
+                view.set_bottom_margin (typewriterposition2);
+            } else {
+                view.set_top_margin (40);
+                view.set_bottom_margin (40);
             }
 
             if tx == 1 {

@@ -82,15 +82,17 @@
                     "url" : "git://github.com/elementary/icons.git"
                 }
             ],
-            "modules": [
+            "modules" : [
                 {
-                    "name": "xcursorgen",
-                    "cleanup": [ "*" ],
-                    "sources": [
+                    "name" : "xcursorgen",
+                    "cleanup" : [
+                        "*"
+                    ],
+                    "sources" : [
                         {
-                            "type": "git",
-                            "url": "https://gitlab.freedesktop.org/xorg/app/xcursorgen.git",
-                            "tag": "xcursorgen-1.0.7"
+                            "type" : "git",
+                            "url" : "https://gitlab.freedesktop.org/xorg/app/xcursorgen.git",
+                            "tag" : "xcursorgen-1.0.7"
                         }
                     ]
                 }
