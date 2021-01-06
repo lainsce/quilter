@@ -13,12 +13,15 @@
 @define-color prefs_primary_dark #333;
 @define-color prefs_fg_dark #FFF;
 
-.quilter-dialog-hb,
-.quilter-dialog-hb headerbar,
-.quilter-dialog-hb actionbar {
+.quilter-dialog-hb {
     background: @prefs_primary_dark;
     color: @prefs_fg_dark;
-    border: none;
+}
+
+.quilter-dialog-hb headerbar,
+.quilter-dialog-hb actionbar {
+    background: shade(@prefs_primary_dark, 0.88);
+    color: @prefs_fg_dark;
     box-shadow: none;
 }
 .quilter-dialog-hb .titlebar .image-button.toggle {
@@ -86,15 +89,15 @@
     background: mix(@prefs_accent_dark, @prefs_primary_dark, 0.90);
 }
 .quilter-dialog-hb viewswitcher button {
-    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.55);
     border: 1px solid transparent;
 }
 .quilter-dialog-hb viewswitcher button:first-child {
-    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.55);
     border-left: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
 }
 .quilter-dialog-hb viewswitcher button:last-child {
-    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.55);
     border-right: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
 }
 .quilter-dialog-hb .header .title {

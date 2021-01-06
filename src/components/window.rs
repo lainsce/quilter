@@ -14,6 +14,7 @@ use pulldown_cmark::{Parser, Options, html};
 use gtk::*;
 use gtk::prelude::*;
 use gtk::IconThemeExt;
+use gtk::ApplicationWindowExt;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use sourceview4::StyleSchemeManagerExt;
@@ -67,16 +68,24 @@ impl Window {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
 
-        win.set_application(Some(&app));
-        win.show_all();
-        win.set_size_request(600, 350);
-        win.set_icon_name(Some(APP_ID));
-        app.add_window(&win);
-
         win.connect_delete_event(move |_, _| {
             main_quit();
             Inhibit(false)
         });
+
+        app.connect_activate(glib::clone!(@weak win => move |app| {
+                win.set_application(Some(app));
+                win.set_size_request(600, 350);
+                win.set_icon_name(Some(APP_ID));
+                app.add_window(&win);
+
+                if app.get_window_by_id(win.get_id()).unwrap() == win {
+                    win.present();
+                    return;
+                }
+
+                win.show_all();
+        }));
 
         let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
         get_widget!(builder2, gtk::Overlay, over);
@@ -102,8 +111,6 @@ impl Window {
         let table = gtk::TextTagTable::new();
         let buffer = sourceview4::Buffer::new(Some(&table));
         view.set_buffer(Some(&buffer));
-        view.set_left_margin (settings.get_int ("margins"));
-        view.set_right_margin (settings.get_int ("margins"));
 
         get_widget!(builder2, webkit2gtk::WebView, webview);
         webview.set_visible (true);
@@ -392,9 +399,9 @@ impl Window {
             searchbar.container.set_search_mode(false);
         }
 
-        if ts == 2 {
-            view.set_pixels_above_lines (2);
-            view.set_pixels_inside_wrap (2);
+        if ts == 1 {
+            view.set_pixels_above_lines (1);
+            view.set_pixels_inside_wrap (1);
         } else if ts == 4 {
             view.set_pixels_above_lines (4);
             view.set_pixels_inside_wrap (4);
@@ -566,9 +573,9 @@ impl Window {
                 }
             }));
 
-            if ts == 2 {
-                view.set_pixels_above_lines (2);
-                view.set_pixels_inside_wrap (2);
+            if ts == 1 {
+                view.set_pixels_above_lines (1);
+                view.set_pixels_inside_wrap (1);
             } else if ts == 4 {
                 view.set_pixels_above_lines (4);
                 view.set_pixels_inside_wrap (4);
@@ -932,6 +939,8 @@ impl Window {
     pub fn run(&self) {
         let args: Vec<String> = env::args().collect();
         self.app.run(&args);
+
+        gtk::main();
     }
 }
 

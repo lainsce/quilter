@@ -20,15 +20,14 @@ fn main() {
     textdomain(GETTEXT_PACKAGE);
 
     gtk::init().expect("GTK not loaded!");
-    static_resources::init().expect("GResource initialization failed.");
     libhandy::init();
 
     glib::set_program_name("Quilter".into());
     glib::set_application_name("Quilter");
     glib::set_prgname(Some("com.github.lainsce.quilter"));
 
+    static_resources::init().expect("GResource initialization failed.");
+
     let app = Window::new();
     app.run ();
-
-    gtk::main();
 }

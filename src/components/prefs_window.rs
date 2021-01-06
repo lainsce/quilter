@@ -148,6 +148,11 @@ impl PreferencesWindow {
         //
         //
 
+        let vm = gschema.get_string("visual-mode").unwrap();
+        let ts = gschema.get_int("spacing");
+        let tm = gschema.get_int("margins");
+        let tx = gschema.get_int("font-sizing");
+
         gschema.bind ("statusbar", &sb, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("sidebar", &sdbs, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("focus-mode", &focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
@@ -157,7 +162,6 @@ impl PreferencesWindow {
         gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
 
-        let vm = gschema.get_string("visual-mode").unwrap();
         if vm.as_str() == "light" {
             light.set_active (true);
         } else if vm.as_str() == "dark" {
@@ -166,18 +170,18 @@ impl PreferencesWindow {
             sepia.set_active (true);
         }
 
-        if gschema.get_int("spacing") == 2 {
+        if ts == 1 {
             small.set_active (true);
-        } else if gschema.get_int("spacing") == 4 {
+        } else if ts == 4 {
             medium.set_active (true);
-        } else if gschema.get_int("spacing") == 8 {
+        } else if ts == 8 {
             large.set_active (true);
         } else {
             medium.set_active (true);
         }
 
         if small.get_active () {
-            gschema.set_int("spacing", 2).expect ("Oops!");
+            gschema.set_int("spacing", 1).expect ("Oops!");
         } else if medium.get_active () {
             gschema.set_int("spacing", 4).expect ("Oops!");
         } else if large.get_active() {
@@ -186,11 +190,11 @@ impl PreferencesWindow {
             gschema.set_int("spacing", 4).expect ("Oops!");
         }
 
-        if gschema.get_int("margins") == 1 {
+        if tm == 1 {
             small1.set_active (true);
-        } else if gschema.get_int("margins") == 8 {
+        } else if tm == 8 {
             medium1.set_active (true);
-        } else if gschema.get_int("margins") == 16 {
+        } else if tm == 16 {
             large1.set_active (true);
         } else {
             medium1.set_active (true);
@@ -206,11 +210,11 @@ impl PreferencesWindow {
             gschema.set_int("margins", 8).expect ("Oops!");
         }
 
-        if gschema.get_int("font-sizing") == 1 {
+        if tx == 1 {
             small2.set_active (true);
-        } else if gschema.get_int("font-sizing") == 2 {
+        } else if tx == 2 {
             medium2.set_active (true);
-        } else if gschema.get_int("font-sizing") == 3 {
+        } else if tx == 3 {
             large2.set_active (true);
         } else {
             medium2.set_active (true);
