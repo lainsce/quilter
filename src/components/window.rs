@@ -718,7 +718,7 @@ impl Window {
 
         let sgrid = gtk::Grid::new();
         sgrid.set_orientation(gtk::Orientation::Vertical);
-        sgrid.attach (&sidebar.container, 0, 0, 1, 3);
+        sgrid.attach (&sidebar.clm, 0, 0, 1, 3);
         sgrid.show_all ();
 
         let grid = gtk::Grid::new();
