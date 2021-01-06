@@ -27,10 +27,10 @@ use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
 use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
+use libhandy::ExpanderRowExt;
 use std::env;
 
 pub struct Window {
-    pub sag: gio::SimpleActionGroup,
     pub app: gtk::Application,
     pub widget: libhandy::ApplicationWindow,
     pub settings: gio::Settings,
@@ -47,6 +47,7 @@ pub struct Window {
     pub webview: webkit2gtk::WebView,
     pub prefs_win: PreferencesWindow,
     pub statusbar: gtk::Revealer,
+    pub focus_bar: gtk::Revealer,
 }
 
 impl Window {
@@ -56,7 +57,6 @@ impl Window {
         gtk::Settings::get_default().unwrap().set_property_gtk_font_name(Some("Inter 9"));
 
         let settings = gio::Settings::new(APP_ID);
-        let sag = gio::SimpleActionGroup::new();
         let header = Header::new();
         let sidebar = Sidebar::new();
         let searchbar = Searchbar::new();
@@ -66,8 +66,7 @@ impl Window {
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
-        
-        app.set_property_action_group (Some(&sag));
+
         win.set_application(Some(&app));
         app.add_window(&win);
         win.show_all();
@@ -78,6 +77,9 @@ impl Window {
         });
 
         let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
+        get_widget!(builder2, gtk::Overlay, over);
+        over.set_visible (true);
+
         get_widget!(builder2, gtk::Stack, main);
         main.set_visible (true);
 
@@ -106,6 +108,19 @@ impl Window {
 
         get_widget!(builder2, gtk::Revealer, statusbar);
         statusbar.set_visible (true);
+
+        get_widget!(builder2, gtk::Revealer, focus_bar);
+
+        get_widget!(builder2, gtk::Button, focus);
+
+        focus.connect_clicked(glib::clone!(@strong settings => move |_| {
+            let fm = settings.get_boolean("focus-mode");
+            if !fm {
+                settings.set_boolean("focus-mode", true).expect ("Oops!");
+            } else {
+                settings.set_boolean("focus-mode", false).expect ("Oops!");
+            }
+        }));
 
         get_widget!(builder2, gtk::MenuButton, bar);
         bar.get_style_context().add_class("quilter-menu");
@@ -277,6 +292,7 @@ impl Window {
                                                 @weak webview,
                                                 @weak view,
                                                 @weak statusbar,
+                                                @weak focus_bar as fb,
                                                 @weak searchbar.container as sbc,
                                                 @weak header.container as hc,
                                                 @weak header.search_button as hsb,
@@ -296,6 +312,7 @@ impl Window {
                                                 @weak prefs_win.sb as sb,
                                                 @weak prefs_win.sdbs as sdbs,
                                                 @weak prefs_win.ftype as ft,
+                                                @weak prefs_win.focus_mode as fm,
                                                 @weak type_label as tl,
                                                 @weak words as w,
                                                 @weak lines as l,
@@ -342,6 +359,20 @@ impl Window {
             } else {
                 sdb.set_reveal_child(false);
                 hc.set_decoration_layout (Some(&"close:maximize"));
+            }
+
+            let sm = settings.get_boolean("sidebar");
+            let st = settings.get_boolean("statusbar");
+            if fm.get_expanded() {
+                fb.set_reveal_child(true);
+                hc.set_visible (false);
+                sdb.set_reveal_child(false);
+                statusbar.set_reveal_child(false);
+            } else {
+                fb.set_reveal_child(false);
+                hc.set_visible (true);
+                sdb.set_reveal_child(sm);
+                statusbar.set_reveal_child(st);
             }
 
             hsb.connect_toggled(glib::clone!(@weak sbc, @weak hsb => move |_| {
@@ -452,6 +483,9 @@ impl Window {
 
         settings.bind ("statusbar", &prefs_win.sb, "active", gio::SettingsBindFlags::DEFAULT);
         settings.bind ("sidebar", &prefs_win.sdbs, "active", gio::SettingsBindFlags::DEFAULT);
+
+        settings.bind ("focus-mode", &prefs_win.focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
+        settings.bind ("focus-mode", &prefs_win.focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
 
         prefs_win.sb.bind_property (
             "active",
@@ -692,7 +726,7 @@ impl Window {
         grid.set_orientation(gtk::Orientation::Vertical);
         grid.attach (&header.container, 0, 0, 1, 1);
         grid.attach (&searchbar.container, 0, 1, 1, 1);
-        grid.attach (&main, 0, 2, 1, 1);
+        grid.attach (&over, 0, 2, 1, 1);
         grid.attach (&statusbar, 0, 3, 1, 1);
         grid.show_all ();
 
@@ -722,7 +756,6 @@ impl Window {
         gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
         let window_widget = Window {
-            sag,
             app,
             widget: win,
             settings,
@@ -739,6 +772,7 @@ impl Window {
             webview,
             prefs_win,
             statusbar,
+            focus_bar,
         };
 
         window_widget.init ();
@@ -769,17 +803,17 @@ impl Window {
 
     fn setup_actions(&self) {
         action!(
-            self.sag,
-            "app.prefs",
-            glib::clone!(@weak self.widget as widget, @weak self.prefs_win.prefs as pw  => move |_, _| {
+            self.widget,
+            "prefs",
+            glib::clone!(@weak self.widget as widget, @weak self.prefs_win.prefsw as pw  => move |_, _| {
                 pw.set_transient_for(Some(&widget));
                 pw.show();
             })
         );
 
         action!(
-            self.sag,
-            "app.toggle_view",
+            self.widget,
+            "toggle_view",
             glib::clone!(@weak self.full_stack as fs, @weak self.view as editor, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
                 let key: glib::GString = "editor".into();
                 if fs.get_visible_child_name() == Some(key) {
@@ -791,15 +825,28 @@ impl Window {
             })
         );
 
+        action!(
+            self.widget,
+            "focus_mode",
+            glib::clone!(@strong self.settings as settings => move |_, _| {
+                let fm = settings.get_boolean("focus-mode");
+                if !fm {
+                    settings.set_boolean("focus-mode", true).expect ("Oops!");
+                } else {
+                    settings.set_boolean("focus-mode", false).expect ("Oops!");
+                }
+            })
+        );
+
         // Quit
         action!(
-            self.sag,
+            self.widget,
             "quit",
             glib::clone!(@strong self.app as app => move |_, _| {
                 app.quit();
             })
         );
-        self.app.set_accels_for_action("app.quit", &["<primary>q"]);
+        self.app.set_accels_for_action("win.quit", &["<primary>q"]);
     }
 
 

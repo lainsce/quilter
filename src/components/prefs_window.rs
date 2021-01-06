@@ -2,7 +2,7 @@ use gtk::prelude::BuilderExtManual;
 use gtk::*;
 
 pub struct PreferencesWindow {
-    pub prefs: libhandy::PreferencesWindow,
+    pub prefsw: libhandy::PreferencesWindow,
     pub ftype: gtk::ComboBoxText,
     pub ptype: gtk::ComboBoxText,
     pub sb: gtk::Switch,
@@ -23,6 +23,7 @@ pub struct PreferencesWindow {
     pub small2: gtk::RadioButton,
     pub medium2: gtk::RadioButton,
     pub large2: gtk::RadioButton,
+    pub focus_mode: libhandy::ExpanderRow,
 }
 
 impl PreferencesWindow {
@@ -49,6 +50,9 @@ impl PreferencesWindow {
         //
         // Interface
         //
+
+        get_widget!(builder, libhandy::ExpanderRow, focus_mode);
+        focus_mode.set_visible(true);
 
         get_widget!(builder, gtk::Switch, sb);
         sb.set_visible(true);
@@ -117,8 +121,8 @@ impl PreferencesWindow {
         get_widget!(builder, gtk::Switch, mermaid);
         mermaid.set_visible(true);
 
-        PreferencesWindow {
-            prefs,
+        let prefswin = PreferencesWindow {
+            prefsw: prefs,
             ftype,
             ptype,
             sb,
@@ -139,6 +143,9 @@ impl PreferencesWindow {
             small2,
             medium2,
             large2,
-        }
+            focus_mode,
+        };
+
+        prefswin
     }
 }
