@@ -9,8 +9,6 @@
       <object class="GtkGrid">
         <property name="visible">True</property>
         <property name="can-focus">False</property>
-        <property name="margin-start">2</property>
-        <property name="margin-end">2</property>
         <property name="margin-top">6</property>
         <property name="margin-bottom">6</property>
         <child>
@@ -89,6 +87,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.toggle_view</property>
             <property name="text" translatable="yes">Toggle View…</property>
           </object>
           <packing>
@@ -101,6 +100,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.prefs</property>
             <property name="text" translatable="yes">Preferences</property>
           </object>
           <packing>
@@ -112,6 +112,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-top">3</property>
+            <property name="margin-bottom">3</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -122,6 +124,8 @@
           <object class="GtkSeparator">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="margin-top">3</property>
+            <property name="margin-bottom">3</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
@@ -133,6 +137,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.focus_mode</property>
             <property name="text" translatable="yes">Focus Mode</property>
           </object>
           <packing>
@@ -145,6 +150,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.export_html</property>
             <property name="text" translatable="yes">Export HTML…</property>
           </object>
           <packing>
@@ -157,6 +163,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.export_html</property>
             <property name="text" translatable="yes">Export PDF…</property>
           </object>
           <packing>
@@ -169,6 +176,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
+            <property name="action-name">app.md_help</property>
             <property name="text" translatable="yes">Markdown Cheatsheet</property>
           </object>
           <packing>

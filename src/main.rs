@@ -6,7 +6,7 @@ extern crate glib;
 use gettextrs::*;
 
 mod components;
-use components::App;
+use components::window::Window;
 
 mod config;
 mod static_resources;
@@ -27,8 +27,8 @@ fn main() {
     glib::set_application_name("Quilter");
     glib::set_prgname(Some("com.github.lainsce.quilter"));
 
-    let app = App::new();
-    app.run();
+    let app = Window::new();
+    app.run ();
 
     gtk::main();
 }

@@ -18,14 +18,20 @@ use sourceview4::BufferExt;
 use sourceview4::StyleSchemeManagerExt;
 use gtk::SettingsExt as GtkSettings;
 use gio::SettingsExt;
+use gio::ActionMapExt;
+use gio::ApplicationExt;
+use gio::prelude::ApplicationExtManual;
 use gtk::RevealerExt;
 use gtk::WidgetExt;
 use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
 use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
+use std::env;
 
 pub struct Window {
+    pub sag: gio::SimpleActionGroup,
+    pub app: gtk::Application,
     pub widget: libhandy::ApplicationWindow,
     pub settings: gio::Settings,
     pub header:  Header,
@@ -33,6 +39,8 @@ pub struct Window {
     pub searchbar: Searchbar,
     pub lbr: ListBoxRow,
     pub main: gtk::Stack,
+    pub sc: gtk::Overlay,
+    pub sc1: gtk::ScrolledWindow,
     pub half_stack: gtk::Grid,
     pub full_stack: gtk::Stack,
     pub view: sourceview4::View,
@@ -43,16 +51,32 @@ pub struct Window {
 
 impl Window {
     pub fn new() -> Window {
+        gtk::Settings::get_default().unwrap().set_property_gtk_theme_name(Some("io.elementary.stylesheet.blueberry"));
+        gtk::Settings::get_default().unwrap().set_property_gtk_icon_theme_name(Some("elementary"));
+        gtk::Settings::get_default().unwrap().set_property_gtk_font_name(Some("Inter 9"));
+
         let settings = gio::Settings::new(APP_ID);
+        let sag = gio::SimpleActionGroup::new();
         let header = Header::new();
         let sidebar = Sidebar::new();
         let searchbar = Searchbar::new();
         let lbr = ListBoxRow::new();
         let prefs_win = PreferencesWindow::new();
+        let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
         
+        app.set_property_action_group (Some(&sag));
+        win.set_application(Some(&app));
+        app.add_window(&win);
+        win.show_all();
+
+        win.connect_delete_event(move |_, _| {
+            main_quit();
+            Inhibit(false)
+        });
+
         let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
         get_widget!(builder2, gtk::Stack, main);
         main.set_visible (true);
@@ -658,21 +682,6 @@ impl Window {
             }
         }));
 
-        header.popover.toggle_view_button.connect_clicked(glib::clone!(@weak full_stack, @weak view, @weak webview, @weak sc, @weak sc1 => move |_| {
-            let key: glib::GString = "editor".into();
-            if full_stack.get_visible_child_name() == Some(key) {
-                full_stack.set_visible_child(&sc1);
-            } else {
-                full_stack.set_visible_child(&sc);
-                reload_func(&view, &webview);
-            }
-        }));
-
-        header.popover.prefs_button.connect_clicked(glib::clone!(@weak win as window, @weak prefs_win.prefs as pw => move |_| {
-            pw.set_transient_for(Some(&window));
-            pw.show();
-        }));
-
         let sgrid = gtk::Grid::new();
         sgrid.set_orientation(gtk::Orientation::Vertical);
         sgrid.attach (&sidebar.container, 0, 0, 1, 3);
@@ -713,6 +722,8 @@ impl Window {
         gtk::IconTheme::add_resource_path(&def.unwrap(), "/com/github/lainsce/quilter/");
 
         let window_widget = Window {
+            sag,
+            app,
             widget: win,
             settings,
             header,
@@ -720,6 +731,8 @@ impl Window {
             searchbar,
             lbr,
             main,
+            sc,
+            sc1,
             half_stack,
             full_stack,
             view,
@@ -729,6 +742,8 @@ impl Window {
         };
 
         window_widget.init ();
+        window_widget.setup_actions ();
+        window_widget.setup_css ();
         window_widget
     }
 
@@ -750,6 +765,59 @@ impl Window {
                 Inhibit(false)
             }),
         );
+    }
+
+    fn setup_actions(&self) {
+        action!(
+            self.sag,
+            "app.prefs",
+            glib::clone!(@weak self.widget as widget, @weak self.prefs_win.prefs as pw  => move |_, _| {
+                pw.set_transient_for(Some(&widget));
+                pw.show();
+            })
+        );
+
+        action!(
+            self.sag,
+            "app.toggle_view",
+            glib::clone!(@weak self.full_stack as fs, @weak self.view as editor, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
+                let key: glib::GString = "editor".into();
+                if fs.get_visible_child_name() == Some(key) {
+                    fs.set_visible_child(&b);
+                } else {
+                    fs.set_visible_child(&a);
+                    reload_func(&editor, &preview);
+                }
+            })
+        );
+
+        // Quit
+        action!(
+            self.sag,
+            "quit",
+            glib::clone!(@strong self.app as app => move |_, _| {
+                app.quit();
+            })
+        );
+        self.app.set_accels_for_action("app.quit", &["<primary>q"]);
+    }
+
+
+    fn setup_css(&self) {
+        let p = gtk::CssProvider::new();
+        gtk::CssProvider::load_from_resource(&p, "/com/github/lainsce/quilter/app.css");
+        if let Some(screen) = gdk::Screen::get_default() {
+            gtk::StyleContext::add_provider_for_screen(
+                &screen,
+                &p,
+                500,
+            );
+        }
+    }
+
+    pub fn run(&self) {
+        let args: Vec<String> = env::args().collect();
+        self.app.run(&args);
     }
 }
 
