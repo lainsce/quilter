@@ -188,11 +188,11 @@ impl PreferencesWindow {
             }
         }));
 
-        if tx == 1 {
+        if tx == 0 {
             ztype.set_active(Some(0));
-        } else if tx == 2 {
+        } else if tx == 1 {
             ztype.set_active(Some(1));
-        } else if tx == 3 {
+        } else if tx == 2 {
             ztype.set_active(Some(2))
         }
 
@@ -261,12 +261,6 @@ impl PreferencesWindow {
         gschema.bind ("highlight", &highlight, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("latex", &latex, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("mermaid", &mermaid, "active", gio::SettingsBindFlags::DEFAULT);
-
-        mermaid.bind_property (
-            "active",
-            &highlight,
-            "active"
-        );
 
         let prefswin = PreferencesWindow {
             prefs,

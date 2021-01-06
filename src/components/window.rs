@@ -14,7 +14,6 @@ use pulldown_cmark::{Parser, Options, html};
 use gtk::*;
 use gtk::prelude::*;
 use gtk::IconThemeExt;
-use gtk::ApplicationWindowExt;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use sourceview4::StyleSchemeManagerExt;
@@ -68,24 +67,17 @@ impl Window {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
 
+        win.set_application(Some(&app));
+        win.set_size_request(600, 350);
+        win.set_icon_name(Some(APP_ID));
+        app.add_window(&win);
+
+        win.show_all();
+
         win.connect_delete_event(move |_, _| {
             main_quit();
             Inhibit(false)
         });
-
-        app.connect_activate(glib::clone!(@weak win => move |app| {
-                win.set_application(Some(app));
-                win.set_size_request(600, 350);
-                win.set_icon_name(Some(APP_ID));
-                app.add_window(&win);
-
-                if app.get_window_by_id(win.get_id()).unwrap() == win {
-                    win.present();
-                    return;
-                }
-
-                win.show_all();
-        }));
 
         let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
         get_widget!(builder2, gtk::Overlay, over);
@@ -411,15 +403,15 @@ impl Window {
             view.set_bottom_margin (40);
         }
 
-        if tx == 1 {
+        if tx == 0 {
             view.get_style_context().add_class("small-font");
             view.get_style_context().remove_class("medium-font");
             view.get_style_context().remove_class("large-font");
-        } else if tx == 2 {
+        } else if tx == 1 {
             view.get_style_context().add_class("medium-font");
             view.get_style_context().remove_class("small-font");
             view.get_style_context().remove_class("large-font");
-        } else if tx == 3 {
+        } else if tx == 2 {
             view.get_style_context().add_class("large-font");
             view.get_style_context().remove_class("medium-font");
             view.get_style_context().remove_class("small-font");
@@ -1011,20 +1003,20 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
 
     // Highlight.js
     let mut highlight = "".to_string();
-    let render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
+    let render = "https://unpkg.com/@highlightjs/cdn-assets@10.5.0/highlight.min.js".to_string();
     let mut stringhl = "".to_string();
 
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
     if vm.as_str() == "dark" {
         style = &css.dark;
-        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
+        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/gruvbox-dark.css".to_string();
     } else if vm.as_str() == "sepia" {
         style = &css.sepia;
-        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
+        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/solarized-light.css".to_string();
     } else if vm.as_str() == "light" {
         style = &css.light;
-        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/light.min.css";
+        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/tomorrow.css".to_string();
     }
     if settings.get_boolean("highlight") {
         stringhl = format! ("
@@ -1034,17 +1026,15 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     }
 
     // LaTeX (Katex)
-    let renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
     let mut stringtex = "".to_string();
-    let katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
-    let katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
-
     if settings.get_boolean("latex") {
-        stringtex = format!( "
-                        <link rel=\"stylesheet\" href=\"{}\">
-                        <script src=\"{}\"></script>
-                        <script src=\"{}\" onload=\"renderMathInElement(document.body);\"></script>
-                    ",  katexmain, katexjs, renderl);
+        stringtex = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css\"><script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js\" onload=\"renderMathInElement(document.body);\"></script>".to_string();
+    }
+
+    // Mermaid
+    let mut stringmaid = "".to_string();
+    if settings.get_boolean("mermaid") {
+        stringmaid = "<script defer src=\"https://unpkg.com/mermaid@8.8.4/dist/mermaid.min.js\"></script>".to_string();
     }
 
     let pft = settings.get_string("preview-font-type").unwrap();
@@ -1084,6 +1074,7 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
           <style>{}</style>
       </head>
       <body>
+        {}
           <div>
               {}
           </div>
@@ -1094,6 +1085,7 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
        stringtex,
        cheader,
        font,
+       stringmaid,
        md);
 
     webview.load_html(&html, Some("file:///"));

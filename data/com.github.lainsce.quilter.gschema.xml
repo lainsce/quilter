@@ -125,7 +125,7 @@
       <summary>The margins for the Editor View</summary>
     </key>
     <key name="font-sizing" type="i">
-      <default>2</default>
+      <default>1</default>
       <summary>The font size for the Editor View</summary>
     </key>
     <key name="focus-mode-type" type="b">
