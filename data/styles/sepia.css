@@ -9,7 +9,7 @@
 @define-color accent_sepia #60C9C2;
 @define-color accent_color_500 #60C9C2;
 
-@define-color prefs_accent_sepia_sepia #AA9D85;
+@define-color prefs_accent_sepia #AA9D85;
 @define-color prefs_primary_sepia #e6e5e1;
 @define-color prefs_fg_sepia #363431;
 
@@ -40,18 +40,21 @@
     color: @prefs_fg_sepia;
     padding: 4px;
     margin: 5px;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb switch:checked {
-    background: @prefs_accent_sepia_sepia;
+    background: @prefs_accent_sepia;
 }
 .quilter-dialog-hb .toggle:checked {
-    background: @prefs_accent_sepia_sepia;
+    background: @prefs_accent_sepia;
 }
 .quilter-dialog-hb viewswitcher button {
     box-shadow: none;
     background-image: none;
     border-radius: 8px 0 0 8px;
     color: @prefs_fg_sepia;
+    -gtk-icon-palette: error @prefs_fg_sepia, success @prefs_fg_sepia, warning @prefs_fg_sepia;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb viewswitcher button:not(:first-child):not(:last-child) {
     box-shadow: none;
@@ -77,21 +80,21 @@
 }
 .quilter-dialog-hb viewswitcher button:not(:checked):not(:active) {
 
-    border-top: 1px solid shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
-    border-bottom: 1px solid shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
-    background: mix(@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95);
+    border-top: 1px solid shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    border-bottom: 1px solid shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    background: mix(@prefs_accent_sepia, @prefs_primary_sepia, 0.95);
 }
 .quilter-dialog-hb viewswitcher button {
-    background: shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    background: shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
     border: 1px solid transparent;
 }
 .quilter-dialog-hb viewswitcher button:first-child {
-    background: shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
-    border-left: 1px solid shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    background: shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    border-left: 1px solid shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
 }
 .quilter-dialog-hb viewswitcher button:last-child {
-    background: shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
-    border-right: 1px solid shade(mix (@prefs_accent_sepia_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    background: shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
+    border-right: 1px solid shade(mix (@prefs_accent_sepia, @prefs_primary_sepia, 0.95), 0.88);
 }
 .quilter-dialog-hb .header .title {
     font-size: 10pt;

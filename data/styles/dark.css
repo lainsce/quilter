@@ -9,7 +9,7 @@
 @define-color accent_color_500 #70C0FF;
 @define-color color_primary_dark #222;
 
-@define-color prefs_accent_dark_dark #6A7D85;
+@define-color prefs_accent_dark #6A7D85;
 @define-color prefs_primary_dark #333;
 @define-color prefs_fg_dark #FFF;
 
@@ -42,18 +42,21 @@
     color: @prefs_fg_dark;
     padding: 4px;
     margin: 5px;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb switch:checked {
-    background: @prefs_accent_dark_dark;
+    background: @prefs_accent_dark;
 }
 .quilter-dialog-hb .toggle:checked {
-    background: @prefs_accent_dark_dark;
+    background: @prefs_accent_dark;
 }
 .quilter-dialog-hb viewswitcher button {
     box-shadow: none;
     background-image: none;
     border-radius: 8px 0 0 8px;
     color: @prefs_fg_dark;
+    -gtk-icon-palette: error @prefs_fg_dark, success @prefs_fg_dark, warning @prefs_fg_dark;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb viewswitcher button:not(:first-child):not(:last-child) {
     box-shadow: none;
@@ -78,21 +81,21 @@
     padding-top: 0.5em;
 }
 .quilter-dialog-hb viewswitcher button:not(:checked):not(:active) {
-    border-top: 1px solid shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
-    border-bottom: 1px solid shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
-    background: mix(@prefs_accent_dark_dark, @prefs_primary_dark, 0.90);
+    border-top: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    border-bottom: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: mix(@prefs_accent_dark, @prefs_primary_dark, 0.90);
 }
 .quilter-dialog-hb viewswitcher button {
-    background: shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
     border: 1px solid transparent;
 }
 .quilter-dialog-hb viewswitcher button:first-child {
-    background: shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
-    border-left: 1px solid shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    border-left: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
 }
 .quilter-dialog-hb viewswitcher button:last-child {
-    background: shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
-    border-right: 1px solid shade(mix (@prefs_accent_dark_dark, @prefs_primary_dark, 0.90), 0.57);
+    background: shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
+    border-right: 1px solid shade(mix (@prefs_accent_dark, @prefs_primary_dark, 0.90), 0.57);
 }
 .quilter-dialog-hb .header .title {
     font-size: 10pt;

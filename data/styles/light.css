@@ -46,6 +46,7 @@
     color: @prefs_fg_light;
     padding: 4px;
     margin: 5px;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb switch:checked {
     background: @prefs_accent_light;
@@ -58,6 +59,8 @@
     background-image: none;
     border-radius: 8px 0 0 8px;
     color: @prefs_fg_light;
+    -gtk-icon-palette: error @prefs_fg_light, success @prefs_fg_light, warning @prefs_fg_light;
+    -gtk-icon-shadow: none;
 }
 .quilter-dialog-hb viewswitcher button:not(:first-child):not(:last-child) {
     box-shadow: none;

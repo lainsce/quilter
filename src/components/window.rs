@@ -208,7 +208,8 @@ impl Window {
 
         let asv = settings.get_boolean("autosave");
         let tw = settings.get_boolean("typewriter-scrolling");
-        if tw {
+        let fs = settings.get_boolean("focus-mode");
+        if tw && fs {
             glib::timeout_add_seconds_local(
                 3, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
                 let cursor = buffer.get_insert ().unwrap();
@@ -220,7 +221,7 @@ impl Window {
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview, @weak buffer => move |_| {
             reload_func (&view, &webview);
 
-            if tw {
+            if tw && fs {
                 glib::timeout_add_seconds_local(
                     5, glib::clone!(@weak view => @default-return glib::Continue(false), move || {
                     let cursor = buffer.get_insert ().unwrap();
@@ -297,7 +298,6 @@ impl Window {
         let sm = settings.get_boolean("sidebar");
         let st = settings.get_boolean("statusbar");
         let sh = settings.get_boolean("searchbar");
-        let fs = settings.get_boolean("focus-mode");
         let ts = settings.get_int("spacing");
         let tm = settings.get_int("margins");
         let tx = settings.get_int("font-sizing");
@@ -368,20 +368,20 @@ impl Window {
 
         if sm {
             sidebar.container.set_reveal_child(true);
-            header.container.set_decoration_layout (Some(&":maximize"));
+            header.headerbar.set_decoration_layout (Some(&":maximize"));
         } else {
             sidebar.container.set_reveal_child(false);
-            header.container.set_decoration_layout (Some(&"close:maximize"));
+            header.headerbar.set_decoration_layout (Some(&"close:maximize"));
         }
 
         if fs {
             focus_bar.set_reveal_child(true);
-            header.container.set_visible (false);
+            header.container.set_reveal_child(false);
             sidebar.container.set_reveal_child(false);
             statusbar.set_reveal_child(false);
         } else {
             focus_bar.set_reveal_child(false);
-            header.container.set_visible (true);
+            header.container.set_reveal_child(true);
             sidebar.container.set_reveal_child(sm);
             statusbar.set_reveal_child(st);
         }
@@ -484,6 +484,7 @@ impl Window {
                                                 @weak focus_bar,
                                                 @weak searchbar.container as sbc,
                                                 @weak header.container as hc,
+                                                @weak header.headerbar as hb,
                                                 @weak sidebar.container as sdb,
                                                 @weak type_label,
                                                 @weak header.search_button as hsb
@@ -534,20 +535,20 @@ impl Window {
 
             if sm {
                 sdb.set_reveal_child(true);
-                hc.set_decoration_layout (Some(&":maximize"));
+                hb.set_decoration_layout (Some(&":maximize"));
             } else {
                 sdb.set_reveal_child(false);
-                hc.set_decoration_layout (Some(&"close:maximize"));
+                hb.set_decoration_layout (Some(&"close:maximize"));
             }
 
             if fs {
                 focus_bar.set_reveal_child(true);
-                hc.set_visible (false);
+                hc.set_reveal_child(false);
                 sdb.set_reveal_child(false);
                 statusbar.set_reveal_child(false);
             } else {
                 focus_bar.set_reveal_child(false);
-                hc.set_visible (true);
+                hc.set_reveal_child(true);
                 sdb.set_reveal_child(sm);
                 statusbar.set_reveal_child(st);
             }
@@ -797,12 +798,12 @@ impl Window {
         leaflet.set_visible_child (&grid);
         leaflet.show_all ();
 
-        leaflet.connect_property_folded_notify (glib::clone!(@weak leaflet, @weak header.container as hcs, @weak sidebar.sideheader as sbcs => move |_| {
+        leaflet.connect_property_folded_notify (glib::clone!(@weak leaflet, @weak header.headerbar as hb, @weak sidebar.sideheader as sbcs => move |_| {
             if leaflet.get_folded() {
-                hcs.set_decoration_layout (Some(&":"));
+                hb.set_decoration_layout (Some(&":"));
                 sbcs.set_decoration_layout (Some(&":"));
             } else {
-                hcs.set_decoration_layout (Some(&":maximize"));
+                hb.set_decoration_layout (Some(&":maximize"));
                 sbcs.set_decoration_layout (Some(&"close:"));
             }
         }));
@@ -976,17 +977,15 @@ fn change_layout (main: &gtk::Stack,
 fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
     let buf = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true).unwrap();
-    let mut contents = buf.as_str();
-
+    let contents = buf.as_str();
     let css = CSS::new();
-
     let mut style = "";
     let mut font = "";
-    let mut render;
-    let mut stringhl;
-    let mut cheader;
-    cheader = "".to_string();
+
+    // Highlight.js
     let mut highlight = "".to_string();
+    let render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
+    let mut stringhl = "".to_string();
 
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
@@ -1000,27 +999,26 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
         style = &css.light;
         highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/light.min.css";
     }
-
-    // Highlight.js
-    render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
-    stringhl = format! ("
-        <link rel=\"stylesheet\" href=\"{}\">
-        <script defer src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
-    ", highlight, render);
+    if settings.get_boolean("highlight") {
+        stringhl = format! ("
+            <link rel=\"stylesheet\" href=\"{}\">
+            <script src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
+        ", highlight, render);
+    }
 
     // LaTeX (Katex)
-    let mut renderl;
-    let mut stringtex;
-    let mut katexmain;
-    let mut katexjs;
-    katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
-    katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
-    renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
-    stringtex = format!( "
-                    <link rel=\"stylesheet\" href=\"{}\">
-                    <script defer src=\"{}\"></script>
-                    <script defer src=\"{}\" onload=\"renderMathInElement(document.body);\"></script>
-                ",  katexmain, katexjs, renderl);
+    let renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
+    let mut stringtex = "".to_string();
+    let katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
+    let katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
+
+    if settings.get_boolean("latex") {
+        stringtex = format!( "
+                        <link rel=\"stylesheet\" href=\"{}\">
+                        <script src=\"{}\"></script>
+                        <script src=\"{}\" onload=\"renderMathInElement(document.body);\"></script>
+                    ",  katexmain, katexjs, renderl);
+    }
 
     let pft = settings.get_string("preview-font-type").unwrap();
     if pft.as_str() == "serif" {
@@ -1031,6 +1029,8 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
         font = &css.mono;
     }
 
+    // Center Headers
+    let mut cheader = "".to_string();
     if settings.get_boolean("center-headers") {
         cheader = (&css.center).to_string();
     }
@@ -1045,26 +1045,28 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let mut md = String::new();
     html::push_html(&mut md, parser);
 
-    let mut html = format! ("
+    let html = format! ("
     <!doctype html>
     <html>
       <head>
           <meta charset=\"utf-8\">
-          <style>{}{}{}</style>
+          <style>{}</style>
           {}
           {}
+          <style>{}</style>
+          <style>{}</style>
       </head>
       <body>
-          <div class=\"markdown-body\">
+          <div>
               {}
           </div>
       </body>
     </html>
     ", style,
-       cheader,
-       font,
        stringhl,
        stringtex,
+       cheader,
+       font,
        md);
 
     webview.load_html(&html, Some("file:///"));

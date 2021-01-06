@@ -226,16 +226,16 @@ impl PreferencesWindow {
             gschema.set_int("font-sizing", 2).expect ("Oops!");
         }
 
-        light.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
-            s.set_string("visual-mode", "light").unwrap();
+        light.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
+            g.set_string("visual-mode", "light").unwrap();
         }));
 
-        dark.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
-            s.set_string("visual-mode", "dark").unwrap();
+        dark.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
+            g.set_string("visual-mode", "dark").unwrap();
         }));
 
-        sepia.connect_toggled(glib::clone!(@weak gschema as s => move |_| {
-            s.set_string("visual-mode", "sepia").unwrap();
+        sepia.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
+            g.set_string("visual-mode", "sepia").unwrap();
         }));
 
         let pft = gschema.get_string("preview-font-type").unwrap();
