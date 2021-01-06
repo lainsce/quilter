@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -76,7 +76,7 @@ namespace Quilter {
                 context.parse (ref tmp);
                 unclaimed_args = tmp.length - 1;
             } catch (Error e) {
-                stdout.printf ("ERROR: " + e.message + "\n");
+                warning ("ERROR: " + e.message + "\n");
                 return 0;
             }
 
@@ -201,7 +201,6 @@ namespace Quilter {
                 var handler = AppInfo.get_default_for_type (mimetype, false);
                 if (handler == null) {
                     try {
-                        debug ("Registering Quilter as the default handler for %s", mimetype);
                         app_info.set_as_default_for_type (mimetype);
                     } catch (Error e) {
                         warning (e.message);
@@ -210,7 +209,6 @@ namespace Quilter {
                     unowned string[] types = handler.get_supported_types ();
                     if (types == null || !(mimetype in types)) {
                         try {
-                            debug ("Registering Quilter as the default handler for %s", mimetype);
                             app_info.set_as_default_for_type (mimetype);
                         } catch (Error e) {
                             warning (e.message);

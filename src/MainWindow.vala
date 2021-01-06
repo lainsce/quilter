@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -424,7 +424,7 @@ namespace Quilter {
             searchbar = new Widgets.SearchBar (this);
 
             overlay_button_revealer = new Gtk.Revealer ();
-            overlay_button_revealer.transition_type = Gtk.RevealerTransitionType.CROSSFADE;
+            overlay_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             overlay_button_revealer.halign = Gtk.Align.END;
             overlay_button_revealer.valign = Gtk.Align.END;
 
@@ -441,7 +441,10 @@ namespace Quilter {
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
             });
 
-            overlay_button_revealer.add (focus_overlay_button);
+            var overlay_button_dragger = new Hdy.WindowHandle ();
+            overlay_button_dragger.add(focus_overlay_button);
+
+            overlay_button_revealer.add (overlay_button_dragger);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (titlebar_revealer);
@@ -479,7 +482,7 @@ namespace Quilter {
                 sidebar.delete_rows ();
             }
 
-            this.set_size_request (360, 435);
+            this.set_size_request (360, 400);
         }
 
         private void update () {
@@ -617,8 +620,6 @@ namespace Quilter {
                 statusbar.update_wordcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
                 statusbar.update_linecount ();
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
-                statusbar.update_charcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
                 statusbar.update_readtimecount ();
             }
@@ -771,7 +772,6 @@ namespace Quilter {
             dialog.response.connect ((response_id) => {
                 switch (response_id) {
                     case Gtk.ResponseType.OK:
-                        debug ("User saves the file.");
                         unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
                         if (row != null && row.path != null) {
                             on_save ();
@@ -801,7 +801,6 @@ namespace Quilter {
                 dialog.run ();
             }
 
-            debug ("Creating new document");
             on_save ();
             sidebar.add_file (Services.FileManager.get_temp_document_path ());
             sidebar.is_modified = true;

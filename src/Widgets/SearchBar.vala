@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018-2020 Lains
+* Copyright (c) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -164,7 +164,6 @@ namespace Quilter.Widgets {
                 try {
                     search_context.replace (start_iter, end_iter, replace_string, replace_string.length);
                     update_replace_tool_sensitivities (search_entry.text);
-                    debug ("Replace \"%s\" with \"%s\"", search_entry.text, replace_entry.text);
                 } catch (Error e) {
                     critical (e.message);
                 }
@@ -175,7 +174,7 @@ namespace Quilter.Widgets {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
             if (text_buffer == null) {
-                debug ("No valid buffer to replace");
+                warning ("No valid buffer to replace");
                 return;
             }
 
@@ -223,7 +222,7 @@ namespace Quilter.Widgets {
             text_view.search_context.settings.case_sensitive = case_sensitive;
 
             if (text_buffer == null || text_buffer.text == "") {
-                debug ("Can't search anything in an inexistant buffer and/or without anything to search.");
+                warning ("Can't search anything in an inexistant buffer and/or without anything to search.");
                 return false;
             }
 

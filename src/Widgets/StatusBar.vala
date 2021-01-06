@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2017-2020 Lains
+* Copyright (C) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -25,13 +25,12 @@ namespace Quilter {
         public Gtk.MenuButton track_type_menu;
         public Gtk.SourceBuffer buf;
         public Gtk.RadioButton track_words;
-        public Gtk.RadioButton track_chars;
         public Gtk.RadioButton track_lines;
         public Gtk.RadioButton track_rtc;
         public MainWindow window;
 
-        /* Averaged normal reading speed is 225 WPM */
-        int WPM = 225;
+        /* Averaged normal reading speed is 200 WPM */
+        int WPM = 200;
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
@@ -41,25 +40,19 @@ namespace Quilter {
             var sb_context = actionbar.get_style_context ();
             sb_context.add_class ("statusbar");
 
-            track_chars = new Gtk.RadioButton.with_label_from_widget (null, _("Track Characters"));
-	        track_chars.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "chars");
-	            update_charcount ();
-	        });
-
-	        track_words = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Words"));
+	        track_words = new Gtk.RadioButton.with_label (null, _("Words"));
 	        track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
 	            update_wordcount ();
 	        });
 
-	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Lines"));
+	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_words, _("Lines"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
 	            update_linecount ();
             });
             
-            track_rtc = new Gtk.RadioButton.with_label_from_widget (track_chars, _("Track Read Time"));
+            track_rtc = new Gtk.RadioButton.with_label_from_widget (track_words, _("Reading Time"));
 	        track_rtc.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "rtc");
 	            update_readtimecount ();
@@ -70,7 +63,6 @@ namespace Quilter {
             track_type_grid.row_spacing = 12;
             track_type_grid.column_spacing = 12;
             track_type_grid.orientation = Gtk.Orientation.VERTICAL;
-            track_type_grid.add (track_chars);
             track_type_grid.add (track_words);
             track_type_grid.add (track_lines);
             track_type_grid.add (track_rtc);
@@ -94,8 +86,6 @@ namespace Quilter {
                 update_wordcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
                 update_linecount ();
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "chars") {
-                update_charcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
                 update_readtimecount ();
             }
@@ -115,14 +105,10 @@ namespace Quilter {
             track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
         }
 
-        public void update_charcount () {
-            var cc = get_count();
-            track_type_menu.set_label ((_("Characters: ")) + cc.chars.to_string());
-        }
-
         public void update_readtimecount () {
             var rtc = get_count();
-            int rt = (rtc.words / WPM);
+            float rt = (rtc.words / WPM);
+            print ("%f", rt);
 		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
         }
 
@@ -130,22 +116,19 @@ namespace Quilter {
     		Gtk.TextIter start, end;
             buf.get_bounds (out start, out end);
             var lines = buf.get_line_count ();
-            var chars = buf.get_text (start, end, false).strip().length;
-            var words = buf.get_text (start, end, false).strip().split(" ").length;
+            var words = buf.get_text (start, end, false).split(" ").length;
 
-    		return new WordCount(words, lines, chars);
+    		return new WordCount(words, lines);
     	}
     }
 
     public class Widgets.WordCount {
         public int words { get; private set; }
         public int lines { get; private set; }
-        public int chars { get; private set; }
 
-        public WordCount(int words, int lines, int chars) {
+        public WordCount(int words, int lines) {
             this.words = words;
             this.lines = lines;
-            this.chars = chars;
         }
     }
 }
