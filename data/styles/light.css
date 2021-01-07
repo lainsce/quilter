@@ -20,9 +20,8 @@
 
 .quilter-dialog-hb headerbar,
 .quilter-dialog-hb actionbar {
-    background: shade(@prefs_primary_light, 0.88);
+    background: shade(@prefs_primary_light, 1.2);
     color: @prefs_fg_light;
-    box-shadow: none;
 }
 .quilter-dialog-hb .titlebar .image-button.toggle {
   background: none;
