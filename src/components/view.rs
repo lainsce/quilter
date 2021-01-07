@@ -5,7 +5,6 @@ use gtk::*;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use gio::SettingsExt;
-use glib::ObjectExt;
 
 pub struct EditorView {
     pub view: sourceview4::View,
@@ -222,12 +221,15 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            if fs != false {
-                buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
-                    focus_scope (&gschema, &buffer);
-                }));
-            } else {
+            let focus_mode_turnkey = buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
+                             focus_scope (&gschema, &buffer);
+                         }));
+            glib::object::ObjectExt::block_signal (&buffer, &focus_mode_turnkey);
 
+            if fs {
+                glib::object::ObjectExt::unblock_signal (&buffer, &focus_mode_turnkey);
+            } else {
+                glib::object::ObjectExt::block_signal (&buffer, &focus_mode_turnkey);
             }
         }));
 
