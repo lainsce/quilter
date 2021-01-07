@@ -120,6 +120,7 @@ impl Window {
                 settings.set_boolean("focus-mode", true).expect ("Oops!");
             } else {
                 settings.set_boolean("focus-mode", false).expect ("Oops!");
+                settings.set_boolean("typewriter-scrolling", false).expect ("Oops!");
             }
         }));
 
@@ -208,25 +209,29 @@ impl Window {
         let asv = settings.get_boolean("autosave");
         let tw = settings.get_boolean("typewriter-scrolling");
         let fs = settings.get_boolean("focus-mode");
-        if tw && fs {
-            glib::timeout_add_seconds_local(
-                3, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(false), move || {
-                let cursor = buffer.get_insert ().unwrap();
-                view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
-                glib::Continue(false)
-            }));
+        if tw != false {
+            if fs != false {
+                glib::timeout_add_local(
+                    500, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(true), move || {
+                    let cursor = buffer.get_insert ().unwrap();
+                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                    glib::Continue(true)
+                }));
+            }
         }
 
         view.get_buffer ().unwrap ().connect_changed(glib::clone!(@strong settings, @weak view, @weak webview, @weak buffer => move |_| {
             reload_func (&view, &webview);
 
-            if tw && fs {
-                glib::timeout_add_seconds_local(
-                    5, glib::clone!(@weak view => @default-return glib::Continue(false), move || {
-                    let cursor = buffer.get_insert ().unwrap();
-                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
-                    glib::Continue(false)
-                }));
+            if tw != false {
+                if fs != false {
+                    glib::timeout_add_local(
+                        500, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(true), move || {
+                        let cursor = buffer.get_insert ().unwrap();
+                        view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                        glib::Continue(true)
+                    }));
+                }
             }
 
             if asv {
@@ -259,6 +264,8 @@ impl Window {
             let scroll_value = valued/upper;
             set_scrvalue(&webview, scroll_value);
         }));
+
+        focus_scope (&settings, &buffer);
 
         //
         //
@@ -390,6 +397,17 @@ impl Window {
             let m = (width * (16.0 / 100.0)) as i32;
             view.set_left_margin (m);
             view.set_right_margin (m);
+        }
+
+        if tw != false {
+            if fs != false {
+                glib::timeout_add_local(
+                    500, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(true), move || {
+                    let cursor = buffer.get_insert ().unwrap();
+                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                    glib::Continue(true)
+                }));
+            }
         }
 
         if tw && fs {
@@ -918,6 +936,7 @@ impl Window {
                     settings.set_boolean("focus-mode", true).expect ("Oops!");
                 } else {
                     settings.set_boolean("focus-mode", false).expect ("Oops!");
+                    settings.set_boolean("typewriter-scrolling", false).expect ("Oops!");
                 }
             })
         );
@@ -961,6 +980,82 @@ impl Window {
 //
 //
 //
+
+fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
+            let (start, end) = buffer.get_bounds();
+            let vm = settings.get_string("visual-mode").unwrap();
+
+            let darkgrayfontb = gtk::TextTagBuilder::new();
+            let lightgrayfontb = gtk::TextTagBuilder::new();
+            let blackfontb = gtk::TextTagBuilder::new();
+            let whitefontb = gtk::TextTagBuilder::new();
+            let lightsepiafontb = gtk::TextTagBuilder::new();
+            let sepiafontb = gtk::TextTagBuilder::new();
+
+            let darkgrayfont = darkgrayfontb.foreground("#888").build();
+            let lightgrayfont = lightgrayfontb.foreground("#888").build();
+            let blackfont = blackfontb.foreground("#151515").build();
+            let whitefont = whitefontb.foreground("#F7F7F7").build();
+            let lightsepiafont = lightsepiafontb.foreground("#AA8866").build();
+            let sepiafont = sepiafontb.foreground("#331100").build();
+
+
+            if vm.as_str() == "dark" {
+                buffer.apply_tag(&darkgrayfont, &start, &end);
+                buffer.remove_tag(&lightsepiafont, &start, &end);
+                buffer.remove_tag(&lightgrayfont, &start, &end);
+                buffer.remove_tag(&whitefont, &start, &end);
+            } else if vm.as_str() == "sepia" {
+                buffer.remove_tag(&darkgrayfont, &start, &end);
+                buffer.apply_tag(&lightsepiafont, &start, &end);
+                buffer.remove_tag(&lightgrayfont, &start, &end);
+                buffer.remove_tag(&sepiafont, &start, &end);
+            } else {
+                buffer.remove_tag(&darkgrayfont, &start, &end);
+                buffer.remove_tag(&lightsepiafont, &start, &end);
+                buffer.apply_tag(&lightgrayfont, &start, &end);
+                buffer.remove_tag(&blackfont, &start, &end);
+            }
+
+            if buffer.get_insert () != None {
+                let mut start_sentence = buffer.get_iter_at_mark (&buffer.get_insert ().unwrap());
+                let mut end_sentence = buffer.get_iter_at_mark (&buffer.get_insert ().unwrap());
+                let focus_type = settings.get_boolean ("focus-mode-type");
+                if buffer.get_iter_at_mark (&buffer.get_insert ().unwrap()) != start &&
+                   buffer.get_iter_at_mark (&buffer.get_insert ().unwrap()) != end {
+                    if focus_type {
+                        start_sentence.backward_sentence_start ();
+                        end_sentence.forward_sentence_end ();
+                    } else {
+                        start_sentence.backward_lines (1);
+                        end_sentence.forward_to_line_end ();
+                    }
+                }
+
+                if vm.as_str() == "dark" {
+                    buffer.remove_tag(&sepiafont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightsepiafont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&blackfont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                    buffer.apply_tag(&whitefont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                } else if vm.as_str() == "sepia" {
+                    buffer.apply_tag(&sepiafont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightsepiafont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&blackfont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&whitefont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                } else {
+                    buffer.remove_tag(&sepiafont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightsepiafont, &start_sentence, &end_sentence);
+                    buffer.apply_tag(&blackfont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&whitefont, &start_sentence, &end_sentence);
+                    buffer.remove_tag(&lightgrayfont, &start_sentence, &end_sentence);
+                }
+            }
+}
 
 fn change_layout (main: &gtk::Stack,
                   full_stack: &gtk::Stack,

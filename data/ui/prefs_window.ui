@@ -158,7 +158,7 @@
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkSwitch" id="scope">
+                          <object class="GtkSwitch" id="focus_scope">
                             <property name="visible">True</property>
                             <property name="can-focus">True</property>
                             <property name="halign">center</property>

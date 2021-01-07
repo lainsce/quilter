@@ -2,7 +2,6 @@ use gtk::prelude::BuilderExtManual;
 use gtk::*;
 use gio::{Settings, SettingsExt};
 use gtk::WidgetExt;
-use glib::ObjectExt;
 use gtk::prelude::ComboBoxExtManual;
 
 pub struct PreferencesWindow {
@@ -23,6 +22,7 @@ pub struct PreferencesWindow {
     pub mtype: gtk::ComboBoxText,
     pub ztype: gtk::ComboBoxText,
     pub focus_mode: libhandy::ExpanderRow,
+    pub focus_scope: gtk::Switch,
     pub autosave: libhandy::ExpanderRow,
     pub delay: gtk::SpinButton,
 }
@@ -57,6 +57,9 @@ impl PreferencesWindow {
 
         get_widget!(builder, libhandy::ExpanderRow, focus_mode);
         focus_mode.set_visible(true);
+
+        get_widget!(builder, gtk::Switch, focus_scope);
+        focus_scope.set_visible(true);
 
         get_widget!(builder, gtk::Switch, typewriter);
         typewriter.set_visible(true);
@@ -142,6 +145,7 @@ impl PreferencesWindow {
         gschema.bind ("autosave", &autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("autosave", &autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("focus-mode-type", &focus_scope, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
 
         if vm.as_str() == "light" {
@@ -279,6 +283,7 @@ impl PreferencesWindow {
             mtype,
             ztype,
             focus_mode,
+            focus_scope,
             autosave,
             delay,
             typewriter
