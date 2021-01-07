@@ -3,8 +3,52 @@
 <interface>
   <requires lib="gtk+" version="3.24"/>
   <requires lib="gtksourceview" version="4.0"/>
-  <requires lib="libhandy" version="0.0"/>
+  <requires lib="libhandy" version="1.0"/>
   <requires lib="webkit2gtk" version="2.28"/>
+  <object class="GtkTextTagTable" id="table">
+    <child type="tag">
+      <object class="GtkTextTag" id="lightgrayfont">
+        <property name="name">lightgrayfont</property>
+        <property name="foreground">#888888</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="sepiafont">
+        <property name="name">sepiafont</property>
+        <property name="foreground">#332211</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="lightsepiafont">
+        <property name="name">lightsepiafont</property>
+        <property name="foreground">#AA8866</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="blackfont">
+        <property name="name">blackfont</property>
+        <property name="foreground">#151515</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="whitefont">
+        <property name="name">whitefont</property>
+        <property name="foreground">#F7F7F7</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="darkgrayfont">
+        <property name="name">darkgrayfont</property>
+        <property name="foreground">#888888</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+  </object>
   <object class="GtkPopover" id="type_pop">
     <property name="can-focus">False</property>
     <child>
@@ -210,7 +254,7 @@
         <property name="valign">end</property>
         <property name="transition-type">slide-up</property>
         <child>
-            <object class="HdyWindowHandle">
+          <object class="HdyWindowHandle">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
             <child>
