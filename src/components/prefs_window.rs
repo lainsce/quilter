@@ -132,7 +132,6 @@ impl PreferencesWindow {
         // gschema Binds
         //
         //
-
         let vm = gschema.get_string("visual-mode").unwrap();
         let ts = gschema.get_int("spacing");
         let tm = gschema.get_int("margins");

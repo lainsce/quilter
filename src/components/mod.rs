@@ -4,6 +4,7 @@ mod utils;
 pub mod prefs_window;
 pub mod window_state;
 pub mod window;
+pub mod view;
 pub mod header;
 pub mod sidebar;
 pub mod viewpopover;
