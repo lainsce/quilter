@@ -266,8 +266,6 @@ impl Window {
             set_scrvalue(&webview, &scroll_value);
         }));
 
-        focus_scope (&settings, &buffer);
-
         //
         //
         //
@@ -539,6 +537,10 @@ impl Window {
                 hc.set_reveal_child(false);
                 sdb.set_reveal_child(false);
                 statusbar.set_reveal_child(false);
+
+                buffer.connect_property_cursor_position_notify(glib::clone!(@weak settings, @weak buffer => move |_| {
+                    focus_scope (&settings, &buffer);
+                }));
             } else {
                 focus_bar.set_reveal_child(false);
                 hc.set_reveal_child(true);
@@ -643,7 +645,6 @@ impl Window {
             }
 
             reload_func(&view, &webview);
-            focus_scope (&settings, &buffer);
         }));
 
         //
@@ -988,7 +989,7 @@ fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
     let (start, end) = buffer.get_bounds();
     let vm = settings.get_string("visual-mode").unwrap();
     let cursor = buffer.get_insert ().unwrap();
-    let mut cursor_iter = buffer.get_iter_at_mark (&cursor);
+    let cursor_iter = buffer.get_iter_at_mark (&cursor);
 
     if vm.as_str() == "dark" {
         buffer.apply_tag_by_name("darkgrayfont", &start, &end);
@@ -1007,10 +1008,10 @@ fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
         buffer.remove_tag_by_name("blackfont", &start, &end);
     }
 
-    let mut start_sentence = cursor_iter.clone();
-    let mut end_sentence = start_sentence.clone();
+    // Symbolic "if cursor != null" block {
+        let mut start_sentence = cursor_iter.clone();
+        let mut end_sentence = start_sentence.clone();
 
-    glib::timeout_add_local(500, glib::clone!(@strong settings, @weak buffer => @default-return glib::Continue(false), move || {
         let focus_type = settings.get_boolean ("focus-mode-type");
         if cursor_iter != start &&
            cursor_iter != end {
@@ -1019,7 +1020,7 @@ fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
                 end_sentence.forward_sentence_end ();
             } else {
                 start_sentence.backward_lines (1);
-                end_sentence.forward_to_line_end ();
+                end_sentence.forward_lines (2);
             }
         }
 
@@ -1045,8 +1046,7 @@ fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
         }
-        glib::Continue(false)
-    }));
+    //}
 }
 
 fn change_layout (main: &gtk::Stack,
