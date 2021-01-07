@@ -1,6 +1,6 @@
 extern crate sourceview4;
 extern crate foreach;
-use crate::config::{APP_ID, PROFILE};
+use crate::config::APP_ID;
 use crate::components::window_state;
 use crate::components::css::CSS;
 use crate::components::header::Header;
@@ -25,6 +25,8 @@ use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
 use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
+use sourceview4::StyleSchemeManagerExt;
+use sourceview4::BufferExt;
 use std::env;
 
 pub struct Window {
@@ -229,24 +231,31 @@ impl Window {
         let fs = settings.get_boolean("focus-mode");
         let tt = settings.get_string("track-type").unwrap();
 
+        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
+
         if vm.as_str() == "light" {
             let stylevml = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_light.set_active (true);
+            editor.buffer.set_style_scheme(lstylem.as_ref());
         } else if vm.as_str() == "dark" {
             let stylevmd = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
             header.popover.color_button_dark.set_active (true);
+            editor.buffer.set_style_scheme(dstylem.as_ref());
         } else if vm.as_str() == "sepia" {
             let stylevms = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
             settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_sepia.set_active (true);
+            editor.buffer.set_style_scheme(sstylem.as_ref());
         }
 
         if st {
@@ -299,8 +308,8 @@ impl Window {
 
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
-                                                @weak editor.view as view,
                                                 @weak editor.buffer as buffer,
+                                                @weak editor.view as view,
                                                 @weak statusbar,
                                                 @weak focus_bar,
                                                 @weak searchbar.container as sbc,
@@ -308,9 +317,6 @@ impl Window {
                                                 @weak header.headerbar as hb,
                                                 @weak header.search_button as hsb,
                                                 @weak sidebar.container as sdb,
-                                                @weak header.popover.color_button_light as popl,
-                                                @weak header.popover.color_button_dark as popd,
-                                                @weak header.popover.color_button_sepia as pops,
                                                 @weak type_label
                                                 => move |settings, _| {
             let settingsgtk = gtk::Settings::get_default();
@@ -319,25 +325,33 @@ impl Window {
             let st = settings.get_boolean("statusbar");
             let sh = settings.get_boolean("searchbar");
             let fs = settings.get_boolean("focus-mode");
+            let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+            let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+            let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
+
+            if vm.as_str() == "light" {
+                buffer.set_style_scheme(lstylem.as_ref());
+            } else if vm.as_str() == "dark" {
+                buffer.set_style_scheme(dstylem.as_ref());
+            } else if vm.as_str() == "sepia" {
+                buffer.set_style_scheme(sstylem.as_ref());
+            }
 
             if vm.as_str() == "light" {
                 let stylevml = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
                 settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
-                popl.set_active (true);
             } else if vm.as_str() == "dark" {
                 let stylevmd = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
                 settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
-                popd.set_active (true);
             } else if vm.as_str() == "sepia" {
                 let stylevms = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
                 settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
-                pops.set_active (true);
             }
 
             if st {

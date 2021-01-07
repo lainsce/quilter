@@ -2,11 +2,10 @@ extern crate sourceview4;
 
 use gtk::WidgetExt;
 use gtk::*;
-use gtk::prelude::BuilderExtManual;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
-use sourceview4::StyleSchemeManagerExt;
 use gio::SettingsExt;
+use glib::ObjectExt;
 
 pub struct EditorView {
     pub view: sourceview4::View,
@@ -22,22 +21,9 @@ impl EditorView {
         let fs = gschema.get_boolean("focus-mode");
         let tx = gschema.get_int("font-sizing");
         let last_file = gschema.get_string("current-file").unwrap();
-        let vm = gschema.get_string("visual-mode").unwrap();
         let fft = gschema.get_string("edit-font-type").unwrap();
         let width = gschema.get_int("window-width") as f32;
         let height = gschema.get_int("window-height") as f32;
-
-        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
-        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
-        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
-
-        if vm.as_str() == "light" {
-            buffer.set_style_scheme(lstylem.as_ref());
-        } else if vm.as_str() == "dark" {
-            buffer.set_style_scheme(dstylem.as_ref());
-        } else if vm.as_str() == "sepia" {
-            buffer.set_style_scheme(sstylem.as_ref());
-        }
 
         if last_file.as_str() != "" {
             let filename = last_file.as_str();
@@ -68,7 +54,9 @@ impl EditorView {
                 view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
                 glib::Continue(true)
             }));
+        }
 
+        if tw && fs {
             let titlebar_h = header.get_allocated_height() as f32;
             let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
             let typewriterposition2 = ((height * 0.55) - titlebar_h) as i32;
@@ -166,22 +154,9 @@ impl EditorView {
             let tm = gschema.get_int("margins");
             let fs = gschema.get_boolean("focus-mode");
             let tx = gschema.get_int("font-sizing");
-            let vm = gschema.get_string("visual-mode").unwrap();
             let fft = gschema.get_string("edit-font-type").unwrap();
             let width = gschema.get_int("window-width") as f32;
             let height = gschema.get_int("window-height") as f32;
-
-            let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
-            let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
-            let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
-
-            if vm.as_str() == "light" {
-                buffer.set_style_scheme(lstylem.as_ref());
-            } else if vm.as_str() == "dark" {
-                buffer.set_style_scheme(dstylem.as_ref());
-            } else if vm.as_str() == "sepia" {
-                buffer.set_style_scheme(sstylem.as_ref());
-            }
 
             if ts == 1 {
                 view.set_pixels_above_lines (1);
@@ -247,10 +222,12 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            if fs {
+            if fs != false {
                 buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
                     focus_scope (&gschema, &buffer);
                 }));
+            } else {
+
             }
         }));
 
@@ -261,9 +238,9 @@ impl EditorView {
     }
 }
 
-fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
+fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
     let (start, end) = buffer.get_bounds();
-    let vm = settings.get_string("visual-mode").unwrap();
+    let vm = gschema.get_string("visual-mode").unwrap();
     let cursor = buffer.get_insert ().unwrap();
     let cursor_iter = buffer.get_iter_at_mark (&cursor);
 
@@ -288,9 +265,9 @@ fn focus_scope (settings: &gio::Settings, buffer: &sourceview4::Buffer) {
         let mut start_sentence = cursor_iter.clone();
         let mut end_sentence = start_sentence.clone();
 
-        let focus_type = settings.get_boolean ("focus-mode-type");
+        let focus_type = gschema.get_boolean ("focus-mode-type");
         if cursor_iter != start &&
-           cursor_iter != end {
+            cursor_iter != end {
             if focus_type {
                 start_sentence.backward_sentence_start ();
                 end_sentence.forward_sentence_end ();
