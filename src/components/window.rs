@@ -1084,44 +1084,72 @@ fn reload_func(view: &sourceview4::View, webview: &webkit2gtk::WebView) {
     let (start, end) = view.clone ().get_buffer ().unwrap ().get_bounds();
     let buf = view.clone ().get_buffer ().unwrap ().get_text(&start, &end, true).unwrap();
     let contents = buf.as_str();
+
     let css = CSS::new();
+
     let mut style = "";
     let mut font = "";
-
-    // Highlight.js
-    let mut highlight = "".to_string();
-    let render = "https://unpkg.com/@highlightjs/cdn-assets@10.5.0/highlight.min.js".to_string();
-    let mut stringhl = "".to_string();
-
     let settings = gio::Settings::new(APP_ID);
     let vm = settings.get_string("visual-mode").unwrap();
     if vm.as_str() == "dark" {
         style = &css.dark;
-        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/gruvbox-dark.css".to_string();
     } else if vm.as_str() == "sepia" {
         style = &css.sepia;
-        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/solarized-light.css".to_string();
     } else if vm.as_str() == "light" {
         style = &css.light;
-        highlight = "https://unpkg.com/highlightjs@9.16.2/styles/tomorrow.css".to_string();
     }
+
+    // Highlight.js
+    let mut highlight = "".to_string();
+    if vm.as_str() == "dark" {
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
+    } else if vm.as_str() == "sepia" {
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
+    } else if vm.as_str() == "light" {
+        highlight = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/styles/light.min.css";
+    }
+    let render;
+    render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
+
+    let mut stringhl = "".to_string();
     if settings.get_boolean("highlight") {
         stringhl = format! ("
             <link rel=\"stylesheet\" href=\"{}\">
-            <script src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
+            <script defer src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
         ", highlight, render);
     }
 
     // LaTeX (Katex)
+    let renderl;
+    let katexmain;
+    let katexjs;
+    katexmain = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.css";
+    katexjs = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/katex.js";
+    renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
+
     let mut stringtex = "".to_string();
     if settings.get_boolean("latex") {
-        stringtex = "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css\"><script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.js\"></script><script defer src=\"https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/contrib/auto-render.min.js\" onload=\"renderMathInElement(document.body);\"></script>".to_string();
+        stringtex = format!( "
+                        <link rel=\"stylesheet\" href=\"{}\">
+                        <script defer src=\"{}\"></script>
+                        <script defer src=\"{}\" onload=\"renderMathInElement(document.body);\"></script>
+                    ",  katexmain, katexjs, renderl);
+    }
+
+    let pft = settings.get_string("preview-font-type").unwrap();
+    if pft.as_str() == "serif" {
+        font = &css.serif;
+    } else if pft.as_str() == "sans" {
+        font = &css.sans;
+    } else if pft.as_str() == "mono" {
+        font = &css.mono;
     }
 
     // Mermaid
     let mut stringmaid = "".to_string();
+    let mermaid = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/mermaid/mermaid.js";
     if settings.get_boolean("mermaid") {
-        stringmaid = "<script defer src=\"https://unpkg.com/mermaid@8.8.4/dist/mermaid.min.js\"></script>".to_string();
+        stringmaid = format! ("<script defer src=\"{}\"></script>", mermaid);
     }
 
     let pft = settings.get_string("preview-font-type").unwrap();
