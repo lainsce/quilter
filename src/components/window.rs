@@ -669,7 +669,7 @@ impl Window {
         action!(
             self.widget,
             "export_pdf",
-            glib::clone!(@weak self.widget as win, @weak self.webview as webview, @weak self.editor.buffer as buffer => move |_, _| {
+            glib::clone!(@weak self.widget as win, @weak self.webview as webview => move |_, _| {
                 let file_chooser = gtk::FileChooserDialog::new(
                     Some("Save File"),
                     Some(&win),
@@ -679,20 +679,13 @@ impl Window {
                     ("Save", gtk::ResponseType::Ok),
                     ("Cancel", gtk::ResponseType::Cancel),
                 ]);
-                file_chooser.connect_response(glib::clone!(@weak win, @weak webview, @weak buffer => move |file_chooser, response| {
+                file_chooser.connect_response(glib::clone!(@weak webview => move |file_chooser, response| {
                     if response == gtk::ResponseType::Ok {
                         let cl = gio::Cancellable::new();
                         let filename = file_chooser.get_filename().expect("Couldn't get filename");
-                        let file = gio::File::new_for_path (filename.clone());
-
-                        if file.query_exists(Some(&cl)) {
-                            file.delete(Some(&cl)).expect("Oops!");
-                            file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
-                            glib::file_set_contents(filename, b"").expect("Unable to write data");
-                        } else {
-                            file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
-                            glib::file_set_contents(filename, b"").expect("Unable to write data");
-                        }
+                        let file = gio::File::new_for_path (filename);
+                        let file_path = file.get_path().unwrap().into_os_string().into_string().ok().unwrap();
+                        file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
 
                         let op = webkit2gtk::PrintOperation::new (&webview);
                         let psize = gtk::PaperSize::new (Some(&gtk::PAPER_NAME_A4));
@@ -705,7 +698,7 @@ impl Window {
 		                psetup.set_right_margin (0.75, gtk::Unit::Inch);
                         psetup.set_paper_size(&psize);
 
-                        psettings.set(&gtk::PRINT_SETTINGS_OUTPUT_URI, Some(&file.get_path().unwrap().into_os_string().into_string().ok().unwrap()[..]));
+                        psettings.set(&gtk::PRINT_SETTINGS_OUTPUT_URI, Some(&file_path));
                         psettings.set_printer ("Print to File");
 
                         op.set_print_settings (&psettings);
