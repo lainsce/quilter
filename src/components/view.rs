@@ -10,10 +10,12 @@ use std::{
     io::{prelude::*, BufReader},
     path::Path,
 };
+use glib::ObjectExt;
 
 pub struct EditorView {
     pub view: sourceview4::View,
     pub buffer: sourceview4::Buffer,
+    pub focus_mode_turnkey: Option<glib::signal::SignalHandlerId>,
 }
 
 impl EditorView {
@@ -29,6 +31,7 @@ impl EditorView {
         let fft = gschema.get_string("edit-font-type").unwrap();
         let width = gschema.get_int("window-width") as f32;
         let height = gschema.get_int("window-height") as f32;
+        let mut focus_mode_turnkey = None;
 
         if last_file.as_str() != "" {
             let filename = last_file.as_str();
@@ -152,6 +155,18 @@ impl EditorView {
             }
         }));
 
+        if fs {
+            focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
+                focus_scope (&gschema, &buffer);
+            })));
+        } else {
+            if let Some(sig) = None {
+                buffer.disconnect(sig);
+            } else {
+                focus_mode_turnkey = None;
+            }
+        }
+
         gschema.connect_changed (glib::clone!( @strong gschema,
                                                 @weak webview,
                                                 @weak view,
@@ -231,19 +246,6 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            let mut focus_mode_turnkey = None;
-            if fs {
-                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
-                                focus_scope (&gschema, &buffer);
-                })));
-            } else {
-                if let Some(sig) = None {
-                    glib::object::ObjectExt::disconnect (&buffer, sig);
-                } else {
-                    focus_mode_turnkey = None;
-                }
-            }
-
             if pos {
                 start_pos (&buffer);
             }
@@ -252,6 +254,7 @@ impl EditorView {
         EditorView {
             view,
             buffer,
+            focus_mode_turnkey,
         }
     }
 }

@@ -163,7 +163,7 @@
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
-            <property name="action-name">win.export_html</property>
+            <property name="action-name">win.export_pdf</property>
             <property name="text" translatable="yes">Export PDF…</property>
           </object>
           <packing>

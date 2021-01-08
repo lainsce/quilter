@@ -1,6 +1,6 @@
 extern crate sourceview4;
 extern crate foreach;
-use crate::config::APP_ID;
+use crate::config::{APP_ID, PROFILE};
 use crate::components::window_state;
 use crate::components::css::CSS;
 use crate::components::header::Header;
@@ -19,12 +19,14 @@ use gio::SettingsExt;
 use gio::ActionMapExt;
 use gtk::RevealerExt;
 use gtk::WidgetExt;
+use gio::FileExt;
 use webkit2gtk::WebViewExt as WebSettings;
 use webkit2gtk::SettingsExt as _;
 use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
 use sourceview4::StyleSchemeManagerExt;
 use sourceview4::BufferExt;
+use webkit2gtk::PrintOperationExt;
 
 pub struct Window {
     pub widget: libhandy::ApplicationWindow,
@@ -615,6 +617,11 @@ impl Window {
     }
 
     fn init(&self) {
+        // Devel Profile
+        if PROFILE == "Devel" {
+            self.widget.get_style_context().add_class("devel");
+        }
+
         // load latest window state
         window_state::load(&self.widget, &self.settings);
 
@@ -631,6 +638,87 @@ impl Window {
     }
 
     fn setup_actions(&self) {
+        action!(
+            self.widget,
+            "export_html",
+            glib::clone!(@weak self.widget as win, @weak self.webview as webview, @weak self.editor.buffer as buffer => move |_, _| {
+                let file_chooser = gtk::FileChooserDialog::new(
+                    Some("Save File"),
+                    Some(&win),
+                    gtk::FileChooserAction::Save,
+                );
+                file_chooser.add_buttons(&[
+                    ("Save", gtk::ResponseType::Ok),
+                    ("Cancel", gtk::ResponseType::Cancel),
+                ]);
+                file_chooser.connect_response(glib::clone!(@weak win, @weak webview, @weak buffer => move |file_chooser, response| {
+                    if response == gtk::ResponseType::Ok {
+                        let filename = file_chooser.get_filename().expect("Couldn't get filename");
+
+                        let contents = get_html(&buffer, &webview);
+
+                        glib::file_set_contents(filename, contents.as_bytes()).expect("Unable to write data");
+                    }
+                    file_chooser.close();
+                }));
+
+                file_chooser.show_all();
+            })
+        );
+
+        action!(
+            self.widget,
+            "export_pdf",
+            glib::clone!(@weak self.widget as win, @weak self.webview as webview, @weak self.editor.buffer as buffer => move |_, _| {
+                let file_chooser = gtk::FileChooserDialog::new(
+                    Some("Save File"),
+                    Some(&win),
+                    gtk::FileChooserAction::Save,
+                );
+                file_chooser.add_buttons(&[
+                    ("Save", gtk::ResponseType::Ok),
+                    ("Cancel", gtk::ResponseType::Cancel),
+                ]);
+                file_chooser.connect_response(glib::clone!(@weak win, @weak webview, @weak buffer => move |file_chooser, response| {
+                    if response == gtk::ResponseType::Ok {
+                        let cl = gio::Cancellable::new();
+                        let filename = file_chooser.get_filename().expect("Couldn't get filename");
+                        let file = gio::File::new_for_path (filename.clone());
+
+                        if file.query_exists(Some(&cl)) {
+                            file.delete(Some(&cl)).expect("Oops!");
+                            file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
+                            glib::file_set_contents(filename, b"").expect("Unable to write data");
+                        } else {
+                            file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
+                            glib::file_set_contents(filename, b"").expect("Unable to write data");
+                        }
+
+                        let op = webkit2gtk::PrintOperation::new (&webview);
+                        let psize = gtk::PaperSize::new (Some(&gtk::PAPER_NAME_A4));
+		                let psetup = gtk::PageSetup::new();
+		                let psettings = gtk::PrintSettings::new();
+
+		                psetup.set_top_margin (0.75, gtk::Unit::Inch);
+		                psetup.set_bottom_margin (0.75, gtk::Unit::Inch);
+		                psetup.set_left_margin (0.75, gtk::Unit::Inch);
+		                psetup.set_right_margin (0.75, gtk::Unit::Inch);
+                        psetup.set_paper_size(&psize);
+
+                        psettings.set(&gtk::PRINT_SETTINGS_OUTPUT_URI, Some(&file.get_path().unwrap().into_os_string().into_string().ok().unwrap()[..]));
+                        psettings.set_printer ("Print to File");
+
+                        op.set_print_settings (&psettings);
+                        op.set_page_setup (&psetup);
+                        op.print ();
+                    }
+                    file_chooser.close();
+                }));
+
+                file_chooser.show_all();
+            })
+        );
+
         action!(
             self.widget,
             "cheatsheet",
@@ -726,7 +814,7 @@ fn change_layout (main: &gtk::Stack,
     }
 }
 
-fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) {
+fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> String {
     let (start, end) = buffer.get_bounds();
     let buf = buffer.get_text(&start, &end, true).unwrap();
     let contents = buf.as_str();
@@ -850,6 +938,8 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) {
        md);
 
     webview.load_html(&html, Some("file:///"));
+
+    html
 }
 
 fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: &f64) {
@@ -873,4 +963,8 @@ fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: &f64) {
             webkit2gtk::JavascriptResult::get_value(&v.as_ref ().unwrap()).unwrap().to_number(&jsg.unwrap()).unwrap();
          }
     );
+}
+
+fn get_html (buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> String {
+    return reload_func(buffer, webview);
 }
