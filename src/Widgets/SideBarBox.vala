@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018-2020 Lains
+* Copyright (c) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -42,7 +42,7 @@ namespace Quilter.Widgets {
             }
         }
 
-        public string title {
+        public string? title {
             owned get {
                 return file_label.label;
             }
@@ -95,11 +95,10 @@ namespace Quilter.Widgets {
                     win.sidebar.store.clear ();
                     win.save_last_files ();
                 }
-                if (win.sidebar.column.get_children () == null) {
-                    win.win_stack.set_visible_child (win.welcome_view);
-                    win.welcome_titlebar.visible = true;
-                    win.titlebar.visible = false;
-                    win.main_stack.visible = false;
+                if (win.sidebar.column.get_children () == null && win.win_stack != null && win.titlebar_stack != null) {
+                    win.win_stack.set_visible_child_name ("welcome");
+                    win.titlebar_stack.set_visible_child_name ("welcome-title");
+                    win.sidebar.reveal_child = false;
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
                 } else {
                     win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));

@@ -397,22 +397,19 @@ namespace Quilter {
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
-            win_stack  = new Gtk.Stack ();
+            win_stack = new Gtk.Stack ();
             win_stack.get_style_context ().add_class ("quilter-normal-view");
             win_stack.add_named (welcome_view, "welcome");
             win_stack.add_named (main_stack, "doc");
 
             if (sidebar.column.get_children () == null) {
-                win_stack.set_visible_child (welcome_view);
-                welcome_titlebar.visible = true;
-                titlebar.visible = false;
-                main_stack.visible = false;
+                win_stack.set_visible_child_name ("welcome");
+                titlebar_stack.set_visible_child_name ("welcome-title");
+                sidebar.reveal_child = false;
                 Quilter.Application.gsettings.set_boolean("sidebar", false);
             } else {
-                win_stack.set_visible_child (main_stack);
-                welcome_titlebar.visible = false;
-                titlebar.visible = true;
-                main_stack.visible = true;
+                win_stack.set_visible_child_name ("doc");
+                titlebar_stack.set_visible_child_name ("title");
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
             }
@@ -811,10 +808,9 @@ namespace Quilter {
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
             on_save ();
-            win_stack.set_visible_child (main_stack);
-            main_stack.visible = true;
-            welcome_titlebar.visible = false;
-            titlebar.visible = true;
+            win_stack.set_visible_child_name ("doc");
+            titlebar_stack.set_visible_child_name ("title");
+            sidebar.reveal_child = true;
             Quilter.Application.gsettings.set_boolean("sidebar", true);
         }
 
@@ -830,25 +826,19 @@ namespace Quilter {
                     } else {
                         sidebar.add_file (path);
                         sidebar.is_modified = true;
-                        win_stack.set_visible_child (main_stack);
-                        main_stack.visible = true;
-                        welcome_titlebar.visible = false;
-                        titlebar.visible = true;
-                        Quilter.Application.gsettings.set_boolean("sidebar", true);
                         break;
                     }
                 }
             } else {
                 sidebar.add_file (path);
                 sidebar.is_modified = true;
-                win_stack.set_visible_child (main_stack);
-                main_stack.visible = true;
-                welcome_titlebar.visible = false;
-                titlebar.visible = true;
-                Quilter.Application.gsettings.set_boolean("sidebar", true);
             }
             edit_view_content.text = contents;
             save_last_files ();
+            win_stack.set_visible_child_name ("doc");
+            titlebar_stack.set_visible_child_name ("title");
+            sidebar.reveal_child = true;
+            Quilter.Application.gsettings.set_boolean("sidebar", true);
             sidebar.store.clear ();
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
