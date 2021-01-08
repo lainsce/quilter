@@ -337,7 +337,8 @@ fn start_pos(buffer: &sourceview4::Buffer) {
     let vbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
 
     let nbuf = buffer.get_text (&start, &end, false).unwrap().to_string();
-    let no_punct_buffer: Vec<&str> = nbuf.split ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ").collect();
+    let normal_buf = strip_characters(&nbuf, "1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-#");
+    let no_punct_buffer: Vec<&str> = normal_buf.split(' ').collect();
 
     for word in no_punct_buffer {
         for verb in &vbuf_list {
@@ -350,6 +351,9 @@ fn start_pos(buffer: &sourceview4::Buffer) {
             }
         }
     }
+}
+fn strip_characters(original : &str, to_strip : &str) -> String {
+    original.chars().filter(|&c| !to_strip.contains(c)).collect()
 }
 
 fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
