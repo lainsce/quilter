@@ -537,8 +537,8 @@ impl Window {
 
         //
         // Sidebar Block
-        // TODO: Implement loading the files from last-files gschema and then going and making a new LBR.
-        //       based on each file. Implement changing rows, removing the close button from view and save if changed rows.
+        // TODO: Implement loading the files from last-files gschema and then going and making a new LBR based on each file.
+        // TODO: Implement changing rows, removing the close button from view and save if changed rows.
         //
         // sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak settings as settings => move |_,row| {
         //
