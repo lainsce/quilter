@@ -48,6 +48,13 @@
         <property name="font">Normal</property>
       </object>
     </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="verbfont">
+        <property name="name">verbfont</property>
+        <property name="foreground">#3584e4</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
   </object>
   <object class="GtkPopover" id="type_pop">
     <property name="can-focus">False</property>

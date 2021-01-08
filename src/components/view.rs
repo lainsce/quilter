@@ -325,14 +325,16 @@ fn start_pos(buffer: &sourceview4::Buffer) {
     let vbuf_list = glib::file_get_contents(file_verbs.get_path().unwrap().into_os_string().into_string().unwrap()).expect("Unable to get data");
     let vs = String::from_utf8(vbuf_list).unwrap().to_string();
 
-    let no_punct_buffer = buffer.get_text (&start, &end, false).unwrap().replace ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ", " ");
-    let words = no_punct_buffer.split(" ");
+    let nbuf = buffer.get_text (&start, &end, false).unwrap().to_string();
+    let no_punct_buffer: Vec<&str> = nbuf.split ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ").collect();
 
-    for word in words {
+    for word in no_punct_buffer {
         if word == vs {
-            let match_start = buffer.get_iter_at_offset (0);
-            let match_end = buffer.get_iter_at_offset (0 + word.to_string().into_bytes().len() as i32);
-            buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
+            let match_start = gtk::TextIter::starts_word(&start);
+            let match_end = gtk::TextIter::ends_word(&end);
+            if match_start && match_end {
+                buffer.apply_tag_by_name("verbfont", &start, &end);
+            }
         }
     }
 }
