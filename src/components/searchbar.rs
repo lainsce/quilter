@@ -11,6 +11,8 @@ impl Searchbar {
         get_widget!(builder, gtk::SearchBar, container);
         container.set_visible (true);
 
+        //TODO: Implement search and replace functions.
+
         Searchbar {
             container,
         }

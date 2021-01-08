@@ -224,21 +224,21 @@ impl Window {
             let stylevml = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+            settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_light.set_active (true);
             editor.buffer.set_style_scheme(lstylem.as_ref());
         } else if vm.as_str() == "dark" {
             let stylevmd = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
+            settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(true);
             header.popover.color_button_dark.set_active (true);
             editor.buffer.set_style_scheme(dstylem.as_ref());
         } else if vm.as_str() == "sepia" {
             let stylevms = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
-            settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+            settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_sepia.set_active (true);
             editor.buffer.set_style_scheme(sstylem.as_ref());
         }
@@ -326,17 +326,17 @@ impl Window {
                 let stylevml = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
-                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+                settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             } else if vm.as_str() == "dark" {
                 let stylevmd = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
-                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(true);
+                settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(true);
             } else if vm.as_str() == "sepia" {
                 let stylevms = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
-                settingsgtk.clone ().unwrap().set_property_gtk_application_prefer_dark_theme(false);
+                settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             }
 
             if st {
@@ -505,7 +505,7 @@ impl Window {
                                                                     @weak sc,
                                                                     @weak editor.view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
-        => move |_| {
+                                                                    => move |_| {
             let key: glib::GString = "full".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&full_stack);
@@ -524,7 +524,7 @@ impl Window {
                                                                     @weak sc,
                                                                     @weak editor.view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
-        => move |_| {
+                                                                    => move |_| {
             let key: glib::GString = "half".into();
             if settings.get_string("preview-type") == Some(key) {
                 main.set_visible_child(&half_stack);
@@ -536,20 +536,14 @@ impl Window {
         }));
 
         //
-
-        //
         // Sidebar Block
+        // TODO: Implement loading the files from last-files gschema and then going and making a new LBR.
+        //       based on each file. Implement changing rows, removing the close button from view and save if changed rows.
         //
         // sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak settings as settings => move |_,row| {
-        // TODO: Implement loading the file and then going and making a new LBR
-        //       based on the file, and save if changed rows.
-        //     let selected_row = row.clone().unwrap () as <listboxrow::ListBoxRow>::container;
-        //     if selected_row != lbr {
-        //         let buf = glib::file_get_contents(filename).expect("Unable to get data");
-        //         let contents = String::from_utf8_lossy(&buf);
-        //         view.buffer.set_text(&contents);
-        //     }
+        //
         // }));
+        //
 
         //
         // Window
@@ -622,6 +616,8 @@ impl Window {
             self.widget.get_style_context().add_class("devel");
         }
 
+        // TODO: Save last-files gschema based on open documents here.
+
         // load latest window state
         window_state::load(&self.widget, &self.settings);
 
@@ -681,6 +677,7 @@ impl Window {
                 ]);
                 file_chooser.connect_response(glib::clone!(@weak webview => move |file_chooser, response| {
                     if response == gtk::ResponseType::Ok {
+                        // FIXME: Fix PDF export, it now creates a blank txt instead.
                         let cl = gio::Cancellable::new();
                         let filename = file_chooser.get_filename().expect("Couldn't get filename");
                         let file = gio::File::new_for_path (filename);
@@ -959,5 +956,5 @@ fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: &f64) {
 }
 
 fn get_html (buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> String {
-    return reload_func(buffer, webview);
+    reload_func(buffer, webview)
 }

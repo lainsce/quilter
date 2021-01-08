@@ -34,6 +34,7 @@ impl EditorView {
         let mut focus_mode_turnkey = None;
 
         if last_file.as_str() != "" {
+        // TODO: Implement loading the files from last-files gschema instead of just one.
             let filename = last_file.as_str();
             let buf = glib::file_get_contents(filename).expect("Unable to get data");
             let contents = String::from_utf8_lossy(&buf);
@@ -155,6 +156,7 @@ impl EditorView {
             }
         }));
 
+        // FIXME: Fix this so it unloads the connection properly.
         if fs {
             focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
                 focus_scope (&gschema, &buffer);
@@ -324,6 +326,8 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
 }
 
 fn start_pos(buffer: &sourceview4::Buffer) {
+    // TODO: Implement the part-of-speech tagger from 3.0.0 here.
+
     let (start, end) = buffer.get_bounds();
 
     // let file_adj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
