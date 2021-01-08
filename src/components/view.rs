@@ -56,7 +56,21 @@ impl EditorView {
             buffer.set_highlight_syntax(true);
         }
 
-        if pos {
+        if !pos {
+            let (start, end) = buffer.get_bounds();
+            buffer.remove_tag_by_name("conjfont", &start, &end);
+            buffer.remove_tag_by_name("advfont", &start, &end);
+            buffer.remove_tag_by_name("adjfont", &start, &end);
+            buffer.remove_tag_by_name("verbfont", &start, &end);
+
+            if vm.as_str() == "dark" {
+                buffer.apply_tag_by_name("darkgrayfont", &start, &end);
+            } else if vm.as_str() == "sepia" {
+                buffer.apply_tag_by_name("sepiafont", &start, &end);
+            } else {
+                buffer.apply_tag_by_name("lightgrayfont", &start, &end);
+            }
+        } else {
             start_pos (&buffer);
         }
 
@@ -165,9 +179,7 @@ impl EditorView {
             if let Some(sig) = None {
                 buffer.disconnect(sig);
             } else {
-                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
-                    focus_scope (&gschema, &buffer);
-                })));
+                focus_mode_turnkey = None;
             }
         }
 
@@ -250,7 +262,13 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            if pos {
+            if !pos {
+                let (start, end) = buffer.get_bounds();
+                buffer.remove_tag_by_name("conjfont", &start, &end);
+                buffer.remove_tag_by_name("advfont", &start, &end);
+                buffer.remove_tag_by_name("adjfont", &start, &end);
+                buffer.remove_tag_by_name("verbfont", &start, &end);
+            } else {
                 start_pos (&buffer);
             }
         }));
@@ -270,20 +288,20 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
     let cursor_iter = buffer.get_iter_at_mark (&cursor);
 
     if vm.as_str() == "dark" {
-        buffer.apply_tag_by_name("darkgrayfont", &start, &end);
         buffer.remove_tag_by_name("lightsepiafont", &start, &end);
         buffer.remove_tag_by_name("lightgrayfont", &start, &end);
         buffer.remove_tag_by_name("whitefont", &start, &end);
+        buffer.apply_tag_by_name("darkgrayfont", &start, &end);
     } else if vm.as_str() == "sepia" {
         buffer.remove_tag_by_name("darkgrayfont", &start, &end);
-        buffer.apply_tag_by_name("lightsepiafont", &start, &end);
+        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
         buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-        buffer.remove_tag_by_name("sepiafont", &start, &end);
+        buffer.apply_tag_by_name("sepiafont", &start, &end);
     } else {
         buffer.remove_tag_by_name("darkgrayfont", &start, &end);
         buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-        buffer.apply_tag_by_name("lightgrayfont", &start, &end);
         buffer.remove_tag_by_name("blackfont", &start, &end);
+        buffer.apply_tag_by_name("lightgrayfont", &start, &end);
     }
 
     // Symbolic "if cursor != null" block {
@@ -329,33 +347,79 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
 
 fn start_pos(buffer: &sourceview4::Buffer) {
     // TODO: Implement the part-of-speech tagger from 3.0.0 here.
-
     let (start, end) = buffer.get_bounds();
-
-    // let file_adj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
-    // let file_adverbs = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
-    // let file_conj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
-
     let vbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
+    let abuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
+    let adbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
+    let cnbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
+    let normal_buf = buffer.get_text (&start, &end, false).unwrap().to_string().replace("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-#", " ");
+    let words: Vec<String> = normal_buf.split(' ').map(|s| s.to_string()).collect();
+    let mut p = 0;
 
-    let nbuf = buffer.get_text (&start, &end, false).unwrap().to_string();
-    let normal_buf = strip_characters(&nbuf, "1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-#");
-    let no_punct_buffer: Vec<&str> = normal_buf.split(' ').collect();
+    let nounifier = ["the".to_string(), "an".to_string(), "a".to_string(), "and".to_string(), "or".to_string(), "this".to_string()];
+    let verbifier = ["be".to_string(), "to".to_string(), "and".to_string()];
 
-    for word in no_punct_buffer {
-        for verb in &vbuf_list {
-            if word == verb {
-                let match_start = gtk::TextIter::starts_word(&start);
-                let match_end = gtk::TextIter::ends_word(&end);
-                if match_start && match_end {
-                    buffer.apply_tag_by_name("verbfont", &start, &end);
-                }
+    for word in words {
+        if word.chars().count() == 0 {
+            p += word.chars().count() + 1;
+            continue;
+        }
+
+        if vbuf_list.contains(&word) || (!word.starts_with("ing") && word.ends_with("ing")) || (!word.starts_with("ed") && word.ends_with("ed")) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) || (word.ends_with ("ction") && !word.starts_with ("ction")) {
+               buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            }
+
+            if verbifier.contains(&word) {
+               buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
             }
         }
+        if abuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) {
+               buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            }
+        }
+        if adbuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) {
+               buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            }
+        }
+        if cnbuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("conjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+        }
+
+        p += word.chars().count() + 1;
     }
-}
-fn strip_characters(original : &str, to_strip : &str) -> String {
-    original.chars().filter(|&c| !to_strip.contains(c)).collect()
 }
 
 fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {

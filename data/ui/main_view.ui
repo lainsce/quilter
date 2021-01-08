@@ -51,28 +51,28 @@
     <child type="tag">
       <object class="GtkTextTag" id="verbfont">
         <property name="name">verbfont</property>
-        <property name="foreground">#3584e4</property>
+        <property name="foreground">#3584E4</property>
         <property name="font">Normal</property>
       </object>
     </child>
     <child type="tag">
       <object class="GtkTextTag" id="conjfont">
         <property name="name">conjfont</property>
-        <property name="foreground">#33d17a</property>
+        <property name="foreground">#33D17A</property>
         <property name="font">Normal</property>
       </object>
     </child>
     <child type="tag">
       <object class="GtkTextTag" id="advfont">
         <property name="name">advfont</property>
-        <property name="foreground">#9141ac</property>
+        <property name="foreground">#9141AC</property>
         <property name="font">Normal</property>
       </object>
     </child>
     <child type="tag">
       <object class="GtkTextTag" id="adjfont">
         <property name="name">adjfont</property>
-        <property name="foreground">#f5c211</property>
+        <property name="foreground">#F5C211</property>
         <property name="font">Normal</property>
       </object>
     </child>
