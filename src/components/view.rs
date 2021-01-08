@@ -156,7 +156,7 @@ impl EditorView {
             }
         }));
 
-        // FIXME: Fix this so it unloads the connection properly.
+        // FIXME: Fix this so it unloads the Focus Scope connection properly.
         if fs {
             focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
                 focus_scope (&gschema, &buffer);
@@ -165,7 +165,9 @@ impl EditorView {
             if let Some(sig) = None {
                 buffer.disconnect(sig);
             } else {
-                focus_mode_turnkey = None;
+                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
+                    focus_scope (&gschema, &buffer);
+                })));
             }
         }
 
