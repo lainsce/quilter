@@ -84,6 +84,9 @@ impl PreferencesWindow {
         get_widget!(builder, gtk::SpinButton, delay);
         delay.set_visible(true);
 
+        get_widget!(builder, gtk::Switch, pos);
+        pos.set_visible(true);
+
         //
         // Text Spacing
         //
@@ -146,6 +149,7 @@ impl PreferencesWindow {
         gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("focus-mode-type", &focus_scope, "active", gio::SettingsBindFlags::DEFAULT);
         gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
+        gschema.bind ("pos", &pos, "active", gio::SettingsBindFlags::DEFAULT);
 
         if vm.as_str() == "light" {
             light.set_active (true);

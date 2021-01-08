@@ -5,6 +5,7 @@ use gtk::*;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use gio::SettingsExt;
+use gio::FileExt;
 
 pub struct EditorView {
     pub view: sourceview4::View,
@@ -15,6 +16,7 @@ impl EditorView {
     pub fn init(gschema: &gio::Settings, webview: &webkit2gtk::WebView, buffer: sourceview4::Buffer, view: sourceview4::View, header: &libhandy::HeaderBar) -> EditorView {
         let asv = gschema.get_boolean("autosave");
         let tw = gschema.get_boolean("typewriter-scrolling");
+        let pos = gschema.get_boolean("pos");
         let ts = gschema.get_int("spacing");
         let tm = gschema.get_int("margins");
         let fs = gschema.get_boolean("focus-mode");
@@ -44,6 +46,10 @@ impl EditorView {
             buffer.set_highlight_matching_brackets(true);
             buffer.set_language(Some(&md_lang));
             buffer.set_highlight_syntax(true);
+        }
+
+        if pos {
+            start_pos (&buffer);
         }
 
         if tw && fs {
@@ -231,6 +237,10 @@ impl EditorView {
             } else {
                 glib::object::ObjectExt::block_signal (&buffer, &focus_mode_turnkey);
             }
+
+            if pos {
+                start_pos (&buffer);
+            }
         }));
 
         EditorView {
@@ -302,4 +312,27 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
         }
     //}
+}
+
+fn start_pos(buffer: &sourceview4::Buffer) {
+    let (start, end) = buffer.get_bounds();
+
+    let file_verbs = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
+    // let file_adj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
+    // let file_adverbs = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
+    // let file_conj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
+
+    let vbuf_list = glib::file_get_contents(file_verbs.get_path().unwrap().into_os_string().into_string().unwrap()).expect("Unable to get data");
+    let vs = String::from_utf8(vbuf_list).unwrap().to_string();
+
+    let no_punct_buffer = buffer.get_text (&start, &end, false).unwrap().replace ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ", " ");
+    let words = no_punct_buffer.split(" ");
+
+    for word in words {
+        if word == vs {
+            let match_start = buffer.get_iter_at_offset (0);
+            let match_end = buffer.get_iter_at_offset (0 + word.to_string().into_bytes().len() as i32);
+            buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
+        }
+    }
 }
