@@ -5,13 +5,15 @@ extern crate glib;
 
 use gettextrs::*;
 
-mod components;
-use components::window::Window;
+#[macro_use]
+mod utils;
 
+mod components;
 mod config;
 mod static_resources;
-
+mod app;
 use config::{GETTEXT_PACKAGE, LOCALEDIR};
+use app::Application;
 
 fn main() {
     // Prepare i18n
@@ -28,6 +30,6 @@ fn main() {
 
     static_resources::init().expect("GResource initialization failed.");
 
-    let app = Window::new();
+    let app = Application::new();
     app.run ();
 }

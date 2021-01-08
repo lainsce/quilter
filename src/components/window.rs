@@ -17,8 +17,6 @@ use gtk::IconThemeExt;
 use gtk::SettingsExt as GtkSettings;
 use gio::SettingsExt;
 use gio::ActionMapExt;
-use gio::ApplicationExt;
-use gio::prelude::ApplicationExtManual;
 use gtk::RevealerExt;
 use gtk::WidgetExt;
 use webkit2gtk::WebViewExt as WebSettings;
@@ -27,10 +25,8 @@ use libhandy::LeafletExt;
 use libhandy::HeaderBarExt;
 use sourceview4::StyleSchemeManagerExt;
 use sourceview4::BufferExt;
-use std::env;
 
 pub struct Window {
-    pub app: gtk::Application,
     pub widget: libhandy::ApplicationWindow,
     pub settings: gio::Settings,
     pub header:  Header,
@@ -61,22 +57,9 @@ impl Window {
         let sidebar = Sidebar::new();
         let searchbar = Searchbar::new();
         // let lbr = ListBoxRow::new();
-        let app = gtk::Application::new(Some(APP_ID), gio::ApplicationFlags::FLAGS_NONE).unwrap();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
-
-        win.set_application(Some(&app));
-        win.set_size_request(600, 350);
-        win.set_icon_name(Some(APP_ID));
-        app.add_window(&win);
-
-        win.show_all();
-
-        win.connect_delete_event(move |_, _| {
-            main_quit();
-            Inhibit(false)
-        });
 
         let builder2 = gtk::Builder::from_resource("/com/github/lainsce/quilter/main_view.ui");
         get_widget!(builder2, gtk::Overlay, over);
@@ -608,7 +591,6 @@ impl Window {
         win.add(&mgrid);
 
         let window_widget = Window {
-            app,
             widget: win,
             settings,
             header,
@@ -642,6 +624,7 @@ impl Window {
                 if let Err(err) = window_state::save(&win, &settings) {
                     log::warn!("Failed to save window state, {}", err);
                 }
+                main_quit();
                 Inhibit(false)
             }),
         );
@@ -693,16 +676,6 @@ impl Window {
                 }
             })
         );
-
-        // Quit
-        action!(
-            self.widget,
-            "quit",
-            glib::clone!(@strong self.app as app => move |_, _| {
-                app.quit();
-            })
-        );
-        self.app.set_accels_for_action("win.quit", &["<primary>q"]);
     }
 
 
@@ -716,13 +689,6 @@ impl Window {
                 500,
             );
         }
-    }
-
-    pub fn run(&self) {
-        let args: Vec<String> = env::args().collect();
-        self.app.run(&args);
-
-        gtk::main();
     }
 }
 

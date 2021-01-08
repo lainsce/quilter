@@ -55,6 +55,27 @@
         <property name="font">Normal</property>
       </object>
     </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="conjfont">
+        <property name="name">conjfont</property>
+        <property name="foreground">#33d17a</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="advfont">
+        <property name="name">advfont</property>
+        <property name="foreground">#9141ac</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="adjfont">
+        <property name="name">adjfont</property>
+        <property name="foreground">#f5c211</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
   </object>
   <object class="GtkPopover" id="type_pop">
     <property name="can-focus">False</property>

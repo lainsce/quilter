@@ -5,7 +5,11 @@ use gtk::*;
 use sourceview4::LanguageManagerExt;
 use sourceview4::BufferExt;
 use gio::SettingsExt;
-use gio::FileExt;
+use std::{
+    fs::File,
+    io::{prelude::*, BufReader},
+    path::Path,
+};
 
 pub struct EditorView {
     pub view: sourceview4::View,
@@ -227,15 +231,17 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            let focus_mode_turnkey = buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
-                             focus_scope (&gschema, &buffer);
-                         }));
-            glib::object::ObjectExt::block_signal (&buffer, &focus_mode_turnkey);
-
+            let mut focus_mode_turnkey = None;
             if fs {
-                glib::object::ObjectExt::unblock_signal (&buffer, &focus_mode_turnkey);
+                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
+                                focus_scope (&gschema, &buffer);
+                })));
             } else {
-                glib::object::ObjectExt::block_signal (&buffer, &focus_mode_turnkey);
+                if let Some(sig) = None {
+                    glib::object::ObjectExt::disconnect (&buffer, sig);
+                } else {
+                    focus_mode_turnkey = None;
+                }
             }
 
             if pos {
@@ -317,24 +323,32 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
 fn start_pos(buffer: &sourceview4::Buffer) {
     let (start, end) = buffer.get_bounds();
 
-    let file_verbs = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
     // let file_adj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
     // let file_adverbs = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
     // let file_conj = gio::File::new_for_path(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
 
-    let vbuf_list = glib::file_get_contents(file_verbs.get_path().unwrap().into_os_string().into_string().unwrap()).expect("Unable to get data");
-    let vs = String::from_utf8(vbuf_list).unwrap().to_string();
+    let vbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
 
     let nbuf = buffer.get_text (&start, &end, false).unwrap().to_string();
     let no_punct_buffer: Vec<&str> = nbuf.split ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ").collect();
 
     for word in no_punct_buffer {
-        if word == vs {
-            let match_start = gtk::TextIter::starts_word(&start);
-            let match_end = gtk::TextIter::ends_word(&end);
-            if match_start && match_end {
-                buffer.apply_tag_by_name("verbfont", &start, &end);
+        for verb in &vbuf_list {
+            if word == verb {
+                let match_start = gtk::TextIter::starts_word(&start);
+                let match_end = gtk::TextIter::ends_word(&end);
+                if match_start && match_end {
+                    buffer.apply_tag_by_name("verbfont", &start, &end);
+                }
             }
         }
     }
+}
+
+fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
+    let file = File::open(filename).expect("no such file");
+    let buf = BufReader::new(file);
+    buf.lines()
+        .map(|l| l.expect("Could not parse line"))
+        .collect()
 }

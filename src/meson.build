@@ -39,6 +39,8 @@ sources = files(
   'config.rs',
   'main.rs',
   'static_resources.rs',
+  'utils.rs',
+  'app.rs',
   'components/utils.rs',
   'components/header.rs',
   'components/sidebar.rs',
