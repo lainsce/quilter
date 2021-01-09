@@ -985,12 +985,12 @@ impl Window {
         action!(
             self.widget,
             "toggle_view",
-            glib::clone!(@weak self.full_stack as fs, @weak self.buffer as buffer, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
+            glib::clone!(@weak self.full_stack as fst, @weak self.buffer as buffer, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
                 let key: glib::GString = "editor".into();
-                if fs.get_visible_child_name() == Some(key) {
-                    fs.set_visible_child(&b);
+                if fst.get_visible_child_name() == Some(key) {
+                    fst.set_visible_child(&b);
                 } else {
-                    fs.set_visible_child(&a);
+                    fst.set_visible_child(&a);
                     reload_func(&buffer, &preview);
                 }
             })
@@ -1000,12 +1000,12 @@ impl Window {
             self.widget,
             "focus_mode",
             glib::clone!(@strong self.settings as settings => move |_, _| {
-                let fm = SettingsManager::get_boolean(Key::FocusMode);
-                if !fm {
-                    SettingsManager::set_boolean(Key::FocusMode, true);
-                } else {
+                let fs = SettingsManager::get_boolean(Key::FocusMode);
+                if fs {
                     SettingsManager::set_boolean(Key::FocusMode, false);
                     SettingsManager::set_boolean(Key::TypewriterScrolling, false);
+                } else {
+                    SettingsManager::set_boolean(Key::FocusMode, true);
                 }
             })
         );
@@ -1135,6 +1135,12 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
         cheader = (&css.center).to_string();
     }
 
+    //TODO: Implement Plugins
+    //      - File Embed
+    //      - Image Embed
+    //      - Highlighted style
+    //      - Super and subscripts
+
     let mut opts = Options::empty();
         opts.insert(Options::ENABLE_TABLES);
         opts.insert(Options::ENABLE_FOOTNOTES);
@@ -1211,6 +1217,7 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
     let fs = SettingsManager::get_boolean(Key::FocusMode);
 
     if fs {
+        // Add focus stuff.
         if vm.as_str() == "dark" {
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
@@ -1257,7 +1264,7 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
-        } else {
+        } else if vm.as_str() == "light" {
             buffer.remove_tag_by_name("sepiafont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
             buffer.apply_tag_by_name("blackfont", &start_sentence, &end_sentence);
@@ -1266,25 +1273,40 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
         }
     } else {
+        // Reset all stuff.
         let (start, end) = buffer.get_bounds();
-        if vm.as_str() == "dark" {
+        let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
+        let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
+        let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
+        let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
+
+        if let Some(md_lang) = md_lang {
+            buffer.set_highlight_matching_brackets(true);
+            buffer.set_language(Some(&md_lang));
+            buffer.set_highlight_syntax(true);
+        }
+
+        if vm.as_str() == "light" {
+            buffer.set_style_scheme(lstylem.as_ref());
+            buffer.apply_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("sepiafont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
             buffer.remove_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-            buffer.apply_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-        } else if vm.as_str() == "sepia" {
-            buffer.apply_tag_by_name("sepiafont", &start, &end);
+        } else if vm.as_str() == "dark" {
+            buffer.set_style_scheme(dstylem.as_ref());
+            buffer.apply_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-            buffer.remove_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
             buffer.remove_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-        } else {
-            buffer.remove_tag_by_name("sepiafont", &start, &end);
+        } else if vm.as_str() == "sepia" {
+            buffer.set_style_scheme(sstylem.as_ref());
+            buffer.apply_tag_by_name("sepiafont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-            buffer.apply_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
             buffer.remove_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
@@ -1320,6 +1342,8 @@ fn start_pos(buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
             buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
 
+
+            // FIXME: Get the word before current one to check this.
             if nounifier.contains(&word) || (word.ends_with ("ction") && !word.starts_with ("ction")) {
                buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
             }
@@ -1337,6 +1361,7 @@ fn start_pos(buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
             buffer.remove_tag_by_name("advfont", &match_start, &match_end);
 
+            // FIXME: Get the word before current one to check this.
             if nounifier.contains(&word) {
                buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
             }
@@ -1350,6 +1375,7 @@ fn start_pos(buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
             buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
 
+            // FIXME: Get the word before current one to check this.
             if nounifier.contains(&word) {
                buffer.remove_tag_by_name("advfont", &match_start, &match_end);
             }
