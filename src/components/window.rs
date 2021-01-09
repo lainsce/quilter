@@ -220,6 +220,11 @@ impl Window {
             set_scrvalue(&webview, &scroll_value);
         }));
 
+        focus_scope (&buffer);
+        buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+            focus_scope (&buffer);
+        }));
+
         if tw {
             glib::timeout_add_local(
                 500, glib::clone!(@weak buffer, @weak view => @default-return glib::Continue(true), move || {
@@ -566,9 +571,10 @@ impl Window {
                 view.set_bottom_margin (40);
             }
 
-            Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+            focus_scope (&buffer);
+            buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
                 focus_scope (&buffer);
-            })));
+            }));
 
             if pos {
                 start_pos (&buffer);
@@ -1222,16 +1228,22 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
             buffer.remove_tag_by_name("whitefont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
             buffer.apply_tag_by_name("darkgrayfont", &start, &end);
         } else if vm.as_str() == "sepia" {
             buffer.remove_tag_by_name("darkgrayfont", &start, &end);
-            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-            buffer.apply_tag_by_name("sepiafont", &start, &end);
-        } else {
+            buffer.apply_tag_by_name("lightsepiafont", &start, &end);
+        } else if vm.as_str() == "light" {
             buffer.remove_tag_by_name("darkgrayfont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
             buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
             buffer.apply_tag_by_name("lightgrayfont", &start, &end);
         }
 
@@ -1256,25 +1268,24 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("blackfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
             buffer.apply_tag_by_name("whitefont", &start_sentence, &end_sentence);
-            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("darkgrayfont", &start_sentence, &end_sentence);
         } else if vm.as_str() == "sepia" {
             buffer.apply_tag_by_name("sepiafont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("blackfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
-            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("darkgrayfont", &start_sentence, &end_sentence);
         } else if vm.as_str() == "light" {
             buffer.remove_tag_by_name("sepiafont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
             buffer.apply_tag_by_name("blackfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
-            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("darkgrayfont", &start_sentence, &end_sentence);
         }
     } else {
         // Reset all stuff.
-        let (start, end) = buffer.get_bounds();
         let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
@@ -1290,26 +1301,26 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.set_style_scheme(lstylem.as_ref());
             buffer.apply_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-            buffer.remove_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("darkgrayfont", &start, &end);
         } else if vm.as_str() == "dark" {
             buffer.set_style_scheme(dstylem.as_ref());
-            buffer.apply_tag_by_name("blackfont", &start, &end);
+            buffer.apply_tag_by_name("whitefont", &start, &end);
             buffer.remove_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
             buffer.remove_tag_by_name("lightsepiafont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-            buffer.remove_tag_by_name("whitefont", &start, &end);
-            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("darkgrayfont", &start, &end);
         } else if vm.as_str() == "sepia" {
             buffer.set_style_scheme(sstylem.as_ref());
             buffer.apply_tag_by_name("sepiafont", &start, &end);
-            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-            buffer.remove_tag_by_name("blackfont", &start, &end);
-            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
             buffer.remove_tag_by_name("whitefont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
             buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("darkgrayfont", &start, &end);
         }
     }
 }
