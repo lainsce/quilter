@@ -76,6 +76,13 @@
         <property name="font">Normal</property>
       </object>
     </child>
+    <child type="tag">
+      <object class="GtkTextTag" id="search">
+        <property name="name">search</property>
+        <property name="background">#E5A50A</property>
+        <property name="font">Normal</property>
+      </object>
+    </child>
   </object>
   <object class="GtkPopover" id="type_pop">
     <property name="can-focus">False</property>

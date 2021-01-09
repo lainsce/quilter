@@ -5,7 +5,6 @@ use crate::components::window_state;
 use crate::components::css::CSS;
 use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
-use crate::components::searchbar::Searchbar;
 // use crate::components::listboxrow::ListBoxRow;
 use crate::components::cheatsheet::Cheatsheet;
 use crate::components::prefs_window::PreferencesWindow;
@@ -42,7 +41,7 @@ pub struct Window {
     pub view:  sourceview4::View,
     pub buffer:  sourceview4::Buffer,
     pub sidebar:  Sidebar,
-    pub searchbar: Searchbar,
+    pub searchbar: gtk::SearchBar,
     // pub lbr: ListBoxRow,
     pub main: gtk::Stack,
     pub sc: gtk::Overlay,
@@ -99,7 +98,33 @@ impl Window {
         let buffer = sourceview4::Buffer::new(Some(&table));
         view.set_buffer(Some(&buffer));
 
-        let searchbar = Searchbar::new(&buffer, &view);
+        let builder3 = gtk::Builder::from_resource("/com/github/lainsce/quilter/searchbar.ui");
+        get_widget!(builder3, gtk::SearchBar, searchbar);
+        searchbar.set_visible (true);
+
+        //TODO: Implement replace functions for the searchbar here.
+        get_widget!(builder3, gtk::SearchEntry, search_entry);
+        search_entry.set_visible (true);
+        get_widget!(builder3, gtk::Button, search_button_next);
+        search_button_next.set_visible (true);
+        get_widget!(builder3, gtk::Button, search_button_prev);
+        search_button_prev.set_visible (true);
+
+        search_entry.connect_search_changed (glib::clone!(@weak view, @weak buffer, @weak search_entry => move |_| {
+            let search_string = search_entry.get_text().as_str().replace("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvxyz");
+
+            let start_iter = buffer.get_iter_at_offset (buffer.get_property_cursor_position ());
+            let end_iter = buffer.get_iter_at_offset (buffer.get_property_cursor_position () + search_string.len() as i32);
+            let (start, end) = buffer.get_bounds();
+            let contents = buffer.get_text(&start, &end, true);
+            let found = contents.unwrap().as_str().replace("ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvxyz").contains(&search_string);
+            if found {
+                search_entry.get_style_context ().remove_class (&gtk::STYLE_CLASS_ERROR);
+                buffer.select_range (&start_iter, &end_iter);
+            } else {
+                search_entry.get_style_context ().add_class (&gtk::STYLE_CLASS_ERROR);
+            }
+        }));
 
         get_widget!(builder2, gtk::Revealer, statusbar);
         statusbar.set_visible (true);
@@ -149,9 +174,9 @@ impl Window {
         }
 
         if SettingsManager::get_boolean(Key::Searchbar) {
-            searchbar.container.set_search_mode(true);
+            searchbar.set_search_mode(true);
         } else {
-            searchbar.container.set_search_mode(false);
+            searchbar.set_search_mode(false);
         }
 
         words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak buffer as buffer => move |_| {
@@ -416,9 +441,9 @@ impl Window {
         }
 
         if sh {
-            searchbar.container.set_search_mode(true);
+            searchbar.set_search_mode(true);
         } else {
-            searchbar.container.set_search_mode(false);
+            searchbar.set_search_mode(false);
         }
 
         if tt.as_str() == "words" {
@@ -443,7 +468,7 @@ impl Window {
                                                 @weak view as view,
                                                 @weak statusbar,
                                                 @weak focus_bar,
-                                                @weak searchbar.container as sbc,
+                                                @weak searchbar as sbc,
                                                 @weak header.container as hc,
                                                 @weak header.headerbar as hb,
                                                 @weak header.search_button as hsb,
@@ -721,7 +746,7 @@ impl Window {
         //     unsafe { container.destroy () }
         // }));
 
-        header.search_button.connect_toggled(glib::clone!(@weak searchbar.container as sbc,
+        header.search_button.connect_toggled(glib::clone!(@weak searchbar as sbc,
                                                           @weak header.search_button as hsb => move |_| {
             if hsb.get_active() {
                 sbc.set_search_mode(true);
@@ -815,7 +840,7 @@ impl Window {
         grid.set_hexpand(true);
         grid.set_orientation(gtk::Orientation::Vertical);
         grid.attach (&header.container, 0, 0, 1, 1);
-        grid.attach (&searchbar.container, 0, 1, 1, 1);
+        grid.attach (&searchbar, 0, 1, 1, 1);
         grid.attach (&over, 0, 2, 1, 1);
         grid.attach (&statusbar, 0, 3, 1, 1);
         grid.show_all ();
@@ -937,12 +962,10 @@ impl Window {
                 ]);
                 file_chooser.connect_response(glib::clone!(@weak webview => move |file_chooser, response| {
                     if response == gtk::ResponseType::Ok {
-                        // FIXME: Fix PDF export, it now creates a blank txt instead.
-                        let cl = gio::Cancellable::new();
+                        // FIXME: Fix PDF export.
                         let filename = file_chooser.get_filename().expect("Couldn't get filename");
                         let file = gio::File::new_for_path (filename);
                         let file_path = file.get_path().unwrap().into_os_string().into_string().ok().unwrap();
-                        file.create (gio::FileCreateFlags::REPLACE_DESTINATION, Some(&cl)).expect("Oops!");
 
                         let op = webkit2gtk::PrintOperation::new (&webview);
                         let psize = gtk::PaperSize::new (Some(&gtk::PAPER_NAME_A4));

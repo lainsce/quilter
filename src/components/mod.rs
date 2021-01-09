@@ -8,7 +8,6 @@ pub mod header;
 pub mod sidebar;
 pub mod viewpopover;
 pub mod popover;
-pub mod searchbar;
 pub mod cheatsheet;
 //pub mod listboxrow;
 pub mod css;
