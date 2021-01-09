@@ -11,6 +11,7 @@ use std::{
     path::Path,
 };
 use glib::ObjectExt;
+use crate::settings::{Key, SettingsManager};
 
 pub struct EditorView {
     pub view: sourceview4::View,
@@ -19,24 +20,19 @@ pub struct EditorView {
 }
 
 impl EditorView {
-    pub fn init(gschema: &gio::Settings, webview: &webkit2gtk::WebView, buffer: sourceview4::Buffer, view: sourceview4::View, header: &libhandy::HeaderBar) -> EditorView {
-        let asv = gschema.get_boolean("autosave");
-        let vm = gschema.get_string("visual-mode").unwrap();
-        let tw = gschema.get_boolean("typewriter-scrolling");
-        let pos = gschema.get_boolean("pos");
-        let ts = gschema.get_int("spacing");
-        let tm = gschema.get_int("margins");
-        let fs = gschema.get_boolean("focus-mode");
-        let tx = gschema.get_int("font-sizing");
-        let last_file = gschema.get_string("current-file").unwrap();
-        let fft = gschema.get_string("edit-font-type").unwrap();
-        let width = gschema.get_int("window-width") as f32;
-        let height = gschema.get_int("window-height") as f32;
+    pub fn init(webview: &webkit2gtk::WebView, buffer: sourceview4::Buffer, view: sourceview4::View, header: &libhandy::HeaderBar) -> EditorView {
+        let asv = SettingsManager::get_boolean(Key::Autosave);
+        let tw = SettingsManager::get_boolean(Key::TypewriterScrolling);
+        let pos = SettingsManager::get_boolean(Key::Pos);
+        let ts = SettingsManager::get_integer(Key::Spacing);
+        let tm = SettingsManager::get_integer(Key::Margins);
+        let fs = SettingsManager::get_boolean(Key::FocusMode);
+        let tx = SettingsManager::get_integer(Key::FontSizing);
+        let last_file = SettingsManager::get_string(Key::CurrentFile);
+        let fft = SettingsManager::get_string(Key::EditFontType);
+        let width = SettingsManager::get_integer(Key::WindowWidth) as f32;
+        let height = SettingsManager::get_integer(Key::WindowHeight) as f32;
         let mut focus_mode_turnkey = None;
-
-        //let search_context = gtk::SourceSearchContext::new (buffer, None);
-        //let srcstyle: gtk::SourceStyle = null;
-        //search_context.set_match_style (srcstyle);
 
         if last_file.as_str() != "" {
         // TODO: Implement loading the files from last-files gschema instead of just one.
@@ -67,14 +63,6 @@ impl EditorView {
             buffer.remove_tag_by_name("advfont", &start, &end);
             buffer.remove_tag_by_name("adjfont", &start, &end);
             buffer.remove_tag_by_name("verbfont", &start, &end);
-
-            if vm.as_str() == "dark" {
-                buffer.apply_tag_by_name("darkgrayfont", &start, &end);
-            } else if vm.as_str() == "sepia" {
-                buffer.apply_tag_by_name("sepiafont", &start, &end);
-            } else {
-                buffer.apply_tag_by_name("lightgrayfont", &start, &end);
-            }
         } else {
             start_pos (&buffer);
         }
@@ -152,7 +140,7 @@ impl EditorView {
             view.set_right_margin (m);
         }
 
-        buffer.connect_changed(glib::clone!(@strong gschema, @weak view, @weak webview, @weak buffer => move |_| {
+        buffer.connect_changed(glib::clone!(@weak view, @weak webview, @weak buffer => move |_| {
             if tw && fs {
                 glib::timeout_add_local(
                     500, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(true), move || {
@@ -163,9 +151,9 @@ impl EditorView {
             }
 
             if asv {
-                let delay = gschema.get_int("autosave-delay") as u32;
-                glib::timeout_add_seconds_local(delay, glib::clone!(@strong gschema, @weak view => @default-return glib::Continue(false), move || {
-                    let last_file = gschema.get_string("current-file").unwrap();
+                let delay = SettingsManager::get_integer(Key::AutosaveDelay) as u32;
+                glib::timeout_add_seconds_local(delay, glib::clone!(@weak view => @default-return glib::Continue(false), move || {
+                    let last_file = SettingsManager::get_string(Key::CurrentFile);
                     let filename = last_file.as_str();
                     let (start, end) = buffer.get_bounds();
                     let contents = buffer.get_text(&start, &end, true);
@@ -177,8 +165,8 @@ impl EditorView {
 
         // FIXME: Fix this so it unloads the Focus Scope connection properly.
         if fs {
-            focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak gschema, @weak buffer => move |_| {
-                focus_scope (&gschema, &buffer);
+            focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+                focus_scope (&buffer);
             })));
         } else {
             if let Some(sig) = None {
@@ -188,20 +176,20 @@ impl EditorView {
             }
         }
 
-        gschema.connect_changed (glib::clone!( @strong gschema,
-                                                @weak webview,
-                                                @weak view,
-                                                @weak buffer,
-                                                @weak header
-                                                => move |gschema, _| {
-            let tw = gschema.get_boolean("typewriter-scrolling");
-            let ts = gschema.get_int("spacing");
-            let tm = gschema.get_int("margins");
-            let fs = gschema.get_boolean("focus-mode");
-            let tx = gschema.get_int("font-sizing");
-            let fft = gschema.get_string("edit-font-type").unwrap();
-            let width = gschema.get_int("window-width") as f32;
-            let height = gschema.get_int("window-height") as f32;
+        SettingsManager::get_settings().connect_changed (glib::clone!(@weak webview,
+                                                                      @weak view,
+                                                                      @weak buffer,
+                                                                      @weak header
+                                                => move |_, _| {
+            let tw = SettingsManager::get_boolean(Key::TypewriterScrolling);
+            let pos = SettingsManager::get_boolean(Key::Pos);
+            let ts = SettingsManager::get_integer(Key::Spacing);
+            let tm = SettingsManager::get_integer(Key::Margins);
+            let fs = SettingsManager::get_boolean(Key::FocusMode);
+            let tx = SettingsManager::get_integer(Key::FontSizing);
+            let fft = SettingsManager::get_string(Key::EditFontType);
+            let width = SettingsManager::get_integer(Key::WindowWidth) as f32;
+            let height = SettingsManager::get_integer(Key::WindowHeight) as f32;
 
             if ts == 1 {
                 view.set_pixels_above_lines (1);
@@ -275,6 +263,7 @@ impl EditorView {
                 buffer.remove_tag_by_name("verbfont", &start, &end);
             } else {
                 start_pos (&buffer);
+
             }
         }));
 
@@ -286,9 +275,9 @@ impl EditorView {
     }
 }
 
-fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
+fn focus_scope (buffer: &sourceview4::Buffer) {
     let (start, end) = buffer.get_bounds();
-    let vm = gschema.get_string("visual-mode").unwrap();
+    let vm = SettingsManager::get_string(Key::VisualMode);
     let cursor = buffer.get_insert ().unwrap();
     let cursor_iter = buffer.get_iter_at_mark (&cursor);
 
@@ -313,7 +302,7 @@ fn focus_scope (gschema: &gio::Settings, buffer: &sourceview4::Buffer) {
         let mut start_sentence = cursor_iter.clone();
         let mut end_sentence = start_sentence.clone();
 
-        let focus_type = gschema.get_boolean ("focus-mode-type");
+        let focus_type = SettingsManager::get_boolean(Key::FocusModeType);
         if cursor_iter != start &&
             cursor_iter != end {
             if focus_type {

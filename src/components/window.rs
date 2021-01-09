@@ -27,6 +27,7 @@ use libhandy::HeaderBarExt;
 use sourceview4::StyleSchemeManagerExt;
 use sourceview4::BufferExt;
 use webkit2gtk::PrintOperationExt;
+use crate::settings::{Key, SettingsManager};
 
 pub struct Window {
     pub widget: libhandy::ApplicationWindow,
@@ -91,7 +92,7 @@ impl Window {
         view.set_buffer(Some(&buffer));
 
         let searchbar = Searchbar::new(&buffer, &view);
-        let editor = EditorView::init(&settings, &webview, buffer, view, &header.headerbar);
+        let editor = EditorView::init(&webview, buffer, view, &header.headerbar);
 
         get_widget!(builder2, gtk::Revealer, statusbar);
         statusbar.set_visible (true);
@@ -101,12 +102,12 @@ impl Window {
         get_widget!(builder2, gtk::Button, focus);
 
         focus.connect_clicked(glib::clone!(@strong settings => move |_| {
-            let fm = settings.get_boolean("focus-mode");
+            let fm = SettingsManager::get_boolean(Key::FocusMode);
             if !fm {
-                settings.set_boolean("focus-mode", true).expect ("Oops!");
+                SettingsManager::set_boolean(Key::FocusMode, true);
             } else {
-                settings.set_boolean("focus-mode", false).expect ("Oops!");
-                settings.set_boolean("typewriter-scrolling", false).expect ("Oops!");
+                SettingsManager::set_boolean(Key::FocusMode, false);
+                SettingsManager::set_boolean(Key::TypewriterScrolling, false);
             }
         }));
 
@@ -119,7 +120,7 @@ impl Window {
         get_widget!(builder2, gtk::RadioButton, reading_time);
         get_widget!(builder2, gtk::Label, type_label);
 
-        let tt = settings.get_string("track-type").unwrap();
+        let tt = SettingsManager::get_string(Key::TrackType);
         if tt.as_str() == "words" {
             words.set_active (true);
         } else if tt.as_str() == "lines" {
@@ -128,19 +129,19 @@ impl Window {
             reading_time.set_active (true);
         }
 
-        if settings.get_boolean("sidebar"){
+        if SettingsManager::get_boolean(Key::Sidebar) {
             sidebar.container.set_reveal_child(true);
         } else {
             sidebar.container.set_reveal_child(false);
         }
 
-        if settings.get_boolean("statusbar") {
+        if SettingsManager::get_boolean(Key::Statusbar) {
             statusbar.set_reveal_child(true);
         } else {
             statusbar.set_reveal_child(false);
         }
 
-        if settings.get_boolean("searchbar") {
+        if SettingsManager::get_boolean(Key::Searchbar) {
             searchbar.container.set_search_mode(true);
         } else {
             searchbar.container.set_search_mode(false);
@@ -151,14 +152,14 @@ impl Window {
             let words = buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
 
             type_label.set_text (&format!("Words: {}", &words));
-            settings.set_string("track-type", "words").unwrap();
+            SettingsManager::set_string(Key::TrackType, "words".to_string());
         }));
 
         lines.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak editor.buffer as buffer => move |_| {
             let lines = buffer.get_line_count();
 
             type_label.set_text (&format!("Lines: {}", &lines));
-            settings.set_string("track-type", "lines").unwrap();
+            SettingsManager::set_string(Key::TrackType, "lines".to_string());
         }));
 
         reading_time.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak editor.buffer as buffer => move |_| {
@@ -167,7 +168,7 @@ impl Window {
             let rt_min = rt;
 
             type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
-            settings.set_string("track-type", "rtc").unwrap();
+            SettingsManager::set_string(Key::TrackType, "rtc".to_string());
         }));
 
         //
@@ -209,12 +210,12 @@ impl Window {
         // Settings Block
         //
         let settingsgtk = gtk::Settings::get_default();
-        let vm = settings.get_string("visual-mode").unwrap();
-        let sm = settings.get_boolean("sidebar");
-        let st = settings.get_boolean("statusbar");
-        let sh = settings.get_boolean("searchbar");
-        let fs = settings.get_boolean("focus-mode");
-        let tt = settings.get_string("track-type").unwrap();
+        let vm = SettingsManager::get_string(Key::VisualMode);
+        let sm = SettingsManager::get_boolean(Key::Sidebar);
+        let st = SettingsManager::get_boolean(Key::Statusbar);
+        let sh = SettingsManager::get_boolean(Key::Searchbar);
+        let fs = SettingsManager::get_boolean(Key::FocusMode);
+        let tt = SettingsManager::get_string(Key::TrackType);
 
         let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
         let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
@@ -305,11 +306,11 @@ impl Window {
                                                 @weak type_label
                                                 => move |settings, _| {
             let settingsgtk = gtk::Settings::get_default();
-            let vm = settings.get_string("visual-mode").unwrap();
-            let sm = settings.get_boolean("sidebar");
-            let st = settings.get_boolean("statusbar");
-            let sh = settings.get_boolean("searchbar");
-            let fs = settings.get_boolean("focus-mode");
+            let vm = SettingsManager::get_string(Key::VisualMode);
+            let sm = SettingsManager::get_boolean(Key::Sidebar);
+            let st = SettingsManager::get_boolean(Key::Statusbar);
+            let sh = SettingsManager::get_boolean(Key::Searchbar);
+            let fs = SettingsManager::get_boolean(Key::FocusMode);
             let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
             let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
@@ -486,15 +487,15 @@ impl Window {
         }));
 
         header.popover.color_button_light.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
-            settings.set_string("visual-mode", "light").unwrap();
+            SettingsManager::set_string(Key::VisualMode, "light".to_string());
         }));
 
         header.popover.color_button_dark.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
-            settings.set_string("visual-mode", "dark").unwrap();
+            SettingsManager::set_string(Key::VisualMode, "dark".to_string());
         }));
 
         header.popover.color_button_sepia.connect_toggled(glib::clone!(@weak settings as settings => move |_| {
-            settings.set_string("visual-mode", "sepia").unwrap();
+            SettingsManager::set_string(Key::VisualMode, "sepia".to_string());
         }));
 
         header.viewpopover.full_button.connect_toggled(glib::clone!(@strong settings,
@@ -506,8 +507,8 @@ impl Window {
                                                                     @weak editor.view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
                                                                     => move |_| {
-            let key: glib::GString = "full".into();
-            if settings.get_string("preview-type") == Some(key) {
+            let key: String = "full".into();
+            if SettingsManager::get_string(Key::PreviewType) == key {
                 main.set_visible_child(&full_stack);
                 change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &editor, &hpt);
             } else {
@@ -525,8 +526,8 @@ impl Window {
                                                                     @weak editor.view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
                                                                     => move |_| {
-            let key: glib::GString = "half".into();
-            if settings.get_string("preview-type") == Some(key) {
+            let key: String = "half".into();
+            if SettingsManager::get_string(Key::PreviewType) == key {
                 main.set_visible_child(&half_stack);
                 change_layout (&main, &full_stack, &half_stack, &sc, &sc1, &editor, &hpt);
             } else {
@@ -721,8 +722,8 @@ impl Window {
         action!(
             self.widget,
             "prefs",
-            glib::clone!(@strong self.settings as settings, @weak self.widget as win  => move |_, _| {
-                let prefs_win = PreferencesWindow::new(&win, &settings);
+            glib::clone!(@weak self.widget as win  => move |_, _| {
+                let prefs_win = PreferencesWindow::new(&win);
                 prefs_win.prefs.show();
             })
         );
@@ -745,12 +746,12 @@ impl Window {
             self.widget,
             "focus_mode",
             glib::clone!(@strong self.settings as settings => move |_, _| {
-                let fm = settings.get_boolean("focus-mode");
+                let fm = SettingsManager::get_boolean(Key::FocusMode);
                 if !fm {
-                    settings.set_boolean("focus-mode", true).expect ("Oops!");
+                    SettingsManager::set_boolean(Key::FocusMode, true);
                 } else {
-                    settings.set_boolean("focus-mode", false).expect ("Oops!");
-                    settings.set_boolean("typewriter-scrolling", false).expect ("Oops!");
+                    SettingsManager::set_boolean(Key::FocusMode, false);
+                    SettingsManager::set_boolean(Key::TypewriterScrolling, false);
                 }
             })
         );
@@ -781,8 +782,7 @@ fn change_layout (main: &gtk::Stack,
                   view: &sourceview4::View,
                   toggle_view_button: &gtk::ModelButton
 ) {
-    let settings = gio::Settings::new(APP_ID);
-    let layout = settings.get_string("preview-type").unwrap();
+    let layout = SettingsManager::get_string(Key::PreviewType);
     if layout.as_str() == "full" {
         for w in half_stack.get_children () {
             half_stack.remove (&w);
@@ -813,8 +813,7 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
 
     let mut style = "";
     let mut font = "";
-    let settings = gio::Settings::new(APP_ID);
-    let vm = settings.get_string("visual-mode").unwrap();
+    let vm = SettingsManager::get_string(Key::VisualMode);
     if vm.as_str() == "dark" {
         style = &css.dark;
     } else if vm.as_str() == "sepia" {
@@ -836,7 +835,7 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
     render = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
 
     let mut stringhl = "".to_string();
-    if settings.get_boolean("highlight") {
+    if SettingsManager::get_boolean(Key::Highlight) {
         stringhl = format! ("
             <link rel=\"stylesheet\" href=\"{}\">
             <script defer src=\"{}\" onload=\"hljs.initHighlightingOnLoad();\"></script>
@@ -852,7 +851,7 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
     renderl = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/katex/render.js";
 
     let mut stringtex = "".to_string();
-    if settings.get_boolean("latex") {
+    if SettingsManager::get_boolean(Key::Latex) {
         stringtex = format!( "
                         <link rel=\"stylesheet\" href=\"{}\">
                         <script defer src=\"{}\"></script>
@@ -860,7 +859,7 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
                     ",  katexmain, katexjs, renderl);
     }
 
-    let pft = settings.get_string("preview-font-type").unwrap();
+    let pft = SettingsManager::get_string(Key::PreviewFontType);
     if pft.as_str() == "serif" {
         font = &css.serif;
     } else if pft.as_str() == "sans" {
@@ -872,22 +871,13 @@ fn reload_func(buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> S
     // Mermaid
     let mut stringmaid = "".to_string();
     let mermaid = glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/mermaid/mermaid.js";
-    if settings.get_boolean("mermaid") {
+    if SettingsManager::get_boolean(Key::Mermaid) {
         stringmaid = format! ("<script defer src=\"{}\"></script>", mermaid);
-    }
-
-    let pft = settings.get_string("preview-font-type").unwrap();
-    if pft.as_str() == "serif" {
-        font = &css.serif;
-    } else if pft.as_str() == "sans" {
-        font = &css.sans;
-    } else if pft.as_str() == "mono" {
-        font = &css.mono;
     }
 
     // Center Headers
     let mut cheader = "".to_string();
-    if settings.get_boolean("center-headers") {
+    if SettingsManager::get_boolean(Key::CenterHeaders) {
         cheader = (&css.center).to_string();
     }
 

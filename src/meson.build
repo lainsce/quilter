@@ -52,6 +52,9 @@ sources = files(
   'components/window_state.rs',
   'components/mod.rs',
   'components/css.rs',
+  'settings/settings_manager.rs',
+  'settings/mod.rs',
+  'settings/key.rs',
 )
 
 custom_target(

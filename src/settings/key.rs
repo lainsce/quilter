@@ -1,0 +1,35 @@
+#[derive(Display, Debug, Clone, EnumString)]
+#[strum(serialize_all = "kebab_case")]
+pub enum Key {
+    VisualMode,
+    FocusMode,
+    FocusModeType,
+    TypewriterScrolling,
+    Autosave,
+    AutosaveDelay,
+    CurrentFile,
+    LastFiles,
+    EditFontType,
+    PreviewFontType,
+    PreviewType,
+    TrackType,
+    Spellcheck,
+    SpellcheckLanguage,
+    Searchbar,
+    Statusbar,
+    Sidebar,
+    Highlight,
+    Latex,
+    Mermaid,
+    Pos,
+    CenterHeaders,
+    Spacing,
+    Margins,
+    FontSizing,
+
+    WindowWidth,
+    WindowHeight,
+    WindowX,
+    WindowY,
+}
+

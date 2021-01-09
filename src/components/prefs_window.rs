@@ -1,8 +1,8 @@
 use gtk::prelude::BuilderExtManual;
 use gtk::*;
-use gio::{Settings, SettingsExt};
 use gtk::WidgetExt;
 use gtk::prelude::ComboBoxExtManual;
+use crate::settings::{Key, SettingsManager};
 
 pub struct PreferencesWindow {
     pub prefs: libhandy::PreferencesWindow,
@@ -28,7 +28,7 @@ pub struct PreferencesWindow {
 }
 
 impl PreferencesWindow {
-    pub fn new(parent: &libhandy::ApplicationWindow, gschema: &Settings) -> PreferencesWindow {
+    pub fn new(parent: &libhandy::ApplicationWindow) -> PreferencesWindow {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/prefs_window.ui");
         get_widget!(builder, libhandy::PreferencesWindow, prefs);
         prefs.set_modal (false);
@@ -135,21 +135,28 @@ impl PreferencesWindow {
         // gschema Binds
         //
         //
-        let vm = gschema.get_string("visual-mode").unwrap();
-        let ts = gschema.get_int("spacing");
-        let tm = gschema.get_int("margins");
-        let tx = gschema.get_int("font-sizing");
+        let ts = SettingsManager::get_integer(Key::Spacing);
+        let tm = SettingsManager::get_integer(Key::Margins);
+        let tx = SettingsManager::get_integer(Key::FontSizing);
+        let vm = SettingsManager::get_string(Key::VisualMode);
+        let fft = SettingsManager::get_string(Key::EditFontType);
+        let pft = SettingsManager::get_string(Key::PreviewFontType);
 
-        gschema.bind ("statusbar", &sb, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("sidebar", &sdbs, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("focus-mode", &focus_mode, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("focus-mode", &focus_mode, "expanded", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("autosave", &autosave, "enable_expansion", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("autosave", &autosave, "expanded", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("autosave-delay", &delay, "value", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("focus-mode-type", &focus_scope, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("typewriter-scrolling", &typewriter, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("pos", &pos, "active", gio::SettingsBindFlags::DEFAULT);
+        SettingsManager::bind_property(Key::Statusbar, &sb, "active");
+        SettingsManager::bind_property(Key::Sidebar, &sdbs, "active");
+        SettingsManager::bind_property(Key::FocusMode, &focus_mode, "enable_expansion");
+        SettingsManager::bind_property(Key::FocusMode, &focus_mode, "expanded");
+        SettingsManager::bind_property(Key::Autosave, &focus_mode, "enable_expansion");
+        SettingsManager::bind_property(Key::Autosave, &focus_mode, "expanded");
+        SettingsManager::bind_property(Key::AutosaveDelay, &delay, "value");
+        SettingsManager::bind_property(Key::FocusModeType, &focus_scope, "active");
+        SettingsManager::bind_property(Key::TypewriterScrolling, &typewriter, "active");
+        SettingsManager::bind_property(Key::Pos, &pos, "active");
+        SettingsManager::bind_property(Key::CenterHeaders, &centering, "active");
+        SettingsManager::bind_property(Key::Highlight, &highlight, "active");
+        SettingsManager::bind_property(Key::Latex, &latex, "active");
+        SettingsManager::bind_property(Key::Mermaid, &mermaid, "active");
+
 
         if vm.as_str() == "light" {
             light.set_active (true);
@@ -167,13 +174,13 @@ impl PreferencesWindow {
             stype.set_active(Some(2));
         }
 
-        stype.connect_changed (glib::clone!(@strong gschema, @weak stype as sw => move |_| {
+        stype.connect_changed (glib::clone!(@weak stype as sw => move |_| {
             if sw.get_active() == Some(0) {
-                gschema.set_int("spacing", 1).expect ("Oops!");
+                SettingsManager::set_integer(Key::Spacing, 1);
             } else if sw.get_active() == Some(1) {
-                gschema.set_int("spacing", 4).expect ("Oops!");
+                SettingsManager::set_integer(Key::Spacing, 4);
             } else if sw.get_active() == Some(2) {
-                gschema.set_int("spacing", 8).expect ("Oops!");
+                SettingsManager::set_integer(Key::Spacing, 8);
             }
         }));
 
@@ -185,13 +192,13 @@ impl PreferencesWindow {
             mtype.set_active(Some(2));
         }
 
-        mtype.connect_changed (glib::clone!(@strong gschema, @weak mtype as mw => move |_| {
+        mtype.connect_changed (glib::clone!(@weak mtype as mw => move |_| {
             if mw.get_active() == Some(0) {
-                gschema.set_int("margins", 1).expect ("Oops!");
+                SettingsManager::set_integer(Key::Margins, 1);
             } else if mw.get_active() == Some(1) {
-                gschema.set_int("margins", 8).expect ("Oops!");
+                SettingsManager::set_integer(Key::Margins, 8);
             } else if mw.get_active() == Some(2) {
-                gschema.set_int("margins", 16).expect ("Oops!");
+                SettingsManager::set_integer(Key::Margins, 16);
             }
         }));
 
@@ -203,30 +210,27 @@ impl PreferencesWindow {
             ztype.set_active(Some(2))
         }
 
-        ztype.connect_changed (glib::clone!(@strong gschema, @weak ztype as zw => move |_| {
+        ztype.connect_changed (glib::clone!(@weak ztype as zw => move |_| {
             if zw.get_active() == Some(0) {
-                gschema.set_int("font-sizing", 0).expect ("Oops!");
+                SettingsManager::set_integer(Key::FontSizing, 0);
             } else if zw.get_active() == Some(1) {
-                gschema.set_int("font-sizing", 1).expect ("Oops!");
+                SettingsManager::set_integer(Key::FontSizing, 1);
             } else if zw.get_active() == Some(2) {
-                gschema.set_int("font-sizing", 2).expect ("Oops!");
+                SettingsManager::set_integer(Key::FontSizing, 2);
             }
         }));
 
-        light.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
-            g.set_string("visual-mode", "light").unwrap();
+        light.connect_toggled(glib::clone!(@weak ztype as zw => move |_| {
+            SettingsManager::set_string(Key::VisualMode, "light".to_string());
         }));
 
-        dark.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
-            g.set_string("visual-mode", "dark").unwrap();
+        dark.connect_toggled(glib::clone!(@weak ztype as zw => move |_| {
+            SettingsManager::set_string(Key::VisualMode, "dark".to_string());
         }));
 
-        sepia.connect_toggled(glib::clone!(@weak gschema as g => move |_| {
-            g.set_string("visual-mode", "sepia").unwrap();
+        sepia.connect_toggled(glib::clone!(@weak ztype as zw => move |_| {
+            SettingsManager::set_string(Key::VisualMode, "sepia".to_string());
         }));
-
-        let pft = gschema.get_string("preview-font-type").unwrap();
-        let fft = gschema.get_string("edit-font-type").unwrap();
 
         if pft.as_str() == "mono" {
             ptype.set_active(Some(2));
@@ -236,13 +240,13 @@ impl PreferencesWindow {
             ptype.set_active(Some(1));
         }
 
-        ptype.connect_changed (glib::clone!(@strong gschema, @weak ptype as pw => move |_| {
+        ptype.connect_changed (glib::clone!(@weak ptype as pw => move |_| {
             if pw.get_active() == Some(1) {
-                gschema.set_string("preview-font-type", "serif").expect ("Oops!");
+                SettingsManager::set_string(Key::PreviewFontType, "serif".to_string());
             } else if pw.get_active() == Some(0) {
-                gschema.set_string("preview-font-type", "sans").expect ("Oops!");
+                SettingsManager::set_string(Key::PreviewFontType, "sans".to_string());
             } else if pw.get_active() == Some(2) {
-                gschema.set_string("preview-font-type", "mono").expect ("Oops!");
+                SettingsManager::set_string(Key::PreviewFontType, "mono".to_string());
             }
         }));
 
@@ -254,20 +258,15 @@ impl PreferencesWindow {
             ptype.set_active(Some(1));
         }
 
-        ftype.connect_changed (glib::clone!(@strong gschema, @weak ftype as fw => move |_| {
+        ftype.connect_changed (glib::clone!(@weak ftype as fw => move |_| {
             if fw.get_active() == Some(0) {
-                gschema.set_string("edit-font-type", "mono").expect ("Oops!");
+                SettingsManager::set_string(Key::EditFontType, "mono".to_string());
             } else if fw.get_active() == Some(1) {
-                gschema.set_string("edit-font-type", "zwei").expect ("Oops!");
+                SettingsManager::set_string(Key::EditFontType, "zwei".to_string());
             } else if fw.get_active() == Some(2) {
-                gschema.set_string("edit-font-type", "vier").expect ("Oops!");
+                SettingsManager::set_string(Key::EditFontType, "vier".to_string());
             }
         }));
-
-        gschema.bind ("center-headers", &centering, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("highlight", &highlight, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("latex", &latex, "active", gio::SettingsBindFlags::DEFAULT);
-        gschema.bind ("mermaid", &mermaid, "active", gio::SettingsBindFlags::DEFAULT);
 
         let prefswin = PreferencesWindow {
             prefs,

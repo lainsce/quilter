@@ -1,7 +1,13 @@
 extern crate gtk;
 extern crate libhandy;
+
 extern crate log;
+extern crate lazy_static;
 extern crate glib;
+
+#[macro_use]
+extern crate strum_macros;
+extern crate gtk_macros;
 
 use gettextrs::*;
 
@@ -10,6 +16,7 @@ mod utils;
 
 mod components;
 mod config;
+mod settings;
 mod static_resources;
 mod app;
 use config::{GETTEXT_PACKAGE, LOCALEDIR};
