@@ -25,7 +25,6 @@ use libhandy::HeaderBarExt;
 use sourceview4::StyleSchemeManagerExt;
 use sourceview4::BufferExt;
 use webkit2gtk::PrintOperationExt;
-use glib::SignalHandlerId;
 use crate::settings::{Key, SettingsManager};
 use std::{
     fs::File,
@@ -51,7 +50,6 @@ pub struct Window {
     pub webview: webkit2gtk::WebView,
     pub statusbar: gtk::Revealer,
     pub focus_bar: gtk::Revealer,
-    pub focus_mode_turnkey: Option<glib::signal::SignalHandlerId>,
 }
 
 impl Window {
@@ -238,21 +236,6 @@ impl Window {
         } else {
             view.set_top_margin (40);
             view.set_bottom_margin (40);
-        }
-
-        // FIXME: Fix this so it unloads the Focus Scope connection properly.
-        let fs = SettingsManager::get_boolean(Key::FocusMode);
-        let mut focus_mode_turnkey: Option<SignalHandlerId> = None;
-        if fs {
-            focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
-                focus_scope (&buffer);
-            })));
-        } else {
-            if let Some(sig) = None {
-                glib::object::ObjectExt::disconnect(&buffer, sig);
-            } else {
-                focus_mode_turnkey = None;
-            }
         }
 
         if pos {
@@ -583,19 +566,9 @@ impl Window {
                 view.set_bottom_margin (40);
             }
 
-            // FIXME: Fix this so it unloads the Focus Scope connection properly.
-            let mut focus_mode_turnkey: Option<SignalHandlerId> = None;
-            if fs {
-                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
-                    focus_scope (&buffer);
-                })));
-            } else {
-                if let Some(sig) = None {
-                    glib::object::ObjectExt::disconnect(&buffer, sig);
-                } else {
-                    focus_mode_turnkey = None;
-                }
-            }
+            Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+                focus_scope (&buffer);
+            })));
 
             if pos {
                 start_pos (&buffer);
@@ -885,8 +858,7 @@ impl Window {
             buffer,
             webview,
             statusbar,
-            focus_bar,
-            focus_mode_turnkey
+            focus_bar
         };
 
         window_widget.init ();
@@ -1236,25 +1208,26 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
     let vm = SettingsManager::get_string(Key::VisualMode);
     let cursor = buffer.get_insert ().unwrap();
     let cursor_iter = buffer.get_iter_at_mark (&cursor);
+    let fs = SettingsManager::get_boolean(Key::FocusMode);
 
-    if vm.as_str() == "dark" {
-        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-        buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-        buffer.remove_tag_by_name("whitefont", &start, &end);
-        buffer.apply_tag_by_name("darkgrayfont", &start, &end);
-    } else if vm.as_str() == "sepia" {
-        buffer.remove_tag_by_name("darkgrayfont", &start, &end);
-        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-        buffer.remove_tag_by_name("lightgrayfont", &start, &end);
-        buffer.apply_tag_by_name("sepiafont", &start, &end);
-    } else {
-        buffer.remove_tag_by_name("darkgrayfont", &start, &end);
-        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
-        buffer.remove_tag_by_name("blackfont", &start, &end);
-        buffer.apply_tag_by_name("lightgrayfont", &start, &end);
-    }
+    if fs {
+        if vm.as_str() == "dark" {
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
+            buffer.apply_tag_by_name("darkgrayfont", &start, &end);
+        } else if vm.as_str() == "sepia" {
+            buffer.remove_tag_by_name("darkgrayfont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.apply_tag_by_name("sepiafont", &start, &end);
+        } else {
+            buffer.remove_tag_by_name("darkgrayfont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.apply_tag_by_name("lightgrayfont", &start, &end);
+        }
 
-    // Symbolic "if cursor != null" block {
         let mut start_sentence = cursor_iter.clone();
         let mut end_sentence = start_sentence.clone();
 
@@ -1292,7 +1265,31 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
             buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
             buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
         }
-    //}
+    } else {
+        let (start, end) = buffer.get_bounds();
+        if vm.as_str() == "dark" {
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.apply_tag_by_name("whitefont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+        } else if vm.as_str() == "sepia" {
+            buffer.apply_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.remove_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+        } else {
+            buffer.remove_tag_by_name("sepiafont", &start, &end);
+            buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+            buffer.apply_tag_by_name("blackfont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+            buffer.remove_tag_by_name("whitefont", &start, &end);
+            buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+        }
+    }
 }
 
 fn start_pos(buffer: &sourceview4::Buffer) {
