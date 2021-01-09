@@ -57,7 +57,6 @@ impl Window {
         let settings = gio::Settings::new(APP_ID);
         let header = Header::new();
         let sidebar = Sidebar::new();
-        let searchbar = Searchbar::new();
         // let lbr = ListBoxRow::new();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
@@ -91,6 +90,7 @@ impl Window {
         let buffer = sourceview4::Buffer::new(Some(&table));
         view.set_buffer(Some(&buffer));
 
+        let searchbar = Searchbar::new(&buffer, &view);
         let editor = EditorView::init(&settings, &webview, buffer, view, &header.headerbar);
 
         get_widget!(builder2, gtk::Revealer, statusbar);

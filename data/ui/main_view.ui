@@ -58,7 +58,7 @@
     <child type="tag">
       <object class="GtkTextTag" id="conjfont">
         <property name="name">conjfont</property>
-        <property name="foreground">#33D17A</property>
+        <property name="foreground">#2EC27E</property>
         <property name="font">Normal</property>
       </object>
     </child>
@@ -72,7 +72,7 @@
     <child type="tag">
       <object class="GtkTextTag" id="adjfont">
         <property name="name">adjfont</property>
-        <property name="foreground">#F5C211</property>
+        <property name="foreground">#E5A50A</property>
         <property name="font">Normal</property>
       </object>
     </child>

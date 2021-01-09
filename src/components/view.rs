@@ -21,6 +21,7 @@ pub struct EditorView {
 impl EditorView {
     pub fn init(gschema: &gio::Settings, webview: &webkit2gtk::WebView, buffer: sourceview4::Buffer, view: sourceview4::View, header: &libhandy::HeaderBar) -> EditorView {
         let asv = gschema.get_boolean("autosave");
+        let vm = gschema.get_string("visual-mode").unwrap();
         let tw = gschema.get_boolean("typewriter-scrolling");
         let pos = gschema.get_boolean("pos");
         let ts = gschema.get_int("spacing");
@@ -32,6 +33,10 @@ impl EditorView {
         let width = gschema.get_int("window-width") as f32;
         let height = gschema.get_int("window-height") as f32;
         let mut focus_mode_turnkey = None;
+
+        //let search_context = gtk::SourceSearchContext::new (buffer, None);
+        //let srcstyle: gtk::SourceStyle = null;
+        //search_context.set_match_style (srcstyle);
 
         if last_file.as_str() != "" {
         // TODO: Implement loading the files from last-files gschema instead of just one.
@@ -352,7 +357,7 @@ fn start_pos(buffer: &sourceview4::Buffer) {
     let abuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
     let adbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
     let cnbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
-    let normal_buf = buffer.get_text (&start, &end, false).unwrap().to_string().replace("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-#", " ");
+    let normal_buf = buffer.get_text (&start, &end, false).unwrap().to_string().replace("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ", " ");
     let words: Vec<String> = normal_buf.split(' ').map(|s| s.to_string()).collect();
     let mut p = 0;
 

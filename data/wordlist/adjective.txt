@@ -9208,6 +9208,7 @@ harassed
 harborless
 harbourless
 hard
+harder
 hard-and-fast
 hard-bitten
 hard-boiled
