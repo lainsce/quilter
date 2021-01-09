@@ -10,7 +10,6 @@ use std::{
     io::{prelude::*, BufReader},
     path::Path,
 };
-use glib::ObjectExt;
 use crate::settings::{Key, SettingsManager};
 
 pub struct EditorView {
@@ -57,14 +56,14 @@ impl EditorView {
             buffer.set_highlight_syntax(true);
         }
 
-        if !pos {
+        if pos {
+            start_pos (&buffer);
+        } else {
             let (start, end) = buffer.get_bounds();
             buffer.remove_tag_by_name("conjfont", &start, &end);
             buffer.remove_tag_by_name("advfont", &start, &end);
             buffer.remove_tag_by_name("adjfont", &start, &end);
             buffer.remove_tag_by_name("verbfont", &start, &end);
-        } else {
-            start_pos (&buffer);
         }
 
         if tw && fs {
@@ -170,7 +169,7 @@ impl EditorView {
             })));
         } else {
             if let Some(sig) = None {
-                buffer.disconnect(sig);
+                glib::object::ObjectExt::disconnect(&buffer, sig);
             } else {
                 focus_mode_turnkey = None;
             }
@@ -255,15 +254,14 @@ impl EditorView {
                 view.get_style_context().remove_class("mono-font");
             }
 
-            if !pos {
+            if pos {
+                start_pos (&buffer);
+            } else {
                 let (start, end) = buffer.get_bounds();
                 buffer.remove_tag_by_name("conjfont", &start, &end);
                 buffer.remove_tag_by_name("advfont", &start, &end);
                 buffer.remove_tag_by_name("adjfont", &start, &end);
                 buffer.remove_tag_by_name("verbfont", &start, &end);
-            } else {
-                start_pos (&buffer);
-
             }
         }));
 
@@ -340,7 +338,6 @@ fn focus_scope (buffer: &sourceview4::Buffer) {
 }
 
 fn start_pos(buffer: &sourceview4::Buffer) {
-    // TODO: Implement the part-of-speech tagger from 3.0.0 here.
     let (start, end) = buffer.get_bounds();
     let vbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
     let abuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
