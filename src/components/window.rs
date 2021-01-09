@@ -4,7 +4,6 @@ use crate::config::{APP_ID, PROFILE};
 use crate::components::window_state;
 use crate::components::css::CSS;
 use crate::components::header::Header;
-use crate::components::view::EditorView;
 use crate::components::sidebar::Sidebar;
 use crate::components::searchbar::Searchbar;
 // use crate::components::listboxrow::ListBoxRow;
@@ -27,13 +26,21 @@ use libhandy::HeaderBarExt;
 use sourceview4::StyleSchemeManagerExt;
 use sourceview4::BufferExt;
 use webkit2gtk::PrintOperationExt;
+use glib::SignalHandlerId;
 use crate::settings::{Key, SettingsManager};
+use std::{
+    fs::File,
+    io::{prelude::*, BufReader},
+    path::Path,
+};
+use sourceview4::LanguageManagerExt;
 
 pub struct Window {
     pub widget: libhandy::ApplicationWindow,
     pub settings: gio::Settings,
     pub header:  Header,
-    pub editor:  EditorView,
+    pub view:  sourceview4::View,
+    pub buffer:  sourceview4::Buffer,
     pub sidebar:  Sidebar,
     pub searchbar: Searchbar,
     // pub lbr: ListBoxRow,
@@ -45,6 +52,7 @@ pub struct Window {
     pub webview: webkit2gtk::WebView,
     pub statusbar: gtk::Revealer,
     pub focus_bar: gtk::Revealer,
+    pub focus_mode_turnkey: Option<glib::signal::SignalHandlerId>,
 }
 
 impl Window {
@@ -92,7 +100,6 @@ impl Window {
         view.set_buffer(Some(&buffer));
 
         let searchbar = Searchbar::new(&buffer, &view);
-        let editor = EditorView::init(&webview, buffer, view, &header.headerbar);
 
         get_widget!(builder2, gtk::Revealer, statusbar);
         statusbar.set_visible (true);
@@ -147,7 +154,7 @@ impl Window {
             searchbar.container.set_search_mode(false);
         }
 
-        words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak editor.buffer as buffer => move |_| {
+        words.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak buffer as buffer => move |_| {
             let (start, end) = buffer.get_bounds();
             let words = buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
 
@@ -155,14 +162,14 @@ impl Window {
             SettingsManager::set_string(Key::TrackType, "words".to_string());
         }));
 
-        lines.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak editor.buffer as buffer => move |_| {
+        lines.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak buffer as buffer => move |_| {
             let lines = buffer.get_line_count();
 
             type_label.set_text (&format!("Lines: {}", &lines));
             SettingsManager::set_string(Key::TrackType, "lines".to_string());
         }));
 
-        reading_time.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak editor.buffer as buffer => move |_| {
+        reading_time.connect_toggled(glib::clone!(@strong settings, @weak type_label, @weak buffer as buffer => move |_| {
             let (start, end) = buffer.get_bounds();
             let rt = (buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count()) / 200;
             let rt_min = rt;
@@ -174,17 +181,155 @@ impl Window {
         //
         // EditorView (view) Block
         //
-        editor.buffer.connect_changed(glib::clone!(@strong settings, @weak editor.buffer as buffer, @weak webview => move |_| {
+        let height = SettingsManager::get_integer(Key::WindowHeight) as f32;
+        let tw = SettingsManager::get_boolean(Key::TypewriterScrolling);
+        let pos = SettingsManager::get_boolean(Key::Pos);
+        buffer.connect_changed(glib::clone!(@strong settings, @weak buffer as buffer, @weak webview => move |_| {
             reload_func (&buffer, &webview);
         }));
 
-        let eadj = editor.view.get_vadjustment ().unwrap();
-        eadj.connect_property_value_notify(glib::clone!(@weak editor.view as view, @weak webview  => move |_| {
+        let eadj = view.get_vadjustment ().unwrap();
+        eadj.connect_property_value_notify(glib::clone!(@weak view as view, @weak webview  => move |_| {
             let vap: gtk::Adjustment = view.get_vadjustment ().unwrap();
             let upper = vap.get_upper();
             let valued = vap.get_value();
             let scroll_value = valued/upper;
             set_scrvalue(&webview, &scroll_value);
+        }));
+
+        if tw {
+            glib::timeout_add_local(
+                500, glib::clone!(@weak buffer, @weak view => @default-return glib::Continue(true), move || {
+                let cursor = buffer.get_insert ().unwrap();
+                view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                glib::Continue(true)
+            }));
+
+            let titlebar_h = header.headerbar.get_allocated_height() as f32;
+            let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
+            let typewriterposition2 = ((height * 0.55) - titlebar_h) as i32;
+            view.set_top_margin (typewriterposition1);
+            view.set_bottom_margin (typewriterposition2);
+        } else {
+            view.set_top_margin (40);
+            view.set_bottom_margin (40);
+        }
+
+        // FIXME: Fix this so it unloads the Focus Scope connection properly.
+        let fs = SettingsManager::get_boolean(Key::FocusMode);
+        let mut focus_mode_turnkey: Option<SignalHandlerId> = None;
+        if fs {
+            focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+                focus_scope (&buffer);
+            })));
+        } else {
+            if let Some(sig) = None {
+                glib::object::ObjectExt::disconnect(&buffer, sig);
+            } else {
+                focus_mode_turnkey = None;
+            }
+        }
+
+        if pos {
+            start_pos (&buffer);
+        } else {
+            let (start, end) = buffer.get_bounds();
+            buffer.remove_tag_by_name("conjfont", &start, &end);
+            buffer.remove_tag_by_name("advfont", &start, &end);
+            buffer.remove_tag_by_name("adjfont", &start, &end);
+            buffer.remove_tag_by_name("verbfont", &start, &end);
+        }
+
+        let asv = SettingsManager::get_boolean(Key::Autosave);
+        let tw = SettingsManager::get_boolean(Key::TypewriterScrolling);
+        let ts = SettingsManager::get_integer(Key::Spacing);
+        let tm = SettingsManager::get_integer(Key::Margins);
+        let tx = SettingsManager::get_integer(Key::FontSizing);
+        let last_file = SettingsManager::get_string(Key::CurrentFile);
+        let fft = SettingsManager::get_string(Key::EditFontType);
+        let width = SettingsManager::get_integer(Key::WindowWidth) as f32;
+        let md_lang = sourceview4::LanguageManager::get_default().and_then(|lm| lm.get_language("markdown"));
+
+        if let Some(md_lang) = md_lang {
+            buffer.set_highlight_matching_brackets(true);
+            buffer.set_language(Some(&md_lang));
+            buffer.set_highlight_syntax(true);
+        }
+
+        if ts == 1 {
+            view.set_pixels_above_lines (1);
+            view.set_pixels_inside_wrap (1);
+        } else if ts == 4 {
+            view.set_pixels_above_lines (4);
+            view.set_pixels_inside_wrap (4);
+        } else if ts == 8 {
+            view.set_pixels_above_lines (8);
+            view.set_pixels_inside_wrap (8);
+        }
+
+        if tx == 0 {
+            view.get_style_context().add_class("small-font");
+            view.get_style_context().remove_class("medium-font");
+            view.get_style_context().remove_class("large-font");
+        } else if tx == 1 {
+            view.get_style_context().add_class("medium-font");
+            view.get_style_context().remove_class("small-font");
+            view.get_style_context().remove_class("large-font");
+        } else if tx == 2 {
+            view.get_style_context().add_class("large-font");
+            view.get_style_context().remove_class("medium-font");
+            view.get_style_context().remove_class("small-font");
+        }
+
+        if fft.as_str() == "mono" {
+            view.get_style_context().add_class("mono-font");
+            view.get_style_context().remove_class("zwei-font");
+            view.get_style_context().remove_class("vier-font");
+        } else if fft.as_str() == "zwei" {
+            view.get_style_context().add_class("zwei-font");
+            view.get_style_context().remove_class("mono-font");
+            view.get_style_context().remove_class("vier-font");
+        } else if fft.as_str() == "vier" {
+            view.get_style_context().add_class("vier-font");
+            view.get_style_context().remove_class("zwei-font");
+            view.get_style_context().remove_class("mono-font");
+        }
+
+        if tm == 1 {
+            let m = (width * (1.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        } else if tm == 8 {
+            let m = (width * (8.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        } else if tm == 16 {
+            let m = (width * (16.0 / 100.0)) as i32;
+            view.set_left_margin (m);
+            view.set_right_margin (m);
+        }
+
+        buffer.connect_changed(glib::clone!(@weak view, @weak webview, @weak buffer => move |_| {
+            if tw {
+                glib::timeout_add_local(
+                    500, glib::clone!(@weak view, @weak buffer => @default-return glib::Continue(true), move || {
+                    let cursor = buffer.get_insert ().unwrap();
+                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                    glib::Continue(true)
+                }));
+            }
+
+            if asv {
+                let delay = SettingsManager::get_integer(Key::AutosaveDelay) as u32;
+                glib::timeout_add_seconds_local(delay, glib::clone!(@weak view => @default-return glib::Continue(false), move || {
+                    let last_file = SettingsManager::get_string(Key::CurrentFile);
+                    let filename = last_file.as_str();
+                    let (start, end) = buffer.get_bounds();
+                    let contents = buffer.get_text(&start, &end, true);
+                    glib::file_set_contents(filename, contents.unwrap().as_bytes()).expect("Unable to write data");
+                    glib::Continue(false)
+                }));
+            }
         }));
 
         //
@@ -197,13 +342,13 @@ impl Window {
         webkit_settings.set_enable_plugins (true);
         webview.set_settings (&webkit_settings);
 
-        reload_func(&editor.buffer, &webview);
+        reload_func(&buffer, &webview);
         change_layout (&main,
                        &full_stack,
                        &half_stack,
                        &sc,
                        &sc1,
-                       &editor.view,
+                       &view,
                        &header.popover.toggle_view_button);
 
         //
@@ -227,21 +372,21 @@ impl Window {
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
             settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_light.set_active (true);
-            editor.buffer.set_style_scheme(lstylem.as_ref());
+            buffer.set_style_scheme(lstylem.as_ref());
         } else if vm.as_str() == "dark" {
             let stylevmd = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
             settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(true);
             header.popover.color_button_dark.set_active (true);
-            editor.buffer.set_style_scheme(dstylem.as_ref());
+            buffer.set_style_scheme(dstylem.as_ref());
         } else if vm.as_str() == "sepia" {
             let stylevms = CssProvider::new();
             gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
             gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
             settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
             header.popover.color_button_sepia.set_active (true);
-            editor.buffer.set_style_scheme(sstylem.as_ref());
+            buffer.set_style_scheme(sstylem.as_ref());
         }
 
         if st {
@@ -277,25 +422,25 @@ impl Window {
         }
 
         if tt.as_str() == "words" {
-            let (start, end) = editor.buffer.get_bounds();
-            let words = editor.buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
+            let (start, end) = buffer.get_bounds();
+            let words = buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
             type_label.set_text (&format!("Words: {}", &words));
         } else if tt.as_str() == "lines" {
-            let lines = editor.buffer.get_line_count();
+            let lines = buffer.get_line_count();
             type_label.set_text (&format!("Lines: {}", &lines));
         } else if tt.as_str() == "rtc" {
-            let (start, end) = editor.buffer.get_bounds();
-            let reading_time = editor.buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
+            let (start, end) = buffer.get_bounds();
+            let reading_time = buffer.get_text (&start, &end, false).unwrap ().split_whitespace().count();
             let rt_min = reading_time / 200;
             type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
         }
 
-        reload_func(&editor.buffer, &webview);
+        reload_func(&buffer, &webview);
 
         settings.connect_changed (glib::clone!( @strong settings,
                                                 @weak webview,
-                                                @weak editor.buffer as buffer,
-                                                @weak editor.view as view,
+                                                @weak buffer as buffer,
+                                                @weak view as view,
                                                 @weak statusbar,
                                                 @weak focus_bar,
                                                 @weak searchbar.container as sbc,
@@ -311,33 +456,31 @@ impl Window {
             let st = SettingsManager::get_boolean(Key::Statusbar);
             let sh = SettingsManager::get_boolean(Key::Searchbar);
             let fs = SettingsManager::get_boolean(Key::FocusMode);
+            let tw = SettingsManager::get_boolean(Key::TypewriterScrolling);
+            let pos = SettingsManager::get_boolean(Key::Pos);
+            let height = SettingsManager::get_integer(Key::WindowHeight) as f32;
             let lstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter"));
             let dstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-dark"));
             let sstylem = sourceview4::StyleSchemeManager::get_default().and_then(|sm| sm.get_scheme ("quilter-sepia"));
-
-            if vm.as_str() == "light" {
-                buffer.set_style_scheme(lstylem.as_ref());
-            } else if vm.as_str() == "dark" {
-                buffer.set_style_scheme(dstylem.as_ref());
-            } else if vm.as_str() == "sepia" {
-                buffer.set_style_scheme(sstylem.as_ref());
-            }
 
             if vm.as_str() == "light" {
                 let stylevml = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevml, "/com/github/lainsce/quilter/light.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevml, 600);
                 settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
+                buffer.set_style_scheme(lstylem.as_ref());
             } else if vm.as_str() == "dark" {
                 let stylevmd = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevmd, "/com/github/lainsce/quilter/dark.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevmd, 600);
                 settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(true);
+                buffer.set_style_scheme(dstylem.as_ref());
             } else if vm.as_str() == "sepia" {
                 let stylevms = CssProvider::new();
                 gtk::CssProviderExt::load_from_resource(&stylevms, "/com/github/lainsce/quilter/sepia.css");
                 gtk::StyleContext::add_provider_for_screen(&gdk::Screen::get_default().unwrap(), &stylevms, 600);
                 settingsgtk.unwrap().set_property_gtk_application_prefer_dark_theme(false);
+                buffer.set_style_scheme(sstylem.as_ref());
             }
 
             if st {
@@ -397,6 +540,107 @@ impl Window {
                 type_label.set_text (&format!("Reading Time: {:.8}min", &rt_min));
             }
 
+            if tw {
+                glib::timeout_add_local(
+                    500, glib::clone!(@weak buffer, @weak view => @default-return glib::Continue(true), move || {
+                    let cursor = buffer.get_insert ().unwrap();
+                    view.scroll_to_mark(&cursor, 0.0, true, 0.0, 0.55);
+                    glib::Continue(true)
+                }));
+
+                let titlebar_h = hb.get_allocated_height() as f32;
+                let typewriterposition1 = ((height * (1.0 - 0.55)) - titlebar_h) as i32;
+                let typewriterposition2 = ((height * 0.55) - titlebar_h) as i32;
+                view.set_top_margin (typewriterposition1);
+                view.set_bottom_margin (typewriterposition2);
+            } else {
+                view.set_top_margin (40);
+                view.set_bottom_margin (40);
+            }
+
+            // FIXME: Fix this so it unloads the Focus Scope connection properly.
+            let mut focus_mode_turnkey: Option<SignalHandlerId> = None;
+            if fs {
+                focus_mode_turnkey = Some(buffer.connect_property_cursor_position_notify(glib::clone!(@weak buffer => move |_| {
+                    focus_scope (&buffer);
+                })));
+            } else {
+                if let Some(sig) = None {
+                    glib::object::ObjectExt::disconnect(&buffer, sig);
+                } else {
+                    focus_mode_turnkey = None;
+                }
+            }
+
+            if pos {
+                start_pos (&buffer);
+            } else {
+                let (start, end) = buffer.get_bounds();
+                buffer.remove_tag_by_name("conjfont", &start, &end);
+                buffer.remove_tag_by_name("advfont", &start, &end);
+                buffer.remove_tag_by_name("adjfont", &start, &end);
+                buffer.remove_tag_by_name("verbfont", &start, &end);
+            }
+
+            let ts = SettingsManager::get_integer(Key::Spacing);
+            let tm = SettingsManager::get_integer(Key::Margins);
+            let tx = SettingsManager::get_integer(Key::FontSizing);
+            let fft = SettingsManager::get_string(Key::EditFontType);
+            let width = SettingsManager::get_integer(Key::WindowWidth) as f32;
+
+            if ts == 1 {
+                view.set_pixels_above_lines (1);
+                view.set_pixels_inside_wrap (1);
+            } else if ts == 4 {
+                view.set_pixels_above_lines (4);
+                view.set_pixels_inside_wrap (4);
+            } else if ts == 8 {
+                view.set_pixels_above_lines (8);
+                view.set_pixels_inside_wrap (8);
+            }
+
+            if tm == 1 {
+                let m = (width * (1.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
+            } else if tm == 8 {
+                let m = (width * (8.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
+            } else if tm == 16 {
+                let m = (width * (16.0 / 100.0)) as i32;
+                view.set_left_margin (m);
+                view.set_right_margin (m);
+            }
+
+            if tx == 0 {
+                view.get_style_context().add_class("small-font");
+                view.get_style_context().remove_class("medium-font");
+                view.get_style_context().remove_class("large-font");
+            } else if tx == 1 {
+                view.get_style_context().add_class("medium-font");
+                view.get_style_context().remove_class("small-font");
+                view.get_style_context().remove_class("large-font");
+            } else if tx == 2 {
+                view.get_style_context().add_class("large-font");
+                view.get_style_context().remove_class("medium-font");
+                view.get_style_context().remove_class("small-font");
+            }
+
+            if fft.as_str() == "mono" {
+                view.get_style_context().add_class("mono-font");
+                view.get_style_context().remove_class("zwei-font");
+                view.get_style_context().remove_class("vier-font");
+            } else if fft.as_str() == "zwei" {
+                view.get_style_context().add_class("zwei-font");
+                view.get_style_context().remove_class("mono-font");
+                view.get_style_context().remove_class("vier-font");
+            } else if fft.as_str() == "vier" {
+                view.get_style_context().add_class("vier-font");
+                view.get_style_context().remove_class("zwei-font");
+                view.get_style_context().remove_class("mono-font");
+            }
+
             reload_func(&buffer, &webview);
         }));
 
@@ -405,7 +649,7 @@ impl Window {
         //
         header.open_button.connect_clicked(glib::clone!(@strong settings,
                                                         @weak win,
-                                                        @weak editor.buffer as buffer,
+                                                        @weak buffer as buffer,
                                                         @weak sidebar.files_list as files_list
                                                         => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
@@ -444,7 +688,7 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.save_button.connect_clicked(glib::clone!(@weak win, @weak editor.buffer as buffer => move |_| {
+        header.save_button.connect_clicked(glib::clone!(@weak win, @weak buffer as buffer => move |_| {
             let file_chooser = gtk::FileChooserDialog::new(
                 Some("Save File"),
                 Some(&win),
@@ -468,11 +712,11 @@ impl Window {
             file_chooser.show_all();
         }));
         
-        header.new_button.connect_clicked(glib::clone!(@weak editor.buffer as buffer => move |_| {
+        header.new_button.connect_clicked(glib::clone!(@weak buffer as buffer => move |_| {
             buffer.set_text("");
         }));
 
-        // lbr.row_destroy_button.connect_clicked(glib::clone!(@weak editor.buffer as buffer, @weak lbr.container as container => move |_| {
+        // lbr.row_destroy_button.connect_clicked(glib::clone!(@weak buffer as buffer, @weak lbr.container as container => move |_| {
         //     buffer.set_text("");
         //     unsafe { container.destroy () }
         // }));
@@ -504,7 +748,7 @@ impl Window {
                                                                     @weak half_stack,
                                                                     @weak sc1,
                                                                     @weak sc,
-                                                                    @weak editor.view as editor,
+                                                                    @weak view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
                                                                     => move |_| {
             let key: String = "full".into();
@@ -523,7 +767,7 @@ impl Window {
                                                                     @weak half_stack,
                                                                     @weak sc1,
                                                                     @weak sc,
-                                                                    @weak editor.view as editor,
+                                                                    @weak view as editor,
                                                                     @weak header.popover.toggle_view_button as hpt
                                                                     => move |_| {
             let key: String = "half".into();
@@ -541,6 +785,19 @@ impl Window {
         // TODO: Implement loading the files from last-files gschema and then going and making a new LBR based on each file.
         // TODO: Implement changing rows, removing the close button from view and save if changed rows.
         //
+        if last_file.as_str() != "" {
+            let filename = last_file.as_str();
+            let buf = glib::file_get_contents(filename).expect("Unable to get data");
+            let contents = String::from_utf8_lossy(&buf);
+
+            buffer.set_text(&contents);
+
+            // lbr.title.set_label (&last_file.to_string());
+            // lbr.subtitle.set_label ("");
+
+            // sidebar.files_list.add(&lbr.container);
+            // sidebar.files_list.select_row(Some(&lbr.container));
+        }
         // sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak settings as settings => move |_,row| {
         //
         // }));
@@ -599,10 +856,12 @@ impl Window {
             sc1,
             half_stack,
             full_stack,
-            editor,
+            view,
+            buffer,
             webview,
             statusbar,
-            focus_bar
+            focus_bar,
+            focus_mode_turnkey
         };
 
         window_widget.init ();
@@ -638,7 +897,7 @@ impl Window {
         action!(
             self.widget,
             "export_html",
-            glib::clone!(@weak self.widget as win, @weak self.webview as webview, @weak self.editor.buffer as buffer => move |_, _| {
+            glib::clone!(@weak self.widget as win, @weak self.webview as webview, @weak self.buffer as buffer => move |_, _| {
                 let file_chooser = gtk::FileChooserDialog::new(
                     Some("Save File"),
                     Some(&win),
@@ -731,7 +990,7 @@ impl Window {
         action!(
             self.widget,
             "toggle_view",
-            glib::clone!(@weak self.full_stack as fs, @weak self.editor.buffer as buffer, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
+            glib::clone!(@weak self.full_stack as fs, @weak self.buffer as buffer, @weak self.webview as preview, @weak self.sc as a, @weak self.sc1 as b => move |_, _| {
                 let key: glib::GString = "editor".into();
                 if fs.get_visible_child_name() == Some(key) {
                     fs.set_visible_child(&b);
@@ -948,3 +1207,152 @@ fn set_scrvalue (webview: &webkit2gtk::WebView, scroll_value: &f64) {
 fn get_html (buffer: &sourceview4::Buffer, webview: &webkit2gtk::WebView) -> String {
     reload_func(buffer, webview)
 }
+
+fn focus_scope (buffer: &sourceview4::Buffer) {
+    let (start, end) = buffer.get_bounds();
+    let vm = SettingsManager::get_string(Key::VisualMode);
+    let cursor = buffer.get_insert ().unwrap();
+    let cursor_iter = buffer.get_iter_at_mark (&cursor);
+
+    if vm.as_str() == "dark" {
+        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+        buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+        buffer.remove_tag_by_name("whitefont", &start, &end);
+        buffer.apply_tag_by_name("darkgrayfont", &start, &end);
+    } else if vm.as_str() == "sepia" {
+        buffer.remove_tag_by_name("darkgrayfont", &start, &end);
+        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+        buffer.remove_tag_by_name("lightgrayfont", &start, &end);
+        buffer.apply_tag_by_name("sepiafont", &start, &end);
+    } else {
+        buffer.remove_tag_by_name("darkgrayfont", &start, &end);
+        buffer.remove_tag_by_name("lightsepiafont", &start, &end);
+        buffer.remove_tag_by_name("blackfont", &start, &end);
+        buffer.apply_tag_by_name("lightgrayfont", &start, &end);
+    }
+
+    // Symbolic "if cursor != null" block {
+        let mut start_sentence = cursor_iter.clone();
+        let mut end_sentence = start_sentence.clone();
+
+        let focus_type = SettingsManager::get_boolean(Key::FocusModeType);
+        if cursor_iter != start &&
+            cursor_iter != end {
+            if focus_type {
+                start_sentence.backward_sentence_start ();
+                end_sentence.forward_sentence_end ();
+            } else {
+                start_sentence.backward_lines (1);
+                end_sentence.forward_lines (2);
+            }
+        }
+
+        if vm.as_str() == "dark" {
+            buffer.remove_tag_by_name("sepiafont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("blackfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.apply_tag_by_name("whitefont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+        } else if vm.as_str() == "sepia" {
+            buffer.apply_tag_by_name("sepiafont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("blackfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+        } else {
+            buffer.remove_tag_by_name("sepiafont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightsepiafont", &start_sentence, &end_sentence);
+            buffer.apply_tag_by_name("blackfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("whitefont", &start_sentence, &end_sentence);
+            buffer.remove_tag_by_name("lightgrayfont", &start_sentence, &end_sentence);
+        }
+    //}
+}
+
+fn start_pos(buffer: &sourceview4::Buffer) {
+    let (start, end) = buffer.get_bounds();
+    let vbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/verb.txt");
+    let abuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adjective.txt");
+    let adbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/adverb.txt");
+    let cnbuf_list = lines_from_file(glib::get_user_data_dir().unwrap().into_os_string().into_string().unwrap() + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
+    let normal_buf = buffer.get_text (&start, &end, false).unwrap().to_string().replace("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# ", " ");
+    let words: Vec<String> = normal_buf.split(' ').map(|s| s.to_string()).collect();
+    let mut p = 0;
+
+    let nounifier = ["the".to_string(), "an".to_string(), "a".to_string(), "and".to_string(), "or".to_string(), "this".to_string()];
+    let verbifier = ["be".to_string(), "to".to_string(), "and".to_string()];
+
+    for word in words {
+        if word.chars().count() == 0 {
+            p += word.chars().count() + 1;
+            continue;
+        }
+
+        if vbuf_list.contains(&word) || (!word.starts_with("ing") && word.ends_with("ing")) || (!word.starts_with("ed") && word.ends_with("ed")) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) || (word.ends_with ("ction") && !word.starts_with ("ction")) {
+               buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            }
+
+            if verbifier.contains(&word) {
+               buffer.apply_tag_by_name("verbfont", &match_start, &match_end);
+            }
+        }
+        if abuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) {
+               buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            }
+        }
+        if adbuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("conjfont", &match_start, &match_end);
+
+            if nounifier.contains(&word) {
+               buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            }
+        }
+        if cnbuf_list.contains(&word) {
+            let match_start = buffer.get_iter_at_offset(p as i32);
+            let match_end = buffer.get_iter_at_offset((p as i32) + (word.chars().count() as i32));
+
+            buffer.apply_tag_by_name("conjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("advfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("adjfont", &match_start, &match_end);
+            buffer.remove_tag_by_name("verbfont", &match_start, &match_end);
+        }
+
+        p += word.chars().count() + 1;
+    }
+}
+
+fn lines_from_file(filename: impl AsRef<Path>) -> Vec<String> {
+    let file = File::open(filename).expect("no such file");
+    let buf = BufReader::new(file);
+    buf.lines()
+        .map(|l| l.expect("Could not parse line"))
+        .collect()
+}
+

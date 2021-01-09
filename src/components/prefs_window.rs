@@ -146,8 +146,8 @@ impl PreferencesWindow {
         SettingsManager::bind_property(Key::Sidebar, &sdbs, "active");
         SettingsManager::bind_property(Key::FocusMode, &focus_mode, "enable_expansion");
         SettingsManager::bind_property(Key::FocusMode, &focus_mode, "expanded");
-        SettingsManager::bind_property(Key::Autosave, &focus_mode, "enable_expansion");
-        SettingsManager::bind_property(Key::Autosave, &focus_mode, "expanded");
+        SettingsManager::bind_property(Key::Autosave, &autosave, "enable_expansion");
+        SettingsManager::bind_property(Key::Autosave, &autosave, "expanded");
         SettingsManager::bind_property(Key::AutosaveDelay, &delay, "value");
         SettingsManager::bind_property(Key::FocusModeType, &focus_scope, "active");
         SettingsManager::bind_property(Key::TypewriterScrolling, &typewriter, "active");
@@ -156,7 +156,6 @@ impl PreferencesWindow {
         SettingsManager::bind_property(Key::Highlight, &highlight, "active");
         SettingsManager::bind_property(Key::Latex, &latex, "active");
         SettingsManager::bind_property(Key::Mermaid, &mermaid, "active");
-
 
         if vm.as_str() == "light" {
             light.set_active (true);

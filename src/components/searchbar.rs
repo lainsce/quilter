@@ -13,7 +13,7 @@ impl Searchbar {
         get_widget!(builder, gtk::SearchBar, container);
         container.set_visible (true);
 
-        //TODO: Implement search and replace functions for the searchbar here.
+        //TODO: Implement replace functions for the searchbar here.
         get_widget!(builder, gtk::SearchEntry, search_entry);
         search_entry.set_visible (true);
         get_widget!(builder, gtk::Button, search_button_next);
@@ -39,11 +39,9 @@ impl Searchbar {
             let start_iter =  buffer.get_start_iter();
 
             let found = start_iter.forward_search(&key, gtk::TextSearchFlags::CASE_INSENSITIVE, None);
-            if found != None {
-                if let Some((match_start, match_end)) =  found {
-                    buffer.select_range(&match_start, &match_end);
-                };
-            }
+            if let Some((match_start, match_end)) =  found {
+                buffer.select_range(&match_start, &match_end);
+            };
         }));
 
         Searchbar {
