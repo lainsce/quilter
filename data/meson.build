@@ -1,6 +1,6 @@
 fs = import('fs')
 
-icon_sizes = ['16', '24', '32', '48', '64', '128']
+icon_sizes = ['48', '128']
 
 configdir = fs.expanduser('~/.local/share/com.github.lainsce.quilter')
 
@@ -17,6 +17,11 @@ foreach i : icon_sizes
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
     )
 endforeach
+
+install_data(
+    join_paths('icons', '16', 'com.github.lainsce.quilter-symbolic.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
+)
 
 install_data(
     'com.github.lainsce.quilter.gschema.xml',
