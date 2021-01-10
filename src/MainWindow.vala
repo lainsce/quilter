@@ -145,21 +145,32 @@ namespace Quilter {
             Services.FileManager.get_cache_path ();
 
             on_settings_changed.begin ();
-
-            eadj = edit_view.get_vadjustment ();
-            eadj.notify["value"].connect (() => {
-                scroll_to ();
-            });
-
             Quilter.Application.gsettings.changed.connect (() => {
                 on_settings_changed.begin ();
             });
+            
+            if (sidebar.column.get_children () == null) {
+                win_stack.set_visible_child_name ("welcome");
+                titlebar_stack.set_visible_child_name ("welcome-title");
+                sidebar.reveal_child = false;
+                Quilter.Application.gsettings.set_boolean("sidebar", false);
+            } else {
+                win_stack.set_visible_child_name ("doc");
+                titlebar_stack.set_visible_child_name ("title");
+                sidebar.reveal_child = true;
+                Quilter.Application.gsettings.set_boolean("sidebar", true);
+            }
+            
+            if (!Granite.Services.System.history_is_enabled ()) {
+                edit_view_content.buffer.text = "";
+                Services.FileManager.file = null;
+                sidebar.store.clear ();
+                sidebar.delete_rows ();
+            }
 
             spell = new GtkSpell.Checker ();
             spell.decode_language_codes = true;
-
             spellcheck = Quilter.Application.gsettings.get_boolean ("spellcheck");
-
             spell.language_changed.connect (() => {
                 Quilter.Application.gsettings.set_string ("spellcheck-language", spell.get_language ());
             });
@@ -393,7 +404,6 @@ namespace Quilter {
                 }
             });
 
-            change_layout.begin ();
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
@@ -401,18 +411,6 @@ namespace Quilter {
             win_stack.get_style_context ().add_class ("quilter-normal-view");
             win_stack.add_named (welcome_view, "welcome");
             win_stack.add_named (main_stack, "doc");
-
-            if (sidebar.column.get_children () == null) {
-                win_stack.set_visible_child_name ("welcome");
-                titlebar_stack.set_visible_child_name ("welcome-title");
-                sidebar.reveal_child = false;
-                Quilter.Application.gsettings.set_boolean("sidebar", false);
-            } else {
-                win_stack.set_visible_child_name ("doc");
-                titlebar_stack.set_visible_child_name ("title");
-                sidebar.reveal_child = true;
-                Quilter.Application.gsettings.set_boolean("sidebar", true);
-            }
 
             actions = new SimpleActionGroup ();
             actions.add_action_entries (ACTION_ENTRIES, this);
@@ -440,15 +438,12 @@ namespace Quilter {
 
             var overlay_button_dragger = new Hdy.WindowHandle ();
             overlay_button_dragger.add(focus_overlay_button);
-
             overlay_button_revealer.add (overlay_button_dragger);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (titlebar_revealer);
             main_leaf.add (searchbar);
             main_leaf.add (win_stack);
-
-            update ();
 
             grid = new Hdy.Leaflet ();
             grid.add (sidebar);
@@ -471,13 +466,6 @@ namespace Quilter {
             window_grid.add (main_overlay);
 
             add (window_grid);
-
-            if (!Granite.Services.System.history_is_enabled ()) {
-                edit_view_content.buffer.text = "";
-                Services.FileManager.file = null;
-                sidebar.store.clear ();
-                sidebar.delete_rows ();
-            }
 
             this.set_size_request (360, 400);
         }
