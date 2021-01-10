@@ -140,6 +140,10 @@ namespace Quilter {
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
             default_theme.add_resource_path ("/com/github/lainsce/quilter");
+            
+            Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
+            Gtk.Settings.get_default().set_property("icon-theme-name", "elementary");
+            Gtk.Settings.get_default().set_property("gtk-font-name", "Inter 9");
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
