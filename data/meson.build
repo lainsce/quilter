@@ -19,6 +19,11 @@ foreach i : icon_sizes
 endforeach
 
 install_data(
+    join_paths('icons', '128', 'com.github.lainsce.quilter.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
+)
+
+install_data(
     join_paths('icons', 'symbolic', 'com.github.lainsce.quilter.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
@@ -98,7 +103,7 @@ install_subdir(
 # Resources
 resources = gnome.compile_resources(
   'resources',
-  'com.github.lainsce.quilter.gresource.xml',
+  'app.gresource.xml',
   gresource_bundle: true,
   source_dir: meson.current_build_dir()
 )

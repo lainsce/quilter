@@ -111,14 +111,6 @@
     background: shade(@accent, 1.2);
     border: 1px solid transparent;
 }
-.quilter-sidebar-switcher button:first-child {
-    background: shade(@accent, 1.2);
-    border-left: 1px solid shade(@accent, 1.2);
-}
-.quilter-sidebar-switcher button:last-child {
-    background: shade(@accent, 1.2);
-    border-right: 1px solid shade(@accent, 1.2);
-}
 
 .quilter-toolbar .image-button:hover {
     background: shade(@color_primary, 0.88);

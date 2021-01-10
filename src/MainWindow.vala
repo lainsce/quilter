@@ -453,6 +453,9 @@ namespace Quilter {
             grid.can_swipe_back = true;
             grid.set_visible_child (main_leaf);
 
+            update ();
+            change_layout.begin ();
+
             grid.notify["folded"].connect (() => {
                 update ();
             });
