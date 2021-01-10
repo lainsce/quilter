@@ -6,20 +6,20 @@ configdir = fs.expanduser('~/.local/share/com.github.lainsce.quilter')
 
 foreach i : icon_sizes
     install_data(
-        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
+        join_paths('icons', i, meson.project_name()),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
     )
 endforeach
 
 foreach i : icon_sizes
     install_data(
-        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
+        join_paths('icons', i, meson.project_name()),
         install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
     )
 endforeach
 
 install_data(
-    join_paths('icons', '16', 'com.github.lainsce.quilter-symbolic.svg'),
+    join_paths('icons', '16', meson.project_name() + '-symbolic.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
