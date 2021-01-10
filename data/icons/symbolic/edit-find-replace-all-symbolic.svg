@@ -7,7 +7,7 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
    sodipodi:docname="edit-find-replace-all-symbolic.svg"
    id="svg6"
    version="1.1"
@@ -32,14 +32,14 @@
      inkscape:document-rotation="0"
      inkscape:current-layer="svg6"
      inkscape:window-maximized="1"
-     inkscape:window-y="0"
+     inkscape:window-y="30"
      inkscape:window-x="0"
      inkscape:cy="8.9770233"
      inkscape:cx="6.7430297"
      inkscape:zoom="45.254834"
      showgrid="true"
      id="namedview8"
-     inkscape:window-height="1016"
+     inkscape:window-height="964"
      inkscape:window-width="2560"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
@@ -54,17 +54,17 @@
        type="xygrid" />
   </sodipodi:namedview>
   <path
-     style="color:#000000;font-weight:400;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;overflow:visible;isolation:auto;mix-blend-mode:normal;fill:#000000"
+     style="color:#000000;font-weight:400;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;text-orientation:mixed;white-space:normal;shape-padding:0;overflow:visible;isolation:auto;mix-blend-mode:normal;fill:#666666"
      d="m 10.805446,10.352964 -1.8085941,1.808594 c 0.082,-0.05 0.1690468,-0.09148 0.2480469,-0.146485 l 3.6816402,3.681641 a 1,1 0 1 0 1.414063,-1.414063 l -3.681641,-3.68164 c 0.054,-0.079 0.09648,-0.166047 0.146485,-0.248047 z"
      id="path3869"
      inkscape:connector-curvature="0" />
   <g
      id="g3849"
      transform="matrix(0.91666667,0,0,0.92857143,-397.75,-15.785714)"
-     style="color:#bebebe;fill:#000000">
+     style="color:#bebebe">
     <path
        id="path3847"
-       style="overflow:visible;fill:#000000;marker:none"
+       style="overflow:visible;fill:#666666;marker:none"
        overflow="visible"
        d="m 441,17 v 2 a 6,6 0 1 0 6,6 h -2 a 4,4 0 1 1 -4,-4 v 2 l 5,-3 z"
        inkscape:connector-curvature="0" />

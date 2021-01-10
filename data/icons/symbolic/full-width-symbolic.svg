@@ -7,8 +7,8 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
-   sodipodi:docname="full-width-symbolic.svg"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
+   sodipodi:docname="square.svg"
    id="svg6"
    viewBox="0 0 24 24"
    height="24"
@@ -30,14 +30,14 @@
   <sodipodi:namedview
      inkscape:current-layer="svg6"
      inkscape:window-maximized="1"
-     inkscape:window-y="0"
+     inkscape:window-y="30"
      inkscape:window-x="0"
      inkscape:cy="12"
      inkscape:cx="18.620112"
      inkscape:zoom="29.833333"
      showgrid="false"
      id="namedview8"
-     inkscape:window-height="1016"
+     inkscape:window-height="958"
      inkscape:window-width="2560"
      inkscape:pageshadow="2"
      inkscape:pageopacity="0"
@@ -46,12 +46,11 @@
      objecttolerance="10"
      borderopacity="1"
      bordercolor="#666666"
-     pagecolor="#ffffff"
-     inkscape:document-rotation="0" />
+     pagecolor="#ffffff" />
   <title
      id="title2">square</title>
   <path
-     style="fill:#000000;fill-opacity:1"
+     style="fill:#666666;fill-opacity:1"
      id="path4"
      d="M5 2c-0.828 0-1.58 0.337-2.121 0.879s-0.879 1.293-0.879 2.121v14c0 0.828 0.337 1.58 0.879 2.121s1.293 0.879 2.121 0.879h14c0.828 0 1.58-0.337 2.121-0.879s0.879-1.293 0.879-2.121v-14c0-0.828-0.337-1.58-0.879-2.121s-1.293-0.879-2.121-0.879zM5 4h14c0.276 0 0.525 0.111 0.707 0.293s0.293 0.431 0.293 0.707v14c0 0.276-0.111 0.525-0.293 0.707s-0.431 0.293-0.707 0.293h-14c-0.276 0-0.525-0.111-0.707-0.293s-0.293-0.431-0.293-0.707v-14c0-0.276 0.111-0.525 0.293-0.707s0.431-0.293 0.707-0.293z" />
 </svg>
