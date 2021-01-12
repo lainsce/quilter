@@ -1,6 +1,6 @@
 fs = import('fs')
 
-icon_sizes = ['48', '128']
+icon_sizes = ['32', '64', '128']
 
 configdir = fs.expanduser('~/.local/share/com.github.lainsce.quilter')
 
