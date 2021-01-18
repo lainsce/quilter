@@ -9,5 +9,5 @@ pub mod sidebar;
 pub mod viewpopover;
 pub mod popover;
 pub mod cheatsheet;
-//pub mod listboxrow;
+pub mod listboxrow;
 pub mod css;

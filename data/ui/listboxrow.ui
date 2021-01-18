@@ -14,18 +14,14 @@
         <property name="margin-end">12</property>
         <property name="margin-top">12</property>
         <property name="margin-bottom">12</property>
-        <property name="hexpand">False</property>
-        <property name="vexpand">False</property>
         <property name="row-spacing">12</property>
         <property name="column-spacing">24</property>
-        <property name="row-homogeneous">True</property>
         <child>
           <object class="GtkButton" id="row_destroy_button">
             <property name="visible">True</property>
             <property name="can-focus">True</property>
             <property name="receives-default">True</property>
             <property name="halign">end</property>
-            <property name="margin-start">100</property>
             <child>
               <object class="GtkImage">
                 <property name="visible">True</property>
@@ -48,6 +44,7 @@
           <object class="GtkImage">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
+            <property name="halign">start</property>
             <property name="icon-name">markdown-symbolic</property>
           </object>
           <packing>
@@ -60,7 +57,6 @@
           <object class="GtkBox">
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="hexpand">True</property>
             <property name="vexpand">True</property>
             <property name="orientation">vertical</property>
             <property name="homogeneous">True</property>
@@ -69,8 +65,9 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="hexpand">True</property>
-                <property name="ellipsize">end</property>
+                <property name="label" translatable="yes">File Name Here</property>
+                <property name="ellipsize">start</property>
+                <property name="max-width-chars">16</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -86,7 +83,10 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="hexpand">True</property>
+                <property name="label" translatable="yes"># First Header Here</property>
+                <property name="ellipsize">end</property>
+                <property name="width-chars">0</property>
+                <property name="max-width-chars">16</property>
               </object>
               <packing>
                 <property name="expand">True</property>
@@ -109,5 +109,12 @@
     <style>
       <class name="quilter-sidebar-box"/>
     </style>
+  </object>
+  <object class="GtkSizeGroup">
+    <property name="mode">horizontal</property>
+    <property name="ignore-hidden">True</property>
+    <widgets>
+      <widget name="container"/>
+    </widgets>
   </object>
 </interface>

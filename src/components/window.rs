@@ -5,7 +5,7 @@ use crate::components::window_state;
 use crate::components::css::CSS;
 use crate::components::header::Header;
 use crate::components::sidebar::Sidebar;
-// use crate::components::listboxrow::ListBoxRow;
+use crate::components::listboxrow::FileRow;
 use crate::components::cheatsheet::Cheatsheet;
 use crate::components::prefs_window::PreferencesWindow;
 use pulldown_cmark::{Parser, Options, html};
@@ -41,7 +41,7 @@ pub struct Window {
     pub buffer:  sourceview4::Buffer,
     pub sidebar:  Sidebar,
     pub searchbar: gtk::SearchBar,
-    // pub lbr: ListBoxRow,
+    pub lbr: FileRow,
     pub main: gtk::Stack,
     pub sc: gtk::Overlay,
     pub sc1: gtk::ScrolledWindow,
@@ -63,7 +63,7 @@ impl Window {
         let settings = gio::Settings::new(APP_ID);
         let header = Header::new();
         let sidebar = Sidebar::new();
-        // let lbr = ListBoxRow::new();
+        let lbr = FileRow::new();
 
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/window.ui");
         get_widget!(builder, libhandy::ApplicationWindow, win);
@@ -676,15 +676,15 @@ impl Window {
                     let buf = glib::file_get_contents(filename).expect("Unable to get data");
                     let contents = String::from_utf8_lossy(&buf);
 
-                    // let nlbr = ListBoxRow::new();
+                    let nlbr = FileRow::new();
 
                     buffer.set_text(&contents);
 
-                    // nlbr.title.set_label (&this_file.to_string());
-                    // nlbr.subtitle.set_label ("");
+                    nlbr.title.set_label (&(SettingsManager::get_string(Key::CurrentFile)).to_string());
+                    nlbr.subtitle.set_label ("");
 
-                    // files_list.insert (&nlbr.container, 1);
-                    // files_list.select_row(Some(&nlbr.container));
+                    files_list.insert (&nlbr.container, 1);
+                    files_list.select_row(Some(&nlbr.container));
                 }
                 file_chooser.close();
             }));
@@ -720,10 +720,10 @@ impl Window {
             buffer.set_text("");
         }));
 
-        // lbr.row_destroy_button.connect_clicked(glib::clone!(@weak buffer as buffer, @weak lbr.container as container => move |_| {
-        //     buffer.set_text("");
-        //     unsafe { container.destroy () }
-        // }));
+        lbr.row_destroy_button.connect_clicked(glib::clone!(@weak buffer as buffer, @weak lbr.container as container => move |_| {
+            buffer.set_text("");
+            unsafe { container.destroy () }
+        }));
 
         header.search_button.connect_toggled(glib::clone!(@weak searchbar as sbc,
                                                           @weak header.search_button as hsb => move |_| {
@@ -789,23 +789,32 @@ impl Window {
         // TODO: Implement loading the files from last-files gschema and then going and making a new LBR based on each file.
         // TODO: Implement changing rows, removing the close button from view and save if changed rows.
         //
-        if last_file.as_str() != "" {
-            let filename = last_file.as_str();
+        if SettingsManager::get_string(Key::CurrentFile) != "" {
+            let filename = SettingsManager::get_string(Key::CurrentFile);
             let buf = glib::file_get_contents(filename).expect("Unable to get data");
             let contents = String::from_utf8_lossy(&buf);
 
             buffer.set_text(&contents);
 
-            // lbr.title.set_label (&last_file.to_string());
-            // lbr.subtitle.set_label ("");
+            lbr.title.set_label (&last_file.to_string());
+            lbr.subtitle.set_label ("");
 
-            // sidebar.files_list.add(&lbr.container);
-            // sidebar.files_list.select_row(Some(&lbr.container));
+            sidebar.files_list.add(&lbr.container);
+            sidebar.files_list.select_row(Some(&lbr.container));
         }
-        // sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak settings as settings => move |_,row| {
-        //
-        // }));
-        //
+        sidebar.files_list.connect_row_selected (glib::clone!(@weak view, @weak buffer, @weak lbr.container as c, @weak lbr.row_destroy_button as rdb, @weak lbr.title as title, @weak settings as settings => move |_,row| {
+            let filename = SettingsManager::get_string(Key::CurrentFile);
+            if row.unwrap() != &c {
+                let buf = glib::file_get_contents(filename).expect("Unable to get data");
+                let contents = String::from_utf8_lossy(&buf);
+
+                buffer.set_text(&contents);
+
+                rdb.set_visible (false);
+            } else {
+                rdb.set_visible (true);
+            }
+        }));
 
         //
         // Window
@@ -854,7 +863,7 @@ impl Window {
             header,
             sidebar,
             searchbar,
-            // lbr,
+            lbr,
             main,
             sc,
             sc1,

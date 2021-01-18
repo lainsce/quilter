@@ -124,8 +124,10 @@ label:disabled {
     margin: 0px;
 }
 
-.quilter-sidebar-box button {
+.quilter-sidebar-button {
   color: @text_color;
+  padding: 2px;
+  margin: 0px;
 }
 
 .quilter-sidebar-switcher label {

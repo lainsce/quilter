@@ -19,12 +19,12 @@
             <property name="height-request">38</property>
             <property name="visible">True</property>
             <property name="can-focus">False</property>
-            <property name="vexpand">False</property>
             <property name="show-close-button">True</property>
             <property name="decoration-layout">close:</property>
             <property name="interpolate-size">True</property>
             <child type="title">
               <object class="HdyViewSwitcher" id="viewswitcher">
+                <property name="width-request">200</property>
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="stack">stack</property>
@@ -63,10 +63,11 @@
                     <property name="margin-end">12</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <child type="placeholder">
                       <object class="GtkLabel" id="placeholder">
+                        <property name="width-request">200</property>
+                        <property name="height-request">-1</property>
                         <property name="visible">True</property>
                         <property name="can-focus">False</property>
                         <property name="label" translatable="yes">No Files</property>
@@ -134,5 +135,13 @@
         </style>
       </object>
     </child>
+  </object>
+  <object class="GtkSizeGroup">
+    <property name="mode">horizontal</property>
+    <property name="ignore-hidden">True</property>
+    <widgets>
+      <widget name="sideheader"/>
+      <widget name="stack"/>
+    </widgets>
   </object>
 </interface>

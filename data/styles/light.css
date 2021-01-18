@@ -176,7 +176,6 @@
 }
 
 .quilter-sidebar-box {
-    padding: 3px;
     border-radius: 8px;
     border: 1px solid shade(@accent_light, 1.2);
     background-color: mix (@accent_light, @color_primary_light, 0.90);
@@ -185,8 +184,6 @@
 .quilter-sidebar-box:selected,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:hover {
-    padding: 3px;
-    border-radius: 8px;
     border: 1px solid shade(@accent_light, 1.2);
     background-color: shade(@accent_light, 1.2);
     color: @text_color_light;
