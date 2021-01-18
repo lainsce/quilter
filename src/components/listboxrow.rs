@@ -1,4 +1,5 @@
 use gtk::prelude::BuilderExtManual;
+use gtk::prelude::WidgetExtManual;
 use gtk::*;
 
 pub struct FileRow {
@@ -9,7 +10,7 @@ pub struct FileRow {
 }
 
 impl FileRow {
-    pub fn new() -> FileRow {
+    pub fn new(file: String) -> FileRow {
         let builder = gtk::Builder::from_resource("/com/github/lainsce/quilter/listboxrow.ui");
         get_widget!(builder, gtk::ListBoxRow, container);
         container.set_visible (true);
@@ -22,6 +23,12 @@ impl FileRow {
 
         get_widget!(builder, gtk::Button, row_destroy_button);
         row_destroy_button.set_visible (true);
+
+        title.set_label(&file);
+
+        row_destroy_button.connect_clicked(glib::clone!(@weak container => move |_| {
+            unsafe { container.destroy () }
+        }));
 
         FileRow {
             container,
