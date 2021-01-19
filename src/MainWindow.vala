@@ -874,7 +874,7 @@ namespace Quilter {
             var program_name = Config.NAME_PREFIX + _("Quilter");
             Gtk.show_about_dialog (this,
                                    "program-name", program_name,
-                                   "logo-icon-name", Config.APP_ID,
+                                   "logo-icon-name", "io.github.lainsce.Quilter",
                                    "version", Config.VERSION,
                                    "comments", _("Focus on your writing."),
                                    "copyright", COPYRIGHT,

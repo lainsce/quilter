@@ -84,6 +84,7 @@ namespace Quilter.Widgets {
             open_button.tooltip_text = (_("Open a document"));
 
             search_button = new Gtk.ToggleButton ();
+            search_button.tooltip_text = (_("Search and replace text"));
             if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
             } else {
@@ -276,6 +277,7 @@ namespace Quilter.Widgets {
             pmenu.add (preview_grid);
 
             pmenu_button = new Gtk.MenuButton ();
+            pmenu_button.tooltip_text = (_("Change layout of editor and preview"));
             pmenu_button.popover = pmenu;
 
             var button_grid = new Gtk.Grid ();
