@@ -104,3 +104,6 @@
     text-shadow: none;
 }
 
+.devel .quilter-toolbar {
+   background-image: linear-gradient(to right, @color_primary, #99c1f1);
+}

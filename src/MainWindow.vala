@@ -318,6 +318,11 @@ namespace Quilter {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
 
+            Gtk.StyleContext style = get_style_context ();
+            if (Config.PROFILE == "Devel") {
+                style.add_class ("devel");
+            }
+
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
