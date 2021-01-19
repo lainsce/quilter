@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018-2020 Lains
+* Copyright (c) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -36,7 +36,9 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private Gtk.Label no_files;
-        public Gtk.StackSwitcher stackswitcher;
+        public Hdy.ViewSwitcher stackswitcher;
+        public Gtk.ScrolledWindow scrolled_box;
+        public Hdy.HeaderBar header;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool is_modified {get; set; default = false;}
@@ -57,7 +59,7 @@ namespace Quilter.Widgets {
             this.ev = ev;
             this.is_modified = false;
 
-            var scrolled_box = new Gtk.ScrolledWindow (null, null);
+            scrolled_box = new Gtk.ScrolledWindow (null, null);
             scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
             scrolled_box.max_content_height = 500;
             scrolled_box.propagate_natural_height = true;
@@ -72,28 +74,37 @@ namespace Quilter.Widgets {
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stack.add_titled (sidebar_files_list (), "files", _("Files").up());
-            stack.add_titled (sidebar_outline (), "outline", _("Outline").up());
+            stack.add_titled (sidebar_files_list (), "files", _("Files").up ());
+            stack.add_titled (sidebar_outline (), "outline", _("Outline").up ());
+            stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
+            stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
             scrolled_box.add (stack);
 
-            stackswitcher = new Gtk.StackSwitcher ();
-            stackswitcher.margin_start = stackswitcher.margin_end = 12;
-            stackswitcher.homogeneous = true;
-            stackswitcher.margin_top = stackswitcher.margin_bottom = 1;
-            stackswitcher.set_size_request (180, -1);
+            header = new Hdy.HeaderBar ();
+            header.show_close_button = true;
+
+            stackswitcher = new Hdy.ViewSwitcher ();
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
 
+            header.has_subtitle = false;
+            header.set_title (null);
+            header.set_custom_title (stackswitcher);
+            header.set_size_request (200,38);
+
+            var this_context = header.get_style_context ();
+            this_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            this_context.add_class ("quilter-toolbar-side");
+
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;
-            main_grid.add (stackswitcher);
+            main_grid.add (header);
             main_grid.add (scrolled_box);
             main_grid.get_style_context ().add_class ("quilter-sidebar");
 
             add (main_grid);
-            set_size_request (180, -1);
 
             var sb_context = this.get_style_context ();
             sb_context.add_class ("quilter-sidebar");
@@ -108,13 +119,11 @@ namespace Quilter.Widgets {
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
+            column.margin_top = 6;
+            column.margin_start = column.margin_end = 12;
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
-            }
-
-            foreach (var row in rows) {
-                row.file_remove_button.visible = (row == get_selected_row ());
             }
 
             column.row_selected.connect ((selected_row) => {
@@ -134,6 +143,9 @@ namespace Quilter.Widgets {
                     }
 
                     win.edit_view_content.text = text;
+
+                    win.grid.set_visible_child (win.main_leaf);
+                    win.header.set_visible_child (win.titlebar);
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }
@@ -151,6 +163,8 @@ namespace Quilter.Widgets {
             view.expand = true;
             view.headers_visible = false;
             view.show_expanders = false;
+            view.margin_top = 12;
+            view.margin_start = view.margin_end = 12;
             view.activate_on_single_click = true;
 
             crt = new Gtk.CellRendererText ();
@@ -226,6 +240,7 @@ namespace Quilter.Widgets {
                                 if (match.fetch_named ("header") == "#") {
                                     store.insert (out root, null, -1);
                                     store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                    get_selected_row ().title = match.fetch_named ("header") + " " + match.fetch_named ("text");
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
                                     store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
@@ -234,7 +249,6 @@ namespace Quilter.Widgets {
                                     store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 }
                             } while (match.next ());
-                            debug ("Outline populated");
                         }
                     } catch (GLib.Error e) {
                         warning ("ERR: %s", e.message);

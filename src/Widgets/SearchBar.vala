@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2018 Lains
+* Copyright (c) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -17,16 +17,17 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SearchBar : Gtk.Revealer {
-        public Gtk.Grid grid;
-        public Gtk.SearchEntry search_entry;
-        public Gtk.SearchEntry replace_entry;
-        private Gtk.Button replace_tool_button;
-        private Gtk.Button replace_all_tool_button;
+    public class SearchBar : Gtk.SearchBar {
         private EditView? text_view = null;
+        private Gtk.Button replace_all_tool_button;
+        private Gtk.Button replace_tool_button;
         private Gtk.TextBuffer? text_buffer = null;
+        public Gtk.Grid grid;
+        public Gtk.Grid prev_next_grid;
+        public Gtk.Grid replace_grid;
+        public Gtk.Entry replace_entry;
+        public Gtk.SearchEntry search_entry;
         public Gtk.SourceSearchContext search_context = null;
-
         public weak MainWindow window { get; construct; }
 
         public SearchBar (MainWindow window) {
@@ -34,45 +35,61 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            replace_entry = new Gtk.SearchEntry ();
+            replace_entry = new Gtk.Entry ();
             replace_entry.hexpand = true;
             replace_entry.placeholder_text = _("Replace with…");
-            replace_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-symbolic");
             replace_entry.activate.connect (on_replace_entry_activate);
 
-            replace_tool_button = new Gtk.Button.with_label (_("Replace"));
+            replace_tool_button = new Gtk.Button ();
+            replace_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-symbolic", Gtk.IconSize.BUTTON));
             replace_tool_button.clicked.connect (on_replace_entry_activate);
-            replace_tool_button.tooltip_text = (_("Use the arrows to target the text to replace before pressing this."));
+            replace_tool_button.tooltip_text = (_("Replace\nUse arrows before using."));
 
-            replace_all_tool_button = new Gtk.Button.with_label (_("Replace all"));
+            replace_all_tool_button = new Gtk.Button ();
+            replace_all_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-all-symbolic", Gtk.IconSize.BUTTON));
+            replace_all_tool_button.always_show_image = true;
             replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
+            replace_all_tool_button.tooltip_text = (_("Replace All"));
 
             grid = new Gtk.Grid ();
+            grid.orientation = Gtk.Orientation.VERTICAL;
             grid.row_spacing = 6;
             grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
+
+            prev_next_grid = new Gtk.Grid ();
+            prev_next_grid.row_spacing = 6;
+            var pvcontext = prev_next_grid.get_style_context ();
+            pvcontext.add_class (Gtk.STYLE_CLASS_LINKED);
             search_entry_item ();
             search_previous_item ();
             search_next_item ();
-            grid.add (replace_entry);
-            grid.add (replace_tool_button);
-            grid.add (replace_all_tool_button);
 
-            var context = grid.get_style_context ();
+            grid.attach (prev_next_grid, 0, 0);
+
+            replace_grid = new Gtk.Grid ();
+            replace_grid.row_spacing = 6;
+            var rcontext = replace_grid.get_style_context ();
+            rcontext.add_class (Gtk.STYLE_CLASS_LINKED);
+            replace_grid.add (replace_entry);
+            replace_grid.add (replace_tool_button);
+            replace_grid.add (replace_all_tool_button);
+
+            grid.attach (replace_grid, 0, 1);
+
+            var context = this.get_style_context ();
             context.add_class ("quilter-searchbar");
 
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
             this.add (grid);
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("searchbar");
+            this.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
         public void search_entry_item () {
             search_entry = new Gtk.SearchEntry ();
             search_entry.hexpand = true;
             search_entry.placeholder_text = _("Find text…");
-            search_entry.set_icon_from_icon_name (Gtk.EntryIconPosition.PRIMARY, "edit-find-symbolic");
-            grid.add (search_entry);
+            prev_next_grid.add (search_entry);
 
             var entry_path = new Gtk.WidgetPath ();
             entry_path.append_type (typeof (Gtk.Widget));
@@ -88,9 +105,10 @@ namespace Quilter.Widgets {
 
         public void search_previous_item () {
             var tool_arrow_up = new Gtk.Button.from_icon_name ("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_up.always_show_image = true;
             tool_arrow_up.clicked.connect (search_previous);
             tool_arrow_up.tooltip_text = _("Search previous");
-            grid.add (tool_arrow_up);
+            prev_next_grid.add (tool_arrow_up);
         }
 
         public void search_previous () {
@@ -107,9 +125,10 @@ namespace Quilter.Widgets {
 
         public void search_next_item () {
             var tool_arrow_down = new Gtk.Button.from_icon_name ("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
+            tool_arrow_down.always_show_image = true;
             tool_arrow_down.clicked.connect (search_next);
             tool_arrow_down.tooltip_text = _("Search next");
-            grid.add (tool_arrow_down);
+            prev_next_grid.add (tool_arrow_down);
         }
 
         public void search_next () {
@@ -143,9 +162,8 @@ namespace Quilter.Widgets {
             if (search_for_iter (start_iter, out end_iter)) {
                 string replace_string = replace_entry.text;
                 try {
-                    search_context.replace2 (start_iter, end_iter, replace_string, replace_string.length);
+                    search_context.replace (start_iter, end_iter, replace_string, replace_string.length);
                     update_replace_tool_sensitivities (search_entry.text);
-                    debug ("Replace \"%s\" with \"%s\"", search_entry.text, replace_entry.text);
                 } catch (Error e) {
                     critical (e.message);
                 }
@@ -156,7 +174,7 @@ namespace Quilter.Widgets {
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
             if (text_buffer == null) {
-                debug ("No valid buffer to replace");
+                warning ("No valid buffer to replace");
                 return;
             }
 
@@ -172,7 +190,7 @@ namespace Quilter.Widgets {
 
         private bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
             end_iter = start_iter;
-            bool found = search_context.forward2 (start_iter, out start_iter, out end_iter, null);
+            bool found = search_context.forward (start_iter, out start_iter, out end_iter, null);
             if (found) {
                 text_buffer.select_range (start_iter, end_iter);
                 text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
@@ -183,7 +201,7 @@ namespace Quilter.Widgets {
 
         public bool search_for_iter_backward (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {
             end_iter = start_iter;
-            bool found = search_context.backward2 (start_iter, out start_iter, out end_iter, null);
+            bool found = search_context.backward (start_iter, out start_iter, out end_iter, null);
             if (found) {
                 text_buffer.select_range (start_iter, end_iter);
                 text_view.scroll_to_iter (start_iter, 0, false, 0, 0);
@@ -204,7 +222,7 @@ namespace Quilter.Widgets {
             text_view.search_context.settings.case_sensitive = case_sensitive;
 
             if (text_buffer == null || text_buffer.text == "") {
-                debug ("Can't search anything in an inexistant buffer and/or without anything to search.");
+                warning ("Can't search anything in an inexistant buffer and/or without anything to search.");
                 return false;
             }
 

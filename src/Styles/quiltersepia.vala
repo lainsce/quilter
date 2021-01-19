@@ -1,7 +1,7 @@
 /*
 The MIT License (MIT)
 
-Copyright (c) 2017 Lains
+Copyright (c) 2017-2020 Lains
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -25,15 +25,14 @@ THE SOFTWARE.
 public class Quilter.Styles.quiltersepia {
   public const string css="""
     html {
-      font-size: 1rem;
+      font-size: 13pt;
       width: 100%;
       margin: 0 auto;
     }
 
     p {
-      font-size: 1.1rem;
-      line-height: 1.66rem;
-      width: 100%;
+      font-size: 13pt;
+      line-height: 1.618rem;
       color: #3b3228;
     }
 
@@ -44,35 +43,33 @@ public class Quilter.Styles.quiltersepia {
     h5,
     h6 {
       font-style: bold;
-      margin-top: 2rem;
-      line-height: 2rem;
+      margin-top: 1em;
+      line-height: 1.618rem;
     }
 
     h1 {
-      font-size: 2rem;
-      text-align: center;
+      font-size: 2em;
       text-transform: uppercase;
     }
 
     h2 {
-      font-size: 1.5rem;
-      text-transform: uppercase;
+      font-size: 1.5em;
     }
 
     h3 {
-      font-size: 1.25rem;
+      font-size: 1.17em;
     }
 
     h4 {
-      font-size: 1.125rem;
+      font-size: 1.12em;
     }
 
     h5 {
-      font-size: 1.1rem;
+      font-size: .83em;
     }
 
     h6 {
-      font-size: 1rem;
+      font-size: .75em;
     }
 
     small {
@@ -93,11 +90,11 @@ public class Quilter.Styles.quiltersepia {
       color: #3b3228;
       background-color: #f8f4ef;
       font-weight: 400;
-      line-height: 1.4rem;
-      margin-left: 40px;
-      margin-right: 40px;
-      margin-top: 40px;
-      margin-bottom: 40px;
+      line-height: 1.618rem;
+      margin-left: 3rem;
+      margin-right: 3rem;
+      margin-top: 3rem;
+      margin-bottom: 3rem;
       text-align: left;
     }
 

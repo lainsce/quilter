@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2018 Lains
+* Copyright (C) 2018-2020 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -17,70 +17,65 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class Preferences : Gtk.Dialog {
-        public Preferences (Gtk.Window? parent) {
+    public class Preferences : Hdy.PreferencesWindow {
+        public weak MainWindow win { get; construct; }
+
+        public Preferences (MainWindow win) {
             Object (
-                border_width: 6,
-                deletable: false,
-                resizable: false,
                 title: _("Preferences"),
-                transient_for: parent,
+                type_hint: Gdk.WindowTypeHint.DIALOG,
+                transient_for: win,
+                win: win,
                 destroy_with_parent: true,
+                modal: false,
                 window_position: Gtk.WindowPosition.CENTER_ON_PARENT
             );
         }
 
         construct {
-            var main_stack = new Gtk.Stack ();
-            main_stack.margin = 12;
-            main_stack.margin_top = 0;
+            this.title = title;
+            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
+            default_theme.add_resource_path ("/com/github/lainsce/quilter");
 
-            var main_stackswitcher = new Gtk.StackSwitcher ();
-            main_stackswitcher.stack = main_stack;
-            main_stackswitcher.halign = Gtk.Align.CENTER;
-            main_stackswitcher.homogeneous = true;
-            main_stackswitcher.margin = 12;
-            main_stackswitcher.margin_top = 0;
+            var editor_page = get_editor_grid ();
+            var interface_page = get_interface_grid ();
+            var preview_page = get_preview_grid ();
 
-            main_stack.add_titled (get_editor_grid (), "editor", _("Editor"));
-            main_stack.add_titled (get_interface_grid (), "interface", _("Interface"));
-            main_stack.add_titled (get_extensions_grid (), "extensions", _("Extensions"));
+            this.add (interface_page);
+            this.add (editor_page);
+            this.add (preview_page);
 
-            var close_button = add_button (_("Close"), Gtk.ResponseType.CLOSE);
-            ((Gtk.Button) close_button).clicked.connect (() => destroy ());
-
-            var main_grid = new Gtk.Grid ();
-            main_grid.margin_top = 0;
-            main_grid.attach (main_stackswitcher, 0, 0, 1, 1);
-            main_grid.attach (main_stack, 0, 1, 1, 1);
-
-            ((Gtk.Container) get_content_area ()).add (main_grid);
+            var context = this.get_style_context ();
+            context.add_class ("quilter-dialog-hb");
         }
 
-        private Gtk.Widget get_editor_grid () {
+        private Hdy.PreferencesPage get_editor_grid () {
+            var editor_grid = new Hdy.PreferencesPage ();
+            editor_grid.set_icon_name ("folder-documents-symbolic");
+            editor_grid.set_title (_("Editor"));
 
-            var editor_grid = new Gtk.Grid ();
-            editor_grid.orientation = Gtk.Orientation.VERTICAL;
-            editor_grid.row_spacing = 6;
-            editor_grid.column_spacing = 12;
+            var geo_header = new Hdy.PreferencesGroup ();
+            geo_header.title = (_("Geometry"));
 
-            var geo_header = new Granite.HeaderLabel (_("Geometry"));
-            var spacing_label = new SettingsLabel (_("Spacing of Text:"));
+            var spacing_row = new Hdy.ActionRow ();
+            spacing_row.set_title (_("Text Spacing"));
+
             var spacing_size = new Granite.Widgets.ModeButton ();
-            spacing_size.append_text (_("Small"));
-            spacing_size.append_text (_("Normal"));
-            spacing_size.append_text (_("Large"));
+            spacing_size.margin = 6;
+            spacing_size.append_icon ("small-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            spacing_size.append_icon ("normal-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            spacing_size.append_icon ("large-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var spacing = Quilter.Application.gsettings.get_int("spacing");
 
             switch (spacing) {
-                case 2:
+                case Constants.NARROW_SPACING:
                     spacing_size.selected = 0;
                     break;
-                case 4:
+                case Constants.MEDIUM_SPACING:
                     spacing_size.selected = 1;
                     break;
-                case 6:
+                case Constants.WIDE_SPACING:
                     spacing_size.selected = 2;
                     break;
                 default:
@@ -91,13 +86,13 @@ namespace Quilter.Widgets {
             spacing_size.mode_changed.connect (() => {
                 switch (spacing_size.selected) {
                     case 0:
-                        Quilter.Application.gsettings.set_int("spacing", 2);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.NARROW_SPACING);
                         break;
                     case 1:
-                        Quilter.Application.gsettings.set_int("spacing", 4);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.MEDIUM_SPACING);
                         break;
                     case 2:
-                        Quilter.Application.gsettings.set_int("spacing", 8);
+                        Quilter.Application.gsettings.set_int("spacing", Constants.WIDE_SPACING);
                         break;
                     case 3:
                         Quilter.Application.gsettings.set_int("spacing", spacing);
@@ -105,11 +100,16 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var margins_label = new SettingsLabel (_("Margins of Text:"));
+            spacing_row.add (spacing_size);
+
+            var margins_row = new Hdy.ActionRow ();
+            margins_row.set_title (_("Text Margins"));
+
             var margins_size = new Granite.Widgets.ModeButton ();
-            margins_size.append_text (_("Small"));
-            margins_size.append_text (_("Normal"));
-            margins_size.append_text (_("Large"));
+            margins_size.margin = 6;
+            margins_size.append_icon ("small-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            margins_size.append_icon ("normal-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            margins_size.append_icon ("large-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var margins = Quilter.Application.gsettings.get_int("margins");
 
@@ -145,18 +145,34 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var font_header = new Granite.HeaderLabel (_("Fonts & Type"));
-            var font_type_label = new SettingsLabel (_("Editor Font Type:"));
+            margins_row.add (margins_size);
+
+            geo_header.add (spacing_row);
+            geo_header.add (margins_row);
+            geo_header.show_all ();
+
+            var font_header = new Hdy.PreferencesGroup ();
+            font_header.title = (_("Font"));
+
+            var font_type_row = new Hdy.ActionRow ();
+            font_type_row.set_title (_("Type"));
+
             var font_type = new Gtk.ComboBoxText();
+            font_type.margin = 6;
+            font_type.hexpand = true;
             font_type.append_text(_("Quilt Mono"));
+            font_type.append_text(_("Quilt Zwei"));
             font_type.append_text(_("Quilt Vier"));
 
             switch (Quilter.Application.gsettings.get_string("edit-font-type")) {
                 case "mono":
                     font_type.set_active(0);
                     break;
-                case "vier":
+                case "zwei":
                     font_type.set_active(1);
+                    break;
+                case "vier":
+                    font_type.set_active(2);
                     break;
                 default:
                     font_type.set_active(0);
@@ -169,6 +185,9 @@ namespace Quilter.Widgets {
                         Quilter.Application.gsettings.set_string("edit-font-type", "mono");
                         break;
                     case 1:
+                        Quilter.Application.gsettings.set_string("edit-font-type", "zwei");
+                        break;
+                    case 2:
                         Quilter.Application.gsettings.set_string("edit-font-type", "vier");
                         break;
                     default:
@@ -177,11 +196,16 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var font_label = new SettingsLabel (_("Editor Font Size:"));
+            font_type_row.add (font_type);
+
+            var font_size_row = new Hdy.ActionRow ();
+            font_size_row.set_title (_("Size"));
+
             var font_size = new Granite.Widgets.ModeButton ();
-            font_size.append_text (_("Small"));
-            font_size.append_text (_("Normal"));
-            font_size.append_text (_("Large"));
+            font_size.margin = 6;
+            font_size.append_icon ("small-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            font_size.append_icon ("normal-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            font_size.append_icon ("large-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
 
             var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
 
@@ -229,79 +253,120 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var edit_header = new Granite.HeaderLabel (_("Editor"));
-            var save_button_label = new SettingsLabel (_("Save files when changed:"));
-            var save_button = new SettingsSwitch ("autosave");
+            font_size_row.add (font_size);
 
-            editor_grid.attach (edit_header,  0, 0, 1, 1);
-            editor_grid.attach (save_button_label,  0, 1, 1, 1);
-            editor_grid.attach (save_button, 1, 1, 1, 1);
+            font_header.add (font_type_row);
+            font_header.add (font_size_row);
+            font_header.show_all ();
 
-            editor_grid.attach (geo_header, 0, 3, 3, 1);
-            editor_grid.attach (spacing_label, 0, 4, 1, 1);
-            editor_grid.attach (spacing_size, 1, 4, 1, 1);
-            editor_grid.attach (margins_label, 0, 5, 1, 1);
-            editor_grid.attach (margins_size, 1, 5, 1, 1);
+            var edit_header = new Hdy.PreferencesGroup ();
+            edit_header.title = (_("Editor"));
 
-            editor_grid.attach (font_header, 0, 7, 3, 1);
-            editor_grid.attach (font_type_label, 0, 8, 1, 1);
-            editor_grid.attach (font_type, 1, 8, 1, 1);
-            editor_grid.attach (font_label, 0, 9, 1, 1);
-            editor_grid.attach (font_size, 1, 9, 1, 1);
+            var save_row = new Hdy.ExpanderRow ();
+            save_row.set_title (_("Autosave Documents"));
+            save_row.show_enable_switch = true;
+            Quilter.Application.gsettings.bind ("autosave", save_row, "enable_expansion", GLib.SettingsBindFlags.DEFAULT);
+            Quilter.Application.gsettings.bind ("autosave", save_row, "expanded", GLib.SettingsBindFlags.DEFAULT);
+
+            var save_time_spinbutton = new Gtk.SpinButton.with_range (5, 60, 5);
+            save_time_spinbutton.margin = 6;
+            save_time_spinbutton.set_value (Quilter.Application.gsettings.get_int("autosave-delay"));
+            Quilter.Application.gsettings.bind ("autosave-delay", save_time_spinbutton, "value", GLib.SettingsBindFlags.DEFAULT);
+
+            var save_r_row = new Hdy.ActionRow ();
+            save_r_row.set_title (_("Autosave Delay"));
+            save_r_row.subtitle = _("Values below 15s affects the storage medium negatively.");
+            save_r_row.add (save_time_spinbutton);
+
+            save_row.add (save_r_row);
+
+            var pos_row = new Hdy.ActionRow ();
+            pos_row.set_title (_("Highlight Speech Parts (beta)"));
+            pos_row.set_subtitle (_("Only available in English.\nColors words based on type:\n- Nouns are Black\n- Verbs are Blue\n- Adjectives are Yellow\n- Adverbs are Purple\n- Conjunctions are Green"));
+
+            var pos_button = new SettingsSwitch ("pos");
+
+            pos_row.add (pos_button);
+
+            edit_header.add (save_row);
+            edit_header.add (pos_row);
+            edit_header.show_all ();
+
+            editor_grid.add (edit_header);
+            editor_grid.add (geo_header);
+            editor_grid.add (font_header);
 
             return editor_grid;
         }
 
-        private Gtk.Widget get_interface_grid () {
-            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-            default_theme.add_resource_path ("/com/github/lainsce/quilter");
+        private Hdy.PreferencesPage get_interface_grid () {
+            var interface_grid = new Hdy.PreferencesPage ();
+            interface_grid.set_icon_name ("applications-system-symbolic");
+            interface_grid.set_title (_("General"));
 
+            var mode_header = new Hdy.PreferencesGroup ();
+            mode_header.title = (_("Appearance"));
 
-            var interface_grid = new Gtk.Grid ();
-            interface_grid.row_spacing = 6;
-            interface_grid.column_spacing = 12;
-            interface_grid.orientation = Gtk.Orientation.VERTICAL;
-            interface_grid.set_column_homogeneous (false);
+            var visual_row = new Hdy.ActionRow ();
+            visual_row.set_title (_("Visual Mode"));
 
-            var mode_header = new Granite.HeaderLabel (_("Modes"));
-            var color_button_light = new Gtk.Button ();
-            var color_button_light_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_light.set_image (color_button_light_icon);
+            var color_button_prefs = new Gtk.RadioButton (null);
+            color_button_prefs.halign = Gtk.Align.CENTER;
+            color_button_prefs.height_request = 32;
+            color_button_prefs.width_request = 32;
+            color_button_prefs.tooltip_text = _("Follow System Appearance");
+
+            var color_button_prefs_context = color_button_prefs.get_style_context ();
+            color_button_prefs_context.add_class ("color-button");
+            color_button_prefs_context.add_class ("color-prefs");
+
+            var color_button_light = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_light.halign = Gtk.Align.CENTER;
-            color_button_light.height_request = 64;
-            color_button_light.width_request = 64;
+            color_button_light.height_request = 32;
+            color_button_light.width_request = 32;
+            color_button_light.tooltip_text = _("Light Mode");
 
             var color_button_light_context = color_button_light.get_style_context ();
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_light_text = new Gtk.Label (_("Light Mode"));
-
-            var color_button_sepia = new Gtk.Button ();
-            var color_button_sepia_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_sepia.set_image (color_button_sepia_icon);
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_sepia.halign = Gtk.Align.CENTER;
-            color_button_sepia.height_request = 64;
-            color_button_sepia.width_request = 64;
+            color_button_sepia.height_request = 32;
+            color_button_sepia.width_request = 32;
+            color_button_sepia.tooltip_text = _("Sepia Mode");
 
             var color_button_sepia_context = color_button_sepia.get_style_context ();
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_sepia_text = new Gtk.Label (_("Sepia Mode"));
-
-            var color_button_dark = new Gtk.Button ();
-            var color_button_dark_icon = new Gtk.Image.from_icon_name ("mode-change-symbolic", Gtk.IconSize.DIALOG);
-            color_button_dark.set_image (color_button_dark_icon);
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_prefs);
             color_button_dark.halign = Gtk.Align.CENTER;
-            color_button_dark.height_request = 64;
-            color_button_dark.width_request = 64;
+            color_button_dark.height_request = 32;
+            color_button_dark.width_request = 32;
+            color_button_dark.tooltip_text = _("Dark Mode");
 
             var color_button_dark_context = color_button_dark.get_style_context ();
             color_button_dark_context.add_class ("color-button");
             color_button_dark_context.add_class ("color-dark");
 
-            var color_button_dark_text = new Gtk.Label (_("Dark Mode"));
+            var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
+
+            switch (mode_type) {
+                case "light":
+                    color_button_light.set_active (true);
+                    break;
+                case "sepia":
+                    color_button_sepia.set_active (true);
+                    break;
+                case "dark":
+                    color_button_dark.set_active (true);
+                    break;
+                case "":
+                default:
+                    color_button_prefs.set_active (true);
+                    break;
+            }
 
             color_button_dark.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "dark");
@@ -312,160 +377,220 @@ namespace Quilter.Widgets {
             });
 
             color_button_light.clicked.connect (() => {
+                Quilter.Application.gsettings.set_string("visual-mode", "light");
+            });
+
+            color_button_prefs.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "");
             });
 
-            var focus_mode_label = new SettingsLabel (_("Enable Focus Mode:"));
-            var focus_mode = new SettingsSwitch ("focus-mode");
+            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 20);
+            buttonbox.halign = Gtk.Align.CENTER;
+            buttonbox.add (color_button_prefs);
+            buttonbox.add (color_button_light);
+            buttonbox.add (color_button_sepia);
+            buttonbox.add (color_button_dark);
 
-            var focus_mode_type_label = new SettingsLabel (_("Type of Focus Mode:"));
-            var focus_mode_type_size = new Granite.Widgets.ModeButton ();
-            focus_mode_type_size.append_text (_("Paragraph"));
-            focus_mode_type_size.append_text (_("Sentence"));
+            visual_row.add (buttonbox);
 
-            var focus_mode_type = Quilter.Application.gsettings.get_int("focus-mode-type");
+            var ui_header = new Hdy.PreferencesGroup ();
+            ui_header.title = (_("Interface"));
 
-            switch (focus_mode_type) {
-                case 0:
-                    focus_mode_type_size.selected = 0;
-                    break;
-                case 1:
-                    focus_mode_type_size.selected = 1;
-                    break;
-                default:
-                    focus_mode_type_size.selected = 0;
-                    break;
-            }
+            var fmode_row = new Hdy.ExpanderRow ();
+            fmode_row.set_title (_("Focus Mode"));
+            fmode_row.show_enable_switch = true;
+            Quilter.Application.gsettings.bind ("focus-mode", fmode_row, "enable_expansion", GLib.SettingsBindFlags.DEFAULT);
+            Quilter.Application.gsettings.bind ("focus-mode", fmode_row, "expanded", GLib.SettingsBindFlags.DEFAULT);
 
-            focus_mode_type_size.mode_changed.connect (() => {
-                switch (focus_mode_type_size.selected) {
-                    case 0:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", 0);
-                        break;
-                    case 1:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", 1);
-                        break;
-                    case 2:
-                       Quilter.Application.gsettings.set_int("focus-mode-type", focus_mode_type);
-                        break;
-                }
-            });
+            var focus_mode_p_size = new Gtk.Image.from_icon_name ("paragraph-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            focus_mode_p_size.tooltip_text = (_("Focus on Paragraph"));
+            var focus_mode_s_size = new Gtk.Image.from_icon_name ("sentence-focus-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
+            focus_mode_s_size.tooltip_text = (_("Focus on Sentence"));
+            var focus_mode_type_size = new SettingsSwitch ("focus-mode-type");
+            focus_mode_type_size.halign = Gtk.Align.CENTER;
 
-            var typewriterscrolling_label = new SettingsLabel (_("Typewriter Scrolling:"));
-            typewriterscrolling_label.set_halign (Gtk.Align.END);
+            var focus_mode_type_box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
+            focus_mode_type_box.valign = Gtk.Align.CENTER;
+            focus_mode_type_box.pack_start (focus_mode_p_size);
+            focus_mode_type_box.pack_start (focus_mode_type_size);
+            focus_mode_type_box.pack_start (focus_mode_s_size);
+
+            Quilter.Application.gsettings.bind ("focus-mode-type", focus_mode_type_size, "active", SettingsBindFlags.DEFAULT);
+
             var typewriterscrolling = new SettingsSwitch ("typewriter-scrolling");
 
-            var ui_header = new Granite.HeaderLabel (_("User Interface"));
-            var statusbar_label = new SettingsLabel (_("Show Statusbar:"));
-            statusbar_label.set_halign (Gtk.Align.END);
-            var statusbar = new SettingsSwitch ("statusbar");
-            var searchbar_label = new SettingsLabel (_("Show Searchbar:"));
-            searchbar_label.set_halign (Gtk.Align.END);
-            var searchbar = new SettingsSwitch ("searchbar");
+            var fmode_r_row = new Hdy.ActionRow ();
+            fmode_r_row.set_title (_("Focus Scope"));
+            fmode_r_row.add (focus_mode_type_box);
 
-            var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            buttonbox.halign = Gtk.Align.FILL;
-            buttonbox.hexpand = true;
-            buttonbox.set_homogeneous (true);
-            buttonbox.pack_start (color_button_light, true, true, 6);
-            buttonbox.pack_start (color_button_sepia, true, true, 6);
-            buttonbox.pack_start (color_button_dark, true, true, 6);
+            var fmode_r2_row = new Hdy.ActionRow ();
+            fmode_r2_row.set_title (_("Typewriter Scrolling"));
+            fmode_r2_row.add (typewriterscrolling);
 
-            var textbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 6);
-            textbox.halign = Gtk.Align.FILL;
-            textbox.hexpand = true;
-            textbox.set_homogeneous (true);
-            textbox.pack_start (color_button_light_text, true, true, 6);
-            textbox.pack_start (color_button_sepia_text, true, true, 6);
-            textbox.pack_start (color_button_dark_text, true, true, 6);
+            fmode_row.add (fmode_r_row);
+            fmode_row.add (fmode_r2_row);
 
-            var separator = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            separator.hexpand = true;
-            separator.margin_top = 6;
-            separator.margin_bottom = 6;
+            var tracking_row = new Hdy.ActionRow ();
+            tracking_row.set_title (_("Type Counter"));
+            var tracking = new SettingsSwitch ("statusbar");
 
-            interface_grid.attach (mode_header, 0, 1, 3, 1);
-            interface_grid.attach (buttonbox, 0, 2, 3, 1);
-            interface_grid.attach (textbox, 0, 3, 3, 1);
-            interface_grid.attach (separator, 0, 4, 3, 1);
+            tracking_row.add (tracking);
 
-            interface_grid.attach (focus_mode_label, 0, 5, 1, 1);
-            interface_grid.attach (focus_mode, 1, 5, 1, 1);
-            interface_grid.attach (focus_mode_type_label, 0, 6, 1, 1);
-            interface_grid.attach (focus_mode_type_size, 1, 6, 1, 1);
+            var sidebar_row = new Hdy.ActionRow ();
+            sidebar_row.set_title (_("Sidebar"));
+            var sidebar = new SettingsSwitch ("sidebar");
 
-            interface_grid.attach (typewriterscrolling_label, 0, 7, 1, 1);
-            interface_grid.attach (typewriterscrolling, 1, 7, 1, 1);
+            sidebar_row.add (sidebar);
 
-            interface_grid.attach (ui_header,  0, 8, 1, 1);
-            interface_grid.attach (statusbar_label,  0, 9, 1, 1);
-            interface_grid.attach (statusbar, 1, 9, 1, 1);
-            interface_grid.attach (searchbar_label,  0, 10, 1, 1);
-            interface_grid.attach (searchbar, 1, 10, 1, 1);
+            mode_header.add (visual_row);
+            ui_header.add (fmode_row);
+            ui_header.add (tracking_row);
+            ui_header.add (sidebar_row);
+
+            interface_grid.add (mode_header);
+            interface_grid.add (ui_header);
+
+            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                buttonbox.sensitive = false;
+                visual_row.set_subtitle (_("Changing modes disabled due to the system styling."));
+            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                buttonbox.sensitive = true;
+                visual_row.set_subtitle ("");
+            } else {
+                buttonbox.sensitive = true;
+                visual_row.set_subtitle ("");
+            }
+
+            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
+                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
+                    buttonbox.sensitive = false;
+                    visual_row.set_subtitle (_("Changing modes disabled due to the system styling."));
+                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
+                    buttonbox.sensitive = true;
+                    visual_row.set_subtitle ("");
+                } else {
+                    buttonbox.sensitive = true;
+                    visual_row.set_subtitle ("");
+                }
+            });
 
             return interface_grid;
         }
 
-        private Gtk.Widget get_extensions_grid () {
-            var ext_grid = new Gtk.Grid ();
-            ext_grid.row_spacing = 6;
-            ext_grid.column_spacing = 12;
-            ext_grid.orientation = Gtk.Orientation.VERTICAL;
-            ext_grid.set_column_homogeneous (false);
+        private Hdy.PreferencesPage get_preview_grid () {
+            var preview_grid = new Hdy.PreferencesPage ();
+            preview_grid.set_icon_name ("view-dual-symbolic");
+            preview_grid.set_title (_("Preview"));
 
-            var ext_header = new Granite.HeaderLabel (_("Extensions"));
+            var preview_header = new Hdy.PreferencesGroup ();
+            preview_header.title = (_("Preview"));
 
-            var highlight_label = new SettingsLabel (_("Enable Code Highlighting:"));
+            var font_row = new Hdy.ActionRow ();
+            font_row.set_title (_("Font Type"));
+
+            var preview_font_type = new Gtk.ComboBoxText();
+            preview_font_type.hexpand = true;
+            preview_font_type.margin = 6;
+
+            preview_font_type.append_text(_("Serif"));
+            preview_font_type.append_text(_("Sans-serif"));
+            preview_font_type.append_text(_("Monospace"));
+
+            switch (Quilter.Application.gsettings.get_string("preview-font")) {
+                case "serif":
+                    preview_font_type.set_active(0);
+                    break;
+                case "sans":
+                    preview_font_type.set_active(1);
+                    break;
+                case "mono":
+                    preview_font_type.set_active(2);
+                    break;
+                default:
+                    preview_font_type.set_active(0);
+                    break;
+            }
+
+            preview_font_type.changed.connect (() => {
+                switch (preview_font_type.get_active ()) {
+                    case 0:
+                        Quilter.Application.gsettings.set_string("preview-font", "serif");
+                        break;
+                    case 1:
+                        Quilter.Application.gsettings.set_string("preview-font", "sans");
+                        break;
+                    case 2:
+                        Quilter.Application.gsettings.set_string("preview-font", "mono");
+                        break;
+                    default:
+                        Quilter.Application.gsettings.set_string("preview-font", "serif");
+                        break;
+                }
+            });
+
+            font_row.add (preview_font_type);
+
+            var headers_row = new Hdy.ActionRow ();
+            headers_row.set_title (_("Header Centering"));
+            headers_row.set_subtitle (_("This affects the H1, H2, and H3 type headers."));
+
+            var centering_preview_headers = new SettingsSwitch ("center-headers");
+
+            headers_row.add (centering_preview_headers);
+
+            var ext_header = new Hdy.PreferencesGroup ();
+            ext_header.title = (_("Extensions"));
+
+            var highlight_row = new Hdy.ActionRow ();
+            highlight_row.set_title (_("Code Highlight"));
+            highlight_row.set_subtitle (_("Code blocks will have the contents receive color."));
+
             var highlight = new SettingsSwitch ("highlight");
-            highlight.hexpand = true;
 
-            var latex_label = new SettingsLabel (_("Enable LaTeX Processing:"));
+            highlight_row.add (highlight);
+
+            var latex_row = new Hdy.ActionRow ();
+            latex_row.set_title (_("LaTeX Math"));
+            latex_row.set_subtitle (_("Text inside LaTeX math blocks will be processed into LaTeX output."));
+
             var latex = new SettingsSwitch ("latex");
-            latex.hexpand = true;
-            
-            var mermaid_label = new SettingsLabel (_("Enable Mermaid.js Graphing:"));
+
+            latex_row.add (latex);
+
+            var mermaid_row = new Hdy.ActionRow ();
+            mermaid_row.set_title (_("Mermaid.js Graph"));
+            mermaid_row.set_subtitle (_("Text inside Mermaid blocks will become graphs."));
+
             var mermaid = new SettingsSwitch ("mermaid");
-            mermaid.hexpand = true;
-            var mermaid_info_label = new Text (_("Disable Code Highlighting for optimal use of Mermaid.js"));
-            mermaid_info_label.sensitive = false;
 
-            var spellcheck_label = new SettingsLabel (_("Enable Spellchecking:"));
-            var spellcheck = new SettingsSwitch ("spellcheck");
+            mermaid_row.add (mermaid);
 
-            ext_grid.attach (ext_header,  0, 0, 1, 1);
-            ext_grid.attach (highlight_label, 0, 1, 1, 1);
-            ext_grid.attach (highlight, 1, 1, 1, 1);
-            ext_grid.attach (latex_label, 0, 2, 1, 1);
-            ext_grid.attach (latex, 1, 2, 1, 1);
-            ext_grid.attach (mermaid_label, 0, 3, 1, 1);
-            ext_grid.attach (mermaid, 1, 3, 1, 1);
-            ext_grid.attach (mermaid_info_label, 0, 4, 2, 1);
-            ext_grid.attach (spellcheck_label, 0, 5, 1, 1);
-            ext_grid.attach (spellcheck, 1, 5, 1, 1);
+            mermaid.bind_property (
+                "active",
+                highlight,
+                "active",
+                GLib.BindingFlags.INVERT_BOOLEAN
+            );
 
-            return ext_grid;
-        }
+            preview_header.add (font_row);
+            preview_header.add (headers_row);
 
-        private class SettingsLabel : Gtk.Label {
-            public SettingsLabel (string text) {
-                label = text;
-                halign = Gtk.Align.END;
-                margin_start = 12;
-            }
-        }
+            ext_header.add (highlight_row);
+            ext_header.add (latex_row);
+            ext_header.add (mermaid_row);
 
-        private class Text : Gtk.Label {
-            public Text (string text) {
-                label = text;
-                halign = Gtk.Align.END;
-            }
+            preview_grid.add (preview_header);
+            preview_grid.add (ext_header);
+
+            return preview_grid;
         }
 
         private class SettingsSwitch : Gtk.Switch {
             public SettingsSwitch (string setting) {
-
                 halign = Gtk.Align.START;
-                Quilter.Application.gsettings.bind (setting, this, "active", SettingsBindFlags.DEFAULT);
+                valign = Gtk.Align.START;
+                margin = 6;
+                Quilter.Application.gsettings.bind (setting, this, "active", GLib.SettingsBindFlags.DEFAULT);
             }
         }
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Lains
+ * Copyright (C) 2017-2021 Lains
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,6 @@ namespace Quilter.Services.FileManager {
     }
 
     public static string get_temp_document_path () {
-        debug ("Generating a temp file path");
         var name = new GLib.DateTime.now ();
         return Path.build_filename (get_cache_path (), @"~$name.md");
     }
@@ -50,7 +49,6 @@ namespace Quilter.Services.FileManager {
     public void save_file (string path, string contents) throws Error {
         try {
             GLib.FileUtils.set_contents (path, contents);
-            debug (@"Saved file: $path");
         } catch (Error e) {
             var msg = e.message;
             warning (@"Error writing file: $msg");
@@ -66,7 +64,6 @@ namespace Quilter.Services.FileManager {
         foreach (File f in ofiles) {
             string text;
             string file_path = f.get_path ();
-            //Quilter.Application.gsettings.set_string("current-file", file_path);
             files += file_path;
             Quilter.Application.gsettings.set_strv("last-files", files);
             if (win.sidebar != null && f != null) {
@@ -81,6 +78,9 @@ namespace Quilter.Services.FileManager {
                 warning ("Error: %s", e.message);
             }
         }
+        win.save_last_files ();
+        win.welcome_view.visible = false;
+        win.main_stack.visible = true;
         return true;
     }
 
@@ -99,7 +99,6 @@ namespace Quilter.Services.FileManager {
     }
 
     public void save_as (string contents, out string path) throws Error {
-        debug ("Save as button pressed.");
         var chooser = Services.DialogUtils.create_file_chooser (_("Save file"),
                 Gtk.FileChooserAction.SAVE);
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
@@ -112,9 +111,8 @@ namespace Quilter.Services.FileManager {
         path = file.get_path ();
 
         try {
-            debug ("Saving file...");
             if (file == null) {
-                debug ("User cancelled operation. Aborting.");
+                warning ("User cancelled operation. Aborting.");
             } else {
                 save_file (path, contents);
                 file = null;

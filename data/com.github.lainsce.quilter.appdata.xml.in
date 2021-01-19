@@ -56,6 +56,31 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="3.0.0" date="2021-??-??">
+         <description>
+            <p>Release: Hello, Odin!</p>
+            <ul>
+                <li>Add: Respects global dark mode</li>
+                <li>Add: New Quilt Zwei font</li>
+                <li>Add: Part of Speech highlighter (BETA)</li>
+                <li>Add: Center or not Preview Headers (h1 to h3)</li>
+                <li>Add: Click on Outline headers to scroll to them</li>
+                <li>Change: Export options now live in the Cog menu</li>
+                <li>Change: Preferences &amp; Cheatsheet now have a new intuitive look</li>
+                <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>
+                <li>Change: Preferences tabs were re-organized</li>
+                <li>Move: Preview font selection to Preferences</li>
+                <li>Move: Statusbar to below Editor only</li>
+                <li>Move: Change Width Mode in the Cog Menu</li>
+                <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
+                <li>Fix: Spellchecking styling</li>
+                <li>Fix: Sync scrolling now uses less Processor &amp; RAM</li>
+                <li>Fix: Exported PDF margins</li>
+                <li>Fix: Many style fixes for Odin</li>
+                <li>Fix: Many minor backend fixes</li>
+            </ul>
+            </description>
+        </release>
         <release version="2.5.3" date="2020-12-25">
          <description>
             <p>Release: Power Up Four</p>

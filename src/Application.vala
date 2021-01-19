@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -19,13 +19,13 @@
 */
 namespace Quilter {
     public class Application : Gtk.Application {
-        public static GLib.Settings gsettings;
-        private static bool print_ver = false;
         private static bool open_view = false;
+        private static bool print_ver = false;
         private static string _cwd;
-
-        public static MainWindow win = null;
         public Widgets.Headerbar toolbar;
+        public static GLib.Settings gsettings;
+        public static Granite.Settings grsettings;
+        public static MainWindow win = null;
         public static string[] supported_mimetypes;
 
         static construct {
@@ -39,6 +39,8 @@ namespace Quilter {
 
             supported_mimetypes = {"text/markdown"};
             register_default_handler ();
+
+            grsettings = Granite.Settings.get_default ();
         }
 
         protected override void activate () {
@@ -46,7 +48,7 @@ namespace Quilter {
         }
 
         public static int main (string[] args) {
-            Intl.setlocale (LocaleCategory.ALL, Intl.get_language_names ()[0]);
+            Intl.setlocale (LocaleCategory.ALL, "");
 
             var app = new Quilter.Application ();
             return app.run (args);
@@ -58,15 +60,6 @@ namespace Quilter {
                 return;
             }
             win = new MainWindow (this);
-
-            if (gsettings.get_string("preview-type") == "full") {
-                if (open_view) {
-                    win.stack.set_visible_child (win.preview_view);
-                    open_view = false;
-                } else {
-                    win.stack.set_visible_child (win.edit_view);
-                }
-            }
 
             win.show_all ();
         }
@@ -83,7 +76,7 @@ namespace Quilter {
                 context.parse (ref tmp);
                 unclaimed_args = tmp.length - 1;
             } catch (Error e) {
-                stdout.printf ("ERROR: " + e.message + "\n");
+                warning ("ERROR: " + e.message + "\n");
                 return 0;
             }
 
@@ -208,7 +201,6 @@ namespace Quilter {
                 var handler = AppInfo.get_default_for_type (mimetype, false);
                 if (handler == null) {
                     try {
-                        debug ("Registering Quilter as the default handler for %s", mimetype);
                         app_info.set_as_default_for_type (mimetype);
                     } catch (Error e) {
                         warning (e.message);
@@ -217,7 +209,6 @@ namespace Quilter {
                     unowned string[] types = handler.get_supported_types ();
                     if (types == null || !(mimetype in types)) {
                         try {
-                            debug ("Registering Quilter as the default handler for %s", mimetype);
                             app_info.set_as_default_for_type (mimetype);
                         } catch (Error e) {
                             warning (e.message);

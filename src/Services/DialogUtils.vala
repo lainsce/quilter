@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Lains
+ * Copyright (C) 2017-2020 Lains
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,16 +15,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 namespace Quilter.Services.DialogUtils {
-    public Gtk.FileChooserDialog create_file_chooser (string title,
-            Gtk.FileChooserAction action) {
-        var chooser = new Gtk.FileChooserDialog (title, null, action);
-        chooser.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
-        if (action == Gtk.FileChooserAction.OPEN) {
-            chooser.add_button (_("Open"), Gtk.ResponseType.ACCEPT);
-        } else if (action == Gtk.FileChooserAction.SAVE) {
-            chooser.add_button (_("Save"), Gtk.ResponseType.ACCEPT);
-            chooser.set_do_overwrite_confirmation (true);
-        }
+    public Gtk.FileChooserNative create_file_chooser (string title, Gtk.FileChooserAction action) {
+        var chooser = new Gtk.FileChooserNative (title, null, action, null, null);
         var filter1 = new Gtk.FileFilter ();
         filter1.set_filter_name (_("Markdown files"));
         filter1.add_pattern ("*.md");
@@ -33,6 +25,7 @@ namespace Quilter.Services.DialogUtils {
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
         chooser.add_filter (filter);
+        chooser.select_multiple = true;
         return chooser;
     }
 
