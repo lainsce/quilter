@@ -22,18 +22,24 @@ namespace Quilter.Widgets {
         public Gtk.Button new_button;
         public Gtk.Button open_button;
         public Gtk.Button save_as_button;
+        public Gtk.Label title_label;
+        public Gtk.Label subtitle_label;
         private Gtk.Grid menu_grid;
         public Gtk.Grid fmenu_grid;
         private Gtk.Grid top_grid;
         private Gtk.MenuButton menu_button;
         public Gtk.MenuButton pmenu_button;
         public Gtk.MenuButton fmenu_button;
+        public Widgets.HeaderBarButton samenu_button;
         public EditView sourceview;
         public Gtk.ToggleButton search_button;
         public Gtk.ToggleButton view_mode;
         public Gtk.ModelButton focusmode_button;
+        public Gtk.ListBox recent_files_box;
         public MainWindow win;
         public Preview preview;
+        public EditView editor;
+        private Widgets.SideBarBox[] rows;
 
         public signal void create_new ();
         public signal void open ();
@@ -64,14 +70,18 @@ namespace Quilter.Widgets {
             new_button = new Gtk.Button ();
             new_button.halign = Gtk.Align.START;
             new_button.clicked.connect (() => create_new ());
+            new_button.tooltip_text = (_("Create a new document"));
 
             save_as_button = new Gtk.Button ();
             save_as_button.halign = Gtk.Align.START;
             save_as_button.clicked.connect (() => save_as ());
+            save_as_button.get_style_context ().add_class ("mini-circular-button");
+            save_as_button.tooltip_text = (_("Choose another folder"));
 
             open_button = new Gtk.Button ();
             open_button.halign = Gtk.Align.START;
             open_button.clicked.connect (() => open ());
+            open_button.tooltip_text = (_("Open a document"));
 
             search_button = new Gtk.ToggleButton ();
             if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
@@ -189,8 +199,6 @@ namespace Quilter.Widgets {
             //_("Full-Width\nFull Editor, change with switcher")
             var preview_full_label_title = new Gtk.Label (_("Full-Width"));
             preview_full_label_title.halign = Gtk.Align.START;
-            var preview_full_label_title_context = preview_full_label_title.get_style_context ();
-            preview_full_label_title_context.add_class ("bold");
             var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change on the menu."));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
@@ -284,6 +292,14 @@ namespace Quilter.Widgets {
             top_grid.attach (button_grid, 0, 0, 1, 1);
             top_grid.attach (focusmode_button, 0, 1, 4, 1);
 
+            var about_button = new Gtk.ModelButton ();
+            about_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_ABOUT;
+            about_button.text = _("About Quilter");
+
+            about_button.clicked.connect (() => {
+                win.action_about ();
+            });
+
             menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
             menu_grid.row_spacing = 6;
@@ -294,6 +310,7 @@ namespace Quilter.Widgets {
             menu_grid.attach (separator2, 0, 5);
             menu_grid.attach (cheatsheet, 0, 6);
             menu_grid.attach (preferences, 0, 7);
+            menu_grid.attach (about_button, 0, 8);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);
@@ -308,15 +325,38 @@ namespace Quilter.Widgets {
             pack_end (pmenu_button);
             pack_end (search_button);
 
-            pack_start (new_button);
-            pack_start (open_button);
-            pack_start (save_as_button);
+            recent_files_box = new Gtk.ListBox ();
+            recent_files_box.get_style_context ().add_class ("frame");
+            recent_files_box.visible = true;
+
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
+                rows += add_recent_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+            }
+
+            recent_files_box.row_selected.connect ((selected_row) => {
+                try {
+                    var row = get_selected_row ();
+                    string text = "";
+                    GLib.FileUtils.get_contents (row.path, out text);
+                    Quilter.Application.gsettings.set_string("current-file", row.path);
+
+                    if (win.edit_view_content.modified) {
+                        Services.FileManager.save_file (row.path, text);
+                        win.edit_view_content.modified = false;
+                    }
+
+                    win.edit_view_content.text = text;
+                } catch (Error e) {
+                    warning ("Unexpected error during selection: " + e.message);
+                }
+            });
 
             fmenu_grid = new Gtk.Grid ();
             fmenu_grid.margin_top = 12;
             fmenu_grid.margin = 6;
             fmenu_grid.column_homogeneous = true;
             fmenu_grid.row_spacing = 6;
+            fmenu_grid.attach (recent_files_box, 0, 0);
             fmenu_grid.show_all ();
 
             var fmenu = new Gtk.Popover (null);
@@ -324,10 +364,64 @@ namespace Quilter.Widgets {
 
             fmenu_button = new Gtk.MenuButton ();
             fmenu_button.has_tooltip = true;
-            fmenu_button.tooltip_text = (_("File"));
+            fmenu_button.tooltip_text = (_("Recent Files"));
             fmenu_button.popover = fmenu;
 
-            pack_start (fmenu_button);
+            var file_button_box = new Gtk.Grid ();
+            file_button_box.attach (open_button, 0, 0);
+            file_button_box.attach (fmenu_button, 1, 0);
+            file_button_box.get_style_context ().add_class ("linked");
+
+            pack_start (new_button);
+            pack_start (file_button_box);
+
+            var rename_entry = new Gtk.Entry ();
+            rename_entry.margin_bottom = 6;
+
+            var rename_button = new Gtk.Button ();
+            rename_button.label = (_("Rename"));
+            rename_button.get_style_context ().add_class ("suggested-action");
+
+            rename_button.clicked.connect (() => {
+                var new_filename = rename_entry.get_text ();
+                foreach (var child in win.sidebar.column.get_children ()) {
+                    if (child == win.sidebar.get_selected_row ()) {
+                        var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
+                        Services.FileManager.save_file (path_new, win.edit_view_content.text);
+
+                        ((Widgets.SideBarBox)child).path = path_new;
+                        samenu_button.title = Path.get_basename(path_new);
+                        samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
+                    }
+                }
+
+                rename_entry.set_text ("");
+            });
+
+            var rename_label = new Gtk.Label (_("Rename the File:"));
+            rename_label.get_style_context ().add_class ("dim-label");
+
+            var samenu_grid = new Gtk.Grid ();
+            samenu_grid.margin = 12;
+            samenu_grid.column_homogeneous = true;
+            samenu_grid.row_spacing = 6;
+            samenu_grid.attach (rename_label, 0, 0);
+            samenu_grid.attach (rename_entry, 0, 1, 2, 1);
+            samenu_grid.attach (save_as_button, 0, 2);
+            samenu_grid.attach (rename_button, 1, 2);
+            samenu_grid.show_all ();
+
+            var samenu = new Gtk.Popover (null);
+            samenu.add (samenu_grid);
+
+            samenu_button = new Widgets.HeaderBarButton ();
+            samenu_button.has_tooltip = true;
+            samenu_button.tooltip_text = (_("Rename File"));
+            samenu_button.menu.popover = samenu;
+
+            rename_entry.set_placeholder_text (_("new_name.md"));
+
+            set_custom_title (samenu_button);
 
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 top_grid.attach (view_mode, 0, 3, 4, 1);
@@ -348,10 +442,21 @@ namespace Quilter.Widgets {
             });
         }
 
+        public SideBarBox add_recent_file (string file) {
+            var filebox = new SideBarBox (this.win, file);
+            filebox.get_style_context ().remove_class ("quilter-sidebar-box");
+            recent_files_box.insert (filebox, 0);
+
+            return filebox;
+        }
+        public unowned SideBarBox get_selected_row () {
+            return (SideBarBox) recent_files_box.get_selected_row ();
+        }
+
         public void icons_toolbar () {
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
-            fmenu_button.set_image (new Gtk.Image.from_icon_name ("folder-symbolic", Gtk.IconSize.BUTTON));
             pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
+            fmenu_button.set_image (new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));

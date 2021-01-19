@@ -56,6 +56,7 @@ namespace Quilter {
         public const string ACTION_TOGGLE_VIEW = "action_toggle_view";
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_PREFS = "action_preferences";
+        public const string ACTION_ABOUT = "action_about";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
         public weak Quilter.Application app { get; construct; }
 
@@ -65,7 +66,8 @@ namespace Quilter {
             { ACTION_FOCUS, action_focus },
             { ACTION_TOGGLE_VIEW, action_toggle_view },
             { ACTION_EXPORT_PDF, action_export_pdf },
-            { ACTION_EXPORT_HTML, action_export_html }
+            { ACTION_EXPORT_HTML, action_export_html },
+            { ACTION_ABOUT, action_about }
         };
 
         private GtkSpell.Checker spell = null;
@@ -143,6 +145,11 @@ namespace Quilter {
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
+
+            var path = Quilter.Application.gsettings.get_string("current-file");
+
+            titlebar.samenu_button.title = Path.get_basename(path);
+            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
 
             on_settings_changed.begin ();
             Quilter.Application.gsettings.changed.connect (() => {
@@ -475,27 +482,14 @@ namespace Quilter {
             if (grid != null && grid.get_folded ()) {
                 titlebar.pmenu_button.visible = false;
                 titlebar.pmenu_button.no_show_all = true;
-                titlebar.fmenu_button.visible = true;
-                titlebar.fmenu_button.no_show_all = false;
-                titlebar.remove (titlebar.new_button);
-                titlebar.remove (titlebar.open_button);
-                titlebar.remove (titlebar.save_as_button);
-                titlebar.fmenu_grid.attach (titlebar.new_button, 0, 0);
-                titlebar.fmenu_grid.attach (titlebar.open_button, 0, 1);
-                titlebar.fmenu_grid.attach (titlebar.save_as_button, 0, 2);
-                titlebar.new_button.label = (_("New Document"));
-                titlebar.open_button.label = (_("Open Document…"));
-                titlebar.save_as_button.label = (_("Save As…"));
-                titlebar.new_button.always_show_image = true;
-                titlebar.open_button.always_show_image = true;
-                titlebar.save_as_button.always_show_image = true;
-                titlebar.new_button.get_style_context ().add_class ("flat");
-                titlebar.open_button.get_style_context ().add_class ("flat");
-                titlebar.save_as_button.get_style_context ().add_class ("flat");
+                titlebar.fmenu_button.visible = false;
+                titlebar.fmenu_button.no_show_all = true;
                 titlebar.back_button.visible = true;
                 titlebar.back_button.no_show_all = false;
                 titlebar.focusmode_button.visible = false;
                 titlebar.focusmode_button.no_show_all = true;
+                titlebar.open_button.label = "";
+                titlebar.open_button.always_show_image = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
@@ -503,27 +497,14 @@ namespace Quilter {
             } else {
                 titlebar.pmenu_button.visible = true;
                 titlebar.pmenu_button.no_show_all = false;
-                titlebar.fmenu_button.visible = false;
-                titlebar.fmenu_button.no_show_all = true;
-                titlebar.fmenu_grid.remove (titlebar.new_button);
-                titlebar.fmenu_grid.remove (titlebar.open_button);
-                titlebar.fmenu_grid.remove (titlebar.save_as_button);
-                titlebar.new_button.label = null;
-                titlebar.open_button.label = null;
-                titlebar.save_as_button.label = null;
-                titlebar.new_button.always_show_image = false;
-                titlebar.open_button.always_show_image = false;
-                titlebar.save_as_button.always_show_image = false;
-                titlebar.new_button.get_style_context ().remove_class ("flat");
-                titlebar.open_button.get_style_context ().remove_class ("flat");
-                titlebar.save_as_button.get_style_context ().remove_class ("flat");
-                titlebar.pack_start (titlebar.new_button);
-                titlebar.pack_start (titlebar.open_button);
-                titlebar.pack_start (titlebar.save_as_button);
                 titlebar.back_button.visible = false;
                 titlebar.back_button.no_show_all = true;
+                titlebar.fmenu_button.visible = true;
+                titlebar.fmenu_button.no_show_all = false;
                 titlebar.focusmode_button.visible = true;
                 titlebar.focusmode_button.no_show_all = false;
+                titlebar.open_button.label = (_("Open"));
+                titlebar.open_button.always_show_image = false;
                 Quilter.Application.gsettings.set_boolean("header", true);
                 if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                     Quilter.Application.gsettings.set_boolean("focus-mode", true);
@@ -789,6 +770,8 @@ namespace Quilter {
 
             on_save ();
             sidebar.add_file (Services.FileManager.get_temp_document_path ());
+            titlebar.add_recent_file (Services.FileManager.get_temp_document_path ());
+
             sidebar.is_modified = true;
             save_last_files ();
             edit_view_content.text = "";
@@ -796,6 +779,8 @@ namespace Quilter {
             sidebar.store.clear ();
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
+            titlebar.samenu_button.title = (_("New Document"));
+            titlebar.samenu_button.subtitle = Services.FileManager.get_temp_document_path ();
             on_save ();
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
@@ -814,12 +799,14 @@ namespace Quilter {
                         break;
                     } else {
                         sidebar.add_file (path);
+                        titlebar.add_recent_file (path);
                         sidebar.is_modified = true;
                         break;
                     }
                 }
             } else {
                 sidebar.add_file (path);
+                titlebar.add_recent_file (path);
                 sidebar.is_modified = true;
             }
             edit_view_content.text = contents;
@@ -831,6 +818,8 @@ namespace Quilter {
             sidebar.store.clear ();
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
+            titlebar.samenu_button.title = Path.get_basename(path);
+            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
         }
 
         public void on_save () {
@@ -839,6 +828,8 @@ namespace Quilter {
                 try {
                     Services.FileManager.save_file (row.path, edit_view_content.text);
                     edit_view_content.modified = false;
+                    titlebar.samenu_button.title = Path.get_basename(row.path);
+                    titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~");
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }
@@ -860,6 +851,10 @@ namespace Quilter {
                     foreach (var child in sidebar.column.get_children ()) {
                         if (((Widgets.SideBarBox)child).path == Services.FileManager.get_temp_document_path ()) {
                             ((Widgets.SideBarBox)child).path = path;
+
+                            titlebar.samenu_button.title = Path.get_basename(path);
+                            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
+
                             break;
                         }
                     }
@@ -867,6 +862,27 @@ namespace Quilter {
                     warning ("Unexpected error during save: " + e.message);
                 }
             }
+        }
+
+        public void action_about () {
+            const string COPYRIGHT = "Copyright \xc2\xa9 2017-2021 Paulo \"Lains\" Galardi\n";
+
+            const string? AUTHORS[] = {
+                "Paulo \"Lains\" Galardi"
+            };
+
+            var program_name = Config.NAME_PREFIX + _("Quilter");
+            Gtk.show_about_dialog (this,
+                                   "program-name", program_name,
+                                   "logo-icon-name", Config.APP_ID,
+                                   "version", Config.VERSION,
+                                   "comments", _("Focus on your writing."),
+                                   "copyright", COPYRIGHT,
+                                   "authors", AUTHORS,
+                                   "license-type", Gtk.License.GPL_3_0,
+                                   "wrap-license", false,
+                                   "translator-credits", _("translator-credits"),
+                                   null);
         }
     }
 }

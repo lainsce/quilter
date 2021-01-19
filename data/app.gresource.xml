@@ -17,5 +17,6 @@
         <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
 
         <file alias="welcome.png">assets/welcome.png</file>
+        <file alias="header_button.ui">ui/header_button.ui</file>
     </gresource>
 </gresources>

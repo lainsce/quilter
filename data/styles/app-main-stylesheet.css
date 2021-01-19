@@ -1,7 +1,7 @@
 .color-button radio,
 .color-button radio:checked {
     padding: 10px;
-    -gtk-icon-shadow: none;
+    icon-shadow: none;
 }
 
 .color-button radio:focus {
@@ -39,8 +39,8 @@
     background: none;
     border-radius: 8px;
     border: none;
-    -gtk-icon-shadow: none;
-    -gtk-text-shadow: none;
+    icon-shadow: none;
+    text-shadow: none;
 }
 
 .quilter-menu {
@@ -48,7 +48,7 @@
 }
 
 .quilter-focus-button {
-    -gtk-icon-shadow: none;
+    icon-shadow: none;
     min-width: 24px;
     min-height: 24px;
     padding: 10px;
@@ -83,5 +83,24 @@
 .circular-button {
     padding: 10px;
     border-radius: 9999px;
-    -gtk-outline-radius: 9999px;
+    outline-radius: 9999px;
 }
+
+.mini-circular-button {
+    padding: 4px;
+    border-radius: 9999px;
+    outline-radius: 9999px;
+}
+
+.rename-button {
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    border-top-style: none;
+    border-bottom-style: none;
+}
+.rename-button:hover:not(:backdrop) {
+    background-image: none;
+    text-shadow: none;
+}
+

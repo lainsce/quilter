@@ -187,6 +187,7 @@ namespace Quilter {
         }
 
         const OptionEntry[] entries = {
+            { "about", 'v', 0, OptionArg.NONE, out print_ver, ("Open About Dialog"), null },
             { "version", 'v', 0, OptionArg.NONE, out print_ver, ("Print version and copyright info and exit"), null },
             { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },
             { null }

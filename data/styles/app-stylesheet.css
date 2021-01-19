@@ -9,6 +9,10 @@
     background: shade(mix(@accent, @color_primary, 0.88), 0.90);
 }
 
+.quilter-toolbar {
+    background: #FFF;
+}
+
 .quilter-toolbar-side {
     background: shade(mix(@accent, @color_primary, 0.88), 0.90);
     border: none;

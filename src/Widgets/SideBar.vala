@@ -138,6 +138,9 @@ namespace Quilter.Widgets {
                     GLib.FileUtils.get_contents (row.path, out text);
                     Quilter.Application.gsettings.set_string("current-file", row.path);
 
+                    win.titlebar.samenu_button.title = Path.get_basename(row.path);
+                    win.titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~");
+
                     if (win.edit_view_content.modified) {
                         Services.FileManager.save_file (row.path, text);
                         win.edit_view_content.modified = false;
