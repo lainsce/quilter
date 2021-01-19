@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -58,11 +58,6 @@ namespace Quilter {
             this.scroll_value = -1;
 
             update_html_view ();
-
-            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                update_html_view ();
-            });
-
             connect_signals ();
         }
 
@@ -84,50 +79,38 @@ namespace Quilter {
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
                 string normal = Styles.quilter.css;
                 return normal;
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "") {
-                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    string dark = Styles.quilterdark.css;
-                    return dark;
-                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    string normal = Styles.quilter.css;
-                    return normal;
-                }
             }
             return "";
         }
 
         private string set_font_stylesheet () {
             if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
-                return Environment.get_user_data_dir () + "com.github.lainsce.quilter/font/serif.css";
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/serif.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
-                return Environment.get_user_data_dir () + "com.github.lainsce.quilter/font/sans.css";
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
-                return Environment.get_user_data_dir () + "com.github.lainsce.quilter/font/mono.css";
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/mono.css";
             }
 
-            return Environment.get_user_data_dir () + "com.github.lainsce.quilter/font/serif.css";
+            return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
-            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
-            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                    return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/styles/dark.min.css";
-                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                    return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/styles/sepia.min.css";
-                } else {
-                    return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/styles/default.min.css";
-                }
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
+            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
             } else {
-                return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/styles/default.min.css";
+                return "";
             }
         }
 
 
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                string render = Environment.get_user_data_dir () + "/com.github.lainsce.quilter/highlight.js/lib/highlight.min.js";
+                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -140,7 +123,7 @@ namespace Quilter {
 
         private string set_center_headers () {
             if (Quilter.Application.gsettings.get_boolean("center-headers")) {
-                return Environment.get_user_data_dir () + "/com.github.lainsce.quilter/center_headers/cheaders.css";
+                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
             } else {
                 return "";
             }
@@ -148,9 +131,9 @@ namespace Quilter {
 
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean("latex")) {
-                string katex_main = Environment.get_user_data_dir () + "/com.github.lainsce.quilter/katex/katex.css";
-                string katex_js = Environment.get_user_data_dir () + "/com.github.lainsce.quilter/katex/katex.js";
-                string render = Environment.get_user_data_dir () + "/com.github.lainsce.quilter/katex/render.js";
+                string katex_main = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/katex.css";
+                string katex_js = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/katex.js";
+                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -164,7 +147,7 @@ namespace Quilter {
 
         private string set_mermaid () {
             if (Quilter.Application.gsettings.get_boolean("mermaid")) {
-                string render = Environment.get_user_data_dir () + "/com.github.lainsce.quilter/mermaid/mermaid.js";
+                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
                 string mermaid = """
                     <script src="%s"></script>
                     <script>

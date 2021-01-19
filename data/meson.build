@@ -1,36 +1,29 @@
 fs = import('fs')
-
-icon_sizes = ['32', '48', '64', '128']
-
-configdir = fs.expanduser('~/.local/share/com.github.lainsce.quilter')
-
-foreach i : icon_sizes
-    install_data(
-        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i, 'apps')
-    )
-endforeach
-
-foreach i : icon_sizes
-    install_data(
-        join_paths('icons', i, 'com.github.lainsce.quilter.svg'),
-        install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', i + 'x' + i + '@2', 'apps')
-    )
-endforeach
+configdir = fs.expanduser('~/.local/share/io.github.lainsce.Quilter')
 
 install_data(
-    join_paths('icons', '16', 'com.github.lainsce.quilter-symbolic.svg'),
+    join_paths('icons', '128', 'io.github.lainsce.Quilter.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
+)
+
+install_data(
+    join_paths('icons', '128', 'io.github.lainsce.Quilter.Devel.svg'),
+    install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
+)
+
+install_data(
+    join_paths('icons', '16', 'io.github.lainsce.Quilter-symbolic.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
 install_data(
-    'com.github.lainsce.quilter.gschema.xml',
+    'io.github.lainsce.Quilter.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
 
 i18n.merge_file(
-    input: 'com.github.lainsce.quilter.desktop.in',
-    output: 'com.github.lainsce.quilter.desktop',
+    input: 'io.github.lainsce.Quilter.desktop.in',
+    output: 'io.github.lainsce.Quilter.desktop',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     type: 'desktop',
     install: true,
@@ -38,25 +31,25 @@ i18n.merge_file(
 )
 
 i18n.merge_file(
-    input: 'com.github.lainsce.quilter.appdata.xml.in',
-    output: 'com.github.lainsce.quilter.appdata.xml',
+    input: 'io.github.lainsce.Quilter.appdata.xml.in',
+    output: 'io.github.lainsce.Quilter.appdata.xml',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 install_data(
-    join_paths('schemes', 'com.github.lainsce.quilter.xml'),
+    join_paths('schemes', 'io.github.lainsce.Quilter.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'com.github.lainsce.quilter-sepia.xml'),
+    join_paths('schemes', 'io.github.lainsce.Quilter-sepia.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'com.github.lainsce.quilter-dark.xml'),
+    join_paths('schemes', 'io.github.lainsce.Quilter-dark.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
@@ -84,6 +77,18 @@ install_subdir(
     'plugin/katex',
     install_dir: configdir
 )
+
+install_subdir(
+    'plugin/font',
+    install_dir: configdir
+)
+
+
+install_subdir(
+    'plugin/center_headers',
+    install_dir: configdir
+)
+
 
 install_subdir(
     'plugin/mermaid',

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schemalist>
-  <schema id="com.github.lainsce.quilter" path="/com/github/lainsce/quilter/">
+  <schema id="io.github.lainsce.Quilter" path="/com/github/lainsce/quilter/">
     <key name="window-position" type="(ii)">
       <default>(-1,-1)</default>
       <summary>Window position</summary>
@@ -124,18 +124,6 @@
     <key name="center-headers" type="b">
       <default>false</default>
       <summary>Whether Quilter's Preview should center h1 thru h3</summary>
-    </key>
-    <key name="spacing" type="i">
-      <default>4</default>
-      <summary>The spacing on the Editor View's lines</summary>
-    </key>
-    <key name="margins" type="i">
-      <default>40</default>
-      <summary>The margins for the Editor View</summary>
-    </key>
-    <key name="font-sizing" type="i">
-      <default>2</default>
-      <summary>The font size for the Editor View</summary>
     </key>
     <key name="focus-mode-type" type="b">
       <default>false</default>

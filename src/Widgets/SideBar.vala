@@ -67,15 +67,15 @@ namespace Quilter.Widgets {
             no_files = new Gtk.Label (_("No files…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
-            no_files_style_context.add_class (Granite.STYLE_CLASS_H2_LABEL);
+            no_files_style_context.add_class ("title-2");
             no_files_style_context.add_class (Gtk.STYLE_CLASS_DIM_LABEL);
             no_files.sensitive = false;
             no_files.margin = 12;
             no_files.show_all ();
 
             stack = new Gtk.Stack ();
-            stack.add_titled (sidebar_files_list (), "files", _("Files").up ());
-            stack.add_titled (sidebar_outline (), "outline", _("Outline").up ());
+            stack.add_titled (sidebar_files_list (), "files", _("Files"));
+            stack.add_titled (sidebar_outline (), "outline", _("Outline"));
             stack.child_set_property (files_grid, "icon-name", "text-x-generic-symbolic");
             stack.child_set_property (outline_grid, "icon-name", "outline-symbolic");
 
@@ -88,14 +88,15 @@ namespace Quilter.Widgets {
             var sw_context = stackswitcher.get_style_context ();
             sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
+            stackswitcher.margin_top = 12;
+            stackswitcher.margin_start = stackswitcher.margin_end = 6;
 
             header.has_subtitle = false;
             header.set_title (null);
             header.set_custom_title (stackswitcher);
-            header.set_size_request (200,38);
+            header.set_size_request (200,-1);
 
             var this_context = header.get_style_context ();
-            this_context.add_class (Gtk.STYLE_CLASS_FLAT);
             this_context.add_class ("quilter-toolbar-side");
 
             var main_grid = new Gtk.Grid ();

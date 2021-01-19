@@ -1,31 +1,22 @@
-.small-text {
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-}
-
-.medium-text {
-    font-size: 1.4rem;
-    letter-spacing: 0.2em;
-}
-
-.big-text {
-    font-size: 1.8rem;
-    letter-spacing: 0.2em;
-}
-
 .mono-font {
     font-family: 'Quilt Mono';
     font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
 }
 
 .vier-font {
     font-family: 'Quilt Vier';
     font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
 }
 
 .zwei-font {
     font-family: 'Quilt Zwei';
     font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
 }
 
 .small-text *,
@@ -34,6 +25,6 @@
 .mono-font *,
 .vier-font *,
 .zwei-font * {
-    font-family: 'Inter';
+    font-family: 'Cantarell';
     letter-spacing: 0em;
 }

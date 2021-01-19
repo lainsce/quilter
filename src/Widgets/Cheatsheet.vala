@@ -1,5 +1,5 @@
 /*
-* Copyright (c) 2017-2020 Lains
+* Copyright (c) 2017-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -72,9 +72,6 @@ namespace Quilter.Widgets {
                 }
                 return false;
             });
-
-            var context = this.get_style_context ();
-            context.add_class ("quilter-dialog-hb");
         }
 
         private void get_chgrid () {
@@ -83,7 +80,7 @@ namespace Quilter.Widgets {
             chgrid.column_spacing = 12;
             chgrid.margin = 6;
 
-            var header_header = new Granite.HeaderLabel (_("Headers & Text"));
+            var header_header = new HeaderLabel (_("Headers & Text"));
             var header_one_label = new Label (_("# Header 1"));
             var header_two_label = new Label (_("## Header 2"));
             var header_three_label = new Label (_("### Header 3"));
@@ -93,10 +90,10 @@ namespace Quilter.Widgets {
             var codeblocks_label = new Label (_("``` Code Block ```"));
             var quote_font_label = new Label (_("> Quote"));
 
-            var link_header = new Granite.HeaderLabel (_("Links"));
+            var link_header = new HeaderLabel (_("Links"));
             var link_label = new Label (_("[Link Label](http://link.url.com)\n![Image Label](http://image.url.com)"));
 
-            var special_header = new Granite.HeaderLabel (_("Special"));
+            var special_header = new HeaderLabel (_("Special"));
             var lx_label = new Label (_("LaTeX:\n\t- $$…$$ for equation block.\n\t- \\\\(…\\\\) for inline equation."));
             var mm_label = new Label (_("Mermaid.js:\n\t- <div class=\"mermaid\">...</div>"));
 
@@ -122,7 +119,7 @@ namespace Quilter.Widgets {
             exgrid.column_spacing = 12;
             exgrid.margin = 6;
 
-            var header2_header = new Granite.HeaderLabel (_("Extras"));
+            var header2_header = new HeaderLabel (_("Extras"));
             var hr_label = new Label (_("Horizontal rule → ---"));
             var strike_font_label = new Label (_("~~Strikethrough~~"));
             var high_font_label = new Label (_("==Highlight=="));
@@ -140,7 +137,8 @@ namespace Quilter.Widgets {
             check_grid.attach (custom_help, 1, 0);
             var sp_image_label = new Label (_("Embeds a local image\n\t/Folder/Image.png :image"));
             var sp_file_label = new Label (_("Embeds a local Markdown file\n\t/Folder/File.md :file"));
-            var table_header = new Granite.HeaderLabel (_("Tables"));
+
+            var table_header = new HeaderLabel (_("Tables"));
             var table_label = new Label ("|\tA\t|\tB\t|\n|\t---\t|\t---\t|\n|\t1\t|\t2\t|");
             var custom_help2 = new Gtk.Image.from_icon_name ("dialog-information-symbolic", Gtk.IconSize.BUTTON);
             custom_help2.halign = Gtk.Align.START;
@@ -165,6 +163,15 @@ namespace Quilter.Widgets {
 
         private class Label : Gtk.Label {
             public Label (string text) {
+                label = text;
+                halign = Gtk.Align.START;
+                valign = Gtk.Align.START;
+                use_markup = true;
+            }
+        }
+
+        private class HeaderLabel : Gtk.Label {
+            public HeaderLabel (string text) {
                 label = text;
                 halign = Gtk.Align.START;
                 valign = Gtk.Align.START;

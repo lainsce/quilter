@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+    <id>io.github.lainsce.Quilter</id>
+    <metadata_license>CC0</metadata_license>
+    <project_license>GPL-3.0+</project_license>
+    <name>Quilter</name>
+    <summary>Focus on your writing</summary>
+    <description>
+        <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
+        <ul>
+            <li>Work on a story, one file displayed at a time, many files sidebar'd.</li>
+            <li>Save your documents anywhere, even on existing files.</li>
+            <li>Preview your story in the Preview Mode.</li>
+            <li>Configure whether to have Focus Mode or not.</li>
+            <li>Configure whether to have Dark Mode or not.</li>
+            <li>Configure whether to have Sepia Mode or not.</li>
+            <li>Fullscreen your writing area with F11.</li>
+            <li>Search anytime with the shortcut Ctrl + F</li>
+            <li>Quit anytime with the shortcut Ctrl + Q</li>
+        </ul>
+    </description>
+    <provides>
+        <binary>io.github.lainsce.Quilter</binary>
+    </provides>
+    <developer_name>Lains</developer_name>
+    <url type="homepage">https://github.com/lainsce/quilter/</url>
+    <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
+    <url type="donation">https://liberapay.com/Lains/</url>
+    <content_rating type="oars-1.1">
+        <content_attribute id="violence-cartoon">none</content_attribute>
+        <content_attribute id="violence-fantasy">none</content_attribute>
+        <content_attribute id="violence-realistic">none</content_attribute>
+        <content_attribute id="violence-bloodshed">none</content_attribute>
+        <content_attribute id="violence-sexual">none</content_attribute>
+        <content_attribute id="violence-desecration">none</content_attribute>
+        <content_attribute id="violence-slavery">none</content_attribute>
+        <content_attribute id="violence-worship">none</content_attribute>
+        <content_attribute id="drugs-alcohol">none</content_attribute>
+        <content_attribute id="drugs-narcotics">none</content_attribute>
+        <content_attribute id="drugs-tobacco">none</content_attribute>
+        <content_attribute id="sex-nudity">none</content_attribute>
+        <content_attribute id="sex-themes">none</content_attribute>
+        <content_attribute id="sex-homosexuality">none</content_attribute>
+        <content_attribute id="sex-prostitution">none</content_attribute>
+        <content_attribute id="sex-adultery">none</content_attribute>
+        <content_attribute id="sex-appearance">none</content_attribute>
+        <content_attribute id="language-profanity">none</content_attribute>
+        <content_attribute id="language-humor">none</content_attribute>
+        <content_attribute id="language-discrimination">none</content_attribute>
+        <content_attribute id="social-chat">none</content_attribute>
+        <content_attribute id="social-info">none</content_attribute>
+        <content_attribute id="social-audio">none</content_attribute>
+        <content_attribute id="social-location">none</content_attribute>
+        <content_attribute id="social-contacts">none</content_attribute>
+        <content_attribute id="money-purchasing">none</content_attribute>
+        <content_attribute id="money-gambling">none</content_attribute>
+    </content_rating>
+    <releases>
+        <release version="3.0.0" date="2021-??-??">
+         <description>
+            <p>Release: Hello, Flatpak!</p>
+            <ul>
+                <li>Add: Respects global dark mode</li>
+                <li>Add: New Quilt Zwei font</li>
+                <li>Add: Part of Speech highlighter (BETA)</li>
+                <li>Add: Center or not Preview Headers (h1 to h3)</li>
+                <li>Add: Click on Outline headers to scroll to them</li>
+                <li>Change: Export options now live in the Cog menu</li>
+                <li>Change: Preferences &amp; Cheatsheet now have a new intuitive look</li>
+                <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>
+                <li>Change: Preferences tabs were re-organized</li>
+                <li>Move: Preview font selection to Preferences</li>
+                <li>Move: Statusbar to below Editor only</li>
+                <li>Move: Change Width Mode in the Cog Menu</li>
+                <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
+                <li>Fix: Spellchecking styling</li>
+                <li>Fix: Sync scrolling now uses less Processor &amp; RAM</li>
+                <li>Fix: Exported PDF margins</li>
+                <li>Fix: Many style fixes for Odin</li>
+                <li>Fix: Many minor backend fixes</li>
+            </ul>
+            </description>
+        </release>
+    </releases>
+    <screenshots>
+        <screenshot type="default">
+            <caption>Light Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Sepia Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-sepia.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Dark Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-dark.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Focus Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
+        </screenshot>
+        <screenshot>
+            <caption>Preview Mode</caption>
+            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
+        </screenshot>
+    </screenshots>
+</component>

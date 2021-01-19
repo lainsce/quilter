@@ -24,23 +24,19 @@ namespace Quilter {
         private static string _cwd;
         public Widgets.Headerbar toolbar;
         public static GLib.Settings gsettings;
-        public static Granite.Settings grsettings;
         public static MainWindow win = null;
         public static string[] supported_mimetypes;
 
         static construct {
-            gsettings = new GLib.Settings ("com.github.lainsce.quilter");
+            gsettings = new GLib.Settings ("io.github.lainsce.Quilter");
         }
 
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             flags |= ApplicationFlags.HANDLES_OPEN;
-            application_id = "com.github.lainsce.quilter";
+            application_id = "io.github.lainsce.Quilter";
 
             supported_mimetypes = {"text/markdown"};
-            register_default_handler ();
-
-            grsettings = Granite.Settings.get_default ();
         }
 
         protected override void activate () {
@@ -67,7 +63,7 @@ namespace Quilter {
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
             var context = new OptionContext ("File");
-            context.add_main_entries (entries, "com.github.lainsce.quilter");
+            context.add_main_entries (entries, "io.github.lainsce.Quilter");
             context.add_group (Gtk.get_option_group (true));
             int unclaimed_args;
 
@@ -81,7 +77,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                stdout.printf ("Quilter - Copyright 2017-2020 Lains\n");
+                stdout.printf ("Quilter - Copyright 2017-2021 Lains\n");
                 return 0;
             } else {
                 new_win ();
@@ -188,34 +184,6 @@ namespace Quilter {
         public MainWindow? get_last_win () {
             unowned List<Gtk.Window> wins = get_windows ();
             return wins.length () > 0 ? wins.last ().data as MainWindow : null;
-        }
-
-        private static void register_default_handler () {
-            var app_info = new DesktopAppInfo ("com.github.lainsce.quilter.desktop");
-            if (app_info == null) {
-                warning ("AppInfo object not found for Quilter.");
-                return;
-            }
-
-            foreach (string mimetype in supported_mimetypes) {
-                var handler = AppInfo.get_default_for_type (mimetype, false);
-                if (handler == null) {
-                    try {
-                        app_info.set_as_default_for_type (mimetype);
-                    } catch (Error e) {
-                        warning (e.message);
-                    }
-                } else {
-                    unowned string[] types = handler.get_supported_types ();
-                    if (types == null || !(mimetype in types)) {
-                        try {
-                            app_info.set_as_default_for_type (mimetype);
-                        } catch (Error e) {
-                            warning (e.message);
-                        }
-                    }
-                }
-            }
         }
 
         const OptionEntry[] entries = {

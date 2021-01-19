@@ -1,4 +1,4 @@
-project('com.github.lainsce.quilter', ['vala', 'c'], version: '3.0.0')
+project('io.github.lainsce.Quilter', ['vala', 'c'], version: '3.0.0')
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -57,7 +57,6 @@ dependencies = [
     dependency('gobject-2.0'),
     dependency('gee-0.8'),
     dependency('libhandy-1'),
-    dependency('granite'),
     dependency('gtksourceview-4'),
     dependency('webkit2gtk-4.0'),
     dependency('gtkspell3-3.0'),

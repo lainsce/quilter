@@ -30,7 +30,7 @@ namespace Quilter {
         public Hdy.TitleBar window_header;
         public Hdy.HeaderBar welcome_titlebar;
         public Gtk.Grid main_pane;
-        public Granite.Widgets.Welcome welcome_view;
+        public Gtk.Grid welcome_view;
         public Gtk.MenuButton set_font_menu;
         public Gtk.Paned paned;
         public Gtk.Revealer titlebar_revealer;
@@ -139,11 +139,7 @@ namespace Quilter {
             );
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-            default_theme.add_resource_path ("/com/github/lainsce/quilter");
-            
-            Gtk.Settings.get_default().set_property("gtk-theme-name", "io.elementary.stylesheet.blueberry");
-            Gtk.Settings.get_default().set_property("gtk-icon-theme-name", "elementary");
-            Gtk.Settings.get_default().set_property("gtk-font-name", "Inter 9");
+            default_theme.add_resource_path ("/io/github/lainsce/Quilter");
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
@@ -163,13 +159,6 @@ namespace Quilter {
                 titlebar_stack.set_visible_child_name ("title");
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
-            }
-            
-            if (!Granite.Services.System.history_is_enabled ()) {
-                edit_view_content.buffer.text = "";
-                Services.FileManager.file = null;
-                sidebar.store.clear ();
-                sidebar.delete_rows ();
             }
 
             spell = new GtkSpell.Checker ();
@@ -307,7 +296,7 @@ namespace Quilter {
             this.resize (width, height);
 
             try {
-                this.icon = Gtk.IconTheme.get_default ().load_icon ("com.github.lainsce.quilter", Gtk.IconSize.DIALOG, 0);
+                this.icon = Gtk.IconTheme.get_default ().load_icon ("io.github.lainsce.Quilter", Gtk.IconSize.DIALOG, 0);
             } catch (Error e) {
             }
 
@@ -323,37 +312,25 @@ namespace Quilter {
             }
 
             var provider = new Gtk.CssProvider ();
-            provider.load_from_resource ("/com/github/lainsce/quilter/app-main-stylesheet.css");
+            provider.load_from_resource ("/io/github/lainsce/Quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider2 = new Gtk.CssProvider ();
-            provider2.load_from_resource ("/com/github/lainsce/quilter/app-font-stylesheet.css");
+            provider2.load_from_resource ("/io/github/lainsce/Quilter/app-font-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider3 = new Gtk.CssProvider ();
 
             titlebar = new Widgets.Headerbar (this) {
                 has_subtitle = false,
-                hexpand = true,
-                title = "Quilter"
+                hexpand = true
             };
             titlebar.open.connect (on_open);
             titlebar.save_as.connect (on_save_as);
             titlebar.create_new.connect (on_create_new);
 
-            // Used so the welcome titlebar, which is flat, and with no buttons
-            // doesn't jump in size when transtitioning to the preview titlebar.
-            var dummy_welcome_title_button = new Gtk.Button ();
-            dummy_welcome_title_button.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            dummy_welcome_title_button.sensitive = false;
-
             welcome_titlebar = new Hdy.HeaderBar ();
             welcome_titlebar.show_close_button = true;
             welcome_titlebar.has_subtitle = false;
             welcome_titlebar.title = "Quilter";
-            welcome_titlebar.set_decoration_layout ("close:maximize");
-            welcome_titlebar.get_style_context ().add_class (Gtk.STYLE_CLASS_FLAT);
-            welcome_titlebar.get_style_context ().add_class ("welcome-title");
-
-            welcome_titlebar.pack_start (dummy_welcome_title_button);
 
             titlebar_stack = new Gtk.Stack ();
             titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
@@ -389,24 +366,37 @@ namespace Quilter {
             main_stack.add_named (stack, "stack");
             main_stack.add_named (box, "paned");
 
-            var welcome_view = new Granite.Widgets.Welcome (
-                _("No File Open"),
-                _("Open a markdown file to start writing")
-            );
-            welcome_view.get_style_context ().add_class ("quilter-normal-view");
-            welcome_view.append ("document-new-symbolic", _("New Markdown File"), "Creates a story for writiing.");
-            welcome_view.append ("document-open-symbolic", _("Open Markdown File"), "Opens a story for writiing.");
+            // Welcome View
+            var welcome_title = new Gtk.Label (_("Write a new Document"));
+            welcome_title.get_style_context ().add_class ("title-1");
+            welcome_title.margin_bottom = 24;
 
-            welcome_view.activated.connect ((option) => {
-                switch (option) {
-                    case 0:
-                        on_create_new ();
-                        break;
-                    case 1:
-                        on_open ();
-					    break;
-                }
-            });
+            var welcome_image = new Gtk.Image.from_resource ("/io/github/lainsce/Quilter/welcome.png");
+            welcome_image.margin_bottom = 24;
+
+            var welcome_new_button = new Gtk.Button ();
+            welcome_new_button.set_label (_("New Document"));
+            welcome_new_button.clicked.connect (() => on_create_new ());
+            welcome_new_button.get_style_context ().add_class ("suggested-action");
+            welcome_new_button.get_style_context ().add_class ("circular-button");
+
+            var welcome_open_button = new Gtk.Button ();
+            welcome_open_button.set_label (_("Open Document"));
+            welcome_open_button.clicked.connect (() => on_open ());
+            welcome_open_button.get_style_context ().add_class ("circular-button");
+
+            welcome_view = new Gtk.Grid () {
+              expand = true,
+              orientation = Gtk.Orientation.VERTICAL,
+              halign = Gtk.Align.CENTER,
+              valign = Gtk.Align.CENTER,
+              row_spacing = 12
+            };
+            welcome_view.get_style_context ().add_class ("quilter-normal-view");
+            welcome_view.attach (welcome_title, 0, 0);
+            welcome_view.attach (welcome_image, 0, 1);
+            welcome_view.attach (welcome_new_button, 0, 2);
+            welcome_view.attach (welcome_open_button, 0, 3);
 
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
@@ -449,8 +439,12 @@ namespace Quilter {
             main_leaf.add (searchbar);
             main_leaf.add (win_stack);
 
+            var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            sep.vexpand = true;
+
             grid = new Hdy.Leaflet ();
             grid.add (sidebar);
+            grid.add (sep);
             grid.add (main_leaf);
             grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.show_all ();
@@ -547,8 +541,8 @@ namespace Quilter {
                 titlebar.set_decoration_layout (":");
             } else {
                 // Else you're on Desktop size, so business as usual.
-                sidebar.header.set_decoration_layout ("close:");
-                titlebar.set_decoration_layout (":maximize");
+                sidebar.header.set_decoration_layout (":");
+                titlebar.set_decoration_layout (":close");
             }
         }
 
@@ -708,14 +702,14 @@ namespace Quilter {
             }
 
             if (Quilter.Application.gsettings.get_boolean ("sidebar") == false) {
-                titlebar.set_decoration_layout ("close:maximize");
+                titlebar.set_decoration_layout (":close");
             } else {
                 if (!Quilter.Application.gsettings.get_boolean("header")) {
                     // On Mobile size, so.... have to have no buttons anywhere.
                     titlebar.set_decoration_layout (":");
                 } else {
                     // Else you're on Desktop size, so business as usual.
-                    titlebar.set_decoration_layout (":maximize");
+                    titlebar.set_decoration_layout (":close");
                 }
             }
 

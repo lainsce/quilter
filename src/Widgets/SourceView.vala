@@ -93,17 +93,17 @@ namespace Quilter.Widgets {
             lightsepiafont = new Gtk.TextTag();
             sepiafont = new Gtk.TextTag();
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#888");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#888");
-            blackfont = buffer.create_tag(null, "foreground", "#151515");
-            whitefont = buffer.create_tag(null, "foreground", "#f7f7f7");
+            darkgrayfont = buffer.create_tag(null, "foreground", "#9a9996");
+            lightgrayfont = buffer.create_tag(null, "foreground", "#9a9996");
+            blackfont = buffer.create_tag(null, "foreground", "#111");
+            whitefont = buffer.create_tag(null, "foreground", "#f6f5f4");
             lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
             sepiafont = buffer.create_tag(null, "foreground", "#331100");
 
-            adverbfont = buffer.create_tag(null, "foreground", "#6060c5");
-            verbfont = buffer.create_tag(null, "foreground", "#45a5c5");
-            adjfont = buffer.create_tag(null, "foreground", "#e58256");
-            conjfont = buffer.create_tag(null, "foreground", "#74c02e");
+            adverbfont = buffer.create_tag(null, "foreground", "#9141ac");
+            verbfont = buffer.create_tag(null, "foreground", "#3584e4");
+            adjfont = buffer.create_tag(null, "foreground", "#e5a50a");
+            conjfont = buffer.create_tag(null, "foreground", "#2ec27e");
 
             pos = new Services.POSFiles ();
 
@@ -150,10 +150,6 @@ namespace Quilter.Widgets {
 
             update_settings ();
 
-            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                update_settings ();
-            });
-
             Quilter.Application.gsettings.changed.connect (() => {
                 update_settings ();
             });
@@ -167,6 +163,9 @@ namespace Quilter.Widgets {
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.right_margin = this.bottom_margin = this.top_margin = 40;
             this.left_margin = 0;
+            this.set_pixels_inside_wrap((int)(1.5*4));
+            this.set_pixels_above_lines(4);
+            this.set_pixels_below_lines(4);
             this.has_focus = true;
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
@@ -175,11 +174,7 @@ namespace Quilter.Widgets {
 
         private void update_settings () {
             var buffer_context = this.get_style_context ();
-            this.set_pixels_inside_wrap((int)(1.5*Quilter.Application.gsettings.get_int("spacing")));
-            this.set_pixels_above_lines(Quilter.Application.gsettings.get_int("spacing"));
-            this.set_pixels_below_lines(Quilter.Application.gsettings.get_int("spacing"));
             dynamic_margins ();
-            //indent_text ();
 
             if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 Gtk.TextIter start, end;
@@ -201,20 +196,6 @@ namespace Quilter.Widgets {
                 if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling")) {
                     Timeout.add(500, move_typewriter_scrolling);
                 }
-            }
-
-            if (Quilter.Application.gsettings.get_int("font-sizing") == 1) {
-                buffer_context.add_class ("small-text");
-                buffer_context.remove_class ("medium-text");
-                buffer_context.remove_class ("big-text");
-            } else if (Quilter.Application.gsettings.get_int("font-sizing") == 2) {
-                buffer_context.remove_class ("small-text");
-                buffer_context.add_class ("medium-text");
-                buffer_context.remove_class ("big-text");
-            } else if (Quilter.Application.gsettings.get_int("font-sizing") == 3) {
-                buffer_context.remove_class ("small-text");
-                buffer_context.remove_class ("medium-text");
-                buffer_context.add_class ("big-text");
             }
 
             if (Quilter.Application.gsettings.get_string("edit-font-type") == "mono") {
@@ -255,20 +236,7 @@ namespace Quilter.Widgets {
 
             if (window != null) {
                 p = (window.is_fullscreen) ? 80 : 0;
-
-                var margins = Quilter.Application.gsettings.get_int("margins");
-                switch (margins) {
-                    case Constants.NARROW_MARGIN:
-                        m = (rect.width * ((Constants.NARROW_MARGIN + p) / 100.0));
-                        break;
-                    case Constants.WIDE_MARGIN:
-                        m = (rect.width * ((Constants.WIDE_MARGIN + p) / 100.0));
-                        break;
-                    case Constants.MEDIUM_MARGIN:
-                    default:
-                        m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
-                        break;
-                }
+                m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
 
                 this.left_margin = (int)m;
                 this.right_margin = (int)m;
@@ -290,7 +258,7 @@ namespace Quilter.Widgets {
             buffer.get_bounds (out start, out end);
 
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
+                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet-dark.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 buffer.remove_tag(lightsepiafont, start, end);
@@ -298,39 +266,20 @@ namespace Quilter.Widgets {
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-sepia.css");
+                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet-sepia.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-sepia";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
+                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet.css");
                 Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
                 return "quilter";
-            // Follow System Preference
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "") {
-                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet.css");
-                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
-                    buffer.remove_tag(whitefont, start, end);
-                    buffer.remove_tag(lightsepiafont, start, end);
-                    buffer.remove_tag(sepiafont, start, end);
-                    return "quilter";
-                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    provider.load_from_resource ("/com/github/lainsce/quilter/app-stylesheet-dark.css");
-                    Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-                    Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
-                    buffer.remove_tag(lightsepiafont, start, end);
-                    buffer.remove_tag(sepiafont, start, end);
-                    buffer.remove_tag(blackfont, start, end);
-                    return "quilter-dark";
-                }
             }
             return "";
         }
@@ -520,10 +469,10 @@ namespace Quilter.Services {
         public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
-            file_verbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/verb.txt");
-            file_adj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adjective.txt");
-            file_adverbs = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/adverb.txt");
-            file_conj = File.new_for_path(Environment.get_user_data_dir () + "/com.github.lainsce.quilter/wordlist/conjunction.txt");
+            file_verbs = File.new_for_path(Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/wordlist/verb.txt");
+            file_adj = File.new_for_path(Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/wordlist/adjective.txt");
+            file_adverbs = File.new_for_path(Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/wordlist/adverb.txt");
+            file_conj = File.new_for_path(Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/wordlist/conjunction.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);

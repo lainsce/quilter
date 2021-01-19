@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Quilter
 Comment=Focus on your writing
-Exec=com.github.lainsce.quilter %U
-Icon=com.github.lainsce.quilter
+Exec=io.github.lainsce.Quilter %U
+Icon=io.github.lainsce.Quilter
 Keywords=Text;Markdown;Editor;
 MimeType=text/markdown;text/x-markdown;
 Terminal=false

@@ -1,5 +1,5 @@
 /*
-* Copyright (C) 2018-2020 Lains
+* Copyright (C) 2018-2021 Lains
 *
 * This program is free software; you can redistribute it and/or
 * modify it under the terms of the GNU General Public
@@ -44,112 +44,12 @@ namespace Quilter.Widgets {
             this.add (interface_page);
             this.add (editor_page);
             this.add (preview_page);
-
-            var context = this.get_style_context ();
-            context.add_class ("quilter-dialog-hb");
         }
 
         private Hdy.PreferencesPage get_editor_grid () {
             var editor_grid = new Hdy.PreferencesPage ();
             editor_grid.set_icon_name ("folder-documents-symbolic");
             editor_grid.set_title (_("Editor"));
-
-            var geo_header = new Hdy.PreferencesGroup ();
-            geo_header.title = (_("Geometry"));
-
-            var spacing_row = new Hdy.ActionRow ();
-            spacing_row.set_title (_("Text Spacing"));
-
-            var spacing_size = new Granite.Widgets.ModeButton ();
-            spacing_size.margin = 6;
-            spacing_size.append_icon ("small-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            spacing_size.append_icon ("normal-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            spacing_size.append_icon ("large-spacing-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-
-            var spacing = Quilter.Application.gsettings.get_int("spacing");
-
-            switch (spacing) {
-                case Constants.NARROW_SPACING:
-                    spacing_size.selected = 0;
-                    break;
-                case Constants.MEDIUM_SPACING:
-                    spacing_size.selected = 1;
-                    break;
-                case Constants.WIDE_SPACING:
-                    spacing_size.selected = 2;
-                    break;
-                default:
-                    spacing_size.selected = 1;
-                    break;
-            }
-
-            spacing_size.mode_changed.connect (() => {
-                switch (spacing_size.selected) {
-                    case 0:
-                        Quilter.Application.gsettings.set_int("spacing", Constants.NARROW_SPACING);
-                        break;
-                    case 1:
-                        Quilter.Application.gsettings.set_int("spacing", Constants.MEDIUM_SPACING);
-                        break;
-                    case 2:
-                        Quilter.Application.gsettings.set_int("spacing", Constants.WIDE_SPACING);
-                        break;
-                    case 3:
-                        Quilter.Application.gsettings.set_int("spacing", spacing);
-                        break;
-                }
-            });
-
-            spacing_row.add (spacing_size);
-
-            var margins_row = new Hdy.ActionRow ();
-            margins_row.set_title (_("Text Margins"));
-
-            var margins_size = new Granite.Widgets.ModeButton ();
-            margins_size.margin = 6;
-            margins_size.append_icon ("small-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            margins_size.append_icon ("normal-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            margins_size.append_icon ("large-margin-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-
-            var margins = Quilter.Application.gsettings.get_int("margins");
-
-            switch (margins) {
-                case Constants.NARROW_MARGIN:
-                    margins_size.selected = 0;
-                    break;
-                case Constants.MEDIUM_MARGIN:
-                    margins_size.selected = 1;
-                    break;
-                case Constants.WIDE_MARGIN:
-                    margins_size.selected = 2;
-                    break;
-                default:
-                    margins_size.selected = 1;
-                    break;
-            }
-
-            margins_size.mode_changed.connect (() => {
-                switch (margins_size.selected) {
-                    case 0:
-                        Quilter.Application.gsettings.set_int("margins", Constants.NARROW_MARGIN);
-                        break;
-                    case 1:
-                        Quilter.Application.gsettings.set_int("margins", Constants.MEDIUM_MARGIN);
-                        break;
-                    case 2:
-                        Quilter.Application.gsettings.set_int("margins", Constants.WIDE_MARGIN);
-                        break;
-                    case 3:
-                        Quilter.Application.gsettings.set_int("margins", margins);
-                        break;
-                }
-            });
-
-            margins_row.add (margins_size);
-
-            geo_header.add (spacing_row);
-            geo_header.add (margins_row);
-            geo_header.show_all ();
 
             var font_header = new Hdy.PreferencesGroup ();
             font_header.title = (_("Font"));
@@ -198,65 +98,7 @@ namespace Quilter.Widgets {
 
             font_type_row.add (font_type);
 
-            var font_size_row = new Hdy.ActionRow ();
-            font_size_row.set_title (_("Size"));
-
-            var font_size = new Granite.Widgets.ModeButton ();
-            font_size.margin = 6;
-            font_size.append_icon ("small-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            font_size.append_icon ("normal-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-            font_size.append_icon ("large-font-symbolic", Gtk.IconSize.LARGE_TOOLBAR);
-
-            var font_sizing = Quilter.Application.gsettings.get_int("font-sizing");
-
-            switch (font_sizing) {
-                case Constants.SMALL_FONT:
-                    font_size.selected = 0;
-                    break;
-                case Constants.MEDIUM_FONT:
-                    font_size.selected = 1;
-                    break;
-                case Constants.BIG_FONT:
-                    font_size.selected = 2;
-                    break;
-                default:
-                    font_size.selected = 1;
-                    break;
-            }
-
-            font_size.mode_changed.connect (() => {
-                switch (font_size.selected) {
-                    case 0:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.SMALL_FONT);
-                        Widgets.EditView.get_instance ().get_style_context ().add_class ("small-text");
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
-                        break;
-                    case 1:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.MEDIUM_FONT);
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
-                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
-                        break;
-                    case 2:
-                        Quilter.Application.gsettings.set_int("font-sizing", Constants.BIG_FONT);
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("medium-text");
-                        Widgets.EditView.get_instance ().get_style_context ().add_class ("big-text");
-                        break;
-                    case 3:
-                        Quilter.Application.gsettings.set_int("font-sizing", font_sizing);
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("small-text");
-                        Widgets.EditView.get_instance ().get_style_context ().add_class ("medium-text");
-                        Widgets.EditView.get_instance ().get_style_context ().remove_class ("big-text");
-                        break;
-                }
-            });
-
-            font_size_row.add (font_size);
-
             font_header.add (font_type_row);
-            font_header.add (font_size_row);
             font_header.show_all ();
 
             var edit_header = new Hdy.PreferencesGroup ();
@@ -293,7 +135,6 @@ namespace Quilter.Widgets {
             edit_header.show_all ();
 
             editor_grid.add (edit_header);
-            editor_grid.add (geo_header);
             editor_grid.add (font_header);
 
             return editor_grid;
@@ -310,17 +151,7 @@ namespace Quilter.Widgets {
             var visual_row = new Hdy.ActionRow ();
             visual_row.set_title (_("Visual Mode"));
 
-            var color_button_prefs = new Gtk.RadioButton (null);
-            color_button_prefs.halign = Gtk.Align.CENTER;
-            color_button_prefs.height_request = 32;
-            color_button_prefs.width_request = 32;
-            color_button_prefs.tooltip_text = _("Follow System Appearance");
-
-            var color_button_prefs_context = color_button_prefs.get_style_context ();
-            color_button_prefs_context.add_class ("color-button");
-            color_button_prefs_context.add_class ("color-prefs");
-
-            var color_button_light = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_light = new Gtk.RadioButton (null);
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 32;
             color_button_light.width_request = 32;
@@ -330,7 +161,7 @@ namespace Quilter.Widgets {
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 32;
             color_button_sepia.width_request = 32;
@@ -340,7 +171,7 @@ namespace Quilter.Widgets {
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 32;
             color_button_dark.width_request = 32;
@@ -353,9 +184,6 @@ namespace Quilter.Widgets {
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 
             switch (mode_type) {
-                case "light":
-                    color_button_light.set_active (true);
-                    break;
                 case "sepia":
                     color_button_sepia.set_active (true);
                     break;
@@ -364,7 +192,7 @@ namespace Quilter.Widgets {
                     break;
                 case "":
                 default:
-                    color_button_prefs.set_active (true);
+                    color_button_light.set_active (true);
                     break;
             }
 
@@ -380,13 +208,8 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "light");
             });
 
-            color_button_prefs.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "");
-            });
-
             var buttonbox = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 20);
             buttonbox.halign = Gtk.Align.CENTER;
-            buttonbox.add (color_button_prefs);
             buttonbox.add (color_button_light);
             buttonbox.add (color_button_sepia);
             buttonbox.add (color_button_dark);
@@ -449,30 +272,6 @@ namespace Quilter.Widgets {
 
             interface_grid.add (mode_header);
             interface_grid.add (ui_header);
-
-            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                buttonbox.sensitive = false;
-                visual_row.set_subtitle (_("Changing modes disabled due to the system styling."));
-            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                buttonbox.sensitive = true;
-                visual_row.set_subtitle ("");
-            } else {
-                buttonbox.sensitive = true;
-                visual_row.set_subtitle ("");
-            }
-
-            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    buttonbox.sensitive = false;
-                    visual_row.set_subtitle (_("Changing modes disabled due to the system styling."));
-                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    buttonbox.sensitive = true;
-                    visual_row.set_subtitle ("");
-                } else {
-                    buttonbox.sensitive = true;
-                    visual_row.set_subtitle ("");
-                }
-            });
 
             return interface_grid;
         }

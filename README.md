@@ -25,7 +25,6 @@ Please make sure you have these dependencies first before building.
 
 ```bash
 valac
-libgranite-dev
 gtk+-3.0
 gtksourceview-4-dev
 libwebkit2gtk-4.0-dev

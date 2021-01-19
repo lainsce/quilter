@@ -56,58 +56,29 @@ namespace Quilter.Widgets {
             set_title (null);
 
             back_button = new Gtk.Button ();
-            back_button.has_tooltip = true;
-            back_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {""},
-                _("Go back")
-            );
             pack_start (back_button);
-
             back_button.clicked.connect (() => {
                 win.grid.set_visible_child (win.sidebar);
             });
 
             new_button = new Gtk.Button ();
-            new_button.has_tooltip = true;
             new_button.halign = Gtk.Align.START;
-            new_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>n"},
-                _("New file")
-            );
-
             new_button.clicked.connect (() => create_new ());
 
             save_as_button = new Gtk.Button ();
-            save_as_button.has_tooltip = true;
             save_as_button.halign = Gtk.Align.START;
-            save_as_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl><Shift>s"},
-                _("Save as…")
-            );
             save_as_button.clicked.connect (() => save_as ());
 
             open_button = new Gtk.Button ();
-            open_button.has_tooltip = true;
             open_button.halign = Gtk.Align.START;
-            open_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>o"},
-                _("Open…")
-            );
             open_button.clicked.connect (() => open ());
 
             search_button = new Gtk.ToggleButton ();
-            search_button.has_tooltip = true;
-            search_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>f"},
-                _("Find…")
-            );
-
             if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
             } else {
                 search_button.set_active (Quilter.Application.gsettings.get_boolean("searchbar"));
             }
-
             search_button.toggled.connect (() => {
     			if (search_button.active) {
     				Quilter.Application.gsettings.set_boolean("searchbar", true);
@@ -119,46 +90,21 @@ namespace Quilter.Widgets {
 
             var export_pdf = new Gtk.ModelButton ();
             export_pdf.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_PDF;
-            export_pdf.get_child ().destroy ();
-            var export_pdf_accellabel = new Granite.AccelLabel.from_action_name (
-                _("Export to PDF…"),
-                MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_PDF
-            );
-            export_pdf.add (export_pdf_accellabel);
+            export_pdf.text = _("Export to PDF…");
 
             var export_html = new Gtk.ModelButton ();
             export_html.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_HTML;
-            export_html.get_child ().destroy ();
-            var export_html_accellabel = new Granite.AccelLabel.from_action_name (
-                _("Export to HTML…"),
-                MainWindow.ACTION_PREFIX + MainWindow.ACTION_EXPORT_HTML
-            );
-            export_html.add (export_html_accellabel);
+            export_html.text = _("Export to HTML…");
 
             var cheatsheet = new Gtk.ModelButton ();
             cheatsheet.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET;
-            cheatsheet.get_child ().destroy ();
-            var cheatsheet_accellabel = new Granite.AccelLabel.from_action_name (
-                _("Markdown Cheatsheet"),
-                MainWindow.ACTION_PREFIX + MainWindow.ACTION_CHEATSHEET
-            );
-            cheatsheet.add (cheatsheet_accellabel);
+            cheatsheet.text = _("Markdown Cheatsheet");
 
             var preferences = new Gtk.ModelButton ();
             preferences.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_PREFS;
             preferences.text = _("Preferences");
 
-            var color_button_prefs = new Gtk.RadioButton (null);
-            color_button_prefs.halign = Gtk.Align.CENTER;
-            color_button_prefs.height_request = 40;
-            color_button_prefs.width_request = 40;
-            color_button_prefs.tooltip_text = _("Follow System Appearance");
-
-            var color_button_prefs_context = color_button_prefs.get_style_context ();
-            color_button_prefs_context.add_class ("color-button");
-            color_button_prefs_context.add_class ("color-prefs");
-
-            var color_button_light = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_light = new Gtk.RadioButton (null);
             color_button_light.halign = Gtk.Align.CENTER;
             color_button_light.height_request = 40;
             color_button_light.width_request = 40;
@@ -168,7 +114,7 @@ namespace Quilter.Widgets {
             color_button_light_context.add_class ("color-button");
             color_button_light_context.add_class ("color-light");
 
-            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_sepia.halign = Gtk.Align.CENTER;
             color_button_sepia.height_request = 40;
             color_button_sepia.width_request = 40;
@@ -178,7 +124,7 @@ namespace Quilter.Widgets {
             color_button_sepia_context.add_class ("color-button");
             color_button_sepia_context.add_class ("color-sepia");
 
-            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_prefs);
+            var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
             color_button_dark.halign = Gtk.Align.CENTER;
             color_button_dark.height_request = 40;
             color_button_dark.width_request = 40;
@@ -191,18 +137,15 @@ namespace Quilter.Widgets {
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 
             switch (mode_type) {
-                case "light":
-                    color_button_light.set_active (true);
-                    break;
                 case "sepia":
                     color_button_sepia.set_active (true);
                     break;
                 case "dark":
                     color_button_dark.set_active (true);
                     break;
-                case "":
+                case "light":
                 default:
-                    color_button_prefs.set_active (true);
+                    color_button_light.set_active (true);
                     break;
             }
 
@@ -218,18 +161,9 @@ namespace Quilter.Widgets {
                 Quilter.Application.gsettings.set_string("visual-mode", "light");
             });
 
-            color_button_prefs.clicked.connect (() => {
-                Quilter.Application.gsettings.set_string("visual-mode", "");
-            });
-
             focusmode_button = new Gtk.ModelButton ();
             focusmode_button.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_FOCUS;
-            focusmode_button.get_child ().destroy ();
-            var focusmode_button_accellabel = new Granite.AccelLabel.from_action_name (
-                _("Focus Mode…"),
-                MainWindow.ACTION_PREFIX + MainWindow.ACTION_FOCUS
-            );
-            focusmode_button.add (focusmode_button_accellabel);
+            focusmode_button.text = _("Focus Mode…");
 
             focusmode_button.clicked.connect (() => {
                 Quilter.Application.gsettings.set_boolean("focus-mode", true);
@@ -238,12 +172,7 @@ namespace Quilter.Widgets {
             var view_mode = new Gtk.ModelButton ();
             view_mode.role = Gtk.ButtonRole.CHECK;
             view_mode.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
-            view_mode.get_child ().destroy ();
-            var view_mode_accellabel = new Granite.AccelLabel.from_action_name (
-                _("Toggle View…"),
-                MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW
-            );
-            view_mode.add (view_mode_accellabel);
+            view_mode.text = _("Toggle View…");
 
             var view_mode_context = view_mode.get_style_context ();
             view_mode_context.add_class ("flat");
@@ -339,21 +268,16 @@ namespace Quilter.Widgets {
             pmenu.add (preview_grid);
 
             pmenu_button = new Gtk.MenuButton ();
-            pmenu_button.has_tooltip = true;
-            pmenu_button.tooltip_markup = Granite.markup_accel_tooltip (
-                {"<Ctrl>1"},
-                _("Interface Modes")
-            );
             pmenu_button.popover = pmenu;
 
             var button_grid = new Gtk.Grid ();
             button_grid.column_homogeneous = true;
             button_grid.hexpand = true;
+            button_grid.margin_top = 6;
             button_grid.margin_bottom = 6;
-            button_grid.attach (color_button_prefs, 0, 0, 1, 1);
-            button_grid.attach (color_button_light, 1, 0, 1, 1);
-            button_grid.attach (color_button_sepia, 2, 0, 1, 1);
-            button_grid.attach (color_button_dark, 3, 0, 1, 1);
+            button_grid.attach (color_button_light, 0, 0, 1, 1);
+            button_grid.attach (color_button_sepia, 1, 0, 1, 1);
+            button_grid.attach (color_button_dark, 2, 0, 1, 1);
 
             top_grid = new Gtk.Grid ();
             top_grid.row_spacing = 6;
@@ -361,8 +285,7 @@ namespace Quilter.Widgets {
             top_grid.attach (focusmode_button, 0, 1, 4, 1);
 
             menu_grid = new Gtk.Grid ();
-            menu_grid.margin_top = 12;
-            menu_grid.margin_bottom = 6;
+            menu_grid.margin = 6;
             menu_grid.row_spacing = 6;
             menu_grid.attach (top_grid, 0, 0);
             menu_grid.attach (separator, 0, 2);
@@ -406,75 +329,6 @@ namespace Quilter.Widgets {
 
             pack_start (fmenu_button);
 
-            var prefer_label_button = new Gtk.Button ();
-            // Please take note of the \n, keep it where you'd want a line break because the space is small
-            prefer_label_button.label = _("Changing modes is disabled due\nto the system dark style preference.");
-            var prefer_label_button_context = prefer_label_button.get_style_context ();
-            prefer_label_button_context.add_class ("flat");
-            prefer_label_button.margin_start = prefer_label_button.margin_end = 3;
-
-            prefer_label_button.clicked.connect (() => {
-                try {
-                    AppInfo.launch_default_for_uri ("settings://desktop/appearance", null);
-                } catch (Error e) {
-                    warning ("Failed to open system settings: %s", e.message);
-                }
-            });
-
-            if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                color_button_light.sensitive = false;
-                color_button_sepia.sensitive = false;
-                color_button_dark.sensitive = false;
-
-                top_grid.attach (prefer_label_button, 0, 1, 3, 1);
-                prefer_label_button.visible = true;
-                color_button_dark.set_active (true);
-            } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                color_button_light.sensitive = true;
-                color_button_sepia.sensitive = true;
-                color_button_dark.sensitive = true;
-
-                top_grid.remove (prefer_label_button);
-                prefer_label_button.visible = false;
-                color_button_light.set_active (true);
-            } else {
-                color_button_light.sensitive = true;
-                color_button_sepia.sensitive = true;
-                color_button_dark.sensitive = true;
-
-                top_grid.remove (prefer_label_button);
-                prefer_label_button.visible = false;
-                color_button_light.set_active (true);
-            }
-
-            Quilter.Application.grsettings.notify["prefers-color-scheme"].connect (() => {
-                if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.DARK) {
-                    color_button_light.sensitive = false;
-                    color_button_sepia.sensitive = false;
-                    color_button_dark.sensitive = false;
-
-                    top_grid.attach (prefer_label_button, 0, 1, 3, 1);
-                    prefer_label_button.visible = true;
-                    color_button_dark.set_active (true);
-                } else if (Quilter.Application.grsettings.prefers_color_scheme == Granite.Settings.ColorScheme.NO_PREFERENCE) {
-                    color_button_light.sensitive = true;
-                    color_button_sepia.sensitive = true;
-                    color_button_dark.sensitive = true;
-
-                    top_grid.remove (prefer_label_button);
-                    prefer_label_button.visible = false;
-                    color_button_light.set_active (true);
-                } else {
-                    color_button_light.sensitive = true;
-                    color_button_sepia.sensitive = true;
-                    color_button_dark.sensitive = true;
-
-                    top_grid.remove (prefer_label_button);
-                    prefer_label_button.visible = false;
-                    color_button_light.set_active (true);
-                }
-            });
-
             if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
                 top_grid.attach (view_mode, 0, 3, 4, 1);
                 view_mode.visible = true;
@@ -492,8 +346,6 @@ namespace Quilter.Widgets {
                     view_mode.visible = true;
                 }
             });
-
-            this.set_size_request (-1,38);
         }
 
         public void icons_toolbar () {
