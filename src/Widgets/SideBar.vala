@@ -85,19 +85,13 @@ namespace Quilter.Widgets {
             header.show_close_button = true;
 
             stackswitcher = new Hdy.ViewSwitcher ();
-            var sw_context = stackswitcher.get_style_context ();
-            sw_context.add_class ("quilter-sidebar-switcher");
             stackswitcher.stack = stack;
-            stackswitcher.margin_top = 12;
             stackswitcher.margin_start = stackswitcher.margin_end = 6;
 
             header.has_subtitle = false;
             header.set_title (null);
             header.set_custom_title (stackswitcher);
             header.set_size_request (200,-1);
-
-            var this_context = header.get_style_context ();
-            this_context.add_class ("quilter-toolbar-side");
 
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;

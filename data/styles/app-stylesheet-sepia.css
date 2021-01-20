@@ -1,30 +1,8 @@
 @define-color color_primary #f0e8dd;
 @define-color accent #33d17a;
 
-.sb-sidebutton {
-	background: shade(mix(@accent, @color_primary, 0.88), 0.90);
-}
-
 .quilter-sidebar {
     background: shade(mix(@accent, @color_primary, 0.88), 0.90);
-}
-
-.quilter-toolbar {
-    background: shade(#f0e8dd, 1.04);
-}
-
-.quilter-toolbar-side {
-    background: shade(mix(@accent, @color_primary, 0.88), 0.90);
-    border: none;
-}
-
-.quilter-sidebar-switcher button:not(:checked):not(:active) {
-    background: shade(mix(@accent, @color_primary, 0.88), 0.90);
-        color: @theme_fg_color;
-}
-.quilter-sidebar-switcher button {
-    background-color: shade(mix(@accent, @color_primary, 0.88), 0.66);
-    color: @theme_selected_fg_color;
 }
 
 .quilter-sidebar list,

@@ -49,11 +49,6 @@ namespace Quilter.Widgets {
             this.win = win;
             show_close_button = true;
 
-            var header_context = this.get_style_context ();
-            header_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            header_context.add_class ("quilter-toolbar");
-            header_context.add_class ("quilter-toolbar-main");
-
             build_ui ();
             icons_toolbar ();
         }

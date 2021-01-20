@@ -27,20 +27,8 @@
     border: 1px solid transparent;
 }
 
-.full-bar {
-    border-top: 1px solid transparent;
-}
-
 .quilter-sidebar-box {
     border-radius: 8px;
-}
-
-.quilter-sidebar-switcher button {
-    background: none;
-    border-radius: 8px;
-    border: none;
-    icon-shadow: none;
-    text-shadow: none;
 }
 
 .quilter-menu {
@@ -102,8 +90,4 @@
 .rename-button:hover:not(:backdrop) {
     background-image: none;
     text-shadow: none;
-}
-
-.devel .quilter-toolbar {
-   background-image: linear-gradient(to right, @color_primary, #99c1f1);
 }
