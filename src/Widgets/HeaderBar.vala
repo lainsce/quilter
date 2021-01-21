@@ -56,12 +56,6 @@ namespace Quilter.Widgets {
         private void build_ui () {
             set_title (null);
 
-            back_button = new Gtk.Button ();
-            pack_start (back_button);
-            back_button.clicked.connect (() => {
-                win.grid.set_visible_child (win.sidebar);
-            });
-
             new_button = new Gtk.Button ();
             new_button.halign = Gtk.Align.START;
             new_button.clicked.connect (() => create_new ());
@@ -460,9 +454,7 @@ namespace Quilter.Widgets {
             fmenu_button.set_image (new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
-            open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
-            back_button.set_image (new Gtk.Image.from_icon_name ("go-previous-symbolic", Gtk.IconSize.BUTTON));
         }
     }
 }

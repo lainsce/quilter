@@ -3,9 +3,6 @@
     <gresource prefix="/io/github/lainsce/Quilter">
         <file alias="app-main-stylesheet.css" compressed="true">styles/app-main-stylesheet.css</file>
         <file alias="app-font-stylesheet.css" compressed="true">styles/app-font-stylesheet.css</file>
-        <file alias="app-stylesheet.css" compressed="true">styles/app-stylesheet.css</file>
-        <file alias="app-stylesheet-dark.css" compressed="true">styles/app-stylesheet-dark.css</file>
-        <file alias="app-stylesheet-sepia.css" compressed="true">styles/app-stylesheet-sepia.css</file>
 
         <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
         <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>

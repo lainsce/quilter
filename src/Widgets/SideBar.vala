@@ -97,14 +97,12 @@ namespace Quilter.Widgets {
             main_grid.orientation = Gtk.Orientation.VERTICAL;
             main_grid.add (header);
             main_grid.add (scrolled_box);
-            main_grid.get_style_context ().add_class ("quilter-sidebar");
 
             add (main_grid);
 
-            var sb_context = this.get_style_context ();
-            sb_context.add_class ("quilter-sidebar");
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
+            this.get_style_context ().add_class ("sidebar");
         }
 
         public Gtk.Widget sidebar_files_list () {
@@ -114,8 +112,6 @@ namespace Quilter.Widgets {
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
-            column.margin_top = 12;
-            column.margin_start = column.margin_end = 12;
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
@@ -161,8 +157,6 @@ namespace Quilter.Widgets {
             view.expand = true;
             view.headers_visible = false;
             view.show_expanders = false;
-            view.margin_top = 12;
-            view.margin_start = view.margin_end = 12;
             view.activate_on_single_click = true;
 
             crt = new Gtk.CellRendererText ();

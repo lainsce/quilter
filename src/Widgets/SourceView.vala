@@ -253,28 +253,21 @@ namespace Quilter.Widgets {
         }
 
         private string setup_ui_scheme () {
-            var provider = new Gtk.CssProvider ();
             Gtk.TextIter start, end;
             buffer.get_bounds (out start, out end);
 
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet-dark.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet-sepia.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-sepia";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                provider.load_from_resource ("/io/github/lainsce/Quilter/app-stylesheet.css");
-                Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
                 Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);

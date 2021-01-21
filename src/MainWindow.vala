@@ -493,8 +493,8 @@ namespace Quilter {
                 titlebar.back_button.no_show_all = false;
                 titlebar.focusmode_button.visible = false;
                 titlebar.focusmode_button.no_show_all = true;
-                titlebar.open_button.label = "";
-                titlebar.open_button.always_show_image = true;
+                titlebar.open_button.label = null;
+                titlebar.open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
@@ -509,7 +509,7 @@ namespace Quilter {
                 titlebar.focusmode_button.visible = true;
                 titlebar.focusmode_button.no_show_all = false;
                 titlebar.open_button.label = (_("Open"));
-                titlebar.open_button.always_show_image = false;
+                titlebar.open_button.image = null;
                 Quilter.Application.gsettings.set_boolean("header", true);
                 if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                     Quilter.Application.gsettings.set_boolean("focus-mode", true);
@@ -579,11 +579,11 @@ namespace Quilter {
 
         private static void widget_unparent (Gtk.Widget widget) {
             unowned Gtk.Container parent = widget.get_parent ();
-            if (parent == null) {
-                return;
-            } else {
+            if (parent != null) {
                 parent.remove (widget);
                 widget.unparent ();
+            } else {
+                return;
             }
         }
 
