@@ -380,19 +380,23 @@ namespace Quilter.Widgets {
             rename_button.get_style_context ().add_class ("suggested-action");
 
             rename_button.clicked.connect (() => {
-                var new_filename = rename_entry.get_text ();
-                foreach (var child in win.sidebar.column.get_children ()) {
-                    if (child == win.sidebar.get_selected_row ()) {
-                        var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
-                        Services.FileManager.save_file (path_new, win.edit_view_content.text);
+                try {
+                    var new_filename = rename_entry.get_text ();
+                    foreach (var child in win.sidebar.column.get_children ()) {
+                        if (child == win.sidebar.get_selected_row ()) {
+                            var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
+                            Services.FileManager.save_file (path_new, win.edit_view_content.text);
 
-                        ((Widgets.SideBarBox)child).path = path_new;
-                        samenu_button.title = Path.get_basename(path_new);
-                        samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
+                            ((Widgets.SideBarBox)child).path = path_new;
+                            samenu_button.title = Path.get_basename(path_new);
+                            samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
+                        }
                     }
-                }
 
-                rename_entry.set_text ("");
+                    rename_entry.set_text ("");
+                } catch (Error e) {
+                    warning ("Unexpected error during rename: " + e.message);
+                }
             });
 
             var rename_label = new Gtk.Label (_("Rename the File:"));

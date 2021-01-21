@@ -452,7 +452,7 @@ namespace Quilter {
             main_leaf.add (win_stack);
 
             var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
-            sep.vexpand = true;
+            sep.get_style_context ().add_class ("sidebar");
 
             grid = new Hdy.Leaflet ();
             grid.add (sidebar);

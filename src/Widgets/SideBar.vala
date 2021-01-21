@@ -114,7 +114,7 @@ namespace Quilter.Widgets {
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
             column.set_placeholder (no_files);
-            column.margin_top = 6;
+            column.margin_top = 12;
             column.margin_start = column.margin_end = 12;
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {

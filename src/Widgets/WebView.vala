@@ -184,6 +184,8 @@ namespace Quilter {
                             return false;
                         }
                         break;
+                    case WebKit.PolicyDecisionType.NAVIGATION_ACTION:
+                        break;
                 }
 
                 return true;

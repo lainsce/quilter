@@ -1,23 +1,33 @@
 @define-color accent #3584e4;
-@define-color color_primary #111;
+@define-color color_primary #1e1e1e;
 
-.quilter-sidebar {
-    background: shade(mix(@accent, @color_primary, 0.88), 0.90);
-}
-
+.quilter-sidebar,
 .quilter-sidebar list,
 .quilter-sidebar treeview.view {
-    background: shade(mix(@accent, @color_primary, 0.88), 0.90);
+    background: mix (@accent, @color_primary, 0.90);
+    color: @theme_fg_color;
 }
 
 .quilter-sidebar-box {
-    background-color: shade(mix(@accent, @color_primary, 0.88), 0.90);
+    color: @theme_fg_color;
 }
 
+.quilter-sidebar-box button {
+    color: @theme_fg_color;
+}
+
+.quilter-sidebar-box:focus,
 .quilter-sidebar-box:selected,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:hover {
-    background-color: shade(mix(@accent, @color_primary, 0.88), 1.5);
+   background-color: shade(mix(@accent, @color_primary, 0.88), 1.5);
+}
+
+.quilter-sidebar-box:active:backdrop,
+.quilter-sidebar-box:selected:backdrop,
+.quilter-sidebar-box:focus:backdrop,
+.quilter-sidebar-box:hover:backdrop  {
+    background: alpha(shade(mix (@accent, @color_primary, 0.90), 0.88), 0.88);
 }
 
 .quilter-menu {
