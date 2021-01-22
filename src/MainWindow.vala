@@ -137,7 +137,8 @@ namespace Quilter {
         public MainWindow (Quilter.Application application) {
             Object (
                 application: application,
-                app: application
+                app: application,
+                title: "Quilter"
             );
 
             weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
@@ -342,7 +343,7 @@ namespace Quilter {
             welcome_titlebar = new Hdy.HeaderBar ();
             welcome_titlebar.show_close_button = true;
             welcome_titlebar.has_subtitle = false;
-            welcome_titlebar.title = "Quilter";
+            welcome_titlebar.get_style_context ().add_class ("quilter-flat-title");
 
             titlebar_stack = new Gtk.Stack ();
             titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
@@ -405,8 +406,8 @@ namespace Quilter {
               row_spacing = 12
             };
             welcome_view.get_style_context ().add_class ("quilter-normal-view");
-            welcome_view.attach (welcome_title, 0, 0);
-            welcome_view.attach (welcome_image, 0, 1);
+            welcome_view.attach (welcome_image, 0, 0);
+            welcome_view.attach (welcome_title, 0, 1);
             welcome_view.attach (welcome_new_button, 0, 2);
             welcome_view.attach (welcome_open_button, 0, 3);
 

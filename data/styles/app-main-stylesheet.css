@@ -117,3 +117,8 @@
 .quilter-focus-button {
     background: shade(@theme_base_color, 1.1);
 }
+
+.quilter-flat-title {
+    background: none;
+    border: none;
+}
