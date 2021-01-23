@@ -57,7 +57,6 @@ sources = files(
     'src/Widgets/SideBar.vala',
     'src/Widgets/SideBarBox.vala',
     'src/Widgets/Preferences.vala',
-    'src/Widgets/Cheatsheet.vala',
     'src/Plugins/PluginManager.vala',
     'src/Plugins/Plugin.vala',
     'src/Plugins/Image.vala',

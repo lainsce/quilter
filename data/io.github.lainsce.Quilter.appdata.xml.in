@@ -56,6 +56,16 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="3.1.0" date="2021-01-25">
+         <description>
+            <p>Release: 1-Up the App</p>
+            <ul>
+                <li>Add: Keyboard Shortcuts</li>
+                <li>Change: Markdown Cheatsheet looks better</li>
+                <li>Change: Icon small rework</li>
+            </ul>
+            </description>
+        </release>
         <release version="3.0.0" date="2021-01-20">
          <description>
             <p>Release: Hello, Flatpak!</p>
@@ -82,7 +92,7 @@
     </releases>
     <screenshots>
         <screenshot type="default">
-            <caption>Preview Mode</caption>
+            <caption>Welcome</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/welcome.png</image>
         </screenshot>
         <screenshot>

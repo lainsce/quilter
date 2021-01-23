@@ -226,8 +226,7 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.h, keycode)) {
-                        var cheatsheet_dialog = new Widgets.Cheatsheet (this);
-                        cheatsheet_dialog.show_all ();
+                        action_cheatsheet ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -603,8 +602,15 @@ namespace Quilter {
             prefs.show_all ();
         }
         private void action_cheatsheet () {
-            var ch = new Widgets.Cheatsheet (this);
-            ch.show_all ();
+            try {
+                var build = new Gtk.Builder ();
+                build.add_from_resource ("/io/github/lainsce/Quilter/cheatsheet.ui");
+                var window =  (Hdy.PreferencesWindow) build.get_object ("cheatsheet");
+                window.set_transient_for (this);
+                window.show_all ();
+            } catch (Error e) {
+                warning ("Failed to open md_cheatsheet window: %s\n", e.message);
+            }
         }
         private void action_toggle_view () {
             if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
