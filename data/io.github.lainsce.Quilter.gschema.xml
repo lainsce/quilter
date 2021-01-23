@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <schemalist>
-  <schema id="io.github.lainsce.Quilter" path="/com/github/lainsce/quilter/">
+  <schema id="io.github.lainsce.Quilter" path="/io/github/lainsce/Quilter/">
     <key name="window-position" type="(ii)">
       <default>(-1,-1)</default>
       <summary>Window position</summary>
