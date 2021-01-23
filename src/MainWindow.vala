@@ -241,7 +241,7 @@ namespace Quilter {
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
-                    if (match_keycode (Gdk.Key.p, keycode)) {
+                    if (match_keycode (Gdk.Key.j, keycode)) {
                         action_export_pdf ();
                     }
                 }

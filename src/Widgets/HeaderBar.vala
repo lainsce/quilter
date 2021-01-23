@@ -291,6 +291,21 @@ namespace Quilter.Widgets {
                 win.action_about ();
             });
 
+            var sc_button = new Gtk.ModelButton ();
+            sc_button.text = _("Keyboard Shortcuts");
+
+            sc_button.clicked.connect (() => {
+                try {
+                    var build = new Gtk.Builder ();
+                    build.add_from_resource ("/io/github/lainsce/Quilter/shortcuts.ui");
+                    var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-quilter");
+                    window.set_transient_for (win);
+                    window.show_all ();
+                } catch (Error e) {
+                    warning ("Failed to open shortcuts window: %s\n", e.message);
+                }
+            });
+
             menu_grid = new Gtk.Grid ();
             menu_grid.margin = 6;
             menu_grid.row_spacing = 6;
@@ -301,7 +316,8 @@ namespace Quilter.Widgets {
             menu_grid.attach (separator2, 0, 5);
             menu_grid.attach (cheatsheet, 0, 6);
             menu_grid.attach (preferences, 0, 7);
-            menu_grid.attach (about_button, 0, 8);
+            menu_grid.attach (sc_button, 0, 8);
+            menu_grid.attach (about_button, 0, 9);
             menu_grid.show_all ();
 
             var menu = new Gtk.Popover (null);
