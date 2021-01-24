@@ -56,7 +56,17 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
-        <release version="3.1.1" date="2021-01-25">
+        <release version="3.1.4" date="2021-01-24">
+         <description>
+            <p>Release: UI Fixes</p>
+            <ul>
+                <li>Fix: Headerbar contents shouldn't jump around wherever possible while mid-window-resizing</li>
+                <li>Fix: When autosave is off, show a save button in the headerbar</li>
+                <li>Fix: Sidebar boxes should be smarter and not kill other documents</li>
+            </ul>
+            </description>
+        </release>
+        <release version="3.1.1" date="2021-01-24">
          <description>
             <p>Release: First Day Patch</p>
             <ul>
@@ -64,7 +74,7 @@
             </ul>
             </description>
         </release>
-        <release version="3.1.0" date="2021-01-25">
+        <release version="3.1.0" date="2021-01-24">
          <description>
             <p>Release: 1-Up the App</p>
             <ul>

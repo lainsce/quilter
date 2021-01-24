@@ -21,6 +21,7 @@ namespace Quilter.Widgets {
         public Gtk.Button back_button;
         public Gtk.Button new_button;
         public Gtk.Button open_button;
+        public Gtk.Button save_button;
         public Gtk.Button save_as_button;
         public Gtk.Label title_label;
         public Gtk.Label subtitle_label;
@@ -39,10 +40,10 @@ namespace Quilter.Widgets {
         public MainWindow win;
         public Preview preview;
         public EditView editor;
-        private Widgets.SideBarBox[] rows;
 
         public signal void create_new ();
         public signal void open ();
+        public signal void save ();
         public signal void save_as ();
 
         public Headerbar (MainWindow win) {
@@ -57,20 +58,28 @@ namespace Quilter.Widgets {
             set_title (null);
 
             new_button = new Gtk.Button ();
-            new_button.halign = Gtk.Align.START;
             new_button.clicked.connect (() => create_new ());
             new_button.tooltip_text = (_("Create a new document"));
 
             save_as_button = new Gtk.Button ();
-            save_as_button.halign = Gtk.Align.START;
             save_as_button.clicked.connect (() => save_as ());
             save_as_button.get_style_context ().add_class ("mini-circular-button");
             save_as_button.tooltip_text = (_("Choose another folder"));
 
             open_button = new Gtk.Button ();
-            open_button.halign = Gtk.Align.START;
             open_button.clicked.connect (() => open ());
             open_button.tooltip_text = (_("Open a document"));
+            open_button.label = (_("Open"));
+
+            save_button = new Gtk.Button ();
+            save_button.clicked.connect (() => save ());
+            save_button.tooltip_text = (_("Save document"));
+
+            if (!Quilter.Application.gsettings.get_boolean("autosave")) {
+                pack_start (save_button);
+            } else {
+                remove (save_button);
+            }
 
             search_button = new Gtk.ToggleButton ();
             search_button.tooltip_text = (_("Search and replace text"));
@@ -332,55 +341,9 @@ namespace Quilter.Widgets {
             pack_end (pmenu_button);
             pack_end (search_button);
 
-            recent_files_box = new Gtk.ListBox ();
-            recent_files_box.get_style_context ().add_class ("frame");
-            recent_files_box.visible = true;
-
-            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                rows += add_recent_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
-            }
-
-            recent_files_box.row_selected.connect ((selected_row) => {
-                try {
-                    var row = get_selected_row ();
-                    string text = "";
-                    GLib.FileUtils.get_contents (row.path, out text);
-                    Quilter.Application.gsettings.set_string("current-file", row.path);
-
-                    if (win.edit_view_content.modified) {
-                        Services.FileManager.save_file (row.path, text);
-                        win.edit_view_content.modified = false;
-                    }
-
-                    win.edit_view_content.text = text;
-                } catch (Error e) {
-                    warning ("Unexpected error during selection: " + e.message);
-                }
-            });
-
-            fmenu_grid = new Gtk.Grid ();
-            fmenu_grid.margin_top = 12;
-            fmenu_grid.margin = 6;
-            fmenu_grid.column_homogeneous = true;
-            fmenu_grid.row_spacing = 6;
-            fmenu_grid.attach (recent_files_box, 0, 0);
-            fmenu_grid.show_all ();
-
-            var fmenu = new Gtk.Popover (null);
-            fmenu.add (fmenu_grid);
-
-            fmenu_button = new Gtk.MenuButton ();
-            fmenu_button.has_tooltip = true;
-            fmenu_button.tooltip_text = (_("Recent Files"));
-            fmenu_button.popover = fmenu;
-
-            var file_button_box = new Gtk.Grid ();
-            file_button_box.attach (open_button, 0, 0);
-            file_button_box.attach (fmenu_button, 1, 0);
-            file_button_box.get_style_context ().add_class ("linked");
-
             pack_start (new_button);
-            pack_start (file_button_box);
+            pack_start (open_button);
+            pack_start (save_button);
 
             var rename_entry = new Gtk.Entry ();
             rename_entry.margin_bottom = 6;
@@ -450,25 +413,20 @@ namespace Quilter.Widgets {
                     top_grid.remove (view_mode);
                     view_mode.visible = true;
                 }
+
+                if (!Quilter.Application.gsettings.get_boolean("autosave")) {
+                    pack_start (save_button);
+                } else {
+                    remove (save_button);
+                }
             });
-        }
-
-        public SideBarBox add_recent_file (string file) {
-            var filebox = new SideBarBox (this.win, file);
-            filebox.get_style_context ().remove_class ("quilter-sidebar-box");
-            recent_files_box.insert (filebox, 0);
-
-            return filebox;
-        }
-        public unowned SideBarBox get_selected_row () {
-            return (SideBarBox) recent_files_box.get_selected_row ();
         }
 
         public void icons_toolbar () {
             menu_button.set_image (new Gtk.Image.from_icon_name ("open-menu-symbolic", Gtk.IconSize.BUTTON));
             pmenu_button.set_image (new Gtk.Image.from_icon_name ("view-dual-symbolic", Gtk.IconSize.BUTTON));
-            fmenu_button.set_image (new Gtk.Image.from_icon_name ("pan-down-symbolic", Gtk.IconSize.BUTTON));
             search_button.set_image (new Gtk.Image.from_icon_name ("edit-find-symbolic", Gtk.IconSize.BUTTON));
+            save_button.set_image (new Gtk.Image.from_icon_name ("document-save-symbolic", Gtk.IconSize.BUTTON));
             save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
             new_button.set_image (new Gtk.Image.from_icon_name ("document-new-symbolic", Gtk.IconSize.BUTTON));
         }

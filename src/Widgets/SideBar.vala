@@ -83,6 +83,7 @@ namespace Quilter.Widgets {
 
             header = new Hdy.HeaderBar ();
             header.show_close_button = true;
+            header.set_decoration_layout (":");
 
             stackswitcher = new Hdy.ViewSwitcher ();
             stackswitcher.stack = stack;
@@ -219,8 +220,10 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            if (Quilter.Application.gsettings.get_string("current-file") != "" || Quilter.Application.gsettings.get_string("current-file") != _("No Documents Open")) {
+            if (Quilter.Application.gsettings.get_string("current-file") != "") {
                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
+               store.clear ();
+               view.expand_all ();
                if (file != null && file.query_exists ()) {
                     try {
                         string buffer = "";
@@ -270,6 +273,9 @@ namespace Quilter.Widgets {
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
             column.select_row (filebox);
+
+            win.titlebar.samenu_button.title = Path.get_basename(file);
+            win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~");
 
             return filebox;
         }

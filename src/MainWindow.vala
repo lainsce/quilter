@@ -340,6 +340,7 @@ namespace Quilter {
                 hexpand = true
             };
             titlebar.open.connect (on_open);
+            titlebar.save.connect (on_save);
             titlebar.save_as.connect (on_save_as);
             titlebar.create_new.connect (on_create_new);
 
@@ -489,31 +490,11 @@ namespace Quilter {
 
         private void update () {
             if (grid != null && grid.get_folded ()) {
-                titlebar.pmenu_button.visible = false;
-                titlebar.pmenu_button.no_show_all = true;
-                titlebar.fmenu_button.visible = false;
-                titlebar.fmenu_button.no_show_all = true;
-                titlebar.back_button.visible = true;
-                titlebar.back_button.no_show_all = false;
-                titlebar.focusmode_button.visible = false;
-                titlebar.focusmode_button.no_show_all = true;
-                titlebar.open_button.label = null;
-                titlebar.open_button.set_image (new Gtk.Image.from_icon_name ("document-open-symbolic", Gtk.IconSize.BUTTON));
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
                 Quilter.Application.gsettings.set_boolean("header", false);
                 Quilter.Application.gsettings.set_boolean("focus-mode", false);
                 sidebar.scrolled_box.hexpand = true;
             } else {
-                titlebar.pmenu_button.visible = true;
-                titlebar.pmenu_button.no_show_all = false;
-                titlebar.back_button.visible = false;
-                titlebar.back_button.no_show_all = true;
-                titlebar.fmenu_button.visible = true;
-                titlebar.fmenu_button.no_show_all = false;
-                titlebar.focusmode_button.visible = true;
-                titlebar.focusmode_button.no_show_all = false;
-                titlebar.open_button.label = (_("Open"));
-                titlebar.open_button.image = null;
                 Quilter.Application.gsettings.set_boolean("header", true);
                 if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                     Quilter.Application.gsettings.set_boolean("focus-mode", true);
@@ -523,16 +504,6 @@ namespace Quilter {
                     Quilter.Application.gsettings.set_boolean("sidebar", true);
                 }
                 sidebar.scrolled_box.hexpand = false;
-            }
-
-            if (!Quilter.Application.gsettings.get_boolean("header")) {
-                // On Mobile size, so.... have to have no buttons anywhere.
-                sidebar.header.set_decoration_layout (":");
-                titlebar.set_decoration_layout (":");
-            } else {
-                // Else you're on Desktop size, so business as usual.
-                sidebar.header.set_decoration_layout (":");
-                titlebar.set_decoration_layout (":close");
             }
         }
 
@@ -758,40 +729,8 @@ namespace Quilter {
                         unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
                         if (row != null && row.path != null) {
                             on_save ();
-                            sidebar.is_modified = true;
-                            save_last_files ();
-                            edit_view_content.text = "";
-                            edit_view_content.modified = true;
-                            sidebar.store.clear ();
-                            sidebar.outline_populate ();
-                            sidebar.view.expand_all ();
-                            sidebar.add_file (Services.FileManager.get_cache_path ());
-                            titlebar.samenu_button.title = (_("New Document"));
-                            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-                            row.path = (_("New Document"));
-                            row.title = (_("Not Saved Yet"));
-                            win_stack.set_visible_child_name ("doc");
-                            titlebar_stack.set_visible_child_name ("title");
-                            sidebar.reveal_child = true;
-                            Quilter.Application.gsettings.set_boolean("sidebar", true);
                         } else {
                             on_save_as ();
-                            sidebar.is_modified = true;
-                            save_last_files ();
-                            edit_view_content.text = "";
-                            edit_view_content.modified = true;
-                            sidebar.store.clear ();
-                            sidebar.outline_populate ();
-                            sidebar.view.expand_all ();
-                            sidebar.add_file (Services.FileManager.get_cache_path ());
-                            titlebar.samenu_button.title = (_("New Document"));
-                            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-                            row.path = (_("New Document"));
-                            row.title = (_("Not Saved Yet"));
-                            win_stack.set_visible_child_name ("doc");
-                            titlebar_stack.set_visible_child_name ("title");
-                            sidebar.reveal_child = true;
-                            Quilter.Application.gsettings.set_boolean("sidebar", true);
                         }
 
                         edit_view_content.modified = false;
@@ -814,13 +753,10 @@ namespace Quilter {
             });
 
             on_save ();
-            sidebar.is_modified = true;
+            edit_view_content.modified = false;
+            sidebar.is_modified = false;
             save_last_files ();
             edit_view_content.text = "";
-            edit_view_content.modified = true;
-            sidebar.store.clear ();
-            sidebar.outline_populate ();
-            sidebar.view.expand_all ();
             var row = sidebar.add_file (Services.FileManager.get_cache_path ());
             titlebar.samenu_button.title = (_("New Document"));
             titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
@@ -846,14 +782,12 @@ namespace Quilter {
                         break;
                     } else {
                         sidebar.add_file (path);
-                        titlebar.add_recent_file (path);
                         sidebar.is_modified = true;
                         break;
                     }
                 }
             } else {
                 sidebar.add_file (path);
-                titlebar.add_recent_file (path);
                 sidebar.is_modified = true;
             }
             edit_view_content.text = contents;
@@ -862,11 +796,6 @@ namespace Quilter {
             titlebar_stack.set_visible_child_name ("title");
             sidebar.reveal_child = true;
             Quilter.Application.gsettings.set_boolean("sidebar", true);
-            sidebar.store.clear ();
-            sidebar.outline_populate ();
-            sidebar.view.expand_all ();
-            titlebar.samenu_button.title = Path.get_basename(path);
-            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
         }
 
         public void on_save () {
@@ -875,8 +804,6 @@ namespace Quilter {
                 try {
                     Services.FileManager.save_file (row.path, edit_view_content.text);
                     edit_view_content.modified = false;
-                    titlebar.samenu_button.title = Path.get_basename(row.path);
-                    titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~");
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }
@@ -887,24 +814,11 @@ namespace Quilter {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row != null) {
                 try {
-
-                    string path;
-                    Services.FileManager.save_as (edit_view_content.text, out path);
+                    string fpath;
+                    Services.FileManager.save_as (edit_view_content.text, out fpath);
                     edit_view_content.modified = false;
-                    sidebar.store.clear ();
-                    sidebar.outline_populate ();
-                    sidebar.view.expand_all ();
-
-                    foreach (var child in sidebar.column.get_children ()) {
-                        if (((Widgets.SideBarBox)child).path == Services.FileManager.get_temp_document_path ()) {
-                            ((Widgets.SideBarBox)child).path = path;
-
-                            titlebar.samenu_button.title = Path.get_basename(path);
-                            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
-
-                            break;
-                        }
-                    }
+                    ((Widgets.SideBarBox) sidebar.column.get_selected_row ()).destroy ();
+                    sidebar.add_file (fpath);
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }
