@@ -58,7 +58,7 @@
     <releases>
         <release version="3.1.4" date="2021-01-24">
          <description>
-            <p>Release: UI Fixes</p>
+            <p>Release: Mhmm, Pi Flavor</p>
             <ul>
                 <li>Fix: Headerbar contents shouldn't jump around wherever possible while mid-window-resizing</li>
                 <li>Fix: When autosave is off, show a save button in the headerbar</li>
