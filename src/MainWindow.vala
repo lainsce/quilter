@@ -146,11 +146,15 @@ namespace Quilter {
 
             // Ensure the file used in the init is cache and exists
             Services.FileManager.get_cache_path ();
-
             var path = Quilter.Application.gsettings.get_string("current-file");
 
-            titlebar.samenu_button.title = Path.get_basename(path);
-            titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
+            if (path == Services.FileManager.get_cache_path ()) {
+                titlebar.samenu_button.title = (_("New Document"));
+                titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+            } else {
+                titlebar.samenu_button.title = Path.get_basename(path);
+                titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
+            }
 
             on_settings_changed.begin ();
             Quilter.Application.gsettings.changed.connect (() => {
@@ -754,15 +758,49 @@ namespace Quilter {
                         unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
                         if (row != null && row.path != null) {
                             on_save ();
+                            sidebar.is_modified = true;
+                            save_last_files ();
+                            edit_view_content.text = "";
+                            edit_view_content.modified = true;
+                            sidebar.store.clear ();
+                            sidebar.outline_populate ();
+                            sidebar.view.expand_all ();
+                            sidebar.add_file (Services.FileManager.get_cache_path ());
+                            titlebar.samenu_button.title = (_("New Document"));
+                            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+                            row.path = (_("New Document"));
+                            row.title = (_("Not Saved Yet"));
+                            win_stack.set_visible_child_name ("doc");
+                            titlebar_stack.set_visible_child_name ("title");
+                            sidebar.reveal_child = true;
+                            Quilter.Application.gsettings.set_boolean("sidebar", true);
                         } else {
                             on_save_as ();
+                            sidebar.is_modified = true;
+                            save_last_files ();
+                            edit_view_content.text = "";
+                            edit_view_content.modified = true;
+                            sidebar.store.clear ();
+                            sidebar.outline_populate ();
+                            sidebar.view.expand_all ();
+                            sidebar.add_file (Services.FileManager.get_cache_path ());
+                            titlebar.samenu_button.title = (_("New Document"));
+                            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+                            row.path = (_("New Document"));
+                            row.title = (_("Not Saved Yet"));
+                            win_stack.set_visible_child_name ("doc");
+                            titlebar_stack.set_visible_child_name ("title");
+                            sidebar.reveal_child = true;
+                            Quilter.Application.gsettings.set_boolean("sidebar", true);
                         }
 
                         edit_view_content.modified = false;
+                        sidebar.is_modified = false;
                         dialog.close ();
                         break;
                     case Gtk.ResponseType.NO:
                         edit_view_content.modified = false;
+                        sidebar.is_modified = false;
                         dialog.close ();
                         break;
                     case Gtk.ResponseType.CANCEL:
@@ -775,15 +813,7 @@ namespace Quilter {
                 }
             });
 
-
-            if (edit_view_content.modified) {
-                dialog.run ();
-            }
-
             on_save ();
-            sidebar.add_file (Services.FileManager.get_temp_document_path ());
-            titlebar.add_recent_file (Services.FileManager.get_temp_document_path ());
-
             sidebar.is_modified = true;
             save_last_files ();
             edit_view_content.text = "";
@@ -791,13 +821,18 @@ namespace Quilter {
             sidebar.store.clear ();
             sidebar.outline_populate ();
             sidebar.view.expand_all ();
+            var row = sidebar.add_file (Services.FileManager.get_cache_path ());
             titlebar.samenu_button.title = (_("New Document"));
-            titlebar.samenu_button.subtitle = Services.FileManager.get_temp_document_path ();
-            on_save ();
+            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+            row.path = (_("New Document"));
+            row.title = (_("Not Saved Yet"));
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
             sidebar.reveal_child = true;
             Quilter.Application.gsettings.set_boolean("sidebar", true);
+            if (edit_view_content.modified) {
+                dialog.run ();
+            }
         }
 
         private void on_open () {
