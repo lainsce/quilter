@@ -88,20 +88,20 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
             file_remove_button.clicked.connect (() => {
-                if ((Widgets.SideBarBox) win.sidebar.column.get_selected_row () != null) {
-                    ((Widgets.SideBarBox) win.sidebar.column.get_selected_row ()).destroy ();
-                    win.edit_view_content.buffer.text = "";
-                    win.edit_view_content.modified = false;
-                    win.sidebar.store.clear ();
-                    win.save_last_files ();
-                }
                 if (win.sidebar.column.get_children () == null && win.win_stack != null && win.titlebar_stack != null) {
                     win.win_stack.set_visible_child_name ("welcome");
                     win.titlebar_stack.set_visible_child_name ("welcome-title");
                     win.sidebar.reveal_child = false;
                     Quilter.Application.gsettings.set_boolean("sidebar", false);
                 } else {
-                    win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
+                    if ((Widgets.SideBarBox) win.sidebar.column.get_selected_row () != null) {
+                        ((Widgets.SideBarBox) win.sidebar.column.get_selected_row ()).destroy ();
+                        win.edit_view_content.buffer.text = "";
+                        win.edit_view_content.modified = false;
+                        win.sidebar.store.clear ();
+                        win.save_last_files ();
+                        win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
+                    }
                 }
             });
 
