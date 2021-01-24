@@ -24,7 +24,7 @@ namespace Quilter.Widgets {
         public Gtk.Button file_remove_button;
         public Gtk.Grid file_grid;
         public MainWindow win;
-        private int uid;
+        public int uid;
         private static int uid_counter;
 
         private string? _path;

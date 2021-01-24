@@ -760,7 +760,7 @@ namespace Quilter {
             var row = sidebar.add_file (Services.FileManager.get_cache_path ());
             titlebar.samenu_button.title = (_("New Document"));
             titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-            row.path = (_("New Document"));
+            row.path = (_("New Document-%d.md").printf(row.uid));
             row.title = (_("Not Saved Yet"));
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
