@@ -2,7 +2,6 @@
 
 ## Focus on your writing
 
-[![Get it on AppCenter (Old Version)](https://appcenter.elementary.io/badge.svg)](https://appcenter.elementary.io/com.github.lainsce.quilter)
 <a href='https://flathub.org/apps/details/io.github.lainsce.Quilter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
 
 [![Please do not theme this app](https://stopthemingmy.app/badge.svg)](https://stopthemingmy.app)
