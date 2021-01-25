@@ -6,6 +6,6 @@ option(
     'development',
   ],
   value: 'default',
-  description: 'The build profile for Clock. One of "default" or "development".'
+  description: 'The build profile for Quilter. One of "default" or "development".'
 )
 
