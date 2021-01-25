@@ -4,7 +4,6 @@
     "runtime-version" : "3.38",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Quilter",
-    "rename-icon" : "io.github.lainsce.Quilter",
     "finish-args" : [
         "--filesystem=xdg-documents",
         "--filesystem=xdg-download",
