@@ -1,4 +1,4 @@
-project('io.github.lainsce.Quilter', ['vala', 'c'], version: '3.1.4')
+project('io.github.lainsce.Quilter', ['vala', 'c'], version: '3.1.5')
 gnome = import('gnome')
 i18n = import('i18n')
 

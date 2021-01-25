@@ -65,6 +65,7 @@ namespace Quilter.Widgets {
             save_as_button.clicked.connect (() => save_as ());
             save_as_button.get_style_context ().add_class ("mini-circular-button");
             save_as_button.tooltip_text = (_("Choose another folder"));
+            save_as_button.halign = Gtk.Align.START;
 
             open_button = new Gtk.Button ();
             open_button.clicked.connect (() => open ());

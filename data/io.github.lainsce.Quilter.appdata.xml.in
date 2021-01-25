@@ -56,6 +56,15 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="3.1.4" date="2021-01-25">
+         <description>
+            <p>Release: Mhmm, Pi Flavor</p>
+            <ul>
+                <li>Fix: Focus Mode exit big button styling</li>
+                <li>Fix: Save As button inside the rename popover is now the correct size</li>
+            </ul>
+            </description>
+        </release>
         <release version="3.1.4" date="2021-01-24">
          <description>
             <p>Release: Mhmm, Pi Flavor</p>
