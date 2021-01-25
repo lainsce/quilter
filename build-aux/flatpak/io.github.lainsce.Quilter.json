@@ -13,7 +13,7 @@
         "--share=network",
         "--share=ipc"
     ],
-        "tags" : [
+    "tags" : [
         "nightly"
     ],
     "desktop-file-name-suffix" : " (Devel)",
