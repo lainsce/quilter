@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-21 11:21-0300\n"
+"POT-Creation-Date: 2021-01-24 23:45-0300\n"
 "PO-Revision-Date: 2019-04-09 21:30+0100\n"
 "Last-Translator: Siigdev\n"
 "Language-Team: \n"
@@ -16,328 +16,218 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/MainWindow.vala:368
-msgid "Start by creating a new story…"
+#: src/MainWindow.vala:152 src/MainWindow.vala:395 src/MainWindow.vala:761
+#, fuzzy
+msgid "New Document"
+msgstr "Ingen dokumenter åbne"
+
+#: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
+msgid "Not Saved Yet"
 msgstr ""
 
-#: src/MainWindow.vala:375
-msgid "Or open a saved story…"
+#. Welcome View
+#: src/MainWindow.vala:387
+msgid "Write a new Document"
 msgstr ""
 
-#: src/MainWindow.vala:420
+#: src/MainWindow.vala:401
+#, fuzzy
+msgid "Open Document"
+msgstr "Ingen dokumenter åbne"
+
+#: src/MainWindow.vala:441
 #, fuzzy
 msgid "Exit focus mode"
 msgstr "Skift til fokus tilstand"
 
-#: src/MainWindow.vala:704
+#: src/MainWindow.vala:699
 msgid "Edit"
 msgstr "Rediger"
 
-#: src/MainWindow.vala:706 src/Widgets/Preferences.vala:463
+#: src/MainWindow.vala:701 src/Widgets/Preferences.vala:282
+#: src/Widgets/Preferences.vala:285
 msgid "Preview"
 msgstr "Forhåndsvisning"
 
-#: src/Widgets/Cheatsheet.vala:26
-msgid "Cheatsheet"
-msgstr "Snydeark"
-
-#: src/Widgets/Cheatsheet.vala:78
-#, fuzzy
-msgid "Headers & Text"
-msgstr "Margin på tekst:"
-
-#: src/Widgets/Cheatsheet.vala:79
-#, fuzzy
-msgid "# Header 1"
-msgstr "# Titel 1"
-
-#: src/Widgets/Cheatsheet.vala:80
-#, fuzzy
-msgid "## Header 2"
-msgstr "## Titel 2"
-
-#: src/Widgets/Cheatsheet.vala:81
-#, fuzzy
-msgid "### Header 3"
-msgstr "### Titel 3"
-
-#: src/Widgets/Cheatsheet.vala:82
-#, fuzzy
-msgid "** Bold **"
-msgstr "** Fed skrift **"
-
-#: src/Widgets/Cheatsheet.vala:83
-#, fuzzy
-msgid "* Emphasized *"
-msgstr "* Understreget skrift *"
-
-#: src/Widgets/Cheatsheet.vala:84
-#, fuzzy
-msgid "` Code Line `"
-msgstr "` Kode tekst `"
-
-#: src/Widgets/Cheatsheet.vala:85
-#, fuzzy
-msgid "``` Code Block ```"
-msgstr "```Dette er en blok af kode```"
-
-#: src/Widgets/Cheatsheet.vala:86
-#, fuzzy
-msgid "> Quote"
-msgstr "> Citeret tekst"
-
-#: src/Widgets/Cheatsheet.vala:88
-msgid "Links"
-msgstr "Links"
-
-#: src/Widgets/Cheatsheet.vala:89
-#, fuzzy
-msgid ""
-"[Link Label](http://link.url.com)\n"
-"![Image Label](http://image.url.com)"
-msgstr "[Link etiket](http://link.url.her.com)"
-
-#: src/Widgets/Cheatsheet.vala:91
-msgid "Special"
-msgstr "Specielle"
-
-#: src/Widgets/Cheatsheet.vala:92
-msgid ""
-"LaTeX:\n"
-"\t- $$…$$ for equation block.\n"
-"\t- \\\\(…\\\\) for inline equation."
+#: src/MainWindow.vala:763
+#, c-format
+msgid "New Document-%d.md"
 msgstr ""
 
-#: src/Widgets/Cheatsheet.vala:93
-msgid ""
-"Mermaid.js:\n"
-"\t- <div class=\"mermaid\">...</div>"
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:117
-msgid "Extras"
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:118
+#: src/MainWindow.vala:835
 #, fuzzy
-msgid "Horizontal rule → ---"
-msgstr "Dette er en horisontal linje → ---"
+msgid "Quilter"
+msgstr "Quilter"
 
-#: src/Widgets/Cheatsheet.vala:119
+#: src/MainWindow.vala:840
+msgid "Focus on your writing."
+msgstr ""
+
+#: src/MainWindow.vala:845
+msgid "translator-credits"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:62
+msgid "Create a new document"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:67
+msgid "Choose another folder"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:72
+msgid "Open a document"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:73
 #, fuzzy
-msgid "~~Strikethrough~~"
-msgstr "~~Gennemstreget skrift~~"
-
-#: src/Widgets/Cheatsheet.vala:120
-msgid "==Highlight=="
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:121
-msgid "Subscript: H~2~O"
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:122
-msgid "Superscript: E = MC^2^"
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:123
-msgid "[] Empty Checkbox."
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:124
-msgid "[x] Checked Checkbox."
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:128
-msgid "Period needed to avoid conflicts."
-msgstr ""
-
-#: src/Widgets/Cheatsheet.vala:133
-#, fuzzy
-msgid ""
-"Embeds a local image\n"
-"\t/Folder/Image.png :image"
-msgstr "Dette indsætter et lokalt billede → : Mappe/Billede.png :"
-
-#: src/Widgets/Cheatsheet.vala:134
-#, fuzzy
-msgid ""
-"Embeds a local Markdown file\n"
-"\t/Folder/File.md :file"
-msgstr "Dette indsætter en lokal Markdown fil → % Mappe/Fil.md %"
-
-#: src/Widgets/Cheatsheet.vala:135
-msgid "Tables"
-msgstr "Tabeller"
-
-#: src/Widgets/Cheatsheet.vala:140
-msgid ""
-"Left Column, change --- to :--- .\n"
-"Centered Column, change --- to :---: .\n"
-"Right Column, change --- to ---: ."
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:59
-msgid "Go back"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:71
-msgid "New file"
-msgstr "Ny fil"
-
-#: src/Widgets/HeaderBar.vala:80
-msgid "Save as…"
-msgstr "Gem som…"
-
-#: src/Widgets/HeaderBar.vala:88
-msgid "Open…"
+msgid "Open"
 msgstr "Åben…"
 
-#: src/Widgets/HeaderBar.vala:96
-#, fuzzy
-msgid "Find…"
-msgstr "Find tekst…"
+#: src/Widgets/HeaderBar.vala:77
+msgid "Save document"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:118
+#: src/Widgets/HeaderBar.vala:86
+#, fuzzy
+msgid "Search and replace text"
+msgstr "Søg næste"
+
+#: src/Widgets/HeaderBar.vala:103
 msgid "Export to PDF…"
 msgstr "Eksporter til PDF…"
 
-#: src/Widgets/HeaderBar.vala:127
+#: src/Widgets/HeaderBar.vala:107
 msgid "Export to HTML…"
 msgstr "Eksporter til HTML…"
 
-#: src/Widgets/HeaderBar.vala:136
+#: src/Widgets/HeaderBar.vala:111
 msgid "Markdown Cheatsheet"
 msgstr "Markdown Snydeark"
 
-#: src/Widgets/HeaderBar.vala:143 src/Widgets/Preferences.vala:28
+#: src/Widgets/HeaderBar.vala:115 src/Widgets/Preferences.vala:25
 msgid "Preferences"
 msgstr "Præferencer"
 
-#: src/Widgets/HeaderBar.vala:149 src/Widgets/Preferences.vala:300
-#: src/Widgets/Preferences.vala:355
+#: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:158
 msgid "Light Mode"
 msgstr "Lyst tilstand"
 
-#: src/Widgets/HeaderBar.vala:159 src/Widgets/Preferences.vala:310
-#: src/Widgets/Preferences.vala:357
+#: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:168
 msgid "Sepia Mode"
 msgstr "Sepia tilstand"
 
-#: src/Widgets/HeaderBar.vala:169 src/Widgets/Preferences.vala:320
-#: src/Widgets/Preferences.vala:359
+#: src/Widgets/HeaderBar.vala:141 src/Widgets/Preferences.vala:178
 msgid "Dark Mode"
 msgstr "Mørkt tilstand"
 
-#: src/Widgets/HeaderBar.vala:208
+#: src/Widgets/HeaderBar.vala:176
 #, fuzzy
 msgid "Focus Mode…"
 msgstr "fokus tilstand"
 
-#: src/Widgets/HeaderBar.vala:222
+#: src/Widgets/HeaderBar.vala:185
 msgid "Toggle View…"
 msgstr ""
 
 #. _("Full-Width\nFull Editor, change with switcher")
-#: src/Widgets/HeaderBar.vala:240
+#: src/Widgets/HeaderBar.vala:200
 msgid "Full-Width"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:244
+#: src/Widgets/HeaderBar.vala:202
 msgid "Editor or Preview, change on the menu."
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:263
+#: src/Widgets/HeaderBar.vala:221
 msgid "Half-Width"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:267
+#: src/Widgets/HeaderBar.vala:225
 msgid "Editor & Preview, divided equally."
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:324
-#, fuzzy
-msgid "Interface Modes"
-msgstr "Grænseflade"
+#: src/Widgets/HeaderBar.vala:279
+msgid "Change layout of editor and preview"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:356
+#: src/Widgets/HeaderBar.vala:298
+#, fuzzy
+msgid "About Quilter"
+msgstr "Quilter"
+
+#: src/Widgets/HeaderBar.vala:305
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:338
 msgid "Settings"
 msgstr "Indstillinger"
 
-#. Please take note of the \n, keep it where you'd want a line break because the space is small
-#: src/Widgets/HeaderBar.vala:369 src/Widgets/Preferences.vala:391
-msgid ""
-"Changing modes is disabled due\n"
-"to the system dark style preference."
+#: src/Widgets/HeaderBar.vala:353
+msgid "Rename"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:52
-msgid "INTERFACE"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:53
-msgid "EDITOR"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:54
-msgid "PREVIEW"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:79
-msgid "Geometry"
-msgstr "Geometri"
-
-#: src/Widgets/Preferences.vala:80
-msgid "Text Spacing:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:120
-msgid "Text Margins:"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:160
-msgid "Fonts & Type"
-msgstr "Skrift indstillinger"
-
-#: src/Widgets/Preferences.vala:161
+#: src/Widgets/HeaderBar.vala:376
 #, fuzzy
-msgid "Editor Font Type:"
-msgstr "Editor skriftstørrelse"
+msgid "Rename the File:"
+msgstr "Slet fil"
 
-#: src/Widgets/Preferences.vala:163
+#: src/Widgets/HeaderBar.vala:394
+#, fuzzy
+msgid "Rename File"
+msgstr "Slet fil"
+
+#: src/Widgets/HeaderBar.vala:397
+msgid "new_name.md"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:52 src/Widgets/Preferences.vala:105
+msgid "Editor"
+msgstr "Editor"
+
+#: src/Widgets/Preferences.vala:55
+msgid "Font"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:58
+msgid "Type"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:63
 msgid "Quilt Mono"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:164
+#: src/Widgets/Preferences.vala:64
 #, fuzzy
 msgid "Quilt Zwei"
 msgstr "Quilter"
 
-#: src/Widgets/Preferences.vala:165
+#: src/Widgets/Preferences.vala:65
 #, fuzzy
 msgid "Quilt Vier"
 msgstr "Quilter"
 
-#: src/Widgets/Preferences.vala:199
-msgid "Editor Font Size:"
-msgstr "Editor skriftstørrelse"
+#: src/Widgets/Preferences.vala:108
+#, fuzzy
+msgid "Autosave Documents"
+msgstr "Ingen dokumenter åbne"
 
-#: src/Widgets/Preferences.vala:252
-msgid "Editor"
-msgstr "Editor"
-
-#: src/Widgets/Preferences.vala:253
-msgid "Save files when changed:"
-msgstr "Gem filer når de er ændret:"
-
-#: src/Widgets/Preferences.vala:255
-msgid "Highlight Speech Parts<sup>𝜷</sup>:"
+#: src/Widgets/Preferences.vala:119
+msgid "Autosave Delay"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:260
+#: src/Widgets/Preferences.vala:120
+msgid "Values below 15s affects the storage medium negatively."
+msgstr ""
+
+#: src/Widgets/Preferences.vala:126
+msgid "Highlight Speech Parts (beta)"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:127
 msgid ""
 "Only available in English.\n"
-"\n"
 "Colors words based on type:\n"
 "- Nouns are Black\n"
 "- Verbs are Blue\n"
@@ -346,84 +236,113 @@ msgid ""
 "- Conjunctions are Green"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:266
-#, fuzzy
-msgid "Spellchecking:"
-msgstr "Aktiver stavekontrol:"
-
-#: src/Widgets/Preferences.vala:295
-msgid "Modes"
-msgstr "Tilstande"
-
-#: src/Widgets/Preferences.vala:361
-#, fuzzy
-msgid "Focus Mode:"
-msgstr "fokus tilstand"
-
-#: src/Widgets/Preferences.vala:364
-#, fuzzy
-msgid "Focus Scope:"
-msgstr "fokus tilstand"
-
-#: src/Widgets/Preferences.vala:378
-msgid "Typewriter Scrolling:"
-msgstr "Skrivemaskine Scroll:"
-
-#: src/Widgets/Preferences.vala:381
-msgid "Type Counter:"
+#: src/Widgets/Preferences.vala:146
+msgid "General"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:385
-msgid "Sidebar:"
+#: src/Widgets/Preferences.vala:149
+msgid "Appearance"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:404
-msgid "User Interface"
+#: src/Widgets/Preferences.vala:152
+#, fuzzy
+msgid "Visual Mode"
+msgstr "Sepia tilstand"
+
+#: src/Widgets/Preferences.vala:220
+#, fuzzy
+msgid "Interface"
 msgstr "Brugergrænseflade"
 
-#: src/Widgets/Preferences.vala:464
+#: src/Widgets/Preferences.vala:223
 #, fuzzy
-msgid "Font Type:"
+msgid "Focus Mode"
+msgstr "fokus tilstand"
+
+#: src/Widgets/Preferences.vala:229
+#, fuzzy
+msgid "Focus on Paragraph"
+msgstr "Afsnit"
+
+#: src/Widgets/Preferences.vala:231
+#, fuzzy
+msgid "Focus on Sentence"
+msgstr "Sætning"
+
+#: src/Widgets/Preferences.vala:246
+#, fuzzy
+msgid "Focus Scope"
+msgstr "fokus tilstand"
+
+#: src/Widgets/Preferences.vala:250
+#, fuzzy
+msgid "Typewriter Scrolling"
+msgstr "Skrivemaskine Scroll:"
+
+#: src/Widgets/Preferences.vala:257
+msgid "Type Counter"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:263
+msgid "Sidebar"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:288
+#, fuzzy
+msgid "Font Type"
 msgstr "Skrift indstillinger"
 
-#: src/Widgets/Preferences.vala:468
+#: src/Widgets/Preferences.vala:294
 #, fuzzy
 msgid "Serif"
 msgstr "Brug Serif"
 
-#: src/Widgets/Preferences.vala:469
+#: src/Widgets/Preferences.vala:295
 #, fuzzy
 msgid "Sans-serif"
 msgstr "Brug Sans-serif"
 
-#: src/Widgets/Preferences.vala:470
+#: src/Widgets/Preferences.vala:296
 #, fuzzy
 msgid "Monospace"
 msgstr "Brug Monospace"
 
-#: src/Widgets/Preferences.vala:504
-msgid "Center Headers:"
+#: src/Widgets/Preferences.vala:333
+#, fuzzy
+msgid "Header Centering"
+msgstr "Titel"
+
+#: src/Widgets/Preferences.vala:334
+msgid "This affects the H1, H2, and H3 type headers."
 msgstr ""
 
-#: src/Widgets/Preferences.vala:508
+#: src/Widgets/Preferences.vala:341
 msgid "Extensions"
 msgstr "Udvidelser"
 
-#: src/Widgets/Preferences.vala:510
+#: src/Widgets/Preferences.vala:344
 #, fuzzy
-msgid "Code Highlighting:"
+msgid "Code Highlight"
 msgstr "Aktiver kode highlights:"
 
-#: src/Widgets/Preferences.vala:514
-msgid "LaTeX Processing:"
+#: src/Widgets/Preferences.vala:345
+msgid "Code blocks will have the contents receive color."
 msgstr ""
 
-#: src/Widgets/Preferences.vala:518
-msgid "Mermaid.js Graphing:"
+#: src/Widgets/Preferences.vala:352
+msgid "LaTeX Math"
 msgstr ""
 
-#: src/Widgets/Preferences.vala:523
-msgid "Disable Code Highlighting for optimal use of Mermaid.js"
+#: src/Widgets/Preferences.vala:353
+msgid "Text inside LaTeX math blocks will be processed into LaTeX output."
+msgstr ""
+
+#: src/Widgets/Preferences.vala:360
+msgid "Mermaid.js Graph"
+msgstr ""
+
+#: src/Widgets/Preferences.vala:361
+msgid "Text inside Mermaid blocks will become graphs."
 msgstr ""
 
 #: src/Widgets/SearchBar.vala:40
@@ -453,22 +372,18 @@ msgstr "Søg foregående"
 msgid "Search next"
 msgstr "Søg næste"
 
-#: src/Widgets/SideBar.vala:66
+#: src/Widgets/SideBar.vala:67
 #, fuzzy
 msgid "No files…"
 msgstr "Ny fil"
 
-#: src/Widgets/SideBar.vala:76
-msgid "FILES"
-msgstr ""
-
 #: src/Widgets/SideBar.vala:77
-msgid "OUTLINE"
-msgstr ""
+msgid "Files"
+msgstr "Filer"
 
-#: src/Widgets/SideBar.vala:234
-msgid "No Documents Open"
-msgstr "Ingen dokumenter åbne"
+#: src/Widgets/SideBar.vala:78
+msgid "Outline"
+msgstr "Oversigt"
 
 #: src/Widgets/SideBarBox.vala:38
 #, fuzzy
@@ -484,73 +399,50 @@ msgstr ""
 msgid "Remove File from Sidebar"
 msgstr "Slet fil"
 
-#: src/Widgets/StatusBar.vala:45
-msgid "Track Characters"
-msgstr "Spor tegn"
+#: src/Widgets/StatusBar.vala:43
+#, fuzzy
+msgid "Words"
+msgstr "Ord : "
 
-#: src/Widgets/StatusBar.vala:50
-msgid "Track Words"
-msgstr "Spor ord"
+#: src/Widgets/StatusBar.vala:49
+#, fuzzy
+msgid "Lines"
+msgstr "Linjer : "
 
 #: src/Widgets/StatusBar.vala:55
-msgid "Track Lines"
-msgstr "Spor linjer"
-
-#: src/Widgets/StatusBar.vala:60
 #, fuzzy
-msgid "Track Read Time"
+msgid "Reading Time"
 msgstr "Læsetid: "
 
-#: src/Widgets/StatusBar.vala:80
+#: src/Widgets/StatusBar.vala:75
 msgid "Set Tracking Type"
 msgstr "Sæt sporingstype"
 
-#: src/Widgets/StatusBar.vala:107
+#: src/Widgets/StatusBar.vala:100
 msgid "Words: "
 msgstr "Ord : "
 
-#: src/Widgets/StatusBar.vala:112
+#: src/Widgets/StatusBar.vala:105
 msgid "Lines: "
 msgstr "Linjer : "
 
-#: src/Widgets/StatusBar.vala:117
-msgid "Characters: "
-msgstr "Tegn: "
-
-#: src/Widgets/StatusBar.vala:123
+#: src/Widgets/StatusBar.vala:112
 msgid "Reading Time: "
 msgstr "Læsetid: "
 
-#: src/Services/DialogUtils.vala:21 src/Services/DialogUtils.vala:51
-#: src/Services/DialogUtils.vala:68 src/Services/ExportUtils.vala:170
-#: src/Services/ExportUtils.vala:218
-msgid "Cancel"
-msgstr "Annuller"
-
-#: src/Services/DialogUtils.vala:23
-#, fuzzy
-msgid "Open"
-msgstr "Åben…"
-
-#: src/Services/DialogUtils.vala:25 src/Services/DialogUtils.vala:49
-#: src/Services/DialogUtils.vala:66 src/Services/ExportUtils.vala:150
-#: src/Services/ExportUtils.vala:199
-msgid "Save"
-msgstr "Gem"
-
-#: src/Services/DialogUtils.vala:29
+#: src/Services/DialogUtils.vala:21
 msgid "Markdown files"
 msgstr "Markdown filer"
 
-#: src/Services/DialogUtils.vala:33
+#: src/Services/DialogUtils.vala:25
 msgid "All files"
 msgstr "Alle filer"
 
-#: src/Services/DialogUtils.vala:44
+#: src/Services/DialogUtils.vala:36
 msgid "Save Open File?"
 msgstr "Gem den åbne fil?"
 
-#: src/Services/DialogUtils.vala:45
+#: src/Services/DialogUtils.vala:37
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
@@ -558,57 +450,197 @@ msgstr ""
 "Der er ugemte ændringer i filen. Hvis du ikke gemmer, vil ændringerne være "
 "tabt for altid."
 
-#: src/Services/DialogUtils.vala:50
+#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
+#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
+msgid "Save"
+msgstr "Gem"
+
+#: src/Services/DialogUtils.vala:42
 msgid "Close Without Saving"
 msgstr "Luk uden at gemme"
 
-#: src/Services/DialogUtils.vala:61
+#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
+msgid "Cancel"
+msgstr "Annuller"
+
+#: src/Services/DialogUtils.vala:52
 #, fuzzy
 msgid "Remove File from Sidebar?"
 msgstr "Slet fil"
 
-#: src/Services/DialogUtils.vala:62
+#: src/Services/DialogUtils.vala:53
 msgid ""
 "By removing this file from the Sidebar, you will lose any changes made if "
 "not saved. Otherwise, it will only be removed."
 msgstr ""
 
-#: src/Services/DialogUtils.vala:67
+#: src/Services/DialogUtils.vala:58
 #, fuzzy
 msgid "Remove Without Saving"
 msgstr "Luk uden at gemme"
 
-#: src/Services/ExportUtils.vala:87
+#: src/Services/ExportUtils.vala:84
 msgid "Print to File"
 msgstr "Print til fil"
 
-#: src/Services/ExportUtils.vala:148
+#: src/Services/ExportUtils.vala:142
 msgid "Select destination PDF file"
 msgstr "Vælg destination for PDF fil"
 
-#: src/Services/ExportUtils.vala:153
+#: src/Services/ExportUtils.vala:147
 msgid "PDF File"
 msgstr "PDF fil"
 
-#: src/Services/ExportUtils.vala:161 src/Services/ExportUtils.vala:209
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
 msgid "All Files"
 msgstr "Alle filer"
 
-#: src/Services/ExportUtils.vala:197
+#: src/Services/ExportUtils.vala:191
 msgid "Select destination HTML file"
 msgstr "Vælg destination for HTML fil"
 
-#: src/Services/ExportUtils.vala:202
+#: src/Services/ExportUtils.vala:196
 msgid "HTML File"
 msgstr "HTML fil"
 
-#: src/Services/FileManager.vala:91
+#: src/Services/FileManager.vala:89
 msgid "Open file"
 msgstr "Åben fil"
 
-#: src/Services/FileManager.vala:105
+#: src/Services/FileManager.vala:102
 msgid "Save file"
 msgstr "Gem fil"
+
+#~ msgid "Cheatsheet"
+#~ msgstr "Snydeark"
+
+#, fuzzy
+#~ msgid "Headers & Text"
+#~ msgstr "Margin på tekst:"
+
+#, fuzzy
+#~ msgid "# Header 1"
+#~ msgstr "# Titel 1"
+
+#, fuzzy
+#~ msgid "## Header 2"
+#~ msgstr "## Titel 2"
+
+#, fuzzy
+#~ msgid "### Header 3"
+#~ msgstr "### Titel 3"
+
+#, fuzzy
+#~ msgid "** Bold **"
+#~ msgstr "** Fed skrift **"
+
+#, fuzzy
+#~ msgid "* Emphasized *"
+#~ msgstr "* Understreget skrift *"
+
+#, fuzzy
+#~ msgid "` Code Line `"
+#~ msgstr "` Kode tekst `"
+
+#, fuzzy
+#~ msgid "``` Code Block ```"
+#~ msgstr "```Dette er en blok af kode```"
+
+#, fuzzy
+#~ msgid "> Quote"
+#~ msgstr "> Citeret tekst"
+
+#~ msgid "Links"
+#~ msgstr "Links"
+
+#, fuzzy
+#~ msgid ""
+#~ "[Link Label](http://link.url.com)\n"
+#~ "![Image Label](http://image.url.com)"
+#~ msgstr "[Link etiket](http://link.url.her.com)"
+
+#~ msgid "Special"
+#~ msgstr "Specielle"
+
+#, fuzzy
+#~ msgid "Horizontal rule → ---"
+#~ msgstr "Dette er en horisontal linje → ---"
+
+#, fuzzy
+#~ msgid "~~Strikethrough~~"
+#~ msgstr "~~Gennemstreget skrift~~"
+
+#, fuzzy
+#~ msgid ""
+#~ "Embeds a local image\n"
+#~ "\t/Folder/Image.png :image"
+#~ msgstr "Dette indsætter et lokalt billede → : Mappe/Billede.png :"
+
+#, fuzzy
+#~ msgid ""
+#~ "Embeds a local Markdown file\n"
+#~ "\t/Folder/File.md :file"
+#~ msgstr "Dette indsætter en lokal Markdown fil → % Mappe/Fil.md %"
+
+#~ msgid "Tables"
+#~ msgstr "Tabeller"
+
+#~ msgid "New file"
+#~ msgstr "Ny fil"
+
+#~ msgid "Save as…"
+#~ msgstr "Gem som…"
+
+#~ msgid "Open…"
+#~ msgstr "Åben…"
+
+#, fuzzy
+#~ msgid "Find…"
+#~ msgstr "Find tekst…"
+
+#, fuzzy
+#~ msgid "Interface Modes"
+#~ msgstr "Grænseflade"
+
+#~ msgid "Geometry"
+#~ msgstr "Geometri"
+
+#~ msgid "Fonts & Type"
+#~ msgstr "Skrift indstillinger"
+
+#, fuzzy
+#~ msgid "Editor Font Type:"
+#~ msgstr "Editor skriftstørrelse"
+
+#~ msgid "Editor Font Size:"
+#~ msgstr "Editor skriftstørrelse"
+
+#~ msgid "Save files when changed:"
+#~ msgstr "Gem filer når de er ændret:"
+
+#, fuzzy
+#~ msgid "Spellchecking:"
+#~ msgstr "Aktiver stavekontrol:"
+
+#~ msgid "Modes"
+#~ msgstr "Tilstande"
+
+#~ msgid "Track Characters"
+#~ msgstr "Spor tegn"
+
+#~ msgid "Track Words"
+#~ msgstr "Spor ord"
+
+#~ msgid "Track Lines"
+#~ msgstr "Spor linjer"
+
+#, fuzzy
+#~ msgid "Track Read Time"
+#~ msgstr "Læsetid: "
+
+#~ msgid "Characters: "
+#~ msgstr "Tegn: "
 
 #~ msgid "Set Preview Font"
 #~ msgstr "Indstil forhåndsvisnings-font"
@@ -621,9 +653,6 @@ msgstr "Gem fil"
 
 #~ msgid "Close"
 #~ msgstr "Luk"
-
-#~ msgid "Heading"
-#~ msgstr "Titel"
 
 #~ msgid "#### Heading 4"
 #~ msgstr "#### Titel 4"
@@ -677,12 +706,6 @@ msgstr "Gem fil"
 #~ msgid "Type of Focus Mode:"
 #~ msgstr "Type af fokus tilstand:"
 
-#~ msgid "Paragraph"
-#~ msgstr "Afsnit"
-
-#~ msgid "Sentence"
-#~ msgstr "Sætning"
-
 #~ msgid "Show Statusbar:"
 #~ msgstr "Vis statusbaren:"
 
@@ -691,16 +714,6 @@ msgstr "Gem fil"
 
 #~ msgid "Replace"
 #~ msgstr "Erstat"
-
-#~ msgid "Files"
-#~ msgstr "Filer"
-
-#~ msgid "Outline"
-#~ msgstr "Oversigt"
-
-#, fuzzy
-#~ msgid "Remove All Files"
-#~ msgstr "Slet fil"
 
 #~ msgid "Show/Hide Sidebar"
 #~ msgstr "Vis/Gem sidebaren"

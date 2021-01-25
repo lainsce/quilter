@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-24 17:22+0100\n"
+"POT-Creation-Date: 2021-01-24 23:45-0300\n"
 "PO-Revision-Date: 2021-01-24 17:47+0100\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -17,53 +17,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/MainWindow.vala:152 src/MainWindow.vala:394 src/MainWindow.vala:769
-#: src/MainWindow.vala:771 src/MainWindow.vala:787 src/MainWindow.vala:789
-#: src/MainWindow.vala:825 src/MainWindow.vala:827
+#: src/MainWindow.vala:152 src/MainWindow.vala:395 src/MainWindow.vala:761
 msgid "New Document"
 msgstr "Nuevo documento"
 
-#: src/MainWindow.vala:153 src/MainWindow.vala:770 src/MainWindow.vala:772
-#: src/MainWindow.vala:788 src/MainWindow.vala:790 src/MainWindow.vala:826
-#: src/MainWindow.vala:828
+#: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
 msgid "Not Saved Yet"
 msgstr "Sin guardar todavía"
 
 #. Welcome View
-#: src/MainWindow.vala:386
+#: src/MainWindow.vala:387
 msgid "Write a new Document"
 msgstr "Escribir un nuevo documento"
 
-#: src/MainWindow.vala:400
+#: src/MainWindow.vala:401
 msgid "Open Document"
 msgstr "Abrir documento"
 
-#: src/MainWindow.vala:440
+#: src/MainWindow.vala:441
 msgid "Exit focus mode"
 msgstr "Salir del modo concentración"
 
-#: src/MainWindow.vala:515
-msgid "Open"
-msgstr "Abrir"
-
-#: src/MainWindow.vala:728
+#: src/MainWindow.vala:699
 msgid "Edit"
 msgstr "Editar"
 
-#: src/MainWindow.vala:730 src/Widgets/Preferences.vala:282
+#: src/MainWindow.vala:701 src/Widgets/Preferences.vala:282
 #: src/Widgets/Preferences.vala:285
 msgid "Preview"
 msgstr "Vista Previa"
 
-#: src/MainWindow.vala:921
+#: src/MainWindow.vala:763
+#, fuzzy, c-format
+msgid "New Document-%d.md"
+msgstr "Nuevo documento"
+
+#: src/MainWindow.vala:835
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:926
+#: src/MainWindow.vala:840
 msgid "Focus on your writing."
 msgstr "Concéntrate en tu escritura."
 
-#: src/MainWindow.vala:931
+#: src/MainWindow.vala:845
 msgid "translator-credits"
 msgstr "Óscar Fernández Díaz"
 
@@ -71,104 +68,109 @@ msgstr "Óscar Fernández Díaz"
 msgid "Create a new document"
 msgstr "Crear un nuevo documento"
 
-#: src/Widgets/HeaderBar.vala:68
+#: src/Widgets/HeaderBar.vala:67
 msgid "Choose another folder"
 msgstr "Elige otra carpeta"
 
-#: src/Widgets/HeaderBar.vala:73
+#: src/Widgets/HeaderBar.vala:72
 msgid "Open a document"
 msgstr "Abrir un documento"
 
-#: src/Widgets/HeaderBar.vala:76
+#: src/Widgets/HeaderBar.vala:73
+msgid "Open"
+msgstr "Abrir"
+
+#: src/Widgets/HeaderBar.vala:77
+#, fuzzy
+msgid "Save document"
+msgstr "Nuevo documento"
+
+#: src/Widgets/HeaderBar.vala:86
 msgid "Search and replace text"
 msgstr "Buscar y reemplazar texto"
 
-#: src/Widgets/HeaderBar.vala:93
+#: src/Widgets/HeaderBar.vala:103
 msgid "Export to PDF…"
 msgstr "Exportar a PDF…"
 
-#: src/Widgets/HeaderBar.vala:97
+#: src/Widgets/HeaderBar.vala:107
 msgid "Export to HTML…"
 msgstr "Exportar a HTML…"
 
-#: src/Widgets/HeaderBar.vala:101
+#: src/Widgets/HeaderBar.vala:111
 msgid "Markdown Cheatsheet"
 msgstr "Uso de Markdown"
 
-#: src/Widgets/HeaderBar.vala:105 src/Widgets/Preferences.vala:25
+#: src/Widgets/HeaderBar.vala:115 src/Widgets/Preferences.vala:25
 msgid "Preferences"
 msgstr "Preferencias"
 
-#: src/Widgets/HeaderBar.vala:111 src/Widgets/Preferences.vala:158
+#: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:158
 msgid "Light Mode"
 msgstr "Modo claro"
 
-#: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:168
+#: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:168
 msgid "Sepia Mode"
 msgstr "Modo sepia"
 
-#: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:178
+#: src/Widgets/HeaderBar.vala:141 src/Widgets/Preferences.vala:178
 msgid "Dark Mode"
 msgstr "Modo oscuro"
 
-#: src/Widgets/HeaderBar.vala:166
+#: src/Widgets/HeaderBar.vala:176
 msgid "Focus Mode…"
 msgstr "Modo concentración…"
 
-#: src/Widgets/HeaderBar.vala:175
+#: src/Widgets/HeaderBar.vala:185
 msgid "Toggle View…"
 msgstr "Alternar vista…"
 
 #. _("Full-Width\nFull Editor, change with switcher")
-#: src/Widgets/HeaderBar.vala:190
+#: src/Widgets/HeaderBar.vala:200
 msgid "Full-Width"
 msgstr "Anchura completa"
 
-#: src/Widgets/HeaderBar.vala:192
+#: src/Widgets/HeaderBar.vala:202
 msgid "Editor or Preview, change on the menu."
 msgstr "Editor o Vista Previa, cambiar en el menú."
 
-#: src/Widgets/HeaderBar.vala:211
+#: src/Widgets/HeaderBar.vala:221
 msgid "Half-Width"
 msgstr "Anchura media"
 
-#: src/Widgets/HeaderBar.vala:215
+#: src/Widgets/HeaderBar.vala:225
 msgid "Editor & Preview, divided equally."
 msgstr "Editor y Vista Previa, divididos a partes iguales."
 
-#: src/Widgets/HeaderBar.vala:269
+#: src/Widgets/HeaderBar.vala:279
 msgid "Change layout of editor and preview"
 msgstr "Cambiar el diseño del editor y la vista previa"
 
-#: src/Widgets/HeaderBar.vala:288
+#: src/Widgets/HeaderBar.vala:298
 msgid "About Quilter"
 msgstr "Acerca de Quilter"
 
-#: src/Widgets/HeaderBar.vala:295
+#: src/Widgets/HeaderBar.vala:305
 msgid "Keyboard Shortcuts"
 msgstr "Atajos de teclado"
 
-#: src/Widgets/HeaderBar.vala:328
+#: src/Widgets/HeaderBar.vala:338
 msgid "Settings"
 msgstr "Configuración"
 
-#: src/Widgets/HeaderBar.vala:374
-msgid "Recent Files"
-msgstr "Archivos recientes"
-
-#: src/Widgets/HeaderBar.vala:389
+#: src/Widgets/HeaderBar.vala:353
 msgid "Rename"
 msgstr "Renombrar"
 
-#: src/Widgets/HeaderBar.vala:412
+#: src/Widgets/HeaderBar.vala:376
 msgid "Rename the File:"
 msgstr "Renombrar el archivo:"
 
-#: src/Widgets/HeaderBar.vala:430
+#: src/Widgets/HeaderBar.vala:394
 msgid "Rename File"
 msgstr "Renombrar archivo"
 
-#: src/Widgets/HeaderBar.vala:433
+#: src/Widgets/HeaderBar.vala:397
 msgid "new_name.md"
 msgstr "nuevo_nombre.md"
 
@@ -328,8 +330,7 @@ msgstr "Gráficos Mermaid.js"
 
 #: src/Widgets/Preferences.vala:361
 msgid "Text inside Mermaid blocks will become graphs."
-msgstr ""
-"El texto dentro de los bloques de Mermaid se convertirán en gráficos."
+msgstr "El texto dentro de los bloques de Mermaid se convertirán en gráficos."
 
 #: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
@@ -370,10 +371,6 @@ msgstr "Archivos"
 #: src/Widgets/SideBar.vala:78
 msgid "Outline"
 msgstr "Descripción"
-
-#: src/Widgets/SideBar.vala:222
-msgid "No Documents Open"
-msgstr "No hay documentos abiertos"
 
 #: src/Widgets/SideBarBox.vala:38
 msgid "New File"
@@ -494,3 +491,9 @@ msgstr "Abrir un archivo"
 #: src/Services/FileManager.vala:102
 msgid "Save file"
 msgstr "Guardar el archivo"
+
+#~ msgid "Recent Files"
+#~ msgstr "Archivos recientes"
+
+#~ msgid "No Documents Open"
+#~ msgstr "No hay documentos abiertos"
