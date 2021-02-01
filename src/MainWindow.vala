@@ -415,12 +415,15 @@ namespace Quilter {
             welcome_view.attach (welcome_new_button, 0, 2);
             welcome_view.attach (welcome_open_button, 0, 3);
 
+            var welcome_view_handler = new Hdy.WindowHandle ();
+            welcome_view_handler.add (welcome_view);
+
             sidebar = new Widgets.SideBar (this, edit_view_content);
             sidebar.save_as.connect (() => on_save_as ());
 
             win_stack = new Gtk.Stack ();
             win_stack.get_style_context ().add_class ("quilter-normal-view");
-            win_stack.add_named (welcome_view, "welcome");
+            win_stack.add_named (welcome_view_handler, "welcome");
             win_stack.add_named (main_stack, "doc");
 
             actions = new SimpleActionGroup ();
@@ -463,10 +466,10 @@ namespace Quilter {
             grid.add (sidebar);
             grid.add (sep);
             grid.add (main_leaf);
-            grid.transition_type = Hdy.LeafletTransitionType.UNDER;
             grid.show_all ();
             grid.can_swipe_back = true;
             grid.set_visible_child (main_leaf);
+            grid.child_set_property (sep, "navigatable", false);
 
             update ();
             change_layout.begin ();
@@ -667,18 +670,6 @@ namespace Quilter {
                 stack.set_visible_child (preview_view_content);
             } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
                 stack.set_visible_child (overlay_editor);
-            }
-
-            if (Quilter.Application.gsettings.get_boolean ("sidebar") == false) {
-                titlebar.set_decoration_layout (":close");
-            } else {
-                if (!Quilter.Application.gsettings.get_boolean("header")) {
-                    // On Mobile size, so.... have to have no buttons anywhere.
-                    titlebar.set_decoration_layout (":");
-                } else {
-                    // Else you're on Desktop size, so business as usual.
-                    titlebar.set_decoration_layout (":close");
-                }
             }
 
             var edit_view_context = edit_view.get_style_context ();

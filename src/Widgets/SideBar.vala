@@ -92,7 +92,7 @@ namespace Quilter.Widgets {
             header.has_subtitle = false;
             header.set_title (null);
             header.set_custom_title (stackswitcher);
-            header.set_size_request (200,-1);
+            header.set_size_request (250,-1);
 
             var main_grid = new Gtk.Grid ();
             main_grid.orientation = Gtk.Orientation.VERTICAL;

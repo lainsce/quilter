@@ -90,6 +90,16 @@
 
 .quilter-sidebar-box {
     color: @theme_fg_color;
+    margin: 6px;
+    margin-bottom: 0px;
+    border-radius: 8px;
+    padding: 2px;
+}
+
+.quilter-sidebar-box grid {
+    margin-left: 6px;
+    margin-right: 12px;
+    margin: 2px;
 }
 
 .quilter-sidebar-box button {
