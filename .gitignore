@@ -1,4 +1,5 @@
 build/
+_build/
 ~*
 *~
 debian/com.github.lainsce.quilter.debhelper.log
