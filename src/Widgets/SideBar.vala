@@ -64,7 +64,7 @@ namespace Quilter.Widgets {
             scrolled_box.max_content_height = 500;
             scrolled_box.propagate_natural_height = true;
 
-            no_files = new Gtk.Label (_("No files…"));
+            no_files = new Gtk.Label (_("No Files…"));
             no_files.halign = Gtk.Align.CENTER;
             var no_files_style_context = no_files.get_style_context ();
             no_files_style_context.add_class ("title-2");

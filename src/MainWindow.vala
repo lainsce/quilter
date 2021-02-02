@@ -384,7 +384,7 @@ namespace Quilter {
             main_stack.add_named (box, "paned");
 
             // Welcome View
-            var welcome_title = new Gtk.Label (_("Write a new Document"));
+            var welcome_title = new Gtk.Label (_("Write a New Document"));
             welcome_title.get_style_context ().add_class ("title-1");
             welcome_title.margin_bottom = 24;
 
@@ -831,6 +831,7 @@ namespace Quilter {
                                    "comments", _("Focus on your writing."),
                                    "copyright", COPYRIGHT,
                                    "authors", AUTHORS,
+                                   "artists", null,
                                    "license-type", Gtk.License.GPL_3_0,
                                    "wrap-license", false,
                                    "translator-credits", _("translator-credits"),

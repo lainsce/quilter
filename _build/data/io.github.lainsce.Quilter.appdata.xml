@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.lainsce.Quilter</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Quilter</name>
+  <name xml:lang="eo">Quilter</name>
+  <name xml:lang="ru">Quilter</name>
+  <name xml:lang="da">Quilter</name>
+  <name xml:lang="pt_BR">Quilter</name>
+  <name xml:lang="pl">Quilter</name>
+  <name xml:lang="nl">Quilter</name>
+  <name xml:lang="lt">Quilter</name>
+  <name xml:lang="ja">Quilter</name>
+  <name xml:lang="it">Quilter</name>
+  <name xml:lang="fr">Quilter</name>
+  <name xml:lang="es">Quilter</name>
+  <name xml:lang="de">Quilter</name>
+  <name xml:lang="ca">Quilter</name>
+  <summary>Focus on your writing</summary>
+  <summary xml:lang="eo">Fokusiĝi je via redaktado</summary>
+  <summary xml:lang="ru">Сфокусируйтесь на письме</summary>
+  <summary xml:lang="da">Fokuser på din skrivning</summary>
+  <summary xml:lang="pl">Skup się na pisaniu</summary>
+  <summary xml:lang="nl">Focus op schrijven</summary>
+  <summary xml:lang="ja">書くことに集中します</summary>
+  <summary xml:lang="fr">Concentrez-vous sur votre écriture</summary>
+  <description>
+    <p>Focus on your writing and write beautiful solid stories with the Focus Mode in tow in this Markdown editor</p>
+    <p xml:lang="eo">Fokusiĝi je sia redaktado kaj skribu belajn, samkonsistajn verkojn akompane per la Fokusa Reĝimo en ĉi Markdown-redaktilo</p>
+    <p xml:lang="ru">Сфокусируйтесь на письме и пишите красивые солидные истории с помощью режима фокусировки  в этом редакторе Markdown</p>
+    <p xml:lang="da">Fokuser på din skrivning og skriv smukke dybdegående historier med fokus temaet i samarbejde med denne Markdown editor</p>
+    <p xml:lang="pl">Skup się na swoim pisaniu i pisz piękne, solidne opowieści w Trybie Skupienia z pomocą tego edytora Markdown.</p>
+    <p xml:lang="nl">Focus op het schrijven van je tekst en schrijf prachtige verhalen met de focusmodus in deze Markdown-bewerker</p>
+    <p xml:lang="ja">この Markdown エディターに備わっている集中モードを使って、書くことに集中して、美しくしっかりした文章を書きましょう</p>
+    <p xml:lang="fr">Concentrez-vous sur votre écriture et écrivez de belles histoires solides avec le mode Concentration dans cet éditeur Markdown</p>
+    <ul>
+      <li>Work on a story, one file displayed at a time, many files sidebar'd.</li>
+      <li xml:lang="pl">Pracuj nad opowieścią, jeden plik na raz, wiele na pasku bocznym.</li>
+      <li xml:lang="nl">Schrijf een verhaal - Eén bestand tegelijk - Meerdere bestanden in de wachtrij in de zijbalk.</li>
+      <li xml:lang="ja">文章を書きましょう。一度に 1 ファイルが表示され、それ以外のファイルはサイドバーに表示されます。</li>
+      <li xml:lang="fr">Travaillez sur une histoire, un fichier affiché à la fois, plusieurs fichiers dans la barre latérale.</li>
+      <li>Save your documents anywhere, even on existing files.</li>
+      <li xml:lang="eo">Konservi viajn dokumentojn ie ajn, eĉ anstataŭ jam ekzistantaj.</li>
+      <li xml:lang="ru">Сохраняйте документы везде, даже в существующих файлах.</li>
+      <li xml:lang="da">Gem dine dokumenter hvor som helst, selv i eksisterende filer.</li>
+      <li xml:lang="pl">Zapisuj swoje dokumenty gdziekolwiek, nawet na istniejących plikach.</li>
+      <li xml:lang="nl">Sla je documenten overal op en overschrijf evt. bestaande bestanden.</li>
+      <li xml:lang="ja">文書をお好きな場所に保存しましょう。既存のファイルの上書きもできます。</li>
+      <li xml:lang="fr">Sauvegardez vos documents n'importe où, même sur des fichiers existants.</li>
+      <li>Preview your story in the Preview Mode.</li>
+      <li xml:lang="eo">Antaŭvidi vian verkon per la antaŭrigardan reĝimon.</li>
+      <li xml:lang="ru">Посмотрите на вашу историю заранее в режиме предпросмотра.</li>
+      <li xml:lang="da">Forhåndsvis din historie i forhåndsvisningstilstand.</li>
+      <li xml:lang="pl">Podejrzyj swoją opowieść w trybie Podglądu.</li>
+      <li xml:lang="nl">Bekijk hoe je verhaal eruit komt te zien in de voorbeeldmodus.</li>
+      <li xml:lang="ja">プレビューモードで文章をプレビューしましょう。</li>
+      <li xml:lang="fr">Prévisualisez votre histoire en mode Prévisualisation.</li>
+      <li>Configure whether to have Focus Mode or not.</li>
+      <li xml:lang="eo">Agordi ĉu ŝalti la Fokusan reĝimon.</li>
+      <li xml:lang="ru">Возможность включить или выключить режим фокуса.</li>
+      <li xml:lang="da">Konfigurer om du vil have fokus tilstand eller ikke.</li>
+      <li xml:lang="pl">Skonfiguruj, czy chcesz mieć Tryb Skupienia, czy nie.</li>
+      <li xml:lang="nl">Stel in of je focusmodus wilt in- of uitschakelen.</li>
+      <li xml:lang="ja">集中モードを使うかどうかを設定しましょう。</li>
+      <li xml:lang="fr">Configurez si le mode Concentration doit être activé ou non.</li>
+      <li>Configure whether to have Dark Mode or not.</li>
+      <li xml:lang="eo">Agordi ĉu ŝalti la malhelan fasadon.</li>
+      <li xml:lang="ru">Возможность включить или выключить темную тему.</li>
+      <li xml:lang="da">Konfigurer om du vil have mørk tilstand eller ikke.</li>
+      <li xml:lang="pl">Skonfiguruj, czy chcesz mieć tryb Ciemny, czy nie.</li>
+      <li xml:lang="nl">Stel in of je donkere modus wilt in- of uitschakelen.</li>
+      <li xml:lang="ja">ダークモードを使うかどうかを設定しましょう。</li>
+      <li xml:lang="fr">Configurez si le mode sombre doit être activé ou non.</li>
+      <li>Configure whether to have Sepia Mode or not.</li>
+      <li xml:lang="eo">Agordi ĉu ŝalti la sepian fasadon.</li>
+      <li xml:lang="ru">Возможность включить или выключить тему Сепия</li>
+      <li xml:lang="da">Konfigurer om du vil have sepia tilstand eller ikke.</li>
+      <li xml:lang="pl">Skonfiguruj, czy chcesz mieć tryb Sepii, czy nie.</li>
+      <li xml:lang="nl">Stel in of je sepiamodus wilt in- of uitschakelen.</li>
+      <li xml:lang="ja">セピアモードを使うかどうかを設定しましょう。</li>
+      <li xml:lang="fr">Configurez si le mode sepia doit être activé ou non.</li>
+      <li>Fullscreen your writing area with F11.</li>
+      <li xml:lang="eo">Plenekranigo de la redaktujo per F11.</li>
+      <li xml:lang="ru">Раскройте приложение на весь экран по клавише F11</li>
+      <li xml:lang="da">Gør skriveområdet til fuld skærm med F11.</li>
+      <li xml:lang="pl">Pisz w trybie pełnoekranowym dzięki F11.</li>
+      <li xml:lang="nl">Schakel beeldvullende modus in met F11.</li>
+      <li xml:lang="ja">文章の表示領域を F11 キーで全画面表示にできます。</li>
+      <li xml:lang="fr">Affichez votre zone d'écriture en plein écran avec F11.</li>
+      <li>Search anytime with the shortcut Ctrl + F</li>
+      <li xml:lang="eo">Serĉi kiam ajn per la fulmklavo Stir+F</li>
+      <li xml:lang="ru">Поиск в любой момент с помощью сочетания Ctrl + F</li>
+      <li xml:lang="da">Søg på ethvert tidspunkt med genvejen Ctrl + F</li>
+      <li xml:lang="pl">Przeszukuj kiedy chcesz skrótem Ctrl + F.</li>
+      <li xml:lang="nl">Zoek ten allen tijde met Ctrl + F</li>
+      <li xml:lang="ja">ショートカット Ctrl + F で、いつでも検索できます</li>
+      <li xml:lang="fr">Recherchez à tout moment avec le raccourci Ctrl + F</li>
+      <li>Quit anytime with the shortcut Ctrl + Q</li>
+      <li xml:lang="eo">Eliri kiam ajn per la fulmklavo Stir+Q</li>
+      <li xml:lang="ru">Выйти в любой момент с помощью сочетания Ctrl + Q</li>
+      <li xml:lang="da">Luk på ethvert tidspunkt med genvejen Ctrl + Q</li>
+      <li xml:lang="pl">Zamknij aplikację kiedy chcesz skrótem Ctrl + Q.</li>
+      <li xml:lang="nl">Sluit ten allen tijde af met Ctrl + Q</li>
+      <li xml:lang="ja">ショートカット Ctrl + Q で、いつでも終了できます</li>
+      <li xml:lang="fr">Quittez à tout moment avec le raccourci Ctrl + Q</li>
+    </ul>
+  </description>
+  <provides>
+    <binary>io.github.lainsce.Quilter</binary>
+  </provides>
+  <developer_name>Lains</developer_name>
+  <developer_name xml:lang="eo">Lains</developer_name>
+  <developer_name xml:lang="ru">Lains</developer_name>
+  <developer_name xml:lang="da">Lains</developer_name>
+  <developer_name xml:lang="pl">Lains</developer_name>
+  <developer_name xml:lang="nl">Lains</developer_name>
+  <developer_name xml:lang="ja">Lains</developer_name>
+  <developer_name xml:lang="fr">Lains</developer_name>
+  <url type="homepage">https://github.com/lainsce/quilter/</url>
+  <url type="bugtracker">https://github.com/lainsce/quilter/issues</url>
+  <url type="donation">https://liberapay.com/Lains/</url>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">none</content_attribute>
+    <content_attribute id="violence-fantasy">none</content_attribute>
+    <content_attribute id="violence-realistic">none</content_attribute>
+    <content_attribute id="violence-bloodshed">none</content_attribute>
+    <content_attribute id="violence-sexual">none</content_attribute>
+    <content_attribute id="violence-desecration">none</content_attribute>
+    <content_attribute id="violence-slavery">none</content_attribute>
+    <content_attribute id="violence-worship">none</content_attribute>
+    <content_attribute id="drugs-alcohol">none</content_attribute>
+    <content_attribute id="drugs-narcotics">none</content_attribute>
+    <content_attribute id="drugs-tobacco">none</content_attribute>
+    <content_attribute id="sex-nudity">none</content_attribute>
+    <content_attribute id="sex-themes">none</content_attribute>
+    <content_attribute id="sex-homosexuality">none</content_attribute>
+    <content_attribute id="sex-prostitution">none</content_attribute>
+    <content_attribute id="sex-adultery">none</content_attribute>
+    <content_attribute id="sex-appearance">none</content_attribute>
+    <content_attribute id="language-profanity">none</content_attribute>
+    <content_attribute id="language-humor">none</content_attribute>
+    <content_attribute id="language-discrimination">none</content_attribute>
+    <content_attribute id="social-chat">none</content_attribute>
+    <content_attribute id="social-info">none</content_attribute>
+    <content_attribute id="social-audio">none</content_attribute>
+    <content_attribute id="social-location">none</content_attribute>
+    <content_attribute id="social-contacts">none</content_attribute>
+    <content_attribute id="money-purchasing">none</content_attribute>
+    <content_attribute id="money-gambling">none</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="3.1.6" date="2021-02-01">
+      <description>
+        <p>Release: Three-One-Six</p>
+        <ul>
+          <li>Minor UI fixes all 'round.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.1.4" date="2021-01-25">
+      <description>
+        <p>Release: Mhmm, Pi Flavor</p>
+        <ul>
+          <li>Fix: Focus Mode exit big button styling</li>
+          <li>Fix: Save As button inside the rename popover is now the correct size</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.1.4" date="2021-01-24">
+      <description>
+        <p>Release: Mhmm, Pi Flavor</p>
+        <ul>
+          <li>Fix: Headerbar contents shouldn't jump around wherever possible while mid-window-resizing</li>
+          <li>Fix: When autosave is off, show a save button in the headerbar</li>
+          <li>Fix: Sidebar boxes should be smarter and not kill other documents</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.1.2" date="2021-01-24">
+      <description>
+        <p>Release: First Day Patch</p>
+        <ul>
+          <li>Fix: New Button shouldn't make the title have the cache file path.</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.1.0" date="2021-01-24">
+      <description>
+        <p>Release: 1-Up the App</p>
+        <ul>
+          <li>Add: Keyboard Shortcuts</li>
+          <li>Change: Markdown Cheatsheet looks better</li>
+          <li>Change: Icon small rework</li>
+        </ul>
+      </description>
+    </release>
+    <release version="3.0.0" date="2021-01-20">
+      <description>
+        <p>Release: Hello, Flatpak!</p>
+        <ul>
+          <li>Add: Respects global dark mode</li>
+          <li>Add: New Quilt Zwei font</li>
+          <li>Add: Part of Speech highlighter (BETA)</li>
+          <li>Add: Center or not Preview Headers (h1 to h3)</li>
+          <li>Add: Click on Outline headers to scroll to them</li>
+          <li>Change: Export options now live in the Cog menu</li>
+          <li>Change: Preferences &amp; Cheatsheet now have a new intuitive look</li>
+          <li>Change: Preferences Extensions tab becomes Preview tab, with Preview View settings</li>
+          <li>Change: Preferences tabs were re-organized</li>
+          <li>Move: Preview font selection to Preferences</li>
+          <li>Move: Statusbar to below Editor only</li>
+          <li>Fix: Sidebar close buttons should hide if the file is not selected</li>
+          <li>Fix: Spellchecking styling</li>
+          <li>Fix: Sync scrolling now uses less Processor &amp; RAM</li>
+          <li>Fix: Exported PDF margins</li>
+          <li>Fix: Many minor backend fixes</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Welcome</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/welcome.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Light Mode</caption>
+      <caption xml:lang="eo">Hela kolorskemo</caption>
+      <caption xml:lang="ru">Светлая тема</caption>
+      <caption xml:lang="da">Lys tilstand</caption>
+      <caption xml:lang="pt_BR">Modo Claro</caption>
+      <caption xml:lang="pl">Jasny</caption>
+      <caption xml:lang="nl">Lichte modus</caption>
+      <caption xml:lang="lt">Šviesi veiksena</caption>
+      <caption xml:lang="ja">ライトモード</caption>
+      <caption xml:lang="fr">Thème clair</caption>
+      <caption xml:lang="es">Modo claro</caption>
+      <caption xml:lang="ca">Mode clar</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Sepia Mode</caption>
+      <caption xml:lang="eo">Sepia kolorskemo</caption>
+      <caption xml:lang="ru">Сепия</caption>
+      <caption xml:lang="da">Sepia tilstand</caption>
+      <caption xml:lang="pt_BR">Modo Sépia</caption>
+      <caption xml:lang="pl">Sepia</caption>
+      <caption xml:lang="nl">Sepiamodus</caption>
+      <caption xml:lang="lt">Sepijos veiksena</caption>
+      <caption xml:lang="ja">セピアモード</caption>
+      <caption xml:lang="it">Tema scuro</caption>
+      <caption xml:lang="fr">Thème sepia</caption>
+      <caption xml:lang="es">Modo sepia</caption>
+      <caption xml:lang="de">Dunkler Modus</caption>
+      <caption xml:lang="ca">Mode sèpia</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-sepia.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Dark Mode</caption>
+      <caption xml:lang="eo">Malhela kolorskemo</caption>
+      <caption xml:lang="ru">Темная тема</caption>
+      <caption xml:lang="da">Mørk tilstand</caption>
+      <caption xml:lang="pt_BR">Modo Escuro</caption>
+      <caption xml:lang="pl">Ciemny</caption>
+      <caption xml:lang="nl">Donkere modus</caption>
+      <caption xml:lang="lt">Tamsi veiksena</caption>
+      <caption xml:lang="ja">ダークモード</caption>
+      <caption xml:lang="it">Tema scuro</caption>
+      <caption xml:lang="fr">Thème sombre</caption>
+      <caption xml:lang="es">Modo oscuro</caption>
+      <caption xml:lang="de">Dunkler Modus</caption>
+      <caption xml:lang="ca">Mode fosc</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-dark.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Focus Mode</caption>
+      <caption xml:lang="eo">Fokusa reĝimo</caption>
+      <caption xml:lang="ru">Режим фокуса</caption>
+      <caption xml:lang="da">Fokus tilstand </caption>
+      <caption xml:lang="pt_BR">Modo Foco</caption>
+      <caption xml:lang="pl">Tryb Skupienia</caption>
+      <caption xml:lang="nl">Focusmodus</caption>
+      <caption xml:lang="lt">Įjungti susitelkimo veikseną:</caption>
+      <caption xml:lang="ja">集中モード</caption>
+      <caption xml:lang="it">Modalità focus</caption>
+      <caption xml:lang="fr">Mode zen</caption>
+      <caption xml:lang="es">Modo de concentración</caption>
+      <caption xml:lang="de">Fokus Modus</caption>
+      <caption xml:lang="ca">Mode de concentració</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-focused.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Preview Mode</caption>
+      <caption xml:lang="eo">Antaŭrigarda reĝimo</caption>
+      <caption xml:lang="ru">Режим предпросмотра</caption>
+      <caption xml:lang="da">Forhåndsvisnings tilstand</caption>
+      <caption xml:lang="pt_BR">Prévia</caption>
+      <caption xml:lang="pl">Podgląd</caption>
+      <caption xml:lang="nl">Voorbeeldmodus</caption>
+      <caption xml:lang="lt">Peržiūra</caption>
+      <caption xml:lang="ja">プレビューモード</caption>
+      <caption xml:lang="it">Anteprima</caption>
+      <caption xml:lang="fr">Mode Aperçu</caption>
+      <caption xml:lang="es">Previsualización</caption>
+      <caption xml:lang="de">Vorschau</caption>
+      <caption xml:lang="ca">Previsualitza</caption>
+      <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
+    </screenshot>
+  </screenshots>
+</component>

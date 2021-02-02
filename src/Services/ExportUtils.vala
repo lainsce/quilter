@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017-2020 Lains
+ * Copyright (C) 2017-2021 Lains
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -139,7 +139,7 @@ namespace Quilter.Services.ExportUtils {
         string accept_button_label = "";
         List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
 
-        title =  _("Select destination PDF file");
+        title =  _("Select Destination PDF File");
         chooser_action = Gtk.FileChooserAction.SAVE;
         accept_button_label = _("Save");
 
@@ -188,7 +188,7 @@ namespace Quilter.Services.ExportUtils {
         string accept_button_label = "";
         List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
 
-        title =  _("Select destination HTML file");
+        title =  _("Select Destination HTML File");
         chooser_action = Gtk.FileChooserAction.SAVE;
         accept_button_label = _("Save");
 

@@ -86,7 +86,7 @@ namespace Quilter.Services.FileManager {
 
     public static string open (out string contents) {
         try {
-            var chooser = Services.DialogUtils.create_file_chooser (_("Open file"),
+            var chooser = Services.DialogUtils.create_file_chooser (_("Open File"),
                     Gtk.FileChooserAction.OPEN);
             if (chooser.run () == Gtk.ResponseType.ACCEPT)
                 file = chooser.get_file ();
@@ -99,7 +99,7 @@ namespace Quilter.Services.FileManager {
     }
 
     public void save_as (string contents, out string path) throws Error {
-        var chooser = Services.DialogUtils.create_file_chooser (_("Save file"),
+        var chooser = Services.DialogUtils.create_file_chooser (_("Save File"),
                 Gtk.FileChooserAction.SAVE);
         if (chooser.run () == Gtk.ResponseType.ACCEPT)
             file = chooser.get_file ();

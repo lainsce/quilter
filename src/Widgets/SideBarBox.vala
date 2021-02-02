@@ -81,7 +81,7 @@ namespace Quilter.Widgets {
             file_remove_button.always_show_image = true;
             file_remove_button.valign = Gtk.Align.CENTER;
             file_remove_button.halign = Gtk.Align.CENTER;
-            file_remove_button.tooltip_text = _("Remove File from Sidebar");
+            file_remove_button.tooltip_text = _("Remove file from sidebar");
             var file_remove_button_style_context = file_remove_button.get_style_context ();
             file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
             file_remove_button_style_context.add_class ("quilter-sidebar-button");

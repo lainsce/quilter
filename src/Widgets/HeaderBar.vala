@@ -199,7 +199,7 @@ namespace Quilter.Widgets {
             //_("Full-Width\nFull Editor, change with switcher")
             var preview_full_label_title = new Gtk.Label (_("Full-Width"));
             preview_full_label_title.halign = Gtk.Align.START;
-            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change on the menu."));
+            var preview_full_label_subtitle = new Gtk.Label (_("Editor or Preview, change via menu."));
             preview_full_label_subtitle.halign = Gtk.Align.START;
             preview_full_label_subtitle.sensitive = false;
             var preview_full_icon = new Gtk.Image.from_icon_name ("full-width-symbolic", Gtk.IconSize.BUTTON);
@@ -222,7 +222,7 @@ namespace Quilter.Widgets {
             preview_half_label_title.halign = Gtk.Align.START;
             var preview_half_label_title_context = preview_half_label_title.get_style_context ();
             preview_half_label_title_context.add_class ("bold");
-            var preview_half_label_subtitle = new Gtk.Label (_("Editor & Preview, divided equally."));
+            var preview_half_label_subtitle = new Gtk.Label (_("Editor and Preview, divided equally."));
             preview_half_label_subtitle.halign = Gtk.Align.START;
             preview_half_label_subtitle.sensitive = false;
             var preview_half_icon = new Gtk.Image.from_icon_name ("half-width-symbolic", Gtk.IconSize.BUTTON);
@@ -373,7 +373,7 @@ namespace Quilter.Widgets {
                 }
             });
 
-            var rename_label = new Gtk.Label (_("Rename the File:"));
+            var rename_label = new Gtk.Label (_("Rename File:"));
             rename_label.get_style_context ().add_class ("dim-label");
 
             var samenu_grid = new Gtk.Grid ();

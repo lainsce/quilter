@@ -34,7 +34,7 @@ namespace Quilter.Services.DialogUtils {
         public Dialog () {
             Object (
                 text: _("Save Open File?"),
-                secondary_text: _("There are unsaved changes to the file. If you don't save, changes will be lost forever.")
+                secondary_text: _("There are unsaved changes to the file, any changes will be lost if not saved.")
             );
         }
         construct {
@@ -49,8 +49,8 @@ namespace Quilter.Services.DialogUtils {
         public MainWindow win;
         public Dialog2 () {
             Object (
-                text: _("Remove File from Sidebar?"),
-                secondary_text: _("By removing this file from the Sidebar, you will lose any changes made if not saved. Otherwise, it will only be removed.")
+                text: _("Remove File From Sidebar?"),
+                secondary_text: _("By removing this file from the Sidebar, any changes will be lost if not saved.")
             );
         }
         construct {

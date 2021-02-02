@@ -350,7 +350,7 @@ namespace Quilter.Widgets {
 
             var latex_row = new Hdy.ActionRow ();
             latex_row.set_title (_("LaTeX Math"));
-            latex_row.set_subtitle (_("Text inside LaTeX math blocks will be processed into LaTeX output."));
+            latex_row.set_subtitle (_("LaTeX math blocks will be processed into LaTeX output."));
 
             var latex = new SettingsSwitch ("latex");
 
@@ -358,7 +358,7 @@ namespace Quilter.Widgets {
 
             var mermaid_row = new Hdy.ActionRow ();
             mermaid_row.set_title (_("Mermaid.js Graph"));
-            mermaid_row.set_subtitle (_("Text inside Mermaid blocks will become graphs."));
+            mermaid_row.set_subtitle (_("Mermaid blocks will become graphs."));
 
             var mermaid = new SettingsSwitch ("mermaid");
 

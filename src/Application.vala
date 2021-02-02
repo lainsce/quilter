@@ -104,9 +104,9 @@ namespace Quilter {
                                 string reason = "";
                                 // We list some common errors for quick feedback
                                 if (e is FileError.ACCES) {
-                                    reason = ("Maybe you do not have the necessary permissions.");
+                                    reason = ("Does not have the necessary permissions.");
                                 } else if (e is FileError.NOENT) {
-                                    reason = ("Maybe the file path provided is not valid.");
+                                    reason = ("File path provided is not valid.");
                                 } else if (e is FileError.ROFS) {
                                     reason = ("The location is read-only.");
                                 } else if (e is FileError.NOTDIR) {
