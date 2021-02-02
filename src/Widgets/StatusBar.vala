@@ -37,9 +37,6 @@ namespace Quilter {
             this.valign = Gtk.Align.END;
             actionbar = new Gtk.ActionBar ();
 
-            var sb_context = actionbar.get_style_context ();
-            sb_context.add_class ("statusbar");
-
 	        track_words = new Gtk.RadioButton.with_label (null, _("Words"));
 	        track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
@@ -76,10 +73,25 @@ namespace Quilter {
             track_type_menu.popover = track_type_menu_pop;
             track_type_menu.label = "";
 
-            var menu_context = track_type_menu.get_style_context ();
-            menu_context.add_class ("quilter-menu");
-            menu_context.add_class (Gtk.STYLE_CLASS_FLAT);
+            var sidebar_toggler = new Gtk.ToggleButton ();
 
+            if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
+            } else {
+                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
+                } else {
+                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
+                }
+            });
+
+            Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
+
+            actionbar.pack_start (sidebar_toggler);
             actionbar.pack_end (track_type_menu);
 
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
@@ -92,7 +104,7 @@ namespace Quilter {
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             this.add (actionbar);
-            this.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
+            this.reveal_child = true;
         }
 
         public void update_wordcount () {

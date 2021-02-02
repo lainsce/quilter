@@ -23,14 +23,6 @@
     color: #F0E8DD;
 }
 
-.statusbar box {
-    border: 1px solid transparent;
-}
-
-.quilter-menu {
-    border: 1px solid alpha (black, 0.25);
-}
-
 .quilter-focus-button {
     -gtk-icon-shadow: none;
     min-width: 24px;
@@ -71,7 +63,13 @@
 }
 
 .mini-circular-button {
-    padding: 4px;
+    padding: 5px;
+    border-radius: 9999px;
+    -gtk-outline-radius: 9999px;
+}
+
+.tiny-circular-button {
+    padding: 0px;
     border-radius: 9999px;
     -gtk-outline-radius: 9999px;
 }
@@ -88,12 +86,24 @@
     text-shadow: none;
 }
 
+.quilter-sidebar > scrolledwindow > viewport > box {
+    border-right: 1px solid alpha(black, 0.25);
+}
+
+.quilter-sidebar:dir-rtl > scrolledwindow > viewport > box {
+    border-left: 1px solid alpha(black, 0.25);
+}
+
+.quilter-sidebar:backdrop > scrolledwindow > viewport > box {
+    border-right: 1px solid alpha(black, 0.1);
+}
+
+.quilter-sidebar:dir-rtl:backdrop > scrolledwindow > viewport > box {
+    border-left: 1px solid alpha(black, 0.1);
+}
+
 .quilter-sidebar-box {
     color: @theme_fg_color;
-    margin: 6px;
-    margin-bottom: 0px;
-    border-radius: 8px;
-    padding: 2px;
 }
 
 .quilter-sidebar-box grid {
@@ -104,6 +114,14 @@
 
 .quilter-sidebar-box button {
     color: @theme_fg_color;
+}
+
+.quilter-sidebar-box:focus button,
+.quilter-sidebar-box:selected button,
+.quilter-sidebar-box:active button,
+.quilter-sidebar-box:hover button {
+    background: @theme_base_color;
+    border: 1px solid alpha(black, 0.25);
 }
 
 .quilter-sidebar-box:focus,
@@ -118,10 +136,6 @@
 .quilter-sidebar-box:focus:backdrop,
 .quilter-sidebar-box:hover:backdrop  {
     background: alpha(shade(@theme_base_color, 0.88), 0.88);
-}
-
-.quilter-menu {
-    background: shade(@theme_base_color, 1.04);
 }
 
 .quilter-flat-title {

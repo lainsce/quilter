@@ -56,6 +56,14 @@
         <content_attribute id="money-gambling">none</content_attribute>
     </content_rating>
     <releases>
+        <release version="3.2.0" date="2021-02-02">
+         <description>
+            <p>Release: Sidebar Sapience</p>
+            <ul>
+                <li>Change: Sidebar has a new UI</li>
+            </ul>
+            </description>
+        </release>
         <release version="3.1.6" date="2021-02-01">
          <description>
             <p>Release: Three-One-Six</p>
