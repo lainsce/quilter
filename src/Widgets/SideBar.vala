@@ -38,6 +38,7 @@ namespace Quilter.Widgets {
         public Hdy.ViewSwitcher stackswitcher;
         public Gtk.ScrolledWindow scrolled_box;
         public Hdy.HeaderBar header;
+        private GLib.MatchInfo match;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool is_modified {get; set; default = false;}
@@ -94,8 +95,16 @@ namespace Quilter.Widgets {
                     GLib.FileUtils.get_contents (row.path, out text);
                     Quilter.Application.gsettings.set_string("current-file", row.path);
 
-                    win.titlebar.samenu_button.title = Path.get_basename(row.path);
-                    win.titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~");
+                    if (Services.FileManager.is_temp_file (row.path)) {
+                        win.titlebar.samenu_button.title = (_("New Document"));
+                        win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+                        row.set_title (_("New File"));
+                    } else {
+                        win.titlebar.samenu_button.title = Path.get_basename(row.path);
+                        win.titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~")
+                                                                      .replace(Path.get_basename(row.path), "");
+                        row.set_title (Path.get_basename(row.path));
+                    }
 
                     if (win.edit_view_content.modified) {
                         Services.FileManager.save_file (row.path, text);
@@ -208,14 +217,23 @@ namespace Quilter.Widgets {
                     try {
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
-                        GLib.MatchInfo match;
                         var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
                         if (reg.match (buffer, 0, out match)) {
                             do {
                                 if (match.fetch_named ("header") == "#") {
                                     store.insert (out root, null, -1);
                                     store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                    get_selected_row ().title = match.fetch_named ("header") + " " + match.fetch_named ("text");
+                                    for (int i = 0; i <= rows.length; i++) {
+                                        if (Services.FileManager.is_temp_file (file.get_path ())) {
+                                            rows[i].subtitle = _("No Header");
+                                        } else {
+                                            if (rows[i].path == file.get_path ()) {
+                                                rows[i].subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
+                                            } else if (rows[i] == get_selected_row ()) {
+                                                rows[i].subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
+                                            }
+                                        }
+                                    }
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
                                     store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
@@ -254,8 +272,22 @@ namespace Quilter.Widgets {
             column.insert (filebox, 1);
             column.select_row (filebox);
 
-            win.titlebar.samenu_button.title = Path.get_basename(file);
-            win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~");
+            if (Services.FileManager.is_temp_file (file)) {
+                win.titlebar.samenu_button.title = (_("New Document"));
+                win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+                filebox.set_title (_("New File"));
+            } else {
+                win.titlebar.samenu_button.title = Path.get_basename(file);
+                win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~")
+                                                          .replace(Path.get_basename(file), "");
+                filebox.set_title (Path.get_basename(file));
+            }
+
+            if (store != null && view != null) {
+                store.clear ();
+                outline_populate ();
+                view.expand_all ();
+            }
 
             return filebox;
         }

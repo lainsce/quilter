@@ -1,10 +1,14 @@
-.color-button radio,
-.color-button radio:checked {
+.circular {
+    -gtk-outline-radius: 9999px;
+}
+
+.circular radio,
+.circular radio:checked {
     padding: 10px;
     -gtk-icon-shadow: none;
 }
 
-.color-button radio:focus {
+.circular radio:focus {
     border-color: @theme_selected_bg_color;
 }
 
@@ -90,7 +94,7 @@
     border-right: 1px solid alpha(black, 0.25);
 }
 
-.quilter-sidebar:dir-rtl > scrolledwindow > viewport > box {
+.quilter-sidebar:dir(rtl) > scrolledwindow > viewport > box {
     border-left: 1px solid alpha(black, 0.25);
 }
 
@@ -98,7 +102,7 @@
     border-right: 1px solid alpha(black, 0.1);
 }
 
-.quilter-sidebar:dir-rtl:backdrop > scrolledwindow > viewport > box {
+.quilter-sidebar:dir(rtl):backdrop > scrolledwindow > viewport > box {
     border-left: 1px solid alpha(black, 0.1);
 }
 

@@ -17,12 +17,9 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class SideBarBox : Gtk.ListBoxRow {
-        private Gtk.Label file_label;
-        private Gtk.Label file_name_label;
+    public class SideBarBox : Hdy.ActionRow {
         public EditView ev;
         public Gtk.Button file_remove_button;
-        public Gtk.Grid file_grid;
         public MainWindow win;
         public int uid;
         private static int uid_counter;
@@ -34,24 +31,16 @@ namespace Quilter.Widgets {
             }
             set {
                 _path = value;
-                if (Services.FileManager.is_temp_file (_path)) {
-                    file_name_label.label = _("New File");
-                } else {
-                    file_name_label.label = Path.get_basename (_path);
-                }
             }
         }
 
-        public string? title {
+        private string? _header;
+        public new string? header {
             owned get {
-                return file_label.label;
+                return _header;
             }
             set {
-                if (Services.FileManager.is_temp_file (_path)) {
-                    file_label.label = _("No header…");
-                } else {
-                    file_label.label = value;
-                }
+                _header = value;
             }
         }
 
@@ -64,18 +53,8 @@ namespace Quilter.Widgets {
             var sbr_context = this.get_style_context ();
             sbr_context.add_class ("quilter-sidebar-box");
 
-            file_name_label = new Gtk.Label ("");
-            file_name_label.halign = Gtk.Align.START;
-            file_name_label.hexpand = true;
-            file_name_label.ellipsize = Pango.EllipsizeMode.END;
-            file_name_label.get_style_context ().add_class ("title");
-
-            file_label = new Gtk.Label ("");
-            file_label.halign = Gtk.Align.START;
-            file_label.ellipsize = Pango.EllipsizeMode.START;
-            file_label.get_style_context ().add_class ("subtitle");
-
             var file_icon = new Gtk.Image.from_icon_name ("markdown-symbolic", Gtk.IconSize.BUTTON);
+            this.add_prefix (file_icon);
 
             file_remove_button = new Gtk.Button ();
             file_remove_button.always_show_image = true;
@@ -89,30 +68,15 @@ namespace Quilter.Widgets {
             file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
 
             file_remove_button.clicked.connect (() => {
-                if (win.sidebar.column.get_children () == null) {
-                    ((Widgets.SideBarBox) win.sidebar.column.get_selected_row ()).destroy ();
-                    win.edit_view_content.buffer.text = "";
-                    win.edit_view_content.modified = false;
-                    win.sidebar.store.clear ();
-                    win.save_last_files ();
-                    win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index (this.uid - 1)));
-                }
+                this.dispose ();
+                win.edit_view_content.buffer.text = "";
+                win.edit_view_content.modified = false;
+                win.save_last_files ();
+                win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
+                win.sidebar.store.clear ();
             });
 
-            var file_labels_box = new Gtk.Box (Gtk.Orientation.VERTICAL, 3);
-            var flb_context = file_labels_box.get_style_context ();
-            flb_context.add_class ("quilter-flb");
-            file_labels_box.pack_start (file_name_label);
-            file_labels_box.pack_start (file_label);
-
-            file_grid = new Gtk.Grid ();
-            file_grid.column_spacing = 12;
-            file_grid.margin = 6;
-            file_grid.attach (file_icon, 0, 0, 1, 1);
-            file_grid.attach (file_labels_box, 1, 0, 1, 1);
-            file_grid.attach (file_remove_button, 2, 0, 1, 1);
-
-            this.add (file_grid);
+            this.add (file_remove_button);
             this.show_all ();
             this.path = path;
         }

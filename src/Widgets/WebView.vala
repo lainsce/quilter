@@ -85,23 +85,23 @@ namespace Quilter {
 
         private string set_font_stylesheet () {
             if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/serif.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/serif.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/sans.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/sans.css";
             } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/mono.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/mono.css";
             }
 
-            return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/font/serif.css";
+            return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
             } else {
                 return "";
             }
@@ -110,7 +110,7 @@ namespace Quilter {
 
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
+                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -123,7 +123,7 @@ namespace Quilter {
 
         private string set_center_headers () {
             if (Quilter.Application.gsettings.get_boolean("center-headers")) {
-                return Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
+                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
             } else {
                 return "";
             }
@@ -131,9 +131,9 @@ namespace Quilter {
 
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean("latex")) {
-                string katex_main = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/katex.css";
-                string katex_js = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/katex.js";
-                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/katex/render.js";
+                string katex_main = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/katex.css";
+                string katex_js = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/katex.js";
+                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -147,7 +147,7 @@ namespace Quilter {
 
         private string set_mermaid () {
             if (Quilter.Application.gsettings.get_boolean("mermaid")) {
-                string render = Environment.get_user_data_dir () + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
+                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
                 string mermaid = """
                     <script src="%s"></script>
                     <script>

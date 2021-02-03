@@ -153,7 +153,8 @@ namespace Quilter {
                 titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
             } else {
                 titlebar.samenu_button.title = Path.get_basename(path);
-                titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~");
+                titlebar.samenu_button.subtitle = path.replace(GLib.Environment.get_home_dir (), "~")
+                                                      .replace(Path.get_basename (path), "");
             }
 
             on_settings_changed.begin ();
@@ -183,15 +184,6 @@ namespace Quilter {
             eadj = edit_view.get_vadjustment ();
             eadj.notify["value"].connect (() => {
                 scroll_to ();
-            });
-
-            edit_view_content.buffer.changed.connect (() => {
-                render_func ();
-                update_count ();
-                scroll_to ();
-                sidebar.store.clear ();
-                sidebar.outline_populate ();
-                sidebar.view.expand_all ();
             });
 
             key_press_event.connect ((e) => {
@@ -359,6 +351,19 @@ namespace Quilter {
             edit_view_content.save.connect (on_save);
             edit_view.add (edit_view_content);
 
+            edit_view_content.buffer.changed.connect (() => {
+                edit_view_content.modified = true;
+                if (Quilter.Application.gsettings.get_boolean("pos")) {
+                    edit_view_content.pos_syntax_start ();
+                }
+                render_func ();
+                update_count ();
+                scroll_to ();
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
+            });
+
             preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view_content.vexpand = true;
 
@@ -515,11 +520,11 @@ namespace Quilter {
             }
         }
         private void action_toggle_view () {
-            if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == false) {
+            if (!Quilter.Application.gsettings.get_boolean ("full-width-changed")) {
                 stack.set_visible_child (preview_view_content);
                 Quilter.Application.gsettings.set_boolean ("full-width-changed", true);
-            } else if (Quilter.Application.gsettings.get_boolean ("full-width-changed") == true) {
-                stack.set_visible_child (overlay_editor);
+            } else {
+                stack.set_visible_child (edit_view);
                 Quilter.Application.gsettings.set_boolean ("full-width-changed", false);
             }
         }
@@ -614,9 +619,9 @@ namespace Quilter {
                 widget_unparent (preview_view_content);
 
                 stack.add_titled (edit_view, "overlay_editor", _("Edit"));
-                stack.child_set_property (edit_view, "icon-name", "text-x-generic-symbolic");
                 stack.add_titled (preview_view_content, "preview_view", _("Preview"));
-                stack.child_set_property (preview_view_content, "icon-name", "view-reveal-symbolic");
+                stack.set_visible_child (edit_view);
+                stack.transition_type = Gtk.StackTransitionType.SLIDE_LEFT_RIGHT;
                 main_stack.set_visible_child (stack);
             } else {
                 widget_unparent (edit_view);
@@ -677,11 +682,12 @@ namespace Quilter {
             var row = sidebar.add_file (Services.FileManager.get_cache_path ());
             titlebar.samenu_button.title = (_("New Document"));
             titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-            row.path = (_("New Document-%d.md").printf(row.uid));
-            row.title = (_("Not Saved Yet"));
+            row.path = (Services.FileManager.get_cache_path ());
+            row.header = (_("Not Saved Yet"));
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
             sidebar.reveal_child = true;
+            sidebar.store.clear ();
             Quilter.Application.gsettings.set_boolean("sidebar", true);
             if (edit_view_content.modified) {
                 dialog.run ();

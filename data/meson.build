@@ -1,6 +1,3 @@
-fs = import('fs')
-configdir = fs.expanduser('~/.local/share/io.github.lainsce.Quilter')
-
 install_data(
     join_paths('icons', '128', 'io.github.lainsce.Quilter.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
@@ -70,34 +67,34 @@ install_data(
 
 install_subdir(
     'plugin/highlight.js',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 install_subdir(
     'plugin/katex',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 install_subdir(
     'plugin/font',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 
 install_subdir(
     'plugin/center_headers',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 
 install_subdir(
     'plugin/mermaid',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 install_subdir(
     'wordlist',
-    install_dir: configdir
+    install_dir: join_paths(get_option('datadir'), meson.project_name())
 )
 
 # Resources
