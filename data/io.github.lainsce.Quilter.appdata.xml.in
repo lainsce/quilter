@@ -135,10 +135,6 @@
     </releases>
     <screenshots>
         <screenshot type="default">
-            <caption>Welcome</caption>
-            <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/welcome.png</image>
-        </screenshot>
-        <screenshot>
             <caption>Light Mode</caption>
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot.png</image>
         </screenshot>
