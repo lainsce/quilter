@@ -49,20 +49,22 @@ namespace Quilter {
         public Widgets.SearchBar searchbar;
         public Widgets.SideBar sidebar;
         public Widgets.StatusBar statusbar;
+        public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_EXPORT_HTML = "action_export_html";
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_FOCUS = "action_focus";
         public const string ACTION_TOGGLE_VIEW = "action_toggle_view";
-        public const string ACTION_PREFIX = "win.";
         public const string ACTION_PREFS = "action_preferences";
         public const string ACTION_ABOUT = "action_about";
+        public const string ACTION_KEYS = "action_keys";
         public static Gee.MultiMap<string, string> action_accelerators = new Gee.HashMultiMap<string, string> ();
         public weak Quilter.Application app { get; construct; }
 
         private const GLib.ActionEntry[] ACTION_ENTRIES = {
             { ACTION_CHEATSHEET, action_cheatsheet },
             { ACTION_PREFS, action_preferences },
+            { ACTION_KEYS, action_keys },
             { ACTION_FOCUS, action_focus },
             { ACTION_TOGGLE_VIEW, action_toggle_view },
             { ACTION_EXPORT_PDF, action_export_pdf },
@@ -322,15 +324,9 @@ namespace Quilter {
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Quilter/app-main-stylesheet.css");
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-            var provider2 = new Gtk.CssProvider ();
-            provider2.load_from_resource ("/io/github/lainsce/Quilter/app-font-stylesheet.css");
-            Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider2, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider3 = new Gtk.CssProvider ();
 
-            titlebar = new Widgets.Headerbar (this) {
-                has_subtitle = false,
-                hexpand = true
-            };
+            titlebar = new Widgets.Headerbar (this);
             titlebar.open.connect (on_open);
             titlebar.save.connect (on_save);
             titlebar.save_as.connect (on_save_as);
@@ -745,6 +741,18 @@ namespace Quilter {
                 } catch (Error e) {
                     warning ("Unexpected error during save: " + e.message);
                 }
+            }
+        }
+
+        public void action_keys () {
+            try {
+                var build = new Gtk.Builder ();
+                build.add_from_resource ("/io/github/lainsce/Quilter/shortcuts.ui");
+                var window =  (Gtk.ApplicationWindow) build.get_object ("shortcuts-quilter");
+                window.set_transient_for (this);
+                window.show_all ();
+            } catch (Error e) {
+                warning ("Failed to open shortcuts window: %s\n", e.message);
             }
         }
 

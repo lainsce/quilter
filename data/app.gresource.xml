@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/io/github/lainsce/Quilter">
-        <file alias="app-main-stylesheet.css" compressed="true">styles/app-main-stylesheet.css</file>
-        <file alias="app-font-stylesheet.css" compressed="true">styles/app-font-stylesheet.css</file>
+      <!-- CSS file -->
+      <file alias="app-main-stylesheet.css" compressed="true">styles/app-main-stylesheet.css</file>
 
-        <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
-        <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
-        <file alias="paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
-        <file alias="sentence-focus-symbolic.svg">icons/symbolic/sentence-focus-symbolic.svg</file>
-        <file alias="full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
-        <file alias="half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
-        <file alias="edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
-        <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
+      <!-- Custom Icon files -->
+      <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
+      <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
+      <file alias="paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
+      <file alias="sentence-focus-symbolic.svg">icons/symbolic/sentence-focus-symbolic.svg</file>
+      <file alias="full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
+      <file alias="half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
+      <file alias="edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
+      <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
 
-        <file alias="welcome.png">assets/welcome.png</file>
-        <file alias="header_button.ui">ui/header_button.ui</file>
-        <file alias="shortcuts.ui">ui/shortcuts.ui</file>
-        <file alias="cheatsheet.ui">ui/cheatsheet.ui</file>
+      <!-- UI files -->
+      <file alias="header_button.ui">ui/header_button.ui</file>
+      <file alias="shortcuts.ui">ui/shortcuts.ui</file>
+      <file alias="cheatsheet.ui">ui/cheatsheet.ui</file>
+      <file alias="headerbar.ui">ui/headerbar.ui</file>
     </gresource>
 </gresources>

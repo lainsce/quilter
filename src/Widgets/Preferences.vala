@@ -158,7 +158,7 @@ namespace Quilter.Widgets {
             color_button_light.tooltip_text = _("Light Mode");
 
             var color_button_light_context = color_button_light.get_style_context ();
-            color_button_light_context.add_class ("color-button");
+            color_button_light_context.add_class ("circular");
             color_button_light_context.add_class ("color-light");
 
             var color_button_sepia = new Gtk.RadioButton.from_widget (color_button_light);
@@ -168,7 +168,7 @@ namespace Quilter.Widgets {
             color_button_sepia.tooltip_text = _("Sepia Mode");
 
             var color_button_sepia_context = color_button_sepia.get_style_context ();
-            color_button_sepia_context.add_class ("color-button");
+            color_button_sepia_context.add_class ("circular");
             color_button_sepia_context.add_class ("color-sepia");
 
             var color_button_dark = new Gtk.RadioButton.from_widget (color_button_light);
@@ -178,7 +178,7 @@ namespace Quilter.Widgets {
             color_button_dark.tooltip_text = _("Dark Mode");
 
             var color_button_dark_context = color_button_dark.get_style_context ();
-            color_button_dark_context.add_class ("color-button");
+            color_button_dark_context.add_class ("circular");
             color_button_dark_context.add_class ("color-dark");
 
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
