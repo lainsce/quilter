@@ -111,7 +111,6 @@ namespace Quilter.Widgets {
             var title = new Gtk.Label (_("Files"));
             title.get_style_context ().add_class ("heading");
             title.xalign = 0;
-            title.margin_start = 6;
             title.margin_bottom = 6;
 
             files_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
@@ -164,7 +163,6 @@ namespace Quilter.Widgets {
             var title = new Gtk.Label (_("Outline"));
             title.get_style_context ().add_class ("heading");
             title.xalign = 0;
-            title.margin_start = 6;
             title.margin_bottom = 6;
 
             var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
@@ -220,10 +218,10 @@ namespace Quilter.Widgets {
                                     get_selected_row ().title = match.fetch_named ("header") + " " + match.fetch_named ("text");
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
-                                    store.set (subheader, 0, "  " + match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                    store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 } else if (match.fetch_named ("header") == "###") {
                                     store.insert (out section, subheader, -1);
-                                    store.set (section, 0, "    " + match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
+                                    store.set (section, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
                                 }
                             } while (match.next ());
                         }

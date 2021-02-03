@@ -29,8 +29,8 @@ namespace Quilter {
         public Gtk.RadioButton track_rtc;
         public MainWindow window;
 
-        /* Averaged normal reading speed is 200 WPM */
-        int WPM = 200;
+        /* Averaged normal reading speed is 265 WPM */
+        int WPM = 265;
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
@@ -43,7 +43,7 @@ namespace Quilter {
 	            update_wordcount ();
 	        });
 
-	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_words, _("Lines"));
+	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_words, _("Sentences"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
 	            update_linecount ();
@@ -96,10 +96,13 @@ namespace Quilter {
 
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 update_wordcount ();
+                track_words.set_active (true);
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
                 update_linecount ();
+                track_lines.set_active (true);
             } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
                 update_readtimecount ();
+                track_rtc.set_active (true);
             }
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
@@ -114,23 +117,36 @@ namespace Quilter {
 
         public void update_linecount () {
             var lc = get_count();
-            track_type_menu.set_label ((_("Lines: ")) + lc.lines.to_string());
+            track_type_menu.set_label ((_("Sentences: ")) + lc.lines.to_string());
         }
 
         public void update_readtimecount () {
             var rtc = get_count();
-            float rt = (rtc.words / WPM);
-            print ("%f", rt);
+            double rt = Math.round((rtc.words / WPM));
 		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
         }
 
         public WordCount get_count() {
-    		Gtk.TextIter start, end;
+            Gtk.TextIter start, end;
             buf.get_bounds (out start, out end);
-            var lines = buf.get_line_count ();
+            var buffer = buf.get_text (start, end, false);
+            int i = 0;
+            try {
+                GLib.MatchInfo match;
+                var reg = new Regex("(?m)(?<header>\\.)");
+                if (reg.match (buffer, 0, out match)) {
+                    do {
+                        i++;
+                    } while (match.next ());
+                }
+            } catch (Error e) {
+                warning (e.message);
+            }
+
+            var lines = i;
             var words = buf.get_text (start, end, false).split(" ").length;
 
-    		return new WordCount(words, lines);
+            return new WordCount(words, lines);
     	}
     }
 
