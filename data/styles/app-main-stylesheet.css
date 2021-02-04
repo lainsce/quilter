@@ -122,19 +122,19 @@
     text-shadow: none;
 }
 
-.quilter-sidebar > scrolledwindow > viewport > box {
+.quilter-sidebar {
     border-right: 1px solid alpha(black, 0.25);
 }
 
-.quilter-sidebar:dir(rtl) > scrolledwindow > viewport > box {
+.quilter-sidebar:dir(rtl) {
     border-left: 1px solid alpha(black, 0.25);
 }
 
-.quilter-sidebar:backdrop > scrolledwindow > viewport > box {
+.quilter-sidebar:backdrop {
     border-right: 1px solid alpha(black, 0.1);
 }
 
-.quilter-sidebar:dir(rtl):backdrop > scrolledwindow > viewport > box {
+.quilter-sidebar:dir(rtl):backdrop {
     border-left: 1px solid alpha(black, 0.1);
 }
 
@@ -150,14 +150,17 @@
 
 .quilter-sidebar-box button {
     color: @theme_fg_color;
+    box-shadow: none;
+    border: none;
+    -gtk-icon-shadow: none;
 }
-
 .quilter-sidebar-box:focus button,
 .quilter-sidebar-box:selected button,
-.quilter-sidebar-box:active button,
+.quilter-sidebar-box:active button {
+    background: alpha(black, 0.2);
+}
 .quilter-sidebar-box:hover button {
-    background: @theme_base_color;
-    border: 1px solid alpha(black, 0.25);
+    background: alpha(@theme_fg_color, 0.15);
 }
 
 .quilter-sidebar-box:focus,

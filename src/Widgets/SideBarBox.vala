@@ -17,12 +17,16 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
+    [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebarbox.ui")]
     public class SideBarBox : Hdy.ActionRow {
+        public signal void clicked ();
         public EditView ev;
-        public Gtk.Button file_remove_button;
         public MainWindow win;
         public int uid;
         private static int uid_counter;
+
+        [GtkChild]
+        public Gtk.Button file_remove_button;
 
         private string? _path;
         public new string? path {
@@ -49,23 +53,8 @@ namespace Quilter.Widgets {
         public SideBarBox (MainWindow win, string? path) {
             this.win = win;
             this.uid = uid_counter++;
-            this.activatable = true;
-            var sbr_context = this.get_style_context ();
-            sbr_context.add_class ("quilter-sidebar-box");
-
-            var file_icon = new Gtk.Image.from_icon_name ("markdown-symbolic", Gtk.IconSize.BUTTON);
-            this.add_prefix (file_icon);
-
-            file_remove_button = new Gtk.Button ();
-            file_remove_button.always_show_image = true;
-            file_remove_button.valign = Gtk.Align.CENTER;
-            file_remove_button.halign = Gtk.Align.CENTER;
-            file_remove_button.tooltip_text = _("Remove file from sidebar");
-            var file_remove_button_style_context = file_remove_button.get_style_context ();
-            file_remove_button_style_context.add_class (Gtk.STYLE_CLASS_FLAT);
-            file_remove_button_style_context.add_class ("quilter-sidebar-button");
-            file_remove_button_style_context.add_class ("tiny-circular-button");
-            file_remove_button.set_image (new Gtk.Image.from_icon_name ("window-close-symbolic", Gtk.IconSize.BUTTON));
+            this.path = path;
+            this.show_all ();
 
             file_remove_button.clicked.connect (() => {
                 this.dispose ();
@@ -75,10 +64,6 @@ namespace Quilter.Widgets {
                 win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
                 win.sidebar.store.clear ();
             });
-
-            this.add (file_remove_button);
-            this.show_all ();
-            this.path = path;
         }
     }
 }

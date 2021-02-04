@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <requires lib="libhandy" version="1.0"/>
+  <template class="QuilterWidgetsSideBarBox" parent="HdyActionRow">
+    <property name="title" bind-source="QuilterWidgetsSideBarBox" bind-property="path" bind-flags="sync-create"/>
+    <property name="subtitle" bind-source="QuilterWidgetsSideBarBox" bind-property="header" bind-flags="sync-create"/>
+    <child type="prefix">
+      <object class="GtkImage">
+        <property name="icon-name">markdown-symbolic</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkButton" id="file_remove_button">
+        <property name="tooltip-text" translatable="yes">Remove file from sidebar</property>
+        <property name="valign">center</property>
+        <child>
+          <object class="GtkImage">
+            <property name="icon-name">window-close-symbolic</property>
+          </object>
+        </child>
+        <style>
+          <class name="image-button"/>
+          <class name="flat"/>
+          <class name="tiny-circular-button"/>
+          <class name="quilter-sidebar-button"/>
+        </style>
+      </object>
+    </child>
+    <style>
+      <class name="quilter-sidebar-box"/>
+    </style>
+  </template>
+</interface>

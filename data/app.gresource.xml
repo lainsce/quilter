@@ -19,5 +19,7 @@
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="cheatsheet.ui">ui/cheatsheet.ui</file>
       <file alias="headerbar.ui">ui/headerbar.ui</file>
+      <file alias="sidebar.ui">ui/sidebar.ui</file>
+      <file alias="sidebarbox.ui">ui/sidebarbox.ui</file>
     </gresource>
 </gresources>

@@ -17,31 +17,30 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
+    [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebar.ui")]
     public class SideBar : Gtk.Revealer {
-        public Gtk.ListBox column;
         private Widgets.SideBarBox[] rows;
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
         public Widgets.SearchBar seb;
         public MainWindow win;
-        public Gtk.Box files_grid;
-        public Gtk.Box outline_grid;
-        public Gtk.Box box;
         public Gtk.TreeStore store;
-        public Gtk.TreeView view;
         public Gtk.TreeSelection selection;
         public Gtk.CellRendererText crt;
         private Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
-        public Hdy.ViewSwitcher stackswitcher;
-        public Gtk.ScrolledWindow scrolled_box;
-        public Hdy.HeaderBar header;
         private GLib.MatchInfo match;
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool is_modified {get; set; default = false;}
+
+        [GtkChild]
+        public Gtk.ListBox column;
+
+        [GtkChild]
+        public Gtk.TreeView view;
 
         public signal void save_as ();
 
@@ -59,25 +58,14 @@ namespace Quilter.Widgets {
             this.ev = ev;
             this.is_modified = false;
 
-            scrolled_box = new Gtk.ScrolledWindow (null, null);
-            scrolled_box.hscrollbar_policy = Gtk.PolicyType.NEVER;
-            scrolled_box.max_content_height = 500;
-            scrolled_box.propagate_natural_height = true;
-            scrolled_box.set_size_request(260, -1);
-
-            box = new Gtk.Box (Gtk.Orientation.VERTICAL, 12);
-            box.add (sidebar_files_list ());
-            box.add (sidebar_outline ());
-
-            scrolled_box.add (box);
-            add (scrolled_box);
+            sidebar_files_list ();
+            sidebar_outline ();
 
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
 
-        public Gtk.Widget sidebar_files_list () {
-            column = new Gtk.ListBox ();
+        public void sidebar_files_list () {
             column.hexpand = true;
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
@@ -116,40 +104,18 @@ namespace Quilter.Widgets {
                     warning ("Unexpected error during selection: " + e.message);
                 }
             });
-
-            var title = new Gtk.Label (_("Files"));
-            title.get_style_context ().add_class ("heading");
-            title.xalign = 0;
-            title.margin_bottom = 6;
-
-            files_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            files_grid.margin = 12;
-            files_grid.add (title);
-            files_grid.add (column);
-            files_grid.show_all ();
-            return files_grid;
         }
 
-        public Gtk.Widget sidebar_outline () {
-            view = new Gtk.TreeView ();
-            view.hexpand = true;
-            view.headers_visible = false;
-            view.show_expanders = false;
-            view.activate_on_single_click = true;
+        public void sidebar_outline () {
             view.get_style_context ().remove_class ("view");
-
             crt = new Gtk.CellRendererText ();
             crt.ellipsize = Pango.EllipsizeMode.END;
-
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
-
             store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
-
             store.clear ();
             outline_populate ();
             view.expand_all ();
-
             selection = view.get_selection ();
             selection.set_mode (Gtk.SelectionMode.SINGLE);
 
@@ -168,25 +134,6 @@ namespace Quilter.Widgets {
 				}
 				return false;
             });
-
-            var title = new Gtk.Label (_("Outline"));
-            title.get_style_context ().add_class ("heading");
-            title.xalign = 0;
-            title.margin_bottom = 6;
-
-            var sep = new Gtk.Separator (Gtk.Orientation.HORIZONTAL);
-            sep.margin_bottom = 6;
-
-            outline_grid = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
-            outline_grid.hexpand = false;
-            outline_grid.vexpand = true;
-            outline_grid.margin = 12;
-            outline_grid.add (title);
-            outline_grid.add (sep);
-            outline_grid.add (view);
-            outline_grid.show_all ();
-
-            return outline_grid;
         }
 
         public void selchanged (Gtk.TreeSelection row) {

@@ -713,7 +713,6 @@ namespace Quilter {
             save_last_files ();
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
-            sidebar.reveal_child = true;
             Quilter.Application.gsettings.set_boolean("sidebar", true);
         }
 
