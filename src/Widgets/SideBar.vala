@@ -61,6 +61,7 @@ namespace Quilter.Widgets {
             sidebar_files_list ();
             sidebar_outline ();
 
+            this.get_style_context ().add_class ("sidebar");
             this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
             this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
         }
@@ -170,17 +171,7 @@ namespace Quilter.Widgets {
                                 if (match.fetch_named ("header") == "#") {
                                     store.insert (out root, null, -1);
                                     store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                    for (int i = 0; i <= rows.length; i++) {
-                                        if (Services.FileManager.is_temp_file (file.get_path ())) {
-                                            rows[i].subtitle = _("No Header");
-                                        } else {
-                                            if (rows[i].path == file.get_path ()) {
-                                                rows[i].subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
-                                            } else if (rows[i] == get_selected_row ()) {
-                                                rows[i].subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
-                                            }
-                                        }
-                                    }
+                                    get_selected_row ().subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
                                     store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);

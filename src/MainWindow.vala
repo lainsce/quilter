@@ -413,11 +413,15 @@ namespace Quilter {
             overlay_button_dragger.add(focus_overlay_button);
             overlay_button_revealer.add (overlay_button_dragger);
 
+            var sep = new Gtk.Separator (Gtk.Orientation.VERTICAL);
+            sep.get_style_context ().add_class ("sidebar");
+
             var main_view = new Gtk.Grid ();
             main_view.attach (sidebar, 0, 0, 1, 2);
-            main_view.attach (searchbar, 1, 0, 1, 1);
-            main_view.attach (win_stack, 1, 1, 1, 1);
-            main_view.attach (statusbar, 0, 2, 2, 1);
+            main_view.attach (sep, 1, 0, 1, 2);
+            main_view.attach (searchbar, 2, 0, 1, 1);
+            main_view.attach (win_stack, 2, 1, 1, 1);
+            main_view.attach (statusbar, 0, 3, 3, 1);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (titlebar_revealer);

@@ -122,22 +122,6 @@
     text-shadow: none;
 }
 
-.quilter-sidebar {
-    border-right: 1px solid alpha(black, 0.25);
-}
-
-.quilter-sidebar:dir(rtl) {
-    border-left: 1px solid alpha(black, 0.25);
-}
-
-.quilter-sidebar:backdrop {
-    border-right: 1px solid alpha(black, 0.1);
-}
-
-.quilter-sidebar:dir(rtl):backdrop {
-    border-left: 1px solid alpha(black, 0.1);
-}
-
 .quilter-sidebar-box {
     color: @theme_fg_color;
 }
@@ -175,9 +159,4 @@
 .quilter-sidebar-box:focus:backdrop,
 .quilter-sidebar-box:hover:backdrop  {
     background: alpha(shade(@theme_base_color, 0.88), 0.88);
-}
-
-.quilter-flat-title {
-    background: none;
-    border: none;
 }
