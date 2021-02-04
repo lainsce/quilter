@@ -165,15 +165,12 @@ namespace Quilter {
             });
             
             if (sidebar.column.get_children () == null) {
-                win_stack.set_visible_child_name ("welcome");
-                titlebar_stack.set_visible_child_name ("welcome-title");
                 sidebar.reveal_child = false;
                 Quilter.Application.gsettings.set_boolean("sidebar", false);
             } else {
-                win_stack.set_visible_child_name ("doc");
-                titlebar_stack.set_visible_child_name ("title");
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
+                on_create_new ();
             }
 
             spell = new GtkSpell.Checker ();
