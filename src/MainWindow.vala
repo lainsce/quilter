@@ -167,10 +167,10 @@ namespace Quilter {
             if (sidebar.column.get_children () == null) {
                 sidebar.reveal_child = false;
                 Quilter.Application.gsettings.set_boolean("sidebar", false);
+                on_create_new ();
             } else {
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
-                on_create_new ();
             }
 
             spell = new GtkSpell.Checker ();
