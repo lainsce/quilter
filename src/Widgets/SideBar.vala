@@ -83,6 +83,9 @@ namespace Quilter.Widgets {
                     string text = "";
                     GLib.FileUtils.get_contents (row.path, out text);
                     Quilter.Application.gsettings.set_string("current-file", row.path);
+                    store.clear ();
+                    outline_populate ();
+                    view.expand_all ();
 
                     if (Services.FileManager.is_temp_file (row.path)) {
                         win.titlebar.samenu_button.title = (_("New Document"));
