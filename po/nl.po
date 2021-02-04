@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-24 23:45-0300\n"
-"PO-Revision-Date: 2020-12-19 13:23+0100\n"
+"PO-Revision-Date: 2021-02-04 17:52+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
 "Language: nl_NL\n"
@@ -24,18 +24,16 @@ msgstr "Nieuw document"
 
 #: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
 msgid "Not Saved Yet"
-msgstr ""
+msgstr "Nog niet opgeslagen"
 
 #. Welcome View
 #: src/MainWindow.vala:387
-#, fuzzy
 msgid "Write a new Document"
-msgstr "Nieuw document"
+msgstr "Nieuw document maken"
 
 #: src/MainWindow.vala:401
-#, fuzzy
 msgid "Open Document"
-msgstr "Nieuw document"
+msgstr "Document openen"
 
 #: src/MainWindow.vala:441
 msgid "Exit focus mode"
@@ -51,58 +49,53 @@ msgid "Preview"
 msgstr "Voorbeeld"
 
 #: src/MainWindow.vala:763
-#, fuzzy, c-format
+#, c-format
 msgid "New Document-%d.md"
-msgstr "Nieuw document"
+msgstr "Nieuw document-%d.md"
 
 #: src/MainWindow.vala:835
-#, fuzzy
 msgid "Quilter"
-msgstr "Quilt Vier"
+msgstr "Quilter"
 
 #: src/MainWindow.vala:840
 msgid "Focus on your writing."
-msgstr ""
+msgstr "Focus op je schrijfsels."
 
 #: src/MainWindow.vala:845
 msgid "translator-credits"
-msgstr ""
+msgstr "Heimen Stoffels"
 
 #: src/Widgets/HeaderBar.vala:62
-#, fuzzy
 msgid "Create a new document"
-msgstr "Nieuw document"
+msgstr "Nieuw document maken"
 
 #: src/Widgets/HeaderBar.vala:67
 msgid "Choose another folder"
-msgstr ""
+msgstr "Kies een andere map"
 
 #: src/Widgets/HeaderBar.vala:72
-#, fuzzy
 msgid "Open a document"
-msgstr "Nieuw document"
+msgstr "Document openen"
 
 #: src/Widgets/HeaderBar.vala:73
 msgid "Open"
 msgstr "Openen"
 
 #: src/Widgets/HeaderBar.vala:77
-#, fuzzy
 msgid "Save document"
-msgstr "Nieuw document"
+msgstr "Document opslaan"
 
 #: src/Widgets/HeaderBar.vala:86
-#, fuzzy
 msgid "Search and replace text"
-msgstr "Volgende zoeken"
+msgstr "Tekst zoeken en vervangen"
 
 #: src/Widgets/HeaderBar.vala:103
 msgid "Export to PDF…"
-msgstr "Exporteren naar PDF…"
+msgstr "Exporteren naar pdf…"
 
 #: src/Widgets/HeaderBar.vala:107
 msgid "Export to HTML…"
-msgstr "Exporteren naar HTML…"
+msgstr "Exporteren naar html…"
 
 #: src/Widgets/HeaderBar.vala:111
 msgid "Markdown Cheatsheet"
@@ -151,16 +144,15 @@ msgstr "De bewerker en voorvertoning naast elkaar."
 
 #: src/Widgets/HeaderBar.vala:279
 msgid "Change layout of editor and preview"
-msgstr ""
+msgstr "Indeling van bewerker en voorvertoning aanpassen"
 
 #: src/Widgets/HeaderBar.vala:298
-#, fuzzy
 msgid "About Quilter"
-msgstr "Quilt Vier"
+msgstr "Over Quilter"
 
 #: src/Widgets/HeaderBar.vala:305
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Sneltoetsen"
 
 #: src/Widgets/HeaderBar.vala:338
 msgid "Settings"
@@ -168,21 +160,19 @@ msgstr "Instellingen"
 
 #: src/Widgets/HeaderBar.vala:353
 msgid "Rename"
-msgstr ""
+msgstr "Naam wijzigen"
 
 #: src/Widgets/HeaderBar.vala:376
-#, fuzzy
 msgid "Rename the File:"
-msgstr "Alle bestanden verwijderen"
+msgstr "Bestandsnaam wijzigen:"
 
 #: src/Widgets/HeaderBar.vala:394
-#, fuzzy
 msgid "Rename File"
-msgstr "Alle bestanden verwijderen"
+msgstr "Bestandsnaam wijzigen"
 
 #: src/Widgets/HeaderBar.vala:397
 msgid "new_name.md"
-msgstr ""
+msgstr "nieuwe_naam.md"
 
 #: src/Widgets/Preferences.vala:52 src/Widgets/Preferences.vala:105
 msgid "Editor"
@@ -190,11 +180,11 @@ msgstr "Bewerker"
 
 #: src/Widgets/Preferences.vala:55
 msgid "Font"
-msgstr ""
+msgstr "Lettertype"
 
 #: src/Widgets/Preferences.vala:58
 msgid "Type"
-msgstr ""
+msgstr "Soort"
 
 #: src/Widgets/Preferences.vala:63
 msgid "Quilt Mono"
@@ -209,25 +199,22 @@ msgid "Quilt Vier"
 msgstr "Quilt Vier"
 
 #: src/Widgets/Preferences.vala:108
-#, fuzzy
 msgid "Autosave Documents"
-msgstr "Nieuw document"
+msgstr "Documenten automatisch opslaan"
 
 #: src/Widgets/Preferences.vala:119
 msgid "Autosave Delay"
-msgstr ""
+msgstr "Tijd tussen automatisch opslaan"
 
 #: src/Widgets/Preferences.vala:120
 msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
+msgstr "Waarden lager dan 15 sec. hebben een negatieve invloed op de schijf."
 
 #: src/Widgets/Preferences.vala:126
-#, fuzzy
 msgid "Highlight Speech Parts (beta)"
-msgstr "Gesproken delen markeren<sup>𝜷</sup>:"
+msgstr "Gesproken delen markeren (bèta)"
 
 #: src/Widgets/Preferences.vala:127
-#, fuzzy
 msgid ""
 "Only available in English.\n"
 "Colors words based on type:\n"
@@ -248,61 +235,51 @@ msgstr ""
 
 #: src/Widgets/Preferences.vala:146
 msgid "General"
-msgstr ""
+msgstr "Algemeen"
 
 #: src/Widgets/Preferences.vala:149
 msgid "Appearance"
-msgstr ""
+msgstr "Uiterlijk"
 
 #: src/Widgets/Preferences.vala:152
-#, fuzzy
 msgid "Visual Mode"
-msgstr "Donkere modus"
+msgstr "Visuele modus"
 
 #: src/Widgets/Preferences.vala:220
-#, fuzzy
 msgid "Interface"
 msgstr "Vormgeving"
 
 #: src/Widgets/Preferences.vala:223
-#, fuzzy
 msgid "Focus Mode"
-msgstr "Focusmodus:"
+msgstr "Focusmodus"
 
 #: src/Widgets/Preferences.vala:229
-#, fuzzy
 msgid "Focus on Paragraph"
-msgstr "Paragraaf"
+msgstr "Focussen op paragraaf"
 
 #: src/Widgets/Preferences.vala:231
-#, fuzzy
 msgid "Focus on Sentence"
-msgstr "Zin"
+msgstr "Focussen op zin"
 
 #: src/Widgets/Preferences.vala:246
-#, fuzzy
 msgid "Focus Scope"
-msgstr "Focusbereik:"
+msgstr "Focusbereik"
 
 #: src/Widgets/Preferences.vala:250
-#, fuzzy
 msgid "Typewriter Scrolling"
-msgstr "Typemachine-achtig scrollen:"
+msgstr "Typemachine-achtig scrollen"
 
 #: src/Widgets/Preferences.vala:257
-#, fuzzy
 msgid "Type Counter"
-msgstr "Teller:"
+msgstr "Teller"
 
 #: src/Widgets/Preferences.vala:263
-#, fuzzy
 msgid "Sidebar"
-msgstr "Zijbalk:"
+msgstr "Zijbalk"
 
 #: src/Widgets/Preferences.vala:288
-#, fuzzy
 msgid "Font Type"
-msgstr "Lettertype:"
+msgstr "Lettertype"
 
 #: src/Widgets/Preferences.vala:294
 msgid "Serif"
@@ -317,43 +294,41 @@ msgid "Monospace"
 msgstr "Vaste breedte"
 
 #: src/Widgets/Preferences.vala:333
-#, fuzzy
 msgid "Header Centering"
-msgstr "Kop"
+msgstr "Kop centreren"
 
 #: src/Widgets/Preferences.vala:334
 msgid "This affects the H1, H2, and H3 type headers."
-msgstr ""
+msgstr "Dit is van toepassing op H1-, H2- en H3-koppen."
 
 #: src/Widgets/Preferences.vala:341
 msgid "Extensions"
 msgstr "Extensies"
 
 #: src/Widgets/Preferences.vala:344
-#, fuzzy
 msgid "Code Highlight"
-msgstr "Codemarkering:"
+msgstr "Codemarkering"
 
 #: src/Widgets/Preferences.vala:345
 msgid "Code blocks will have the contents receive color."
-msgstr ""
+msgstr "De inhoud van codeblokken wordt voorzien van een kleur."
 
 #: src/Widgets/Preferences.vala:352
 msgid "LaTeX Math"
-msgstr ""
+msgstr "LaTeX-wiskunde"
 
 #: src/Widgets/Preferences.vala:353
 msgid "Text inside LaTeX math blocks will be processed into LaTeX output."
 msgstr ""
+"De inhoud van LaTeX-wiskundeblokken wordt verwerkt als LaTeX-uitvoer."
 
 #: src/Widgets/Preferences.vala:360
-#, fuzzy
 msgid "Mermaid.js Graph"
-msgstr "Mermaid.js-grafieken:"
+msgstr "Mermaid.js-grafieken"
 
 #: src/Widgets/Preferences.vala:361
 msgid "Text inside Mermaid blocks will become graphs."
-msgstr ""
+msgstr "De inhoud van Mermaid-blokken wordt omgezet naar grafieken."
 
 #: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
@@ -408,19 +383,16 @@ msgid "Remove File from Sidebar"
 msgstr "Bestand verwijderen uit zijbalk"
 
 #: src/Widgets/StatusBar.vala:43
-#, fuzzy
 msgid "Words"
-msgstr "Aantal woorden: "
+msgstr "Aantal woorden"
 
 #: src/Widgets/StatusBar.vala:49
-#, fuzzy
 msgid "Lines"
-msgstr "Aantal regels: "
+msgstr "Aantal regels"
 
 #: src/Widgets/StatusBar.vala:55
-#, fuzzy
 msgid "Reading Time"
-msgstr "Leestijd: "
+msgstr "Leestijd"
 
 #: src/Widgets/StatusBar.vala:75
 msgid "Set Tracking Type"
@@ -454,7 +426,7 @@ msgstr "Wil je het geopende bestand opslaan?"
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
-msgstr "Als je deze niet opslaat, dan gaan ze permanent verloren."
+msgstr "Als je het niet opslaat, dan gaan de wijzigingen permanent verloren."
 
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
 #: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
@@ -480,7 +452,7 @@ msgid ""
 "not saved. Otherwise, it will only be removed."
 msgstr ""
 "Als je het bestand verwijdert uit de zijbalk, dan gaan niet-opgeslagen "
-"wijzigingen verloren. Anders wordt alleen het bestand verwijderd."
+"wijzigingen verloren - anders wordt alleen het bestand verwijderd."
 
 #: src/Services/DialogUtils.vala:58
 msgid "Remove Without Saving"
@@ -492,7 +464,7 @@ msgstr "Afdrukken naar bestand"
 
 #: src/Services/ExportUtils.vala:142
 msgid "Select destination PDF file"
-msgstr "Kies een bestemming voor het PDF-bestand"
+msgstr "Kies een bestemming voor het pdf-bestand"
 
 #: src/Services/ExportUtils.vala:147
 msgid "PDF File"
@@ -504,7 +476,7 @@ msgstr "Alle bestanden"
 
 #: src/Services/ExportUtils.vala:191
 msgid "Select destination HTML file"
-msgstr "Kies een bestemming voor het HTML-bestand"
+msgstr "Kies een bestemming voor het html-bestand"
 
 #: src/Services/ExportUtils.vala:196
 msgid "HTML File"
