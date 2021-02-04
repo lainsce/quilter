@@ -3,6 +3,7 @@
   <requires lib="gtk+" version="3.24"/>
   <requires lib="libhandy" version="1.0"/>
   <template class="QuilterWidgetsSideBarBox" parent="HdyActionRow">
+    <property name="activatable">1</property>
     <property name="title" bind-source="QuilterWidgetsSideBarBox" bind-property="path" bind-flags="sync-create"/>
     <property name="subtitle" bind-source="QuilterWidgetsSideBarBox" bind-property="header" bind-flags="sync-create"/>
     <child type="prefix">

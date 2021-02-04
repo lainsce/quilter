@@ -168,9 +168,15 @@ namespace Quilter {
                 sidebar.reveal_child = false;
                 Quilter.Application.gsettings.set_boolean("sidebar", false);
                 on_create_new ();
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
             } else {
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
+                sidebar.store.clear ();
+                sidebar.outline_populate ();
+                sidebar.view.expand_all ();
             }
 
             spell = new GtkSpell.Checker ();
@@ -673,14 +679,16 @@ namespace Quilter {
             save_last_files ();
             edit_view_content.text = "";
             var row = sidebar.add_file (Services.FileManager.get_cache_path ());
-            titlebar.samenu_button.title = (_("New Document"));
-            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-            row.path = (Services.FileManager.get_cache_path ());
-            row.header = (_("Not Saved Yet"));
+            sidebar.store.clear ();
+            sidebar.outline_populate ();
+            sidebar.view.expand_all ();
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
+            titlebar.samenu_button.title = (_("New Document"));
+            titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
+            row.path = (_("Document-%d.md".printf(row.uid)));
+            row.header = (_("Not Saved Yet"));
             sidebar.reveal_child = true;
-            sidebar.store.clear ();
             Quilter.Application.gsettings.set_boolean("sidebar", true);
             if (edit_view_content.modified) {
                 dialog.run ();
@@ -711,6 +719,9 @@ namespace Quilter {
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
             Quilter.Application.gsettings.set_boolean("sidebar", true);
+            sidebar.store.clear ();
+            sidebar.outline_populate ();
+            sidebar.view.expand_all ();
         }
 
         public void on_save () {
