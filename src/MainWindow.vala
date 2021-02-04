@@ -119,18 +119,12 @@ namespace Quilter {
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("full-text");
                     buffer_context.remove_class ("small-text");
-                    var sb_context = statusbar.actionbar.get_style_context ();
-                    sb_context.add_class ("full-bar");
-                    sb_context.remove_class ("statusbar");
                     sidebar.reveal_child = false;
                 } else {
                     unfullscreen ();
                     var buffer_context = edit_view_content.get_style_context ();
                     buffer_context.add_class ("small-text");
                     buffer_context.remove_class ("full-text");
-                    var sb_context = statusbar.actionbar.get_style_context ();
-                    sb_context.remove_class ("full-bar");
-                    sb_context.add_class ("statusbar");
                     sidebar.reveal_child = true;
                 }
             }

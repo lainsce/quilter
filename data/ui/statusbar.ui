@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkPopover" id="track_pop">
+    <child>
+      <object class="GtkBox" id="track_box">
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <property name="homogeneous">True</property>
+        <property name="visible">1</property>
+        <child>
+          <object class="GtkRadioButton" id="track_words">
+            <property name="label" translatable="yes">Words</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="track_lines">
+            <property name="label" translatable="yes">Sentences</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">track_words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="track_rtc">
+            <property name="label" translatable="yes">Reading Time</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">track_words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <template class="QuilterWidgetsStatusBar" parent="GtkRevealer">
+    <property name="transition-type">slide_up</property>
+    <child>
+      <object class="GtkActionBar">
+        <child>
+          <object class="GtkToggleButton" id="sidebar_toggler">
+            <child>
+              <object class="GtkImage">
+              </object>
+            </child>
+            <style>
+              <class name="image-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkMenuButton" id="track_type_menu">
+            <property name="popover">track_pop</property>
+            <child>
+              <object class="GtkLabel">
+              </object>
+            </child>
+            <style>
+              <class name="image-button"/>
+            </style>
+          </object>
+          <packing>
+            <property name="pack-type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

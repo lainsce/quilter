@@ -21,5 +21,6 @@
       <file alias="headerbar.ui">ui/headerbar.ui</file>
       <file alias="sidebar.ui">ui/sidebar.ui</file>
       <file alias="sidebarbox.ui">ui/sidebarbox.ui</file>
+      <file alias="statusbar.ui">ui/statusbar.ui</file>
     </gresource>
 </gresources>

@@ -17,16 +17,22 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter {
+    [GtkTemplate (ui = "/io/github/lainsce/Quilter/statusbar.ui")]
     public class Widgets.StatusBar : Gtk.Revealer {
-        public Gtk.ActionBar actionbar;
-        public Gtk.Label linecount_label;
-        public Gtk.Label wordcount_label;
-        public Gtk.MenuButton preview_type_menu;
+        [GtkChild]
+        public Gtk.ToggleButton sidebar_toggler;
+        [GtkChild]
         public Gtk.MenuButton track_type_menu;
-        public Gtk.SourceBuffer buf;
+        [GtkChild]
         public Gtk.RadioButton track_words;
+        [GtkChild]
         public Gtk.RadioButton track_lines;
+        [GtkChild]
         public Gtk.RadioButton track_rtc;
+        [GtkChild]
+        public Gtk.Box track_box;
+
+        public Gtk.SourceBuffer buf;
         public MainWindow window;
 
         /* Averaged normal reading speed is 265 WPM */
@@ -34,46 +40,22 @@ namespace Quilter {
 
         public StatusBar (Gtk.SourceBuffer buf) {
             this.buf = buf;
-            this.valign = Gtk.Align.END;
-            actionbar = new Gtk.ActionBar ();
+            track_box.show_all ();
 
-	        track_words = new Gtk.RadioButton.with_label (null, _("Words"));
 	        track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
 	            update_wordcount ();
 	        });
 
-	        track_lines = new Gtk.RadioButton.with_label_from_widget (track_words, _("Sentences"));
 	        track_lines.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "lines");
 	            update_linecount ();
             });
-            
-            track_rtc = new Gtk.RadioButton.with_label_from_widget (track_words, _("Reading Time"));
+
 	        track_rtc.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "rtc");
 	            update_readtimecount ();
 	        });
-
-            var track_type_grid = new Gtk.Grid ();
-            track_type_grid.margin = 12;
-            track_type_grid.row_spacing = 12;
-            track_type_grid.column_spacing = 12;
-            track_type_grid.orientation = Gtk.Orientation.VERTICAL;
-            track_type_grid.add (track_words);
-            track_type_grid.add (track_lines);
-            track_type_grid.add (track_rtc);
-            track_type_grid.show_all ();
-
-            var track_type_menu_pop = new Gtk.Popover (null);
-            track_type_menu_pop.add (track_type_grid);
-
-            track_type_menu = new Gtk.MenuButton ();
-            track_type_menu.tooltip_text = _("Set Tracking Type");
-            track_type_menu.popover = track_type_menu_pop;
-            track_type_menu.label = "";
-
-            var sidebar_toggler = new Gtk.ToggleButton ();
 
             if (Quilter.Application.gsettings.get_boolean("sidebar")) {
                 sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
@@ -91,9 +73,6 @@ namespace Quilter {
 
             Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
 
-            actionbar.pack_start (sidebar_toggler);
-            actionbar.pack_end (track_type_menu);
-
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
                 update_wordcount ();
                 track_words.set_active (true);
@@ -104,10 +83,6 @@ namespace Quilter {
                 update_readtimecount ();
                 track_rtc.set_active (true);
             }
-
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
-            this.add (actionbar);
-            this.reveal_child = true;
         }
 
         public void update_wordcount () {
