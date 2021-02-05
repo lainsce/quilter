@@ -206,17 +206,19 @@ namespace Quilter.Widgets {
             var filebox = new SideBarBox (this.win, file);
             filebox.save_as.connect (() => save_as ());
             column.insert (filebox, 1);
-            column.select_row (filebox);
 
             if (Services.FileManager.is_temp_file (file)) {
                 win.titlebar.samenu_button.title = (_("New Document"));
                 win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
                 filebox.set_title (_("New File"));
+                column.select_row (filebox);
             } else {
                 win.titlebar.samenu_button.title = Path.get_basename(file);
                 win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~")
                                                           .replace(Path.get_basename(file), "");
                 filebox.set_title (Path.get_basename(file));
+                if (file == Quilter.Application.gsettings.get_string("current-file"))
+                    column.select_row (filebox);
             }
 
             return filebox;
