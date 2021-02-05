@@ -500,7 +500,7 @@ namespace Quilter {
         }
 
         private void action_preferences () {
-            var prefs = new Widgets.Preferences (this);
+            var prefs = new Widgets.Preferences ();
             prefs.show_all ();
         }
         private void action_cheatsheet () {

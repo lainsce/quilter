@@ -16,17 +16,25 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-namespace Quilter.Widgets {
-    public class SearchBar : Gtk.SearchBar {
+namespace Quilter {
+    [GtkTemplate (ui = "/io/github/lainsce/Quilter/searchbar.ui")]
+    public class Widgets.SearchBar : Gtk.SearchBar {
         private EditView? text_view = null;
-        private Gtk.Button replace_all_tool_button;
-        private Gtk.Button replace_tool_button;
         private Gtk.TextBuffer? text_buffer = null;
-        public Gtk.Grid grid;
-        public Gtk.Grid prev_next_grid;
-        public Gtk.Grid replace_grid;
-        public Gtk.Entry replace_entry;
-        public Gtk.SearchEntry search_entry;
+
+        [GtkChild]
+        Gtk.Button replace_all_button;
+        [GtkChild]
+        Gtk.Button replace_button;
+        [GtkChild]
+        Gtk.Button search_button_prev;
+        [GtkChild]
+        Gtk.Button search_button_next;
+        [GtkChild]
+        Gtk.Entry replace_entry;
+        [GtkChild]
+        Gtk.SearchEntry search_entry;
+
         public Gtk.SourceSearchContext search_context = null;
         public weak MainWindow window { get; construct; }
 
@@ -35,80 +43,29 @@ namespace Quilter.Widgets {
         }
 
         construct {
-            replace_entry = new Gtk.Entry ();
-            replace_entry.hexpand = true;
-            replace_entry.placeholder_text = _("Replace with…");
             replace_entry.activate.connect (on_replace_entry_activate);
 
-            replace_tool_button = new Gtk.Button ();
-            replace_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-symbolic", Gtk.IconSize.BUTTON));
-            replace_tool_button.clicked.connect (on_replace_entry_activate);
-            replace_tool_button.tooltip_text = (_("Replace\nUse arrows before using."));
+            replace_button.clicked.connect (on_replace_entry_activate);
 
-            replace_all_tool_button = new Gtk.Button ();
-            replace_all_tool_button.set_image (new Gtk.Image.from_icon_name ("edit-find-replace-all-symbolic", Gtk.IconSize.BUTTON));
-            replace_all_tool_button.always_show_image = true;
-            replace_all_tool_button.clicked.connect (on_replace_all_entry_activate);
-            replace_all_tool_button.tooltip_text = (_("Replace All"));
+            replace_all_button.clicked.connect (on_replace_all_entry_activate);
 
-            grid = new Gtk.Grid ();
-            grid.orientation = Gtk.Orientation.VERTICAL;
-            grid.row_spacing = 6;
-            grid.get_style_context ().add_class (Gtk.STYLE_CLASS_LINKED);
-
-            prev_next_grid = new Gtk.Grid ();
-            prev_next_grid.row_spacing = 6;
-            var pvcontext = prev_next_grid.get_style_context ();
-            pvcontext.add_class (Gtk.STYLE_CLASS_LINKED);
             search_entry_item ();
             search_previous_item ();
             search_next_item ();
 
-            grid.attach (prev_next_grid, 0, 0);
-
-            replace_grid = new Gtk.Grid ();
-            replace_grid.row_spacing = 6;
-            var rcontext = replace_grid.get_style_context ();
-            rcontext.add_class (Gtk.STYLE_CLASS_LINKED);
-            replace_grid.add (replace_entry);
-            replace_grid.add (replace_tool_button);
-            replace_grid.add (replace_all_tool_button);
-
-            grid.attach (replace_grid, 0, 1);
-
-            var context = this.get_style_context ();
-            context.add_class ("quilter-searchbar");
-
-            this.add (grid);
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
             this.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
         public void search_entry_item () {
-            search_entry = new Gtk.SearchEntry ();
-            search_entry.hexpand = true;
-            search_entry.placeholder_text = _("Find text…");
-            prev_next_grid.add (search_entry);
-
-            var entry_path = new Gtk.WidgetPath ();
-            entry_path.append_type (typeof (Gtk.Widget));
-
-            var entry_context = new Gtk.StyleContext ();
-            entry_context.set_path (entry_path);
-            entry_context.add_class ("entry");
-
             search_entry.search_changed.connect (() => {
                 search ();
             });
         }
 
         public void search_previous_item () {
-            var tool_arrow_up = new Gtk.Button.from_icon_name ("go-up-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            tool_arrow_up.always_show_image = true;
-            tool_arrow_up.clicked.connect (search_previous);
-            tool_arrow_up.tooltip_text = _("Search previous");
-            prev_next_grid.add (tool_arrow_up);
+            search_button_prev.clicked.connect (search_previous);
         }
 
         public void search_previous () {
@@ -124,11 +81,7 @@ namespace Quilter.Widgets {
         }
 
         public void search_next_item () {
-            var tool_arrow_down = new Gtk.Button.from_icon_name ("go-down-symbolic", Gtk.IconSize.SMALL_TOOLBAR);
-            tool_arrow_down.always_show_image = true;
-            tool_arrow_down.clicked.connect (search_next);
-            tool_arrow_down.tooltip_text = _("Search next");
-            prev_next_grid.add (tool_arrow_down);
+            search_button_next.clicked.connect (search_next);
         }
 
         public void search_next () {
@@ -144,8 +97,8 @@ namespace Quilter.Widgets {
         }
 
         private void update_replace_tool_sensitivities (string search_text) {
-            replace_tool_button.sensitive = search_text != "";
-            replace_all_tool_button.sensitive = search_text != "";
+            replace_button.sensitive = search_text != "";
+            replace_all_button.sensitive = search_text != "";
         }
 
         private void on_replace_entry_activate () {
