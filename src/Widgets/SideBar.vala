@@ -83,27 +83,25 @@ namespace Quilter.Widgets {
                     string text = "";
                     GLib.FileUtils.get_contents (row.path, out text);
                     Quilter.Application.gsettings.set_string("current-file", row.path);
-                    store.clear ();
-                    outline_populate ();
-                    view.expand_all ();
 
                     if (Services.FileManager.is_temp_file (row.path)) {
                         win.titlebar.samenu_button.title = (_("New Document"));
                         win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
                         row.set_title (_("New File"));
+                        win.edit_view_content.text = text;
                     } else {
                         win.titlebar.samenu_button.title = Path.get_basename(row.path);
                         win.titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~")
                                                                       .replace(Path.get_basename(row.path), "");
                         row.set_title (Path.get_basename(row.path));
+                        win.edit_view_content.text = text;
                     }
 
                     if (win.edit_view_content.modified) {
                         Services.FileManager.save_file (row.path, text);
                         win.edit_view_content.modified = false;
+                        outline_populate ();
                     }
-
-                    win.edit_view_content.text = text;
                 } catch (Error e) {
                     warning ("Unexpected error during selection: " + e.message);
                 }
@@ -117,9 +115,7 @@ namespace Quilter.Widgets {
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);
             store = new Gtk.TreeStore (1, typeof (string));
             view.set_model (store);
-            store.clear ();
             outline_populate ();
-            view.expand_all ();
             selection = view.get_selection ();
             selection.set_mode (Gtk.SelectionMode.SINGLE);
 
@@ -163,7 +159,6 @@ namespace Quilter.Widgets {
             if (Quilter.Application.gsettings.get_string("current-file") != "") {
                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
                store.clear ();
-               view.expand_all ();
                if (file != null && file.query_exists ()) {
                     try {
                         string buffer = "";
@@ -188,7 +183,7 @@ namespace Quilter.Widgets {
                         warning ("ERR: %s", e.message);
                     }
                 }
-
+              view.expand_all ();
             }
         }
 
@@ -222,12 +217,6 @@ namespace Quilter.Widgets {
                 win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~")
                                                           .replace(Path.get_basename(file), "");
                 filebox.set_title (Path.get_basename(file));
-            }
-
-            if (store != null && view != null) {
-                store.clear ();
-                outline_populate ();
-                view.expand_all ();
             }
 
             return filebox;

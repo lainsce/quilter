@@ -162,15 +162,11 @@ namespace Quilter {
                 sidebar.reveal_child = false;
                 Quilter.Application.gsettings.set_boolean("sidebar", false);
                 on_create_new ();
-                sidebar.store.clear ();
                 sidebar.outline_populate ();
-                sidebar.view.expand_all ();
             } else {
                 sidebar.reveal_child = true;
                 Quilter.Application.gsettings.set_boolean("sidebar", true);
-                sidebar.store.clear ();
                 sidebar.outline_populate ();
-                sidebar.view.expand_all ();
             }
 
             spell = new GtkSpell.Checker ();
@@ -684,9 +680,7 @@ namespace Quilter {
             row.set_subtitle (_("Not Saved Yet"));
             sidebar.reveal_child = true;
             set_prev_workfile ();
-            sidebar.store.clear ();
             sidebar.outline_populate ();
-            sidebar.view.expand_all ();
             Quilter.Application.gsettings.set_boolean("sidebar", true);
             if (edit_view_content.modified) {
                 dialog.run ();
@@ -717,9 +711,6 @@ namespace Quilter {
             win_stack.set_visible_child_name ("doc");
             titlebar_stack.set_visible_child_name ("title");
             Quilter.Application.gsettings.set_boolean("sidebar", true);
-            sidebar.store.clear ();
-            sidebar.outline_populate ();
-            sidebar.view.expand_all ();
         }
 
         public void on_save () {
