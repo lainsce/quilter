@@ -39,12 +39,7 @@ namespace Quilter {
         [GtkChild]
         public Gtk.Box save_grid;
         [GtkChild]
-        public Gtk.ListBox preview_grid;
-
-        [GtkChild]
-        public Gtk.ListBoxRow preview_full_row;
-        [GtkChild]
-        public Gtk.ListBoxRow preview_half_row;
+        public Gtk.Box view_menu;
 
         [GtkChild]
         public Gtk.Button new_button;
@@ -54,8 +49,6 @@ namespace Quilter {
         public Gtk.MenuButton save_as_button;
         [GtkChild]
         public Gtk.Button open_button;
-        [GtkChild]
-        public Gtk.ToggleButton toggle_view_button;
 
         [GtkChild]
         public Gtk.RadioButton color_button_light;
@@ -96,6 +89,7 @@ namespace Quilter {
 
             top_grid.show_all ();
             save_grid.show_all ();
+            view_menu.show_all ();
 
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 
@@ -122,30 +116,6 @@ namespace Quilter {
 
             color_button_light.clicked.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "light");
-            });
-
-
-            var prev_type = Quilter.Application.gsettings.get_string("preview-type");
-            preview_grid.show_all ();
-
-            switch (prev_type) {
-                case "half":
-                    preview_grid.select_row (preview_half_row);
-                    break;
-                case "full":
-                    preview_grid.select_row (preview_full_row);
-                    break;
-                default:
-                    preview_grid.select_row (preview_half_row);
-                    break;
-            }
-
-            preview_grid.row_selected.connect ((selected_row) => {
-                if (selected_row == preview_half_row) {
-                    Quilter.Application.gsettings.set_string("preview-type", "half");
-                } else if (selected_row == preview_full_row) {
-                    Quilter.Application.gsettings.set_string("preview-type", "full");
-                }
             });
 
             var rename_entry = new Gtk.Entry ();
@@ -244,19 +214,7 @@ namespace Quilter {
 	            update_readtimecount ();
 	        });
 
-            if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
-            } else {
-                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
-            }
-
-            Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
-                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
-                } else {
-                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
-                }
-            });
+            sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-symbolic", Gtk.IconSize.BUTTON));
 
             Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
 

@@ -54,6 +54,8 @@ namespace Quilter {
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_FOCUS = "action_focus";
         public const string ACTION_TOGGLE_VIEW = "action_toggle_view";
+        public const string ACTION_FULL = "action_full";
+        public const string ACTION_HALF = "action_half";
         public const string ACTION_SEARCH = "action_search";
         public const string ACTION_PREFS = "action_preferences";
         public const string ACTION_ABOUT = "action_about";
@@ -67,6 +69,8 @@ namespace Quilter {
             { ACTION_KEYS, action_keys },
             { ACTION_FOCUS, action_focus },
             { ACTION_TOGGLE_VIEW, action_toggle_view },
+            { ACTION_FULL, action_full },
+            { ACTION_HALF, action_half },
             { ACTION_SEARCH, action_search },
             { ACTION_EXPORT_PDF, action_export_pdf },
             { ACTION_EXPORT_HTML, action_export_html },
@@ -530,6 +534,14 @@ namespace Quilter {
 
         private void action_export_html () {
             Services.ExportUtils.export_html ();
+        }
+
+        private void action_full () {
+            Quilter.Application.gsettings.set_string("preview-type", "full");
+        }
+
+        private void action_half () {
+            Quilter.Application.gsettings.set_string("preview-type", "half");
         }
 
         public void render_func () {

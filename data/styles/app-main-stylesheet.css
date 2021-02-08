@@ -93,13 +93,13 @@
 }
 
 .circular-button {
-    padding: 10px;
+    padding: 8px;
     border-radius: 9999px;
     -gtk-outline-radius: 9999px;
 }
 
 .mini-circular-button {
-    padding: 5px;
+    padding: 4px;
     border-radius: 9999px;
     -gtk-outline-radius: 9999px;
 }

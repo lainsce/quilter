@@ -5,6 +5,7 @@
       <file alias="app-main-stylesheet.css" compressed="true">styles/app-main-stylesheet.css</file>
 
       <!-- Custom Icon files -->
+      <file alias="sidebar-symbolic.svg">icons/symbolic/sidebar-symbolic.svg</file>
       <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
       <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
       <file alias="paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
@@ -15,6 +16,7 @@
       <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
 
       <!-- UI files -->
+      <file alias="viewmenu.ui">ui/viewmenu.ui</file>
       <file alias="header_button.ui">ui/header_button.ui</file>
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="cheatsheet.ui">ui/cheatsheet.ui</file>

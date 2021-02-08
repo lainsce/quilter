@@ -1,0 +1,14 @@
+<interface>
+  <menu id="view_menu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Full-Width</attribute>
+        <attribute name="action">win.action_full</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Half-Width</attribute>
+        <attribute name="action">win.action_half</attribute>
+      </item>
+    </section>
+  </menu>
+</interface>
