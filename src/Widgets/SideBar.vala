@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebar.ui")]
-    public class SideBar : Gtk.Revealer {
+    public class SideBar : Gtk.Bin {
         private Widgets.SideBarBox[] rows;
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
@@ -35,6 +35,9 @@ namespace Quilter.Widgets {
         private string[] files;
         public Gee.LinkedList<SideBarBox> s_files = null;
         public bool is_modified {get; set; default = false;}
+
+        [GtkChild]
+        public Hdy.Flap flap;
 
         [GtkChild]
         public Gtk.ListBox column;
@@ -62,8 +65,14 @@ namespace Quilter.Widgets {
             sidebar_outline ();
 
             this.get_style_context ().add_class ("sidebar");
-            this.transition_type = Gtk.RevealerTransitionType.SLIDE_LEFT;
-            this.reveal_child = Quilter.Application.gsettings.get_boolean ("sidebar");
+            flap.reveal_flap = Quilter.Application.gsettings.get_boolean ("sidebar");
+            flap.notify["folded"].connect (() => {
+                if (flap.get_folded ()) {
+                    Quilter.Application.gsettings.set_boolean ("sidebar", false);
+                } else {
+                    Quilter.Application.gsettings.set_boolean ("sidebar", true);
+                }
+            });
         }
 
         public void sidebar_files_list () {

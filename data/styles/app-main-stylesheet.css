@@ -173,7 +173,7 @@
 }
 
 .quilter-statusbar {
-    background-color: none;
+    background-color: transparent;
     box-shadow: none;
     border: none;
     padding: 6px;
@@ -181,4 +181,9 @@
 
 .status-button {
     padding: 6px 12px;
+}
+
+.quilter-sidebar {
+    background: @theme_base_color;
+    padding: 6px;
 }
