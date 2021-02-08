@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-06-28 18:12+0200\n"
-"PO-Revision-Date: 2018-10-18 21:07-0300\n"
-"Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
+"PO-Revision-Date: 2021-02-07 23:04-0300\n"
+"Last-Translator: Gustavo Costa <xfgusta@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:6
@@ -26,53 +26,57 @@ msgstr "Quilter"
 #: data/com.github.lainsce.quilter.appdata.xml.in:7
 #: data/com.github.lainsce.quilter.desktop.in:4
 msgid "Focus on your writing"
-msgstr ""
+msgstr "Concentre-se na sua escrita"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:9
 msgid ""
 "Focus on your writing and write beautiful solid stories with the Focus Mode "
 "in tow in this Markdown editor"
 msgstr ""
+"Concentre-se em sua escrita e escreva belas histórias sólidas com o Modo "
+"Foco neste editor Markdown"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:11
 msgid "Work on a story, one file displayed at a time, many files sidebar'd."
 msgstr ""
+"Trabalhe em uma história, um arquivo exibido por vez, muitos arquivos na "
+"barra lateral."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:12
 msgid "Save your documents anywhere, even on existing files."
-msgstr ""
+msgstr "Salve seus documentos em qualquer lugar, mesmo em arquivos existentes."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:13
 msgid "Preview your story in the Preview Mode."
-msgstr ""
+msgstr "Visualize sua história no modo prévia."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:14
 msgid "Configure whether to have Focus Mode or not."
-msgstr ""
+msgstr "Configure se deseja ter o modo foco ou não."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:15
 msgid "Configure whether to have Dark Mode or not."
-msgstr ""
+msgstr "Configure se deseja ter o modo escuro ou não."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:16
 msgid "Configure whether to have Sepia Mode or not."
-msgstr ""
+msgstr "Configure se deseja ter o modo sépia ou não."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:17
 msgid "Fullscreen your writing area with F11."
-msgstr ""
+msgstr "Use a tela inteira em sua área de escrita com F11."
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:18
 msgid "Search anytime with the shortcut Ctrl + F"
-msgstr ""
+msgstr "Pesquise a qualquer momento com o atalho Ctrl + F"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:19
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "Saia a qualquer momento com o atalho Ctrl + Q"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:25
 msgid "Lains"
-msgstr ""
+msgstr "Lains"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:60
 msgid "Release: Sidebar File Cleaner-o-matic"
@@ -247,28 +251,28 @@ msgstr ""
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:197
 msgid "Light Mode"
-msgstr "Modo Claro"
+msgstr "Modo claro"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:201
 msgid "Sepia Mode"
-msgstr "Modo Sépia"
+msgstr "Modo sépia"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:205
 msgid "Dark Mode"
-msgstr "Modo Escuro"
+msgstr "Modo escuro"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:209
 msgid "Focus Mode"
-msgstr "Modo Foco"
+msgstr "Modo foco"
 
 #: data/com.github.lainsce.quilter.appdata.xml.in:213
 msgid "Preview Mode"
-msgstr "Prévia"
+msgstr "Modo prévia"
 
 #: data/com.github.lainsce.quilter.desktop.in:6
 msgid "com.github.lainsce.quilter"
-msgstr ""
+msgstr "com.github.lainsce.quilter"
 
 #: data/com.github.lainsce.quilter.desktop.in:7
 msgid "Text;Markdown;Editor;"
-msgstr ""
+msgstr "Texto;Markdown;Editor;"

@@ -8,41 +8,40 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-01-24 23:45-0300\n"
-"PO-Revision-Date: 2018-10-18 21:07-0300\n"
-"Last-Translator: Deyvison Rocha <deyvison@gmail.com>\n"
+"PO-Revision-Date: 2021-02-07 23:08-0300\n"
+"Last-Translator: Gustavo Costa <xfgusta@gmail.com>\n"
 "Language-Team: \n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: src/MainWindow.vala:152 src/MainWindow.vala:395 src/MainWindow.vala:761
 msgid "New Document"
-msgstr ""
+msgstr "Novo documento"
 
 #: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
 msgid "Not Saved Yet"
-msgstr ""
+msgstr "Ainda não salvo"
 
 #. Welcome View
 #: src/MainWindow.vala:387
 msgid "Write a new Document"
-msgstr ""
+msgstr "Escrever um novo documento"
 
 #: src/MainWindow.vala:401
 msgid "Open Document"
-msgstr ""
+msgstr "Abrir documento"
 
 #: src/MainWindow.vala:441
-#, fuzzy
 msgid "Exit focus mode"
-msgstr "Habilitar Modo Foco:"
+msgstr "Sair do modo de foco"
 
 #: src/MainWindow.vala:699
 msgid "Edit"
-msgstr "Editor"
+msgstr "Editar"
 
 #: src/MainWindow.vala:701 src/Widgets/Preferences.vala:282
 #: src/Widgets/Preferences.vala:285
@@ -52,57 +51,55 @@ msgstr "Prévia"
 #: src/MainWindow.vala:763
 #, c-format
 msgid "New Document-%d.md"
-msgstr ""
+msgstr "Novo Documento-%d.md"
 
 #: src/MainWindow.vala:835
-#, fuzzy
 msgid "Quilter"
 msgstr "Quilter"
 
 #: src/MainWindow.vala:840
 msgid "Focus on your writing."
-msgstr ""
+msgstr "Concentre-se na sua escrita."
 
 #: src/MainWindow.vala:845
 msgid "translator-credits"
-msgstr ""
+msgstr "Gustavo Costa <xfgusta@gmail.com>"
 
 #: src/Widgets/HeaderBar.vala:62
 msgid "Create a new document"
-msgstr ""
+msgstr "Criar um novo documento"
 
 #: src/Widgets/HeaderBar.vala:67
 msgid "Choose another folder"
-msgstr ""
+msgstr "Escolher outra pasta"
 
 #: src/Widgets/HeaderBar.vala:72
 msgid "Open a document"
-msgstr ""
+msgstr "Abrir um documento"
 
 #: src/Widgets/HeaderBar.vala:73
-#, fuzzy
 msgid "Open"
-msgstr "Abrir…"
+msgstr "Abrir"
 
 #: src/Widgets/HeaderBar.vala:77
 msgid "Save document"
-msgstr ""
+msgstr "Salvar documento"
 
 #: src/Widgets/HeaderBar.vala:86
 msgid "Search and replace text"
-msgstr ""
+msgstr "Pesquisar e substituir texto"
 
 #: src/Widgets/HeaderBar.vala:103
 msgid "Export to PDF…"
-msgstr ""
+msgstr "Exportar para PDF…"
 
 #: src/Widgets/HeaderBar.vala:107
 msgid "Export to HTML…"
-msgstr ""
+msgstr "Exportar para HTML…"
 
 #: src/Widgets/HeaderBar.vala:111
 msgid "Markdown Cheatsheet"
-msgstr "Cola de Markdown"
+msgstr "Dicas de Markdown"
 
 #: src/Widgets/HeaderBar.vala:115 src/Widgets/Preferences.vala:25
 msgid "Preferences"
@@ -110,54 +107,52 @@ msgstr "Preferências"
 
 #: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:158
 msgid "Light Mode"
-msgstr "Modo Claro"
+msgstr "Modo claro"
 
 #: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:168
 msgid "Sepia Mode"
-msgstr "Modo Sépia"
+msgstr "Modo sépia"
 
 #: src/Widgets/HeaderBar.vala:141 src/Widgets/Preferences.vala:178
 msgid "Dark Mode"
-msgstr "Modo Escuro"
+msgstr "Modo escuro"
 
 #: src/Widgets/HeaderBar.vala:176
-#, fuzzy
 msgid "Focus Mode…"
-msgstr "Modo Foco"
+msgstr "Modo foco…"
 
 #: src/Widgets/HeaderBar.vala:185
 msgid "Toggle View…"
-msgstr ""
+msgstr "Alternar visualização…"
 
 #. _("Full-Width\nFull Editor, change with switcher")
 #: src/Widgets/HeaderBar.vala:200
 msgid "Full-Width"
-msgstr ""
+msgstr "Largura completa"
 
 #: src/Widgets/HeaderBar.vala:202
 msgid "Editor or Preview, change on the menu."
-msgstr ""
+msgstr "Editor ou prévia, mude no menu."
 
 #: src/Widgets/HeaderBar.vala:221
 msgid "Half-Width"
-msgstr ""
+msgstr "Meia largura"
 
 #: src/Widgets/HeaderBar.vala:225
 msgid "Editor & Preview, divided equally."
-msgstr ""
+msgstr "Editor e prévia, divididos igualmente."
 
 #: src/Widgets/HeaderBar.vala:279
 msgid "Change layout of editor and preview"
-msgstr ""
+msgstr "Alterar o layout do editor e prévia"
 
 #: src/Widgets/HeaderBar.vala:298
-#, fuzzy
 msgid "About Quilter"
-msgstr "Quilter"
+msgstr "Sobre o Quilter"
 
 #: src/Widgets/HeaderBar.vala:305
 msgid "Keyboard Shortcuts"
-msgstr ""
+msgstr "Atalhos de teclado"
 
 #: src/Widgets/HeaderBar.vala:338
 msgid "Settings"
@@ -165,21 +160,19 @@ msgstr "Preferências"
 
 #: src/Widgets/HeaderBar.vala:353
 msgid "Rename"
-msgstr ""
+msgstr "Renomear"
 
 #: src/Widgets/HeaderBar.vala:376
-#, fuzzy
 msgid "Rename the File:"
-msgstr "Todos os arquivos"
+msgstr "Renomear o arquivo:"
 
 #: src/Widgets/HeaderBar.vala:394
-#, fuzzy
 msgid "Rename File"
-msgstr "Todos os arquivos"
+msgstr "Renomear arquivo"
 
 #: src/Widgets/HeaderBar.vala:397
 msgid "new_name.md"
-msgstr ""
+msgstr "novo_nome.md"
 
 #: src/Widgets/Preferences.vala:52 src/Widgets/Preferences.vala:105
 msgid "Editor"
@@ -187,37 +180,35 @@ msgstr "Editor"
 
 #: src/Widgets/Preferences.vala:55
 msgid "Font"
-msgstr ""
+msgstr "Fonte"
 
 #: src/Widgets/Preferences.vala:58
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #: src/Widgets/Preferences.vala:63
 msgid "Quilt Mono"
-msgstr ""
+msgstr "Quilt Mono"
 
 #: src/Widgets/Preferences.vala:64
-#, fuzzy
 msgid "Quilt Zwei"
-msgstr "Quilter"
+msgstr "Quilt Zwei"
 
 #: src/Widgets/Preferences.vala:65
-#, fuzzy
 msgid "Quilt Vier"
-msgstr "Quilter"
+msgstr "Quilt Vier"
 
 #: src/Widgets/Preferences.vala:108
 msgid "Autosave Documents"
-msgstr ""
+msgstr "Salvar documentos automaticamente"
 
 #: src/Widgets/Preferences.vala:119
 msgid "Autosave Delay"
-msgstr ""
+msgstr "Atraso do salvamento automático"
 
 #: src/Widgets/Preferences.vala:120
 msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
+msgstr "Valores abaixo de 15s afetam negativamente o meio de armazenamento."
 
 #: src/Widgets/Preferences.vala:126
 msgid "Highlight Speech Parts (beta)"
@@ -233,187 +224,180 @@ msgid ""
 "- Adverbs are Purple\n"
 "- Conjunctions are Green"
 msgstr ""
+"Disponível apenas em inglês.\n"
+"Colore palavras com base no tipo:\n"
+"- Substantivos são pretos\n"
+"- Verbos são azuis\n"
+"- Adjetivos são amarelos\n"
+"- Advérbios são roxos\n"
+"- Conjunções são verdes"
 
 #: src/Widgets/Preferences.vala:146
 msgid "General"
-msgstr ""
+msgstr "Geral"
 
 #: src/Widgets/Preferences.vala:149
 msgid "Appearance"
-msgstr ""
+msgstr "Aparência"
 
 #: src/Widgets/Preferences.vala:152
-#, fuzzy
 msgid "Visual Mode"
-msgstr "Modo Sépia"
+msgstr "Modo visual"
 
 #: src/Widgets/Preferences.vala:220
-#, fuzzy
 msgid "Interface"
 msgstr "Interface"
 
 #: src/Widgets/Preferences.vala:223
-#, fuzzy
 msgid "Focus Mode"
-msgstr "Modo Foco"
+msgstr "Modo foco"
 
 #: src/Widgets/Preferences.vala:229
-#, fuzzy
 msgid "Focus on Paragraph"
-msgstr "Parágrafo"
+msgstr "Foco em parágrafo"
 
 #: src/Widgets/Preferences.vala:231
-#, fuzzy
 msgid "Focus on Sentence"
-msgstr "Sentença"
+msgstr "Foco em frase"
 
 #: src/Widgets/Preferences.vala:246
-#, fuzzy
 msgid "Focus Scope"
-msgstr "Modo Foco"
+msgstr "Foco em escopo"
 
 #: src/Widgets/Preferences.vala:250
-#, fuzzy
 msgid "Typewriter Scrolling"
-msgstr "Rastreamento de máquina de escrever:"
+msgstr "Rolagem de máquina de escrever"
 
 #: src/Widgets/Preferences.vala:257
+#, fuzzy
 msgid "Type Counter"
-msgstr ""
+msgstr "Contador de tipo"
 
 #: src/Widgets/Preferences.vala:263
 msgid "Sidebar"
-msgstr ""
+msgstr "Barra lateral"
 
 #: src/Widgets/Preferences.vala:288
-#, fuzzy
 msgid "Font Type"
-msgstr "Fonte & Tipo"
+msgstr "Tipo de fonte"
 
 #: src/Widgets/Preferences.vala:294
-#, fuzzy
 msgid "Serif"
-msgstr "Usar Serif"
+msgstr "Serif"
 
 #: src/Widgets/Preferences.vala:295
-#, fuzzy
 msgid "Sans-serif"
-msgstr "Usar Sans-serif"
+msgstr "Sans-serif"
 
 #: src/Widgets/Preferences.vala:296
-#, fuzzy
 msgid "Monospace"
-msgstr "Usar Monospace"
+msgstr "Monoespaçada"
 
 #: src/Widgets/Preferences.vala:333
-#, fuzzy
 msgid "Header Centering"
-msgstr "Cabeçalho"
+msgstr "Centralização de cabeçalho"
 
 #: src/Widgets/Preferences.vala:334
 msgid "This affects the H1, H2, and H3 type headers."
-msgstr ""
+msgstr "Isso afeta os cabeçalhos de tipo H1, H2 e H3."
 
 #: src/Widgets/Preferences.vala:341
 msgid "Extensions"
-msgstr ""
+msgstr "Extensões"
 
 #: src/Widgets/Preferences.vala:344
-#, fuzzy
 msgid "Code Highlight"
-msgstr "Habilitar Verificação de Ortografia:"
+msgstr "Realce de sintaxe"
 
 #: src/Widgets/Preferences.vala:345
 msgid "Code blocks will have the contents receive color."
-msgstr ""
+msgstr "Os blocos de código terão a cor do conteúdo recebido."
 
 #: src/Widgets/Preferences.vala:352
 msgid "LaTeX Math"
-msgstr ""
+msgstr "Matemática LaTeX"
 
 #: src/Widgets/Preferences.vala:353
 msgid "Text inside LaTeX math blocks will be processed into LaTeX output."
 msgstr ""
+"O texto dentro dos blocos matemáticos LaTeX será processado na saída LaTeX."
 
 #: src/Widgets/Preferences.vala:360
 msgid "Mermaid.js Graph"
-msgstr ""
+msgstr "Gráfico Mermaid.js"
 
 #: src/Widgets/Preferences.vala:361
 msgid "Text inside Mermaid blocks will become graphs."
-msgstr ""
+msgstr "O texto dentro dos blocos de Mermaid se transformará em gráficos."
 
 #: src/Widgets/SearchBar.vala:40
 msgid "Replace with…"
-msgstr ""
+msgstr "Substituir com…"
 
 #: src/Widgets/SearchBar.vala:46
 msgid ""
 "Replace\n"
 "Use arrows before using."
 msgstr ""
+"Substituir\n"
+"Use as setas antes de usar."
 
 #: src/Widgets/SearchBar.vala:52
 msgid "Replace All"
-msgstr ""
+msgstr "Substituir todos"
 
 #: src/Widgets/SearchBar.vala:91
 msgid "Find text…"
-msgstr ""
+msgstr "Procurar texto…"
 
 #: src/Widgets/SearchBar.vala:110
 msgid "Search previous"
-msgstr ""
+msgstr "Pesquisa anterior"
 
 #: src/Widgets/SearchBar.vala:130
 msgid "Search next"
-msgstr ""
+msgstr "Próxima pesquisa"
 
 #: src/Widgets/SideBar.vala:67
-#, fuzzy
 msgid "No files…"
-msgstr "Novo arquivo"
+msgstr "Sem arquivos…"
 
 #: src/Widgets/SideBar.vala:77
-#, fuzzy
 msgid "Files"
-msgstr "Todos os arquivos"
+msgstr "Arquivos"
 
 #: src/Widgets/SideBar.vala:78
 msgid "Outline"
-msgstr ""
+msgstr "Esboço"
 
 #: src/Widgets/SideBarBox.vala:38
-#, fuzzy
 msgid "New File"
 msgstr "Novo arquivo"
 
 #: src/Widgets/SideBarBox.vala:51
 msgid "No header…"
-msgstr ""
+msgstr "Nenhum cabeçalho…"
 
 #: src/Widgets/SideBarBox.vala:84
 msgid "Remove File from Sidebar"
-msgstr ""
+msgstr "Remover arquivo da barra lateral"
 
 #: src/Widgets/StatusBar.vala:43
-#, fuzzy
 msgid "Words"
-msgstr "Palavras: "
+msgstr "Palavras"
 
 #: src/Widgets/StatusBar.vala:49
-#, fuzzy
 msgid "Lines"
-msgstr "Linhas "
+msgstr "Linhas"
 
 #: src/Widgets/StatusBar.vala:55
-#, fuzzy
 msgid "Reading Time"
-msgstr "Tempo de Leitura: "
+msgstr "Tempo de leitura"
 
 #: src/Widgets/StatusBar.vala:75
+#, fuzzy
 msgid "Set Tracking Type"
-msgstr "Definir Tipo de Rastreamento"
+msgstr "Definir tipo de rastreamento"
 
 #: src/Widgets/StatusBar.vala:100
 msgid "Words: "
@@ -421,11 +405,11 @@ msgstr "Palavras: "
 
 #: src/Widgets/StatusBar.vala:105
 msgid "Lines: "
-msgstr "Linhas "
+msgstr "Linhas: "
 
 #: src/Widgets/StatusBar.vala:112
 msgid "Reading Time: "
-msgstr "Tempo de Leitura: "
+msgstr "Tempo de leitura: "
 
 #: src/Services/DialogUtils.vala:21
 msgid "Markdown files"
@@ -437,54 +421,57 @@ msgstr "Todos os arquivos"
 
 #: src/Services/DialogUtils.vala:36
 msgid "Save Open File?"
-msgstr "Abrir arquivo"
+msgstr "Salvar arquivo aberto?"
 
 #: src/Services/DialogUtils.vala:37
 msgid ""
 "There are unsaved changes to the file. If you don't save, changes will be "
 "lost forever."
-msgstr "Se não salvar, as mudanças se perderão para sempre."
+msgstr ""
+"Existem alterações não salvas no arquivo. Se você não salvar, as alterações "
+"serão perdidas para sempre."
 
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
 #: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
 msgid "Save"
-msgstr "Salvar arquivo"
+msgstr "Salvar"
 
 #: src/Services/DialogUtils.vala:42
 msgid "Close Without Saving"
-msgstr "Fechar sem Salvar"
+msgstr "Fechar sem salvar"
 
 #: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
 #: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
 msgid "Cancel"
-msgstr ""
+msgstr "Cancelar"
 
 #: src/Services/DialogUtils.vala:52
 msgid "Remove File from Sidebar?"
-msgstr ""
+msgstr "Remover arquivo da barra lateral?"
 
 #: src/Services/DialogUtils.vala:53
 msgid ""
 "By removing this file from the Sidebar, you will lose any changes made if "
 "not saved. Otherwise, it will only be removed."
 msgstr ""
+"Ao remover este arquivo da barra lateral, você perderá todas as alterações "
+"feitas se não forem salvas. Caso contrário, ele será apenas removido."
 
 #: src/Services/DialogUtils.vala:58
-#, fuzzy
 msgid "Remove Without Saving"
-msgstr "Fechar sem Salvar"
+msgstr "Remover sem salvar"
 
 #: src/Services/ExportUtils.vala:84
 msgid "Print to File"
-msgstr ""
+msgstr "Imprimir para arquivo"
 
 #: src/Services/ExportUtils.vala:142
 msgid "Select destination PDF file"
-msgstr ""
+msgstr "Selecione o arquivo PDF de destino"
 
 #: src/Services/ExportUtils.vala:147
 msgid "PDF File"
-msgstr ""
+msgstr "Arquivo PDF"
 
 #: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
 msgid "All Files"
@@ -492,11 +479,11 @@ msgstr "Todos os arquivos"
 
 #: src/Services/ExportUtils.vala:191
 msgid "Select destination HTML file"
-msgstr ""
+msgstr "Selecione o arquivo HTML de destino"
 
 #: src/Services/ExportUtils.vala:196
 msgid "HTML File"
-msgstr ""
+msgstr "Arquivo HTML"
 
 #: src/Services/FileManager.vala:89
 msgid "Open file"
