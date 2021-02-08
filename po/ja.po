@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-24 23:45-0300\n"
+"POT-Creation-Date: 2021-02-08 01:23-0300\n"
 "PO-Revision-Date: 2019-06-09 11:34+0900\n"
 "Last-Translator: Ryo Nakano <ryonakaknock3@gmail.com>\n"
 "Language-Team: Japanese <>\n"
@@ -18,418 +18,43 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.2.3\n"
 
-#: src/MainWindow.vala:152 src/MainWindow.vala:395 src/MainWindow.vala:761
+#: src/MainWindow.vala:148 src/MainWindow.vala:676 src/Widgets/SideBar.vala:88
+#: src/Widgets/SideBar.vala:211
 #, fuzzy
 msgid "New Document"
 msgstr "開いているドキュメントはありません"
 
-#: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
+#: src/MainWindow.vala:149 src/MainWindow.vala:677 src/MainWindow.vala:680
+#: src/Widgets/SideBar.vala:89 src/Widgets/SideBar.vala:212
 msgid "Not Saved Yet"
 msgstr ""
 
-#. Welcome View
-#: src/MainWindow.vala:387
-msgid "Write a new Document"
-msgstr ""
-
-#: src/MainWindow.vala:401
-#, fuzzy
-msgid "Open Document"
-msgstr "開いているドキュメントはありません"
-
-#: src/MainWindow.vala:441
+#: src/MainWindow.vala:391
 #, fuzzy
 msgid "Exit focus mode"
 msgstr "集中モードを有効にします"
 
-#: src/MainWindow.vala:699
+#: src/MainWindow.vala:612
 msgid "Edit"
 msgstr "編集"
 
-#: src/MainWindow.vala:701 src/Widgets/Preferences.vala:282
-#: src/Widgets/Preferences.vala:285
+#: src/MainWindow.vala:613 data/ui/prefs_window.ui:278
+#: data/ui/prefs_window.ui:281
 msgid "Preview"
 msgstr "プレビュー"
 
 #: src/MainWindow.vala:763
-#, c-format
-msgid "New Document-%d.md"
-msgstr ""
-
-#: src/MainWindow.vala:835
 #, fuzzy
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:840
+#: src/MainWindow.vala:768
 msgid "Focus on your writing."
 msgstr ""
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:774
 msgid "translator-credits"
 msgstr ""
-
-#: src/Widgets/HeaderBar.vala:62
-msgid "Create a new document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:67
-msgid "Choose another folder"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:72
-msgid "Open a document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:73
-#, fuzzy
-msgid "Open"
-msgstr "開く…"
-
-#: src/Widgets/HeaderBar.vala:77
-msgid "Save document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:86
-#, fuzzy
-msgid "Search and replace text"
-msgstr "次を検索"
-
-#: src/Widgets/HeaderBar.vala:103
-msgid "Export to PDF…"
-msgstr "PDF にエクスポート…"
-
-#: src/Widgets/HeaderBar.vala:107
-msgid "Export to HTML…"
-msgstr "HTML にエクスポート…"
-
-#: src/Widgets/HeaderBar.vala:111
-msgid "Markdown Cheatsheet"
-msgstr "Markdown チートシート"
-
-#: src/Widgets/HeaderBar.vala:115 src/Widgets/Preferences.vala:25
-msgid "Preferences"
-msgstr "設定"
-
-#: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:158
-msgid "Light Mode"
-msgstr "ライトモード"
-
-#: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:168
-msgid "Sepia Mode"
-msgstr "セピアモード"
-
-#: src/Widgets/HeaderBar.vala:141 src/Widgets/Preferences.vala:178
-msgid "Dark Mode"
-msgstr "ダークモード"
-
-#: src/Widgets/HeaderBar.vala:176
-#, fuzzy
-msgid "Focus Mode…"
-msgstr "集中モード"
-
-#: src/Widgets/HeaderBar.vala:185
-msgid "Toggle View…"
-msgstr ""
-
-#. _("Full-Width\nFull Editor, change with switcher")
-#: src/Widgets/HeaderBar.vala:200
-msgid "Full-Width"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:202
-msgid "Editor or Preview, change on the menu."
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:221
-msgid "Half-Width"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:225
-msgid "Editor & Preview, divided equally."
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:279
-msgid "Change layout of editor and preview"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:298
-#, fuzzy
-msgid "About Quilter"
-msgstr "Quilter"
-
-#: src/Widgets/HeaderBar.vala:305
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:338
-msgid "Settings"
-msgstr "設定"
-
-#: src/Widgets/HeaderBar.vala:353
-msgid "Rename"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:376
-#, fuzzy
-msgid "Rename the File:"
-msgstr "ファイルを削除"
-
-#: src/Widgets/HeaderBar.vala:394
-#, fuzzy
-msgid "Rename File"
-msgstr "ファイルを削除"
-
-#: src/Widgets/HeaderBar.vala:397
-msgid "new_name.md"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:52 src/Widgets/Preferences.vala:105
-msgid "Editor"
-msgstr "エディター"
-
-#: src/Widgets/Preferences.vala:55
-msgid "Font"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:58
-msgid "Type"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:63
-msgid "Quilt Mono"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:64
-#, fuzzy
-msgid "Quilt Zwei"
-msgstr "Quilter"
-
-#: src/Widgets/Preferences.vala:65
-#, fuzzy
-msgid "Quilt Vier"
-msgstr "Quilter"
-
-#: src/Widgets/Preferences.vala:108
-#, fuzzy
-msgid "Autosave Documents"
-msgstr "開いているドキュメントはありません"
-
-#: src/Widgets/Preferences.vala:119
-msgid "Autosave Delay"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:120
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:126
-msgid "Highlight Speech Parts (beta)"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:127
-msgid ""
-"Only available in English.\n"
-"Colors words based on type:\n"
-"- Nouns are Black\n"
-"- Verbs are Blue\n"
-"- Adjectives are Yellow\n"
-"- Adverbs are Purple\n"
-"- Conjunctions are Green"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:146
-msgid "General"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:149
-msgid "Appearance"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:152
-#, fuzzy
-msgid "Visual Mode"
-msgstr "セピアモード"
-
-#: src/Widgets/Preferences.vala:220
-#, fuzzy
-msgid "Interface"
-msgstr "ユーザーインターフェース"
-
-#: src/Widgets/Preferences.vala:223
-#, fuzzy
-msgid "Focus Mode"
-msgstr "集中モード"
-
-#: src/Widgets/Preferences.vala:229
-#, fuzzy
-msgid "Focus on Paragraph"
-msgstr "段落"
-
-#: src/Widgets/Preferences.vala:231
-#, fuzzy
-msgid "Focus on Sentence"
-msgstr "文"
-
-#: src/Widgets/Preferences.vala:246
-#, fuzzy
-msgid "Focus Scope"
-msgstr "集中モード"
-
-#: src/Widgets/Preferences.vala:250
-#, fuzzy
-msgid "Typewriter Scrolling"
-msgstr "タイプライター風のスクロール:"
-
-#: src/Widgets/Preferences.vala:257
-msgid "Type Counter"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:263
-msgid "Sidebar"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:288
-#, fuzzy
-msgid "Font Type"
-msgstr "フォントと入力"
-
-#: src/Widgets/Preferences.vala:294
-#, fuzzy
-msgid "Serif"
-msgstr "セリフを使う"
-
-#: src/Widgets/Preferences.vala:295
-#, fuzzy
-msgid "Sans-serif"
-msgstr "サンセリフを使う"
-
-#: src/Widgets/Preferences.vala:296
-#, fuzzy
-msgid "Monospace"
-msgstr "等幅を使う"
-
-#: src/Widgets/Preferences.vala:333
-#, fuzzy
-msgid "Header Centering"
-msgstr "見出し"
-
-#: src/Widgets/Preferences.vala:334
-msgid "This affects the H1, H2, and H3 type headers."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:341
-msgid "Extensions"
-msgstr "拡張機能"
-
-#: src/Widgets/Preferences.vala:344
-#, fuzzy
-msgid "Code Highlight"
-msgstr "コードのハイライトを有効にする:"
-
-#: src/Widgets/Preferences.vala:345
-msgid "Code blocks will have the contents receive color."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:352
-msgid "LaTeX Math"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:353
-msgid "Text inside LaTeX math blocks will be processed into LaTeX output."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:360
-msgid "Mermaid.js Graph"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:361
-msgid "Text inside Mermaid blocks will become graphs."
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:40
-msgid "Replace with…"
-msgstr "以下の文字で置き換え…"
-
-#: src/Widgets/SearchBar.vala:46
-msgid ""
-"Replace\n"
-"Use arrows before using."
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:52
-#, fuzzy
-msgid "Replace All"
-msgstr "すべて置き換え"
-
-#: src/Widgets/SearchBar.vala:91
-msgid "Find text…"
-msgstr "テキストを検索…"
-
-#: src/Widgets/SearchBar.vala:110
-msgid "Search previous"
-msgstr "前を検索"
-
-#: src/Widgets/SearchBar.vala:130
-msgid "Search next"
-msgstr "次を検索"
-
-#: src/Widgets/SideBar.vala:67
-msgid "No files…"
-msgstr "ファイルがありません…"
-
-#: src/Widgets/SideBar.vala:77
-msgid "Files"
-msgstr "ファイル"
-
-#: src/Widgets/SideBar.vala:78
-msgid "Outline"
-msgstr "アウトライン"
-
-#: src/Widgets/SideBarBox.vala:38
-#, fuzzy
-msgid "New File"
-msgstr "新しいファイル"
-
-#: src/Widgets/SideBarBox.vala:51
-msgid "No header…"
-msgstr ""
-
-#: src/Widgets/SideBarBox.vala:84
-#, fuzzy
-msgid "Remove File from Sidebar"
-msgstr "サイドバーからファイルを削除しますか？"
-
-#: src/Widgets/StatusBar.vala:43
-#, fuzzy
-msgid "Words"
-msgstr "単語数: "
-
-#: src/Widgets/StatusBar.vala:49
-#, fuzzy
-msgid "Lines"
-msgstr "行数: "
-
-#: src/Widgets/StatusBar.vala:55
-#, fuzzy
-msgid "Reading Time"
-msgstr "読むのにかかる時間: "
-
-#: src/Widgets/StatusBar.vala:75
-msgid "Set Tracking Type"
-msgstr "カウントの種類を設定します"
-
-#: src/Widgets/StatusBar.vala:100
-msgid "Words: "
-msgstr "単語数: "
-
-#: src/Widgets/StatusBar.vala:105
-msgid "Lines: "
-msgstr "行数: "
-
-#: src/Widgets/StatusBar.vala:112
-msgid "Reading Time: "
-msgstr "読むのにかかる時間: "
 
 #: src/Services/DialogUtils.vala:21
 msgid "Markdown files"
@@ -444,9 +69,9 @@ msgid "Save Open File?"
 msgstr "開かれているファイルを保存しますか？"
 
 #: src/Services/DialogUtils.vala:37
+#, fuzzy
 msgid ""
-"There are unsaved changes to the file. If you don't save, changes will be "
-"lost forever."
+"There are unsaved changes to the file, any changes will be lost if not saved."
 msgstr ""
 "ファイルに保存されていない変更があります。保存しない場合、変更は破棄されま"
 "す。"
@@ -466,13 +91,15 @@ msgid "Cancel"
 msgstr "キャンセル"
 
 #: src/Services/DialogUtils.vala:52
-msgid "Remove File from Sidebar?"
+#, fuzzy
+msgid "Remove File From Sidebar?"
 msgstr "サイドバーからファイルを削除しますか？"
 
 #: src/Services/DialogUtils.vala:53
+#, fuzzy
 msgid ""
-"By removing this file from the Sidebar, you will lose any changes made if "
-"not saved. Otherwise, it will only be removed."
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
 msgstr ""
 "サイドバーからこのファイルを削除すると、保存されていない変更はすべて破棄され"
 "ます。変更が保存されている場合は、サイドバーからファイルが削除されるだけで"
@@ -487,7 +114,8 @@ msgid "Print to File"
 msgstr "ファイルに出力"
 
 #: src/Services/ExportUtils.vala:142
-msgid "Select destination PDF file"
+#, fuzzy
+msgid "Select Destination PDF File"
 msgstr "保存先の PDF ファイルを選択"
 
 #: src/Services/ExportUtils.vala:147
@@ -499,7 +127,8 @@ msgid "All Files"
 msgstr "すべてのファイル"
 
 #: src/Services/ExportUtils.vala:191
-msgid "Select destination HTML file"
+#, fuzzy
+msgid "Select Destination HTML File"
 msgstr "保存先の HTML ファイルを選択"
 
 #: src/Services/ExportUtils.vala:196
@@ -507,12 +136,637 @@ msgid "HTML File"
 msgstr "HTML ファイル"
 
 #: src/Services/FileManager.vala:89
-msgid "Open file"
+#, fuzzy
+msgid "Open File"
 msgstr "ファイルを開く"
 
 #: src/Services/FileManager.vala:102
-msgid "Save file"
+#, fuzzy
+msgid "Save File"
 msgstr "ファイルを保存"
+
+#: src/Widgets/HeaderBar.vala:76
+msgid "Save document"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:82
+msgid "Choose another folder"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:160
+msgid "Rename"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:183
+#, fuzzy
+msgid "Rename File:"
+msgstr "ファイルを削除"
+
+#: src/Widgets/HeaderBar.vala:201
+#, fuzzy
+msgid "Rename File"
+msgstr "ファイルを削除"
+
+#: src/Widgets/HeaderBar.vala:204
+msgid "new_name.md"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:211
+msgid "Toggle View"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:90 src/Widgets/SideBar.vala:213
+#, fuzzy
+msgid "New File"
+msgstr "新しいファイル"
+
+#: src/Widgets/StatusBar.vala:90
+msgid "Words: "
+msgstr "単語数: "
+
+#: src/Widgets/StatusBar.vala:95
+msgid "Sentences: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:101
+msgid "Reading Time: "
+msgstr "読むのにかかる時間: "
+
+#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:137
+msgid "Markdown Cheatsheet"
+msgstr "Markdown チートシート"
+
+#: data/ui/cheatsheet.ui:17
+msgid "Common"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:22
+msgid "Text"
+msgstr "テキスト"
+
+#: data/ui/cheatsheet.ui:28
+msgid "Bold"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:35
+#, fuzzy
+msgid "**Bold text**"
+msgstr "** 太字 **"
+
+#: data/ui/cheatsheet.ui:48
+msgid "Italics"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:55
+msgid "**Italicized text**"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:68
+#, fuzzy
+msgid "Code Line"
+msgstr "` コード `"
+
+#: data/ui/cheatsheet.ui:75
+msgid "`code text`"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:88
+#, fuzzy
+msgid "Code Block"
+msgstr "``` コードブロック ```"
+
+#: data/ui/cheatsheet.ui:95
+msgid ""
+"```\n"
+"code text\n"
+"```"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:110
+msgid "Quoting"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:117
+msgid ""
+"> Quote\n"
+"> something\n"
+"> here"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#, fuzzy
+msgid "Headers"
+msgstr "# 見出し 1"
+
+#: data/ui/cheatsheet.ui:149
+msgid ""
+"# Title\n"
+"## Subtitle\n"
+"### Section\n"
+"..."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:162
+msgid "Links"
+msgstr "リンク"
+
+#: data/ui/cheatsheet.ui:169
+#, fuzzy
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
+msgstr "[リンクのラベル](http://link.url.here.com)"
+
+#: data/ui/cheatsheet.ui:184
+msgid "Extras"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:190
+#, fuzzy
+msgid "Strikethrough"
+msgstr "~~ 打ち消し線 ~~"
+
+#: data/ui/cheatsheet.ui:197
+#, fuzzy
+msgid "~~Striked through text~~"
+msgstr "~~ 打ち消し線 ~~"
+
+#: data/ui/cheatsheet.ui:210
+msgid "Sub/Superscript"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:217
+msgid ""
+"Subscript:\t\t    H~2~O\n"
+"Superscript:\t\t1^st^"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:229
+#, fuzzy
+msgid "Horzontal Rule"
+msgstr "水平線を作成 → ---"
+
+#: data/ui/cheatsheet.ui:236
+msgid "Use: --- or ***"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:254
+msgid "Special"
+msgstr "特殊なもの"
+
+#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:320
+msgid "Extensions"
+msgstr "拡張機能"
+
+#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:338
+msgid "LaTeX Math"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:272
+msgid ""
+"$$…$$\tfor equation block\n"
+"\\\\(…\\\\)\t\tfor inline equation"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:284
+msgid "Mermaid.js Graphs"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:291
+msgid "<div class=\"mermaid\">...</div>"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:304
+msgid "Checkboxes"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:305
+msgid "Mind the period to avoid collisions."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:312
+msgid ""
+"- [\t] Empty.\n"
+"- [x] Checked."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+msgid "Tables"
+msgstr "表"
+
+#: data/ui/cheatsheet.ui:341
+msgid ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:356
+msgid "Options"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:363
+msgid ""
+"Left\t\t--- \tto\t:---\n"
+"Centered    ---\tto\t:---:\n"
+"Right\t\t---\tto\t---: "
+msgstr ""
+
+#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:32
+msgid "Files"
+msgstr "ファイル"
+
+#: data/ui/cheatsheet.ui:386
+#, fuzzy
+msgid "Document"
+msgstr "開いているドキュメントはありません"
+
+#: data/ui/cheatsheet.ui:393
+msgid "/Folder/Document.md :file"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:403
+msgid "Image"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:410
+#, fuzzy
+msgid "/Folder/Image.png :image"
+msgstr "ローカルの画像を埋め込む → | Folder/Image.png |"
+
+#: data/ui/headerbar.ui:86
+#, fuzzy
+msgid "Focus Mode"
+msgstr "集中モード"
+
+#: data/ui/headerbar.ui:108
+#, fuzzy
+msgid "Export HTML…"
+msgstr "HTML にエクスポート…"
+
+#: data/ui/headerbar.ui:118
+#, fuzzy
+msgid "Export PDF…"
+msgstr "PDF にエクスポート…"
+
+#: data/ui/headerbar.ui:147 data/ui/prefs_window.ui:11
+msgid "Preferences"
+msgstr "設定"
+
+#: data/ui/headerbar.ui:157
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: data/ui/headerbar.ui:167
+#, fuzzy
+msgid "About Quilter"
+msgstr "Quilter"
+
+#: data/ui/headerbar.ui:214
+msgid "Full-Width"
+msgstr ""
+
+#: data/ui/headerbar.ui:228
+msgid "Editor or Preview, change via menu."
+msgstr ""
+
+#: data/ui/headerbar.ui:283
+msgid "Half-Width"
+msgstr ""
+
+#: data/ui/headerbar.ui:297
+msgid "Editor and Preview, side-by-side."
+msgstr ""
+
+#: data/ui/headerbar.ui:405
+#, fuzzy
+msgid "Open"
+msgstr "開く…"
+
+#: data/ui/prefs_window.ui:19
+msgid "General"
+msgstr ""
+
+#: data/ui/prefs_window.ui:22
+msgid "Appearance"
+msgstr ""
+
+#: data/ui/prefs_window.ui:25
+#, fuzzy
+msgid "Visual Mode"
+msgstr "セピアモード"
+
+#: data/ui/prefs_window.ui:91
+#, fuzzy
+msgid "Interface"
+msgstr "ユーザーインターフェース"
+
+#: data/ui/prefs_window.ui:98
+#, fuzzy
+msgid "Focus Scope"
+msgstr "集中モード"
+
+#: data/ui/prefs_window.ui:149
+#, fuzzy
+msgid "Typewriter Scrolling"
+msgstr "タイプライター風のスクロール:"
+
+#: data/ui/prefs_window.ui:165
+msgid "Type Counter"
+msgstr ""
+
+#: data/ui/prefs_window.ui:179
+msgid "Sidebar"
+msgstr ""
+
+#: data/ui/prefs_window.ui:198 data/ui/prefs_window.ui:201
+msgid "Editor"
+msgstr "エディター"
+
+#: data/ui/prefs_window.ui:208
+msgid "Autosave Delay"
+msgstr ""
+
+#: data/ui/prefs_window.ui:209
+msgid "Values below 15s affects the storage medium negatively."
+msgstr ""
+
+#: data/ui/prefs_window.ui:228
+msgid "Highlight Speech Parts (Beta)"
+msgstr ""
+
+#. Mind the newlines
+#: data/ui/prefs_window.ui:229
+msgid ""
+"Only available in English\n"
+"Colors words based on type:\n"
+"- Nouns are black\n"
+"- Verbs are blue\n"
+"- Adjectives are yellow\n"
+"- Adverbs are purple\n"
+"- Conjunctions are green"
+msgstr ""
+
+#: data/ui/prefs_window.ui:251
+msgid "Font"
+msgstr ""
+
+#: data/ui/prefs_window.ui:254
+msgid "Type"
+msgstr ""
+
+#: data/ui/prefs_window.ui:284
+#, fuzzy
+msgid "Preview Font Type"
+msgstr "プレビューに使うフォントを設定します"
+
+#: data/ui/prefs_window.ui:303
+#, fuzzy
+msgid "Header Centering"
+msgstr "見出し"
+
+#: data/ui/prefs_window.ui:304
+msgid "This affects #, ##, and ### headers."
+msgstr ""
+
+#: data/ui/prefs_window.ui:323
+#, fuzzy
+msgid "Code Highlight"
+msgstr "コードのハイライトを有効にする:"
+
+#: data/ui/prefs_window.ui:324
+msgid "Code blocks will have the contents receive color."
+msgstr ""
+
+#: data/ui/prefs_window.ui:339
+msgid "LaTeX math blocks will be processed into LaTeX output."
+msgstr ""
+
+#: data/ui/prefs_window.ui:353
+msgid "Mermaid.js Graph"
+msgstr ""
+
+#: data/ui/prefs_window.ui:354
+msgid "Mermaid blocks will become graphs."
+msgstr ""
+
+#: data/ui/searchbar.ui:14
+#, fuzzy
+msgid "Replace…"
+msgstr "置き換え"
+
+#: data/ui/searchbar.ui:71
+#, fuzzy
+msgid "Search…"
+msgstr "次を検索"
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: data/ui/shortcuts.ui:27
+#, fuzzy
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "開いているドキュメントはありません"
+
+#: data/ui/shortcuts.ui:34
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save Document"
+msgstr "開いているドキュメントはありません"
+
+#: data/ui/shortcuts.ui:41
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Save Document As"
+msgstr "開いているドキュメントはありません"
+
+#: data/ui/shortcuts.ui:48
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "開いているドキュメントはありません"
+
+#: data/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Begin Search"
+msgstr ""
+
+#: data/ui/shortcuts.ui:62
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr ""
+
+#: data/ui/shortcuts.ui:69
+msgctxt "shortcut window"
+msgid "Redo"
+msgstr ""
+
+#: data/ui/shortcuts.ui:76
+msgctxt "shortcut window"
+msgid "Go Fullscreen"
+msgstr ""
+
+#: data/ui/shortcuts.ui:84
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Interface"
+msgstr "ユーザーインターフェース"
+
+#: data/ui/shortcuts.ui:89
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Markdown Cheatsheet"
+msgstr "Markdown チートシート"
+
+#: data/ui/shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Switch Editor/Preview"
+msgstr ""
+
+#: data/ui/shortcuts.ui:103
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Show/Hide Sidebar"
+msgstr "サイドバーを表示／非表示"
+
+#: data/ui/shortcuts.ui:110
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to/from Focus Mode"
+msgstr "集中モードの種類:"
+
+#: data/ui/shortcuts.ui:118
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Exporting"
+msgstr "エクスポート"
+
+#: data/ui/shortcuts.ui:123
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Export to HTML"
+msgstr "HTML にエクスポート…"
+
+#: data/ui/shortcuts.ui:130
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Export to PDF"
+msgstr "PDF にエクスポート…"
+
+#: data/ui/sidebar.ui:48
+#, fuzzy
+msgid "No Files"
+msgstr "すべてのファイル"
+
+#: data/ui/sidebar.ui:78
+msgid "Outline"
+msgstr "アウトライン"
+
+#: data/ui/sidebarbox.ui:16
+#, fuzzy
+msgid "Remove file from sidebar"
+msgstr "サイドバーからファイルを削除しますか？"
+
+#: data/ui/statusbar.ui:17
+#, fuzzy
+msgid "Words"
+msgstr "単語数: "
+
+#: data/ui/statusbar.ui:28
+#, fuzzy
+msgid "Sentences"
+msgstr "文"
+
+#: data/ui/statusbar.ui:40
+#, fuzzy
+msgid "Reading Time"
+msgstr "読むのにかかる時間: "
+
+#, fuzzy
+#~ msgid "Search and replace text"
+#~ msgstr "次を検索"
+
+#~ msgid "Light Mode"
+#~ msgstr "ライトモード"
+
+#~ msgid "Sepia Mode"
+#~ msgstr "セピアモード"
+
+#~ msgid "Dark Mode"
+#~ msgstr "ダークモード"
+
+#, fuzzy
+#~ msgid "Focus Mode…"
+#~ msgstr "集中モード"
+
+#~ msgid "Settings"
+#~ msgstr "設定"
+
+#, fuzzy
+#~ msgid "Rename the File:"
+#~ msgstr "ファイルを削除"
+
+#, fuzzy
+#~ msgid "Quilt Zwei"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "Quilt Vier"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "Focus on Paragraph"
+#~ msgstr "段落"
+
+#, fuzzy
+#~ msgid "Font Type"
+#~ msgstr "フォントと入力"
+
+#, fuzzy
+#~ msgid "Serif"
+#~ msgstr "セリフを使う"
+
+#, fuzzy
+#~ msgid "Sans-serif"
+#~ msgstr "サンセリフを使う"
+
+#, fuzzy
+#~ msgid "Monospace"
+#~ msgstr "等幅を使う"
+
+#~ msgid "Replace with…"
+#~ msgstr "以下の文字で置き換え…"
+
+#, fuzzy
+#~ msgid "Replace All"
+#~ msgstr "すべて置き換え"
+
+#~ msgid "Find text…"
+#~ msgstr "テキストを検索…"
+
+#~ msgid "Search previous"
+#~ msgstr "前を検索"
+
+#~ msgid "No files…"
+#~ msgstr "ファイルがありません…"
+
+#, fuzzy
+#~ msgid "Lines"
+#~ msgstr "行数: "
+
+#~ msgid "Set Tracking Type"
+#~ msgstr "カウントの種類を設定します"
+
+#~ msgid "Lines: "
+#~ msgstr "行数: "
 
 #~ msgid "Cheatsheet"
 #~ msgstr "チートシート"
@@ -520,10 +774,6 @@ msgstr "ファイルを保存"
 #, fuzzy
 #~ msgid "Headers & Text"
 #~ msgstr "テキストの余白:"
-
-#, fuzzy
-#~ msgid "# Header 1"
-#~ msgstr "# 見出し 1"
 
 #, fuzzy
 #~ msgid "## Header 2"
@@ -534,59 +784,18 @@ msgstr "ファイルを保存"
 #~ msgstr "### 見出し 3"
 
 #, fuzzy
-#~ msgid "** Bold **"
-#~ msgstr "** 太字 **"
-
-#, fuzzy
 #~ msgid "* Emphasized *"
 #~ msgstr "* 強調 *"
 
 #, fuzzy
-#~ msgid "` Code Line `"
-#~ msgstr "` コード `"
-
-#, fuzzy
-#~ msgid "``` Code Block ```"
-#~ msgstr "``` コードブロック ```"
-
-#, fuzzy
 #~ msgid "> Quote"
 #~ msgstr "> 引用"
-
-#~ msgid "Links"
-#~ msgstr "リンク"
-
-#, fuzzy
-#~ msgid ""
-#~ "[Link Label](http://link.url.com)\n"
-#~ "![Image Label](http://image.url.com)"
-#~ msgstr "[リンクのラベル](http://link.url.here.com)"
-
-#~ msgid "Special"
-#~ msgstr "特殊なもの"
-
-#, fuzzy
-#~ msgid "Horizontal rule → ---"
-#~ msgstr "水平線を作成 → ---"
-
-#, fuzzy
-#~ msgid "~~Strikethrough~~"
-#~ msgstr "~~ 打ち消し線 ~~"
-
-#, fuzzy
-#~ msgid ""
-#~ "Embeds a local image\n"
-#~ "\t/Folder/Image.png :image"
-#~ msgstr "ローカルの画像を埋め込む → | Folder/Image.png |"
 
 #, fuzzy
 #~ msgid ""
 #~ "Embeds a local Markdown file\n"
 #~ "\t/Folder/File.md :file"
 #~ msgstr "ローカルの Markdown ファイルを埋め込む → % Folder/File.md %"
-
-#~ msgid "Tables"
-#~ msgstr "表"
 
 #~ msgid "New file"
 #~ msgstr "新しいファイル"
@@ -644,12 +853,6 @@ msgstr "ファイルを保存"
 #~ msgid "Characters: "
 #~ msgstr "文字数: "
 
-#~ msgid "Set Preview Font"
-#~ msgstr "プレビューに使うフォントを設定します"
-
-#~ msgid "Text"
-#~ msgstr "テキスト"
-
 #~ msgid "Links & Special"
 #~ msgstr "リンクと特殊なもの"
 
@@ -683,9 +886,6 @@ msgstr "ファイルを保存"
 #~ msgid "Start search"
 #~ msgstr "検索を開始"
 
-#~ msgid "Export"
-#~ msgstr "エクスポート"
-
 #~ msgid "Moon Mode"
 #~ msgstr "月下モード"
 
@@ -704,20 +904,8 @@ msgstr "ファイルを保存"
 #~ msgid "Enable Focus Mode:"
 #~ msgstr "集中モードを有効にする:"
 
-#~ msgid "Type of Focus Mode:"
-#~ msgstr "集中モードの種類:"
-
 #~ msgid "Show Statusbar:"
 #~ msgstr "ステータスバーを表示:"
 
 #~ msgid "Show Searchbar:"
 #~ msgstr "検索バーを表示:"
-
-#~ msgid "Replace"
-#~ msgstr "置き換え"
-
-#~ msgid "Show/Hide Sidebar"
-#~ msgstr "サイドバーを表示／非表示"
-
-#~ msgid "No File"
-#~ msgstr "すべてのファイル"
