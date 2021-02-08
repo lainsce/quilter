@@ -1,6 +1,10 @@
 src/Application.vala
 src/MainWindow.vala
+src/Services/DialogUtils.vala
+src/Services/ExportUtils.vala
+src/Services/FileManager.vala
 src/Widgets/HeaderBar.vala
+src/Widgets/HeaderBarButton.vala
 src/Widgets/Preferences.vala
 src/Widgets/SearchBar.vala
 src/Widgets/SideBar.vala
@@ -8,6 +12,12 @@ src/Widgets/SideBarBox.vala
 src/Widgets/SourceView.vala
 src/Widgets/StatusBar.vala
 src/Widgets/WebView.vala
-src/Services/DialogUtils.vala
-src/Services/ExportUtils.vala
-src/Services/FileManager.vala
+data/ui/cheatsheet.ui
+data/ui/headerbar.ui
+data/ui/header_button.ui
+data/ui/prefs_window.ui
+data/ui/searchbar.ui
+data/ui/shortcuts.ui
+data/ui/sidebar.ui
+data/ui/sidebarbox.ui
+data/ui/statusbar.ui

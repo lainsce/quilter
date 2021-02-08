@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-24 23:45-0300\n"
+"POT-Creation-Date: 2021-02-08 01:23-0300\n"
 "PO-Revision-Date: 2018-11-23 15:40+0200\n"
 "Last-Translator: Moo\n"
 "Language-Team: \n"
@@ -19,414 +19,42 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
 "%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:152 src/MainWindow.vala:395 src/MainWindow.vala:761
+#: src/MainWindow.vala:148 src/MainWindow.vala:676 src/Widgets/SideBar.vala:88
+#: src/Widgets/SideBar.vala:211
 msgid "New Document"
 msgstr ""
 
-#: src/MainWindow.vala:153 src/MainWindow.vala:762 src/MainWindow.vala:764
+#: src/MainWindow.vala:149 src/MainWindow.vala:677 src/MainWindow.vala:680
+#: src/Widgets/SideBar.vala:89 src/Widgets/SideBar.vala:212
 msgid "Not Saved Yet"
 msgstr ""
 
-#. Welcome View
-#: src/MainWindow.vala:387
-msgid "Write a new Document"
-msgstr ""
-
-#: src/MainWindow.vala:401
-msgid "Open Document"
-msgstr ""
-
-#: src/MainWindow.vala:441
+#: src/MainWindow.vala:391
 #, fuzzy
 msgid "Exit focus mode"
 msgstr "Įjungti susitelkimo veikseną:"
 
-#: src/MainWindow.vala:699
+#: src/MainWindow.vala:612
 msgid "Edit"
 msgstr "Taisa"
 
-#: src/MainWindow.vala:701 src/Widgets/Preferences.vala:282
-#: src/Widgets/Preferences.vala:285
+#: src/MainWindow.vala:613 data/ui/prefs_window.ui:278
+#: data/ui/prefs_window.ui:281
 msgid "Preview"
 msgstr "Peržiūra"
 
 #: src/MainWindow.vala:763
-#, c-format
-msgid "New Document-%d.md"
-msgstr ""
-
-#: src/MainWindow.vala:835
 #, fuzzy
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:840
+#: src/MainWindow.vala:768
 msgid "Focus on your writing."
 msgstr ""
 
-#: src/MainWindow.vala:845
+#: src/MainWindow.vala:774
 msgid "translator-credits"
 msgstr ""
-
-#: src/Widgets/HeaderBar.vala:62
-msgid "Create a new document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:67
-msgid "Choose another folder"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:72
-msgid "Open a document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:73
-#, fuzzy
-msgid "Open"
-msgstr "Atverti failą"
-
-#: src/Widgets/HeaderBar.vala:77
-msgid "Save document"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:86
-msgid "Search and replace text"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:103
-msgid "Export to PDF…"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:107
-msgid "Export to HTML…"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:111
-msgid "Markdown Cheatsheet"
-msgstr "Kodų lapas"
-
-#: src/Widgets/HeaderBar.vala:115 src/Widgets/Preferences.vala:25
-msgid "Preferences"
-msgstr "Nuostatos"
-
-#: src/Widgets/HeaderBar.vala:121 src/Widgets/Preferences.vala:158
-msgid "Light Mode"
-msgstr "Šviesi veiksena"
-
-#: src/Widgets/HeaderBar.vala:131 src/Widgets/Preferences.vala:168
-msgid "Sepia Mode"
-msgstr "Sepijos veiksena"
-
-#: src/Widgets/HeaderBar.vala:141 src/Widgets/Preferences.vala:178
-msgid "Dark Mode"
-msgstr "Tamsi veiksena"
-
-#: src/Widgets/HeaderBar.vala:176
-#, fuzzy
-msgid "Focus Mode…"
-msgstr "Įjungti susitelkimo veikseną:"
-
-#: src/Widgets/HeaderBar.vala:185
-msgid "Toggle View…"
-msgstr ""
-
-#. _("Full-Width\nFull Editor, change with switcher")
-#: src/Widgets/HeaderBar.vala:200
-msgid "Full-Width"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:202
-msgid "Editor or Preview, change on the menu."
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:221
-msgid "Half-Width"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:225
-msgid "Editor & Preview, divided equally."
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:279
-msgid "Change layout of editor and preview"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:298
-#, fuzzy
-msgid "About Quilter"
-msgstr "Quilter"
-
-#: src/Widgets/HeaderBar.vala:305
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:338
-msgid "Settings"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:353
-msgid "Rename"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:376
-#, fuzzy
-msgid "Rename the File:"
-msgstr "Visi failai"
-
-#: src/Widgets/HeaderBar.vala:394
-#, fuzzy
-msgid "Rename File"
-msgstr "Visi failai"
-
-#: src/Widgets/HeaderBar.vala:397
-msgid "new_name.md"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:52 src/Widgets/Preferences.vala:105
-msgid "Editor"
-msgstr "Redaktorius"
-
-#: src/Widgets/Preferences.vala:55
-msgid "Font"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:58
-msgid "Type"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:63
-msgid "Quilt Mono"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:64
-#, fuzzy
-msgid "Quilt Zwei"
-msgstr "Quilter"
-
-#: src/Widgets/Preferences.vala:65
-#, fuzzy
-msgid "Quilt Vier"
-msgstr "Quilter"
-
-#: src/Widgets/Preferences.vala:108
-msgid "Autosave Documents"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:119
-msgid "Autosave Delay"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:120
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:126
-msgid "Highlight Speech Parts (beta)"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:127
-msgid ""
-"Only available in English.\n"
-"Colors words based on type:\n"
-"- Nouns are Black\n"
-"- Verbs are Blue\n"
-"- Adjectives are Yellow\n"
-"- Adverbs are Purple\n"
-"- Conjunctions are Green"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:146
-msgid "General"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:149
-msgid "Appearance"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:152
-#, fuzzy
-msgid "Visual Mode"
-msgstr "Sepijos veiksena"
-
-#: src/Widgets/Preferences.vala:220
-#, fuzzy
-msgid "Interface"
-msgstr "Naudotojo sąsaja"
-
-#: src/Widgets/Preferences.vala:223
-#, fuzzy
-msgid "Focus Mode"
-msgstr "Įjungti susitelkimo veikseną:"
-
-#: src/Widgets/Preferences.vala:229
-#, fuzzy
-msgid "Focus on Paragraph"
-msgstr "Pastraipa"
-
-#: src/Widgets/Preferences.vala:231
-#, fuzzy
-msgid "Focus on Sentence"
-msgstr "Sakinys"
-
-#: src/Widgets/Preferences.vala:246
-#, fuzzy
-msgid "Focus Scope"
-msgstr "Įjungti susitelkimo veikseną:"
-
-#: src/Widgets/Preferences.vala:250
-#, fuzzy
-msgid "Typewriter Scrolling"
-msgstr "Rašomosios mašinėlės slinkimas:"
-
-#: src/Widgets/Preferences.vala:257
-msgid "Type Counter"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:263
-msgid "Sidebar"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:288
-#, fuzzy
-msgid "Font Type"
-msgstr "Šriftai ir tipas"
-
-#: src/Widgets/Preferences.vala:294
-#, fuzzy
-msgid "Serif"
-msgstr "Naudoti serifinį"
-
-#: src/Widgets/Preferences.vala:295
-#, fuzzy
-msgid "Sans-serif"
-msgstr "Naudoti neserifinį"
-
-#: src/Widgets/Preferences.vala:296
-#, fuzzy
-msgid "Monospace"
-msgstr "Naudoti lygiaplotį"
-
-#: src/Widgets/Preferences.vala:333
-#, fuzzy
-msgid "Header Centering"
-msgstr "Antraštė"
-
-#: src/Widgets/Preferences.vala:334
-msgid "This affects the H1, H2, and H3 type headers."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:341
-msgid "Extensions"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:344
-#, fuzzy
-msgid "Code Highlight"
-msgstr "Įjungti rašybos tikrinimą:"
-
-#: src/Widgets/Preferences.vala:345
-msgid "Code blocks will have the contents receive color."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:352
-msgid "LaTeX Math"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:353
-msgid "Text inside LaTeX math blocks will be processed into LaTeX output."
-msgstr ""
-
-#: src/Widgets/Preferences.vala:360
-msgid "Mermaid.js Graph"
-msgstr ""
-
-#: src/Widgets/Preferences.vala:361
-msgid "Text inside Mermaid blocks will become graphs."
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:40
-msgid "Replace with…"
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:46
-msgid ""
-"Replace\n"
-"Use arrows before using."
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:52
-msgid "Replace All"
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:91
-msgid "Find text…"
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:110
-msgid "Search previous"
-msgstr ""
-
-#: src/Widgets/SearchBar.vala:130
-msgid "Search next"
-msgstr ""
-
-#: src/Widgets/SideBar.vala:67
-#, fuzzy
-msgid "No files…"
-msgstr "Atverti failą"
-
-#: src/Widgets/SideBar.vala:77
-#, fuzzy
-msgid "Files"
-msgstr "Visi failai"
-
-#: src/Widgets/SideBar.vala:78
-msgid "Outline"
-msgstr ""
-
-#: src/Widgets/SideBarBox.vala:38
-#, fuzzy
-msgid "New File"
-msgstr "Atverti failą"
-
-#: src/Widgets/SideBarBox.vala:51
-msgid "No header…"
-msgstr ""
-
-#: src/Widgets/SideBarBox.vala:84
-msgid "Remove File from Sidebar"
-msgstr ""
-
-#: src/Widgets/StatusBar.vala:43
-#, fuzzy
-msgid "Words"
-msgstr "Žodžių: "
-
-#: src/Widgets/StatusBar.vala:49
-#, fuzzy
-msgid "Lines"
-msgstr "Eilučių: "
-
-#: src/Widgets/StatusBar.vala:55
-#, fuzzy
-msgid "Reading Time"
-msgstr "Skaitymo laikas: "
-
-#: src/Widgets/StatusBar.vala:75
-msgid "Set Tracking Type"
-msgstr "Nustatyti sekimo tipą"
-
-#: src/Widgets/StatusBar.vala:100
-msgid "Words: "
-msgstr "Žodžių: "
-
-#: src/Widgets/StatusBar.vala:105
-msgid "Lines: "
-msgstr "Eilučių: "
-
-#: src/Widgets/StatusBar.vala:112
-msgid "Reading Time: "
-msgstr "Skaitymo laikas: "
 
 #: src/Services/DialogUtils.vala:21
 msgid "Markdown files"
@@ -441,9 +69,9 @@ msgid "Save Open File?"
 msgstr "Atverti failą"
 
 #: src/Services/DialogUtils.vala:37
+#, fuzzy
 msgid ""
-"There are unsaved changes to the file. If you don't save, changes will be "
-"lost forever."
+"There are unsaved changes to the file, any changes will be lost if not saved."
 msgstr "Jeigu neįrašysite, pakeitimai bus negrįžtamai prarasti."
 
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
@@ -461,13 +89,13 @@ msgid "Cancel"
 msgstr ""
 
 #: src/Services/DialogUtils.vala:52
-msgid "Remove File from Sidebar?"
+msgid "Remove File From Sidebar?"
 msgstr ""
 
 #: src/Services/DialogUtils.vala:53
 msgid ""
-"By removing this file from the Sidebar, you will lose any changes made if "
-"not saved. Otherwise, it will only be removed."
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
 msgstr ""
 
 #: src/Services/DialogUtils.vala:58
@@ -480,7 +108,7 @@ msgid "Print to File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:142
-msgid "Select destination PDF file"
+msgid "Select Destination PDF File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:147
@@ -492,7 +120,7 @@ msgid "All Files"
 msgstr "Visi failai"
 
 #: src/Services/ExportUtils.vala:191
-msgid "Select destination HTML file"
+msgid "Select Destination HTML File"
 msgstr ""
 
 #: src/Services/ExportUtils.vala:196
@@ -500,12 +128,605 @@ msgid "HTML File"
 msgstr ""
 
 #: src/Services/FileManager.vala:89
-msgid "Open file"
+#, fuzzy
+msgid "Open File"
 msgstr "Atverti failą"
 
 #: src/Services/FileManager.vala:102
-msgid "Save file"
+#, fuzzy
+msgid "Save File"
 msgstr "Įrašyti failą"
+
+#: src/Widgets/HeaderBar.vala:76
+msgid "Save document"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:82
+msgid "Choose another folder"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:160
+msgid "Rename"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:183
+#, fuzzy
+msgid "Rename File:"
+msgstr "Visi failai"
+
+#: src/Widgets/HeaderBar.vala:201
+#, fuzzy
+msgid "Rename File"
+msgstr "Visi failai"
+
+#: src/Widgets/HeaderBar.vala:204
+msgid "new_name.md"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:211
+msgid "Toggle View"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:90 src/Widgets/SideBar.vala:213
+#, fuzzy
+msgid "New File"
+msgstr "Atverti failą"
+
+#: src/Widgets/StatusBar.vala:90
+msgid "Words: "
+msgstr "Žodžių: "
+
+#: src/Widgets/StatusBar.vala:95
+msgid "Sentences: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:101
+msgid "Reading Time: "
+msgstr "Skaitymo laikas: "
+
+#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:137
+msgid "Markdown Cheatsheet"
+msgstr "Kodų lapas"
+
+#: data/ui/cheatsheet.ui:17
+msgid "Common"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:22
+msgid "Text"
+msgstr "Tekstas"
+
+#: data/ui/cheatsheet.ui:28
+msgid "Bold"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:35
+#, fuzzy
+msgid "**Bold text**"
+msgstr "** Pusjuodis tekstas **"
+
+#: data/ui/cheatsheet.ui:48
+msgid "Italics"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:55
+msgid "**Italicized text**"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:68
+#, fuzzy
+msgid "Code Line"
+msgstr "` Kodo tekstas `"
+
+#: data/ui/cheatsheet.ui:75
+msgid "`code text`"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:88
+#, fuzzy
+msgid "Code Block"
+msgstr "```Tai yra kodo blokas```"
+
+#: data/ui/cheatsheet.ui:95
+msgid ""
+"```\n"
+"code text\n"
+"```"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:110
+msgid "Quoting"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:117
+msgid ""
+"> Quote\n"
+"> something\n"
+"> here"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#, fuzzy
+msgid "Headers"
+msgstr "# Antraštė 1"
+
+#: data/ui/cheatsheet.ui:149
+msgid ""
+"# Title\n"
+"## Subtitle\n"
+"### Section\n"
+"..."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:162
+msgid "Links"
+msgstr "Nuorodos"
+
+#: data/ui/cheatsheet.ui:169
+#, fuzzy
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
+msgstr "[Nuorodos etiketė](http://nuorodos.url.čia.com)"
+
+#: data/ui/cheatsheet.ui:184
+msgid "Extras"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:190
+#, fuzzy
+msgid "Strikethrough"
+msgstr "~~Perbrauktas tekstas~~"
+
+#: data/ui/cheatsheet.ui:197
+#, fuzzy
+msgid "~~Striked through text~~"
+msgstr "~~Perbrauktas tekstas~~"
+
+#: data/ui/cheatsheet.ui:210
+msgid "Sub/Superscript"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:217
+msgid ""
+"Subscript:\t\t    H~2~O\n"
+"Superscript:\t\t1^st^"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:229
+#, fuzzy
+msgid "Horzontal Rule"
+msgstr "--- ← Tai sukuria horizontalią liniją"
+
+#: data/ui/cheatsheet.ui:236
+msgid "Use: --- or ***"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:254
+msgid "Special"
+msgstr "Ypatingi"
+
+#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:320
+msgid "Extensions"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:338
+msgid "LaTeX Math"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:272
+msgid ""
+"$$…$$\tfor equation block\n"
+"\\\\(…\\\\)\t\tfor inline equation"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:284
+msgid "Mermaid.js Graphs"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:291
+msgid "<div class=\"mermaid\">...</div>"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:304
+msgid "Checkboxes"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:305
+msgid "Mind the period to avoid collisions."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:312
+msgid ""
+"- [\t] Empty.\n"
+"- [x] Checked."
+msgstr ""
+
+#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+msgid "Tables"
+msgstr "Lentelės"
+
+#: data/ui/cheatsheet.ui:341
+msgid ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:356
+msgid "Options"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:363
+msgid ""
+"Left\t\t--- \tto\t:---\n"
+"Centered    ---\tto\t:---:\n"
+"Right\t\t---\tto\t---: "
+msgstr ""
+
+#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:32
+#, fuzzy
+msgid "Files"
+msgstr "Visi failai"
+
+#: data/ui/cheatsheet.ui:386
+msgid "Document"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:393
+msgid "/Folder/Document.md :file"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:403
+msgid "Image"
+msgstr ""
+
+#: data/ui/cheatsheet.ui:410
+msgid "/Folder/Image.png :image"
+msgstr ""
+
+#: data/ui/headerbar.ui:86
+#, fuzzy
+msgid "Focus Mode"
+msgstr "Įjungti susitelkimo veikseną:"
+
+#: data/ui/headerbar.ui:108
+msgid "Export HTML…"
+msgstr ""
+
+#: data/ui/headerbar.ui:118
+msgid "Export PDF…"
+msgstr ""
+
+#: data/ui/headerbar.ui:147 data/ui/prefs_window.ui:11
+msgid "Preferences"
+msgstr "Nuostatos"
+
+#: data/ui/headerbar.ui:157
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: data/ui/headerbar.ui:167
+#, fuzzy
+msgid "About Quilter"
+msgstr "Quilter"
+
+#: data/ui/headerbar.ui:214
+msgid "Full-Width"
+msgstr ""
+
+#: data/ui/headerbar.ui:228
+msgid "Editor or Preview, change via menu."
+msgstr ""
+
+#: data/ui/headerbar.ui:283
+msgid "Half-Width"
+msgstr ""
+
+#: data/ui/headerbar.ui:297
+msgid "Editor and Preview, side-by-side."
+msgstr ""
+
+#: data/ui/headerbar.ui:405
+#, fuzzy
+msgid "Open"
+msgstr "Atverti failą"
+
+#: data/ui/prefs_window.ui:19
+msgid "General"
+msgstr ""
+
+#: data/ui/prefs_window.ui:22
+msgid "Appearance"
+msgstr ""
+
+#: data/ui/prefs_window.ui:25
+#, fuzzy
+msgid "Visual Mode"
+msgstr "Sepijos veiksena"
+
+#: data/ui/prefs_window.ui:91
+#, fuzzy
+msgid "Interface"
+msgstr "Naudotojo sąsaja"
+
+#: data/ui/prefs_window.ui:98
+#, fuzzy
+msgid "Focus Scope"
+msgstr "Įjungti susitelkimo veikseną:"
+
+#: data/ui/prefs_window.ui:149
+#, fuzzy
+msgid "Typewriter Scrolling"
+msgstr "Rašomosios mašinėlės slinkimas:"
+
+#: data/ui/prefs_window.ui:165
+msgid "Type Counter"
+msgstr ""
+
+#: data/ui/prefs_window.ui:179
+msgid "Sidebar"
+msgstr ""
+
+#: data/ui/prefs_window.ui:198 data/ui/prefs_window.ui:201
+msgid "Editor"
+msgstr "Redaktorius"
+
+#: data/ui/prefs_window.ui:208
+msgid "Autosave Delay"
+msgstr ""
+
+#: data/ui/prefs_window.ui:209
+msgid "Values below 15s affects the storage medium negatively."
+msgstr ""
+
+#: data/ui/prefs_window.ui:228
+msgid "Highlight Speech Parts (Beta)"
+msgstr ""
+
+#. Mind the newlines
+#: data/ui/prefs_window.ui:229
+msgid ""
+"Only available in English\n"
+"Colors words based on type:\n"
+"- Nouns are black\n"
+"- Verbs are blue\n"
+"- Adjectives are yellow\n"
+"- Adverbs are purple\n"
+"- Conjunctions are green"
+msgstr ""
+
+#: data/ui/prefs_window.ui:251
+msgid "Font"
+msgstr ""
+
+#: data/ui/prefs_window.ui:254
+msgid "Type"
+msgstr ""
+
+#: data/ui/prefs_window.ui:284
+#, fuzzy
+msgid "Preview Font Type"
+msgstr "Nustatyti peržiūros šriftą"
+
+#: data/ui/prefs_window.ui:303
+#, fuzzy
+msgid "Header Centering"
+msgstr "Antraštė"
+
+#: data/ui/prefs_window.ui:304
+msgid "This affects #, ##, and ### headers."
+msgstr ""
+
+#: data/ui/prefs_window.ui:323
+#, fuzzy
+msgid "Code Highlight"
+msgstr "Įjungti rašybos tikrinimą:"
+
+#: data/ui/prefs_window.ui:324
+msgid "Code blocks will have the contents receive color."
+msgstr ""
+
+#: data/ui/prefs_window.ui:339
+msgid "LaTeX math blocks will be processed into LaTeX output."
+msgstr ""
+
+#: data/ui/prefs_window.ui:353
+msgid "Mermaid.js Graph"
+msgstr ""
+
+#: data/ui/prefs_window.ui:354
+msgid "Mermaid blocks will become graphs."
+msgstr ""
+
+#: data/ui/searchbar.ui:14
+msgid "Replace…"
+msgstr ""
+
+#: data/ui/searchbar.ui:71
+msgid "Search…"
+msgstr ""
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr ""
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr ""
+
+#: data/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr ""
+
+#: data/ui/shortcuts.ui:34
+msgctxt "shortcut window"
+msgid "Save Document"
+msgstr ""
+
+#: data/ui/shortcuts.ui:41
+msgctxt "shortcut window"
+msgid "Save Document As"
+msgstr ""
+
+#: data/ui/shortcuts.ui:48
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr ""
+
+#: data/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Begin Search"
+msgstr ""
+
+#: data/ui/shortcuts.ui:62
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr ""
+
+#: data/ui/shortcuts.ui:69
+msgctxt "shortcut window"
+msgid "Redo"
+msgstr ""
+
+#: data/ui/shortcuts.ui:76
+msgctxt "shortcut window"
+msgid "Go Fullscreen"
+msgstr ""
+
+#: data/ui/shortcuts.ui:84
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Interface"
+msgstr "Naudotojo sąsaja"
+
+#: data/ui/shortcuts.ui:89
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Markdown Cheatsheet"
+msgstr "Kodų lapas"
+
+#: data/ui/shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Switch Editor/Preview"
+msgstr ""
+
+#: data/ui/shortcuts.ui:103
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Show/Hide Sidebar"
+msgstr "Rodyti/Slėpti šoninę juostą"
+
+#: data/ui/shortcuts.ui:110
+#, fuzzy
+msgctxt "shortcut window"
+msgid "Switch to/from Focus Mode"
+msgstr "Susitelkimo veiksenos tipas:"
+
+#: data/ui/shortcuts.ui:118
+msgctxt "shortcut window"
+msgid "Exporting"
+msgstr ""
+
+#: data/ui/shortcuts.ui:123
+msgctxt "shortcut window"
+msgid "Export to HTML"
+msgstr ""
+
+#: data/ui/shortcuts.ui:130
+msgctxt "shortcut window"
+msgid "Export to PDF"
+msgstr ""
+
+#: data/ui/sidebar.ui:48
+#, fuzzy
+msgid "No Files"
+msgstr "Visi failai"
+
+#: data/ui/sidebar.ui:78
+msgid "Outline"
+msgstr ""
+
+#: data/ui/sidebarbox.ui:16
+msgid "Remove file from sidebar"
+msgstr ""
+
+#: data/ui/statusbar.ui:17
+#, fuzzy
+msgid "Words"
+msgstr "Žodžių: "
+
+#: data/ui/statusbar.ui:28
+#, fuzzy
+msgid "Sentences"
+msgstr "Sakinys"
+
+#: data/ui/statusbar.ui:40
+#, fuzzy
+msgid "Reading Time"
+msgstr "Skaitymo laikas: "
+
+#~ msgid "Light Mode"
+#~ msgstr "Šviesi veiksena"
+
+#~ msgid "Sepia Mode"
+#~ msgstr "Sepijos veiksena"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Tamsi veiksena"
+
+#, fuzzy
+#~ msgid "Focus Mode…"
+#~ msgstr "Įjungti susitelkimo veikseną:"
+
+#, fuzzy
+#~ msgid "Rename the File:"
+#~ msgstr "Visi failai"
+
+#, fuzzy
+#~ msgid "Quilt Zwei"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "Quilt Vier"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "Focus on Paragraph"
+#~ msgstr "Pastraipa"
+
+#, fuzzy
+#~ msgid "Font Type"
+#~ msgstr "Šriftai ir tipas"
+
+#, fuzzy
+#~ msgid "Serif"
+#~ msgstr "Naudoti serifinį"
+
+#, fuzzy
+#~ msgid "Sans-serif"
+#~ msgstr "Naudoti neserifinį"
+
+#, fuzzy
+#~ msgid "Monospace"
+#~ msgstr "Naudoti lygiaplotį"
+
+#, fuzzy
+#~ msgid "No files…"
+#~ msgstr "Atverti failą"
+
+#, fuzzy
+#~ msgid "Lines"
+#~ msgstr "Eilučių: "
+
+#~ msgid "Set Tracking Type"
+#~ msgstr "Nustatyti sekimo tipą"
+
+#~ msgid "Lines: "
+#~ msgstr "Eilučių: "
 
 #~ msgid "Cheatsheet"
 #~ msgstr "Kodų lapas"
@@ -513,10 +734,6 @@ msgstr "Įrašyti failą"
 #, fuzzy
 #~ msgid "Headers & Text"
 #~ msgstr "Teksto paraštės:"
-
-#, fuzzy
-#~ msgid "# Header 1"
-#~ msgstr "# Antraštė 1"
 
 #, fuzzy
 #~ msgid "## Header 2"
@@ -527,47 +744,12 @@ msgstr "Įrašyti failą"
 #~ msgstr "### Antraštė 3"
 
 #, fuzzy
-#~ msgid "** Bold **"
-#~ msgstr "** Pusjuodis tekstas **"
-
-#, fuzzy
 #~ msgid "* Emphasized *"
 #~ msgstr "* Pasvirasis tekstas *"
 
 #, fuzzy
-#~ msgid "` Code Line `"
-#~ msgstr "` Kodo tekstas `"
-
-#, fuzzy
-#~ msgid "``` Code Block ```"
-#~ msgstr "```Tai yra kodo blokas```"
-
-#, fuzzy
 #~ msgid "> Quote"
 #~ msgstr "> Citatos tekstas"
-
-#~ msgid "Links"
-#~ msgstr "Nuorodos"
-
-#, fuzzy
-#~ msgid ""
-#~ "[Link Label](http://link.url.com)\n"
-#~ "![Image Label](http://image.url.com)"
-#~ msgstr "[Nuorodos etiketė](http://nuorodos.url.čia.com)"
-
-#~ msgid "Special"
-#~ msgstr "Ypatingi"
-
-#, fuzzy
-#~ msgid "Horizontal rule → ---"
-#~ msgstr "--- ← Tai sukuria horizontalią liniją"
-
-#, fuzzy
-#~ msgid "~~Strikethrough~~"
-#~ msgstr "~~Perbrauktas tekstas~~"
-
-#~ msgid "Tables"
-#~ msgstr "Lentelės"
 
 #~ msgid "New file"
 #~ msgstr "Atverti failą"
@@ -614,12 +796,6 @@ msgstr "Įrašyti failą"
 
 #~ msgid "Characters: "
 #~ msgstr "Simbolių: "
-
-#~ msgid "Set Preview Font"
-#~ msgstr "Nustatyti peržiūros šriftą"
-
-#~ msgid "Text"
-#~ msgstr "Tekstas"
 
 #~ msgid "Links & Special"
 #~ msgstr "Nuorodos ir ypatingi"
@@ -669,17 +845,8 @@ msgstr "Įrašyti failą"
 #~ msgid "Enable Focus Mode:"
 #~ msgstr "Įjungti susitelkimo veikseną:"
 
-#~ msgid "Type of Focus Mode:"
-#~ msgstr "Susitelkimo veiksenos tipas:"
-
 #~ msgid "Show Statusbar:"
 #~ msgstr "Rodyti būsenos juostą:"
 
 #~ msgid "Show Searchbar:"
 #~ msgstr "Rodyti paieškos juostą:"
-
-#~ msgid "Show/Hide Sidebar"
-#~ msgstr "Rodyti/Slėpti šoninę juostą"
-
-#~ msgid "No File"
-#~ msgstr "Visi failai"
