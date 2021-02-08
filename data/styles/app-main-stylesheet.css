@@ -160,3 +160,14 @@
 .quilter-sidebar-box:hover:backdrop  {
     background: alpha(shade(@theme_base_color, 0.88), 0.88);
 }
+
+.quilter-searchbar {
+    background: @theme_base_color;
+    box-shadow: 0 0 0 1px alpha(black, .15),
+              0 0 3px alpha(black, .2);
+    border: none;
+    padding: 6px;
+    border-radius: 0 0 5px 5px;
+    margin: 12px;
+    margin-top: 0px;
+}

@@ -54,6 +54,7 @@ namespace Quilter {
         public const string ACTION_EXPORT_PDF = "action_export_pdf";
         public const string ACTION_FOCUS = "action_focus";
         public const string ACTION_TOGGLE_VIEW = "action_toggle_view";
+        public const string ACTION_SEARCH = "action_search";
         public const string ACTION_PREFS = "action_preferences";
         public const string ACTION_ABOUT = "action_about";
         public const string ACTION_KEYS = "action_keys";
@@ -66,6 +67,7 @@ namespace Quilter {
             { ACTION_KEYS, action_keys },
             { ACTION_FOCUS, action_focus },
             { ACTION_TOGGLE_VIEW, action_toggle_view },
+            { ACTION_SEARCH, action_search },
             { ACTION_EXPORT_PDF, action_export_pdf },
             { ACTION_EXPORT_HTML, action_export_html },
             { ACTION_ABOUT, action_about }
@@ -211,7 +213,7 @@ namespace Quilter {
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
                     if (match_keycode (Gdk.Key.f, keycode)) {
-                        show_searchbar ();
+                        action_search ();
                     }
                 }
                 if ((e.state & Gdk.ModifierType.CONTROL_MASK) != 0) {
@@ -320,7 +322,7 @@ namespace Quilter {
 
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView (this);
-            edit_view.vexpand = true;
+            edit_view.expand = true;
             edit_view_content.save.connect (on_save);
             edit_view.add (edit_view_content);
 
@@ -376,6 +378,10 @@ namespace Quilter {
 
             searchbar = new Widgets.SearchBar (this);
 
+            var search_overlay = new Gtk.Overlay ();
+            search_overlay.add_overlay (searchbar);
+            search_overlay.add (win_stack);
+
             overlay_button_revealer = new Gtk.Revealer ();
             overlay_button_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_UP;
             overlay_button_revealer.halign = Gtk.Align.END;
@@ -402,10 +408,9 @@ namespace Quilter {
             sep.get_style_context ().add_class ("sidebar");
 
             var main_view = new Gtk.Grid ();
-            main_view.attach (sidebar, 0, 0, 1, 2);
-            main_view.attach (sep, 1, 0, 1, 2);
-            main_view.attach (searchbar, 2, 0, 1, 1);
-            main_view.attach (win_stack, 2, 1, 1, 1);
+            main_view.attach (sidebar, 0, 0, 1, 1);
+            main_view.attach (sep, 1, 0, 1, 1);
+            main_view.attach (search_overlay, 2, 0, 1, 1);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (titlebar_revealer);
@@ -536,7 +541,11 @@ namespace Quilter {
         }
 
         public void show_searchbar () {
-            searchbar.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
+            if (Quilter.Application.gsettings.get_boolean("searchbar")) {
+                searchbar.reveal_child = true;
+            } else {
+                searchbar.reveal_child = false;
+            }
         }
 
         public void show_sidebar () {
@@ -556,10 +565,10 @@ namespace Quilter {
         }
 
         private async void on_settings_changed () {
-            show_searchbar ();
             update_count ();
             edit_view_content.dynamic_margins ();
             change_layout.begin ();
+            show_searchbar ();
 
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.reveal_child = true;
@@ -729,6 +738,10 @@ namespace Quilter {
                     warning ("Unexpected error during save: " + e.message);
                 }
             }
+        }
+
+        public void action_search () {
+            Quilter.Application.gsettings.set_boolean("searchbar", true);
         }
 
         public void action_keys () {

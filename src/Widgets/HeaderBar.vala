@@ -55,8 +55,6 @@ namespace Quilter {
         [GtkChild]
         public Gtk.Button open_button;
         [GtkChild]
-        public Gtk.ToggleButton search_button;
-        [GtkChild]
         public Gtk.ToggleButton toggle_view_button;
 
         [GtkChild]
@@ -98,20 +96,6 @@ namespace Quilter {
 
             top_grid.show_all ();
             save_grid.show_all ();
-
-            if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
-                search_button.set_active (false);
-            } else {
-                search_button.set_active (Quilter.Application.gsettings.get_boolean("searchbar"));
-            }
-            search_button.toggled.connect (() => {
-    			if (search_button.active) {
-    				Quilter.Application.gsettings.set_boolean("searchbar", true);
-    			} else {
-    				Quilter.Application.gsettings.set_boolean("searchbar", false);
-    			}
-
-            });
 
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 

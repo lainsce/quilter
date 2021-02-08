@@ -101,12 +101,27 @@
           </packing>
         </child>
         <child>
+            <placeholder />
+        </child>
+        <child>
+          <object class="GtkModelButton" id="search_button">
+            <property name="can-focus">False</property>
+            <property name="receives-default">False</property>
+            <property name="action-name">win.action_search</property>
+            <property name="text" translatable="yes">Find and Replace…</property>
+          </object>
+          <packing>
+            <property name="left-attach">0</property>
+            <property name="top-attach">3</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkSeparator">
             <property name="can-focus">False</property>
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">3</property>
+            <property name="top-attach">4</property>
           </packing>
         </child>
         <child>
@@ -118,7 +133,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">4</property>
+            <property name="top-attach">5</property>
           </packing>
         </child>
         <child>
@@ -130,7 +145,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">5</property>
+            <property name="top-attach">6</property>
           </packing>
         </child>
         <child>
@@ -142,7 +157,7 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">6</property>
+            <property name="top-attach">7</property>
           </packing>
         </child>
         <child>
@@ -154,11 +169,8 @@
           </object>
           <packing>
             <property name="left-attach">0</property>
-            <property name="top-attach">7</property>
+            <property name="top-attach">8</property>
           </packing>
-        </child>
-        <child>
-          <placeholder/>
         </child>
       </object>
     </child>
@@ -539,25 +551,6 @@
           </object>
           <packing>
             <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkToggleButton" id="search_button">
-            <property name="can-focus">False</property>
-            <property name="receives-default">False</property>
-            <child>
-              <object class="GtkImage">
-                <property name="can-focus">False</property>
-                <property name="icon-name">edit-find-symbolic</property>
-              </object>
-            </child>
-            <style>
-              <class name="image-button"/>
-            </style>
-          </object>
-          <packing>
-            <property name="pack-type">end</property>
-            <property name="position">4</property>
           </packing>
         </child>
         <child>

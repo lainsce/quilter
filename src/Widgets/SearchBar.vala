@@ -18,7 +18,7 @@
 */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/searchbar.ui")]
-    public class Widgets.SearchBar : Gtk.SearchBar {
+    public class Widgets.SearchBar : Gtk.Revealer {
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
 
@@ -26,6 +26,8 @@ namespace Quilter {
         Gtk.Button replace_all_button;
         [GtkChild]
         Gtk.Button replace_button;
+        [GtkChild]
+        Gtk.Button close_button;
         [GtkChild]
         Gtk.Button search_button_prev;
         [GtkChild]
@@ -49,13 +51,16 @@ namespace Quilter {
 
             replace_all_button.clicked.connect (on_replace_all_entry_activate);
 
+            close_button.clicked.connect (() => {
+                Quilter.Application.gsettings.set_boolean("searchbar", false);
+            });
+
             search_entry_item ();
             search_previous_item ();
             search_next_item ();
 
             this.text_view = window.edit_view_content;
             this.text_buffer = text_view.get_buffer ();
-            this.set_search_mode (Quilter.Application.gsettings.get_boolean("searchbar"));
         }
 
         public void search_entry_item () {
