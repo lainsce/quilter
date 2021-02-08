@@ -593,7 +593,7 @@ namespace Quilter {
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.reveal_child = true;
                 sidebar.reveal_child = false;
-                overlay_statusbar.visible = false;
+                statusbar.visible = false;
                 titlebar_revealer.reveal_child = false;
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
@@ -605,7 +605,7 @@ namespace Quilter {
             } else {
                 overlay_button_revealer.reveal_child = false;
                 titlebar_revealer.reveal_child = true;
-                overlay_statusbar.visible = true;
+                statusbar.visible = true;
                 show_sidebar ();
             }
 
