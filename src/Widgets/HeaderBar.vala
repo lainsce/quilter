@@ -24,8 +24,6 @@ namespace Quilter {
         public Preview preview;
         public EditView editor;
 
-        private int WPM = 264;
-
         public signal void create_new ();
         public signal void open ();
         public signal void save ();
@@ -59,27 +57,14 @@ namespace Quilter {
 
         [GtkChild]
         public Gtk.ToggleButton sidebar_toggler;
-        [GtkChild]
-        public Gtk.MenuButton track_type_menu;
-        [GtkChild]
-        public Gtk.RadioButton track_words;
-        [GtkChild]
-        public Gtk.RadioButton track_lines;
-        [GtkChild]
-        public Gtk.RadioButton track_rtc;
-        [GtkChild]
-        public Gtk.Box track_box;
 
-        public Gtk.SourceBuffer buf;
         public MainWindow window;
 
-        public Headerbar (MainWindow win, Gtk.SourceBuffer buf) {
+        public Headerbar (MainWindow win) {
             this.win = win;
-            this.buf = buf;
             headerbar.show_close_button = true;
 
             build_ui ();
-            tracker ();
         }
 
         private void build_ui () {
@@ -90,6 +75,9 @@ namespace Quilter {
             top_grid.show_all ();
             save_grid.show_all ();
             view_menu.show_all ();
+
+            sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-symbolic", Gtk.IconSize.BUTTON));
+            Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
 
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
 
@@ -194,89 +182,6 @@ namespace Quilter {
                     view_mode.visible = true;
                 }
             });
-        }
-
-        private void tracker () {
-            track_box.show_all ();
-
-	        track_words.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "words");
-	            update_wordcount ();
-	        });
-
-	        track_lines.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "lines");
-	            update_linecount ();
-            });
-
-	        track_rtc.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "rtc");
-	            update_readtimecount ();
-	        });
-
-            sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-symbolic", Gtk.IconSize.BUTTON));
-
-            Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
-
-            if (Quilter.Application.gsettings.get_string("track-type") == "words") {
-                update_wordcount ();
-                track_words.set_active (true);
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
-                update_linecount ();
-                track_lines.set_active (true);
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
-                update_readtimecount ();
-                track_rtc.set_active (true);
-            }
-        }
-
-        public void update_wordcount () {
-            var wc = get_count();
-            track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
-        }
-
-        public void update_linecount () {
-            var lc = get_count();
-            track_type_menu.set_label ((_("Sentences: ")) + lc.lines.to_string());
-        }
-
-        public void update_readtimecount () {
-            var rtc = get_count();
-            double rt = Math.round((rtc.words / WPM));
-		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
-        }
-
-        public WordCount get_count() {
-            Gtk.TextIter start, end;
-            buf.get_bounds (out start, out end);
-            var buffer = buf.get_text (start, end, false);
-            int i = 0;
-            try {
-                GLib.MatchInfo match;
-                var reg = new Regex("(?m)(?<header>\\.)");
-                if (reg.match (buffer, 0, out match)) {
-                    do {
-                        i++;
-                    } while (match.next ());
-                }
-            } catch (Error e) {
-                warning (e.message);
-            }
-
-            var lines = i;
-            var words = buf.get_text (start, end, false).split(" ").length;
-
-            return new WordCount(words, lines);
-    	}
-    }
-
-    public class Widgets.WordCount {
-        public int words { get; private set; }
-        public int lines { get; private set; }
-
-        public WordCount(int words, int lines) {
-            this.words = words;
-            this.lines = lines;
         }
     }
 }

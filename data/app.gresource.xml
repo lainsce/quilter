@@ -24,6 +24,7 @@
       <file alias="sidebar.ui">ui/sidebar.ui</file>
       <file alias="sidebarbox.ui">ui/sidebarbox.ui</file>
       <file alias="searchbar.ui">ui/searchbar.ui</file>
+      <file alias="statusbar.ui">ui/statusbar.ui</file>
       <file alias="prefs_window.ui">ui/prefs_window.ui</file>
     </gresource>
 </gresources>

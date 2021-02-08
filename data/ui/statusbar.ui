@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated with glade 3.38.2 -->
+<interface>
+  <requires lib="gtk+" version="3.24"/>
+  <object class="GtkPopover" id="track_pop">
+    <property name="can-focus">False</property>
+    <child>
+      <object class="GtkBox" id="track_box">
+        <property name="can-focus">False</property>
+        <property name="margin-start">6</property>
+        <property name="margin-end">6</property>
+        <property name="margin-top">6</property>
+        <property name="margin-bottom">6</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">12</property>
+        <property name="homogeneous">True</property>
+        <child>
+          <object class="GtkRadioButton" id="track_words">
+            <property name="label" translatable="yes">Words</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">False</property>
+            <property name="active">True</property>
+            <property name="draw-indicator">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="track_lines">
+            <property name="label" translatable="yes">Sentences</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">False</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">track_words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkRadioButton" id="track_rtc">
+            <property name="label" translatable="yes">Reading Time</property>
+            <property name="can-focus">False</property>
+            <property name="receives-default">False</property>
+            <property name="draw-indicator">True</property>
+            <property name="group">track_words</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <template class="QuilterWidgetsStatusBar" parent="GtkBox">
+    <property name="can-focus">False</property>
+    <property name="halign">end</property>
+    <property name="valign">end</property>
+    <child>
+      <object class="GtkMenuButton" id="track_type_menu">
+        <property name="can-focus">True</property>
+        <property name="receives-default">False</property>
+        <property name="popover">track_pop</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="can-focus">False</property>
+            <property name="label" translatable="yes"></property>
+          </object>
+        </child>
+        <style>
+          <class name="status-button"/>
+          <class name="osd"/>
+        </style>
+      </object>
+      <packing>
+        <property name="expand">False</property>
+        <property name="fill">True</property>
+        <property name="position">0</property>
+      </packing>
+    </child>
+    <style>
+      <class name="quilter-statusbar"/>
+    </style>
+  </template>
+</interface>

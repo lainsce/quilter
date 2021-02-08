@@ -53,6 +53,7 @@ sources = files(
     'src/Widgets/SourceView.vala',
     'src/Widgets/WebView.vala',
     'src/Widgets/SearchBar.vala',
+    'src/Widgets/StatusBar.vala',
     'src/Widgets/SideBar.vala',
     'src/Widgets/SideBarBox.vala',
     'src/Widgets/Preferences.vala',
