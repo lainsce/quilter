@@ -184,6 +184,6 @@
 }
 
 .quilter-sidebar {
-    background: @theme_base_color;
+    background: @theme_bg_color;
     padding: 6px;
 }
