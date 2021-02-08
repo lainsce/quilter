@@ -16,13 +16,15 @@
 * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
 * Boston, MA 02110-1301 USA
 */
-namespace Quilter.Widgets {
+namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/headerbar.ui")]
-    public class Headerbar : Gtk.Bin {
+    public class Widgets.Headerbar : Gtk.Bin {
         public Widgets.HeaderBarButton samenu_button;
         public MainWindow win;
         public Preview preview;
         public EditView editor;
+
+        private int WPM = 264;
 
         public signal void create_new ();
         public signal void open ();
@@ -35,6 +37,8 @@ namespace Quilter.Widgets {
         [GtkChild]
         public Gtk.Grid top_grid;
         [GtkChild]
+        public Gtk.Box save_grid;
+        [GtkChild]
         public Gtk.ListBox preview_grid;
 
         [GtkChild]
@@ -44,6 +48,10 @@ namespace Quilter.Widgets {
 
         [GtkChild]
         public Gtk.Button new_button;
+        [GtkChild]
+        public Gtk.Button save_button;
+        [GtkChild]
+        public Gtk.MenuButton save_as_button;
         [GtkChild]
         public Gtk.Button open_button;
         [GtkChild]
@@ -58,35 +66,38 @@ namespace Quilter.Widgets {
         [GtkChild]
         public Gtk.RadioButton color_button_dark;
 
-        public Headerbar (MainWindow win) {
+        [GtkChild]
+        public Gtk.ToggleButton sidebar_toggler;
+        [GtkChild]
+        public Gtk.MenuButton track_type_menu;
+        [GtkChild]
+        public Gtk.RadioButton track_words;
+        [GtkChild]
+        public Gtk.RadioButton track_lines;
+        [GtkChild]
+        public Gtk.RadioButton track_rtc;
+        [GtkChild]
+        public Gtk.Box track_box;
+
+        public Gtk.SourceBuffer buf;
+        public MainWindow window;
+
+        public Headerbar (MainWindow win, Gtk.SourceBuffer buf) {
             this.win = win;
+            this.buf = buf;
             headerbar.show_close_button = true;
 
             build_ui ();
+            tracker ();
         }
 
         private void build_ui () {
             new_button.clicked.connect (() => create_new ());
             open_button.clicked.connect (() => open ());
+            save_button.clicked.connect (() => save ());
 
             top_grid.show_all ();
-
-            var save_button = new Gtk.Button ();
-            save_button.clicked.connect (() => save ());
-            save_button.tooltip_text = (_("Save document"));
-
-            var save_as_button = new Gtk.Button ();
-            save_as_button.clicked.connect (() => save_as ());
-            save_as_button.set_image (new Gtk.Image.from_icon_name ("document-save-as-symbolic", Gtk.IconSize.BUTTON));
-            save_as_button.get_style_context ().add_class ("mini-circular-button");
-            save_as_button.tooltip_text = (_("Choose another folder"));
-            save_as_button.halign = Gtk.Align.START;
-
-            if (!Quilter.Application.gsettings.get_boolean("autosave")) {
-                headerbar.pack_start (save_button);
-            } else {
-                headerbar.remove (save_button);
-            }
+            save_grid.show_all ();
 
             if (Quilter.Application.gsettings.get_boolean("searchbar") == false) {
                 search_button.set_active (false);
@@ -189,7 +200,6 @@ namespace Quilter.Widgets {
             samenu_grid.row_spacing = 6;
             samenu_grid.attach (rename_label, 0, 0);
             samenu_grid.attach (rename_entry, 0, 1, 2, 1);
-            samenu_grid.attach (save_as_button, 0, 2);
             samenu_grid.attach (rename_button, 1, 2);
             samenu_grid.show_all ();
 
@@ -229,13 +239,102 @@ namespace Quilter.Widgets {
                     top_grid.remove (view_mode);
                     view_mode.visible = true;
                 }
+            });
+        }
 
-                if (!Quilter.Application.gsettings.get_boolean("autosave")) {
-                    headerbar.pack_start (save_button);
+        private void tracker () {
+            track_box.show_all ();
+
+	        track_words.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("track-type", "words");
+	            update_wordcount ();
+	        });
+
+	        track_lines.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("track-type", "lines");
+	            update_linecount ();
+            });
+
+	        track_rtc.toggled.connect (() => {
+	            Quilter.Application.gsettings.set_string("track-type", "rtc");
+	            update_readtimecount ();
+	        });
+
+            if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
+            } else {
+                sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_boolean("sidebar")) {
+                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-hide-symbolic", Gtk.IconSize.BUTTON));
                 } else {
-                    headerbar.remove (save_button);
+                    sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-show-symbolic", Gtk.IconSize.BUTTON));
                 }
             });
+
+            Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
+
+            if (Quilter.Application.gsettings.get_string("track-type") == "words") {
+                update_wordcount ();
+                track_words.set_active (true);
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
+                update_linecount ();
+                track_lines.set_active (true);
+            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+                update_readtimecount ();
+                track_rtc.set_active (true);
+            }
+        }
+
+        public void update_wordcount () {
+            var wc = get_count();
+            track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
+        }
+
+        public void update_linecount () {
+            var lc = get_count();
+            track_type_menu.set_label ((_("Sentences: ")) + lc.lines.to_string());
+        }
+
+        public void update_readtimecount () {
+            var rtc = get_count();
+            double rt = Math.round((rtc.words / WPM));
+		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
+        }
+
+        public WordCount get_count() {
+            Gtk.TextIter start, end;
+            buf.get_bounds (out start, out end);
+            var buffer = buf.get_text (start, end, false);
+            int i = 0;
+            try {
+                GLib.MatchInfo match;
+                var reg = new Regex("(?m)(?<header>\\.)");
+                if (reg.match (buffer, 0, out match)) {
+                    do {
+                        i++;
+                    } while (match.next ());
+                }
+            } catch (Error e) {
+                warning (e.message);
+            }
+
+            var lines = i;
+            var words = buf.get_text (start, end, false).split(" ").length;
+
+            return new WordCount(words, lines);
+    	}
+    }
+
+    public class Widgets.WordCount {
+        public int words { get; private set; }
+        public int lines { get; private set; }
+
+        public WordCount(int words, int lines) {
+            this.words = words;
+            this.lines = lines;
         }
     }
 }

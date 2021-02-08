@@ -48,7 +48,6 @@ namespace Quilter {
         public Widgets.Preview preview_view_content;
         public Widgets.SearchBar searchbar;
         public Widgets.SideBar sidebar;
-        public Widgets.StatusBar statusbar;
         public const string ACTION_PREFIX = "win.";
         public const string ACTION_CHEATSHEET = "action_cheatsheet";
         public const string ACTION_EXPORT_HTML = "action_export_html";
@@ -319,21 +318,6 @@ namespace Quilter {
             Gtk.StyleContext.add_provider_for_screen (Gdk.Screen.get_default (), provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
             var provider3 = new Gtk.CssProvider ();
 
-            titlebar = new Widgets.Headerbar (this);
-            titlebar.open.connect (on_open);
-            titlebar.save.connect (on_save);
-            titlebar.save_as.connect (on_save_as);
-            titlebar.create_new.connect (on_create_new);
-
-            titlebar_stack = new Gtk.Stack ();
-            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
-            titlebar_stack.add_named (titlebar, "title");
-
-            titlebar_revealer = new Gtk.Revealer ();
-            titlebar_revealer.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
-            titlebar_revealer.add (titlebar_stack);
-            titlebar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
-
             edit_view = new Gtk.ScrolledWindow (null, null);
             edit_view_content = new Widgets.EditView (this);
             edit_view.vexpand = true;
@@ -351,6 +335,21 @@ namespace Quilter {
                 sidebar.outline_populate ();
             });
 
+            titlebar = new Widgets.Headerbar (this, edit_view_content.buffer);
+            titlebar.open.connect (on_open);
+            titlebar.save.connect (on_save);
+            titlebar.save_as.connect (on_save_as);
+            titlebar.create_new.connect (on_create_new);
+
+            titlebar_stack = new Gtk.Stack ();
+            titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);
+            titlebar_stack.add_named (titlebar, "title");
+
+            titlebar_revealer = new Gtk.Revealer ();
+            titlebar_revealer.reveal_child = Quilter.Application.gsettings.get_boolean("sidebar");
+            titlebar_revealer.add (titlebar_stack);
+            titlebar_revealer.transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN;
+
             preview_view_content = new Widgets.Preview (this, edit_view_content);
             preview_view_content.vexpand = true;
 
@@ -358,8 +357,6 @@ namespace Quilter {
 
             box = new Gtk.Box (Gtk.Orientation.HORIZONTAL, 0);
             box.homogeneous = true;
-
-            statusbar = new Widgets.StatusBar (edit_view_content.buffer);
 
             main_stack = new Gtk.Stack ();
             main_stack.add_named (stack, "stack");
@@ -409,7 +406,6 @@ namespace Quilter {
             main_view.attach (sep, 1, 0, 1, 2);
             main_view.attach (searchbar, 2, 0, 1, 1);
             main_view.attach (win_stack, 2, 1, 1, 1);
-            main_view.attach (statusbar, 0, 3, 3, 1);
 
             main_leaf = new Gtk.Box (Gtk.Orientation.VERTICAL, 0);
             main_leaf.add (titlebar_revealer);
@@ -487,11 +483,11 @@ namespace Quilter {
 
         private void update_count () {
             if (Quilter.Application.gsettings.get_string("track-type") == "words") {
-                statusbar.update_wordcount ();
+                titlebar.update_wordcount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
-                statusbar.update_linecount ();
+                titlebar.update_linecount ();
             } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
-                statusbar.update_readtimecount ();
+                titlebar.update_readtimecount ();
             }
         }
 
@@ -553,10 +549,6 @@ namespace Quilter {
             }
         }
 
-        public void show_statusbar () {
-            statusbar.reveal_child = Quilter.Application.gsettings.get_boolean("statusbar");
-        }
-
         private void set_prev_workfile () {
             if (((Widgets.SideBarBox)sidebar.column.get_selected_row ()) != null) {
                 Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)sidebar.column.get_selected_row ()).path);
@@ -572,7 +564,6 @@ namespace Quilter {
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.reveal_child = true;
                 sidebar.reveal_child = false;
-                statusbar.reveal_child = false;
                 titlebar_revealer.reveal_child = false;
                 focus_overlay_button.button_press_event.connect ((e) => {
                     if (e.button == Gdk.BUTTON_SECONDARY) {
@@ -584,7 +575,6 @@ namespace Quilter {
             } else {
                 overlay_button_revealer.reveal_child = false;
                 titlebar_revealer.reveal_child = true;
-                show_statusbar ();
                 show_sidebar ();
             }
 

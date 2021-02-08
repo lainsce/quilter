@@ -42,8 +42,6 @@ namespace Quilter {
         [GtkChild]
         Gtk.Switch typewriter;
         [GtkChild]
-        Gtk.Switch statusbar;
-        [GtkChild]
         Gtk.Switch sidebar;
 
         [GtkChild]
@@ -139,7 +137,6 @@ namespace Quilter {
             Quilter.Application.gsettings.bind ("focus-mode", focus_mode, "expanded", GLib.SettingsBindFlags.DEFAULT);
             Quilter.Application.gsettings.bind ("focus-mode-type", scope, "active", SettingsBindFlags.DEFAULT);
             Quilter.Application.gsettings.bind ("typewriter-scrolling", typewriter, "active", SettingsBindFlags.DEFAULT);
-            Quilter.Application.gsettings.bind ("statusbar", statusbar, "active", SettingsBindFlags.DEFAULT);
             Quilter.Application.gsettings.bind ("sidebar", sidebar, "active", SettingsBindFlags.DEFAULT);
         }
 
