@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 01:23-0300\n"
+"POT-Creation-Date: 2021-02-08 21:16-0300\n"
 "PO-Revision-Date: 2021-02-04 17:52+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
@@ -18,38 +18,38 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/MainWindow.vala:148 src/MainWindow.vala:676 src/Widgets/SideBar.vala:88
-#: src/Widgets/SideBar.vala:211
+#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
+#: src/Widgets/SideBar.vala:220
 msgid "New Document"
 msgstr "Nieuw document"
 
-#: src/MainWindow.vala:149 src/MainWindow.vala:677 src/MainWindow.vala:680
-#: src/Widgets/SideBar.vala:89 src/Widgets/SideBar.vala:212
+#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
+#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
 msgid "Not Saved Yet"
 msgstr "Nog niet opgeslagen"
 
-#: src/MainWindow.vala:391
+#: src/MainWindow.vala:405
 msgid "Exit focus mode"
 msgstr "Focusmodus verlaten"
 
-#: src/MainWindow.vala:612
+#: src/MainWindow.vala:633
 msgid "Edit"
 msgstr "Bewerken"
 
-#: src/MainWindow.vala:613 data/ui/prefs_window.ui:278
-#: data/ui/prefs_window.ui:281
+#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
+#: data/ui/prefs_window.ui:267
 msgid "Preview"
 msgstr "Voorbeeld"
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:788
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:768
+#: src/MainWindow.vala:793
 msgid "Focus on your writing."
 msgstr "Focus op je schrijfsels."
 
-#: src/MainWindow.vala:774
+#: src/MainWindow.vala:799
 msgid "translator-credits"
 msgstr "Heimen Stoffels"
 
@@ -73,6 +73,7 @@ msgstr "Als je het niet opslaat, dan gaan de wijzigingen permanent verloren."
 
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
 #: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
+#: data/ui/headerbar.ui:21
 msgid "Save"
 msgstr "Bestand opslaan"
 
@@ -139,53 +140,45 @@ msgstr "Bestand openen"
 msgid "Save File"
 msgstr "Bestand opslaan"
 
-#: src/Widgets/HeaderBar.vala:76
-msgid "Save document"
-msgstr "Document opslaan"
-
-#: src/Widgets/HeaderBar.vala:82
-msgid "Choose another folder"
-msgstr "Kies een andere map"
-
-#: src/Widgets/HeaderBar.vala:160
+#: src/Widgets/HeaderBar.vala:113
 msgid "Rename"
 msgstr "Naam wijzigen"
 
-#: src/Widgets/HeaderBar.vala:183
+#: src/Widgets/HeaderBar.vala:136
 #, fuzzy
 msgid "Rename File:"
 msgstr "Bestandsnaam wijzigen"
 
-#: src/Widgets/HeaderBar.vala:201
+#: src/Widgets/HeaderBar.vala:153
 msgid "Rename File"
 msgstr "Bestandsnaam wijzigen"
 
-#: src/Widgets/HeaderBar.vala:204
+#: src/Widgets/HeaderBar.vala:156
 msgid "new_name.md"
 msgstr "nieuwe_naam.md"
 
-#: src/Widgets/HeaderBar.vala:211
+#: src/Widgets/HeaderBar.vala:163
 #, fuzzy
 msgid "Toggle View"
 msgstr "Weergavemodus…"
 
-#: src/Widgets/SideBar.vala:90 src/Widgets/SideBar.vala:213
+#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
 msgid "New File"
 msgstr "Nieuw bestand"
 
-#: src/Widgets/StatusBar.vala:90
+#: src/Widgets/StatusBar.vala:76
 msgid "Words: "
 msgstr "Aantal woorden: "
 
-#: src/Widgets/StatusBar.vala:95
+#: src/Widgets/StatusBar.vala:81
 msgid "Sentences: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:101
+#: src/Widgets/StatusBar.vala:87
 msgid "Reading Time: "
 msgstr "Leestijd: "
 
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:137
+#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
 msgid "Markdown Cheatsheet"
 msgstr "Markdown-uitleg"
 
@@ -308,11 +301,11 @@ msgstr ""
 msgid "Special"
 msgstr "Speciaal"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:320
+#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
 msgid "Extensions"
 msgstr "Extensies"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:338
+#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
 msgid "LaTeX Math"
 msgstr "LaTeX-wiskunde"
 
@@ -380,7 +373,7 @@ msgstr ""
 "Middelste kolom wijzigen --- in :---: .\n"
 "Rechterkolom wijzigen --- in ---: ."
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:32
+#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
 msgid "Files"
 msgstr "Bestanden"
 
@@ -404,53 +397,91 @@ msgstr ""
 "Sluit een lokale afbeelding in:\n"
 "\t/Map/Afbeelding.png :image"
 
-#: data/ui/headerbar.ui:86
-msgid "Focus Mode"
-msgstr "Focusmodus"
+#: data/ui/headerbar.ui:33
+#, fuzzy
+msgid "Save As…"
+msgstr "Opslaan als…"
 
-#: data/ui/headerbar.ui:108
+#: data/ui/headerbar.ui:56
 #, fuzzy
 msgid "Export HTML…"
 msgstr "Exporteren naar html…"
 
-#: data/ui/headerbar.ui:118
+#: data/ui/headerbar.ui:69
 #, fuzzy
 msgid "Export PDF…"
 msgstr "Exporteren naar pdf…"
 
-#: data/ui/headerbar.ui:147 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Voorkeuren"
+#: data/ui/headerbar.ui:95
+#, fuzzy
+msgid "Show/Hide the sidebar"
+msgstr "Zijbalk tonen/verbergen"
 
-#: data/ui/headerbar.ui:157
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
+#: data/ui/headerbar.ui:131
+#, fuzzy
+msgid "Save the current file"
+msgstr "Wil je het geopende bestand opslaan?"
 
-#: data/ui/headerbar.ui:167
-msgid "About Quilter"
-msgstr "Over Quilter"
+#: data/ui/headerbar.ui:152
+msgid "Create a new document"
+msgstr "Nieuw document maken"
 
-#: data/ui/headerbar.ui:214
+#: data/ui/headerbar.ui:169
+msgid "Open"
+msgstr "Openen"
+
+#: data/ui/headerbar.ui:172
+#, fuzzy
+msgid "Open a file"
+msgstr "Bestand openen"
+
+#: data/ui/headerbar.ui:204
+msgid "Go Back"
+msgstr ""
+
+#: data/ui/headerbar.ui:219
+#, fuzzy
+msgid "Editor or Preview, change via menu"
+msgstr "Kies in het menu voor de bewerker of voorvertoning."
+
+#: data/ui/headerbar.ui:221
 msgid "Full-Width"
 msgstr "Volledige breedte"
 
-#: data/ui/headerbar.ui:228
+#: data/ui/headerbar.ui:234
 #, fuzzy
-msgid "Editor or Preview, change via menu."
-msgstr "Kies in het menu voor de bewerker of voorvertoning."
+msgid "Editor and Preview, side by side"
+msgstr "De bewerker en voorvertoning naast elkaar."
 
-#: data/ui/headerbar.ui:283
+#: data/ui/headerbar.ui:236
 msgid "Half-Width"
 msgstr "Halve breedte"
 
-#: data/ui/headerbar.ui:297
-#, fuzzy
-msgid "Editor and Preview, side-by-side."
-msgstr "De bewerker en voorvertoning naast elkaar."
+#: data/ui/headerbar.ui:339
+msgid "Focus Mode"
+msgstr "Focusmodus"
 
-#: data/ui/headerbar.ui:405
-msgid "Open"
-msgstr "Openen"
+#: data/ui/headerbar.ui:351
+msgid "About Quilter"
+msgstr "Over Quilter"
+
+#: data/ui/headerbar.ui:363
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: data/ui/headerbar.ui:408
+#, fuzzy
+msgid "View Type"
+msgstr "Voorbeeldlettertype instellen"
+
+#: data/ui/headerbar.ui:421
+#, fuzzy
+msgid "Find and Replace…"
+msgstr "Vervangen"
 
 #: data/ui/prefs_window.ui:19
 msgid "General"
@@ -477,32 +508,28 @@ msgid "Typewriter Scrolling"
 msgstr "Typemachine-achtig scrollen"
 
 #: data/ui/prefs_window.ui:165
-msgid "Type Counter"
-msgstr "Teller"
-
-#: data/ui/prefs_window.ui:179
 msgid "Sidebar"
 msgstr "Zijbalk"
 
-#: data/ui/prefs_window.ui:198 data/ui/prefs_window.ui:201
+#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
 msgid "Editor"
 msgstr "Bewerker"
 
-#: data/ui/prefs_window.ui:208
+#: data/ui/prefs_window.ui:194
 msgid "Autosave Delay"
 msgstr "Tijd tussen automatisch opslaan"
 
-#: data/ui/prefs_window.ui:209
+#: data/ui/prefs_window.ui:195
 msgid "Values below 15s affects the storage medium negatively."
 msgstr "Waarden lager dan 15 sec. hebben een negatieve invloed op de schijf."
 
-#: data/ui/prefs_window.ui:228
+#: data/ui/prefs_window.ui:214
 #, fuzzy
 msgid "Highlight Speech Parts (Beta)"
 msgstr "Gesproken delen markeren (bèta)"
 
 #. Mind the newlines
-#: data/ui/prefs_window.ui:229
+#: data/ui/prefs_window.ui:215
 #, fuzzy
 msgid ""
 "Only available in English\n"
@@ -522,59 +549,67 @@ msgstr ""
 "- Bijwoorden zijn paars\n"
 "- Samenstellingen zijn groen"
 
-#: data/ui/prefs_window.ui:251
+#: data/ui/prefs_window.ui:237
 msgid "Font"
 msgstr "Lettertype"
 
-#: data/ui/prefs_window.ui:254
+#: data/ui/prefs_window.ui:240
 msgid "Type"
 msgstr "Soort"
 
-#: data/ui/prefs_window.ui:284
+#: data/ui/prefs_window.ui:270
 #, fuzzy
 msgid "Preview Font Type"
 msgstr "Voorbeeldlettertype instellen"
 
-#: data/ui/prefs_window.ui:303
+#: data/ui/prefs_window.ui:289
 msgid "Header Centering"
 msgstr "Kop centreren"
 
-#: data/ui/prefs_window.ui:304
+#: data/ui/prefs_window.ui:290
 #, fuzzy
 msgid "This affects #, ##, and ### headers."
 msgstr "Dit is van toepassing op H1-, H2- en H3-koppen."
 
-#: data/ui/prefs_window.ui:323
+#: data/ui/prefs_window.ui:309
 msgid "Code Highlight"
 msgstr "Codemarkering"
 
-#: data/ui/prefs_window.ui:324
+#: data/ui/prefs_window.ui:310
 msgid "Code blocks will have the contents receive color."
 msgstr "De inhoud van codeblokken wordt voorzien van een kleur."
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:325
 #, fuzzy
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr "De inhoud van LaTeX-wiskundeblokken wordt verwerkt als LaTeX-uitvoer."
 
-#: data/ui/prefs_window.ui:353
+#: data/ui/prefs_window.ui:339
 msgid "Mermaid.js Graph"
 msgstr "Mermaid.js-grafieken"
 
-#: data/ui/prefs_window.ui:354
+#: data/ui/prefs_window.ui:340
 #, fuzzy
 msgid "Mermaid blocks will become graphs."
 msgstr "De inhoud van Mermaid-blokken wordt omgezet naar grafieken."
 
-#: data/ui/searchbar.ui:14
+#: data/ui/searchbar.ui:23
 #, fuzzy
 msgid "Replace…"
 msgstr "Vervangen"
 
-#: data/ui/searchbar.ui:71
+#: data/ui/searchbar.ui:33
 #, fuzzy
-msgid "Search…"
-msgstr "Volgende zoeken"
+msgid "Replace"
+msgstr "Vervangen"
+
+#: data/ui/searchbar.ui:48
+msgid "Replace All"
+msgstr "Alles vervangen"
+
+#: data/ui/searchbar.ui:78
+msgid "Find…"
+msgstr "Zoeken…"
 
 #: data/ui/shortcuts.ui:15
 #, fuzzy
@@ -678,12 +713,12 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Exporteren naar pdf…"
 
-#: data/ui/sidebar.ui:48
+#: data/ui/sidebar.ui:46
 #, fuzzy
 msgid "No Files"
 msgstr "Alle bestanden"
 
-#: data/ui/sidebar.ui:78
+#: data/ui/sidebar.ui:76
 msgid "Outline"
 msgstr "Contour"
 
@@ -692,18 +727,35 @@ msgstr "Contour"
 msgid "Remove file from sidebar"
 msgstr "Bestand verwijderen uit zijbalk"
 
-#: data/ui/statusbar.ui:17
+#: data/ui/statusbar.ui:19
 msgid "Words"
 msgstr "Aantal woorden"
 
-#: data/ui/statusbar.ui:28
+#: data/ui/statusbar.ui:33
 #, fuzzy
 msgid "Sentences"
 msgstr "Focussen op zin"
 
-#: data/ui/statusbar.ui:40
+#: data/ui/statusbar.ui:47
 msgid "Reading Time"
 msgstr "Leestijd"
+
+#: data/ui/statusbar.ui:70
+msgid "Tracks words, sentences or reading time here"
+msgstr ""
+
+#~ msgid "Save document"
+#~ msgstr "Document opslaan"
+
+#~ msgid "Choose another folder"
+#~ msgstr "Kies een andere map"
+
+#~ msgid "Type Counter"
+#~ msgstr "Teller"
+
+#, fuzzy
+#~ msgid "Search…"
+#~ msgstr "Volgende zoeken"
 
 #~ msgid "Write a new Document"
 #~ msgstr "Nieuw document maken"
@@ -711,9 +763,6 @@ msgstr "Leestijd"
 #, c-format
 #~ msgid "New Document-%d.md"
 #~ msgstr "Nieuw document-%d.md"
-
-#~ msgid "Create a new document"
-#~ msgstr "Nieuw document maken"
 
 #~ msgid "Open a document"
 #~ msgstr "Document openen"
@@ -778,9 +827,6 @@ msgstr "Leestijd"
 #~ msgstr ""
 #~ "Vervangen\n"
 #~ "Gebruik de pijltjestoetsen."
-
-#~ msgid "Replace All"
-#~ msgstr "Alles vervangen"
 
 #~ msgid "Find text…"
 #~ msgstr "Tekst zoeken…"
@@ -852,14 +898,8 @@ msgstr "Leestijd"
 #~ msgid "New file"
 #~ msgstr "Nieuw bestand"
 
-#~ msgid "Save as…"
-#~ msgstr "Opslaan als…"
-
 #~ msgid "Open…"
 #~ msgstr "Openen…"
-
-#~ msgid "Find…"
-#~ msgstr "Zoeken…"
 
 #~ msgid "Interface Modes"
 #~ msgstr "Vormgeving"

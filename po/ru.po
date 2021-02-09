@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 01:23-0300\n"
+"POT-Creation-Date: 2021-02-08 21:16-0300\n"
 "PO-Revision-Date: 2019-12-20 01:24+0600\n"
 "Last-Translator: Arthur Aslanyan <arthur.e.aslanyan@gmail.com>\n"
 "Language-Team: none\n"
@@ -18,40 +18,40 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:148 src/MainWindow.vala:676 src/Widgets/SideBar.vala:88
-#: src/Widgets/SideBar.vala:211
+#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
+#: src/Widgets/SideBar.vala:220
 msgid "New Document"
 msgstr "Новый документ"
 
-#: src/MainWindow.vala:149 src/MainWindow.vala:677 src/MainWindow.vala:680
-#: src/Widgets/SideBar.vala:89 src/Widgets/SideBar.vala:212
+#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
+#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
 msgid "Not Saved Yet"
 msgstr ""
 
-#: src/MainWindow.vala:391
+#: src/MainWindow.vala:405
 #, fuzzy
 msgid "Exit focus mode"
 msgstr "Войти в режим фокуса"
 
-#: src/MainWindow.vala:612
+#: src/MainWindow.vala:633
 msgid "Edit"
 msgstr "Редактировать"
 
-#: src/MainWindow.vala:613 data/ui/prefs_window.ui:278
-#: data/ui/prefs_window.ui:281
+#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
+#: data/ui/prefs_window.ui:267
 msgid "Preview"
 msgstr "Предпросмотр"
 
-#: src/MainWindow.vala:763
+#: src/MainWindow.vala:788
 #, fuzzy
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:768
+#: src/MainWindow.vala:793
 msgid "Focus on your writing."
 msgstr ""
 
-#: src/MainWindow.vala:774
+#: src/MainWindow.vala:799
 msgid "translator-credits"
 msgstr ""
 
@@ -77,6 +77,7 @@ msgstr ""
 
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
 #: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
+#: data/ui/headerbar.ui:21
 msgid "Save"
 msgstr "Сохранить"
 
@@ -143,54 +144,45 @@ msgstr "Открыть файл"
 msgid "Save File"
 msgstr "Сохранить файл"
 
-#: src/Widgets/HeaderBar.vala:76
-#, fuzzy
-msgid "Save document"
-msgstr "Новый документ"
-
-#: src/Widgets/HeaderBar.vala:82
-msgid "Choose another folder"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:160
+#: src/Widgets/HeaderBar.vala:113
 msgid "Rename"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:183
+#: src/Widgets/HeaderBar.vala:136
 #, fuzzy
 msgid "Rename File:"
 msgstr "Удалить все файлы"
 
-#: src/Widgets/HeaderBar.vala:201
+#: src/Widgets/HeaderBar.vala:153
 #, fuzzy
 msgid "Rename File"
 msgstr "Удалить все файлы"
 
-#: src/Widgets/HeaderBar.vala:204
+#: src/Widgets/HeaderBar.vala:156
 msgid "new_name.md"
 msgstr ""
 
-#: src/Widgets/HeaderBar.vala:211
+#: src/Widgets/HeaderBar.vala:163
 msgid "Toggle View"
 msgstr ""
 
-#: src/Widgets/SideBar.vala:90 src/Widgets/SideBar.vala:213
+#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
 msgid "New File"
 msgstr "Новый файл"
 
-#: src/Widgets/StatusBar.vala:90
+#: src/Widgets/StatusBar.vala:76
 msgid "Words: "
 msgstr "Слова: "
 
-#: src/Widgets/StatusBar.vala:95
+#: src/Widgets/StatusBar.vala:81
 msgid "Sentences: "
 msgstr ""
 
-#: src/Widgets/StatusBar.vala:101
+#: src/Widgets/StatusBar.vala:87
 msgid "Reading Time: "
 msgstr "Время на чтение: "
 
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:137
+#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
 msgid "Markdown Cheatsheet"
 msgstr "Шпаргалка по Markdown"
 
@@ -312,11 +304,11 @@ msgstr ""
 msgid "Special"
 msgstr "Особое"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:320
+#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
 msgid "Extensions"
 msgstr "Расширения"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:338
+#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
 msgid "LaTeX Math"
 msgstr ""
 
@@ -370,7 +362,7 @@ msgid ""
 "Right\t\t---\tto\t---: "
 msgstr ""
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:32
+#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
 msgid "Files"
 msgstr "Файлы"
 
@@ -392,53 +384,92 @@ msgstr ""
 msgid "/Folder/Image.png :image"
 msgstr "Это вставляет локальное изображение → | Папка/Изображение.png |"
 
-#: data/ui/headerbar.ui:86
+#: data/ui/headerbar.ui:33
 #, fuzzy
-msgid "Focus Mode"
-msgstr "Режим фокуса"
+msgid "Save As…"
+msgstr "Сохранить как…"
 
-#: data/ui/headerbar.ui:108
+#: data/ui/headerbar.ui:56
 #, fuzzy
 msgid "Export HTML…"
 msgstr "Экспортировать в HTML…"
 
-#: data/ui/headerbar.ui:118
+#: data/ui/headerbar.ui:69
 #, fuzzy
 msgid "Export PDF…"
 msgstr "Экспортировать в PDF…"
 
-#: data/ui/headerbar.ui:147 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Предпочтения"
+#: data/ui/headerbar.ui:95
+#, fuzzy
+msgid "Show/Hide the sidebar"
+msgstr "Показать/Скрыть боковую панель"
 
-#: data/ui/headerbar.ui:157
-msgid "Keyboard Shortcuts"
+#: data/ui/headerbar.ui:131
+#, fuzzy
+msgid "Save the current file"
+msgstr "Сохранить открытый файл?"
+
+#: data/ui/headerbar.ui:152
+#, fuzzy
+msgid "Create a new document"
+msgstr "Новый документ"
+
+#: data/ui/headerbar.ui:169
+msgid "Open"
+msgstr "Открыть"
+
+#: data/ui/headerbar.ui:172
+#, fuzzy
+msgid "Open a file"
+msgstr "Открыть файл"
+
+#: data/ui/headerbar.ui:204
+msgid "Go Back"
 msgstr ""
 
-#: data/ui/headerbar.ui:167
+#: data/ui/headerbar.ui:219
+msgid "Editor or Preview, change via menu"
+msgstr ""
+
+#: data/ui/headerbar.ui:221
+msgid "Full-Width"
+msgstr "Полная ширина"
+
+#: data/ui/headerbar.ui:234
+msgid "Editor and Preview, side by side"
+msgstr ""
+
+#: data/ui/headerbar.ui:236
+msgid "Half-Width"
+msgstr "Полширины"
+
+#: data/ui/headerbar.ui:339
+#, fuzzy
+msgid "Focus Mode"
+msgstr "Режим фокуса"
+
+#: data/ui/headerbar.ui:351
 #, fuzzy
 msgid "About Quilter"
 msgstr "Quilter"
 
-#: data/ui/headerbar.ui:214
-msgid "Full-Width"
-msgstr "Полная ширина"
-
-#: data/ui/headerbar.ui:228
-msgid "Editor or Preview, change via menu."
+#: data/ui/headerbar.ui:363
+msgid "Keyboard Shortcuts"
 msgstr ""
 
-#: data/ui/headerbar.ui:283
-msgid "Half-Width"
-msgstr "Полширины"
+#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
+msgid "Preferences"
+msgstr "Предпочтения"
 
-#: data/ui/headerbar.ui:297
-msgid "Editor and Preview, side-by-side."
-msgstr ""
+#: data/ui/headerbar.ui:408
+#, fuzzy
+msgid "View Type"
+msgstr "Установить шрифт для предпросмотра"
 
-#: data/ui/headerbar.ui:405
-msgid "Open"
-msgstr "Открыть"
+#: data/ui/headerbar.ui:421
+#, fuzzy
+msgid "Find and Replace…"
+msgstr "Заменить"
 
 #: data/ui/prefs_window.ui:19
 msgid "General"
@@ -469,31 +500,27 @@ msgid "Typewriter Scrolling"
 msgstr "Прокручивание печатной машинки:"
 
 #: data/ui/prefs_window.ui:165
-msgid "Type Counter"
-msgstr ""
-
-#: data/ui/prefs_window.ui:179
 msgid "Sidebar"
 msgstr ""
 
-#: data/ui/prefs_window.ui:198 data/ui/prefs_window.ui:201
+#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
 msgid "Editor"
 msgstr "Редактор"
 
-#: data/ui/prefs_window.ui:208
+#: data/ui/prefs_window.ui:194
 msgid "Autosave Delay"
 msgstr ""
 
-#: data/ui/prefs_window.ui:209
+#: data/ui/prefs_window.ui:195
 msgid "Values below 15s affects the storage medium negatively."
 msgstr ""
 
-#: data/ui/prefs_window.ui:228
+#: data/ui/prefs_window.ui:214
 msgid "Highlight Speech Parts (Beta)"
 msgstr ""
 
 #. Mind the newlines
-#: data/ui/prefs_window.ui:229
+#: data/ui/prefs_window.ui:215
 msgid ""
 "Only available in English\n"
 "Colors words based on type:\n"
@@ -504,58 +531,67 @@ msgid ""
 "- Conjunctions are green"
 msgstr ""
 
-#: data/ui/prefs_window.ui:251
+#: data/ui/prefs_window.ui:237
 msgid "Font"
 msgstr ""
 
-#: data/ui/prefs_window.ui:254
+#: data/ui/prefs_window.ui:240
 msgid "Type"
 msgstr ""
 
-#: data/ui/prefs_window.ui:284
+#: data/ui/prefs_window.ui:270
 #, fuzzy
 msgid "Preview Font Type"
 msgstr "Установить шрифт для предпросмотра"
 
-#: data/ui/prefs_window.ui:303
+#: data/ui/prefs_window.ui:289
 #, fuzzy
 msgid "Header Centering"
 msgstr "Заголовки"
 
-#: data/ui/prefs_window.ui:304
+#: data/ui/prefs_window.ui:290
 msgid "This affects #, ##, and ### headers."
 msgstr ""
 
-#: data/ui/prefs_window.ui:323
+#: data/ui/prefs_window.ui:309
 #, fuzzy
 msgid "Code Highlight"
 msgstr "Включить подсветку синтаксиса:"
 
-#: data/ui/prefs_window.ui:324
+#: data/ui/prefs_window.ui:310
 msgid "Code blocks will have the contents receive color."
 msgstr ""
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:325
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr ""
 
-#: data/ui/prefs_window.ui:353
+#: data/ui/prefs_window.ui:339
 msgid "Mermaid.js Graph"
 msgstr ""
 
-#: data/ui/prefs_window.ui:354
+#: data/ui/prefs_window.ui:340
 msgid "Mermaid blocks will become graphs."
 msgstr ""
 
-#: data/ui/searchbar.ui:14
+#: data/ui/searchbar.ui:23
 #, fuzzy
 msgid "Replace…"
 msgstr "Заменить"
 
-#: data/ui/searchbar.ui:71
+#: data/ui/searchbar.ui:33
 #, fuzzy
-msgid "Search…"
-msgstr "Найти следующее"
+msgid "Replace"
+msgstr "Заменить"
+
+#: data/ui/searchbar.ui:48
+#, fuzzy
+msgid "Replace All"
+msgstr "Заменить всё"
+
+#: data/ui/searchbar.ui:78
+msgid "Find…"
+msgstr "Найти…"
 
 #: data/ui/shortcuts.ui:15
 msgctxt "shortcut window"
@@ -658,12 +694,12 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Экспортировать в PDF…"
 
-#: data/ui/sidebar.ui:48
+#: data/ui/sidebar.ui:46
 #, fuzzy
 msgid "No Files"
 msgstr "Файлы"
 
-#: data/ui/sidebar.ui:78
+#: data/ui/sidebar.ui:76
 msgid "Outline"
 msgstr "Содержание"
 
@@ -672,20 +708,32 @@ msgstr "Содержание"
 msgid "Remove file from sidebar"
 msgstr "Убрать файл из боковой панели"
 
-#: data/ui/statusbar.ui:17
+#: data/ui/statusbar.ui:19
 #, fuzzy
 msgid "Words"
 msgstr "Слова: "
 
-#: data/ui/statusbar.ui:28
+#: data/ui/statusbar.ui:33
 #, fuzzy
 msgid "Sentences"
 msgstr "Предложение"
 
-#: data/ui/statusbar.ui:40
+#: data/ui/statusbar.ui:47
 #, fuzzy
 msgid "Reading Time"
 msgstr "Время на чтение: "
+
+#: data/ui/statusbar.ui:70
+msgid "Tracks words, sentences or reading time here"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Save document"
+#~ msgstr "Новый документ"
+
+#, fuzzy
+#~ msgid "Search…"
+#~ msgstr "Найти следующее"
 
 #, fuzzy
 #~ msgid "Write a new Document"
@@ -693,10 +741,6 @@ msgstr "Время на чтение: "
 
 #, fuzzy, c-format
 #~ msgid "New Document-%d.md"
-#~ msgstr "Новый документ"
-
-#, fuzzy
-#~ msgid "Create a new document"
 #~ msgstr "Новый документ"
 
 #, fuzzy
@@ -762,10 +806,6 @@ msgstr "Время на чтение: "
 #~ msgid "Replace with…"
 #~ msgstr "Заменить на…"
 
-#, fuzzy
-#~ msgid "Replace All"
-#~ msgstr "Заменить всё"
-
 #~ msgid "Find text…"
 #~ msgstr "Найти текст…"
 
@@ -817,14 +857,8 @@ msgstr "Время на чтение: "
 #~ msgid "New file"
 #~ msgstr "Новый файл"
 
-#~ msgid "Save as…"
-#~ msgstr "Сохранить как…"
-
 #~ msgid "Open…"
 #~ msgstr "Открыть…"
-
-#~ msgid "Find…"
-#~ msgstr "Найти…"
 
 #, fuzzy
 #~ msgid "Interface Modes"
