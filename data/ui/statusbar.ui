@@ -67,11 +67,11 @@
       <object class="GtkMenuButton" id="track_type_menu">
         <property name="can-focus">True</property>
         <property name="receives-default">False</property>
+        <property name="tooltip-text" translatable="yes">Tracks words, sentences or reading time here</property>
         <property name="popover">track_pop</property>
         <child>
           <object class="GtkLabel">
             <property name="can-focus">False</property>
-            <property name="label" translatable="yes"></property>
           </object>
         </child>
         <style>
