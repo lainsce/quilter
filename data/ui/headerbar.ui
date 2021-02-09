@@ -108,7 +108,6 @@
           <object class="GtkMenuButton" id="menu_button">
             <property name="can-focus">False</property>
             <property name="receives-default">False</property>
-            <property name="tooltip-text" translatable="yes">Main menu with immediate preferences</property>
             <property name="popover">main_pop</property>
             <child>
               <object class="GtkImage">
@@ -129,7 +128,7 @@
           <object class="GtkMenuButton" id="save_as_button">
             <property name="can-focus">True</property>
             <property name="receives-default">False</property>
-            <property name="tooltip-text" translatable="yes">Save a file, or export it</property>
+            <property name="tooltip-text" translatable="yes">Save the current file</property>
             <property name="popover">save_as_popover</property>
             <child>
               <object class="GtkImage">
@@ -150,7 +149,7 @@
           <object class="GtkButton" id="new_button">
             <property name="can-focus">False</property>
             <property name="receives-default">False</property>
-            <property name="tooltip-text" translatable="yes">Create a new file</property>
+            <property name="tooltip-text" translatable="yes">Create a new document</property>
             <child>
               <object class="GtkImage">
                 <property name="can-focus">False</property>
@@ -170,7 +169,7 @@
             <property name="label" translatable="yes">Open</property>
             <property name="can-focus">False</property>
             <property name="receives-default">False</property>
-            <property name="tooltip-text" translatable="yes">Open an existing file</property>
+            <property name="tooltip-text" translatable="yes">Open a file</property>
             <style>
               <class name="text-button"/>
             </style>
