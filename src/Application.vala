@@ -34,7 +34,7 @@ namespace Quilter {
         construct {
             flags |= ApplicationFlags.HANDLES_COMMAND_LINE;
             flags |= ApplicationFlags.HANDLES_OPEN;
-            application_id = "io.github.lainsce.Quilter";
+            application_id = Config.APP_ID;
 
             supported_mimetypes = {"text/markdown"};
         }
@@ -63,7 +63,7 @@ namespace Quilter {
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
             var context = new OptionContext ("File");
-            context.add_main_entries (entries, "io.github.lainsce.Quilter");
+            context.add_main_entries (entries, Config.APP_ID);
             context.add_group (Gtk.get_option_group (true));
             int unclaimed_args;
 
@@ -77,7 +77,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                stdout.printf ("Quilter - Copyright 2017-2021 Lains\n");
+                stdout.printf ("Quilter %s - Copyright 2017-2021 Lains\n".printf(Config.VERSION));
                 return 0;
             } else {
                 new_win ();

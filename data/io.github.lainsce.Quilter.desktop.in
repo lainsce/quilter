@@ -2,7 +2,7 @@
 Name=Quilter
 Comment=Focus on your writing
 Exec=io.github.lainsce.Quilter %U
-Icon=io.github.lainsce.Quilter
+Icon=@icon@
 Keywords=Text;Markdown;Editor;
 MimeType=text/markdown;text/x-markdown;
 Terminal=false

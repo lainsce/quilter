@@ -1,52 +1,74 @@
 install_data(
-    join_paths('icons', '128', 'io.github.lainsce.Quilter.svg'),
+    join_paths('icons', '128', meson.project_name() + '.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
 )
 
 install_data(
-    join_paths('icons', '128', 'io.github.lainsce.QuilterDevel.svg'),
+    join_paths('icons', '128', meson.project_name() + 'Devel.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'scalable', 'apps')
 )
 
 install_data(
-    join_paths('icons', '16', 'io.github.lainsce.Quilter-symbolic.svg'),
+    join_paths('icons', '16', meson.project_name() + '-symbolic.svg'),
     install_dir: join_paths(get_option('datadir'), 'icons', 'hicolor', 'symbolic', 'apps')
 )
 
 install_data(
-    'io.github.lainsce.Quilter.gschema.xml',
+    meson.project_name() + '.gschema.xml',
     install_dir: join_paths(get_option('datadir'), 'glib-2.0', 'schemas')
 )
 
-i18n.merge_file(
-    input: 'io.github.lainsce.Quilter.desktop.in',
-    output: 'io.github.lainsce.Quilter.desktop',
-    po_dir: join_paths(meson.source_root(), 'po', 'extra'),
-    type: 'desktop',
-    install: true,
-    install_dir: join_paths(get_option('datadir'), 'applications')
+msgfmt = find_program('msgfmt')
+podir = join_paths(meson.source_root(), 'po')
+desktop_conf = configuration_data()
+desktop_conf.set('icon', app_id)
+desktop_file = custom_target('desktop-file',
+  input: configure_file(
+    input: meson.project_name() + '.desktop.in',
+    output: '@BASENAME@' + '.desktop.in',
+    configuration: desktop_conf
+  ),
+  output: '@0@.desktop'.format(app_id),
+  install: true,
+  install_dir: join_paths(get_option('datadir'), 'applications'),
+  command: [msgfmt, '--desktop',
+    '--template', '@INPUT@', '-d', podir, '-o', '@OUTPUT@',
+    '--keyword=X-GNOME-FullName', '--keyword=X-Geoclue-Reason',
+    '--keyword=Name', '--keyword=GenericName', '--keyword=Comment', '--keyword=Keywords'
+  ]
 )
+# Validate Desktop file
+desktop_file_validate = find_program('desktop-file-validate', required: false)
+if desktop_file_validate.found()
+  test(
+    'validate-desktop',
+    desktop_file_validate,
+    args: [
+      desktop_file.full_path()
+    ]
+  )
+endif
 
 i18n.merge_file(
-    input: 'io.github.lainsce.Quilter.appdata.xml.in',
-    output: 'io.github.lainsce.Quilter.appdata.xml',
+    input: meson.project_name() + '.appdata.xml.in',
+    output: meson.project_name() + '.appdata.xml',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
 
 install_data(
-    join_paths('schemes', 'io.github.lainsce.Quilter.xml'),
+    join_paths('schemes', meson.project_name() + '.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'io.github.lainsce.Quilter-sepia.xml'),
+    join_paths('schemes', meson.project_name() + '-sepia.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
 install_data(
-    join_paths('schemes', 'io.github.lainsce.Quilter-dark.xml'),
+    join_paths('schemes', meson.project_name() + '-dark.xml'),
     install_dir: join_paths(get_option('datadir'), 'gtksourceview-4', 'styles')
 )
 
@@ -104,4 +126,3 @@ resources = gnome.compile_resources(
   gresource_bundle: true,
   source_dir: meson.current_build_dir()
 )
-

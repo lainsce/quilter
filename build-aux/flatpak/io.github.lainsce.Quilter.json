@@ -1,10 +1,10 @@
 {
-    "app-id" : "io.github.lainsce.Quilter",
+    "app-id" : "io.github.lainsce.QuilterDevel",
     "runtime" : "org.gnome.Sdk",
     "runtime-version" : "3.38",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Quilter",
-    "rename-icon" : "io.github.lainsce.Quilter.Devel",
+    "rename-icon" : "io.github.lainsce.QuilterDevel",
     "finish-args" : [
         "--filesystem=xdg-documents",
         "--filesystem=xdg-download",
@@ -71,10 +71,8 @@
             "buildsystem" : "meson",
             "config-opts" : [
                 "-Dexamples=false",
-                "-Dprofiling=false",
                 "-Dglade_catalog=disabled",
-                "-Dtests=false",
-                "-Dvapi=true"
+                "-Dtests=false"
             ],
             "sources" : [
                 {
