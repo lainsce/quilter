@@ -5,7 +5,7 @@
     <child>
       <object class="HdyFlap" id="flap">
         <child type="flap">
-          <object class="GtkGrid">
+          <object class="GtkGrid" id="flap_grid">
             <property name="vexpand">True</property>
             <property name="hexpand">false</property>
             <property name="width-request">250</property>

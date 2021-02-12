@@ -40,6 +40,9 @@ namespace Quilter.Widgets {
         public Hdy.Flap flap;
 
         [GtkChild]
+        public Gtk.Grid flap_grid;
+
+        [GtkChild]
         public Gtk.ListBox column;
 
         [GtkChild]
@@ -71,6 +74,20 @@ namespace Quilter.Widgets {
                     Quilter.Application.gsettings.set_boolean ("sidebar", false);
                 } else {
                     Quilter.Application.gsettings.set_boolean ("sidebar", true);
+                }
+            });
+
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                flap_grid.get_style_context ().add_class ("quilter-sidebar-sepia");
+            } else {
+                flap_grid.get_style_context ().remove_class ("quilter-sidebar-sepia");
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                    flap_grid.get_style_context ().add_class ("quilter-sidebar-sepia");
+                } else {
+                    flap_grid.get_style_context ().remove_class ("quilter-sidebar-sepia");
                 }
             });
         }

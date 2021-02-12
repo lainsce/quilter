@@ -316,10 +316,10 @@ namespace Quilter {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
 
-            Gtk.StyleContext style = get_style_context ();
-            if (Config.PROFILE == "Devel") {
-                style.add_class ("devel");
-            }
+            // Gtk.StyleContext style = get_style_context ();
+            // if (Config.PROFILE == "Devel") {
+            //     style.add_class ("devel");
+            // }
 
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Quilter/app-main-stylesheet.css");
@@ -331,6 +331,20 @@ namespace Quilter {
             titlebar.save.connect (on_save);
             titlebar.save_as.connect (on_save_as);
             titlebar.create_new.connect (on_create_new);
+
+            if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                titlebar.get_style_context ().add_class ("quilter-titlebar-sepia");
+            } else {
+                titlebar.get_style_context ().remove_class ("quilter-titlebar-sepia");
+            }
+
+            Quilter.Application.gsettings.changed.connect (() => {
+                if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                    titlebar.get_style_context ().add_class ("quilter-titlebar-sepia");
+                } else {
+                    titlebar.get_style_context ().remove_class ("quilter-titlebar-sepia");
+                }
+            });
 
             titlebar_stack = new Gtk.Stack ();
             titlebar_stack.set_transition_type (Gtk.StackTransitionType.CROSSFADE);

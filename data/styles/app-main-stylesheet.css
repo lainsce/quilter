@@ -138,12 +138,10 @@
     border: none;
     -gtk-icon-shadow: none;
 }
-.quilter-sidebar-box:focus button,
-.quilter-sidebar-box:selected button,
-.quilter-sidebar-box:active button {
+.quilter-sidebar-box button:focus {
     background: alpha(black, 0.2);
 }
-.quilter-sidebar-box:hover button {
+.quilter-sidebar-box button:hover {
     background: alpha(@theme_fg_color, 0.15);
 }
 
@@ -151,14 +149,14 @@
 .quilter-sidebar-box:selected,
 .quilter-sidebar-box:active,
 .quilter-sidebar-box:hover {
-    background: shade(@theme_base_color, 0.88);
+    background: alpha(black, 0.15);
 }
 
 .quilter-sidebar-box:active:backdrop,
 .quilter-sidebar-box:selected:backdrop,
 .quilter-sidebar-box:focus:backdrop,
 .quilter-sidebar-box:hover:backdrop  {
-    background: alpha(shade(@theme_base_color, 0.88), 0.88);
+    background: alpha(alpha(black, 0.15), 0.88);
 }
 
 .quilter-searchbar {
@@ -184,6 +182,31 @@
 }
 
 .quilter-sidebar {
-    background: @theme_bg_color;
     padding: 6px;
+}
+
+.quilter-sidebar-sepia {
+    background: shade(#f0e8dd, 0.95);
+}
+
+.quilter-sidebar-sepia .quilter-sidebar-box {
+    background: alpha(white, 0.75);
+}
+
+.quilter-sidebar-sepia .quilter-sidebar-box:focus,
+.quilter-sidebar-sepia .quilter-sidebar-box:selected,
+.quilter-sidebar-sepia .quilter-sidebar-box:active,
+.quilter-sidebar-sepia .quilter-sidebar-box:hover {
+    background: alpha(black, 0.15);
+}
+
+.quilter-sidebar-sepia .quilter-sidebar-box:active:backdrop,
+.quilter-sidebar-sepia .quilter-sidebar-box:selected:backdrop,
+.quilter-sidebar-sepia .quilter-sidebar-box:focus:backdrop,
+.quilter-sidebar-sepia .quilter-sidebar-box:hover:backdrop  {
+    background: alpha(alpha(black, 0.15), 0.88);
+}
+
+.quilter-titlebar-sepia {
+    background: linear-gradient(to top, shade(#f0e8dd, 0.8), shade(#f0e8dd, 1.1));
 }
