@@ -210,78 +210,44 @@ namespace Quilter {
             }
         }
 
-        /**
-         * Process the frontmatter of a markdown document, if it exists.
-         * Returns the frontmatter data and strips the frontmatter from the markdown doc.
-         *
-         * @see http://jekyllrb.com/docs/frontmatter/
-         */
-        private string[] process_frontmatter (string raw_mk, out string processed_mk) {
-            string[] map = {};
-
-            processed_mk = null;
-
-            if (raw_mk.length > 4 && raw_mk[0:4] == "---\n") {
-                int i = 0;
-                bool valid_frontmatter = true;
-                int last_newline = 3;
-                int next_newline;
-                string line = "";
-                while (true) {
-                    next_newline = raw_mk.index_of_char('\n', last_newline + 1);
-                    if (next_newline == -1) {
-                        valid_frontmatter = false;
-                        break;
-                    }
-                    line = raw_mk[last_newline+1:next_newline];
-                    last_newline = next_newline;
-
-                    if (line == "---") {
-                        break;
-                    }
-
-                    var sep_index = line.index_of_char(':');
-                    if (sep_index != -1) {
-                        map += line[0:sep_index-1];
-                        map += line[sep_index+1:line.length];
-                    } else {
-                        valid_frontmatter = false;
-                        break;
-                    }
-
-                    i++;
-                }
-
-                if (valid_frontmatter) {
-                    processed_mk = raw_mk[last_newline:raw_mk.length];
-                }
-            }
-
-            if (processed_mk == null) {
-                processed_mk = raw_mk;
-            }
-
-            return map;
-        }
-
         public void update_html_view () {
             string processed_mk;
-            process_frontmatter (buf.text, out processed_mk);
+            string title, date;
+            processed_mk = Services.FileManager.get_yamlless_markdown(
+                buf.text,
+                0,                                  // Cap number of lines
+                out title,
+                out date,
+                true,                               // Include empty lines
+                true,                               // H1 title:
+                false                               // Include date
+            );
+
             var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
                 Markdown.DocumentFlags.TOC +
-                Markdown.DocumentFlags.AUTOLINK + Markdown.DocumentFlags.EXTRA_FOOTNOTE +
-                Markdown.DocumentFlags.AUTOLINK + Markdown.DocumentFlags.DLEXTRA +
-                Markdown.DocumentFlags.FENCEDCODE + Markdown.DocumentFlags.GITHUBTAGS +
-                Markdown.DocumentFlags.LATEX + Markdown.DocumentFlags.URLENCODEDANCHOR +
-                Markdown.DocumentFlags.NOSTYLE + Markdown.DocumentFlags.EXPLICITLIST);
+                Markdown.DocumentFlags.AUTOLINK +
+                Markdown.DocumentFlags.EXTRA_FOOTNOTE +
+                Markdown.DocumentFlags.DLEXTRA +
+                Markdown.DocumentFlags.FENCEDCODE +
+                Markdown.DocumentFlags.GITHUBTAGS +
+                Markdown.DocumentFlags.LATEX +
+                Markdown.DocumentFlags.URLENCODEDANCHOR +
+                Markdown.DocumentFlags.NOSTYLE +
+                Markdown.DocumentFlags.EXPLICITLIST
+            );
 
             mkd.compile (
-                Markdown.DocumentFlags.TOC + Markdown.DocumentFlags.AUTOLINK +
+                Markdown.DocumentFlags.TOC +
+                Markdown.DocumentFlags.AUTOLINK +
                 Markdown.DocumentFlags.EXTRA_FOOTNOTE +
-                Markdown.DocumentFlags.AUTOLINK + Markdown.DocumentFlags.DLEXTRA +
-                Markdown.DocumentFlags.FENCEDCODE + Markdown.DocumentFlags.GITHUBTAGS +
-                Markdown.DocumentFlags.LATEX + Markdown.DocumentFlags.URLENCODEDANCHOR +
-                Markdown.DocumentFlags.EXPLICITLIST + Markdown.DocumentFlags.NOSTYLE);
+                Markdown.DocumentFlags.DLEXTRA +
+                Markdown.DocumentFlags.FENCEDCODE +
+                Markdown.DocumentFlags.GITHUBTAGS +
+                Markdown.DocumentFlags.LATEX +
+                Markdown.DocumentFlags.URLENCODEDANCHOR +
+                Markdown.DocumentFlags.NOSTYLE +
+                Markdown.DocumentFlags.EXPLICITLIST
+            );
 
             mkd.get_document (out processed_mk);
             string highlight = set_highlight();
