@@ -165,21 +165,15 @@ namespace Quilter {
             var view_mode_context = view_mode.get_style_context ();
             view_mode_context.add_class ("flat");
 
-            if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                top_grid.attach (view_mode, 0, 2, 4, 1);
-                view_mode.visible = true;
-            } else {
-                top_grid.remove (view_mode);
-                view_mode.visible = true;
-            }
+            top_grid.attach (view_mode, 0, 2, 4, 1);
 
             Quilter.Application.gsettings.changed.connect (() => {
                 if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                    top_grid.attach (view_mode, 0, 2, 4, 1);
+                    view_mode.no_show_all = false;
                     view_mode.visible = true;
                 } else {
-                    top_grid.remove (view_mode);
-                    view_mode.visible = true;
+                    view_mode.no_show_all = true;
+                    view_mode.visible = false;
                 }
             });
         }

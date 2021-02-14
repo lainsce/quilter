@@ -508,7 +508,6 @@ namespace Quilter {
             unowned Gtk.Container parent = widget.get_parent ();
             if (parent != null) {
                 parent.remove (widget);
-                widget.unparent ();
             } else {
                 return;
             }
