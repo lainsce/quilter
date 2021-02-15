@@ -70,10 +70,10 @@ namespace Quilter.Widgets {
             this.get_style_context ().add_class ("sidebar");
             flap.reveal_flap = Quilter.Application.gsettings.get_boolean ("sidebar");
             flap.notify["folded"].connect (() => {
-                if (flap.get_folded ()) {
-                    Quilter.Application.gsettings.set_boolean ("sidebar", false);
+                if (win.titlebar.sidebar_toggler.get_active ()) {
+                    flap.reveal_flap = true;
                 } else {
-                    Quilter.Application.gsettings.set_boolean ("sidebar", true);
+                    flap.reveal_flap = false;
                 }
             });
 

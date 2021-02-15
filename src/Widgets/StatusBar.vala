@@ -18,7 +18,7 @@
 */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/statusbar.ui")]
-    public class Widgets.StatusBar : Gtk.Box {
+    public class Widgets.StatusBar : Gtk.Revealer {
         [GtkChild]
         public Gtk.MenuButton track_type_menu;
         [GtkChild]

@@ -122,6 +122,7 @@
             </child>
             <style>
               <class name="quilter-sidebar"/>
+              <class name="background"/>
             </style>
           </object>
         </child>

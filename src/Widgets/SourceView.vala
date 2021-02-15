@@ -191,15 +191,15 @@ namespace Quilter.Widgets {
                 }
             }
 
-            if (Quilter.Application.gsettings.get_string("edit-font-type") == "mono") {
+            if (Quilter.Application.gsettings.get_enum("edit-font") == 0) {
                 buffer_context.add_class ("mono-font");
                 buffer_context.remove_class ("vier-font");
                 buffer_context.remove_class ("zwei-font");
-            } else if (Quilter.Application.gsettings.get_string("edit-font-type") == "vier") {
+            } else if (Quilter.Application.gsettings.get_enum("edit-font") == 2) {
                 buffer_context.add_class ("vier-font");
                 buffer_context.remove_class ("zwei-font");
                 buffer_context.remove_class ("mono-font");
-            } else if (Quilter.Application.gsettings.get_string("edit-font-type") == "zwei") {
+            } else if (Quilter.Application.gsettings.get_enum("edit-font") == 1) {
                 buffer_context.add_class ("zwei-font");
                 buffer_context.remove_class ("vier-font");
                 buffer_context.remove_class ("mono-font");

@@ -59,7 +59,7 @@
       </object>
     </child>
   </object>
-  <template class="QuilterWidgetsStatusBar" parent="GtkBox">
+  <template class="QuilterWidgetsStatusBar" parent="GtkRevealer">
     <property name="can-focus">False</property>
     <property name="halign">end</property>
     <property name="valign">end</property>

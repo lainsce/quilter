@@ -316,10 +316,10 @@ namespace Quilter {
                 app.set_accels_for_action (ACTION_PREFIX + action, accels_array);
             }
 
-            // Gtk.StyleContext style = get_style_context ();
-            // if (Config.PROFILE == "Devel") {
-            //     style.add_class ("devel");
-            // }
+            Gtk.StyleContext style = get_style_context ();
+            if (Config.PROFILE == "Devel") {
+                 style.add_class ("devel");
+            }
 
             var provider = new Gtk.CssProvider ();
             provider.load_from_resource ("/io/github/lainsce/Quilter/app-main-stylesheet.css");
@@ -591,6 +591,14 @@ namespace Quilter {
             }
         }
 
+        public void show_statusbar () {
+            if (Quilter.Application.gsettings.get_boolean("statusbar")) {
+                statusbar.reveal_child = true;
+            } else {
+                statusbar.reveal_child = false;
+            }
+        }
+
         private void set_prev_workfile () {
             if (((Widgets.SideBarBox)sidebar.column.get_selected_row ()) != null) {
                 Quilter.Application.gsettings.set_string("current-file", ((Widgets.SideBarBox)sidebar.column.get_selected_row ()).path);
@@ -602,6 +610,7 @@ namespace Quilter {
             edit_view_content.dynamic_margins ();
             change_layout.begin ();
             show_searchbar ();
+            show_statusbar ();
 
             if (Quilter.Application.gsettings.get_boolean("focus-mode")) {
                 overlay_button_revealer.reveal_child = true;

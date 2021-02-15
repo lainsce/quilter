@@ -1,5 +1,15 @@
 <?xml version="1.0"?>
 <schemalist>
+  <enum id='font'>
+        <value nick='mono' value='0'/>
+        <value nick='zwei' value='1'/>
+        <value nick='vier' value='2'/>
+  </enum>
+  <enum id='pfont'>
+        <value nick='serif' value='0'/>
+        <value nick='sans' value='1'/>
+        <value nick='mono' value='2'/>
+  </enum>
   <schema id="io.github.lainsce.Quilter" path="/io/github/lainsce/Quilter/">
     <key name="window-position" type="(ii)">
       <default>(-1,-1)</default>
@@ -55,12 +65,12 @@
       <summary>Last opened files</summary>
       <description>The last opened files in Quilter</description>
     </key>
-    <key name="edit-font-type" type="s">
+    <key name="edit-font" enum='font'>
       <default>'mono'</default>
       <summary>Font used on Edit View</summary>
       <description>The user-preferred font to use in Edit in Quilter</description>
     </key>
-    <key name="preview-font" type="s">
+    <key name="preview-font" enum='pfont'>
       <default>'serif'</default>
       <summary>Font used on Preview View</summary>
       <description>The user-preferred font to use in Preview in Quilter</description>
@@ -96,6 +106,10 @@
     <key name="searchbar" type="b">
       <default>false</default>
       <summary>Show (true) or Hide (false) the searchbar</summary>
+    </key>
+    <key name="statusbar" type="b">
+      <default>false</default>
+      <summary>Show (true) or Hide (false) the statusbar</summary>
     </key>
     <key name="highlight" type="b">
       <default>true</default>

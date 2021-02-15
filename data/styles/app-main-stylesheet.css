@@ -124,6 +124,7 @@
 
 .quilter-sidebar-box {
     color: @theme_fg_color;
+    box-shadow: none;
 }
 
 .quilter-sidebar-box grid {

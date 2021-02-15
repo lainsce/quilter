@@ -84,11 +84,11 @@ namespace Quilter {
         }
 
         private string set_font_stylesheet () {
-            if (Quilter.Application.gsettings.get_string("preview-font") == "serif") {
+            if (Quilter.Application.gsettings.get_enum("preview-font") == 0) {
                 return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/serif.css";
-            } else if (Quilter.Application.gsettings.get_string("preview-font") == "sans") {
+            } else if (Quilter.Application.gsettings.get_enum("preview-font") == 1) {
                 return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/sans.css";
-            } else if (Quilter.Application.gsettings.get_string("preview-font") == "mono") {
+            } else if (Quilter.Application.gsettings.get_enum("preview-font") == 2) {
                 return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/mono.css";
             }
 
