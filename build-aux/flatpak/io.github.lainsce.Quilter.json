@@ -91,9 +91,8 @@
             ],
             "sources" : [
                 {
-                    "type" : "git",
-                    "url" : "https://github.com/lainsce/quilter",
-                    "branch" : "master"
+                    "type" : "dir",
+                    "path": "../../"
                 }
             ]
         }
