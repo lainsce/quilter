@@ -163,4 +163,10 @@
             <image>https://raw.githubusercontent.com/lainsce/quilter/master/data/images/shot-preview.png</image>
         </screenshot>
     </screenshots>
+    <custom>
+        <value key="x-appcenter-color-primary">#70C0FF</value>
+        <value key="x-appcenter-color-primary-text">#000000</value>
+        <value key="x-appcenter-suggested-price">10</value>
+        <value key="x-appcenter-stripe">pk_live_X9sKGl7Y9uqVhqFSyoF36FK4</value>
+    </custom>
 </component>
