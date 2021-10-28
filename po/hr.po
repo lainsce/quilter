@@ -1,7 +1,7 @@
-# SOME DESCRIPTIVE TITLE.
+# Croatian translation of quilter.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the com.github.lainsce.quilter package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Milo Ivir <mail@milotype.de>, 2021.
 #
 msgid ""
 msgstr ""
