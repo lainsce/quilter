@@ -1,0 +1,832 @@
+# Croatian translation of quilter.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the com.github.lainsce.quilter package.
+# Milo Ivir <mail@milotype.de>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: com.github.lainsce.quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"PO-Revision-Date: 2021-10-28 20:52+0200\n"
+"Last-Translator: Milo Ivir <mail@milotype.de>\n"
+"Language-Team: \n"
+"Language: hr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0\n"
+
+#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
+#: src/Widgets/SideBar.vala:220
+msgid "New Document"
+msgstr "Novi dokument"
+
+#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
+#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
+msgid "Not Saved Yet"
+msgstr "Još nije spremljeno"
+
+#: src/MainWindow.vala:405
+msgid "Exit focus mode"
+msgstr "Napusti modus fokusa"
+
+#: src/MainWindow.vala:633
+msgid "Edit"
+msgstr "Uredi"
+
+#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
+#: data/ui/prefs_window.ui:267
+msgid "Preview"
+msgstr "Pregled"
+
+#: src/MainWindow.vala:788
+msgid "Quilter"
+msgstr "Quilter"
+
+#: src/MainWindow.vala:793
+msgid "Focus on your writing."
+msgstr "Usredotoči se na pisanje."
+
+#: src/MainWindow.vala:799
+msgid "translator-credits"
+msgstr "Milo Ivir <mail@milotype.de>"
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Markdown datoteke"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Sve datoteke"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Spremiti otvorenu datoteku?"
+
+#: src/Services/DialogUtils.vala:37
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"Postoje nespremljene promjene u datoteci, sve promjene će se izgubiti ako se "
+"ne spreme."
+
+#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
+#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
+#: data/ui/headerbar.ui:21
+msgid "Save"
+msgstr "Spremi"
+
+#: src/Services/DialogUtils.vala:42
+msgid "Close Without Saving"
+msgstr "Zatvori bez spremanja"
+
+#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
+msgid "Cancel"
+msgstr "Odustani"
+
+#: src/Services/DialogUtils.vala:52
+msgid "Remove File From Sidebar?"
+msgstr "Ukloniti datoteku iz bočne trake?"
+
+#: src/Services/DialogUtils.vala:53
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Uklanjanjem ove datoteke iz bočne trake, sve promjene će se izgubiti ako se "
+"ne spreme."
+
+#: src/Services/DialogUtils.vala:58
+msgid "Remove Without Saving"
+msgstr "Zatvori bez spremanja"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Ispiši u datoteku"
+
+#: src/Services/ExportUtils.vala:142
+msgid "Select Destination PDF File"
+msgstr "Odaberi oderdišnu PDF datoteku"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "PDF datoteka"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
+msgid "All Files"
+msgstr "Sve datoteke"
+
+#: src/Services/ExportUtils.vala:191
+msgid "Select Destination HTML File"
+msgstr "Odaberi oderdišnu HTML datoteku"
+
+#: src/Services/ExportUtils.vala:196
+msgid "HTML File"
+msgstr "HTML datoteka"
+
+#: src/Services/FileManager.vala:89
+msgid "Open File"
+msgstr "Otvori datoteku"
+
+#: src/Services/FileManager.vala:102
+msgid "Save File"
+msgstr "Spremi datoteku"
+
+#: src/Widgets/HeaderBar.vala:113
+msgid "Rename"
+msgstr "Preimenuj"
+
+#: src/Widgets/HeaderBar.vala:136
+msgid "Rename File:"
+msgstr "Preimenuj datoteku:"
+
+#: src/Widgets/HeaderBar.vala:153
+msgid "Rename File"
+msgstr "Preimenuj datoteku"
+
+#: src/Widgets/HeaderBar.vala:156
+msgid "new_name.md"
+msgstr "novo_ime.md"
+
+#: src/Widgets/HeaderBar.vala:163
+msgid "Toggle View"
+msgstr "Uključi/Isključi prikaz"
+
+#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
+msgid "New File"
+msgstr "Nova datoteka"
+
+#: src/Widgets/StatusBar.vala:76
+msgid "Words: "
+msgstr "Riječi: "
+
+#: src/Widgets/StatusBar.vala:81
+msgid "Sentences: "
+msgstr "Rečenice: "
+
+#: src/Widgets/StatusBar.vala:87
+msgid "Reading Time: "
+msgstr "Vrijema čitanja: "
+
+#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+msgid "Markdown Cheatsheet"
+msgstr "Šalabahter za Markdown"
+
+#: data/ui/cheatsheet.ui:17
+msgid "Common"
+msgstr "Uobičajeno"
+
+#: data/ui/cheatsheet.ui:22
+msgid "Text"
+msgstr "Tekst"
+
+#: data/ui/cheatsheet.ui:28
+msgid "Bold"
+msgstr "Podebljano"
+
+#: data/ui/cheatsheet.ui:35
+msgid "**Bold text**"
+msgstr "**Podebljani tekst**"
+
+#: data/ui/cheatsheet.ui:48
+msgid "Italics"
+msgstr "Kurziv"
+
+#: data/ui/cheatsheet.ui:55
+msgid "**Italicized text**"
+msgstr "**kurzivni tekst**"
+
+#: data/ui/cheatsheet.ui:68
+msgid "Code Line"
+msgstr "Redak koda"
+
+#: data/ui/cheatsheet.ui:75
+msgid "`code text`"
+msgstr "`tekst koda`"
+
+#: data/ui/cheatsheet.ui:88
+msgid "Code Block"
+msgstr "Blok koda"
+
+#: data/ui/cheatsheet.ui:95
+msgid ""
+"```\n"
+"code text\n"
+"```"
+msgstr ""
+"```\n"
+"tekst koda\n"
+"```"
+
+#: data/ui/cheatsheet.ui:110
+msgid "Quoting"
+msgstr "Citiranje"
+
+#: data/ui/cheatsheet.ui:117
+msgid ""
+"> Quote\n"
+"> something\n"
+"> here"
+msgstr ""
+"> Citiraj\n"
+"> nešto\n"
+"> ovdje"
+
+#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+msgid "Headers"
+msgstr "Zaglavlja"
+
+#: data/ui/cheatsheet.ui:149
+msgid ""
+"# Title\n"
+"## Subtitle\n"
+"### Section\n"
+"..."
+msgstr ""
+"# Naslov\n"
+"## Podnaslov\n"
+"### Odjeljak\n"
+"..."
+
+#: data/ui/cheatsheet.ui:162
+msgid "Links"
+msgstr "Poveznice"
+
+#: data/ui/cheatsheet.ui:169
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
+msgstr ""
+"[Oznaka poveznice](http://link.url.com)\n"
+"![Oznaka slike](http://image.url.com)"
+
+#: data/ui/cheatsheet.ui:184
+msgid "Extras"
+msgstr "Dodatno"
+
+#: data/ui/cheatsheet.ui:190
+msgid "Strikethrough"
+msgstr "Precrtano"
+
+#: data/ui/cheatsheet.ui:197
+msgid "~~Striked through text~~"
+msgstr "~~Precrtan tekst~~"
+
+#: data/ui/cheatsheet.ui:210
+msgid "Sub/Superscript"
+msgstr "Eksponent/Indeks"
+
+#: data/ui/cheatsheet.ui:217
+msgid ""
+"Subscript:\t\t    H~2~O\n"
+"Superscript:\t\t1^st^"
+msgstr ""
+"Indeks:\t\t    H~2~O\n"
+"Eksponent:\t\t1^st^"
+
+#: data/ui/cheatsheet.ui:229
+msgid "Horzontal Rule"
+msgstr "Vodoravna crta"
+
+#: data/ui/cheatsheet.ui:236
+msgid "Use: --- or ***"
+msgstr "Koristi: --- ili ***"
+
+#: data/ui/cheatsheet.ui:254
+msgid "Special"
+msgstr "Posebno"
+
+#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+msgid "Extensions"
+msgstr "Proširenja"
+
+#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+msgid "LaTeX Math"
+msgstr "LaTeX matematika"
+
+#: data/ui/cheatsheet.ui:272
+msgid ""
+"$$…$$\tfor equation block\n"
+"\\\\(…\\\\)\t\tfor inline equation"
+msgstr ""
+"$$…$$\tza blok jednadžbe\n"
+"\\\\(…\\\\)\t\tza jednadžbu u jednom retku"
+
+#: data/ui/cheatsheet.ui:284
+msgid "Mermaid.js Graphs"
+msgstr "Mermaid.js Graphs"
+
+#: data/ui/cheatsheet.ui:291
+msgid "<div class=\"mermaid\">...</div>"
+msgstr "<div class=\"mermaid\">…</div>"
+
+#: data/ui/cheatsheet.ui:304
+msgid "Checkboxes"
+msgstr "Potvrdni okviri"
+
+#: data/ui/cheatsheet.ui:305
+msgid "Mind the period to avoid collisions."
+msgstr "Pazi na točku za izbjegavanje nepodudarnosti."
+
+#: data/ui/cheatsheet.ui:312
+msgid ""
+"- [\t] Empty.\n"
+"- [x] Checked."
+msgstr ""
+"- [\t] Prazno.\n"
+"- [x] Označeno."
+
+#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+msgid "Tables"
+msgstr "Tablice"
+
+#: data/ui/cheatsheet.ui:341
+msgid ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+msgstr ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+
+#: data/ui/cheatsheet.ui:356
+msgid "Options"
+msgstr "Opcije"
+
+#: data/ui/cheatsheet.ui:363
+msgid ""
+"Left\t\t--- \tto\t:---\n"
+"Centered    ---\tto\t:---:\n"
+"Right\t\t---\tto\t---: "
+msgstr ""
+"Lijevo\t\t— \tdo\t:---\n"
+"Centrirano    ---\tdo\t:---:\n"
+"Desno\t\t—\tdo\t---: "
+
+#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+msgid "Files"
+msgstr "Datoteke"
+
+#: data/ui/cheatsheet.ui:386
+msgid "Document"
+msgstr "Dokument"
+
+#: data/ui/cheatsheet.ui:393
+msgid "/Folder/Document.md :file"
+msgstr "/Mapa/Dokument.md :datoteka"
+
+#: data/ui/cheatsheet.ui:403
+msgid "Image"
+msgstr "Slika"
+
+#: data/ui/cheatsheet.ui:410
+msgid "/Folder/Image.png :image"
+msgstr "/Mapa/Slika.png :slika"
+
+#: data/ui/headerbar.ui:33
+msgid "Save As…"
+msgstr "Spremi kao …"
+
+#: data/ui/headerbar.ui:56
+msgid "Export HTML…"
+msgstr "Izvezi HTML …"
+
+#: data/ui/headerbar.ui:69
+msgid "Export PDF…"
+msgstr "Izvezi PDF …"
+
+#: data/ui/headerbar.ui:95
+msgid "Show/Hide the sidebar"
+msgstr "Prikaži/Sakrij bočnu traku"
+
+#: data/ui/headerbar.ui:131
+msgid "Save the current file"
+msgstr "Spremi trenutačnu datoteku"
+
+#: data/ui/headerbar.ui:152
+msgid "Create a new document"
+msgstr "Stvori novi dokument"
+
+#: data/ui/headerbar.ui:169
+msgid "Open"
+msgstr "Otvori"
+
+#: data/ui/headerbar.ui:172
+msgid "Open a file"
+msgstr "Otvori datoteku"
+
+#: data/ui/headerbar.ui:204
+msgid "Go Back"
+msgstr "Idi natrag"
+
+#: data/ui/headerbar.ui:219
+msgid "Editor or Preview, change via menu"
+msgstr "Uređivač ili pregled, promijeni putem izbornika"
+
+#: data/ui/headerbar.ui:221
+msgid "Full-Width"
+msgstr "Puna širina"
+
+#: data/ui/headerbar.ui:234
+msgid "Editor and Preview, side by side"
+msgstr "Uređivač i pregled, jedno pored drugog"
+
+#: data/ui/headerbar.ui:236
+msgid "Half-Width"
+msgstr "Poluširine"
+
+#: data/ui/headerbar.ui:339
+msgid "Focus Mode"
+msgstr "Modus fokusa"
+
+#: data/ui/headerbar.ui:351
+msgid "About Quilter"
+msgstr "O programu Quilter"
+
+#: data/ui/headerbar.ui:363
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovni prečaci"
+
+#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
+msgid "Preferences"
+msgstr "Postavke"
+
+#: data/ui/headerbar.ui:408
+msgid "View Type"
+msgstr "Vrsta prikaza"
+
+#: data/ui/headerbar.ui:421
+msgid "Find and Replace…"
+msgstr "Traži i zamijeni …"
+
+#: data/ui/prefs_window.ui:19
+msgid "General"
+msgstr "Opće"
+
+#: data/ui/prefs_window.ui:22
+msgid "Appearance"
+msgstr "Izgled"
+
+#: data/ui/prefs_window.ui:25
+msgid "Visual Mode"
+msgstr "Vizualni modus"
+
+#: data/ui/prefs_window.ui:91
+msgid "Interface"
+msgstr "Sučelje"
+
+#: data/ui/prefs_window.ui:98
+msgid "Focus Scope"
+msgstr "Opseg fokusa"
+
+#: data/ui/prefs_window.ui:149
+msgid "Typewriter Scrolling"
+msgstr "Pomicanje pisaćeg stroja"
+
+#: data/ui/prefs_window.ui:165
+msgid "Sidebar"
+msgstr "Bočna traka"
+
+#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
+msgid "Editor"
+msgstr "Uređivač"
+
+#: data/ui/prefs_window.ui:194
+msgid "Autosave Delay"
+msgstr "Odgoda automatskog spremanja"
+
+#: data/ui/prefs_window.ui:195
+msgid "Values below 15s affects the storage medium negatively."
+msgstr ""
+"Vrijednosti ispod 15 s negativno utječu na medij za spremanje podataka."
+
+#: data/ui/prefs_window.ui:214
+msgid "Highlight Speech Parts (Beta)"
+msgstr "Istakni govorne dijelove (Beta)"
+
+#. Mind the newlines
+#: data/ui/prefs_window.ui:215
+msgid ""
+"Only available in English\n"
+"Colors words based on type:\n"
+"- Nouns are black\n"
+"- Verbs are blue\n"
+"- Adjectives are yellow\n"
+"- Adverbs are purple\n"
+"- Conjunctions are green"
+msgstr ""
+"Dostupno samo na engleskom jeziku\n"
+"Oboji riječi prema vrsti:\n"
+"- Imenice su crne\n"
+"- Glagoli su plavi\n"
+"- Pridjevi su žuti\n"
+"- Prilozi su ljubičasti\n"
+"- Veznici su zeleni"
+
+#: data/ui/prefs_window.ui:237
+msgid "Font"
+msgstr "Font"
+
+#: data/ui/prefs_window.ui:240
+msgid "Type"
+msgstr "Vrsta"
+
+#: data/ui/prefs_window.ui:270
+msgid "Preview Font Type"
+msgstr "Pregled vrste fonta"
+
+#: data/ui/prefs_window.ui:289
+msgid "Header Centering"
+msgstr "Centriranje zaglavlja"
+
+#: data/ui/prefs_window.ui:290
+msgid "This affects #, ##, and ### headers."
+msgstr "Ovo utječe na #, ## i ### zaglavlja."
+
+#: data/ui/prefs_window.ui:309
+msgid "Code Highlight"
+msgstr "Isticanje koda"
+
+#: data/ui/prefs_window.ui:310
+msgid "Code blocks will have the contents receive color."
+msgstr "Sadržaji blokova koda bit će obojani."
+
+#: data/ui/prefs_window.ui:325
+msgid "LaTeX math blocks will be processed into LaTeX output."
+msgstr "Matematički LaTeX blokovi obradit će se u LaTeX rezultat."
+
+#: data/ui/prefs_window.ui:339
+msgid "Mermaid.js Graph"
+msgstr "Mermaid.js dijagram"
+
+#: data/ui/prefs_window.ui:340
+msgid "Mermaid blocks will become graphs."
+msgstr "Mermaid blokovi pretvorit će se u dijagrame."
+
+#: data/ui/searchbar.ui:23
+msgid "Replace…"
+msgstr "Zamijeni …"
+
+#: data/ui/searchbar.ui:33
+msgid "Replace"
+msgstr "Zamijeni"
+
+#: data/ui/searchbar.ui:48
+msgid "Replace All"
+msgstr "Zamijeni sve"
+
+#: data/ui/searchbar.ui:78
+msgid "Find…"
+msgstr "Pronađi …"
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Opće"
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Zatvori program"
+
+#: data/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Novi dokument"
+
+#: data/ui/shortcuts.ui:34
+msgctxt "shortcut window"
+msgid "Save Document"
+msgstr "Spremi dokument"
+
+#: data/ui/shortcuts.ui:41
+msgctxt "shortcut window"
+msgid "Save Document As"
+msgstr "Spremi dokument kao"
+
+#: data/ui/shortcuts.ui:48
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Otvori dokument"
+
+#: data/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Begin Search"
+msgstr "Započni pretragu"
+
+#: data/ui/shortcuts.ui:62
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Poništi"
+
+#: data/ui/shortcuts.ui:69
+msgctxt "shortcut window"
+msgid "Redo"
+msgstr "Ponovi"
+
+#: data/ui/shortcuts.ui:76
+msgctxt "shortcut window"
+msgid "Go Fullscreen"
+msgstr "Cjeloekranski prikaz"
+
+#: data/ui/shortcuts.ui:84
+msgctxt "shortcut window"
+msgid "Interface"
+msgstr "Sučelje"
+
+#: data/ui/shortcuts.ui:89
+msgctxt "shortcut window"
+msgid "Markdown Cheatsheet"
+msgstr "Šalabahter za Markdown"
+
+#: data/ui/shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Switch Editor/Preview"
+msgstr "Prijeđi na uređivač/pregled"
+
+#: data/ui/shortcuts.ui:103
+msgctxt "shortcut window"
+msgid "Show/Hide Sidebar"
+msgstr "Prikaži/Sakrij bočnu traku"
+
+#: data/ui/shortcuts.ui:110
+msgctxt "shortcut window"
+msgid "Switch to/from Focus Mode"
+msgstr "Prijeđi u/iz modusa fokusa"
+
+#: data/ui/shortcuts.ui:118
+msgctxt "shortcut window"
+msgid "Exporting"
+msgstr "Izvoženje"
+
+#: data/ui/shortcuts.ui:123
+msgctxt "shortcut window"
+msgid "Export to HTML"
+msgstr "Izvoz u HTML"
+
+#: data/ui/shortcuts.ui:130
+msgctxt "shortcut window"
+msgid "Export to PDF"
+msgstr "Izvoz u PDF"
+
+#: data/ui/sidebar.ui:46
+msgid "No Files"
+msgstr "Nema datoteka"
+
+#: data/ui/sidebar.ui:76
+msgid "Outline"
+msgstr "Konture"
+
+#: data/ui/sidebarbox.ui:16
+msgid "Remove file from sidebar"
+msgstr "Ukloni datoteku iz bočne trake"
+
+#: data/ui/statusbar.ui:19
+msgid "Words"
+msgstr "Riječi"
+
+#: data/ui/statusbar.ui:33
+msgid "Sentences"
+msgstr "Rečenice"
+
+#: data/ui/statusbar.ui:47
+msgid "Reading Time"
+msgstr "Vrijema čitanja"
+
+#: data/ui/statusbar.ui:70
+msgid "Tracks words, sentences or reading time here"
+msgstr "Ovdje prati riječi, rečenice ili vrijeme čitanja"
+
+#~ msgid "Sepia Mode"
+#~ msgstr "Dunkler Modus"
+
+#~ msgid "Dark Mode"
+#~ msgstr "Dunkler Modus"
+
+#, fuzzy
+#~ msgid "Focus Mode…"
+#~ msgstr "Fokus Modus"
+
+#~ msgid "Settings"
+#~ msgstr "Einstellungen"
+
+#, fuzzy
+#~ msgid "Rename the File:"
+#~ msgstr "Alle Dateien"
+
+#, fuzzy
+#~ msgid "Quilt Zwei"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "Quilt Vier"
+#~ msgstr "Quilter"
+
+#, fuzzy
+#~ msgid "No files…"
+#~ msgstr "Neue Datei"
+
+#~ msgid "Cheatsheet"
+#~ msgstr "Spickzettel"
+
+#, fuzzy
+#~ msgid "Headers & Text"
+#~ msgstr "Seitenränder:"
+
+#, fuzzy
+#~ msgid "## Header 2"
+#~ msgstr "## Überschrift 2"
+
+#, fuzzy
+#~ msgid "### Header 3"
+#~ msgstr "### Überschrift 3"
+
+#, fuzzy
+#~ msgid "* Emphasized *"
+#~ msgstr "* kursiver Text *"
+
+#, fuzzy
+#~ msgid "> Quote"
+#~ msgstr "> Zitierter Text"
+
+#~ msgid "New file"
+#~ msgstr "Neue Datei"
+
+#~ msgid "Open…"
+#~ msgstr "Öffnen..."
+
+#, fuzzy
+#~ msgid "Interface Modes"
+#~ msgstr "Oberfläche"
+
+#~ msgid "Geometry"
+#~ msgstr "Geometrie"
+
+#, fuzzy
+#~ msgid "Spellchecking:"
+#~ msgstr "Aktiviere Rechtschreibprüfung:"
+
+#~ msgid "Modes"
+#~ msgstr "Modus"
+
+#, fuzzy
+#~ msgid "Track Read Time"
+#~ msgstr "Lesezeit: "
+
+#~ msgid "Links & Special"
+#~ msgstr "Hyperlinks & Spezielles"
+
+#~ msgid "Close"
+#~ msgstr "Schließen"
+
+#~ msgid "#### Heading 4"
+#~ msgstr "#### Überschrift 4"
+
+#~ msgid "##### Heading 5"
+#~ msgstr "##### Überschrift 5"
+
+#~ msgid "###### Heading 6"
+#~ msgstr "###### Überschrift 6"
+
+#~ msgid "Special Text"
+#~ msgstr "Spezieller Text"
+
+#~ msgid "![Image Label](http://image.url.here.com)"
+#~ msgstr "![Bild Name](http://Bild.url.hier.de)"
+
+#~ msgid "To make a column's content go to the left, change --- to :--- ."
+#~ msgstr ""
+#~ "Um den Inhalt einer Spalte linksbündig auszurichten, ändere --- zu :--- ."
+
+#~ msgid "To make a column's content centered, change --- to :---: ."
+#~ msgstr "Um den Inhalt einer Spalte zu zentrieren, ändere --- zu :---: ."
+
+#~ msgid "To make a column's content go to the right, change --- to ---: ."
+#~ msgstr ""
+#~ "Um den Inhalt einer Spalte rechtsbündig auszurichten, ändere --- zu ---: ."
+
+#~ msgid "Moon Mode"
+#~ msgstr "Fokus Modus"
+
+#~ msgid "Spacing of Text:"
+#~ msgstr "Textabstand:"
+
+#~ msgid "Small"
+#~ msgstr "Klein"
+
+#~ msgid "Normal"
+#~ msgstr "Normal"
+
+#~ msgid "Large"
+#~ msgstr "Groß"
+
+#~ msgid "Enable Focus Mode:"
+#~ msgstr "Aktiviere fokussierten Modus:"
+
+#~ msgid "Show Statusbar:"
+#~ msgstr "Zeige Statusleiste:"
