@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-08 21:16-0300\n"
-"PO-Revision-Date: 2021-10-28 20:52+0200\n"
+"PO-Revision-Date: 2021-11-28 13:27+0100\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
 "Language: hr\n"
@@ -318,7 +318,7 @@ msgstr ""
 
 #: data/ui/cheatsheet.ui:284
 msgid "Mermaid.js Graphs"
-msgstr "Mermaid.js Graphs"
+msgstr "Mermaid.js grafikoni"
 
 #: data/ui/cheatsheet.ui:291
 msgid "<div class=\"mermaid\">...</div>"
@@ -364,9 +364,9 @@ msgid ""
 "Centered    ---\tto\t:---:\n"
 "Right\t\t---\tto\t---: "
 msgstr ""
-"Lijevo\t\t— \tdo\t:---\n"
+"Lijevo\t\t--- \tdo\t:---\n"
 "Centrirano    ---\tdo\t:---:\n"
-"Desno\t\t—\tdo\t---: "
+"Desno\t\t---\tdo\t---: "
 
 #: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
 msgid "Files"
@@ -503,7 +503,8 @@ msgstr "Odgoda automatskog spremanja"
 #: data/ui/prefs_window.ui:195
 msgid "Values below 15s affects the storage medium negatively."
 msgstr ""
-"Vrijednosti ispod 15 s negativno utječu na medij za spremanje podataka."
+"Vrijednosti manje od 15 sekundi negativno utječu na medij za spremanje "
+"podataka."
 
 #: data/ui/prefs_window.ui:214
 msgid "Highlight Speech Parts (Beta)"
@@ -562,11 +563,11 @@ msgstr "Matematički LaTeX blokovi obradit će se u LaTeX rezultat."
 
 #: data/ui/prefs_window.ui:339
 msgid "Mermaid.js Graph"
-msgstr "Mermaid.js dijagram"
+msgstr "Mermaid.js grafikon"
 
 #: data/ui/prefs_window.ui:340
 msgid "Mermaid blocks will become graphs."
-msgstr "Mermaid blokovi pretvorit će se u dijagrame."
+msgstr "Mermaid blokovi pretvorit će se u grafikone."
 
 #: data/ui/searchbar.ui:23
 msgid "Replace…"
@@ -662,7 +663,7 @@ msgstr "Prijeđi u/iz modusa fokusa"
 #: data/ui/shortcuts.ui:118
 msgctxt "shortcut window"
 msgid "Exporting"
-msgstr "Izvoženje"
+msgstr "Izvoz"
 
 #: data/ui/shortcuts.ui:123
 msgctxt "shortcut window"
@@ -680,7 +681,7 @@ msgstr "Nema datoteka"
 
 #: data/ui/sidebar.ui:76
 msgid "Outline"
-msgstr "Konture"
+msgstr "Sadržaj"
 
 #: data/ui/sidebarbox.ui:16
 msgid "Remove file from sidebar"
@@ -701,132 +702,3 @@ msgstr "Vrijema čitanja"
 #: data/ui/statusbar.ui:70
 msgid "Tracks words, sentences or reading time here"
 msgstr "Ovdje prati riječi, rečenice ili vrijeme čitanja"
-
-#~ msgid "Sepia Mode"
-#~ msgstr "Dunkler Modus"
-
-#~ msgid "Dark Mode"
-#~ msgstr "Dunkler Modus"
-
-#, fuzzy
-#~ msgid "Focus Mode…"
-#~ msgstr "Fokus Modus"
-
-#~ msgid "Settings"
-#~ msgstr "Einstellungen"
-
-#, fuzzy
-#~ msgid "Rename the File:"
-#~ msgstr "Alle Dateien"
-
-#, fuzzy
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilter"
-
-#, fuzzy
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilter"
-
-#, fuzzy
-#~ msgid "No files…"
-#~ msgstr "Neue Datei"
-
-#~ msgid "Cheatsheet"
-#~ msgstr "Spickzettel"
-
-#, fuzzy
-#~ msgid "Headers & Text"
-#~ msgstr "Seitenränder:"
-
-#, fuzzy
-#~ msgid "## Header 2"
-#~ msgstr "## Überschrift 2"
-
-#, fuzzy
-#~ msgid "### Header 3"
-#~ msgstr "### Überschrift 3"
-
-#, fuzzy
-#~ msgid "* Emphasized *"
-#~ msgstr "* kursiver Text *"
-
-#, fuzzy
-#~ msgid "> Quote"
-#~ msgstr "> Zitierter Text"
-
-#~ msgid "New file"
-#~ msgstr "Neue Datei"
-
-#~ msgid "Open…"
-#~ msgstr "Öffnen..."
-
-#, fuzzy
-#~ msgid "Interface Modes"
-#~ msgstr "Oberfläche"
-
-#~ msgid "Geometry"
-#~ msgstr "Geometrie"
-
-#, fuzzy
-#~ msgid "Spellchecking:"
-#~ msgstr "Aktiviere Rechtschreibprüfung:"
-
-#~ msgid "Modes"
-#~ msgstr "Modus"
-
-#, fuzzy
-#~ msgid "Track Read Time"
-#~ msgstr "Lesezeit: "
-
-#~ msgid "Links & Special"
-#~ msgstr "Hyperlinks & Spezielles"
-
-#~ msgid "Close"
-#~ msgstr "Schließen"
-
-#~ msgid "#### Heading 4"
-#~ msgstr "#### Überschrift 4"
-
-#~ msgid "##### Heading 5"
-#~ msgstr "##### Überschrift 5"
-
-#~ msgid "###### Heading 6"
-#~ msgstr "###### Überschrift 6"
-
-#~ msgid "Special Text"
-#~ msgstr "Spezieller Text"
-
-#~ msgid "![Image Label](http://image.url.here.com)"
-#~ msgstr "![Bild Name](http://Bild.url.hier.de)"
-
-#~ msgid "To make a column's content go to the left, change --- to :--- ."
-#~ msgstr ""
-#~ "Um den Inhalt einer Spalte linksbündig auszurichten, ändere --- zu :--- ."
-
-#~ msgid "To make a column's content centered, change --- to :---: ."
-#~ msgstr "Um den Inhalt einer Spalte zu zentrieren, ändere --- zu :---: ."
-
-#~ msgid "To make a column's content go to the right, change --- to ---: ."
-#~ msgstr ""
-#~ "Um den Inhalt einer Spalte rechtsbündig auszurichten, ändere --- zu ---: ."
-
-#~ msgid "Moon Mode"
-#~ msgstr "Fokus Modus"
-
-#~ msgid "Spacing of Text:"
-#~ msgstr "Textabstand:"
-
-#~ msgid "Small"
-#~ msgstr "Klein"
-
-#~ msgid "Normal"
-#~ msgstr "Normal"
-
-#~ msgid "Large"
-#~ msgstr "Groß"
-
-#~ msgid "Enable Focus Mode:"
-#~ msgstr "Aktiviere fokussierten Modus:"
-
-#~ msgid "Show Statusbar:"
-#~ msgstr "Zeige Statusleiste:"
