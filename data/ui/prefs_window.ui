@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk+" version="3.24"/>
-  <requires lib="libhandy" version="1.0"/>
-  <template class="QuilterWidgetsPreferences" parent="HdyPreferencesWindow">
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.0"/>
+  <template class="QuilterWidgetsPreferences" parent="AdwPreferencesWindow">
     <property name="can-focus">False</property>
     <property name="title" translatable="yes">Preferences</property>
     <property name="window-position">center</property>
@@ -11,22 +11,22 @@
     <property name="gravity">center</property>
     <property name="can-swipe-back">True</property>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage">
         <property name="can-focus">False</property>
         <property name="icon-name">text-x-generic-symbolic</property>
         <property name="title" translatable="yes">Editor</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Document</property>
             <child>
-              <object class="HdyComboRow" id="font_type">
+              <object class="AdwComboRow" id="font_type">
                 <property name="title" translatable="yes">Font</property>
                 <property name="visible">True</property>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">True</property>
                 <property name="title">Autosave</property>
                 <child>
@@ -46,11 +46,11 @@
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Interface</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Focus Scope</property>
                 <child>
@@ -66,7 +66,7 @@
                     <property name="margin-bottom">6</property>
                     <property name="homogeneous">True</property>
                     <child>
-                      <object class="GtkRadioButton" id="scope_paragraph">
+                      <object class="GtkCheckButton" id="scope_paragraph">
                         <property name="label" translatable="yes">Paragraph</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -81,7 +81,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkRadioButton" id="scope_sentence">
+                      <object class="GtkCheckButton" id="scope_sentence">
                         <property name="label" translatable="yes">Sentence</property>
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
@@ -103,7 +103,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Typewriter Scrolling</property>
                 <child>
@@ -121,7 +121,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Document Tracker</property>
                 <property name="subtitle" translatable="yes">Tracks words, sentences or reading time.</property>
@@ -142,11 +142,11 @@
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Highlight</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">True</property>
                 <property name="title" translatable="yes">Speech Parts (Beta)</property>
                 <property name="subtitle" translatable="yes">Only available in English</property>
@@ -169,22 +169,22 @@
       </object>
     </child>
     <child>
-      <object class="HdyPreferencesPage">
+      <object class="AdwPreferencesPage">
         <property name="can-focus">False</property>
         <property name="icon-name">view-dual-symbolic</property>
         <property name="title" translatable="yes">Preview</property>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">General</property>
             <child>
-              <object class="HdyComboRow" id="preview_font_type">
+              <object class="AdwComboRow" id="preview_font_type">
                 <property name="title" translatable="yes">Preview Font</property>
                 <property name="visible">True</property>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes">Header Centering</property>
                 <property name="subtitle" translatable="yes">This affects #, ##, and ### headers.</property>
@@ -203,11 +203,11 @@
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
+          <object class="AdwPreferencesGroup">
             <property name="can-focus">False</property>
             <property name="title" translatable="yes">Extensions</property>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes">Code Highlight</property>
                 <property name="subtitle" translatable="yes">Code blocks will have the contents receive color.</property>
@@ -224,7 +224,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes">LaTeX Math</property>
                 <property name="subtitle" translatable="yes">LaTeX math blocks will be processed into LaTeX output.</property>
@@ -241,7 +241,7 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
+              <object class="AdwActionRow">
                 <property name="can-focus">False</property>
                 <property name="title" translatable="yes">Mermaid.js Graph</property>
                 <property name="subtitle" translatable="yes">Mermaid blocks will become graphs.</property>

@@ -59,7 +59,7 @@
 }
 
 .quilter-focus-button {
-    -gtk-icon-shadow: none;
+    icon-shadow: none;
     min-width: 24px;
     min-height: 24px;
     padding: 10px;
@@ -95,19 +95,16 @@
 .circular-button {
     padding: 8px;
     border-radius: 9999px;
-    -gtk-outline-radius: 9999px;
 }
 
 .mini-circular-button {
     padding: 4px;
     border-radius: 9999px;
-    -gtk-outline-radius: 9999px;
 }
 
 .tiny-circular-button {
     padding: 0px;
     border-radius: 9999px;
-    -gtk-outline-radius: 9999px;
 }
 
 .rename-button {
@@ -137,7 +134,7 @@
     color: @theme_fg_color;
     box-shadow: none;
     border: none;
-    -gtk-icon-shadow: none;
+    icon-shadow: none;
 }
 .quilter-sidebar-box button:focus {
     background: alpha(black, 0.2);

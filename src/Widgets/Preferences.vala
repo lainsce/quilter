@@ -70,65 +70,48 @@ namespace Quilter {
     }
 
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/prefs_window.ui")]
-    public class Widgets.Preferences : Hdy.PreferencesWindow {
+    public class Widgets.Preferences : Adw.PreferencesWindow {
 
         [GtkChild]
-        Hdy.ComboRow font_type;
+        unowned Adw.ComboRow font_type;
         [GtkChild]
-        Gtk.Switch autosave;
+        unowned Gtk.Switch autosave;
         [GtkChild]
-        Gtk.Switch statusbar;
+        unowned Gtk.Switch statusbar;
         [GtkChild]
-        Gtk.Switch pos;
+        unowned Gtk.Switch pos;
         [GtkChild]
-        Gtk.Switch typewriter;
+        unowned Gtk.Switch typewriter;
         [GtkChild]
-        public Gtk.RadioButton scope_paragraph;
+        public unowned Gtk.CheckButton scope_paragraph;
         [GtkChild]
-        public Gtk.RadioButton scope_sentence;
+        public unowned Gtk.CheckButton scope_sentence;
         [GtkChild]
-        Hdy.ComboRow preview_font_type;
+        unowned Adw.ComboRow preview_font_type;
         [GtkChild]
-        Gtk.Switch center;
+        unowned Gtk.Switch center;
         [GtkChild]
-        Gtk.Switch highlight;
+        unowned Gtk.Switch highlight;
         [GtkChild]
-        Gtk.Switch latex;
+        unowned Gtk.Switch latex;
         [GtkChild]
-        Gtk.Switch mermaid;
+        unowned Gtk.Switch mermaid;
 
         construct {
-            weak Gtk.IconTheme default_theme = Gtk.IconTheme.get_default ();
-            default_theme.add_resource_path ("/com/github/lainsce/quilter");
-
             preferences_connect ();
         }
 
         private void preferences_connect () {
-            font_type.set_for_enum (typeof (Font), e => {
-                var i = e.get_value ();
-                var f = Font.all ()[i];
-
-                return f.to_string ();
-            });
-
-            font_type.selected_index = (int) Quilter.Application.gsettings.get_enum("edit-font");
+            font_type.set_selected ((int) Quilter.Application.gsettings.get_enum("edit-font"));
             font_type.notify["selected-index"].connect (p => {
-                var i = font_type.selected_index;
-                Quilter.Application.gsettings.set_enum("edit-font", i);
+                var i = font_type.get_selected ();
+                Quilter.Application.gsettings.set_enum("edit-font", (int)i);
             });
 
-            preview_font_type.set_for_enum (typeof (PFont), e => {
-                var i = e.get_value ();
-                var f = PFont.all ()[i];
-
-                return f.to_string ();
-            });
-
-            preview_font_type.selected_index = (int) Quilter.Application.gsettings.get_enum("preview-font");
+            preview_font_type.set_selected ((int) Quilter.Application.gsettings.get_enum("preview-font"));
             preview_font_type.notify["selected-index"].connect (p => {
-                var i = preview_font_type.selected_index;
-                Quilter.Application.gsettings.set_enum("preview-font", i);
+                var i = preview_font_type.get_selected ();
+                Quilter.Application.gsettings.set_enum("preview-font", (int)i);
             });
 
             scope_paragraph.toggled.connect (() => {

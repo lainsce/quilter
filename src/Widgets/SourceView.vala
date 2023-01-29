@@ -17,7 +17,7 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter.Widgets {
-    public class EditView : Gtk.SourceView {
+    public class EditView : GtkSource.View {
         private Gtk.TextTag blackfont;
         private Gtk.TextTag darkgrayfont;
         private Gtk.TextTag lightgrayfont;
@@ -29,8 +29,8 @@ namespace Quilter.Widgets {
         private static EditView? instance = null;
         private uint update_idle_source = 0;
         public File file;
-        public Gtk.SourceSearchContext search_context = null;
-        public Gtk.SourceStyle srcstyle = null;
+        public GtkSource.SearchContext search_context = null;
+        public GtkSource.Style srcstyle = null;
         public Gtk.TextTag adjfont;
         public Gtk.TextTag adverbfont;
         public Gtk.TextTag conjfont;
@@ -41,7 +41,7 @@ namespace Quilter.Widgets {
         public bool should_scroll {get; set; default = false;}
         public bool should_update_preview { get; set; default = false; }
         public double cursor_position = 0;
-        public new unowned Gtk.SourceBuffer buffer;
+        public new unowned GtkSource.Buffer buffer;
         public string scroll_text = "";
 
         public static EditView get_instance () {
@@ -78,9 +78,9 @@ namespace Quilter.Widgets {
         public EditView (MainWindow window) {
             this.window = window;
 
-            var manager = Gtk.SourceLanguageManager.get_default ();
+            var manager = GtkSource.LanguageManager.get_default ();
             var language = manager.guess_language (null, "text/x-markdown");
-            var buffer = new Gtk.SourceBuffer.with_language (language);
+            var buffer = new GtkSource.Buffer.with_language (language);
             this.buffer = buffer;
             buffer.highlight_syntax = true;
             buffer.set_max_undo_levels (50);
@@ -113,7 +113,7 @@ namespace Quilter.Widgets {
                 modified = false;
             }
 
-            search_context = new Gtk.SourceSearchContext (buffer as Gtk.SourceBuffer, null);
+            search_context = new GtkSource.SearchContext (buffer as GtkSource.Buffer, null);
             search_context.set_match_style (srcstyle);
 
             try {
@@ -159,7 +159,6 @@ namespace Quilter.Widgets {
             this.set_pixels_inside_wrap((int)(1.5*4));
             this.set_pixels_above_lines(4);
             this.set_pixels_below_lines(4);
-            this.has_focus = true;
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
             this.monospace = true;
@@ -205,7 +204,7 @@ namespace Quilter.Widgets {
                 buffer_context.remove_class ("mono-font");
             }
 
-            var style_manager = Gtk.SourceStyleSchemeManager.get_default ();
+            var style_manager = GtkSource.StyleSchemeManager.get_default ();
             var style = style_manager.get_scheme (setup_ui_scheme ());
             buffer.set_style_scheme (style);
 

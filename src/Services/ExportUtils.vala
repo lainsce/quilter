@@ -169,9 +169,7 @@ namespace Quilter.Services.ExportUtils {
         dialog.add_filter (all_filter);
 
 
-        if (dialog.run () == Gtk.ResponseType.ACCEPT) {
-            result = dialog.get_file ();
-        }
+        result = dialog.get_file ();
 
         dialog.close ();
 
@@ -216,9 +214,7 @@ namespace Quilter.Services.ExportUtils {
         dialog2.add_filter (html_filter);
         dialog2.add_filter (all_filter);
 
-        if (dialog2.run () == Gtk.ResponseType.ACCEPT) {
-            result2 = dialog2.get_file ();
-        }
+        result2 = dialog2.get_file ();
 
         dialog2.close ();
 

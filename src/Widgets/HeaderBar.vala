@@ -18,7 +18,7 @@
 */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/headerbar.ui")]
-    public class Widgets.Headerbar : Gtk.Bin {
+    public class Widgets.Headerbar : Adw.Bin {
         public Widgets.HeaderBarButton samenu_button;
         public MainWindow win;
         public Preview preview;
@@ -30,39 +30,39 @@ namespace Quilter {
         public signal void save_as ();
 
         [GtkChild]
-        public Hdy.HeaderBar headerbar;
+        public unowned Adw.HeaderBar headerbar;
 
         [GtkChild]
-        public Gtk.Grid top_grid;
+        public unowned Gtk.Grid top_grid;
         [GtkChild]
-        public Gtk.Box save_grid;
+        public unowned Gtk.Box save_grid;
         [GtkChild]
-        public Gtk.Box view_menu;
+        public unowned Gtk.Box view_menu;
 
         [GtkChild]
-        public Gtk.Button new_button;
+        public unowned Gtk.Button new_button;
         [GtkChild]
-        public Gtk.Button save_button;
+        public unowned Gtk.Button save_button;
         [GtkChild]
-        public Gtk.MenuButton save_as_button;
+        public unowned Gtk.MenuButton save_as_button;
         [GtkChild]
-        public Gtk.Button open_button;
+        public unowned Gtk.Button open_button;
 
         [GtkChild]
-        public Gtk.RadioButton color_button_light;
+        public unowned Gtk.CheckButton color_button_light;
         [GtkChild]
-        public Gtk.RadioButton color_button_sepia;
+        public unowned Gtk.CheckButton color_button_sepia;
         [GtkChild]
-        public Gtk.RadioButton color_button_dark;
+        public unowned Gtk.CheckButton color_button_dark;
 
         [GtkChild]
-        public Gtk.ToggleButton sidebar_toggler;
+        public unowned Gtk.ToggleButton sidebar_toggler;
 
         public MainWindow window;
 
         public Headerbar (MainWindow win) {
             this.win = win;
-            headerbar.show_close_button = true;
+            headerbar.show_end_title_buttons = true;
 
             build_ui ();
         }
@@ -72,11 +72,7 @@ namespace Quilter {
             open_button.clicked.connect (() => open ());
             save_button.clicked.connect (() => save ());
 
-            top_grid.show_all ();
-            save_grid.show_all ();
-            view_menu.show_all ();
-
-            sidebar_toggler.set_image (new Gtk.Image.from_icon_name("sidebar-symbolic", Gtk.IconSize.BUTTON));
+            sidebar_toggler.icon_name = ("sidebar-symbolic");
             Quilter.Application.gsettings.bind ("sidebar", sidebar_toggler, "active", GLib.SettingsBindFlags.DEFAULT);
 
             var mode_type = Quilter.Application.gsettings.get_string("visual-mode");
@@ -94,15 +90,15 @@ namespace Quilter {
                     break;
             }
 
-            color_button_dark.clicked.connect (() => {
+            color_button_dark.toggled.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "dark");
             });
 
-            color_button_sepia.clicked.connect (() => {
+            color_button_sepia.toggled.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "sepia");
             });
 
-            color_button_light.clicked.connect (() => {
+            color_button_light.toggled.connect (() => {
                 Quilter.Application.gsettings.set_string("visual-mode", "light");
             });
 
@@ -116,15 +112,14 @@ namespace Quilter {
             rename_button.clicked.connect (() => {
                 try {
                     var new_filename = rename_entry.get_text ();
-                    foreach (var child in win.sidebar.column.get_children ()) {
-                        if (child == win.sidebar.get_selected_row ()) {
-                            var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
-                            Services.FileManager.save_file (path_new, win.edit_view_content.text);
+                    Gtk.ListBoxRow child = win.sidebar.get_selected_row ();
+                    if (child != null) {
+                        //var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
+                        //Services.FileManager.save_file (path_new, win.edit_view_content.text);
 
-                            ((Widgets.SideBarBox)child).path = path_new;
-                            samenu_button.title = Path.get_basename(path_new);
-                            samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
-                        }
+                        //((Widgets.SideBarBox)child).path = path_new;
+                        //samenu_button.title = Path.get_basename(path_new);
+                        //samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
                     }
 
                     rename_entry.set_text ("");
@@ -137,16 +132,15 @@ namespace Quilter {
             rename_label.get_style_context ().add_class ("dim-label");
 
             var samenu_grid = new Gtk.Grid ();
-            samenu_grid.margin = 12;
+            samenu_grid.margin_top = samenu_grid.margin_end = samenu_grid.margin_bottom = samenu_grid.margin_start = 12;
             samenu_grid.column_homogeneous = true;
             samenu_grid.row_spacing = 6;
             samenu_grid.attach (rename_label, 0, 0);
             samenu_grid.attach (rename_entry, 0, 1, 2, 1);
             samenu_grid.attach (rename_button, 1, 2);
-            samenu_grid.show_all ();
 
-            var samenu = new Gtk.Popover (null);
-            samenu.add (samenu_grid);
+            var samenu = new Gtk.Popover ();
+            samenu.set_child (samenu_grid);
 
             samenu_button = new Widgets.HeaderBarButton ();
             samenu_button.has_tooltip = true;
@@ -155,12 +149,11 @@ namespace Quilter {
 
             rename_entry.set_placeholder_text (_("new_name.md"));
 
-            headerbar.set_custom_title (samenu_button);
+            headerbar.set_title_widget (samenu_button);
 
-            var view_mode = new Gtk.ModelButton ();
-            view_mode.role = Gtk.ButtonRole.CHECK;
+            var view_mode = new Gtk.Button ();
             view_mode.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
-            view_mode.text = _("Toggle View");
+            view_mode.label = _("Toggle View");
 
             var view_mode_context = view_mode.get_style_context ();
             view_mode_context.add_class ("flat");
@@ -169,10 +162,8 @@ namespace Quilter {
 
             Quilter.Application.gsettings.changed.connect (() => {
                 if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
-                    view_mode.no_show_all = false;
                     view_mode.visible = true;
                 } else {
-                    view_mode.no_show_all = true;
                     view_mode.visible = false;
                 }
             });

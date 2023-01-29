@@ -18,26 +18,29 @@
 */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/searchbar.ui")]
-    public class Widgets.SearchBar : Gtk.Revealer {
+    public class Widgets.SearchBar : Adw.Bin {
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
 
         [GtkChild]
-        Gtk.Button replace_all_button;
+        private unowned Gtk.Button replace_all_button;
         [GtkChild]
-        Gtk.Button replace_button;
+        private unowned Gtk.Button replace_button;
         [GtkChild]
-        Gtk.Button close_button;
+        private unowned Gtk.Button close_button;
         [GtkChild]
-        Gtk.Button search_button_prev;
+        private unowned Gtk.Button search_button_prev;
         [GtkChild]
-        Gtk.Button search_button_next;
+        private unowned Gtk.Button search_button_next;
         [GtkChild]
-        Gtk.Entry replace_entry;
+        private unowned Gtk.Entry replace_entry;
         [GtkChild]
-        Gtk.SearchEntry search_entry;
+        private unowned Gtk.SearchEntry search_entry;
 
-        public Gtk.SourceSearchContext search_context = null;
+        [GtkChild]
+        public unowned Gtk.Revealer searchbar;
+
+        public GtkSource.SearchContext search_context = null;
         public weak MainWindow window { get; construct; }
 
         public SearchBar (MainWindow window) {
@@ -173,7 +176,7 @@ namespace Quilter {
             this.text_buffer = text_view.get_buffer ();
             var search_string = search_entry.text;
 
-            this.search_context = new Gtk.SourceSearchContext (text_buffer as Gtk.SourceBuffer, null);
+            this.search_context = new GtkSource.SearchContext (text_buffer as GtkSource.Buffer, null);
             search_context.settings.regex_enabled = false;
             search_context.settings.search_text = search_string;
             bool case_sensitive = !((search_string.up () == search_string) || (search_string.down () == search_string));
@@ -193,10 +196,10 @@ namespace Quilter {
             text_buffer.get_iter_at_offset (out start_iter, text_buffer.cursor_position);
             bool found = (search_entry.text != "" && search_entry.text in this.text_buffer.text);
             if (found) {
-                search_entry.get_style_context ().remove_class (Gtk.STYLE_CLASS_ERROR);
+                search_entry.get_style_context ().remove_class ("error");
                 text_buffer.select_range (start_iter, start_iter);
             } else if (search_entry.text != "") {
-                search_entry.get_style_context ().add_class (Gtk.STYLE_CLASS_ERROR);
+                search_entry.get_style_context ().add_class ("error");
             }
 
             return true;

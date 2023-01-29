@@ -68,8 +68,7 @@ msgstr "Salvare file aperto?"
 #: src/Services/DialogUtils.vala:37
 msgid ""
 "There are unsaved changes to the file, any changes will be lost if not saved."
-msgstr "Sono presenti modifiche non salvate al file, eventuali modifiche andranno perse se non salvate.
-
+msgstr "Sono presenti modifiche non salvate al file, eventuali modifiche andranno perse se non salvate."
 #: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
 #: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
 #: data/ui/headerbar.ui:21

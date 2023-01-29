@@ -30,7 +30,7 @@ gtksourceview-4-dev
 libwebkit2gtk-4.0-dev
 libmarkdown2-dev
 libgtkspell3-3-dev
-libhandy-1-dev >= 0.80.0
+libadwaita-1-dev >= 0.80.0
 meson
 ```
 

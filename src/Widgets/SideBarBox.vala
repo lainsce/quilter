@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebarbox.ui")]
-    public class SideBarBox : Hdy.ActionRow {
+    public class SideBarBox : Adw.ActionRow {
         public signal void clicked ();
         public EditView ev;
         public MainWindow win;
@@ -26,7 +26,7 @@ namespace Quilter.Widgets {
         private static int uid_counter;
 
         [GtkChild]
-        public Gtk.Button file_remove_button;
+        public unowned Gtk.Button file_remove_button;
 
         private string? _path;
         public new string? path {
@@ -54,14 +54,13 @@ namespace Quilter.Widgets {
             this.win = win;
             this.uid = uid_counter++;
             this.path = path;
-            this.show_all ();
 
             file_remove_button.clicked.connect (() => {
                 this.dispose ();
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
                 win.save_last_files ();
-                win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
+                //win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
                 win.sidebar.store.clear ();
             });
         }

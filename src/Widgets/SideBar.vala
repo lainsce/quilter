@@ -18,7 +18,7 @@
 */
 namespace Quilter.Widgets {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebar.ui")]
-    public class SideBar : Gtk.Bin {
+    public class SideBar : Adw.Bin {
         private Widgets.SideBarBox[] rows;
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
@@ -28,7 +28,7 @@ namespace Quilter.Widgets {
         public Gtk.TreeStore store;
         public Gtk.TreeSelection selection;
         public Gtk.CellRendererText crt;
-        private Gtk.TreeIter root;
+        private new Gtk.TreeIter root;
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private GLib.MatchInfo match;
@@ -37,16 +37,16 @@ namespace Quilter.Widgets {
         public bool is_modified {get; set; default = false;}
 
         [GtkChild]
-        public Hdy.Flap flap;
+        public unowned Adw.Flap flap;
 
         [GtkChild]
-        public Gtk.Grid flap_grid;
+        public unowned Gtk.Grid flap_grid;
 
         [GtkChild]
-        public Gtk.ListBox column;
+        public unowned Gtk.ListBox column;
 
         [GtkChild]
-        public Gtk.TreeView view;
+        public unowned Gtk.TreeView view;
 
         public signal void save_as ();
 
@@ -144,22 +144,6 @@ namespace Quilter.Widgets {
             outline_populate ();
             selection = view.get_selection ();
             selection.set_mode (Gtk.SelectionMode.SINGLE);
-
-            view.button_press_event.connect ((widget, event) => {
-                //capture which mouse button
-                uint clicked_button;
-                event.get_button(out clicked_button);
-				//handle right button click for context menu
-                if (event.get_event_type ()  == Gdk.EventType.BUTTON_PRESS  &&  clicked_button == 1){
-                    Gtk.TreePath path; Gtk.TreeViewColumn column; int cell_x; int cell_y;
-			        view.get_path_at_pos ((int)event.x, (int)event.y, out path, out column, out cell_x, out cell_y);
-			        view.grab_focus ();
-                    view.set_cursor (path, column, false);
-
-					selchanged (selection);
-				}
-				return false;
-            });
         }
 
         public void selchanged (Gtk.TreeSelection row) {
@@ -214,16 +198,13 @@ namespace Quilter.Widgets {
         }
 
         public Gee.LinkedList<SideBarBox> get_files () {
-            foreach (Gtk.Widget item in column.get_children ()) {
+            while (column.get_first_child () != null) {
                 if (files != null)
-                    s_files.add ((SideBarBox)item);
+                    s_files.add ((SideBarBox)column.get_first_child ());
             }
             return s_files;
         }
 
-        public GLib.List<unowned SideBarBox> get_rows () {
-            return (GLib.List<unowned SideBarBox>) column.get_children ();
-        }
         public unowned SideBarBox get_selected_row () {
             return (SideBarBox) column.get_selected_row ();
         }
@@ -251,8 +232,8 @@ namespace Quilter.Widgets {
         }
 
         public void delete_rows () {
-            foreach (Gtk.Widget item in column.get_children ()) {
-                item.destroy ();
+            while (column.get_first_child() != null) {
+                column.get_first_child().destroy ();
             }
         }
 

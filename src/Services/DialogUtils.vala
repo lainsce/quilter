@@ -29,35 +29,35 @@ namespace Quilter.Services.DialogUtils {
         return chooser;
     }
 
-    public class Dialog : Gtk.MessageDialog {
-        public MainWindow win;
-        public Dialog () {
+    public class Dialog : Adw.MessageDialog {
+        public MainWindow win {get; construct;}
+        public Dialog (MainWindow win) {
             Object (
-                text: _("Save Open File?"),
-                secondary_text: _("There are unsaved changes to the file, any changes will be lost if not saved.")
+                heading: _("Save Open File?"),
+                body: _("There are unsaved changes to the file, any changes will be lost if not saved.")
             );
-        }
-        construct {
-            var save = add_button (_("Save"), Gtk.ResponseType.OK);
-            var cws = add_button (_("Close Without Saving"), Gtk.ResponseType.NO);
-            var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
-            cancel.clicked.connect (() => { destroy (); });
+
+            this.add_response ("cancel",  _("Cancel"));
+            this.add_response ("no", _("Close Without Saying"));
+            this.add_response ("ok", _("Save"));
+            this.set_default_response ("ok");
+            this.set_close_response ("cancel");
         }
     }
 
-    public class Dialog2 : Gtk.MessageDialog {
-        public MainWindow win;
-        public Dialog2 () {
+    public class Dialog2 : Adw.MessageDialog {
+        public MainWindow win {get; construct;}
+        public Dialog2 (MainWindow win) {
             Object (
-                text: _("Remove File From Sidebar?"),
-                secondary_text: _("By removing this file from the Sidebar, any changes will be lost if not saved.")
+                heading: _("Remove File From Sidebar?"),
+                body: _("By removing this file from the Sidebar, any changes will be lost if not saved.")
             );
-        }
-        construct {
-            var save = add_button (_("Save"), Gtk.ResponseType.OK);
-            var cws = add_button (_("Remove Without Saving"), Gtk.ResponseType.NO);
-            var cancel = add_button (_("Cancel"), Gtk.ResponseType.CANCEL) as Gtk.Button;
-            cancel.clicked.connect (() => { destroy (); });
+
+            this.add_response ("cancel",  _("Cancel"));
+            this.add_response ("no", _("Remove Without Saying"));
+            this.add_response ("ok", _("Save"));
+            this.set_default_response ("ok");
+            this.set_close_response ("cancel");
         }
     }
 }

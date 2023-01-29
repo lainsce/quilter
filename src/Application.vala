@@ -56,15 +56,13 @@ namespace Quilter {
                 return;
             }
             win = new MainWindow (this);
-
-            win.show_all ();
+            win.show ();
         }
 
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
             var context = new OptionContext ("File");
             context.add_main_entries (entries, Config.APP_ID);
-            context.add_group (Gtk.get_option_group (true));
             int unclaimed_args;
 
             try {
@@ -165,8 +163,7 @@ namespace Quilter {
                             Gtk.MessageType.ERROR,
                             Gtk.ButtonsType.CLOSE,
                             msg);
-                        dialog.run ();
-                        dialog.destroy ();
+                        dialog.show ();
                         dialog.close ();
                     }
                 }

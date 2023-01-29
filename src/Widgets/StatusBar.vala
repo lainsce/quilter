@@ -18,23 +18,26 @@
 */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/statusbar.ui")]
-    public class Widgets.StatusBar : Gtk.Revealer {
+    public class Widgets.StatusBar : Adw.Bin {
         [GtkChild]
-        public Gtk.MenuButton track_type_menu;
+        public unowned Gtk.MenuButton track_type_menu;
         [GtkChild]
-        public Gtk.RadioButton track_words;
+        public unowned Gtk.CheckButton track_words;
         [GtkChild]
-        public Gtk.RadioButton track_lines;
+        public unowned Gtk.CheckButton track_lines;
         [GtkChild]
-        public Gtk.RadioButton track_rtc;
+        public unowned Gtk.CheckButton track_rtc;
         [GtkChild]
-        public Gtk.Box track_box;
+        public unowned Gtk.Box track_box;
 
-        public Gtk.SourceBuffer buf;
+        [GtkChild]
+        public unowned Gtk.Revealer statusbar;
+
+        public GtkSource.Buffer buf;
         public MainWindow win;
         private int WPM = 264;
 
-        public StatusBar (MainWindow win, Gtk.SourceBuffer buf) {
+        public StatusBar (MainWindow win, GtkSource.Buffer buf) {
             this.win = win;
             this.buf = buf;
 
@@ -42,9 +45,7 @@ namespace Quilter {
         }
 
         private void tracker () {
-            track_box.show_all ();
-
-	        track_words.toggled.connect (() => {
+            track_words.toggled.connect (() => {
 	            Quilter.Application.gsettings.set_string("track-type", "words");
 	            update_wordcount ();
 	        });

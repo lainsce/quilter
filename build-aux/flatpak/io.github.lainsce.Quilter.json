@@ -1,7 +1,7 @@
 {
     "app-id" : "io.github.lainsce.QuilterDevel",
     "runtime" : "org.gnome.Sdk",
-    "runtime-version" : "3.38",
+    "runtime-version" : "43",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Quilter",
     "rename-icon" : "io.github.lainsce.QuilterDevel",
@@ -36,24 +36,6 @@
     ],
     "modules" : [
         {
-            "name": "gtkspell",
-            "sources": [{
-                "type": "archive",
-                "url": "https://sourceforge.net/projects/gtkspell/files/3.0.10/gtkspell3-3.0.10.tar.xz",
-                "sha256": "b040f63836b347eb344f5542443dc254621805072f7141d49c067ecb5a375732"
-            }],
-            "modules": [{
-                    "name": "enchant",
-                    "sources": [{
-                        "type": "archive",
-                        "url": "https://github.com/AbiWord/enchant/releases/download/v2.2.11/enchant-2.2.11.tar.gz",
-                        "sha256": "a29c5777c4e45fcac2595c15c49d6d2aa434fa5e7c993dff3f9f367b65fe472a"
-                    }]
-                },
-                "shared-modules/intltool/intltool-0.51.json"
-            ]
-        },
-        {
             "name": "discount",
             "buildsystem": "simple",
             "build-commands": [
@@ -66,22 +48,6 @@
                 "url": "http://www.pell.portland.or.us/~orc/Code/discount/discount-2.2.6.tar.bz2",
                 "sha256": "ae68a4832ff8e620286304ec525c1fe8957be4d8f1e774588eb03d1c3deb74a7"
             }]
-        },
-        {
-            "name" : "libhandy",
-            "buildsystem" : "meson",
-            "config-opts" : [
-                "-Dexamples=false",
-                "-Dglade_catalog=disabled",
-                "-Dtests=false"
-            ],
-            "sources" : [
-                {
-                    "type": "git",
-                    "url": "https://gitlab.gnome.org/GNOME/libhandy",
-                    "branch": "master"
-                }
-            ]
         },
         {
             "name" : "quilter",

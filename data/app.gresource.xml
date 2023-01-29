@@ -2,7 +2,7 @@
 <gresources>
     <gresource prefix="/io/github/lainsce/Quilter">
       <!-- CSS file -->
-      <file alias="app-main-stylesheet.css" compressed="true">styles/app-main-stylesheet.css</file>
+      <file alias="style.css" compressed="true">styles/style.css</file>
 
       <!-- Custom Icon files -->
       <file alias="sidebar-symbolic.svg">icons/symbolic/sidebar-symbolic.svg</file>

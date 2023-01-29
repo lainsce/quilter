@@ -79,15 +79,11 @@ cc = meson.get_compiler('c')
 libmarkdown = cc.find_library('markdown', required: true)
 dependencies = [
     dependency('gio-2.0'),
-    dependency('gtk+-3.0'),
-    dependency('glib-2.0'),
-    dependency('gobject-2.0'),
     dependency('gee-0.8'),
-    dependency('libhandy-1'),
-    dependency('gtksourceview-4'),
-    dependency('webkit2gtk-4.0'),
-    dependency('gtkspell3-3.0'),
-    dependency('libhandy-1'),
+    dependency('gtk4'),
+    dependency('libadwaita-1'),
+    dependency('webkit2gtk-5.0'),
+    dependency('gtksourceview-5'),
     libmarkdown,
     cc.find_library('m', required: true)
 ]
