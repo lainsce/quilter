@@ -40,6 +40,7 @@ namespace Quilter {
         }
 
         protected override void activate () {
+            resource_base_path = "/io/github/lainsce/Quilter";
             new_win ();
         }
 
