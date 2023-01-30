@@ -67,7 +67,7 @@ namespace Quilter.Widgets {
             sidebar_files_list ();
             sidebar_outline ();
 
-            this.get_style_context ().add_class ("sidebar");
+            this.add_css_class ("sidebar");
             flap.reveal_flap = Quilter.Application.gsettings.get_boolean ("sidebar");
             flap.notify["folded"].connect (() => {
                 if (win.titlebar.sidebar_toggler.get_active ()) {
@@ -78,16 +78,16 @@ namespace Quilter.Widgets {
             });
 
             if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                flap_grid.get_style_context ().add_class ("quilter-sidebar-sepia");
+                flap_grid.add_css_class ("quilter-sidebar-sepia");
             } else {
-                flap_grid.get_style_context ().remove_class ("quilter-sidebar-sepia");
+                flap_grid.remove_css_class ("quilter-sidebar-sepia");
             }
 
             Quilter.Application.gsettings.changed.connect (() => {
                 if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                    flap_grid.get_style_context ().add_class ("quilter-sidebar-sepia");
+                    flap_grid.add_css_class ("quilter-sidebar-sepia");
                 } else {
-                    flap_grid.get_style_context ().remove_class ("quilter-sidebar-sepia");
+                    flap_grid.remove_css_class ("quilter-sidebar-sepia");
                 }
             });
         }
@@ -97,7 +97,6 @@ namespace Quilter.Widgets {
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
-            column.get_style_context ().add_class ("content");
 
             for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
                 rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
@@ -135,7 +134,7 @@ namespace Quilter.Widgets {
         }
 
         public void sidebar_outline () {
-            view.get_style_context ().remove_class ("view");
+            view.remove_css_class ("view");
             crt = new Gtk.CellRendererText ();
             crt.ellipsize = Pango.EllipsizeMode.END;
             view.insert_column_with_attributes (-1, "Outline", crt, "text", 0);

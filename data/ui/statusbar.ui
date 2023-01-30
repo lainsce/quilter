@@ -1,41 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
   <object class="GtkPopover" id="track_pop">
-    <property name="can-focus">False</property>
     <child>
       <object class="GtkBox" id="track_box">
-        <property name="can-focus">False</property>
-        <property name="margin-start">6</property>
-        <property name="margin-end">6</property>
-        <property name="margin-top">6</property>
-        <property name="margin-bottom">6</property>
         <property name="orientation">vertical</property>
         <property name="spacing">12</property>
-        <property name="homogeneous">True</property>
+        <property name="homogeneous">1</property>
         <child>
           <object class="GtkCheckButton" id="track_words">
             <property name="label" translatable="yes">Words</property>
-            <property name="can-focus">False</property>
-            <property name="receives-default">False</property>
-            <property name="active">True</property>
+            <property name="active">1</property>
           </object>
         </child>
         <child>
           <object class="GtkCheckButton" id="track_lines">
             <property name="label" translatable="yes">Sentences</property>
-            <property name="can-focus">False</property>
-            <property name="receives-default">False</property>
             <property name="group">track_words</property>
           </object>
         </child>
         <child>
           <object class="GtkCheckButton" id="track_rtc">
             <property name="label" translatable="yes">Reading Time</property>
-            <property name="can-focus">False</property>
-            <property name="receives-default">False</property>
             <property name="group">track_words</property>
           </object>
         </child>
@@ -43,31 +30,27 @@
     </child>
   </object>
   <template class="QuilterWidgetsStatusBar" parent="AdwBin">
+    <property name="halign">end</property>
+    <property name="valign">end</property>
+    <style>
+      <class name="quilter-statusbar"/>
+    </style>
     <child>
       <object class="GtkRevealer" id="statusbar">
-        <property name="can-focus">False</property>
-        <property name="halign">end</property>
-        <property name="valign">end</property>
         <child>
           <object class="GtkMenuButton" id="track_type_menu">
-            <property name="can-focus">True</property>
-            <property name="receives-default">False</property>
-            <property name="tooltip-text" translatable="yes">Tracks words, sentences or reading time here</property>
-            <property name="popover">track_pop</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="can-focus">False</property>
-              </object>
-            </child>
             <style>
               <class name="status-button"/>
               <class name="osd"/>
             </style>
+            <property name="tooltip-text" translatable="yes">Tracks words, sentences or reading time here</property>
+            <property name="popover">track_pop</property>
+            <child>
+              <object class="GtkLabel">
+              </object>
+            </child>
           </object>
         </child>
-        <style>
-          <class name="quilter-statusbar"/>
-        </style>
       </object>
     </child>
   </template>

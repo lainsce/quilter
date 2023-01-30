@@ -1,4 +1,4 @@
-project('io.github.lainsce.Quilter', ['vala', 'c'], version: '3.3.0')
+project('io.github.lainsce.Quilter', ['vala', 'c'], version: '3.3.3')
 gnome = import('gnome')
 i18n = import('i18n')
 
@@ -78,7 +78,6 @@ sources = files(
 cc = meson.get_compiler('c')
 libmarkdown = cc.find_library('markdown', required: true)
 dependencies = [
-    dependency('gio-2.0'),
     dependency('gee-0.8'),
     dependency('gtk4'),
     dependency('libadwaita-1'),
@@ -100,4 +99,8 @@ executable(
 subdir('data')
 subdir('po')
 
-meson.add_install_script('build-aux/post_install.py', join_paths(get_option('prefix'), get_option('datadir')))
+gnome.post_install(
+  glib_compile_schemas: true,
+  gtk_update_icon_cache: true,
+  update_desktop_database: true
+)

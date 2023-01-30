@@ -26,8 +26,8 @@ namespace Quilter.Services.FileManager {
     private static string? cache;
     public static string get_cache_path () {
         if (cache == null) {
-            cache = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
-            string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "com.github.lainsce.quilter");
+            cache = Path.build_filename (Environment.get_user_data_dir (), "io.github.lainsce.Quilter");
+            string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "io.github.lainsce.Quilter");
             cachedir = File.new_for_path (cachedirpath);
             try {
                 if (!cachedir.query_exists()) {
@@ -89,7 +89,7 @@ namespace Quilter.Services.FileManager {
             var chooser = Services.DialogUtils.create_file_chooser (_("Open File"),
                     Gtk.FileChooserAction.OPEN);
             file = chooser.get_file ();
-            chooser.destroy();
+            chooser.show();
             GLib.FileUtils.get_contents (file.get_path (), out contents);
         } catch (Error e) {
             warning ("Error: %s", e.message);
@@ -101,7 +101,7 @@ namespace Quilter.Services.FileManager {
         var chooser = Services.DialogUtils.create_file_chooser (_("Save File"),
                 Gtk.FileChooserAction.SAVE);
         file = chooser.get_file ();
-        chooser.destroy();
+        chooser.show();
         if (!file.get_basename ().down ().has_suffix (".md")) {
             file = File.new_for_path (file.get_path () + ".md");
         }

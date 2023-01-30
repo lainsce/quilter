@@ -248,19 +248,21 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end;
             buffer.get_bounds (out start, out end);
 
+            var asm = Adw.StyleManager.get_default ();
+
             if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = true;
+                asm.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-dark";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                asm.set_color_scheme(Adw.ColorScheme.DEFAULT);
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(blackfont, start, end);
                 return "quilter-sepia";
             } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                Gtk.Settings.get_default ().gtk_application_prefer_dark_theme = false;
+                asm.set_color_scheme(Adw.ColorScheme.DEFAULT);
                 buffer.remove_tag(whitefont, start, end);
                 buffer.remove_tag(lightsepiafont, start, end);
                 buffer.remove_tag(sepiafont, start, end);

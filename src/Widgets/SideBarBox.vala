@@ -56,12 +56,13 @@ namespace Quilter.Widgets {
             this.path = path;
 
             file_remove_button.clicked.connect (() => {
-                this.dispose ();
                 win.edit_view_content.buffer.text = "";
                 win.edit_view_content.modified = false;
                 win.save_last_files ();
-                //win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
+                win.sidebar.column.select_row (((Widgets.SideBarBox)win.sidebar.column.get_row_at_index ((this.uid - 1) < 0 ? (this.uid + 1) : (this.uid - 1))));
                 win.sidebar.store.clear ();
+                this.unparent ();
+                this.dispose ();
             });
         }
     }

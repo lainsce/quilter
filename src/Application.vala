@@ -18,7 +18,7 @@
 *
 */
 namespace Quilter {
-    public class Application : Gtk.Application {
+    public class Application : Adw.Application {
         private static bool open_view = false;
         private static bool print_ver = false;
         private static string _cwd;
@@ -39,9 +39,14 @@ namespace Quilter {
             supported_mimetypes = {"text/markdown"};
         }
 
+        protected override void startup () {
+            set_resource_base_path ("/io/github/lainsce/Quilter");
+    
+            base.startup ();
+        }
+
         protected override void activate () {
-            resource_base_path = "/io/github/lainsce/Quilter";
-            new_win ();
+            active_window?.present ();
         }
 
         public static int main (string[] args) {
@@ -49,15 +54,6 @@ namespace Quilter {
 
             var app = new Quilter.Application ();
             return app.run (args);
-        }
-
-        public void new_win () {
-            if (win != null) {
-                win.present ();
-                return;
-            }
-            win = new MainWindow (this);
-            win.show ();
         }
 
         protected override int command_line (ApplicationCommandLine command_line) {
@@ -79,7 +75,7 @@ namespace Quilter {
                 stdout.printf ("Quilter %s - Copyright 2017-2021 Lains\n".printf(Config.VERSION));
                 return 0;
             } else {
-                new_win ();
+                new MainWindow (this);
             }
 
             // Set Current Directory

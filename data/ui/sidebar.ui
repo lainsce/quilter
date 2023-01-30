@@ -46,9 +46,6 @@
                                     </style>
                                   </object>
                                 </child>
-                                <style>
-                                  <class name="content"/>
-                                </style>
                               </object>
                             </child>
                           </object>

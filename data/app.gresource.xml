@@ -1,21 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
     <gresource prefix="/io/github/lainsce/Quilter">
-      <!-- CSS file -->
-      <file alias="style.css" compressed="true">styles/style.css</file>
-
-      <!-- Custom Icon files -->
-      <file alias="sidebar-symbolic.svg">icons/symbolic/sidebar-symbolic.svg</file>
-      <file alias="outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
-      <file alias="back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
-      <file alias="paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
-      <file alias="sentence-focus-symbolic.svg">icons/symbolic/sentence-focus-symbolic.svg</file>
-      <file alias="full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
-      <file alias="half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
-      <file alias="edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
-      <file alias="markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
-
-      <!-- UI files -->
+      <file alias="style.css">style.css</file>
+      <file alias="style-dark.css">style-dark.css</file>
+      <file alias="style-hc.css">style-hc.css</file>
       <file alias="viewmenu.ui">ui/viewmenu.ui</file>
       <file alias="header_button.ui">ui/header_button.ui</file>
       <file alias="shortcuts.ui">ui/shortcuts.ui</file>
@@ -26,5 +14,16 @@
       <file alias="searchbar.ui">ui/searchbar.ui</file>
       <file alias="statusbar.ui">ui/statusbar.ui</file>
       <file alias="prefs_window.ui">ui/prefs_window.ui</file>
+    </gresource>
+    <gresource prefix="/io/github/lainsce/Quilter/icons">
+      <file alias="scalable/actions/sidebar-symbolic.svg">icons/symbolic/sidebar-symbolic.svg</file>
+      <file alias="scalable/actions/outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
+      <file alias="scalable/actions/back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
+      <file alias="scalable/actions/paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
+      <file alias="scalable/actions/sentence-focus-symbolic.svg">icons/symbolic/sentence-focus-symbolic.svg</file>
+      <file alias="scalable/actions/full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
+      <file alias="scalable/actions/half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
+      <file alias="scalable/actions/edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
+      <file alias="scalable/actions/markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
     </gresource>
 </gresources>

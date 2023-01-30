@@ -1,22 +1,19 @@
 .mono-font {
     font-family: 'Quilt Mono';
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.2rem;
-    letter-spacing: 0.2em;
 }
 
 .vier-font {
     font-family: 'Quilt Vier';
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.2rem;
-    letter-spacing: 0.2em;
 }
 
 .zwei-font {
     font-family: 'Quilt Zwei';
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.2rem;
-    letter-spacing: 0.2em;
 }
 
 .small-text *,
@@ -29,18 +26,21 @@
     letter-spacing: 0em;
 }
 
-.circular {
-    -gtk-outline-radius: 9999px;
+.circular radio {
+    background: none;
+    padding: 12px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 999px;
+    border-color: alpha(@window_fg_color, 0.3);
 }
 
-.circular radio,
+.circular radio:hover {
+    border-color: alpha(@window_fg_color, 0.6);
+}
+
 .circular radio:checked {
-    padding: 10px;
-    -gtk-icon-shadow: none;
-}
-
-.circular radio:focus {
-    border-color: @theme_selected_bg_color;
+    border-color: alpha(@window_fg_color, 0.3);
 }
 
 .color-dark radio {
@@ -59,16 +59,16 @@
 }
 
 .quilter-focus-button {
-    icon-shadow: none;
+    -gtk-icon-shadow: none;
     min-width: 24px;
     min-height: 24px;
     padding: 10px;
-    border-radius: 8px;
-    border: 1px solid alpha (black, 0.25);
+    border-radius: 999px;
+    border: 1px solid alpha(black, 0.25);
 }
 
 .edit-view-paned {
-    border-right: 1px solid alpha (black, 0.25);
+    border-right: 1px solid alpha(black, 0.25);
 }
 
 .preview-row {
@@ -81,14 +81,14 @@
 .preview-row:active,
 .preview-row:hover,
 .preview-row:selected {
-    background: shade(@theme_bg_color, 1.2);
-    color: @theme_fg_color;
+    background: shade(@view_bg_color, 1.2);
+    color: @view_fg_color;
     border: 1px solid alpha(black, 0.25);
 }
 .preview-row:active:hover,
 .preview-row:selected:hover {
-    background: shade(@theme_bg_color, 1.1);
-    color: @theme_fg_color;
+    background: shade(@view_bg_color, 1.1);
+    color: @view_fg_color;
     border: 1px solid alpha(black, 0.25);
 }
 
@@ -120,7 +120,7 @@
 }
 
 .quilter-sidebar-box {
-    color: @theme_fg_color;
+    color: @view_fg_color;
     box-shadow: none;
 }
 
@@ -131,16 +131,16 @@
 }
 
 .quilter-sidebar-box button {
-    color: @theme_fg_color;
+    color: @view_fg_color;
     box-shadow: none;
     border: none;
-    icon-shadow: none;
+    -gtk-icon-shadow: none;
 }
 .quilter-sidebar-box button:focus {
     background: alpha(black, 0.2);
 }
 .quilter-sidebar-box button:hover {
-    background: alpha(@theme_fg_color, 0.15);
+    background: alpha(@view_fg_color, 0.15);
 }
 
 .quilter-sidebar-box:focus,
@@ -158,12 +158,8 @@
 }
 
 .quilter-searchbar {
-    background: @theme_base_color;
-    box-shadow: 0 0 0 1px alpha(black, .15),
-              0 0 3px alpha(black, .2);
-    border: none;
+    background: @view_bg_color;
     padding: 6px;
-    border-radius: 0 0 5px 5px;
     margin: 12px;
     margin-top: 0px;
 }
@@ -181,6 +177,10 @@
 
 .quilter-sidebar {
     padding: 6px;
+}
+
+.quilter-sidebar row {
+    background: none;
 }
 
 .quilter-sidebar-sepia {
@@ -206,5 +206,9 @@
 }
 
 .quilter-titlebar-sepia {
-    background: linear-gradient(to top, shade(#f0e8dd, 0.8), shade(#f0e8dd, 1.1));
+    background: shade(#f0e8dd, 0.90);
+}
+
+.flat-button {
+    font-weight: 500;
 }

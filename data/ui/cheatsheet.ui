@@ -3,33 +3,23 @@
 <interface>
   <requires lib="gtk" version="4.0"/>
   <requires lib="libadwaita" version="1.0"/>
-  <object class="HdyPreferencesWindow" id="cheatsheet">
-    <property name="can-focus">False</property>
+  <object class="AdwPreferencesWindow" id="cheatsheet">
     <property name="title" translatable="yes">Markdown Cheatsheet</property>
-    <property name="destroy-with-parent">True</property>
+    <property name="destroy-with-parent">1</property>
     <property name="icon-name">view-reveal-symbolic</property>
-    <property name="can-swipe-back">True</property>
     <child>
-      <object class="HdyPreferencesPage">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
+      <object class="AdwPreferencesPage">
         <property name="icon-name">text-x-generic-symbolic</property>
         <property name="title" translatable="yes">Common</property>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Text</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Bold</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">**Bold text**</property>
@@ -41,15 +31,11 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Italics</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">**Italicized text**</property>
@@ -61,15 +47,11 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Code Line</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">`code text`</property>
@@ -81,15 +63,11 @@
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Code Block</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">```
@@ -103,15 +81,11 @@ code text
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Quoting</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">&gt; Quote
@@ -130,20 +104,14 @@ code text
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Headers</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Headers</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes"># Title
@@ -155,15 +123,11 @@ code text
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Links</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">[Link Label](http://link.url.com)
@@ -178,63 +142,47 @@ code text
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Extras</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Strikethrough</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">~~Striked through text~~</property>
                     <attributes>
-                      <attribute name="strikethrough" value="True"/>
+                      <attribute name="strikethrough" value="1"/>
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Sub/Superscript</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">Subscript:		    H~2~O
-Superscript:		1^st^</property>
-                    <property name="justify">fill</property>
+                    <property name="label" translatable="yes">Subscript:  H~2~O
+Superscript:	1^st^</property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Horzontal Rule</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">Use: --- or ***</property>
-                    <property name="justify">fill</property>
                   </object>
                 </child>
               </object>
@@ -247,45 +195,32 @@ Superscript:		1^st^</property>
       </object>
     </child>
     <child>
-      <object class="HdyPreferencesPage">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
+      <object class="AdwPreferencesPage">
         <property name="icon-name">starred-symbolic</property>
         <property name="title" translatable="yes">Special</property>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Extensions</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">LaTeX Math</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">$$…$$	for equation block
 \\(…\\)		for inline equation</property>
-                    <property name="justify">fill</property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Mermaid.js Graphs</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">&lt;div class="mermaid"&gt;...&lt;/div&gt;</property>
@@ -297,21 +232,16 @@ Superscript:		1^st^</property>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Checkboxes</property>
                 <property name="subtitle" translatable="yes">Mind the period to avoid collisions.</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">- [	] Empty.
 - [x] Checked.</property>
-                    <property name="justify">fill</property>
                   </object>
                 </child>
               </object>
@@ -322,20 +252,14 @@ Superscript:		1^st^</property>
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Tables</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Tables</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">|	A	|	B	|
@@ -349,21 +273,16 @@ Superscript:		1^st^</property>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Options</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">Left		--- 	to	:---
 Centered    ---	to	:---:
 Right		---	to	---: </property>
-                    <property name="justify">fill</property>
                   </object>
                 </child>
               </object>
@@ -374,20 +293,14 @@ Right		---	to	---: </property>
           </object>
         </child>
         <child>
-          <object class="HdyPreferencesGroup">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
+          <object class="AdwPreferencesGroup">
             <property name="title" translatable="yes">Files</property>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Document</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">/Folder/Document.md :file</property>
@@ -396,19 +309,14 @@ Right		---	to	---: </property>
               </object>
             </child>
             <child>
-              <object class="HdyActionRow">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="activatable">False</property>
+              <object class="AdwActionRow">
+                <property name="activatable">0</property>
                 <property name="title" translatable="yes">Image</property>
                 <child>
                   <object class="GtkLabel">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
                     <property name="label" translatable="yes">/Folder/Image.png :image</property>
-                    <property name="justify">fill</property>
                   </object>
                 </child>
               </object>

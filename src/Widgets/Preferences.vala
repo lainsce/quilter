@@ -17,61 +17,8 @@
 * Boston, MA 02110-1301 USA
 */
 namespace Quilter {
-    enum Font {
-        QMONO,
-        QZWEI,
-        QVIER;
-
-        public string to_string () {
-            switch (this) {
-                case QMONO:
-                    return "Quilt Mono";
-
-                case QZWEI:
-                    return "Quilt Zwei";
-
-                case QVIER:
-                    return "Quilt Vier";
-
-                default:
-                    assert_not_reached();
-            }
-        }
-
-        public static Font[] all () {
-        	return {Font.QMONO, Font.QZWEI, Font.QVIER};
-        }
-    }
-
-    enum PFont {
-        SERIF,
-        SANS,
-        MONO;
-
-        public string to_string () {
-            switch (this) {
-                case SERIF:
-                    return "Serif";
-
-                case SANS:
-                    return "Sans-serif";
-
-                case MONO:
-                    return "Monospace";
-
-                default:
-                    assert_not_reached();
-            }
-        }
-
-        public static PFont[] all () {
-        	return {PFont.SERIF, PFont.SANS, PFont.MONO};
-        }
-    }
-
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/prefs_window.ui")]
     public class Widgets.Preferences : Adw.PreferencesWindow {
-
         [GtkChild]
         unowned Adw.ComboRow font_type;
         [GtkChild]

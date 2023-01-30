@@ -1,5 +1,5 @@
 {
-    "app-id" : "io.github.lainsce.QuilterDevel",
+    "id" : "io.github.lainsce.QuilterDevel",
     "runtime" : "org.gnome.Sdk",
     "runtime-version" : "43",
     "sdk" : "org.gnome.Sdk",

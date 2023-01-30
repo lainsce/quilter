@@ -3,7 +3,7 @@
   <!-- interface-requires gtk+ 3.17 -->
   <object class="GtkShortcutsWindow" id="shortcuts-quilter">
     <property name="modal">1</property>
-    <property name="visible">False</property>
+    <property name="visible">0</property>
     <child>
       <object class="GtkShortcutsSection" id="shortcuts">
         <property name="visible">1</property>
@@ -136,4 +136,3 @@
     </child>
   </object>
 </interface>
-

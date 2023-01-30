@@ -30,7 +30,7 @@ namespace Quilter {
         public signal void save_as ();
 
         [GtkChild]
-        public unowned Adw.HeaderBar headerbar;
+        public unowned Gtk.HeaderBar headerbar;
 
         [GtkChild]
         public unowned Gtk.Grid top_grid;
@@ -62,7 +62,6 @@ namespace Quilter {
 
         public Headerbar (MainWindow win) {
             this.win = win;
-            headerbar.show_end_title_buttons = true;
 
             build_ui ();
         }
@@ -114,12 +113,12 @@ namespace Quilter {
                     var new_filename = rename_entry.get_text ();
                     Gtk.ListBoxRow child = win.sidebar.get_selected_row ();
                     if (child != null) {
-                        //var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
-                        //Services.FileManager.save_file (path_new, win.edit_view_content.text);
+                        var path_new = ((Widgets.SideBarBox)child).path.replace (Path.get_basename(((Widgets.SideBarBox)child).path), new_filename);
+                        Services.FileManager.save_file (path_new, win.edit_view_content.text);
 
-                        //((Widgets.SideBarBox)child).path = path_new;
-                        //samenu_button.title = Path.get_basename(path_new);
-                        //samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
+                        ((Widgets.SideBarBox)child).path = path_new;
+                        samenu_button.title = Path.get_basename(path_new);
+                        samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
                     }
 
                     rename_entry.set_text ("");
@@ -129,7 +128,7 @@ namespace Quilter {
             });
 
             var rename_label = new Gtk.Label (_("Rename File:"));
-            rename_label.get_style_context ().add_class ("dim-label");
+            rename_label.add_css_class ("dim-label");
 
             var samenu_grid = new Gtk.Grid ();
             samenu_grid.margin_top = samenu_grid.margin_end = samenu_grid.margin_bottom = samenu_grid.margin_start = 12;
@@ -151,14 +150,12 @@ namespace Quilter {
 
             headerbar.set_title_widget (samenu_button);
 
-            var view_mode = new Gtk.Button ();
+            var view_mode = new Gtk.ToggleButton ();
             view_mode.action_name = MainWindow.ACTION_PREFIX + MainWindow.ACTION_TOGGLE_VIEW;
             view_mode.label = _("Toggle View");
+            view_mode.add_css_class ("flat");
 
-            var view_mode_context = view_mode.get_style_context ();
-            view_mode_context.add_class ("flat");
-
-            top_grid.attach (view_mode, 0, 2, 4, 1);
+            top_grid.attach (view_mode, 0, 9, 4, 1);
 
             Quilter.Application.gsettings.changed.connect (() => {
                 if (Quilter.Application.gsettings.get_string("preview-type") == "full") {
