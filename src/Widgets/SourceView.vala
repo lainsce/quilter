@@ -86,29 +86,29 @@ namespace Quilter.Widgets {
             buffer.set_max_undo_levels (50);
             set_buffer (buffer);
 
-            darkgrayfont = new Gtk.TextTag();
-            lightgrayfont = new Gtk.TextTag();
-            blackfont = new Gtk.TextTag();
-            whitefont = new Gtk.TextTag();
-            lightsepiafont = new Gtk.TextTag();
-            sepiafont = new Gtk.TextTag();
+            darkgrayfont = new Gtk.TextTag ();
+            lightgrayfont = new Gtk.TextTag ();
+            blackfont = new Gtk.TextTag ();
+            whitefont = new Gtk.TextTag ();
+            lightsepiafont = new Gtk.TextTag ();
+            sepiafont = new Gtk.TextTag ();
 
-            darkgrayfont = buffer.create_tag(null, "foreground", "#9a9996");
-            lightgrayfont = buffer.create_tag(null, "foreground", "#9a9996");
-            blackfont = buffer.create_tag(null, "foreground", "#111");
-            whitefont = buffer.create_tag(null, "foreground", "#f6f5f4");
-            lightsepiafont = buffer.create_tag(null, "foreground", "#aa8866");
-            sepiafont = buffer.create_tag(null, "foreground", "#331100");
+            darkgrayfont = buffer.create_tag (null, "foreground", "#9a9996");
+            lightgrayfont = buffer.create_tag (null, "foreground", "#9a9996");
+            blackfont = buffer.create_tag (null, "foreground", "#111");
+            whitefont = buffer.create_tag (null, "foreground", "#f6f5f4");
+            lightsepiafont = buffer.create_tag (null, "foreground", "#aa8866");
+            sepiafont = buffer.create_tag (null, "foreground", "#331100");
 
-            adverbfont = buffer.create_tag(null, "foreground", "#9141ac");
-            verbfont = buffer.create_tag(null, "foreground", "#3584e4");
-            adjfont = buffer.create_tag(null, "foreground", "#e5a50a");
-            conjfont = buffer.create_tag(null, "foreground", "#2ec27e");
+            adverbfont = buffer.create_tag (null, "foreground", "#9141ac");
+            verbfont = buffer.create_tag (null, "foreground", "#3584e4");
+            adjfont = buffer.create_tag (null, "foreground", "#e5a50a");
+            conjfont = buffer.create_tag (null, "foreground", "#2ec27e");
 
             pos = new Services.POSFiles ();
 
             modified = false;
-            if (Quilter.Application.gsettings.get_string("current-file") == "") {
+            if (Quilter.Application.gsettings.get_string ("current-file") == "") {
                 buffer.text = "";
                 modified = false;
             }
@@ -118,7 +118,7 @@ namespace Quilter.Widgets {
 
             try {
                 string text = "";
-                string file_path = Quilter.Application.gsettings.get_string("current-file");
+                string file_path = Quilter.Application.gsettings.get_string ("current-file");
 
                 var file = File.new_for_path (file_path);
                 if (!file.query_exists ()) {
@@ -132,8 +132,8 @@ namespace Quilter.Widgets {
                 warning ("Error: %s\n", e.message);
             }
 
-            if (Quilter.Application.gsettings.get_boolean("autosave")) {
-                Timeout.add_seconds (Quilter.Application.gsettings.get_int("autosave-delay"), () => {
+            if (Quilter.Application.gsettings.get_boolean ("autosave")) {
+                Timeout.add_seconds (Quilter.Application.gsettings.get_int ("autosave-delay"), () => {
                     save ();
                     modified = false;
                     return true;
@@ -156,9 +156,9 @@ namespace Quilter.Widgets {
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.right_margin = this.bottom_margin = this.top_margin = 40;
             this.left_margin = 0;
-            this.set_pixels_inside_wrap((int)(1.5*4));
-            this.set_pixels_above_lines(4);
-            this.set_pixels_below_lines(4);
+            this.set_pixels_inside_wrap ((int)(1.5 * 4));
+            this.set_pixels_above_lines (4);
+            this.set_pixels_below_lines (4);
             this.set_insert_spaces_instead_of_tabs (true);
             this.auto_indent = true;
             this.monospace = true;
@@ -168,15 +168,15 @@ namespace Quilter.Widgets {
             var buffer_context = this.get_style_context ();
             dynamic_margins ();
 
-            if (!Quilter.Application.gsettings.get_boolean("focus-mode")) {
+            if (!Quilter.Application.gsettings.get_boolean ("focus-mode")) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
-                buffer.remove_tag(lightgrayfont, start, end);
-                buffer.remove_tag(darkgrayfont, start, end);
-                buffer.remove_tag(lightsepiafont, start, end);
-                buffer.remove_tag(sepiafont, start, end);
-                buffer.remove_tag(blackfont, start, end);
-                buffer.remove_tag(whitefont, start, end);
+                buffer.remove_tag (lightgrayfont, start, end);
+                buffer.remove_tag (darkgrayfont, start, end);
+                buffer.remove_tag (lightsepiafont, start, end);
+                buffer.remove_tag (sepiafont, start, end);
+                buffer.remove_tag (blackfont, start, end);
+                buffer.remove_tag (whitefont, start, end);
                 buffer_context.add_class ("medium-text");
                 buffer_context.remove_class ("big-text");
                 buffer.notify["cursor-position"].disconnect (set_focused_text);
@@ -185,20 +185,20 @@ namespace Quilter.Widgets {
                 buffer_context.add_class ("big-text");
                 buffer_context.remove_class ("medium-text");
                 buffer.notify["cursor-position"].connect (set_focused_text);
-                if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling")) {
-                    Timeout.add(500, move_typewriter_scrolling);
+                if (Quilter.Application.gsettings.get_boolean ("typewriter-scrolling")) {
+                    Timeout.add (500, move_typewriter_scrolling);
                 }
             }
 
-            if (Quilter.Application.gsettings.get_enum("edit-font") == 0) {
+            if (Quilter.Application.gsettings.get_enum ("edit-font") == 0) {
                 buffer_context.add_class ("mono-font");
                 buffer_context.remove_class ("vier-font");
                 buffer_context.remove_class ("zwei-font");
-            } else if (Quilter.Application.gsettings.get_enum("edit-font") == 2) {
+            } else if (Quilter.Application.gsettings.get_enum ("edit-font") == 2) {
                 buffer_context.add_class ("vier-font");
                 buffer_context.remove_class ("zwei-font");
                 buffer_context.remove_class ("mono-font");
-            } else if (Quilter.Application.gsettings.get_enum("edit-font") == 1) {
+            } else if (Quilter.Application.gsettings.get_enum ("edit-font") == 1) {
                 buffer_context.add_class ("zwei-font");
                 buffer_context.remove_class ("vier-font");
                 buffer_context.remove_class ("mono-font");
@@ -208,13 +208,13 @@ namespace Quilter.Widgets {
             var style = style_manager.get_scheme (setup_ui_scheme ());
             buffer.set_style_scheme (style);
 
-            if (!Quilter.Application.gsettings.get_boolean("pos")) {
+            if (!Quilter.Application.gsettings.get_boolean ("pos")) {
                 Gtk.TextIter start, end;
                 buffer.get_bounds (out start, out end);
-                buffer.remove_tag(verbfont, start, end);
-                buffer.remove_tag(adjfont, start, end);
-                buffer.remove_tag(adverbfont, start, end);
-                buffer.remove_tag(conjfont, start, end);
+                buffer.remove_tag (verbfont, start, end);
+                buffer.remove_tag (adjfont, start, end);
+                buffer.remove_tag (adverbfont, start, end);
+                buffer.remove_tag (conjfont, start, end);
             } else {
                 pos_syntax_start ();
             }
@@ -234,8 +234,8 @@ namespace Quilter.Widgets {
                 this.right_margin = (int)m;
             }
 
-            if (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
-                int titlebar_h = window.get_titlebar().get_allocated_height();
+            if (Quilter.Application.gsettings.get_boolean ("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
+                int titlebar_h = window.get_titlebar ().get_allocated_height ();
                 this.bottom_margin = (int)(rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
                 this.top_margin = (int)(rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
@@ -250,22 +250,22 @@ namespace Quilter.Widgets {
 
             var asm = Adw.StyleManager.get_default ();
 
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                asm.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
-                buffer.remove_tag(lightsepiafont, start, end);
-                buffer.remove_tag(sepiafont, start, end);
-                buffer.remove_tag(blackfont, start, end);
+            if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
+                asm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                buffer.remove_tag (lightsepiafont, start, end);
+                buffer.remove_tag (sepiafont, start, end);
+                buffer.remove_tag (blackfont, start, end);
                 return "quilter-dark";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                asm.set_color_scheme(Adw.ColorScheme.DEFAULT);
-                buffer.remove_tag(whitefont, start, end);
-                buffer.remove_tag(blackfont, start, end);
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
+                asm.set_color_scheme (Adw.ColorScheme.DEFAULT);
+                buffer.remove_tag (whitefont, start, end);
+                buffer.remove_tag (blackfont, start, end);
                 return "quilter-sepia";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                asm.set_color_scheme(Adw.ColorScheme.DEFAULT);
-                buffer.remove_tag(whitefont, start, end);
-                buffer.remove_tag(lightsepiafont, start, end);
-                buffer.remove_tag(sepiafont, start, end);
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
+                asm.set_color_scheme (Adw.ColorScheme.DEFAULT);
+                buffer.remove_tag (whitefont, start, end);
+                buffer.remove_tag (lightsepiafont, start, end);
+                buffer.remove_tag (sepiafont, start, end);
                 return "quilter";
             }
             return "";
@@ -274,10 +274,10 @@ namespace Quilter.Widgets {
         public bool move_typewriter_scrolling () {
             if (should_scroll) {
                 var cursor = buffer.get_insert ();
-                this.scroll_to_mark(cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
+                this.scroll_to_mark (cursor, 0.0, true, 0.0, Constants.TYPEWRITER_POSITION);
                 should_scroll = false;
             }
-            return (Quilter.Application.gsettings.get_boolean("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode"));
+            return (Quilter.Application.gsettings.get_boolean ("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean ("focus-mode"));
         }
 
         public void pos_syntax_start () {
@@ -296,10 +296,10 @@ namespace Quilter.Widgets {
             buffer.get_bounds (out start, out end);
 
             string no_punct_buffer = buffer.get_text (start, end, false)
-                                           .strip()
+                                           .strip ()
                                            .down ()
                                            .delimit ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# äöëïü", ' ');
-            string[] words = no_punct_buffer.split(" ");
+            string[] words = no_punct_buffer.split (" ");
             string[] nounifier = {"the", "an", "a", "and", "or", "this"};
             string[] verbifier = {"be", "to", "and"};
             int p = 0;
@@ -312,47 +312,47 @@ namespace Quilter.Widgets {
                 if (word in pos.vbuf_list || word.has_suffix ("ing") && !word.has_prefix ("ing") || word.has_suffix ("ed") && !word.has_prefix ("ed")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(verbfont, match_start, match_end);
+                    buffer.apply_tag (verbfont, match_start, match_end);
 
-                    if (word in get_words(words, nounifier) || word.has_suffix ("ction") && !word.has_prefix ("ction")) {
-                        buffer.remove_tag(verbfont, match_start, match_end);
+                    if (word in get_words (words, nounifier) || word.has_suffix ("ction") && !word.has_prefix ("ction")) {
+                        buffer.remove_tag (verbfont, match_start, match_end);
                     }
 
-                    if (word in get_words(words, verbifier)) {
-                        buffer.apply_tag(verbfont, match_start, match_end);
+                    if (word in get_words (words, verbifier)) {
+                        buffer.apply_tag (verbfont, match_start, match_end);
                     }
                 }
                 if (word in pos.abuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag(adjfont, match_start, match_end);
-                    buffer.remove_tag(verbfont, match_start, match_end);
-                    buffer.remove_tag(adverbfont, match_start, match_end);
-                    buffer.remove_tag(conjfont, match_start, match_end);
+                    buffer.remove_tag (verbfont, match_start, match_end);
+                    buffer.remove_tag (adverbfont, match_start, match_end);
+                    buffer.remove_tag (conjfont, match_start, match_end);
 
-                    if (word in get_words(words, nounifier)) {
-                        buffer.remove_tag(adjfont, match_start, match_end);
+                    if (word in get_words (words, nounifier)) {
+                        buffer.remove_tag (adjfont, match_start, match_end);
                     }
                 }
                 if (word in pos.adbuf_list || word.has_suffix ("ly") && !word.has_prefix ("ly")) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(adverbfont, match_start, match_end);
-                    buffer.remove_tag(verbfont, match_start, match_end);
-                    buffer.remove_tag(adjfont, match_start, match_end);
-                    buffer.remove_tag(conjfont, match_start, match_end);
+                    buffer.apply_tag (adverbfont, match_start, match_end);
+                    buffer.remove_tag (verbfont, match_start, match_end);
+                    buffer.remove_tag (adjfont, match_start, match_end);
+                    buffer.remove_tag (conjfont, match_start, match_end);
 
-                    if (word in get_words(words, nounifier)) {
-                        buffer.remove_tag(adverbfont, match_start, match_end);
+                    if (word in get_words (words, nounifier)) {
+                        buffer.remove_tag (adverbfont, match_start, match_end);
                     }
                 }
                 if (word in pos.cnbuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(conjfont, match_start, match_end);
-                    buffer.remove_tag(verbfont, match_start, match_end);
-                    buffer.remove_tag(adjfont, match_start, match_end);
-                    buffer.remove_tag(adverbfont, match_start, match_end);
+                    buffer.apply_tag (conjfont, match_start, match_end);
+                    buffer.remove_tag (verbfont, match_start, match_end);
+                    buffer.remove_tag (adjfont, match_start, match_end);
+                    buffer.remove_tag (adverbfont, match_start, match_end);
                 }
 
                 p += word.length + 1;
@@ -380,21 +380,21 @@ namespace Quilter.Widgets {
             var cursor = buffer.get_insert ();
             buffer.get_iter_at_mark (out cursor_iter, cursor);
 
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                buffer.apply_tag(darkgrayfont, start, end);
-                buffer.remove_tag(lightsepiafont, start, end);
-                buffer.remove_tag(lightgrayfont, start, end);
-                buffer.remove_tag(whitefont, start, end);
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                buffer.remove_tag(darkgrayfont, start, end);
-                buffer.apply_tag(lightsepiafont, start, end);
-                buffer.remove_tag(lightgrayfont, start, end);
-                buffer.remove_tag(sepiafont, start, end);
+            if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
+                buffer.apply_tag (darkgrayfont, start, end);
+                buffer.remove_tag (lightsepiafont, start, end);
+                buffer.remove_tag (lightgrayfont, start, end);
+                buffer.remove_tag (whitefont, start, end);
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
+                buffer.remove_tag (darkgrayfont, start, end);
+                buffer.apply_tag (lightsepiafont, start, end);
+                buffer.remove_tag (lightgrayfont, start, end);
+                buffer.remove_tag (sepiafont, start, end);
             } else {
-                buffer.remove_tag(darkgrayfont, start, end);
-                buffer.remove_tag(lightsepiafont, start, end);
-                buffer.apply_tag(lightgrayfont, start, end);
-                buffer.remove_tag(blackfont, start, end);
+                buffer.remove_tag (darkgrayfont, start, end);
+                buffer.remove_tag (lightsepiafont, start, end);
+                buffer.apply_tag (lightgrayfont, start, end);
+                buffer.remove_tag (blackfont, start, end);
             }
 
             should_scroll = true;
@@ -413,27 +413,27 @@ namespace Quilter.Widgets {
                     }
                 }
 
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
-                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
-                    buffer.apply_tag(whitefont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
-                } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                    buffer.apply_tag(sepiafont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
-                    buffer.remove_tag(blackfont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
-                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
+                    buffer.remove_tag (sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag (blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
+                    buffer.apply_tag (whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
+                } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
+                    buffer.apply_tag (sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightsepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag (blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag (whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
                 } else {
-                    buffer.remove_tag(sepiafont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightsepiafont, start_sentence, end_sentence);
-                    buffer.apply_tag(blackfont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
-                    buffer.remove_tag(whitefont, start_sentence, end_sentence);
-                    buffer.remove_tag(lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag (sepiafont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightsepiafont, start_sentence, end_sentence);
+                    buffer.apply_tag (blackfont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
+                    buffer.remove_tag (whitefont, start_sentence, end_sentence);
+                    buffer.remove_tag (lightgrayfont, start_sentence, end_sentence);
                 }
             }
         }
@@ -456,10 +456,10 @@ namespace Quilter.Services {
         public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
-            file_verbs = File.new_for_path(Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/wordlist/verb.txt");
-            file_adj = File.new_for_path(Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/wordlist/adjective.txt");
-            file_adverbs = File.new_for_path(Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/wordlist/adverb.txt");
-            file_conj = File.new_for_path(Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/wordlist/conjunction.txt");
+            file_verbs = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/verb.txt");
+            file_adj = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/adjective.txt");
+            file_adverbs = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/adverb.txt");
+            file_conj = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/conjunction.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);

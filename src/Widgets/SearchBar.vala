@@ -55,7 +55,7 @@ namespace Quilter {
             replace_all_button.clicked.connect (on_replace_all_entry_activate);
 
             close_button.clicked.connect (() => {
-                Quilter.Application.gsettings.set_boolean("searchbar", false);
+                Quilter.Application.gsettings.set_boolean ("searchbar", false);
             });
 
             search_entry_item ();
@@ -196,10 +196,10 @@ namespace Quilter {
             text_buffer.get_iter_at_offset (out start_iter, text_buffer.cursor_position);
             bool found = (search_entry.text != "" && search_entry.text in this.text_buffer.text);
             if (found) {
-                search_entry.get_style_context ().remove_class ("error");
+                search_entry.remove_css_class ("error");
                 text_buffer.select_range (start_iter, start_iter);
             } else if (search_entry.text != "") {
-                search_entry.get_style_context ().add_class ("error");
+                search_entry.add_css_class ("error");
             }
 
             return true;

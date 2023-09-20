@@ -54,7 +54,7 @@
   </object>
   <template class="QuilterWidgetsHeaderbar" parent="AdwBin">
     <child>
-      <object class="GtkHeaderBar" id="headerbar">
+      <object class="AdwHeaderBar" id="headerbar">
         <property name="hexpand">1</property>
         <child>
           <object class="GtkToggleButton" id="sidebar_toggler">

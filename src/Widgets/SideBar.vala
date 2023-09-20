@@ -77,14 +77,14 @@ namespace Quilter.Widgets {
                 }
             });
 
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+            if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
                 flap_grid.add_css_class ("quilter-sidebar-sepia");
             } else {
                 flap_grid.remove_css_class ("quilter-sidebar-sepia");
             }
 
             Quilter.Application.gsettings.changed.connect (() => {
-                if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+                if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
                     flap_grid.add_css_class ("quilter-sidebar-sepia");
                 } else {
                     flap_grid.remove_css_class ("quilter-sidebar-sepia");
@@ -98,8 +98,8 @@ namespace Quilter.Widgets {
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
 
-            for (int i = 0; i < Quilter.Application.gsettings.get_strv("last-files").length; i++) {
-                rows += add_file (Quilter.Application.gsettings.get_strv("last-files")[i]);
+            for (int i = 0; i < Quilter.Application.gsettings.get_strv ("last-files").length; i++) {
+                rows += add_file (Quilter.Application.gsettings.get_strv ("last-files")[i]);
             }
 
             column.row_selected.connect ((selected_row) => {
@@ -107,7 +107,7 @@ namespace Quilter.Widgets {
                     row = get_selected_row ();
                     string text = "";
                     GLib.FileUtils.get_contents (row.path, out text);
-                    Quilter.Application.gsettings.set_string("current-file", row.path);
+                    Quilter.Application.gsettings.set_string ("current-file", row.path);
 
                     if (Services.FileManager.is_temp_file (row.path)) {
                         win.titlebar.samenu_button.title = (_("New Document"));
@@ -115,10 +115,10 @@ namespace Quilter.Widgets {
                         row.set_title (_("New File"));
                         win.edit_view_content.text = text;
                     } else {
-                        win.titlebar.samenu_button.title = Path.get_basename(row.path);
-                        win.titlebar.samenu_button.subtitle = row.path.replace(GLib.Environment.get_home_dir (), "~")
-                                                                      .replace(Path.get_basename(row.path), "");
-                        row.set_title (Path.get_basename(row.path));
+                        win.titlebar.samenu_button.title = Path.get_basename (row.path);
+                        win.titlebar.samenu_button.subtitle = row.path.replace (GLib.Environment.get_home_dir (), "~")
+                                                                      .replace (Path.get_basename (row.path), "");
+                        row.set_title (Path.get_basename (row.path));
                         win.edit_view_content.text = text;
                     }
 
@@ -149,7 +149,7 @@ namespace Quilter.Widgets {
             // Get string value from row clicked from TreeView and scroll to it in Editor
             Gtk.TreeModel pathmodel;
             Gtk.TreeIter pathiter;
-            if (row.count_selected_rows () == 1){
+            if (row.count_selected_rows () == 1) {
                 row.get_selected (out pathmodel, out pathiter);
                 Value val;
                 pathmodel.get_value (pathiter, 0, out val);
@@ -165,14 +165,14 @@ namespace Quilter.Widgets {
         }
 
         public void outline_populate () {
-            if (Quilter.Application.gsettings.get_string("current-file") != "") {
-               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string("current-file"));
+            if (Quilter.Application.gsettings.get_string ("current-file") != "") {
+               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string ("current-file"));
                store.clear ();
                if (file != null && file.query_exists ()) {
                     try {
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
-                        var reg = new Regex("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
+                        var reg = new Regex ("(?m)^(?<header>\\#{1,3})\\s(?<text>.*\\$?)");
                         if (reg.match (buffer, 0, out match)) {
                             do {
                                 if (match.fetch_named ("header") == "#") {
@@ -219,11 +219,11 @@ namespace Quilter.Widgets {
                 filebox.set_title (_("New File"));
                 column.select_row (filebox);
             } else {
-                win.titlebar.samenu_button.title = Path.get_basename(file);
-                win.titlebar.samenu_button.subtitle = file.replace(GLib.Environment.get_home_dir (), "~")
-                                                          .replace(Path.get_basename(file), "");
-                filebox.set_title (Path.get_basename(file));
-                if (file == Quilter.Application.gsettings.get_string("current-file"))
+                win.titlebar.samenu_button.title = Path.get_basename (file);
+                win.titlebar.samenu_button.subtitle = file.replace (GLib.Environment.get_home_dir (), "~")
+                                                          .replace (Path.get_basename (file), "");
+                filebox.set_title (Path.get_basename (file));
+                if (file == Quilter.Application.gsettings.get_string ("current-file"))
                     column.select_row (filebox);
             }
 
@@ -231,8 +231,8 @@ namespace Quilter.Widgets {
         }
 
         public void delete_rows () {
-            while (column.get_first_child() != null) {
-                column.get_first_child().destroy ();
+            while (column.get_first_child () != null) {
+                column.get_first_child ().destroy ();
             }
         }
 

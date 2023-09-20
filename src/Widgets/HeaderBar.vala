@@ -106,7 +106,7 @@ namespace Quilter {
 
             var rename_button = new Gtk.Button ();
             rename_button.label = (_("Rename"));
-            rename_button.get_style_context ().add_class ("suggested-action");
+            rename_button.add_css_class ("suggested-action");
 
             rename_button.clicked.connect (() => {
                 try {
@@ -117,7 +117,7 @@ namespace Quilter {
                         Services.FileManager.save_file (path_new, win.edit_view_content.text);
 
                         ((Widgets.SideBarBox)child).path = path_new;
-                        samenu_button.title = Path.get_basename(path_new);
+                        samenu_button.title = Path.get_basename (path_new);
                         samenu_button.subtitle = path_new.replace(GLib.Environment.get_home_dir (), "~");
                     }
 

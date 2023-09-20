@@ -37,7 +37,7 @@ namespace Quilter {
 
         public virtual void set_active (bool active) {
             if (settings != null) {
-                settings.set_boolean("active", active);
+                settings.set_boolean ("active", active);
             }
         }
 

@@ -53,6 +53,6 @@ public class Quilter.Checkbox : Plugins.Plugin {
         int last = line_.index_of (".", initial);
         string subline = line_.substring (initial, last - initial);
 
-        return line_.replace("""[ ] %s.""".printf(subline), """<li  style="list-style: none;"><input type="checkbox" id="1" name="1"> <label for="1">%s.</label></li>""".printf(subline));
+        return line_.replace ("""[ ] %s.""".printf(subline), """<li  style="list-style: none;"><input type="checkbox" id="1" name="1"> <label for="1">%s.</label></li>""".printf(subline));
     }
 }

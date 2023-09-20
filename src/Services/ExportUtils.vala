@@ -48,11 +48,11 @@ namespace Quilter.Services.ExportUtils {
         window.render_func ();
         int type_of_mode = 0;
 
-        if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-            Quilter.Application.gsettings.set_string("visual-mode", "light");
+        if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
+            Quilter.Application.gsettings.set_string ("visual-mode", "light");
             type_of_mode = 1;
-        } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-            Quilter.Application.gsettings.set_string("visual-mode", "light");
+        } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
+            Quilter.Application.gsettings.set_string ("visual-mode", "light");
             type_of_mode = 2;
         }
 

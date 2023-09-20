@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 public class Quilter.Styles.quilterdark {
-  public const string css="""
+  public const string css = """
     html {
       font-size: 13pt;
       width: 100%;

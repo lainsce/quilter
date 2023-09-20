@@ -54,6 +54,6 @@ public class Quilter.Image : Plugins.Plugin {
         string subline = line_.substring (initial, last - initial);
 
         File file = File.new_for_path (subline);
-        return line_.replace("/%s :image".printf(subline), """<img src="%s"/>""".printf(file.get_path()));
+        return line_.replace ("/%s :image".printf (subline), """<img src="%s"/>""".printf (file.get_path()));
     }
 }

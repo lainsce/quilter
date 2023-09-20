@@ -24,7 +24,7 @@ namespace Quilter {
         public string html;
         public double scroll_value {
             set {
-                run_javascript.begin ("""
+                evaluate_javascript.begin ("""
                     var b = document.body,
                     e = document.documentElement;
                     var height = Math.max( b.scrollHeight,
@@ -35,7 +35,7 @@ namespace Quilter {
                                  );
                     e.scrollTop = (%.13f * e.offsetHeight);
                     e.scrollTop;
-                """.printf(value), null);
+                """.printf (value), 0, null, null);
             }
         }
 
@@ -48,12 +48,11 @@ namespace Quilter {
         }
 
         public Preview (MainWindow window, Widgets.EditView buf) {
-            Object(user_content_manager: new WebKit.UserContentManager());
+            Object (user_content_manager: new WebKit.UserContentManager ());
             this.buf = buf;
             var webkit_settings = get_settings ();
             webkit_settings.enable_page_cache = false;
             webkit_settings.javascript_can_open_windows_automatically = false;
-            webkit_settings.enable_java = false;
 
             this.scroll_value = -1;
 
@@ -63,20 +62,19 @@ namespace Quilter {
 
         protected override bool context_menu (
             WebKit.ContextMenu context_menu,
-            Gdk.Event event,
             WebKit.HitTestResult hit_test_result
         ) {
             return true;
         }
 
         private string set_stylesheet () {
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
+            if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
                 string dark = Styles.quilterdark.css;
                 return dark;
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
                 string sepia = Styles.quiltersepia.css;
                 return sepia;
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
                 string normal = Styles.quilter.css;
                 return normal;
             }
@@ -84,24 +82,24 @@ namespace Quilter {
         }
 
         private string set_font_stylesheet () {
-            if (Quilter.Application.gsettings.get_enum("preview-font") == 0) {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/serif.css";
-            } else if (Quilter.Application.gsettings.get_enum("preview-font") == 1) {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/sans.css";
-            } else if (Quilter.Application.gsettings.get_enum("preview-font") == 2) {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/mono.css";
+            if (Quilter.Application.gsettings.get_enum ("preview-font") == 0) {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/serif.css";
+            } else if (Quilter.Application.gsettings.get_enum ("preview-font") == 1) {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/sans.css";
+            } else if (Quilter.Application.gsettings.get_enum ("preview-font") == 2) {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/mono.css";
             }
 
-            return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/font/serif.css";
+            return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
-            if (Quilter.Application.gsettings.get_string("visual-mode") == "dark") {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "sepia") {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
-            } else if (Quilter.Application.gsettings.get_string("visual-mode") == "light") {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
+            if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
+            } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
             } else {
                 return "";
             }
@@ -109,8 +107,8 @@ namespace Quilter {
 
 
         private string set_highlight () {
-            if (Quilter.Application.gsettings.get_boolean("highlight")) {
-                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
+            if (Quilter.Application.gsettings.get_boolean ("highlight")) {
+                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -122,18 +120,18 @@ namespace Quilter {
         }
 
         private string set_center_headers () {
-            if (Quilter.Application.gsettings.get_boolean("center-headers")) {
-                return Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
+            if (Quilter.Application.gsettings.get_boolean ("center-headers")) {
+                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
             } else {
                 return "";
             }
         }
 
         private string set_latex () {
-            if (Quilter.Application.gsettings.get_boolean("latex")) {
-                string katex_main = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/katex.css";
-                string katex_js = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/katex.js";
-                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/katex/render.js";
+            if (Quilter.Application.gsettings.get_boolean ("latex")) {
+                string katex_main = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/katex.css";
+                string katex_js = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/katex.js";
+                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -146,8 +144,8 @@ namespace Quilter {
         }
 
         private string set_mermaid () {
-            if (Quilter.Application.gsettings.get_boolean("mermaid")) {
-                string render = Environment.get_system_data_dirs()[0] + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
+            if (Quilter.Application.gsettings.get_boolean ("mermaid")) {
+                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
                 string mermaid = """
                     <script src="%s"></script>
                     <script>
@@ -250,16 +248,16 @@ namespace Quilter {
             );
 
             mkd.get_document (out processed_mk);
-            string highlight = set_highlight();
-            string cheaders = set_center_headers();
-            string latex = set_latex();
-            string mermaid = set_mermaid();
+            string highlight = set_highlight ();
+            string cheaders = set_center_headers ();
+            string latex = set_latex ();
+            string mermaid = set_mermaid ();
             string font = set_font_stylesheet ();
             string style = set_stylesheet ();
             string md = process_plugins (processed_mk);
 
-            bool focus_active = Quilter.Application.gsettings.get_boolean("focus-mode");
-            bool typewriter_active = Quilter.Application.gsettings.get_boolean("typewriter-scrolling");
+            bool focus_active = Quilter.Application.gsettings.get_boolean ("focus-mode");
+            bool typewriter_active = Quilter.Application.gsettings.get_boolean ("typewriter-scrolling");
             if (focus_active && typewriter_active) {
                 style += """
                 html {
@@ -292,7 +290,7 @@ namespace Quilter {
                         %s
                     </div>
                 </body>
-            </html>""".printf(style, highlight, latex, font, cheaders, mermaid, md);
+            </html>""".printf (style, highlight, latex, font, cheaders, mermaid, md);
 
             this.load_html (html, "file:///");
         }

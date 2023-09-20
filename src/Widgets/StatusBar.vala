@@ -46,56 +46,56 @@ namespace Quilter {
 
         private void tracker () {
             track_words.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "words");
+	            Quilter.Application.gsettings.set_string ("track-type", "words");
 	            update_wordcount ();
 	        });
 
 	        track_lines.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "lines");
+	            Quilter.Application.gsettings.set_string ("track-type", "lines");
 	            update_linecount ();
             });
 
 	        track_rtc.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string("track-type", "rtc");
+	            Quilter.Application.gsettings.set_string ("track-type", "rtc");
 	            update_readtimecount ();
 	        });
 
-            if (Quilter.Application.gsettings.get_string("track-type") == "words") {
+            if (Quilter.Application.gsettings.get_string ("track-type") == "words") {
                 update_wordcount ();
                 track_words.set_active (true);
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "lines") {
+            } else if (Quilter.Application.gsettings.get_string ("track-type") == "lines") {
                 update_linecount ();
                 track_lines.set_active (true);
-            } else if (Quilter.Application.gsettings.get_string("track-type") == "rtc") {
+            } else if (Quilter.Application.gsettings.get_string ("track-type") == "rtc") {
                 update_readtimecount ();
                 track_rtc.set_active (true);
             }
         }
 
         public void update_wordcount () {
-            var wc = get_count();
-            track_type_menu.set_label ((_("Words: ")) + wc.words.to_string());
+            var wc = get_count ();
+            track_type_menu.set_label ((_("Words: ")) + wc.words.to_string ());
         }
 
         public void update_linecount () {
-            var lc = get_count();
-            track_type_menu.set_label ((_("Sentences: ")) + lc.lines.to_string());
+            var lc = get_count ();
+            track_type_menu.set_label ((_("Sentences: ")) + lc.lines.to_string ());
         }
 
         public void update_readtimecount () {
-            var rtc = get_count();
+            var rtc = get_count ();
             double rt = Math.round((rtc.words / WPM));
-		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string() + "m");
+		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string () + "m");
         }
 
-        public WordCount get_count() {
+        public WordCount get_count () {
             Gtk.TextIter start, end;
             buf.get_bounds (out start, out end);
             var buffer = buf.get_text (start, end, false);
             int i = 0;
             try {
                 GLib.MatchInfo match;
-                var reg = new Regex("(?m)(?<header>\\.)");
+                var reg = new Regex ("(?m)(?<header>\\.)");
                 if (reg.match (buffer, 0, out match)) {
                     do {
                         i++;
@@ -106,7 +106,7 @@ namespace Quilter {
             }
 
             var lines = i;
-            var words = buf.get_text (start, end, false).split(" ").length;
+            var words = buf.get_text (start, end, false).split (" ").length;
 
             return new WordCount(words, lines);
     	}
@@ -116,7 +116,7 @@ namespace Quilter {
         public int words { get; private set; }
         public int lines { get; private set; }
 
-        public WordCount(int words, int lines) {
+        public WordCount (int words, int lines) {
             this.words = words;
             this.lines = lines;
         }

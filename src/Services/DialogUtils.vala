@@ -37,8 +37,8 @@ namespace Quilter.Services.DialogUtils {
                 body: _("There are unsaved changes to the file, any changes will be lost if not saved.")
             );
 
-            this.add_response ("cancel",  _("Cancel"));
-            this.add_response ("no", _("Close Without Saying"));
+            this.add_response ("cancel", _("Cancel"));
+            this.add_response ("no", _("Close Without Saving"));
             this.add_response ("ok", _("Save"));
             this.set_default_response ("ok");
             this.set_close_response ("cancel");
@@ -53,8 +53,8 @@ namespace Quilter.Services.DialogUtils {
                 body: _("By removing this file from the Sidebar, any changes will be lost if not saved.")
             );
 
-            this.add_response ("cancel",  _("Cancel"));
-            this.add_response ("no", _("Remove Without Saying"));
+            this.add_response ("cancel", _("Cancel"));
+            this.add_response ("no", _("Remove Without Saving"));
             this.add_response ("ok", _("Save"));
             this.set_default_response ("ok");
             this.set_close_response ("cancel");

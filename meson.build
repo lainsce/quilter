@@ -81,7 +81,7 @@ dependencies = [
     dependency('gee-0.8'),
     dependency('gtk4'),
     dependency('libadwaita-1'),
-    dependency('webkit2gtk-5.0'),
+    dependency('webkitgtk-6.0'),
     dependency('gtksourceview-5'),
     libmarkdown,
     cc.find_library('m', required: true)

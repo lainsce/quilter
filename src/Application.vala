@@ -41,7 +41,7 @@ namespace Quilter {
 
         protected override void startup () {
             set_resource_base_path ("/io/github/lainsce/Quilter");
-    
+
             base.startup ();
         }
 
@@ -59,7 +59,7 @@ namespace Quilter {
         protected override int command_line (ApplicationCommandLine command_line) {
             string[] args = command_line.get_arguments ();
             var context = new OptionContext ("File");
-            context.add_main_entries (entries, Config.APP_ID);
+            context.add_main_entries (ENTRIES, Config.APP_ID);
             int unclaimed_args;
 
             try {
@@ -72,7 +72,7 @@ namespace Quilter {
             }
 
             if (print_ver) {
-                stdout.printf ("Quilter %s - Copyright 2017-2021 Lains\n".printf(Config.VERSION));
+                stdout.printf ("Quilter %s - Copyright 2017-2021 Lains\n".printf (Config.VERSION));
                 return 0;
             } else {
                 new MainWindow (this);
@@ -155,11 +155,8 @@ namespace Quilter {
                     // Notify the user that something happened.
                     if (msg.length > 0) {
                         var parent_win = get_last_win () as Gtk.Window;
-                        var dialog = new Gtk.MessageDialog.with_markup (parent_win,
-                            Gtk.DialogFlags.MODAL,
-                            Gtk.MessageType.ERROR,
-                            Gtk.ButtonsType.CLOSE,
-                            msg);
+                        var dialog = new Adw.MessageDialog (parent_win,
+                            msg, "");
                         dialog.show ();
                         dialog.close ();
                     }
@@ -180,7 +177,7 @@ namespace Quilter {
             return wins.length () > 0 ? wins.last ().data as MainWindow : null;
         }
 
-        const OptionEntry[] entries = {
+        const OptionEntry[] ENTRIES = {
             { "about", 'v', 0, OptionArg.NONE, out print_ver, ("Open About Dialog"), null },
             { "version", 'v', 0, OptionArg.NONE, out print_ver, ("Print version and copyright info and exit"), null },
             { "view", 'V', 0, OptionArg.NONE, out open_view, ("Open document for preview"), null },

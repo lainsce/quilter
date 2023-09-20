@@ -57,8 +57,8 @@ public class Quilter.Filep : Plugins.Plugin {
         File file = File.new_for_path (subline);
 
         try {
-            if (file.query_exists()) {
-                GLib.FileUtils.get_contents(subline, out text);
+            if (file.query_exists ()) {
+                GLib.FileUtils.get_contents (subline, out text);
                 var mkd = new Markdown.Document.from_string (text.data,
                                                              0x00000100 +
                                                              0x00001000 +
@@ -73,7 +73,7 @@ public class Quilter.Filep : Plugins.Plugin {
                 string result;
                 mkd.document (out result);
 
-                return line_.replace("/%s :file".printf(subline), """%s""".printf(result));
+                return line_.replace ("/%s :file".printf (subline), """%s""".printf (result));
             }
         } catch (Error e) {
             warning ("Error: %s", e.message);

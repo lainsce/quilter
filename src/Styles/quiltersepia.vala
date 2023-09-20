@@ -23,7 +23,7 @@ THE SOFTWARE.
 */
 
 public class Quilter.Styles.quiltersepia {
-  public const string css="""
+  public const string css = """
     html {
       font-size: 13pt;
       width: 100%;
