@@ -30,7 +30,7 @@ namespace Quilter {
         public signal void save_as ();
 
         [GtkChild]
-        public unowned Gtk.HeaderBar headerbar;
+        public unowned Adw.HeaderBar headerbar;
 
         [GtkChild]
         public unowned Gtk.Grid top_grid;
