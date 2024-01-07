@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: 2019-12-20 01:24+0600\n"
 "Last-Translator: Arthur Aslanyan <arthur.e.aslanyan@gmail.com>\n"
 "Language-Team: none\n"
@@ -15,240 +15,157 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Новый документ"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr ""
-
-#: src/MainWindow.vala:405
-#, fuzzy
-msgid "Exit focus mode"
-msgstr "Войти в режим фокуса"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Редактировать"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Предпросмотр"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 #, fuzzy
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
-msgstr ""
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr "Сфокусируйтесь на письме"
 
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr ""
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "Файлы Markdown"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Все файлы"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "Сохранить открытый файл?"
-
-#: src/Services/DialogUtils.vala:37
-#, fuzzy
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
 msgstr ""
-"В файле есть несохраненные изменения. Если вы не сохраните файл, то "
-"изменения будут навсегда утрачены."
+"Сфокусируйтесь на письме и пишите красивые солидные истории с помощью режима "
+"фокусировки  в этом редакторе Markdown"
 
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Сохранить"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Закрыть без сохранения"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Отменить"
-
-#: src/Services/DialogUtils.vala:52
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
 #, fuzzy
-msgid "Remove File From Sidebar?"
-msgstr "Удалить файл из боковой панели?"
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
+msgstr "Работайте над историей, по файлу за раз."
 
-#: src/Services/DialogUtils.vala:53
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr "Сохраняйте документы везде, даже в существующих файлах."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Посмотрите на вашу историю заранее в режиме предпросмотра."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Возможность включить или выключить режим фокуса."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Возможность включить или выключить темную тему."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Возможность включить или выключить тему Сепия"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "Раскройте приложение на весь экран по клавише F11"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Поиск в любой момент с помощью сочетания Ctrl + F"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Выйти в любой момент с помощью сочетания Ctrl + Q"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr "Светлая тема"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Сепия"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Темная тема"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Режим фокуса"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Режим предпросмотра"
+
+#: data/io.github.lainsce.Quilter.desktop.in:7
 #, fuzzy
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
-msgstr ""
-"При удалении файла из боковой панели вы потеряете несохраненные изменения. "
-"Если вы сохранили файл, то он просто будет убран из боковой панели."
+msgid "Text;Markdown;Editor;"
+msgstr "Text;Markdown;LaTeX;Editor;"
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Убрать без сохранения"
-
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Распечатать в файл"
-
-#: src/Services/ExportUtils.vala:142
-#, fuzzy
-msgid "Select Destination PDF File"
-msgstr "Укажите путь для файла PDF"
-
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "Файл PDF"
-
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Все файлы"
-
-#: src/Services/ExportUtils.vala:191
-#, fuzzy
-msgid "Select Destination HTML File"
-msgstr "Укажите путь для файла HTML"
-
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "Файл HTML"
-
-#: src/Services/FileManager.vala:89
-#, fuzzy
-msgid "Open File"
-msgstr "Открыть файл"
-
-#: src/Services/FileManager.vala:102
-#, fuzzy
-msgid "Save File"
-msgstr "Сохранить файл"
-
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:136
-#, fuzzy
-msgid "Rename File:"
-msgstr "Удалить все файлы"
-
-#: src/Widgets/HeaderBar.vala:153
-#, fuzzy
-msgid "Rename File"
-msgstr "Удалить все файлы"
-
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:163
-msgid "Toggle View"
-msgstr ""
-
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Новый файл"
-
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Слова: "
-
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
-msgstr ""
-
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Время на чтение: "
-
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Шпаргалка по Markdown"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Текст"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 #, fuzzy
 msgid "**Bold text**"
 msgstr "** Жирный текст **"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 #, fuzzy
 msgid "Code Line"
 msgstr "` Код `"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 #, fuzzy
 msgid "Code Block"
 msgstr "```Это блок кода```"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
 "```"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
 "> here"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 #, fuzzy
 msgid "Headers"
 msgstr "Заголовок 1"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -256,340 +173,360 @@ msgid ""
 "..."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Ссылки"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 #, fuzzy
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
 msgstr "[Название ссылки](http://ваша.ссылка.тут.com)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 #, fuzzy
 msgid "Strikethrough"
 msgstr "~~Перечеркнутый текст~~"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 #, fuzzy
 msgid "~~Striked through text~~"
 msgstr "~~Перечеркнутый текст~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 #, fuzzy
 msgid "Horzontal Rule"
 msgstr "Это создает горизонтальный разделитель → ---"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Особое"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Расширения"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 msgid ""
 "$$…$$\tfor equation block\n"
 "\\\\(…\\\\)\t\tfor inline equation"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Таблицы"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 msgid ""
 "Left\t\t--- \tto\t:---\n"
 "Centered    ---\tto\t:---:\n"
 "Right\t\t---\tto\t---: "
 msgstr ""
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 msgid "Files"
 msgstr "Файлы"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 #, fuzzy
 msgid "Document"
 msgstr "Новый документ"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 #, fuzzy
 msgid "/Folder/Image.png :image"
 msgstr "Это вставляет локальное изображение → | Папка/Изображение.png |"
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Сохранить"
+
+#: data/ui/headerbar.ui:21
 #, fuzzy
 msgid "Save As…"
 msgstr "Сохранить как…"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 #, fuzzy
 msgid "Export HTML…"
 msgstr "Экспортировать в HTML…"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 #, fuzzy
 msgid "Export PDF…"
 msgstr "Экспортировать в PDF…"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 #, fuzzy
 msgid "Show/Hide the sidebar"
 msgstr "Показать/Скрыть боковую панель"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 #, fuzzy
 msgid "Save the current file"
 msgstr "Сохранить открытый файл?"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 #, fuzzy
 msgid "Create a new document"
 msgstr "Новый документ"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Открыть"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 #, fuzzy
 msgid "Open a file"
 msgstr "Открыть файл"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr ""
-
-#: data/ui/headerbar.ui:219
-msgid "Editor or Preview, change via menu"
-msgstr ""
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Полная ширина"
-
-#: data/ui/headerbar.ui:234
-msgid "Editor and Preview, side by side"
-msgstr ""
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "Полширины"
-
-#: data/ui/headerbar.ui:339
-#, fuzzy
-msgid "Focus Mode"
-msgstr "Режим фокуса"
-
-#: data/ui/headerbar.ui:351
-#, fuzzy
-msgid "About Quilter"
-msgstr "Quilter"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Предпочтения"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 #, fuzzy
 msgid "View Type"
 msgstr "Установить шрифт для предпросмотра"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr ""
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Полная ширина"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr ""
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Полширины"
+
+#: data/ui/headerbar.ui:197
+#, fuzzy
+msgid "About Quilter"
+msgstr "Quilter"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Предпочтения"
+
+#: data/ui/headerbar.ui:251
 #, fuzzy
 msgid "Find and Replace…"
 msgstr "Заменить"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
+#: data/ui/prefs_window.ui:11
+msgid "Editor"
+msgstr "Редактор"
+
+#: data/ui/prefs_window.ui:17
+msgid "Font"
 msgstr ""
+
+#: data/ui/prefs_window.ui:21
+#, fuzzy
+msgid "Quilt Mono"
+msgstr "Quilter"
 
 #: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr ""
-
-#: data/ui/prefs_window.ui:25
 #, fuzzy
-msgid "Visual Mode"
-msgstr "Сепия"
+msgid "Quilt Zwei"
+msgstr "Quilter"
 
-#: data/ui/prefs_window.ui:91
+#: data/ui/prefs_window.ui:23
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:43
 #, fuzzy
 msgid "Interface"
 msgstr "Пользовательский интерфейс"
 
-#: data/ui/prefs_window.ui:98
+#: data/ui/prefs_window.ui:46
 #, fuzzy
 msgid "Focus Scope"
 msgstr "Режим фокуса"
 
-#: data/ui/prefs_window.ui:149
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr "Абзац"
+
+#: data/ui/prefs_window.ui:60
+msgid "Sentence"
+msgstr "Предложение"
+
+#: data/ui/prefs_window.ui:73
 #, fuzzy
 msgid "Typewriter Scrolling"
 msgstr "Прокручивание печатной машинки:"
 
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr ""
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
-msgid "Editor"
-msgstr "Редактор"
-
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr ""
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-
-#: data/ui/prefs_window.ui:214
-msgid "Highlight Speech Parts (Beta)"
-msgstr ""
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-
-#: data/ui/prefs_window.ui:237
-msgid "Font"
-msgstr ""
-
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr ""
-
-#: data/ui/prefs_window.ui:270
+#: data/ui/prefs_window.ui:83
 #, fuzzy
-msgid "Preview Font Type"
+msgid "Document Tracker"
+msgstr "Новый документ"
+
+#: data/ui/prefs_window.ui:84
+msgid "Tracks words, sentences or reading time."
+msgstr ""
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "Включить подсветку синтаксиса:"
+
+#: data/ui/prefs_window.ui:99
+msgid "Speech Parts (Beta)"
+msgstr ""
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Предпросмотр"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr ""
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Установить шрифт для предпросмотра"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+#, fuzzy
+msgid "Serif"
+msgstr "Использовать Serif"
+
+#: data/ui/prefs_window.ui:126
+#, fuzzy
+msgid "Sans-serif"
+msgstr "Использовать Sans-serif"
+
+#: data/ui/prefs_window.ui:127
+#, fuzzy
+msgid "Monospace"
+msgstr "Использовать моноширинный шрифт"
+
+#: data/ui/prefs_window.ui:135
 #, fuzzy
 msgid "Header Centering"
 msgstr "Заголовки"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
 msgstr ""
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 #, fuzzy
 msgid "Code Highlight"
 msgstr "Включить подсветку синтаксиса:"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr ""
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr ""
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr ""
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
 msgstr ""
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 #, fuzzy
 msgid "Replace…"
 msgstr "Заменить"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 #, fuzzy
 msgid "Replace"
 msgstr "Заменить"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 #, fuzzy
 msgid "Replace All"
 msgstr "Заменить всё"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Найти…"
 
@@ -694,38 +631,235 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Экспортировать в PDF…"
 
-#: data/ui/sidebar.ui:46
-#, fuzzy
-msgid "No Files"
-msgstr "Файлы"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Содержание"
-
 #: data/ui/sidebarbox.ui:16
 #, fuzzy
 msgid "Remove file from sidebar"
 msgstr "Убрать файл из боковой панели"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+#, fuzzy
+msgid "No Files"
+msgstr "Файлы"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Содержание"
+
+#: data/ui/statusbar.ui:13
 #, fuzzy
 msgid "Words"
 msgstr "Слова: "
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 #, fuzzy
 msgid "Sentences"
 msgstr "Предложение"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 #, fuzzy
 msgid "Reading Time"
 msgstr "Время на чтение: "
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr ""
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Новый документ"
+
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr ""
+
+#: src/MainWindow.vala:349
+#, fuzzy
+msgid "Exit focus mode"
+msgstr "Войти в режим фокуса"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Редактировать"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr ""
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr ""
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+msgid "Load a Checkbox"
+msgstr ""
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+msgid "Checkbox"
+msgstr ""
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Файлы"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+msgid "Subscript"
+msgstr ""
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+msgid "Superscript"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Файлы Markdown"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Все файлы"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Сохранить открытый файл?"
+
+#: src/Services/DialogUtils.vala:37
+#, fuzzy
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"В файле есть несохраненные изменения. Если вы не сохраните файл, то "
+"изменения будут навсегда утрачены."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Отменить"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Закрыть без сохранения"
+
+#: src/Services/DialogUtils.vala:52
+#, fuzzy
+msgid "Remove File From Sidebar?"
+msgstr "Удалить файл из боковой панели?"
+
+#: src/Services/DialogUtils.vala:53
+#, fuzzy
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"При удалении файла из боковой панели вы потеряете несохраненные изменения. "
+"Если вы сохранили файл, то он просто будет убран из боковой панели."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Убрать без сохранения"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Распечатать в файл"
+
+#: src/Services/ExportUtils.vala:142
+#, fuzzy
+msgid "Select Destination PDF File"
+msgstr "Укажите путь для файла PDF"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "Файл PDF"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Все файлы"
+
+#: src/Services/ExportUtils.vala:189
+#, fuzzy
+msgid "Select Destination HTML File"
+msgstr "Укажите путь для файла HTML"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "Файл HTML"
+
+#: src/Services/FileManager.vala:89
+#, fuzzy
+msgid "Open File"
+msgstr "Открыть файл"
+
+#: src/Services/FileManager.vala:101
+#, fuzzy
+msgid "Save File"
+msgstr "Сохранить файл"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:130
+#, fuzzy
+msgid "Rename File:"
+msgstr "Удалить все файлы"
+
+#: src/Widgets/HeaderBar.vala:146
+#, fuzzy
+msgid "Rename File"
+msgstr "Удалить все файлы"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Новый файл"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Слова: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Время на чтение: "
+
+#, fuzzy
+#~ msgid "Visual Mode"
+#~ msgstr "Сепия"
+
+#, fuzzy
+#~ msgid "Preview Font Type"
+#~ msgstr "Установить шрифт для предпросмотра"
 
 #, fuzzy
 #~ msgid "Save document"
@@ -751,15 +885,6 @@ msgstr ""
 #~ msgid "Search and replace text"
 #~ msgstr "Найти следующее"
 
-#~ msgid "Light Mode"
-#~ msgstr "Светлая тема"
-
-#~ msgid "Sepia Mode"
-#~ msgstr "Сепия"
-
-#~ msgid "Dark Mode"
-#~ msgstr "Темная тема"
-
 #, fuzzy
 #~ msgid "Focus Mode…"
 #~ msgstr "Режим фокуса"
@@ -772,14 +897,6 @@ msgstr ""
 #~ msgstr "Удалить все файлы"
 
 #, fuzzy
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilter"
-
-#, fuzzy
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilter"
-
-#, fuzzy
 #~ msgid "Autosave Documents"
 #~ msgstr "Новый документ"
 
@@ -790,18 +907,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Font Type"
 #~ msgstr "Шрифт"
-
-#, fuzzy
-#~ msgid "Serif"
-#~ msgstr "Использовать Serif"
-
-#, fuzzy
-#~ msgid "Sans-serif"
-#~ msgstr "Использовать Sans-serif"
-
-#, fuzzy
-#~ msgid "Monospace"
-#~ msgstr "Использовать моноширинный шрифт"
 
 #~ msgid "Replace with…"
 #~ msgstr "Заменить на…"
@@ -970,3 +1075,343 @@ msgstr ""
 #~ msgstr ""
 #~ "Используйте стрелки, чтобы выбрать нужный текст для замены прежде чем "
 #~ "нажать сюда."
+
+#~ msgid "Use Sans-serif"
+#~ msgstr "Использовать Sans-serif"
+
+#~ msgid "Use Serif"
+#~ msgstr "Использовать Serif"
+
+#~ msgid "Use Monospace"
+#~ msgstr "Использовать моноширинный шрифт"
+
+#~ msgid "Heading"
+#~ msgstr "Заголовки"
+
+#~ msgid "# Heading 1"
+#~ msgstr "Заголовок 1"
+
+#~ msgid "## Heading 2"
+#~ msgstr "Заголовок 2"
+
+#~ msgid "### Heading 3"
+#~ msgstr "Заголовок 3"
+
+#~ msgid "** Bold text **"
+#~ msgstr "** Жирный текст **"
+
+#~ msgid "* Emphasized text *"
+#~ msgstr "* Выделенный текст *"
+
+#~ msgid "` Code text `"
+#~ msgstr "` Код `"
+
+#~ msgid "> Quoting text"
+#~ msgstr "> Цитата"
+
+#~ msgid "~~Strikethrough text~~"
+#~ msgstr "~~Перечеркнутый текст~~"
+
+#~ msgid "[Link Label](http://link.url.here.com)"
+#~ msgstr "[Название ссылки](http://ваша.ссылка.тут.com)"
+
+#~ msgid "```This is a code block```"
+#~ msgstr "```Это блок кода```"
+
+#~ msgid "This creates a horizontal rule → ---"
+#~ msgstr "Это создает горизонтальный разделитель → ---"
+
+#~ msgid "This embeds a local image → | Folder/Image.png |"
+#~ msgstr "Это вставляет локальное изображение → | Папка/Изображение.png |"
+
+#~ msgid "This embeds a local Markdown file → % Folder/File.md %"
+#~ msgstr "Это вставляет локальный файл Markdown → % Папка/Файл.md %"
+
+#~ msgid "Save as…"
+#~ msgstr "Сохранить как…"
+
+#~ msgid "Save file"
+#~ msgstr "Сохранить файл"
+
+#~ msgid "Export to PDF…"
+#~ msgstr "Экспортировать в PDF…"
+
+#~ msgid "Export to HTML…"
+#~ msgstr "Экспортировать в HTML…"
+
+#~ msgid "Enter focus mode"
+#~ msgstr "Войти в режим фокуса"
+
+#~ msgid "Margins of Text:"
+#~ msgstr "Размер полей"
+
+#~ msgid "Type of Focus Mode:"
+#~ msgstr "Тип режима фокуса:"
+
+#~ msgid "Typewriter Scrolling:"
+#~ msgstr "Прокручивание печатной машинки:"
+
+#~ msgid "User Interface"
+#~ msgstr "Пользовательский интерфейс"
+
+#~ msgid "Enable Code Highlighting:"
+#~ msgstr "Включить подсветку синтаксиса:"
+
+#~ msgid "Enable Spellchecking:"
+#~ msgstr "Включить проверку орфографии:"
+
+#~ msgid "Replace all"
+#~ msgstr "Заменить всё"
+
+#~ msgid "Search next"
+#~ msgstr "Найти следующее"
+
+#~ msgid "No File"
+#~ msgstr "Нет файлов"
+
+#~ msgid "Remove File"
+#~ msgstr "Удалить файл"
+
+#~ msgid "Show/Hide Sidebar"
+#~ msgstr "Показать/Скрыть боковую панель"
+
+#~ msgid ""
+#~ "There are unsaved changes to the file. If you don't save, changes will be "
+#~ "lost forever."
+#~ msgstr ""
+#~ "В файле есть несохраненные изменения. Если вы не сохраните файл, то "
+#~ "изменения будут навсегда утрачены."
+
+#~ msgid "Select destination PDF file"
+#~ msgstr "Укажите путь для файла PDF"
+
+#~ msgid "Select destination HTML file"
+#~ msgstr "Укажите путь для файла HTML"
+
+#~ msgid "Open file"
+#~ msgstr "Открыть файл"
+
+#~ msgid "Lains"
+#~ msgstr "Lains"
+
+#~ msgid "Release: Fixes and Gizmos"
+#~ msgstr "Выпуск: правки"
+
+#~ msgid "Fixes: Outline crashes the app if no file found."
+#~ msgstr ""
+#~ "Правки: содержимое заставляло приложение падать, если не был найден ни "
+#~ "один файл."
+
+#~ msgid ""
+#~ "Fixes: App crashes if new document button is pushed when no files are in "
+#~ "the sidebar."
+#~ msgstr ""
+#~ "Правки: Приложение падало при нажатии кнопки \"Новый документ\", а в "
+#~ "боковой панелине было открыто ни одного файла."
+
+#~ msgid "Fixes: App fails to launch if file in sidebar no longer exists."
+#~ msgstr ""
+#~ "Правки: Приложение не могло быть запущено если файл в боковой панели не "
+#~ "существует."
+
+#~ msgid "Fixes: App doesn't check spelling."
+#~ msgstr "Правки: Приложение не проверяело орфографию."
+
+#~ msgid "Release: File Eyeliner"
+#~ msgstr "Выпуск: File Eyeliner"
+
+#~ msgid "Added: File outline in the sidebar."
+#~ msgstr "Добавлено: содержимое файла в боковой панели."
+
+#~ msgid "Release: Blu-ray Encoder"
+#~ msgstr "Выпуск: Blu-ray Encoder"
+
+#~ msgid "Fixed: When adding files to sidebar, actually select them."
+#~ msgstr "Правки: выбирать файл при добавлении в боковую панель."
+
+#~ msgid "Updated: Dutch Translation"
+#~ msgstr "Обновлено: голландский перевод"
+
+#~ msgid "Release: DVD Cleaner"
+#~ msgstr "Выпуск: DVD Cleaner"
+
+#~ msgid "Release: VHS Tape Mixer"
+#~ msgstr "Выпуск: VHS Tape Mixer"
+
+#~ msgid ""
+#~ "Reworked a lot of the internals so actions don't kill files. [Adam "
+#~ "Bieńkowski - @donadigo]"
+#~ msgstr ""
+#~ "Много переработано, чтоб действия не убивали файлы. [Adam Bieńkowski - "
+#~ "@donadigo]"
+
+#~ msgid "Release: Betamax Tracker"
+#~ msgstr "Выпуск: Betamax Tracker"
+
+#~ msgid "Some UX redefinition in the sidebar, to avoid complicating it."
+#~ msgstr "Переработка UX в боковой панели, чтобы не усложнять."
+
+#~ msgid "Release: Kodachrome Selector"
+#~ msgstr "Выпуск: Kodachrome Selector"
+
+#~ msgid ""
+#~ "Open files without adding duplicate entries, and clear sidebar is you "
+#~ "really need to (it has a confirm dialog)."
+#~ msgstr ""
+#~ "Открытие файлов без добавления дублей, очистка боковой панели толькоесли "
+#~ "запрашивает пользователь (окно подтверждения)."
+
+#~ msgid "Release: Visually Stunning"
+#~ msgstr "Выпуск: Visually Stunning"
+
+#~ msgid ""
+#~ "Quilter received a visual upgrade, and also an awesome backend tuneup."
+#~ msgstr "Визуальное обновления и крутая подстройка бекенда."
+
+#~ msgid "Rewrote all Sidebar functions"
+#~ msgstr "Переписаны все функции боковой панели"
+
+#~ msgid "Removed LaTeX because it was lagging the app…"
+#~ msgstr "Удален LaTeX из-за замедления приложения…"
+
+#~ msgid "All File Management functions rewritten from scratch!"
+#~ msgstr "Все функции управления файлами переписаны с нуля!"
+
+#~ msgid "Release: Side Serve Sheets"
+#~ msgstr "Выпуск: Side Serve Sheets"
+
+#~ msgid "5 months"
+#~ msgstr "5 месяцев"
+
+#~ msgid "Release: Choice Looks Better"
+#~ msgstr "Выпуск: Choice Looks Better"
+
+#~ msgid ""
+#~ "All tracking choices as well as preview font choices are better shown."
+#~ msgstr "Все опции отслеживания и опции шрифтов показаны лучше."
+
+#~ msgid "Release: Stylish Readable Stories"
+#~ msgstr "Выпуск: Stylish Readable Stories"
+
+#~ msgid "All text passes a contrast check to be readable now."
+#~ msgstr "Весь текст проходит проверку на контраст и теперь более читаемый."
+
+#~ msgid "Release: Track Your Stuff Up"
+#~ msgstr "Выпуск: Track Your Stuff Up"
+
+#~ msgid ""
+#~ "You can now set what to track in the document: Characters, Words, or "
+#~ "Lines."
+#~ msgstr ""
+#~ "Теперь можно установить отслеживание за символами, словами или строками."
+
+#~ msgid "Release: Font Forgery"
+#~ msgstr "Выпуск: Font Forgery"
+
+#~ msgid "You can now set the font size for Edit View in the Preferences."
+#~ msgstr "Можно установить размер шрифта для редактора в настройках."
+
+#~ msgid "Release: Sepia &amp; Blues"
+#~ msgstr "Выпуск: Sepia &amp; Blues"
+
+#~ msgid "A new Mode between Light &amp; Dark, the Sepia Mode."
+#~ msgstr "Новая тема: сепия."
+
+#~ msgid "A new way to toggle between Modes in the Settings."
+#~ msgstr "Новый способ переключаться между темами в настройках."
+
+#~ msgid "Dynamargins: the three sizes now autofit for the window's size."
+#~ msgstr ""
+#~ "Динамические поля: три размера теперь подстраиваются под размер окна."
+
+#~ msgid "A redesign of the main menu."
+#~ msgstr "Редизайн для главного меню."
+
+#~ msgid "Search any term inside your document."
+#~ msgstr "Поиск любого слова в документе."
+
+#~ msgid "Change Preview Mode's font style on-the-fly."
+#~ msgstr "Можно изменить шрифт режима предпросмотра на ходу."
+
+#~ msgid ""
+#~ "Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when "
+#~ "editing."
+#~ msgstr ""
+#~ "Режим печатной машинки в режиме фокуса: имитация печатной машинки во "
+#~ "время редактирования."
+
+#~ msgid "Fixed most of the internal logic to change between Modes."
+#~ msgstr "Исправлена большая часть внутренней логики для смены между темами."
+
+#~ msgid "Fixed fullscreen bug. (finally!)"
+#~ msgstr "Исправлен баг полноэкранного режима. (Наконец-то!)"
+
+#~ msgid ""
+#~ "Margins when fullscreen reflect the ratio of those on non-fullscreen "
+#~ "settings"
+#~ msgstr "Отступы в полноэкранном режиме отражают соотношения обычного режима"
+
+#~ msgid "Fixed the refresh rate of Preview Mode."
+#~ msgstr "Исправлена частота обновления режима предпросмотра."
+
+#~ msgid "Release: Unreleased Bump"
+#~ msgstr "Выпуск: Unreleased Bump"
+
+#~ msgid "Intentionally left blank."
+#~ msgstr "Специально пусто."
+
+#~ msgid "Release: Maths? Hardly knew 'er!"
+#~ msgstr "Выпуск: Maths? Hardly knew 'er!"
+
+#~ msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
+#~ msgstr "Теперь можно добавить уравнения LaTeX с помощью \"$\" или \"$$\"."
+
+#~ msgid "Release: Don't Blot Yourself"
+#~ msgstr "Выпуск: Don't Blot Yourself"
+
+#~ msgid "Preview Mode will only update on changes from Edit View."
+#~ msgstr "Режим предпросмотр обновляется только при изменениях в редакторе."
+
+#~ msgid "Statusbar will update always."
+#~ msgstr "Панель статуса всегда обновляется."
+
+#~ msgid "Release: All-Around An Inker!"
+#~ msgstr "Выпуск: All-Around An Inker!"
+
+#~ msgid "Preview Mode won't load rogue Javascript code."
+#~ msgstr "Режим предпросмотра больше не будет загружать код Javascript"
+
+#~ msgid ""
+#~ "Preview Mode will also not autojump to the start of the scroll at any "
+#~ "time."
+#~ msgstr "Режим предпросмотра больше не перепрыгивает на начало документа."
+
+#~ msgid "Header becomes Heading in the Cheatsheet."
+#~ msgstr "Английский язык: Header теперь Heading в шпаргалке"
+
+#~ msgid ""
+#~ "Fixed the Unsaved changes dialog still killing files when pressing the "
+#~ "New File button."
+#~ msgstr ""
+#~ "Исправлено окно несохраненных изменений, которое все равно удаляло "
+#~ "файлыпри нажатии на кнопку \"Новый файл\"."
+
+#~ msgid "New Translations for: Dutch, Catalan &amp; Spanish."
+#~ msgstr "Новые переводы для голландского, каталанского и испанского языков."
+
+#~ msgid "Release: Visual Standardization"
+#~ msgstr "Выпуск: визуальная стандартизация"
+
+#~ msgid ""
+#~ "The headerbar now respects the global theme in Normal and Dark modes."
+#~ msgstr ""
+#~ "Заголовок окна следует глобальной теме при выборе темной или обычной темы."
+
+#~ msgid "Release: New Sheets Won't Crumple Old Ones, part 2"
+#~ msgstr "Выпуск: New Sheets Won't Crumple Old Ones, part 2"
+
+#~ msgid "The New File button will not purge old files."
+#~ msgstr "Кнопка \"Новый файл\" больше не удаляет старые файлы."
+
+#~ msgid "com.github.lainsce.quilter"
+#~ msgstr "com.github.lainsce.quilter"

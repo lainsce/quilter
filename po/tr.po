@@ -1,22 +1,23 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the com.github.lainsce.quilter package.
-# ALBANO BATTISTELLA <albano_battistella@hotmail.com>, 2021.
+# Turkish translation for io.github.lainsce.Quilter
+# Copyright (C) 2024 io.github.lainsce.Quilter'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Quilter package.
+#
+# Sabri Ünal <libreajans@gmail.com>, 2024.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: com.github.lainsce.quilter\n"
+"Project-Id-Version: io.github.lainsce.Quilter\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-08 00:47+0300\n"
-"PO-Revision-Date: 2021-09-11 18:00+0100\n"
-"Last-Translator: Albano Battistella\n"
-"Language-Team: it\n"
-"Language: it\n"
+"PO-Revision-Date: 2024-01-08 01:53+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Türkçe <takim@gnome.org.tr>\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4\n"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:6
 #: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
@@ -26,113 +27,117 @@ msgstr "Quilter"
 #: data/io.github.lainsce.Quilter.appdata.xml.in:7
 #: data/io.github.lainsce.Quilter.desktop.in:4
 msgid "Focus on your writing"
-msgstr ""
+msgstr "Yazınıza odaklanın"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
 "Focus on your writing and write beautiful solid stories with the Focus Mode "
 "in tow in this Markdown editor"
 msgstr ""
+"Markdown düzenleyicideki Odak Kipi ile yazınıza odaklanın ve güzel, sağlam "
+"hikayeler yazın"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:11
 msgid "Work on a story, one file displayed at a time, many files sidebar'd."
 msgstr ""
+"Bir hikaye üzerinde çalışın, her seferinde tek dosya görüntülenir, diğer "
+"dosyalar yan çubuğa eklenir."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:12
 msgid "Save your documents anywhere, even on existing files."
-msgstr ""
+msgstr "Belgelerinizi her yere, hatta var olan dosyalara kaydedin."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:13
 msgid "Preview your story in the Preview Mode."
-msgstr ""
+msgstr "Hikayenizi ön izleme kipinde ön izleyin."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:14
 msgid "Configure whether to have Focus Mode or not."
-msgstr ""
+msgstr "Odak kipi kullanma durumunu yapılandırın."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:15
 msgid "Configure whether to have Dark Mode or not."
-msgstr ""
+msgstr "Koyu kipi kullanma durumunu yapılandırın."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:16
 msgid "Configure whether to have Sepia Mode or not."
-msgstr ""
+msgstr "Sepya kipi kullanma durumunu yapılandırın."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:17
 msgid "Fullscreen your writing area with F11."
-msgstr ""
+msgstr "F11 ile yazı alanınızı tam ekran yapın."
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:18
 msgid "Search anytime with the shortcut Ctrl + F"
-msgstr ""
+msgstr "Ctrl + F kısayoluyla istediğiniz zaman arama yapın"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:19
 msgid "Quit anytime with the shortcut Ctrl + Q"
-msgstr ""
+msgstr "Ctrl + Q kısayoluyla istediğiniz zaman çıkın"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:122
 msgid "Light Mode"
-msgstr ""
+msgstr "Açık Kip"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:126
 msgid "Sepia Mode"
-msgstr "Tema scuro"
+msgstr "Sepya Kip"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:130
 msgid "Dark Mode"
-msgstr "Tema scuro"
+msgstr "Koyu Kip"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
 msgid "Focus Mode"
-msgstr "Modalità focus"
+msgstr "Odak Kipi"
 
 #: data/io.github.lainsce.Quilter.appdata.xml.in:138
 msgid "Preview Mode"
-msgstr "Anteprima"
+msgstr "Ön İzleme Kipi"
 
 #: data/io.github.lainsce.Quilter.desktop.in:7
 msgid "Text;Markdown;Editor;"
-msgstr ""
+msgstr "Metin;Markdown;Düzenleyici"
 
 #: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
-msgstr "Guida Markdown"
+msgstr "Markdown Kopya Kağıdı"
 
 #: data/ui/cheatsheet.ui:13
 msgid "Common"
-msgstr "Comune"
+msgstr "Genel"
 
 #: data/ui/cheatsheet.ui:16
 msgid "Text"
-msgstr "Testo"
+msgstr "Metin"
 
 #: data/ui/cheatsheet.ui:20
 msgid "Bold"
-msgstr "Grassetto"
+msgstr "Kalın"
 
 #: data/ui/cheatsheet.ui:25
 msgid "**Bold text**"
-msgstr "**Testo in Grassetto**"
+msgstr "**Kalın metin**"
 
 #: data/ui/cheatsheet.ui:36
 msgid "Italics"
-msgstr "Corsivo"
+msgstr "Eğik"
 
 #: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
-msgstr "**Testo in corsivo**"
+msgstr "**Eğik metin**"
 
 #: data/ui/cheatsheet.ui:52
 msgid "Code Line"
-msgstr "Riga di codice"
+msgstr "Kod Satırı"
 
 #: data/ui/cheatsheet.ui:57
 msgid "`code text`"
-msgstr " testo del codice "
+msgstr "`kod metni`"
 
 #: data/ui/cheatsheet.ui:68
 msgid "Code Block"
-msgstr "Blocco codice"
+msgstr "Kod Bloğu"
 
 #: data/ui/cheatsheet.ui:73
 msgid ""
@@ -141,12 +146,12 @@ msgid ""
 "```"
 msgstr ""
 "```\n"
-"testo codice\n"
+"kod metni\n"
 "```"
 
 #: data/ui/cheatsheet.ui:86
 msgid "Quoting"
-msgstr ""
+msgstr "Alıntı"
 
 #: data/ui/cheatsheet.ui:91
 msgid ""
@@ -154,10 +159,13 @@ msgid ""
 "> something\n"
 "> here"
 msgstr ""
+"> Bu\n"
+"> metni\n"
+"> alıntıla"
 
 #: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 msgid "Headers"
-msgstr "Intestazioni"
+msgstr "Başlıklar"
 
 #: data/ui/cheatsheet.ui:117
 msgid ""
@@ -166,91 +174,102 @@ msgid ""
 "### Section\n"
 "..."
 msgstr ""
+"# Başlık\n"
+"## Alt Başlık\n"
+"### Bölüm\n"
+"..."
 
 #: data/ui/cheatsheet.ui:128
 msgid "Links"
-msgstr "Link"
+msgstr "Bağlantılar"
 
 #: data/ui/cheatsheet.ui:133
-#, fuzzy
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
-msgstr "[Nome link](http://link.indirizzo.com)"
+msgstr ""
+"[Bağlantı Etiketi](http://link.url.com)\n"
+"![Görüntü Etiketil](http://image.url.com)"
 
 #: data/ui/cheatsheet.ui:146
 msgid "Extras"
-msgstr "Extra"
+msgstr "Ek Özellikler"
 
 #: data/ui/cheatsheet.ui:150
 msgid "Strikethrough"
-msgstr "barrato"
+msgstr "Üstü Çizili"
 
 #: data/ui/cheatsheet.ui:155
 msgid "~~Striked through text~~"
-msgstr "~~Barrato attraverso il testo~~"
+msgstr "~~Üstü çizili metin~~"
 
 #: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
-msgstr ""
+msgstr "Alt Simge/Üst Simge"
 
 #: data/ui/cheatsheet.ui:171
 msgid ""
 "Subscript:  H~2~O\n"
 "Superscript:\t1^st^"
 msgstr ""
+"Alt simge:  H~2~O\n"
+"Üst simge:\t1^st^"
 
 #: data/ui/cheatsheet.ui:180
 msgid "Horzontal Rule"
-msgstr "Regola orizzontale"
+msgstr "Yatay Çizgi"
 
 #: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
-msgstr "Usa: --- o ***"
+msgstr "Kullanımı: --- ya da ***"
 
 #: data/ui/cheatsheet.ui:200
 msgid "Special"
-msgstr "Speciale"
+msgstr "Özel"
 
 #: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
-msgstr "Estensioni"
+msgstr "Uzantılar"
 
 #: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
-msgstr "Matematica LaTeX"
+msgstr "LaTeX Matematik"
 
 #: data/ui/cheatsheet.ui:212
 msgid ""
 "$$…$$\tfor equation block\n"
 "\\\\(…\\\\)\t\tfor inline equation"
 msgstr ""
+"$$…$$\tdenklem bloğu için\n"
+"\\\\(…\\\\)\t\tsatı içi denklem için"
 
 #: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
-msgstr ""
+msgstr "Mermaid.js Grafikleri"
 
 #: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
-msgstr ""
+msgstr "<div class=\"mermaid\">...</div>"
 
 #: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
-msgstr "Caselle di controllo"
+msgstr "Onay Kutuları"
 
 #: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
-msgstr "Attenzione al periodo per evitare collisioni."
+msgstr "Çakışmaları önlemek için noktaya dikkat edin."
 
 #: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
 msgstr ""
+"- [\t] Boş.\n"
+"- [x] Onaylanmış."
 
 #: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
-msgstr "Tabelle"
+msgstr "Tablo"
 
 #: data/ui/cheatsheet.ui:265
 msgid ""
@@ -258,10 +277,13 @@ msgid ""
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 msgstr ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
 
 #: data/ui/cheatsheet.ui:278
 msgid "Options"
-msgstr "Opzioni"
+msgstr "Seçenekler"
 
 #: data/ui/cheatsheet.ui:283
 msgid ""
@@ -271,660 +293,519 @@ msgid ""
 msgstr ""
 
 #: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
-#, fuzzy
 msgid "Files"
-msgstr "Tutti i file"
+msgstr "Dosyalar"
 
 #: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 msgid "Document"
-msgstr "Documento"
+msgstr "Belge"
 
 #: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
-msgstr ""
+msgstr "/Klasör/Belge.md :file"
 
 #: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
-msgstr "Immagine"
+msgstr "Görüntü"
 
 #: data/ui/cheatsheet.ui:319
 msgid "/Folder/Image.png :image"
-msgstr ""
+msgstr "/Klasör/Görüntü.png :image"
 
 #: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
 #: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
 #: src/Services/ExportUtils.vala:191
 msgid "Save"
-msgstr "Salva"
+msgstr "Kaydet"
 
 #: data/ui/headerbar.ui:21
 msgid "Save As…"
-msgstr "Salva come…"
+msgstr "Farklı Kaydet…"
 
 #: data/ui/headerbar.ui:35
 msgid "Export HTML…"
-msgstr "Esporta HTML…"
+msgstr "HTML Dışa Aktar.."
 
 #: data/ui/headerbar.ui:45
 msgid "Export PDF…"
-msgstr "Esporta PDF…"
+msgstr "PDF Dışa Aktar.."
 
 #: data/ui/headerbar.ui:61
 msgid "Show/Hide the sidebar"
-msgstr "Mostra/Nascondi la barra laterale"
+msgstr "Kenar çubuğunu göster/gizle"
 
 #: data/ui/headerbar.ui:77
 msgid "Save the current file"
-msgstr "Salva il file corrente"
+msgstr "Geçerli dosyayı kaydet"
 
 #: data/ui/headerbar.ui:88
 msgid "Create a new document"
-msgstr "Crea un nuovo documento"
+msgstr "Yeni belge oluştur"
 
 #: data/ui/headerbar.ui:98
 msgid "Open"
-msgstr "Apri"
+msgstr "Aç"
 
 #: data/ui/headerbar.ui:99
 msgid "Open a file"
-msgstr "Apri un file"
+msgstr "Dosya aç"
 
 #: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 msgid "View Type"
-msgstr "Visualizza tipo"
+msgstr "Görünüm Tipi"
 
 #: data/ui/headerbar.ui:125
 msgid "Editor or Preview, change via menu"
-msgstr "Editor o Anteprima, modifica tramite menu"
+msgstr "Düzenleyici ya da Önizleme, menü ile değiştirin"
 
 #: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
 msgid "Full-Width"
-msgstr "Intera larghezza"
+msgstr "Tam Genişlik"
 
 #: data/ui/headerbar.ui:136
 msgid "Editor and Preview, side by side"
-msgstr "Editor and Preview, side by side"
+msgstr "Düzenleyici ve Önizleme, yan yana"
 
 #: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
 msgid "Half-Width"
-msgstr "A metà larghezza"
+msgstr "Yarım Genişlik"
 
 #: data/ui/headerbar.ui:197
 msgid "About Quilter"
-msgstr "Informazioni su Quilter"
+msgstr "Quilter Hakkında"
 
 #: data/ui/headerbar.ui:207
 msgid "Keyboard Shortcuts"
-msgstr "Scorciatoie da tastiera"
+msgstr "Klavye Kısayolları"
 
 #: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
 msgid "Preferences"
-msgstr "Preferenze"
+msgstr "Tercihler"
 
 #: data/ui/headerbar.ui:251
 msgid "Find and Replace…"
-msgstr "Trova e Sostituisci…"
+msgstr "Bul ve Değiştir…"
 
 #: data/ui/prefs_window.ui:11
 msgid "Editor"
-msgstr "Editor"
+msgstr "Düzenleyici"
 
 #: data/ui/prefs_window.ui:17
 msgid "Font"
-msgstr "Font"
+msgstr "Yazı Tipi"
 
 #: data/ui/prefs_window.ui:21
-#, fuzzy
 msgid "Quilt Mono"
-msgstr "Quilter"
+msgstr "Quilt Mono"
 
 #: data/ui/prefs_window.ui:22
-#, fuzzy
 msgid "Quilt Zwei"
-msgstr "Quilter"
+msgstr "Quilt Zwei"
 
 #: data/ui/prefs_window.ui:23
-#, fuzzy
 msgid "Quilt Vier"
-msgstr "Quilter"
+msgstr "Quilt Vier"
 
 #: data/ui/prefs_window.ui:43
 msgid "Interface"
-msgstr "Interfaccia"
+msgstr "Arayüz"
 
 #: data/ui/prefs_window.ui:46
 msgid "Focus Scope"
-msgstr "Modalità focus"
+msgstr "Odak Kapsamı"
 
 #: data/ui/prefs_window.ui:54
 msgid "Paragraph"
-msgstr ""
+msgstr "Paragraf"
 
 #: data/ui/prefs_window.ui:60
-#, fuzzy
 msgid "Sentence"
-msgstr "Frasi"
+msgstr "Cümle"
 
 #: data/ui/prefs_window.ui:73
 msgid "Typewriter Scrolling"
-msgstr "Scorrimento macchina da scrivere"
+msgstr "Daktilo Kaydırma"
 
 #: data/ui/prefs_window.ui:83
-#, fuzzy
 msgid "Document Tracker"
-msgstr "Documento"
+msgstr "Belge İzleyici"
 
 #: data/ui/prefs_window.ui:84
-#, fuzzy
 msgid "Tracks words, sentences or reading time."
-msgstr "Traccia parole, frasi o tempo di lettura qui"
+msgstr "Sözcükleri, cümleleri ya da okuma süresini izler."
 
 #: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
-#, fuzzy
 msgid "Highlight"
-msgstr "Evidenzia codice"
+msgstr "Vurgu"
 
 #: data/ui/prefs_window.ui:99
-#, fuzzy
 msgid "Speech Parts (Beta)"
-msgstr "Evidenzia le parti del discorso (beta)"
+msgstr "Konuşma Parçaları (Beta)"
 
 #: data/ui/prefs_window.ui:100
 msgid "Only available in English"
-msgstr ""
+msgstr "Sadece İngilizce olarak kullanılabilir"
 
 #: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
 msgid "Preview"
-msgstr "Anteprima"
+msgstr "Ön izle"
 
 #: data/ui/prefs_window.ui:118
 msgid "General"
-msgstr "Generale"
+msgstr "Genel"
 
 #: data/ui/prefs_window.ui:121
-#, fuzzy
 msgid "Preview Font"
-msgstr "Anteprima Tipo di Font"
+msgstr "Ön İzleme Yazı Tipi"
 
 #: data/ui/prefs_window.ui:125
 msgid "Serif"
-msgstr ""
+msgstr "Serif"
 
 #: data/ui/prefs_window.ui:126
 msgid "Sans-serif"
-msgstr ""
+msgstr "Sans-serif"
 
 #: data/ui/prefs_window.ui:127
 msgid "Monospace"
-msgstr ""
+msgstr "Eş aralıklı"
 
 #: data/ui/prefs_window.ui:135
 msgid "Header Centering"
-msgstr "Centratura dell'intestazione"
+msgstr "Başlık Ortalama"
 
 #: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
-msgstr "questo riguarda #, ##, e ### intestazioni."
+msgstr "Bu, #, ##, ve ### başlıklarını etkiler."
 
 #: data/ui/prefs_window.ui:151
 msgid "Code Highlight"
-msgstr "Evidenzia codice"
+msgstr "Kod Vurgusu"
 
 #: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
-msgstr "I blocchi di codice avranno il contenuto che riceve il colore."
+msgstr "Kod blokları içerik rengini alacak."
 
 #: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
-msgstr "I blocchi matematici di LaTeX verranno elaborati nell'output di LaTeX."
+msgstr "LaTeX matematik blokları LaTeX çıktısına işlenecek."
 
 #: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
-msgstr ""
+msgstr "Mermaid.js Grafiği"
 
 #: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
-msgstr ""
+msgstr "Mermaid blokları grafiklere dönüşecek."
 
 #: data/ui/searchbar.ui:22
 msgid "Replace…"
-msgstr "Sostituisci…"
+msgstr "Değiştir…"
 
 #: data/ui/searchbar.ui:27
 msgid "Replace"
-msgstr "Sostituisci"
+msgstr "Değiştir"
 
 #: data/ui/searchbar.ui:32
 msgid "Replace All"
-msgstr "Sostituisci tutto"
+msgstr "Tümünü Değiştir"
 
 #: data/ui/searchbar.ui:45
 msgid "Find…"
-msgstr "Trova…"
+msgstr "Bul…"
 
 #: data/ui/shortcuts.ui:15
 msgctxt "shortcut window"
 msgid "General"
-msgstr "Generale"
+msgstr "Genel"
 
 #: data/ui/shortcuts.ui:20
 msgctxt "shortcut window"
 msgid "Quit"
-msgstr "Esci"
+msgstr "Çık"
 
 #: data/ui/shortcuts.ui:27
 msgctxt "shortcut window"
 msgid "New Document"
-msgstr "Nuovo Documento"
+msgstr "Yeni Belge"
 
 #: data/ui/shortcuts.ui:34
 msgctxt "shortcut window"
 msgid "Save Document"
-msgstr "Salva Documento"
+msgstr "Belgeyi Kaydet"
 
 #: data/ui/shortcuts.ui:41
 msgctxt "shortcut window"
 msgid "Save Document As"
-msgstr "Salva Documento COme"
+msgstr "Belgeyi Farklı Kaydet"
 
 #: data/ui/shortcuts.ui:48
 msgctxt "shortcut window"
 msgid "Open Document"
-msgstr "Apri Documento"
+msgstr "Belge Aç"
 
 #: data/ui/shortcuts.ui:55
 msgctxt "shortcut window"
 msgid "Begin Search"
-msgstr "Inizia Ricerca"
+msgstr "Aramaya Başla"
 
 #: data/ui/shortcuts.ui:62
 msgctxt "shortcut window"
 msgid "Undo"
-msgstr "Annulla"
+msgstr "Geri Al"
 
 #: data/ui/shortcuts.ui:69
 msgctxt "shortcut window"
 msgid "Redo"
-msgstr "Indietro"
+msgstr "Yinele"
 
 #: data/ui/shortcuts.ui:76
 msgctxt "shortcut window"
 msgid "Go Fullscreen"
-msgstr "Vai a schermo intero"
+msgstr "Tam Ekran"
 
 #: data/ui/shortcuts.ui:84
 msgctxt "shortcut window"
 msgid "Interface"
-msgstr "Interfaccia"
+msgstr "Arayüz"
 
 #: data/ui/shortcuts.ui:89
 msgctxt "shortcut window"
 msgid "Markdown Cheatsheet"
-msgstr "Guida Markdown"
+msgstr "Markdown Kopya Kağıdı"
 
 #: data/ui/shortcuts.ui:96
 msgctxt "shortcut window"
 msgid "Switch Editor/Preview"
-msgstr "Cambia editor/anteprima"
+msgstr "Düzenleyici/Ön İzleme Arasında Geçiş Yap"
 
 #: data/ui/shortcuts.ui:103
 msgctxt "shortcut window"
 msgid "Show/Hide Sidebar"
-msgstr "Mostra/Nascondi barra laterale"
+msgstr "Kenar Çubuğunu Göster/Gizle"
 
 #: data/ui/shortcuts.ui:110
 msgctxt "shortcut window"
 msgid "Switch to/from Focus Mode"
-msgstr "Passa alla/dalla modalità di messa a fuoco"
+msgstr "Odak Kipini Değiştir"
 
 #: data/ui/shortcuts.ui:118
 msgctxt "shortcut window"
 msgid "Exporting"
-msgstr "Esportazione"
+msgstr "Dışa Aktarma"
 
 #: data/ui/shortcuts.ui:123
 msgctxt "shortcut window"
 msgid "Export to HTML"
-msgstr "Esporta in HTML"
+msgstr "HTML Olarak Dışa Aktar"
 
 #: data/ui/shortcuts.ui:130
 msgctxt "shortcut window"
 msgid "Export to PDF"
-msgstr "Esporta in PDF"
+msgstr "PDF Olarak Dışa Aktar"
 
 #: data/ui/sidebarbox.ui:16
 msgid "Remove file from sidebar"
-msgstr "Rimuovi file dalla barra laterale"
+msgstr "Dosyayı kenar çubuğundan kaldır"
 
 #: data/ui/sidebar.ui:42
 msgid "No Files"
-msgstr "Nessun File"
+msgstr "Dosya Yok"
 
 #: data/ui/sidebar.ui:59
 msgid "Outline"
-msgstr "Contorno"
+msgstr "Anahat"
 
 #: data/ui/statusbar.ui:13
 msgid "Words"
-msgstr "Parole"
+msgstr "Sözcük"
 
 #: data/ui/statusbar.ui:19
 msgid "Sentences"
-msgstr "Frasi"
+msgstr "Cümle"
 
 #: data/ui/statusbar.ui:25
 msgid "Reading Time"
-msgstr "Tempo di lettura"
+msgstr "Okuma Süresi"
 
 #: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
-msgstr "Traccia parole, frasi o tempo di lettura qui"
+msgstr "Sözcükleri, cümleleri ya da okuma süresini buradan izleyin"
 
 #: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
 #: src/Widgets/SideBar.vala:217
 msgid "New Document"
-msgstr "Nuovo Documento"
+msgstr "Yeni Belge"
 
 #: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
 #: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
 msgid "Not Saved Yet"
-msgstr "Non ancora salvato"
+msgstr "Henüz Kaydedilmedi"
 
 #: src/MainWindow.vala:349
 msgid "Exit focus mode"
-msgstr "Esci dalla modalità focus"
+msgstr "Odak kipinden çık"
 
 #: src/MainWindow.vala:571
 msgid "Edit"
-msgstr "Modifica"
+msgstr "Düzenle"
 
 #: src/MainWindow.vala:727
 msgid "Focus on your writing."
-msgstr "Concentrati sulla tua scrittura."
+msgstr "Yazılarınıza odaklanın."
 
 #: src/MainWindow.vala:733
 msgid "translator-credits"
-msgstr "Albano Battistella"
+msgstr "Sabri Ünal <libreajans@gmail.com>"
 
 #: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
-#, fuzzy
 msgid "Load a Checkbox"
-msgstr "Caselle di controllo"
+msgstr "Onay Kutusu Yükle"
 
 #: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
-#, fuzzy
 msgid "Checkbox"
-msgstr "Caselle di controllo"
+msgstr "Onay Kutusu"
 
 #: src/Plugins/Filep.vala:28
 msgid "Load an embeded file"
-msgstr ""
+msgstr "Gömülü dosya yükle"
 
 #: src/Plugins/Filep.vala:32
-#, fuzzy
 msgid "File"
-msgstr "Tutti i file"
+msgstr "Dosya"
 
 #: src/Plugins/Highlighter.vala:28
 msgid "Highlight text in marker yellow."
-msgstr ""
+msgstr "Metni sarı işaretleyici ile vurgula."
 
 #: src/Plugins/Image.vala:28
 msgid "Load an embeded image"
-msgstr ""
+msgstr "Gömülü görüntü yükle"
 
 #: src/Plugins/Subscript.vala:28
 msgid "Make text on the bottom."
-msgstr ""
+msgstr "Altta metin oluştur."
 
 #: src/Plugins/Subscript.vala:32
 msgid "Subscript"
-msgstr ""
+msgstr "Alt Simge"
 
 #: src/Plugins/Superscript.vala:28
 msgid "Make text float."
-msgstr ""
+msgstr "Metni yüzdür."
 
 #: src/Plugins/Superscript.vala:32
 msgid "Superscript"
-msgstr ""
+msgstr "Üst Simge"
 
 #: src/Services/DialogUtils.vala:21
 msgid "Markdown files"
-msgstr "File markdown"
+msgstr "Markdown dosyaları"
 
 #: src/Services/DialogUtils.vala:25
 msgid "All files"
-msgstr "Tutti i file"
+msgstr "Tüm dosyalar"
 
 #: src/Services/DialogUtils.vala:36
 msgid "Save Open File?"
-msgstr "Salvare file aperto?"
+msgstr "Açık Dosya Kaydedilsin Mi?"
 
 #: src/Services/DialogUtils.vala:37
 msgid ""
 "There are unsaved changes to the file, any changes will be lost if not saved."
 msgstr ""
-"Sono presenti modifiche non salvate al file, eventuali modifiche andranno "
-"perse se non salvate."
+"Dosyada kaydedilmemiş değişiklikler var. Kaydetmezseniz tüm değişiklikler "
+"kaybolacak."
 
 #: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
 #: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
 msgid "Cancel"
-msgstr "Cancella"
+msgstr "İptal"
 
 #: src/Services/DialogUtils.vala:41
 msgid "Close Without Saving"
-msgstr "Chiudi senza salvare"
+msgstr "Kaydetmeden Kapat"
 
 #: src/Services/DialogUtils.vala:52
 msgid "Remove File From Sidebar?"
-msgstr "Rimuovere il file dalla barra laterale?"
+msgstr "Dosya Kenar Çubuğundan Kaldırılsın Mı?"
 
 #: src/Services/DialogUtils.vala:53
 msgid ""
 "By removing this file from the Sidebar, any changes will be lost if not "
 "saved."
 msgstr ""
-"Rimuovendo questo file dalla barra laterale, tutte le modifiche andranno "
-"perse se non salvate."
+"Bu dosyayı Kenar Çubuğundan kaldırdığınızda, kaydedilmediği takdirde tüm "
+"değişiklikler kaybolacak."
 
 #: src/Services/DialogUtils.vala:57
 msgid "Remove Without Saving"
-msgstr "Rimuovi Senza Salvare"
+msgstr "Kaydetmeden Kaldır"
 
 #: src/Services/ExportUtils.vala:84
 msgid "Print to File"
-msgstr "Stampa su file"
+msgstr "Dosyaya Yazdır"
 
 #: src/Services/ExportUtils.vala:142
 msgid "Select Destination PDF File"
-msgstr "Seleziona il file PDF di destinazione"
+msgstr "Hedef PDF Dosyasını Seç"
 
 #: src/Services/ExportUtils.vala:147
 msgid "PDF File"
-msgstr "File PDF"
+msgstr "PDF Dosyası"
 
 #: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
 msgid "All Files"
-msgstr "Tutti i file"
+msgstr "Tüm Dosyalar"
 
 #: src/Services/ExportUtils.vala:189
 msgid "Select Destination HTML File"
-msgstr "Seleziona il file HTML di destinazione"
+msgstr "Hedef HTML Dosyasını Seç"
 
 #: src/Services/ExportUtils.vala:194
 msgid "HTML File"
-msgstr "File HTML"
+msgstr "HTML Dosyası"
 
 #: src/Services/FileManager.vala:89
 msgid "Open File"
-msgstr "Apri file"
+msgstr "Dosya Aç"
 
 #: src/Services/FileManager.vala:101
 msgid "Save File"
-msgstr "Salva File"
+msgstr "Dosya Kaydet"
 
 #: src/Widgets/HeaderBar.vala:108
 msgid "Rename"
-msgstr "Rinomina"
+msgstr "Yeniden Adlandır"
 
 #: src/Widgets/HeaderBar.vala:130
 msgid "Rename File:"
-msgstr "Rinomina File:"
+msgstr "Dosyayı Yeniden Adlandır:"
 
 #: src/Widgets/HeaderBar.vala:146
 msgid "Rename File"
-msgstr "Rinomina file"
+msgstr "Dosyayı Yeniden Adlandır"
 
 #: src/Widgets/HeaderBar.vala:149
 msgid "new_name.md"
-msgstr "nuovo_nome.md"
+msgstr "yeni_ad.md"
 
 #: src/Widgets/HeaderBar.vala:155
 msgid "Toggle View"
-msgstr "Attiva Vista"
+msgstr "Görünümü Değiştir"
 
 #: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
 msgid "New File"
-msgstr "Nuovo File"
+msgstr "Yeni Dosya"
 
 #: src/Widgets/StatusBar.vala:77
 msgid "Words: "
-msgstr "Parole:"
+msgstr "Sözcük: "
 
 #: src/Widgets/StatusBar.vala:82
 msgid "Sentences: "
-msgstr "Frasi: "
+msgstr "Cümle: "
 
 #: src/Widgets/StatusBar.vala:88
 msgid "Reading Time: "
-msgstr "Tempo di lettura:"
-
-#~ msgid "Go Back"
-#~ msgstr "Indietro"
-
-#~ msgid "Appearance"
-#~ msgstr "Aspetto"
-
-#~ msgid "Visual Mode"
-#~ msgstr "Modalità visiva"
-
-#~ msgid "Sidebar"
-#~ msgstr "Barra laterale"
-
-#~ msgid "Autosave Delay"
-#~ msgstr "Ritardo salvataggio automatico"
-
-#~ msgid "Values below 15s affects the storage medium negatively."
-#~ msgstr ""
-#~ "I valori inferiori a 15s influiscono negativamente sul supporto di "
-#~ "memorizzazione."
-
-#~ msgid "Type"
-#~ msgstr "Tipo"
-
-#~ msgid "Focus Mode…"
-#~ msgstr "Modalità focus…"
-
-#~ msgid "Settings"
-#~ msgstr "Impostazioni"
-
-#~ msgid "Rename the File:"
-#~ msgstr "Rinominare il file:"
-
-#~ msgid "No files…"
-#~ msgstr "Nessun file…"
-
-#~ msgid "Cheatsheet"
-#~ msgstr "Guida"
-
-#~ msgid "Headers & Text"
-#~ msgstr "Intestazioni e testo"
-
-#~ msgid "## Header 2"
-#~ msgstr "## Titolo 2"
-
-#~ msgid "### Header 3"
-#~ msgstr "### Titolo 3"
-
-#~ msgid "* Emphasized *"
-#~ msgstr "* Enfatizzato *"
-
-#~ msgid "> Quote"
-#~ msgstr "> Citazione"
-
-#~ msgid "New file"
-#~ msgstr "Nuovo"
-
-#~ msgid "Open…"
-#~ msgstr "Apri…"
-
-#~ msgid "Interface Modes"
-#~ msgstr "Modalità interfaccia"
-
-#~ msgid "Geometry"
-#~ msgstr "Geometria"
-
-#~ msgid "Spellchecking:"
-#~ msgstr "Controllo ortografico:"
-
-#~ msgid "Modes"
-#~ msgstr "Modalità"
-
-#~ msgid "Track Read Time"
-#~ msgstr "Traccia Tempo di lettura"
-
-#~ msgid "Links & Special"
-#~ msgstr "Link e speciali"
-
-#~ msgid "Close"
-#~ msgstr "Chiudi"
-
-#~ msgid "#### Heading 4"
-#~ msgstr "#### Titolo 4"
-
-#~ msgid "##### Heading 5"
-#~ msgstr "##### Titolo 5"
-
-#~ msgid "###### Heading 6"
-#~ msgstr "###### Titolo 6"
-
-#~ msgid "Special Text"
-#~ msgstr "Testo speciale"
-
-#~ msgid "![Image Label](http://image.url.here.com)"
-#~ msgstr "![Nome immagine](http://indirizzo.immagine.com)"
-
-#~ msgid "To make a column's content go to the left, change --- to :--- ."
-#~ msgstr ""
-#~ "Per allineare il contenuto di una colonna a sinistra, cambia --- "
-#~ "con :--- ."
-
-#~ msgid "To make a column's content centered, change --- to :---: ."
-#~ msgstr "Per centrare il contenuto di una colonna, cambia --- con :---: ."
-
-#~ msgid "To make a column's content go to the right, change --- to ---: ."
-#~ msgstr ""
-#~ "Per allineare il contenuto di una colonna a destra, cambia --- con ---: ."
-
-#~ msgid "Moon Mode"
-#~ msgstr "Modalità focus"
-
-#~ msgid "Spacing of Text:"
-#~ msgstr "Spaziatura del testo"
-
-#~ msgid "Small"
-#~ msgstr "Piccolo"
-
-#~ msgid "Normal"
-#~ msgstr "Normale"
-
-#~ msgid "Large"
-#~ msgstr "Grande"
-
-#~ msgid "Enable Focus Mode:"
-#~ msgstr "Attiva modalità focus"
-
-#~ msgid "Show Statusbar:"
-#~ msgstr "Mostra barra di stato"
+msgstr "Okunma Süresi: "

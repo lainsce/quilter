@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: 2021-02-12 14:58+0100\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: \n"
@@ -17,197 +17,128 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Documento nuevo"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr "Sin guardar todavía"
-
-#: src/MainWindow.vala:405
-msgid "Exit focus mode"
-msgstr "Salir del modo concentración"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Editar"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Previsualización"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
-msgstr "Concéntrese en su escritura."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr "Concéntrate en tu escritura"
 
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr "Óscar Fernández Díaz"
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "Archivos de Markdown"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Todos los archivos"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "¿Guardar el archivo abierto?"
-
-#: src/Services/DialogUtils.vala:37
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
-msgstr "Hay cambios sin guardar en el archivo, cualquier cambio se perderá."
-
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Guardar"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Cerrar sin guardar"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Cancelar"
-
-#: src/Services/DialogUtils.vala:52
-msgid "Remove File From Sidebar?"
-msgstr "¿Eliminar archivo de la barra lateral?"
-
-#: src/Services/DialogUtils.vala:53
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
 msgstr ""
-"Al eliminar este archivo de la barra lateral, cualquier cambio se perderá."
+"Concéntrate en tu escritura y escribe bellas y sólidas historias con el modo "
+"concentración en este editor Markdown"
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Eliminar sin guardar"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
+msgstr ""
+"Trabaja en una historia, un archivo que se muestra a la vez, muchos archivos "
+"en la barra lateral."
 
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Imprimir a archivo"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
+"Guardar tus documentos en cualquier lugar, incluso en archivos existentes."
 
-#: src/Services/ExportUtils.vala:142
-msgid "Select Destination PDF File"
-msgstr "Seleccionar archivo PDF de destino"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Previsualiza tu historia en el modo de vista previa."
 
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "Archivo PDF"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Configura si deseas tener el modo concentración o no."
 
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Todos los archivos"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Configura si quieres tener el modo oscuro o no."
 
-#: src/Services/ExportUtils.vala:191
-msgid "Select Destination HTML File"
-msgstr "Seleccionar archivo HTML de destino"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Configura si quieres tener el modo sepia o no."
 
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "Archivo HTML"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "Poner en pantalla completa el área de escritura con F11."
 
-#: src/Services/FileManager.vala:89
-msgid "Open File"
-msgstr "Abrir archivo"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Buscar en cualquier momento con el atajo de teclado Ctrl + F"
 
-#: src/Services/FileManager.vala:102
-msgid "Save File"
-msgstr "Guardar archivo"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Salir en cualquier momento con el atajo Ctrl + Q"
 
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr "Renombrar"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr "Modo claro"
 
-#: src/Widgets/HeaderBar.vala:136
-msgid "Rename File:"
-msgstr "Renombrar archivo:"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Modo sepia"
 
-#: src/Widgets/HeaderBar.vala:153
-msgid "Rename File"
-msgstr "Renombrar archivo"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Modo oscuro"
 
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr "nombre_nuevo.md"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Modo concentración"
 
-#: src/Widgets/HeaderBar.vala:163
-msgid "Toggle View"
-msgstr "Alternar vista"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Modo de vista previa"
 
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Archivo nuevo"
+#: data/io.github.lainsce.Quilter.desktop.in:7
+msgid "Text;Markdown;Editor;"
+msgstr "Text;Markdown;Editor;Texto;"
 
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Palabras: "
-
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
-msgstr "Frases: "
-
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Tiempo de lectura: "
-
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Uso de Markdown"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr "Común"
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Texto"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr "Negrita"
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 msgid "**Bold text**"
 msgstr "**Texto en negrita**"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr "Cursiva"
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr "**Texto en cursiva**"
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 msgid "Code Line"
 msgstr "Línea de código"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr "`texto de código`"
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 msgid "Code Block"
 msgstr "Bloque de código"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
@@ -217,11 +148,11 @@ msgstr ""
 "texto de código\n"
 "```"
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr "Citando"
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
@@ -231,11 +162,11 @@ msgstr ""
 "> algo\n"
 "> aquí"
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 msgid "Headers"
 msgstr "Encabezados"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -247,11 +178,11 @@ msgstr ""
 "### Sección\n"
 "..."
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Enlaces"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
@@ -259,51 +190,52 @@ msgstr ""
 "[Etiqueta de enlace](http://link.url.com)\n"
 "![Etiqueta de imagen](http://image.url.com)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr "Extras"
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 msgid "Strikethrough"
 msgstr "Tachado"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 msgid "~~Striked through text~~"
 msgstr "~~Texto tachado~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr "Sub/Superíndice"
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
+#, fuzzy
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
 msgstr ""
 "Subíndice:\t\t    H~2~O\n"
 "Superíndice:\t\t1^o^"
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 msgid "Horzontal Rule"
 msgstr "Regla horizontal"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr "Usar: --- o ***"
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Especial"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Extensiones"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr "LaTeX Math"
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 msgid ""
 "$$…$$\tfor equation block\n"
 "\\\\(…\\\\)\t\tfor inline equation"
@@ -311,23 +243,23 @@ msgstr ""
 "$$…$$\tpara el bloque de ecuaciones\n"
 "\\\\(…\\\\)\t\tpara la ecuación en línea"
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
 msgstr "Gráficos Mermaid.js"
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
 msgstr "<div class=\"mermaid\">...</div>"
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr "Casillas de verificación"
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
 msgstr "Cuidado con el periodo para evitar colisiones."
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
@@ -335,11 +267,11 @@ msgstr ""
 "- [\t] Vacío.\n"
 "- [x] Marcado."
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Tablas"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
@@ -349,11 +281,11 @@ msgstr ""
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr "Opciones"
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 msgid ""
 "Left\t\t--- \tto\t:---\n"
 "Centered    ---\tto\t:---:\n"
@@ -363,220 +295,233 @@ msgstr ""
 "Centrado    ---\ta\t:---:\n"
 "Derecha\t\t---\ta\t---: "
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 msgid "Files"
 msgstr "Archivos"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 msgid "Document"
 msgstr "Documento"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr "/Carpeta/Documento.md :archivo"
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Imagen"
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 msgid "/Folder/Image.png :image"
 msgstr "/Carpeta/Imagen.png :imagen"
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Guardar"
+
+#: data/ui/headerbar.ui:21
 msgid "Save As…"
 msgstr "Guardar como…"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 msgid "Export HTML…"
 msgstr "Exportar HTML…"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 msgid "Export PDF…"
 msgstr "Exportar PDF…"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 msgid "Show/Hide the sidebar"
 msgstr "Mostrar/Ocultar la barra lateral"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 msgid "Save the current file"
 msgstr "Guardar el archivo actual"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 msgid "Create a new document"
 msgstr "Crear un documento nuevo"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Abrir"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 msgid "Open a file"
 msgstr "Abrir un archivo"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr "Volver"
-
-#: data/ui/headerbar.ui:219
-msgid "Editor or Preview, change via menu"
-msgstr "«Editor» o «Previsualización», cambiar a través del menú"
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Anchura completa"
-
-#: data/ui/headerbar.ui:234
-msgid "Editor and Preview, side by side"
-msgstr "«Editor» y «Previsualización», uno al lado del otro"
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "Anchura media"
-
-#: data/ui/headerbar.ui:339
-msgid "Focus Mode"
-msgstr "Modo concentración"
-
-#: data/ui/headerbar.ui:351
-msgid "About Quilter"
-msgstr "Acerca de Quilter"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr "Atajos de teclado"
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Preferencias"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 msgid "View Type"
 msgstr "Tipo de vista"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr "«Editor» o «Previsualización», cambiar a través del menú"
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Anchura completa"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr "«Editor» y «Previsualización», uno al lado del otro"
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Anchura media"
+
+#: data/ui/headerbar.ui:197
+msgid "About Quilter"
+msgstr "Acerca de Quilter"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr "Atajos de teclado"
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Preferencias"
+
+#: data/ui/headerbar.ui:251
 msgid "Find and Replace…"
 msgstr "Buscar y reemplazar…"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
-msgstr "General"
-
-#: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr "Apariencia"
-
-#: data/ui/prefs_window.ui:25
-msgid "Visual Mode"
-msgstr "Modo visual"
-
-#: data/ui/prefs_window.ui:91
-msgid "Interface"
-msgstr "Interfaz"
-
-#: data/ui/prefs_window.ui:98
-msgid "Focus Scope"
-msgstr "Ámbito de concentración"
-
-#: data/ui/prefs_window.ui:149
-msgid "Typewriter Scrolling"
-msgstr "Desplazamiento de máquina de escribir"
-
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr "Barra lateral"
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
+#: data/ui/prefs_window.ui:11
 msgid "Editor"
 msgstr "Editor"
 
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr "Retardo de autoguardado"
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-"Los valores inferiores a 15s afectan negativamente al medio de "
-"almacenamiento."
-
-#: data/ui/prefs_window.ui:214
-msgid "Highlight Speech Parts (Beta)"
-msgstr "Resaltar partes del discurso (beta)"
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-"Solo disponible en inglés.\n"
-"Colorea las palabras según el tipo:\n"
-"- Sustantivos en negro\n"
-"- Verbos en azul\n"
-"- Adjetivos en amarillo\n"
-"- Adverbios en morado\n"
-"- Conjunciones en verde"
-
-#: data/ui/prefs_window.ui:237
+#: data/ui/prefs_window.ui:17
 msgid "Font"
 msgstr "Fuente"
 
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr "Tipo"
+#: data/ui/prefs_window.ui:21
+msgid "Quilt Mono"
+msgstr ""
 
-#: data/ui/prefs_window.ui:270
-msgid "Preview Font Type"
+#: data/ui/prefs_window.ui:22
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:23
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:43
+msgid "Interface"
+msgstr "Interfaz"
+
+#: data/ui/prefs_window.ui:46
+msgid "Focus Scope"
+msgstr "Ámbito de concentración"
+
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr ""
+
+#: data/ui/prefs_window.ui:60
+#, fuzzy
+msgid "Sentence"
+msgstr "Frases"
+
+#: data/ui/prefs_window.ui:73
+msgid "Typewriter Scrolling"
+msgstr "Desplazamiento de máquina de escribir"
+
+#: data/ui/prefs_window.ui:83
+#, fuzzy
+msgid "Document Tracker"
+msgstr "Documento"
+
+#: data/ui/prefs_window.ui:84
+#, fuzzy
+msgid "Tracks words, sentences or reading time."
+msgstr "Controla las palabras, frases o tiempo de lectura aquí"
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "Resaltado de código"
+
+#: data/ui/prefs_window.ui:99
+#, fuzzy
+msgid "Speech Parts (Beta)"
+msgstr "Resaltar partes del discurso (beta)"
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Previsualización"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr "General"
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Previsualización del tipo de fuente"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+msgid "Serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:126
+msgid "Sans-serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:127
+msgid "Monospace"
+msgstr ""
+
+#: data/ui/prefs_window.ui:135
 msgid "Header Centering"
 msgstr "Centrado del encabezado"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
 msgstr "Esto afecta a las cabeceras de tipo #, ## y ###."
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 msgid "Code Highlight"
 msgstr "Resaltado de código"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr "Los bloques de código reciben el contenido en color."
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr "Los bloques matemáticos de LaTeX se procesan en la salida de LaTeX."
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr "Gráficos Mermaid.js"
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
 msgstr "Los bloques de Mermaid se convierten en gráficos."
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 msgid "Replace…"
 msgstr "Reemplazar…"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 msgid "Replace"
 msgstr "Reemplazar"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 msgid "Replace All"
 msgstr "Reemplazar todo"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Buscar…"
 
@@ -670,30 +615,416 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Exportar a PDF"
 
-#: data/ui/sidebar.ui:46
-msgid "No Files"
-msgstr "Sin archivos"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Esquema"
-
 #: data/ui/sidebarbox.ui:16
 msgid "Remove file from sidebar"
 msgstr "Eliminar archivo de la barra lateral"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+msgid "No Files"
+msgstr "Sin archivos"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Esquema"
+
+#: data/ui/statusbar.ui:13
 msgid "Words"
 msgstr "Palabras"
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 msgid "Sentences"
 msgstr "Frases"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 msgid "Reading Time"
 msgstr "Tiempo de lectura"
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr "Controla las palabras, frases o tiempo de lectura aquí"
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Documento nuevo"
+
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr "Sin guardar todavía"
+
+#: src/MainWindow.vala:349
+msgid "Exit focus mode"
+msgstr "Salir del modo concentración"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Editar"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr "Concéntrese en su escritura."
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr "Óscar Fernández Díaz"
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+#, fuzzy
+msgid "Load a Checkbox"
+msgstr "Casillas de verificación"
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+#, fuzzy
+msgid "Checkbox"
+msgstr "Casillas de verificación"
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Archivos"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+#, fuzzy
+msgid "Subscript"
+msgstr "Sub/Superíndice"
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+#, fuzzy
+msgid "Superscript"
+msgstr "Sub/Superíndice"
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Archivos de Markdown"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Todos los archivos"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "¿Guardar el archivo abierto?"
+
+#: src/Services/DialogUtils.vala:37
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr "Hay cambios sin guardar en el archivo, cualquier cambio se perderá."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Cerrar sin guardar"
+
+#: src/Services/DialogUtils.vala:52
+msgid "Remove File From Sidebar?"
+msgstr "¿Eliminar archivo de la barra lateral?"
+
+#: src/Services/DialogUtils.vala:53
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Al eliminar este archivo de la barra lateral, cualquier cambio se perderá."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Eliminar sin guardar"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Imprimir a archivo"
+
+#: src/Services/ExportUtils.vala:142
+msgid "Select Destination PDF File"
+msgstr "Seleccionar archivo PDF de destino"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "Archivo PDF"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Todos los archivos"
+
+#: src/Services/ExportUtils.vala:189
+msgid "Select Destination HTML File"
+msgstr "Seleccionar archivo HTML de destino"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "Archivo HTML"
+
+#: src/Services/FileManager.vala:89
+msgid "Open File"
+msgstr "Abrir archivo"
+
+#: src/Services/FileManager.vala:101
+msgid "Save File"
+msgstr "Guardar archivo"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr "Renombrar"
+
+#: src/Widgets/HeaderBar.vala:130
+msgid "Rename File:"
+msgstr "Renombrar archivo:"
+
+#: src/Widgets/HeaderBar.vala:146
+msgid "Rename File"
+msgstr "Renombrar archivo"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr "nombre_nuevo.md"
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr "Alternar vista"
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Archivo nuevo"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Palabras: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr "Frases: "
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Tiempo de lectura: "
+
+#~ msgid "Go Back"
+#~ msgstr "Volver"
+
+#~ msgid "Appearance"
+#~ msgstr "Apariencia"
+
+#~ msgid "Visual Mode"
+#~ msgstr "Modo visual"
+
+#~ msgid "Sidebar"
+#~ msgstr "Barra lateral"
+
+#~ msgid "Autosave Delay"
+#~ msgstr "Retardo de autoguardado"
+
+#~ msgid "Values below 15s affects the storage medium negatively."
+#~ msgstr ""
+#~ "Los valores inferiores a 15s afectan negativamente al medio de "
+#~ "almacenamiento."
+
+#~ msgid ""
+#~ "Only available in English\n"
+#~ "Colors words based on type:\n"
+#~ "- Nouns are black\n"
+#~ "- Verbs are blue\n"
+#~ "- Adjectives are yellow\n"
+#~ "- Adverbs are purple\n"
+#~ "- Conjunctions are green"
+#~ msgstr ""
+#~ "Solo disponible en inglés.\n"
+#~ "Colorea las palabras según el tipo:\n"
+#~ "- Sustantivos en negro\n"
+#~ "- Verbos en azul\n"
+#~ "- Adjetivos en amarillo\n"
+#~ "- Adverbios en morado\n"
+#~ "- Conjunciones en verde"
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
+
+#~ msgid "Lains"
+#~ msgstr "Lains"
+
+#~ msgid "Release: Sidebar File Cleaner-o-matic"
+#~ msgstr "Versión: \"Sidebar File Cleaner-o-matic\""
+
+#~ msgid ""
+#~ "Added: \"Remove All Files\" button on the sidebar, this way, no files "
+#~ "will be harmed with the old close file buttons."
+#~ msgstr ""
+#~ "Añadido: botón \"Eliminar todos los archivos\" en la barra lateral, de "
+#~ "esta manera, no se dañarán los archivos con los antiguos botones de "
+#~ "cerrar archivos."
+
+#~ msgid "Release: Export without Errors"
+#~ msgstr "Versión: \"Export without Errors\""
+
+#~ msgid "Fixed: Exports to PDF while in other modes visual glitches."
+#~ msgstr ""
+#~ "Corregido: La exportación a PDF mientras que en otros modos se producen "
+#~ "fallos visuales."
+
+#~ msgid "Release: I Said Fixes!"
+#~ msgstr "Versión: \"I Said Fixes!\""
+
+#~ msgid "Fixed: Backend technical confusion with files."
+#~ msgstr "Corregido: Confusión técnica del backend con los archivos."
+
+#~ msgid "Release: Did Anyone Say Minor Fixes?"
+#~ msgstr "Versión: \"Did Anyone Say Minor Fixes?\""
+
+#~ msgid ""
+#~ "Fixed: Local image syntax wrongly picked up with links or two : in "
+#~ "succession."
+#~ msgstr ""
+#~ "Corregido: La sintaxis de la imagen local se recogía erróneamente con "
+#~ "enlaces o dos : seguidos."
+
+#~ msgid "Release: Even MORE Minor Fixes"
+#~ msgstr "Versión: \"Even MORE Minor Fixes\""
+
+#~ msgid "Other tiny fixes with the sidebar."
+#~ msgstr "Otras pequeñas correcciones con la barra lateral."
+
+#~ msgid "Release: Minor Fixes"
+#~ msgstr "Versión: \"Minor Fixes\""
+
+#~ msgid "Fixed: Various Sidebar fixes for safety of your files."
+#~ msgstr ""
+#~ "Corregido: Varias correcciones en la barra lateral para la seguridad de "
+#~ "tus archivos."
+
+#~ msgid "Other: Minor fixes in styling."
+#~ msgstr "Otros: Correcciones menores en el estilo."
+
+#~ msgid ""
+#~ "Fixed: cache was not being made, resulting in multiple file loss "
+#~ "afterwards with many operations."
+#~ msgstr ""
+#~ "Corregido: no se hacía caché, lo que provocaba la pérdida de múltiples "
+#~ "archivos después con muchas operaciones."
+
+#~ msgid "Release: Magic Files"
+#~ msgstr "Versión: \"Magic Files\""
+
+#~ msgid ""
+#~ "Added: When a user types a path with either % ... % or : ... : to a file "
+#~ "or image respectively, it is embedded, and is in Preview."
+#~ msgstr ""
+#~ "Añadido: Cuando un usuario escribe una ruta con % ... % o : ... : a un "
+#~ "archivo o imagen respectivamente, se incrusta, y está en vista previa."
+
+#~ msgid "Release: Fixes and Gizmos"
+#~ msgstr "Versión: \"Fixes and Gizmos\""
+
+#~ msgid "Fixes: Outline crashes the app if no file found."
+#~ msgstr ""
+#~ "Correcciones: El esquema bloquea la aplicación si no se encuentra ningún "
+#~ "archivo."
+
+#~ msgid ""
+#~ "Fixes: App crashes if new document button is pushed when no files are in "
+#~ "the sidebar."
+#~ msgstr ""
+#~ "Correcciones: La aplicación se bloquea si se pulsa el botón de nuevo "
+#~ "documento cuando no hay archivos en la barra lateral."
+
+#~ msgid "Fixes: App fails to launch if file in sidebar no longer exists."
+#~ msgstr ""
+#~ "Correcciones: La aplicación no se inicia si el archivo de la barra "
+#~ "lateral ya no existe."
+
+#~ msgid "Fixes: App doesn't check spelling."
+#~ msgstr "Correcciones: La aplicación no revisa la ortografía."
+
+#~ msgid "Release: File Eyeliner"
+#~ msgstr "Versión: \"File Eyeliner\""
+
+#~ msgid "Added: File outline in the sidebar."
+#~ msgstr "Añadido: Esquema del archivo en la barra lateral."
+
+#~ msgid "Release: Blu-ray Encoder"
+#~ msgstr "Versión: \"Blu-ray Encoder\""
+
+#~ msgid "Fixed: When adding files to sidebar, actually select them."
+#~ msgstr ""
+#~ "Corregido: Al añadir archivos a la barra lateral, seleccionarlos "
+#~ "realmente."
+
+#~ msgid "Updated: Dutch Translation"
+#~ msgstr "Actualizado: Traducción al neerlandés"
+
+#~ msgid "Release: DVD Cleaner"
+#~ msgstr "Versión: \"DVD Cleaner\""
+
+#~ msgid "Fixed: Opening files should never fail now."
+#~ msgstr "Corregido: Ahora la apertura de archivos no debería fallar nunca."
+
+#~ msgid "Release: VHS Tape Mixer"
+#~ msgstr "Versión: \"VHS Tape Mixer\""
+
+#~ msgid ""
+#~ "Reworked a lot of the internals so actions don't kill files. [Adam "
+#~ "Bieńkowski - @donadigo]"
+#~ msgstr ""
+#~ "Rehecha una gran parte del backend para que las acciones no destruyan los "
+#~ "archivos. [Adam Bieńkowski - @donadigo]"
+
+#~ msgid "Release: Betamax Tracker"
+#~ msgstr "Versión: \"Betamax Tracker\""
+
+#~ msgid "Some UX redefinition in the sidebar, to avoid complicating it."
+#~ msgstr "Alguna redefinición de UX en la barra lateral, para no complicarla."
+
+#~ msgid "Release: Kodachrome Selector"
+#~ msgstr "Versión: \"Kodachrome Selector\""
+
+#~ msgid ""
+#~ "Open files without adding duplicate entries, and clear sidebar is you "
+#~ "really need to (it has a confirm dialog)."
+#~ msgstr ""
+#~ "Abrir archivos sin añadir entradas duplicadas, y borra la barra lateral "
+#~ "si realmente lo necesitas (tiene diálogo de confirmación)."
+
+#~ msgid "Release: Visually Stunning"
+#~ msgstr "Versión: \"Visually Stunning\""
+
+#~ msgid ""
+#~ "Quilter received a visual upgrade, and also an awesome backend tuneup."
+#~ msgstr ""
+#~ "Quilter recibió una actualización visual, y también una impresionante "
+#~ "puesta a punto del backend."
+
+#~ msgid "Rewrote all Sidebar functions"
+#~ msgstr "Reescritas todas las funciones de la barra lateral"
+
+#~ msgid "Removed LaTeX because it was lagging the app…"
+#~ msgstr "Eliminado LaTeX porque estaba ralentizando la aplicación…"
+
+#~ msgid "All File Management functions rewritten from scratch!"
+#~ msgstr ""
+#~ "¡Todas las funciones de gestión de archivos se han reescrito desde cero!"
+
+#~ msgid "com.github.lainsce.quilter"
+#~ msgstr "com.github.lainsce.quilter"

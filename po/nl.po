@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: 2021-02-04 17:52+0100\n"
 "Last-Translator: Heimen Stoffels <vistausss@outlook.com>\n"
 "Language-Team: Dutch - vistausss@outlook.com\n"
@@ -18,233 +18,153 @@ msgstr ""
 "X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Nieuw document"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr "Nog niet opgeslagen"
-
-#: src/MainWindow.vala:405
-msgid "Exit focus mode"
-msgstr "Focusmodus verlaten"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Bewerken"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Voorbeeld"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
-msgstr "Focus op je schrijfsels."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr "Focus op schrijven"
 
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr "Heimen Stoffels"
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "Markdown-bestanden"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Alle bestanden"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "Wil je het geopende bestand opslaan?"
-
-#: src/Services/DialogUtils.vala:37
-#, fuzzy
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
-msgstr "Als je het niet opslaat, dan gaan de wijzigingen permanent verloren."
-
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Bestand opslaan"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Sluiten zonder opslaan"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Annuleren"
-
-#: src/Services/DialogUtils.vala:52
-#, fuzzy
-msgid "Remove File From Sidebar?"
-msgstr "Wil je het bestand verwijderen uit de zijbalk?"
-
-#: src/Services/DialogUtils.vala:53
-#, fuzzy
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
 msgstr ""
-"Als je het bestand verwijdert uit de zijbalk, dan gaan niet-opgeslagen "
-"wijzigingen verloren - anders wordt alleen het bestand verwijderd."
+"Focus op het schrijven van je tekst en schrijf prachtige verhalen met de "
+"focusmodus in deze Markdown-bewerker"
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Verwijderen zonder opslaan"
-
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Afdrukken naar bestand"
-
-#: src/Services/ExportUtils.vala:142
-#, fuzzy
-msgid "Select Destination PDF File"
-msgstr "Kies een bestemming voor het pdf-bestand"
-
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "PDF-bestand"
-
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Alle bestanden"
-
-#: src/Services/ExportUtils.vala:191
-#, fuzzy
-msgid "Select Destination HTML File"
-msgstr "Kies een bestemming voor het html-bestand"
-
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "HTML-bestand"
-
-#: src/Services/FileManager.vala:89
-#, fuzzy
-msgid "Open File"
-msgstr "Bestand openen"
-
-#: src/Services/FileManager.vala:102
-#, fuzzy
-msgid "Save File"
-msgstr "Bestand opslaan"
-
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr "Naam wijzigen"
-
-#: src/Widgets/HeaderBar.vala:136
-#, fuzzy
-msgid "Rename File:"
-msgstr "Bestandsnaam wijzigen"
-
-#: src/Widgets/HeaderBar.vala:153
-msgid "Rename File"
-msgstr "Bestandsnaam wijzigen"
-
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr "nieuwe_naam.md"
-
-#: src/Widgets/HeaderBar.vala:163
-#, fuzzy
-msgid "Toggle View"
-msgstr "Weergavemodus…"
-
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Nieuw bestand"
-
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Aantal woorden: "
-
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
 msgstr ""
+"Schrijf een verhaal - Eén bestand tegelijk - Meerdere bestanden in de "
+"wachtrij in de zijbalk."
 
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Leestijd: "
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr "Sla je documenten overal op en overschrijf evt. bestaande bestanden."
 
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Bekijk hoe je verhaal eruit komt te zien in de voorbeeldmodus."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Stel in of je focusmodus wilt in- of uitschakelen."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Stel in of je donkere modus wilt in- of uitschakelen."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Stel in of je sepiamodus wilt in- of uitschakelen."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "Schakel beeldvullende modus in met F11."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Zoek ten allen tijde met Ctrl + F"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Sluit ten allen tijde af met Ctrl + Q"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr "Lichte modus"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Sepiamodus"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Donkere modus"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Focusmodus"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Voorbeeldmodus"
+
+#: data/io.github.lainsce.Quilter.desktop.in:7
+msgid "Text;Markdown;Editor;"
+msgstr "Tekst;Markdown;Bewerker;"
+
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Markdown-uitleg"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Tekst"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 #, fuzzy
 msgid "**Bold text**"
 msgstr "** Vetdrukken **"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 #, fuzzy
 msgid "Code Line"
 msgstr "` Codetekst `"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 #, fuzzy
 msgid "Code Block"
 msgstr "```Codeblok```"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
 "```"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
 "> here"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 #, fuzzy
 msgid "Headers"
 msgstr "# Kop 1"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -252,11 +172,11 @@ msgid ""
 "..."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Links"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
@@ -264,52 +184,53 @@ msgstr ""
 "[Linklabel](http://link.url.nl)\n"
 "![Afbeeldingslabel](http://afbeelding.url.nl)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr "Aanvullend"
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 #, fuzzy
 msgid "Strikethrough"
 msgstr "~~Doorhalen~~"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 #, fuzzy
 msgid "~~Striked through text~~"
 msgstr "~~Doorhalen~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
+#, fuzzy
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
-msgstr ""
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
+msgstr "Subscript: H~2~O"
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 #, fuzzy
 msgid "Horzontal Rule"
 msgstr "Horizontale regel → ---"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Speciaal"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Extensies"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr "LaTeX-wiskunde"
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 #, fuzzy
 msgid ""
 "$$…$$\tfor equation block\n"
@@ -319,50 +240,50 @@ msgstr ""
 "\t- $$…$$ = vergelijkingsblok.\n"
 "\t- \\(…\\) of \\[\\] voor inline-vergelijking."
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 #, fuzzy
 msgid "Mermaid.js Graphs"
 msgstr "Mermaid.js-grafieken"
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 #, fuzzy
 msgid "<div class=\"mermaid\">...</div>"
 msgstr ""
 "Mermaid.js:\n"
 "\t- <div class=\"mermaid\">...</div>"
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 #, fuzzy
 msgid "Mind the period to avoid collisions."
 msgstr "Punt vereist om conflicten te voorkomen."
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 #, fuzzy
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
 msgstr "[] Leeg aankruisvakje"
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Tabellen"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 #, fuzzy
 msgid ""
 "Left\t\t--- \tto\t:---\n"
@@ -373,241 +294,250 @@ msgstr ""
 "Middelste kolom wijzigen --- in :---: .\n"
 "Rechterkolom wijzigen --- in ---: ."
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 msgid "Files"
 msgstr "Bestanden"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 #, fuzzy
 msgid "Document"
 msgstr "Nieuw document"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 #, fuzzy
 msgid "/Folder/Image.png :image"
 msgstr ""
 "Sluit een lokale afbeelding in:\n"
 "\t/Map/Afbeelding.png :image"
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Bestand opslaan"
+
+#: data/ui/headerbar.ui:21
 #, fuzzy
 msgid "Save As…"
 msgstr "Opslaan als…"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 #, fuzzy
 msgid "Export HTML…"
 msgstr "Exporteren naar html…"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 #, fuzzy
 msgid "Export PDF…"
 msgstr "Exporteren naar pdf…"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 #, fuzzy
 msgid "Show/Hide the sidebar"
 msgstr "Zijbalk tonen/verbergen"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 #, fuzzy
 msgid "Save the current file"
 msgstr "Wil je het geopende bestand opslaan?"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 msgid "Create a new document"
 msgstr "Nieuw document maken"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Openen"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 #, fuzzy
 msgid "Open a file"
 msgstr "Bestand openen"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr ""
-
-#: data/ui/headerbar.ui:219
-#, fuzzy
-msgid "Editor or Preview, change via menu"
-msgstr "Kies in het menu voor de bewerker of voorvertoning."
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Volledige breedte"
-
-#: data/ui/headerbar.ui:234
-#, fuzzy
-msgid "Editor and Preview, side by side"
-msgstr "De bewerker en voorvertoning naast elkaar."
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "Halve breedte"
-
-#: data/ui/headerbar.ui:339
-msgid "Focus Mode"
-msgstr "Focusmodus"
-
-#: data/ui/headerbar.ui:351
-msgid "About Quilter"
-msgstr "Over Quilter"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr "Sneltoetsen"
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Voorkeuren"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 #, fuzzy
 msgid "View Type"
 msgstr "Voorbeeldlettertype instellen"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+#, fuzzy
+msgid "Editor or Preview, change via menu"
+msgstr "Kies in het menu voor de bewerker of voorvertoning."
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Volledige breedte"
+
+#: data/ui/headerbar.ui:136
+#, fuzzy
+msgid "Editor and Preview, side by side"
+msgstr "De bewerker en voorvertoning naast elkaar."
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Halve breedte"
+
+#: data/ui/headerbar.ui:197
+msgid "About Quilter"
+msgstr "Over Quilter"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr "Sneltoetsen"
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Voorkeuren"
+
+#: data/ui/headerbar.ui:251
 #, fuzzy
 msgid "Find and Replace…"
 msgstr "Vervangen"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
-msgstr "Algemeen"
-
-#: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr "Uiterlijk"
-
-#: data/ui/prefs_window.ui:25
-msgid "Visual Mode"
-msgstr "Visuele modus"
-
-#: data/ui/prefs_window.ui:91
-msgid "Interface"
-msgstr "Vormgeving"
-
-#: data/ui/prefs_window.ui:98
-msgid "Focus Scope"
-msgstr "Focusbereik"
-
-#: data/ui/prefs_window.ui:149
-msgid "Typewriter Scrolling"
-msgstr "Typemachine-achtig scrollen"
-
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr "Zijbalk"
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
+#: data/ui/prefs_window.ui:11
 msgid "Editor"
 msgstr "Bewerker"
 
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr "Tijd tussen automatisch opslaan"
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr "Waarden lager dan 15 sec. hebben een negatieve invloed op de schijf."
-
-#: data/ui/prefs_window.ui:214
-#, fuzzy
-msgid "Highlight Speech Parts (Beta)"
-msgstr "Gesproken delen markeren (bèta)"
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-#, fuzzy
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-"Alleen te gebruiken in het Engels.\n"
-"\n"
-"Woorden worden gekleurd op basis van woordsoorten:\n"
-"- Zelfstandige naamwoorden zijn zwart\n"
-"- Werkwoorden zijn blauw\n"
-"- Bijvoeglijke naamwoorden zijn geel\n"
-"- Bijwoorden zijn paars\n"
-"- Samenstellingen zijn groen"
-
-#: data/ui/prefs_window.ui:237
+#: data/ui/prefs_window.ui:17
 msgid "Font"
 msgstr "Lettertype"
 
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr "Soort"
+#: data/ui/prefs_window.ui:21
+msgid "Quilt Mono"
+msgstr "Quilt Mono"
 
-#: data/ui/prefs_window.ui:270
+#: data/ui/prefs_window.ui:22
+msgid "Quilt Zwei"
+msgstr "Quilt Zwei"
+
+#: data/ui/prefs_window.ui:23
+msgid "Quilt Vier"
+msgstr "Quilt Vier"
+
+#: data/ui/prefs_window.ui:43
+msgid "Interface"
+msgstr "Vormgeving"
+
+#: data/ui/prefs_window.ui:46
+msgid "Focus Scope"
+msgstr "Focusbereik"
+
+#: data/ui/prefs_window.ui:54
 #, fuzzy
-msgid "Preview Font Type"
+msgid "Paragraph"
+msgstr "Focussen op paragraaf"
+
+#: data/ui/prefs_window.ui:60
+#, fuzzy
+msgid "Sentence"
+msgstr "Focussen op zin"
+
+#: data/ui/prefs_window.ui:73
+msgid "Typewriter Scrolling"
+msgstr "Typemachine-achtig scrollen"
+
+#: data/ui/prefs_window.ui:83
+#, fuzzy
+msgid "Document Tracker"
+msgstr "Nieuw document"
+
+#: data/ui/prefs_window.ui:84
+msgid "Tracks words, sentences or reading time."
+msgstr ""
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "==Markeren=="
+
+#: data/ui/prefs_window.ui:99
+#, fuzzy
+msgid "Speech Parts (Beta)"
+msgstr "Gesproken delen markeren (bèta)"
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr "Algemeen"
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Voorbeeldlettertype instellen"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+msgid "Serif"
+msgstr "Met schreef"
+
+#: data/ui/prefs_window.ui:126
+msgid "Sans-serif"
+msgstr "Schreefloos"
+
+#: data/ui/prefs_window.ui:127
+msgid "Monospace"
+msgstr "Vaste breedte"
+
+#: data/ui/prefs_window.ui:135
 msgid "Header Centering"
 msgstr "Kop centreren"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 #, fuzzy
 msgid "This affects #, ##, and ### headers."
 msgstr "Dit is van toepassing op H1-, H2- en H3-koppen."
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 msgid "Code Highlight"
 msgstr "Codemarkering"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr "De inhoud van codeblokken wordt voorzien van een kleur."
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 #, fuzzy
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr "De inhoud van LaTeX-wiskundeblokken wordt verwerkt als LaTeX-uitvoer."
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr "Mermaid.js-grafieken"
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 #, fuzzy
 msgid "Mermaid blocks will become graphs."
 msgstr "De inhoud van Mermaid-blokken wordt omgezet naar grafieken."
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 #, fuzzy
 msgid "Replace…"
 msgstr "Vervangen"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 #, fuzzy
 msgid "Replace"
 msgstr "Vervangen"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 msgid "Replace All"
 msgstr "Alles vervangen"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Zoeken…"
 
@@ -713,36 +643,262 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Exporteren naar pdf…"
 
-#: data/ui/sidebar.ui:46
-#, fuzzy
-msgid "No Files"
-msgstr "Alle bestanden"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Contour"
-
 #: data/ui/sidebarbox.ui:16
 #, fuzzy
 msgid "Remove file from sidebar"
 msgstr "Bestand verwijderen uit zijbalk"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+#, fuzzy
+msgid "No Files"
+msgstr "Alle bestanden"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Contour"
+
+#: data/ui/statusbar.ui:13
 msgid "Words"
 msgstr "Aantal woorden"
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 #, fuzzy
 msgid "Sentences"
 msgstr "Focussen op zin"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 msgid "Reading Time"
 msgstr "Leestijd"
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr ""
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Nieuw document"
+
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr "Nog niet opgeslagen"
+
+#: src/MainWindow.vala:349
+msgid "Exit focus mode"
+msgstr "Focusmodus verlaten"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Bewerken"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr "Focus op je schrijfsels."
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr "Heimen Stoffels"
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+msgid "Load a Checkbox"
+msgstr ""
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+msgid "Checkbox"
+msgstr ""
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Bestanden"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+#, fuzzy
+msgid "Subscript"
+msgstr "Subscript: H~2~O"
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+#, fuzzy
+msgid "Superscript"
+msgstr "Superscript: E = MC^2^"
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Markdown-bestanden"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Alle bestanden"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Wil je het geopende bestand opslaan?"
+
+#: src/Services/DialogUtils.vala:37
+#, fuzzy
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr "Als je het niet opslaat, dan gaan de wijzigingen permanent verloren."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Annuleren"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Sluiten zonder opslaan"
+
+#: src/Services/DialogUtils.vala:52
+#, fuzzy
+msgid "Remove File From Sidebar?"
+msgstr "Wil je het bestand verwijderen uit de zijbalk?"
+
+#: src/Services/DialogUtils.vala:53
+#, fuzzy
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Als je het bestand verwijdert uit de zijbalk, dan gaan niet-opgeslagen "
+"wijzigingen verloren - anders wordt alleen het bestand verwijderd."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Verwijderen zonder opslaan"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Afdrukken naar bestand"
+
+#: src/Services/ExportUtils.vala:142
+#, fuzzy
+msgid "Select Destination PDF File"
+msgstr "Kies een bestemming voor het pdf-bestand"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "PDF-bestand"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Alle bestanden"
+
+#: src/Services/ExportUtils.vala:189
+#, fuzzy
+msgid "Select Destination HTML File"
+msgstr "Kies een bestemming voor het html-bestand"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "HTML-bestand"
+
+#: src/Services/FileManager.vala:89
+#, fuzzy
+msgid "Open File"
+msgstr "Bestand openen"
+
+#: src/Services/FileManager.vala:101
+#, fuzzy
+msgid "Save File"
+msgstr "Bestand opslaan"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr "Naam wijzigen"
+
+#: src/Widgets/HeaderBar.vala:130
+#, fuzzy
+msgid "Rename File:"
+msgstr "Bestandsnaam wijzigen"
+
+#: src/Widgets/HeaderBar.vala:146
+msgid "Rename File"
+msgstr "Bestandsnaam wijzigen"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr "nieuwe_naam.md"
+
+#: src/Widgets/HeaderBar.vala:155
+#, fuzzy
+msgid "Toggle View"
+msgstr "Weergavemodus…"
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Nieuw bestand"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Aantal woorden: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Leestijd: "
+
+#~ msgid "Appearance"
+#~ msgstr "Uiterlijk"
+
+#~ msgid "Visual Mode"
+#~ msgstr "Visuele modus"
+
+#~ msgid "Sidebar"
+#~ msgstr "Zijbalk"
+
+#~ msgid "Autosave Delay"
+#~ msgstr "Tijd tussen automatisch opslaan"
+
+#~ msgid "Values below 15s affects the storage medium negatively."
+#~ msgstr ""
+#~ "Waarden lager dan 15 sec. hebben een negatieve invloed op de schijf."
+
+#, fuzzy
+#~ msgid ""
+#~ "Only available in English\n"
+#~ "Colors words based on type:\n"
+#~ "- Nouns are black\n"
+#~ "- Verbs are blue\n"
+#~ "- Adjectives are yellow\n"
+#~ "- Adverbs are purple\n"
+#~ "- Conjunctions are green"
+#~ msgstr ""
+#~ "Alleen te gebruiken in het Engels.\n"
+#~ "\n"
+#~ "Woorden worden gekleurd op basis van woordsoorten:\n"
+#~ "- Zelfstandige naamwoorden zijn zwart\n"
+#~ "- Werkwoorden zijn blauw\n"
+#~ "- Bijvoeglijke naamwoorden zijn geel\n"
+#~ "- Bijwoorden zijn paars\n"
+#~ "- Samenstellingen zijn groen"
+
+#~ msgid "Type"
+#~ msgstr "Soort"
 
 #~ msgid "Save document"
 #~ msgstr "Document opslaan"
@@ -770,15 +926,6 @@ msgstr ""
 #~ msgid "Search and replace text"
 #~ msgstr "Tekst zoeken en vervangen"
 
-#~ msgid "Light Mode"
-#~ msgstr "Lichte modus"
-
-#~ msgid "Sepia Mode"
-#~ msgstr "Donkere modus"
-
-#~ msgid "Dark Mode"
-#~ msgstr "Donkere modus"
-
 #~ msgid "Focus Mode…"
 #~ msgstr "Focusmodus…"
 
@@ -791,32 +938,11 @@ msgstr ""
 #~ msgid "Rename the File:"
 #~ msgstr "Bestandsnaam wijzigen:"
 
-#~ msgid "Quilt Mono"
-#~ msgstr "Quilt Mono"
-
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilt Zwei"
-
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilt Vier"
-
 #~ msgid "Autosave Documents"
 #~ msgstr "Documenten automatisch opslaan"
 
-#~ msgid "Focus on Paragraph"
-#~ msgstr "Focussen op paragraaf"
-
 #~ msgid "Font Type"
 #~ msgstr "Lettertype"
-
-#~ msgid "Serif"
-#~ msgstr "Met schreef"
-
-#~ msgid "Sans-serif"
-#~ msgstr "Schreefloos"
-
-#~ msgid "Monospace"
-#~ msgstr "Vaste breedte"
 
 #~ msgid "Replace with…"
 #~ msgstr "Vervangen door…"
@@ -872,15 +998,6 @@ msgstr ""
 
 #~ msgid "> Quote"
 #~ msgstr "> Citaat"
-
-#~ msgid "==Highlight=="
-#~ msgstr "==Markeren=="
-
-#~ msgid "Subscript: H~2~O"
-#~ msgstr "Subscript: H~2~O"
-
-#~ msgid "Superscript: E = MC^2^"
-#~ msgstr "Superscript: E = MC^2^"
 
 #~ msgid "[x] Checked Checkbox."
 #~ msgstr "[x] Aangekruist aankruisvakje"
@@ -1045,3 +1162,49 @@ msgstr ""
 
 #~ msgid "Start search"
 #~ msgstr "Zoekopdracht starten"
+
+#~ msgid "Lains"
+#~ msgstr "Lains"
+
+#~ msgid "Release: Sidebar File Cleaner-o-matic"
+#~ msgstr "Uitgave: Automatische zijbalkopsconer"
+
+#~ msgid ""
+#~ "Added: \"Remove All Files\" button on the sidebar, this way, no files "
+#~ "will be harmed with the old close file buttons."
+#~ msgstr ""
+#~ "Toegevoegd: \"Alle bestanden verwijderen\" (zijbalk) zodat geen bestanden "
+#~ "verloren gaan zoals dat het geval was met de oude sluitknoppen."
+
+#~ msgid "Release: Export without Errors"
+#~ msgstr "Uitgave: Foutloos exporteren"
+
+#~ msgid "Fixed: Exports to PDF while in other modes visual glitches."
+#~ msgstr ""
+#~ "Opgelost: visuele haperingen tijdens het exporteren naar PDF in andere "
+#~ "modi."
+
+#~ msgid "Release: I Said Fixes!"
+#~ msgstr "Uitgave: Ik zei \"probleemoplossing!\""
+
+#~ msgid "Fixed: Backend technical confusion with files."
+#~ msgstr "Opgelost: technische verwarring met bestanden in het backend."
+
+#~ msgid "Release: Did Anyone Say Minor Fixes?"
+#~ msgstr "Uitgave: zei daar iemand \"kleine probleemoplossingen\"?"
+
+#~ msgid ""
+#~ "Fixed: Local image syntax wrongly picked up with links or two : in "
+#~ "succession."
+#~ msgstr ""
+#~ "Opgelost: lokale afbeeldingssyntax werd verkeerd opgepikt door links of "
+#~ "tweemaal :"
+
+#~ msgid "Release: Even MORE Minor Fixes"
+#~ msgstr "Uitgave: nog MEER kleine probleemoplossingen"
+
+#~ msgid "Other tiny fixes with the sidebar."
+#~ msgstr "Overige kleine oplossingen m.b.t. de zijbalk."
+
+#~ msgid "com.github.lainsce.quilter"
+#~ msgstr "com.github.lainsce.quilter"

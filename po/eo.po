@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -13,237 +13,154 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Nova dokumento"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr ""
-
-#: src/MainWindow.vala:405
-#, fuzzy
-msgid "Exit focus mode"
-msgstr "Enigi fokusan reĝimon"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Redakti"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Antaŭrigardi"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 #, fuzzy
 msgid "Quilter"
 msgstr "Quilt Vier (proporcia)"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
 msgstr ""
 
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr ""
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "Markdown-dosieroj"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Ĉiuj dosieroj"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "Ĉu konservi la malferman dosieron?"
-
-#: src/Services/DialogUtils.vala:37
-#, fuzzy
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
 msgstr ""
-"Estas nekonservitaj ŝanĝoj ĉe la dosiero. Sen konservado, ŝanĝoj estos "
-"perditaj."
+"Fokusiĝi je sia redaktado kaj skribu belajn, samkonsistajn verkojn akompane "
+"per la Fokusa Reĝimo en ĉi Markdown-redaktilo"
 
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Konservi"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Fermi sen konservi"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Nuligi"
-
-#: src/Services/DialogUtils.vala:52
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
 #, fuzzy
-msgid "Remove File From Sidebar?"
-msgstr "Ĉu forigi dosieron el Flankbreto?"
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
+msgstr "Krei verkojn, unu post la alia."
 
-#: src/Services/DialogUtils.vala:53
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr "Konservi viajn dokumentojn ie ajn, eĉ anstataŭ jam ekzistantaj."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Antaŭvidi vian verkon per la antaŭrigardan reĝimon."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Agordi ĉu ŝalti la Fokusan reĝimon."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Agordi ĉu ŝalti la malhelan fasadon."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Agordi ĉu ŝalti la sepian fasadon."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "Plenekranigo de la redaktujo per F11."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Serĉi kiam ajn per la fulmklavo Stir+F"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Eliri kiam ajn per la fulmklavo Stir+Q"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr "Hela kolorskemo"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Sepia kolorskemo"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Malhela kolorskemo"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Fokusa reĝimo"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Antaŭrigarda reĝimo"
+
+#: data/io.github.lainsce.Quilter.desktop.in:7
 #, fuzzy
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
-msgstr ""
-"Je forigo de la dosiero el la flankbreto, perdiĝos ĉiuj nekonservitaj "
-"ŝanĝoj. Jam konservitaj dosieroj simple malaperos."
+msgid "Text;Markdown;Editor;"
+msgstr "Teksto;Markdown;LaTeX;Redaktilo;"
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Forigi sen konservi"
-
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Presi en dosieron"
-
-#: src/Services/ExportUtils.vala:142
-#, fuzzy
-msgid "Select Destination PDF File"
-msgstr "Elekti celan PDF-dosieron"
-
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "PDF-dosiero"
-
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Ĉiuj dosieroj"
-
-#: src/Services/ExportUtils.vala:191
-#, fuzzy
-msgid "Select Destination HTML File"
-msgstr "Elekti celan HTML-dosieron"
-
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "HTML-dosiero"
-
-#: src/Services/FileManager.vala:89
-#, fuzzy
-msgid "Open File"
-msgstr "Malfermi dosieron"
-
-#: src/Services/FileManager.vala:102
-#, fuzzy
-msgid "Save File"
-msgstr "Konservi dosieron"
-
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:136
-#, fuzzy
-msgid "Rename File:"
-msgstr "Nova dosiero"
-
-#: src/Widgets/HeaderBar.vala:153
-#, fuzzy
-msgid "Rename File"
-msgstr "Nova dosiero"
-
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr ""
-
-#: src/Widgets/HeaderBar.vala:163
-msgid "Toggle View"
-msgstr ""
-
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Nova dosiero"
-
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Vortoj: "
-
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
-msgstr ""
-
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Lega daŭro: "
-
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Markdown-gvidfolio"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Teksto"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 #, fuzzy
 msgid "**Bold text**"
 msgstr "** Grasa teksto **"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 #, fuzzy
 msgid "Code Line"
 msgstr "` Koda teksto `"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 #, fuzzy
 msgid "Code Block"
 msgstr "```Jen koda bloko```"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
 "```"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
 "> here"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 #, fuzzy
 msgid "Headers"
 msgstr "# Titolo 1a"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -251,63 +168,63 @@ msgid ""
 "..."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Ligoj"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 #, fuzzy
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
 msgstr "[Ligila etikedo](http://jen.ligilo.com)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 #, fuzzy
 msgid "Strikethrough"
 msgstr "~~ Trastrekita teksto ~~"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 #, fuzzy
 msgid "~~Striked through text~~"
 msgstr "~~ Trastrekita teksto ~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 #, fuzzy
 msgid "Horzontal Rule"
 msgstr "Tio kreas horizontalan strekon → ---"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Specialaĵoj"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Kromaĵoj"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 #, fuzzy
 msgid ""
 "$$…$$\tfor equation block\n"
@@ -317,278 +234,296 @@ msgstr ""
 "\t- $$…$$ por ekvacia bloko.\n"
 "\t- \\(…\\) aŭ \\[\\] por ekvacio ene de la teksto."
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Tabelo"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 msgid ""
 "Left\t\t--- \tto\t:---\n"
 "Centered    ---\tto\t:---:\n"
 "Right\t\t---\tto\t---: "
 msgstr ""
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 msgid "Files"
 msgstr "Dosieroj"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 #, fuzzy
 msgid "Document"
 msgstr "Nova dokumento"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 #, fuzzy
 msgid "/Folder/Image.png :image"
 msgstr "Tio enkorpigas lokan bildon → /Dosierujo/bildo.png :image"
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Konservi"
+
+#: data/ui/headerbar.ui:21
 #, fuzzy
 msgid "Save As…"
 msgstr "Konservi kiel…"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 #, fuzzy
 msgid "Export HTML…"
 msgstr "Eksporti al HTML…"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 #, fuzzy
 msgid "Export PDF…"
 msgstr "Eksporti al PDF…"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 #, fuzzy
 msgid "Show/Hide the sidebar"
 msgstr "Montri/kaŝi flankbreton"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 #, fuzzy
 msgid "Save the current file"
 msgstr "Ĉu konservi la malferman dosieron?"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 #, fuzzy
 msgid "Create a new document"
 msgstr "Nova dokumento"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Malfermi"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 #, fuzzy
 msgid "Open a file"
 msgstr "Malfermi dosieron"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr ""
-
-#: data/ui/headerbar.ui:219
-msgid "Editor or Preview, change via menu"
-msgstr ""
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Plena larĝo"
-
-#: data/ui/headerbar.ui:234
-msgid "Editor and Preview, side by side"
-msgstr ""
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "Duon-larĝo"
-
-#: data/ui/headerbar.ui:339
-#, fuzzy
-msgid "Focus Mode"
-msgstr "Fokusa reĝimo"
-
-#: data/ui/headerbar.ui:351
-#, fuzzy
-msgid "About Quilter"
-msgstr "Quilt Vier (proporcia)"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr ""
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Aliaj agordoj"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 #, fuzzy
 msgid "View Type"
 msgstr "Agordi antaŭrigardan tiparon"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr ""
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Plena larĝo"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr ""
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Duon-larĝo"
+
+#: data/ui/headerbar.ui:197
+#, fuzzy
+msgid "About Quilter"
+msgstr "Quilt Vier (proporcia)"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr ""
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Aliaj agordoj"
+
+#: data/ui/headerbar.ui:251
 #, fuzzy
 msgid "Find and Replace…"
 msgstr "Anstataŭigi"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
+#: data/ui/prefs_window.ui:11
+msgid "Editor"
+msgstr "Redaktilo"
+
+#: data/ui/prefs_window.ui:17
+msgid "Font"
 msgstr ""
+
+#: data/ui/prefs_window.ui:21
+msgid "Quilt Mono"
+msgstr "Quilt Mono (egalpaŝa)"
 
 #: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr ""
-
-#: data/ui/prefs_window.ui:25
 #, fuzzy
-msgid "Visual Mode"
-msgstr "Sepia kolorskemo"
+msgid "Quilt Zwei"
+msgstr "Quilter"
 
-#: data/ui/prefs_window.ui:91
+#: data/ui/prefs_window.ui:23
+msgid "Quilt Vier"
+msgstr "Quilt Vier (proporcia)"
+
+#: data/ui/prefs_window.ui:43
 #, fuzzy
 msgid "Interface"
 msgstr "Uzanta fasado"
 
-#: data/ui/prefs_window.ui:98
+#: data/ui/prefs_window.ui:46
 #, fuzzy
 msgid "Focus Scope"
 msgstr "Fokusa reĝimo"
 
-#: data/ui/prefs_window.ui:149
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr "Paragrafo"
+
+#: data/ui/prefs_window.ui:60
+msgid "Sentence"
+msgstr "Frazo"
+
+#: data/ui/prefs_window.ui:73
 #, fuzzy
 msgid "Typewriter Scrolling"
 msgstr "Skribmaŝina rulumado:"
 
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr ""
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
-msgid "Editor"
-msgstr "Redaktilo"
-
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr ""
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-
-#: data/ui/prefs_window.ui:214
-msgid "Highlight Speech Parts (Beta)"
-msgstr ""
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-
-#: data/ui/prefs_window.ui:237
-msgid "Font"
-msgstr ""
-
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr ""
-
-#: data/ui/prefs_window.ui:270
+#: data/ui/prefs_window.ui:83
 #, fuzzy
-msgid "Preview Font Type"
+msgid "Document Tracker"
+msgstr "Nova dokumento"
+
+#: data/ui/prefs_window.ui:84
+msgid "Tracks words, sentences or reading time."
+msgstr ""
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "Ebligi kodan emfazon:"
+
+#: data/ui/prefs_window.ui:99
+msgid "Speech Parts (Beta)"
+msgstr ""
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Antaŭrigardi"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr ""
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Agordi antaŭrigardan tiparon"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+#, fuzzy
+msgid "Serif"
+msgstr "Uzi serifan tiparon"
+
+#: data/ui/prefs_window.ui:126
+#, fuzzy
+msgid "Sans-serif"
+msgstr "Uzi senserifan tiparon"
+
+#: data/ui/prefs_window.ui:127
+#, fuzzy
+msgid "Monospace"
+msgstr "Uzi egallarĝan tiparon"
+
+#: data/ui/prefs_window.ui:135
 #, fuzzy
 msgid "Header Centering"
 msgstr "Titolo"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
 msgstr ""
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 #, fuzzy
 msgid "Code Highlight"
 msgstr "Ebligi kodan emfazon:"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr ""
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr ""
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr ""
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
 msgstr ""
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 #, fuzzy
 msgid "Replace…"
 msgstr "Anstataŭigi"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 #, fuzzy
 msgid "Replace"
 msgstr "Anstataŭigi"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 #, fuzzy
 msgid "Replace All"
 msgstr "Anstataŭigi ĉion"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Trovi…"
 
@@ -693,38 +628,235 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Eksporti al PDF…"
 
-#: data/ui/sidebar.ui:46
-#, fuzzy
-msgid "No Files"
-msgstr "Dosieroj"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Dosierstrukturo"
-
 #: data/ui/sidebarbox.ui:16
 #, fuzzy
 msgid "Remove file from sidebar"
 msgstr "Forigi dosieron el la flankbreto"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+#, fuzzy
+msgid "No Files"
+msgstr "Dosieroj"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Dosierstrukturo"
+
+#: data/ui/statusbar.ui:13
 #, fuzzy
 msgid "Words"
 msgstr "Vortoj: "
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 #, fuzzy
 msgid "Sentences"
 msgstr "Frazo"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 #, fuzzy
 msgid "Reading Time"
 msgstr "Lega daŭro: "
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr ""
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Nova dokumento"
+
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr ""
+
+#: src/MainWindow.vala:349
+#, fuzzy
+msgid "Exit focus mode"
+msgstr "Enigi fokusan reĝimon"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Redakti"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr ""
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr ""
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+msgid "Load a Checkbox"
+msgstr ""
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+msgid "Checkbox"
+msgstr ""
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Dosieroj"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+msgid "Subscript"
+msgstr ""
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+msgid "Superscript"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Markdown-dosieroj"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Ĉiuj dosieroj"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Ĉu konservi la malferman dosieron?"
+
+#: src/Services/DialogUtils.vala:37
+#, fuzzy
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"Estas nekonservitaj ŝanĝoj ĉe la dosiero. Sen konservado, ŝanĝoj estos "
+"perditaj."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Nuligi"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Fermi sen konservi"
+
+#: src/Services/DialogUtils.vala:52
+#, fuzzy
+msgid "Remove File From Sidebar?"
+msgstr "Ĉu forigi dosieron el Flankbreto?"
+
+#: src/Services/DialogUtils.vala:53
+#, fuzzy
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Je forigo de la dosiero el la flankbreto, perdiĝos ĉiuj nekonservitaj "
+"ŝanĝoj. Jam konservitaj dosieroj simple malaperos."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Forigi sen konservi"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Presi en dosieron"
+
+#: src/Services/ExportUtils.vala:142
+#, fuzzy
+msgid "Select Destination PDF File"
+msgstr "Elekti celan PDF-dosieron"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "PDF-dosiero"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Ĉiuj dosieroj"
+
+#: src/Services/ExportUtils.vala:189
+#, fuzzy
+msgid "Select Destination HTML File"
+msgstr "Elekti celan HTML-dosieron"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "HTML-dosiero"
+
+#: src/Services/FileManager.vala:89
+#, fuzzy
+msgid "Open File"
+msgstr "Malfermi dosieron"
+
+#: src/Services/FileManager.vala:101
+#, fuzzy
+msgid "Save File"
+msgstr "Konservi dosieron"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:130
+#, fuzzy
+msgid "Rename File:"
+msgstr "Nova dosiero"
+
+#: src/Widgets/HeaderBar.vala:146
+#, fuzzy
+msgid "Rename File"
+msgstr "Nova dosiero"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr ""
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr ""
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Nova dosiero"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Vortoj: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr ""
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Lega daŭro: "
+
+#, fuzzy
+#~ msgid "Visual Mode"
+#~ msgstr "Sepia kolorskemo"
+
+#, fuzzy
+#~ msgid "Preview Font Type"
+#~ msgstr "Agordi antaŭrigardan tiparon"
 
 #, fuzzy
 #~ msgid "Save document"
@@ -750,31 +882,12 @@ msgstr ""
 #~ msgid "Search and replace text"
 #~ msgstr "Trovi sekvan"
 
-#~ msgid "Light Mode"
-#~ msgstr "Hela kolorskemo"
-
-#~ msgid "Sepia Mode"
-#~ msgstr "Sepia kolorskemo"
-
-#~ msgid "Dark Mode"
-#~ msgstr "Malhela kolorskemo"
-
 #, fuzzy
 #~ msgid "Focus Mode…"
 #~ msgstr "Fokusa reĝimo"
 
 #~ msgid "Settings"
 #~ msgstr "Ĉiuj agordoj"
-
-#~ msgid "Quilt Mono"
-#~ msgstr "Quilt Mono (egalpaŝa)"
-
-#, fuzzy
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilter"
-
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilt Vier (proporcia)"
 
 #, fuzzy
 #~ msgid "Autosave Documents"
@@ -787,18 +900,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "Font Type"
 #~ msgstr "Tiparoj k redakto"
-
-#, fuzzy
-#~ msgid "Serif"
-#~ msgstr "Uzi serifan tiparon"
-
-#, fuzzy
-#~ msgid "Sans-serif"
-#~ msgstr "Uzi senserifan tiparon"
-
-#, fuzzy
-#~ msgid "Monospace"
-#~ msgstr "Uzi egallarĝan tiparon"
 
 #~ msgid "Replace with…"
 #~ msgstr "Anstataŭigi per…"
@@ -966,3 +1067,348 @@ msgstr ""
 
 #~ msgid "Use the arrows to target the text to replace before pressing this."
 #~ msgstr "Uzi sagoklavojn por celi anstataŭotan tekston antaŭ ol premi tion."
+
+#~ msgid "Use Sans-serif"
+#~ msgstr "Uzi senserifan tiparon"
+
+#~ msgid "Use Serif"
+#~ msgstr "Uzi serifan tiparon"
+
+#~ msgid "Use Monospace"
+#~ msgstr "Uzi egallarĝan tiparon"
+
+#~ msgid "Heading"
+#~ msgstr "Titolo"
+
+#~ msgid "# Heading 1"
+#~ msgstr "# Titolo 1a"
+
+#~ msgid "## Heading 2"
+#~ msgstr "## Titolo 2a"
+
+#~ msgid "### Heading 3"
+#~ msgstr "### Titolo 3a"
+
+#~ msgid "** Bold text **"
+#~ msgstr "** Grasa teksto **"
+
+#~ msgid "* Emphasized text *"
+#~ msgstr "* Emfazigita teksto *"
+
+#~ msgid "` Code text `"
+#~ msgstr "` Koda teksto `"
+
+#~ msgid "> Quoting text"
+#~ msgstr "> Citita teksto"
+
+#~ msgid "~~Strikethrough text~~"
+#~ msgstr "~~ Trastrekita teksto ~~"
+
+#~ msgid "[Link Label](http://link.url.here.com)"
+#~ msgstr "[Ligila etikedo](http://jen.ligilo.com)"
+
+#~ msgid "```This is a code block```"
+#~ msgstr "```Jen koda bloko```"
+
+#~ msgid "--- ← This creates a horizontal rule"
+#~ msgstr "--- ← Kreas horizontalan strekon"
+
+#~ msgid "Save as…"
+#~ msgstr "Konservi kiel…"
+
+#~ msgid "Save file"
+#~ msgstr "Konservi dosieron"
+
+#~ msgid "Start search"
+#~ msgstr "Komenci serĉadon"
+
+#~ msgid "Export to PDF…"
+#~ msgstr "Eksporti al PDF…"
+
+#~ msgid "Export to HTML…"
+#~ msgstr "Eksporti al HTML…"
+
+#~ msgid "Export"
+#~ msgstr "Eksporti"
+
+#~ msgid "Enter focus mode"
+#~ msgstr "Enigi fokusan reĝimon"
+
+#~ msgid "Margins of Text:"
+#~ msgstr "Flankaj marĝenoj:"
+
+#~ msgid "Type of Focus Mode:"
+#~ msgstr "Fokusa reĝima tipo:"
+
+#~ msgid "Typewriter Scrolling:"
+#~ msgstr "Skribmaŝina rulumado:"
+
+#~ msgid "User Interface"
+#~ msgstr "Uzanta fasado"
+
+#~ msgid "Enable Code Highlighting:"
+#~ msgstr "Ebligi kodan emfazon:"
+
+#~ msgid "Enable Spellchecking:"
+#~ msgstr "Ebligi literumadon:"
+
+#~ msgid "Replace all"
+#~ msgstr "Anstataŭigi ĉion"
+
+#~ msgid "Search next"
+#~ msgstr "Trovi sekvan"
+
+#~ msgid "No File"
+#~ msgstr "Neniu dosiero"
+
+#~ msgid "Remove File"
+#~ msgstr "Forigi dosieron"
+
+#~ msgid "Show/Hide Sidebar"
+#~ msgstr "Montri/kaŝi flankbreton"
+
+#~ msgid ""
+#~ "There are unsaved changes to the file. If you don't save, changes will be "
+#~ "lost forever."
+#~ msgstr ""
+#~ "Estas nekonservitaj ŝanĝoj ĉe la dosiero. Sen konservado, ŝanĝoj estos "
+#~ "perditaj."
+
+#~ msgid "Open file"
+#~ msgstr "Malfermi dosieron"
+
+#~ msgid "Lains"
+#~ msgstr "Lains"
+
+#~ msgid "Release: Fixes and Gizmos"
+#~ msgstr "Eldonita: riparoj kaj umaĵoj"
+
+#~ msgid "Fixes: Outline crashes the app if no file found."
+#~ msgstr ""
+#~ "Riparo: Dosierstrukturo kolapsigas la programon pro ne trovi dosieron."
+
+#~ msgid ""
+#~ "Fixes: App crashes if new document button is pushed when no files are in "
+#~ "the sidebar."
+#~ msgstr ""
+#~ "Riparo: programo kolapsas je klako de butono por Nova dokumento, se estas "
+#~ "neniu dosiero en la flankbreto."
+
+#~ msgid "Fixes: App fails to launch if file in sidebar no longer exists."
+#~ msgstr ""
+#~ "Riparo: programo fiaskas lanĉi se flankbreta dosiero ne plu ekzistas."
+
+#~ msgid "Fixes: App doesn't check spelling."
+#~ msgstr "Riparo: programo ne kontrollegas literumadon."
+
+#~ msgid "Release: File Eyeliner"
+#~ msgstr "Eldono: dosiera \"Okulŝminko\""
+
+#~ msgid "Added: File outline in the sidebar."
+#~ msgstr "Aldono: dosiera strukturo en la flankbreto."
+
+#~ msgid "Release: Blu-ray Encoder"
+#~ msgstr "Eldono: kodilo de blu-radia disko"
+
+#~ msgid "Fixed: When adding files to sidebar, actually select them."
+#~ msgstr ""
+#~ "Riparo: je aldono de dosieroj en la flankbreto, efektive elekti ilin."
+
+#~ msgid "Updated: Dutch Translation"
+#~ msgstr "Ĝisdatigo: nederlanda traduko"
+
+#~ msgid "Release: DVD Cleaner"
+#~ msgstr "Eldono: DVD-purigilo"
+
+#~ msgid "Fixed: Opening files should never fail now."
+#~ msgstr "Riparo: neniam plu devus kolapsi dosiera malfermo."
+
+#~ msgid "Release: VHS Tape Mixer"
+#~ msgstr "Eldono: VHS-benda miksilo"
+
+#~ msgid ""
+#~ "Reworked a lot of the internals so actions don't kill files. [Adam "
+#~ "Bieńkowski - @donadigo]"
+#~ msgstr ""
+#~ "Refarita multaj internaĵoj, tiel ke agoj ne plu ĉesigas dosierojn. [Adam "
+#~ "Bieńkowski - @donadigo]"
+
+#~ msgid "Release: Betamax Tracker"
+#~ msgstr "Eldono: Betamax-sekvilo"
+
+#~ msgid "Some UX redefinition in the sidebar, to avoid complicating it."
+#~ msgstr ""
+#~ "Iuj uzanto-fasadaĵaj refaroj en la flankbreto, por eviti tromalsimpligon."
+
+#~ msgid "Release: Kodachrome Selector"
+#~ msgstr "Eldono: Kodachrome-elektilo"
+
+#~ msgid ""
+#~ "Open files without adding duplicate entries, and clear sidebar is you "
+#~ "really need to (it has a confirm dialog)."
+#~ msgstr ""
+#~ "Malfermi dosierojn sen aldoni duoblajn enigojn, kaj malplenigi "
+#~ "flankbreton laŭ via bezono (ĝi prezentas konfirman dialogon)."
+
+#~ msgid "Release: Visually Stunning"
+#~ msgstr "Eldono: aspekte impona"
+
+#~ msgid ""
+#~ "Quilter received a visual upgrade, and also an awesome backend tuneup."
+#~ msgstr ""
+#~ "Quilter ricevas fasadan promocion, kaj ankaŭ bonegan malantaŭan agordon."
+
+#~ msgid "Rewrote all Sidebar functions"
+#~ msgstr "Reverko: ĉiuj flankbretaj funkcioj"
+
+#~ msgid "Removed LaTeX because it was lagging the app…"
+#~ msgstr "Forigo: LaTeX pro malrapidigo de la aplikaĵo…"
+
+#~ msgid "All File Management functions rewritten from scratch!"
+#~ msgstr "Reverko: ĉiuj dosieraj mastrumaj funkcioj, dekomence!"
+
+#~ msgid "Release: Side Serve Sheets"
+#~ msgstr "Eldono: flankaj servaj folioj"
+
+#~ msgid "5 months"
+#~ msgstr "5 monatoj"
+
+#~ msgid "Release: Choice Looks Better"
+#~ msgstr "Eldono: elekto pli belas"
+
+#~ msgid ""
+#~ "All tracking choices as well as preview font choices are better shown."
+#~ msgstr ""
+#~ "Ĉiuj sekvaj elektoj, same kiel antaŭrigarda tipara elekto, pli bone "
+#~ "aperas."
+
+#~ msgid "Release: Stylish Readable Stories"
+#~ msgstr "Eldono: stilplenaj legeblaj rakontoj"
+
+#~ msgid "All text passes a contrast check to be readable now."
+#~ msgstr "Nun, ĉiuj tekstoj sukcesu kontrolon pri kontrasto."
+
+#~ msgid "Release: Track Your Stuff Up"
+#~ msgstr "Eldono: sekvi viajn aĵojn"
+
+#~ msgid ""
+#~ "You can now set what to track in the document: Characters, Words, or "
+#~ "Lines."
+#~ msgstr ""
+#~ "Eblas nun difini kion sekvi en la dokumento: signoj, vortoj, linioj."
+
+#~ msgid "Release: Font Forgery"
+#~ msgstr "Eldono: tipara farejo"
+
+#~ msgid "You can now set the font size for Edit View in the Preferences."
+#~ msgstr ""
+#~ "Eblas nun difini la tiparan amplekson por redakta vido en la Agordoj."
+
+#~ msgid "Release: Sepia &amp; Blues"
+#~ msgstr "Eldono: sepia k bluso"
+
+#~ msgid "A new Mode between Light &amp; Dark, the Sepia Mode."
+#~ msgstr "Nova kolorskemo inter hela k malhela, jen la sepia kolorskemo."
+
+#~ msgid "A new way to toggle between Modes in the Settings."
+#~ msgstr "Nova maniero por baskuli interkolorskemoj en la Agordoj."
+
+#~ msgid "Dynamargins: the three sizes now autofit for the window's size."
+#~ msgstr ""
+#~ "Dinamikmarĝenoj: la tri ampleksoj nun mem alĝustiĝas al la fenestra "
+#~ "amplekso."
+
+#~ msgid "A redesign of the main menu."
+#~ msgstr "Refasono de la ĉefa menuo."
+
+#~ msgid "Search any term inside your document."
+#~ msgstr "Serĉi ajnan terminon en la dokumento."
+
+#~ msgid "Change Preview Mode's font style on-the-fly."
+#~ msgstr "Ŝanĝi tuj la tiparan stilon de la Antaŭrigardan reĝimon."
+
+#~ msgid ""
+#~ "Toggle Typewrite Mode for use on Focus Mode: Mimic a typerwriter when "
+#~ "editing."
+#~ msgstr ""
+#~ "Baskuli la Tajpan reĝimon uzota de la Fokusa reĝimo: imiti tajpilon dum "
+#~ "redaktado."
+
+#~ msgid "Fixed most of the internal logic to change between Modes."
+#~ msgstr "Riparo: plimulto de la internaĵoj pri baskulo inter reĝimoj."
+
+#~ msgid "Fixed fullscreen bug. (finally!)"
+#~ msgstr "Riparo de la plenekrana cimo. (finfine!)"
+
+#~ msgid ""
+#~ "Margins when fullscreen reflect the ratio of those on non-fullscreen "
+#~ "settings"
+#~ msgstr ""
+#~ "Marĝenoj ĉe plenekranado respektas la formaton de la ne-plenekranaj "
+#~ "agordoj"
+
+#~ msgid "Fixed the refresh rate of Preview Mode."
+#~ msgstr "Riparo de la aktualigo ĉe Antaŭrigarda reĝimo."
+
+#~ msgid "Release: Unreleased Bump"
+#~ msgstr "Eldono: neeldonita problemetoj"
+
+#~ msgid "Intentionally left blank."
+#~ msgstr "Intence lasita malplena."
+
+#~ msgid "Release: Maths? Hardly knew 'er!"
+#~ msgstr "Eldono: matematiko? mi apenaŭ konas tion!"
+
+#~ msgid "Now you can add LaTeX equations with \"$\" or \"$$\" modes."
+#~ msgstr "Eblas nun aldoni LaTeX-ekvacioj per \"$\"- aŭ \"$$\"-reĝimoj."
+
+#~ msgid "Release: Don't Blot Yourself"
+#~ msgstr "Eldono: ne sekigu vin"
+
+#~ msgid "Preview Mode will only update on changes from Edit View."
+#~ msgstr "Antaŭrigarda reĝimo aktualigos nur ŝanĝojn de la Redakta vido."
+
+#~ msgid "Statusbar will update always."
+#~ msgstr "Stata breto ĉiam aktualiĝos."
+
+#~ msgid "Release: All-Around An Inker!"
+#~ msgstr "Eldono: ĉirkaŭ la inkujo!"
+
+#~ msgid "Preview Mode won't load rogue Javascript code."
+#~ msgstr "Antaŭrigarda reĝimo ne plu ŝargos friponajn Javascript-kodon."
+
+#~ msgid ""
+#~ "Preview Mode will also not autojump to the start of the scroll at any "
+#~ "time."
+#~ msgstr "Antaŭrigarda reĝimo ne plu mem saltados komence de rulumado."
+
+#~ msgid "Header becomes Heading in the Cheatsheet."
+#~ msgstr "Nomo de Titolo (Header) fariĝas \"Heading\" en la Gvidfolio."
+
+#~ msgid ""
+#~ "Fixed the Unsaved changes dialog still killing files when pressing the "
+#~ "New File button."
+#~ msgstr ""
+#~ "Riparo: la dialogo pri nekonservitaj ŝanĝoj daŭre ĉesigas dosierojn je "
+#~ "premo de la Nova dosiero-butono."
+
+#~ msgid "New Translations for: Dutch, Catalan &amp; Spanish."
+#~ msgstr "Novaj tradukoj por: nederlanda, katalana k hispana."
+
+#~ msgid "Release: Visual Standardization"
+#~ msgstr "Eldono: vidaj normigoj"
+
+#~ msgid ""
+#~ "The headerbar now respects the global theme in Normal and Dark modes."
+#~ msgstr ""
+#~ "La paĝokapo nun respektas la globalan temon en Normala kaj Malhela "
+#~ "kolorskemoj."
+
+#~ msgid "Release: New Sheets Won't Crumple Old Ones, part 2"
+#~ msgstr "Eldono:la novaj folioj ne kripligos la malnovajn, parto 2a"
+
+#~ msgid "The New File button will not purge old files."
+#~ msgstr "La butono Nova dosiero ne viŝos malnovajn dosierojn."
+
+#~ msgid "com.github.lainsce.quilter"
+#~ msgstr "com.github.lainsce.quilter"

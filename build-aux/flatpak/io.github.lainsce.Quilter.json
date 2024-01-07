@@ -1,7 +1,7 @@
 {
     "id" : "io.github.lainsce.QuilterDevel",
     "runtime" : "org.gnome.Platform",
-    "runtime-version" : "44",
+    "runtime-version" : "45",
     "sdk" : "org.gnome.Sdk",
     "command" : "io.github.lainsce.Quilter",
     "rename-icon" : "io.github.lainsce.QuilterDevel",
@@ -52,6 +52,7 @@
         {
             "name" : "quilter",
             "buildsystem" : "meson",
+            "run-tests" : true,
             "config-opts" : [
                 "-Dprofile=development"
             ],
