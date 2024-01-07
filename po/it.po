@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: 2021-09-11 18:00+0100\n"
 "Last-Translator: Albano Battistella\n"
 "Language-Team: it\n"
@@ -18,197 +18,123 @@ msgstr ""
 "X-Generator: Poedit 1.8.7.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Nuovo Documento"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr "Non ancora salvato"
-
-#: src/MainWindow.vala:405
-msgid "Exit focus mode"
-msgstr "Esci dalla modalità focus"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Modifica"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Anteprima"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
-msgstr "Concentrati sulla tua scrittura."
-
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr "Albano Battistella"
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "File markdown"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Tutti i file"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "Salvare file aperto?"
-
-#: src/Services/DialogUtils.vala:37
-msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
-msgstr "Sono presenti modifiche non salvate al file, eventuali modifiche andranno perse se non salvate."
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Salva"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Chiudi senza salvare"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Cancella"
-
-#: src/Services/DialogUtils.vala:52
-msgid "Remove File From Sidebar?"
-msgstr "Rimuovere il file dalla barra laterale?"
-
-#: src/Services/DialogUtils.vala:53
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
 msgstr ""
-"Rimuovendo questo file dalla barra laterale, tutte le modifiche andranno perse se non "
-"salvate."
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Rimuovi Senza Salvare"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
+msgid ""
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
+msgstr ""
 
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Stampa su file"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:142
-msgid "Select Destination PDF File"
-msgstr "Seleziona il file PDF di destinazione"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "File PDF"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Tutti i file"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:191
-msgid "Select Destination HTML File"
-msgstr "Seleziona il file HTML di destinazione"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "File HTML"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr ""
 
-#: src/Services/FileManager.vala:89
-msgid "Open File"
-msgstr "Apri file"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr ""
 
-#: src/Services/FileManager.vala:102
-msgid "Save File"
-msgstr "Salva File"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr "Rinomina"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:136
-msgid "Rename File:"
-msgstr "Rinomina File:"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:153
-msgid "Rename File"
-msgstr "Rinomina file"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Tema scuro"
 
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr "nuovo_nome.md"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Tema scuro"
 
-#: src/Widgets/HeaderBar.vala:163
-msgid "Toggle View"
-msgstr "Attiva Vista"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Modalità focus"
 
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Nuovo File"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Anteprima"
 
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Parole:"
+#: data/io.github.lainsce.Quilter.desktop.in:7
+msgid "Text;Markdown;Editor;"
+msgstr ""
 
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
-msgstr "Frasi: "
-
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Tempo di lettura:"
-
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Guida Markdown"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr "Comune"
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Testo"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr "Grassetto"
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 msgid "**Bold text**"
 msgstr "**Testo in Grassetto**"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr "Corsivo"
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr "**Testo in corsivo**"
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 msgid "Code Line"
 msgstr "Riga di codice"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr " testo del codice "
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 msgid "Code Block"
 msgstr "Blocco codice"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
@@ -218,22 +144,22 @@ msgstr ""
 "testo codice\n"
 "```"
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
 "> here"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 msgid "Headers"
 msgstr "Intestazioni"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -241,315 +167,338 @@ msgid ""
 "..."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Link"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 #, fuzzy
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
 msgstr "[Nome link](http://link.indirizzo.com)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr "Extra"
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 msgid "Strikethrough"
 msgstr "barrato"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 msgid "~~Striked through text~~"
 msgstr "~~Barrato attraverso il testo~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 msgid "Horzontal Rule"
 msgstr "Regola orizzontale"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr "Usa: --- o ***"
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Speciale"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Estensioni"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr "Matematica LaTeX"
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 msgid ""
 "$$…$$\tfor equation block\n"
 "\\\\(…\\\\)\t\tfor inline equation"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr "Caselle di controllo"
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
 msgstr "Attenzione al periodo per evitare collisioni."
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
 msgstr ""
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Tabelle"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr "Opzioni"
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 msgid ""
 "Left\t\t--- \tto\t:---\n"
 "Centered    ---\tto\t:---:\n"
 "Right\t\t---\tto\t---: "
 msgstr ""
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 #, fuzzy
 msgid "Files"
 msgstr "Tutti i file"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 msgid "Document"
 msgstr "Documento"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr ""
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Immagine"
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 msgid "/Folder/Image.png :image"
 msgstr ""
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Salva"
+
+#: data/ui/headerbar.ui:21
 msgid "Save As…"
 msgstr "Salva come…"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 msgid "Export HTML…"
 msgstr "Esporta HTML…"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 msgid "Export PDF…"
 msgstr "Esporta PDF…"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 msgid "Show/Hide the sidebar"
 msgstr "Mostra/Nascondi la barra laterale"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 msgid "Save the current file"
 msgstr "Salva il file corrente"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 msgid "Create a new document"
 msgstr "Crea un nuovo documento"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Apri"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 msgid "Open a file"
 msgstr "Apri un file"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr "Indietro"
-
-#: data/ui/headerbar.ui:219
-msgid "Editor or Preview, change via menu"
-msgstr "Editor o Anteprima, modifica tramite menu"
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Intera larghezza"
-
-#: data/ui/headerbar.ui:234
-msgid "Editor and Preview, side by side"
-msgstr "Editor and Preview, side by side"
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "A metà larghezza"
-
-#: data/ui/headerbar.ui:339
-msgid "Focus Mode"
-msgstr "Modalità focus"
-
-#: data/ui/headerbar.ui:351
-msgid "About Quilter"
-msgstr "Informazioni su Quilter"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr "Scorciatoie da tastiera"
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Preferenze"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 msgid "View Type"
 msgstr "Visualizza tipo"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr "Editor o Anteprima, modifica tramite menu"
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Intera larghezza"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr "Editor and Preview, side by side"
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "A metà larghezza"
+
+#: data/ui/headerbar.ui:197
+msgid "About Quilter"
+msgstr "Informazioni su Quilter"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr "Scorciatoie da tastiera"
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Preferenze"
+
+#: data/ui/headerbar.ui:251
 msgid "Find and Replace…"
 msgstr "Trova e Sostituisci…"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
-msgstr "Generale"
-
-#: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr "Aspetto"
-
-#: data/ui/prefs_window.ui:25
-msgid "Visual Mode"
-msgstr "Modalità visiva"
-
-#: data/ui/prefs_window.ui:91
-msgid "Interface"
-msgstr "Interfaccia"
-
-#: data/ui/prefs_window.ui:98
-msgid "Focus Scope"
-msgstr "Modalità focus"
-
-#: data/ui/prefs_window.ui:149
-msgid "Typewriter Scrolling"
-msgstr "Scorrimento macchina da scrivere"
-
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr "Barra laterale"
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
+#: data/ui/prefs_window.ui:11
 msgid "Editor"
 msgstr "Editor"
 
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr "Ritardo salvataggio automatico"
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr "I valori inferiori a 15s influiscono negativamente sul supporto di memorizzazione."
-
-#: data/ui/prefs_window.ui:214
-msgid "Highlight Speech Parts (Beta)"
-msgstr "Evidenzia le parti del discorso (beta)"
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-
-#: data/ui/prefs_window.ui:237
+#: data/ui/prefs_window.ui:17
 msgid "Font"
 msgstr "Font"
 
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr "Tipo"
+#: data/ui/prefs_window.ui:21
+#, fuzzy
+msgid "Quilt Mono"
+msgstr "Quilter"
 
-#: data/ui/prefs_window.ui:270
-msgid "Preview Font Type"
+#: data/ui/prefs_window.ui:22
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:23
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:43
+msgid "Interface"
+msgstr "Interfaccia"
+
+#: data/ui/prefs_window.ui:46
+msgid "Focus Scope"
+msgstr "Modalità focus"
+
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr ""
+
+#: data/ui/prefs_window.ui:60
+#, fuzzy
+msgid "Sentence"
+msgstr "Frasi"
+
+#: data/ui/prefs_window.ui:73
+msgid "Typewriter Scrolling"
+msgstr "Scorrimento macchina da scrivere"
+
+#: data/ui/prefs_window.ui:83
+#, fuzzy
+msgid "Document Tracker"
+msgstr "Documento"
+
+#: data/ui/prefs_window.ui:84
+#, fuzzy
+msgid "Tracks words, sentences or reading time."
+msgstr "Traccia parole, frasi o tempo di lettura qui"
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "Evidenzia codice"
+
+#: data/ui/prefs_window.ui:99
+#, fuzzy
+msgid "Speech Parts (Beta)"
+msgstr "Evidenzia le parti del discorso (beta)"
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Anteprima"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr "Generale"
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Anteprima Tipo di Font"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+msgid "Serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:126
+msgid "Sans-serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:127
+msgid "Monospace"
+msgstr ""
+
+#: data/ui/prefs_window.ui:135
 msgid "Header Centering"
 msgstr "Centratura dell'intestazione"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
 msgstr "questo riguarda #, ##, e ### intestazioni."
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 msgid "Code Highlight"
 msgstr "Evidenzia codice"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr "I blocchi di codice avranno il contenuto che riceve il colore."
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr "I blocchi matematici di LaTeX verranno elaborati nell'output di LaTeX."
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr ""
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
 msgstr ""
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 msgid "Replace…"
 msgstr "Sostituisci…"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 msgid "Replace"
 msgstr "Sostituisci"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 msgid "Replace All"
 msgstr "Sostituisci tutto"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Trova…"
 
@@ -643,39 +592,237 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Esporta in PDF"
 
-#: data/ui/sidebar.ui:46
-msgid "No Files"
-msgstr "Nessun File"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Contorno"
-
 #: data/ui/sidebarbox.ui:16
 msgid "Remove file from sidebar"
 msgstr "Rimuovi file dalla barra laterale"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+msgid "No Files"
+msgstr "Nessun File"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Contorno"
+
+#: data/ui/statusbar.ui:13
 msgid "Words"
 msgstr "Parole"
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 msgid "Sentences"
 msgstr "Frasi"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 msgid "Reading Time"
 msgstr "Tempo di lettura"
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr "Traccia parole, frasi o tempo di lettura qui"
 
-#~ msgid "Sepia Mode"
-#~ msgstr "Tema scuro"
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Nuovo Documento"
 
-#~ msgid "Dark Mode"
-#~ msgstr "Tema scuro"
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr "Non ancora salvato"
+
+#: src/MainWindow.vala:349
+msgid "Exit focus mode"
+msgstr "Esci dalla modalità focus"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Modifica"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr "Concentrati sulla tua scrittura."
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr "Albano Battistella"
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+#, fuzzy
+msgid "Load a Checkbox"
+msgstr "Caselle di controllo"
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+#, fuzzy
+msgid "Checkbox"
+msgstr "Caselle di controllo"
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Tutti i file"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+msgid "Subscript"
+msgstr ""
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+msgid "Superscript"
+msgstr ""
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "File markdown"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Tutti i file"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Salvare file aperto?"
+
+#: src/Services/DialogUtils.vala:37
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"Sono presenti modifiche non salvate al file, eventuali modifiche andranno "
+"perse se non salvate."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Cancella"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Chiudi senza salvare"
+
+#: src/Services/DialogUtils.vala:52
+msgid "Remove File From Sidebar?"
+msgstr "Rimuovere il file dalla barra laterale?"
+
+#: src/Services/DialogUtils.vala:53
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Rimuovendo questo file dalla barra laterale, tutte le modifiche andranno "
+"perse se non salvate."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Rimuovi Senza Salvare"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Stampa su file"
+
+#: src/Services/ExportUtils.vala:142
+msgid "Select Destination PDF File"
+msgstr "Seleziona il file PDF di destinazione"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "File PDF"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Tutti i file"
+
+#: src/Services/ExportUtils.vala:189
+msgid "Select Destination HTML File"
+msgstr "Seleziona il file HTML di destinazione"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "File HTML"
+
+#: src/Services/FileManager.vala:89
+msgid "Open File"
+msgstr "Apri file"
+
+#: src/Services/FileManager.vala:101
+msgid "Save File"
+msgstr "Salva File"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr "Rinomina"
+
+#: src/Widgets/HeaderBar.vala:130
+msgid "Rename File:"
+msgstr "Rinomina File:"
+
+#: src/Widgets/HeaderBar.vala:146
+msgid "Rename File"
+msgstr "Rinomina file"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr "nuovo_nome.md"
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr "Attiva Vista"
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Nuovo File"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Parole:"
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr "Frasi: "
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Tempo di lettura:"
+
+#~ msgid "Go Back"
+#~ msgstr "Indietro"
+
+#~ msgid "Appearance"
+#~ msgstr "Aspetto"
+
+#~ msgid "Visual Mode"
+#~ msgstr "Modalità visiva"
+
+#~ msgid "Sidebar"
+#~ msgstr "Barra laterale"
+
+#~ msgid "Autosave Delay"
+#~ msgstr "Ritardo salvataggio automatico"
+
+#~ msgid "Values below 15s affects the storage medium negatively."
+#~ msgstr ""
+#~ "I valori inferiori a 15s influiscono negativamente sul supporto di "
+#~ "memorizzazione."
+
+#~ msgid "Type"
+#~ msgstr "Tipo"
 
 #~ msgid "Focus Mode…"
 #~ msgstr "Modalità focus…"
@@ -685,14 +832,6 @@ msgstr "Traccia parole, frasi o tempo di lettura qui"
 
 #~ msgid "Rename the File:"
 #~ msgstr "Rinominare il file:"
-
-#, fuzzy
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilter"
-
-#, fuzzy
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilter"
 
 #~ msgid "No files…"
 #~ msgstr "Nessun file…"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: com.github.lainsce.quilter\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-08 21:16-0300\n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
 "PO-Revision-Date: 2021-10-28 20:52+0200\n"
 "Last-Translator: Milo Ivir <mail@milotype.de>\n"
 "Language-Team: \n"
@@ -15,204 +15,132 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.0\n"
 
-#: src/MainWindow.vala:155 src/MainWindow.vala:697 src/Widgets/SideBar.vala:97
-#: src/Widgets/SideBar.vala:220
-msgid "New Document"
-msgstr "Novi dokument"
-
-#: src/MainWindow.vala:156 src/MainWindow.vala:698 src/MainWindow.vala:701
-#: src/Widgets/SideBar.vala:98 src/Widgets/SideBar.vala:221
-msgid "Not Saved Yet"
-msgstr "Još nije spremljeno"
-
-#: src/MainWindow.vala:405
-msgid "Exit focus mode"
-msgstr "Napusti modus fokusa"
-
-#: src/MainWindow.vala:633
-msgid "Edit"
-msgstr "Uredi"
-
-#: src/MainWindow.vala:634 data/ui/prefs_window.ui:264
-#: data/ui/prefs_window.ui:267
-msgid "Preview"
-msgstr "Pregled"
-
-#: src/MainWindow.vala:788
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
 msgid "Quilter"
 msgstr "Quilter"
 
-#: src/MainWindow.vala:793
-msgid "Focus on your writing."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+#, fuzzy
+msgid "Focus on your writing"
 msgstr "Usredotoči se na pisanje."
 
-#: src/MainWindow.vala:799
-msgid "translator-credits"
-msgstr "Milo Ivir <mail@milotype.de>"
-
-#: src/Services/DialogUtils.vala:21
-msgid "Markdown files"
-msgstr "Markdown datoteke"
-
-#: src/Services/DialogUtils.vala:25
-msgid "All files"
-msgstr "Sve datoteke"
-
-#: src/Services/DialogUtils.vala:36
-msgid "Save Open File?"
-msgstr "Spremiti otvorenu datoteku?"
-
-#: src/Services/DialogUtils.vala:37
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
 msgid ""
-"There are unsaved changes to the file, any changes will be lost if not saved."
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
 msgstr ""
-"Postoje nespremljene promjene u datoteci, sve promjene će se izgubiti ako se "
-"ne spreme."
 
-#: src/Services/DialogUtils.vala:41 src/Services/DialogUtils.vala:57
-#: src/Services/ExportUtils.vala:144 src/Services/ExportUtils.vala:193
-#: data/ui/headerbar.ui:21
-msgid "Save"
-msgstr "Spremi"
-
-#: src/Services/DialogUtils.vala:42
-msgid "Close Without Saving"
-msgstr "Zatvori bez spremanja"
-
-#: src/Services/DialogUtils.vala:43 src/Services/DialogUtils.vala:59
-#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:212
-msgid "Cancel"
-msgstr "Odustani"
-
-#: src/Services/DialogUtils.vala:52
-msgid "Remove File From Sidebar?"
-msgstr "Ukloniti datoteku iz bočne trake?"
-
-#: src/Services/DialogUtils.vala:53
-msgid ""
-"By removing this file from the Sidebar, any changes will be lost if not "
-"saved."
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
 msgstr ""
-"Uklanjanjem ove datoteke iz bočne trake, sve promjene će se izgubiti ako se "
-"ne spreme."
 
-#: src/Services/DialogUtils.vala:58
-msgid "Remove Without Saving"
-msgstr "Zatvori bez spremanja"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:84
-msgid "Print to File"
-msgstr "Ispiši u datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:142
-msgid "Select Destination PDF File"
-msgstr "Odaberi oderdišnu PDF datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:147
-msgid "PDF File"
-msgstr "PDF datoteka"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:203
-msgid "All Files"
-msgstr "Sve datoteke"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr ""
 
-#: src/Services/ExportUtils.vala:191
-msgid "Select Destination HTML File"
-msgstr "Odaberi oderdišnu HTML datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+#, fuzzy
+msgid "Fullscreen your writing area with F11."
+msgstr "Usredotoči se na pisanje."
 
-#: src/Services/ExportUtils.vala:196
-msgid "HTML File"
-msgstr "HTML datoteka"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr ""
 
-#: src/Services/FileManager.vala:89
-msgid "Open File"
-msgstr "Otvori datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr ""
 
-#: src/Services/FileManager.vala:102
-msgid "Save File"
-msgstr "Spremi datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr ""
 
-#: src/Widgets/HeaderBar.vala:113
-msgid "Rename"
-msgstr "Preimenuj"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+#, fuzzy
+msgid "Sepia Mode"
+msgstr "Vizualni modus"
 
-#: src/Widgets/HeaderBar.vala:136
-msgid "Rename File:"
-msgstr "Preimenuj datoteku:"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+#, fuzzy
+msgid "Dark Mode"
+msgstr "Vizualni modus"
 
-#: src/Widgets/HeaderBar.vala:153
-msgid "Rename File"
-msgstr "Preimenuj datoteku"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Modus fokusa"
 
-#: src/Widgets/HeaderBar.vala:156
-msgid "new_name.md"
-msgstr "novo_ime.md"
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+#, fuzzy
+msgid "Preview Mode"
+msgstr "Pregled"
 
-#: src/Widgets/HeaderBar.vala:163
-msgid "Toggle View"
-msgstr "Uključi/Isključi prikaz"
+#: data/io.github.lainsce.Quilter.desktop.in:7
+msgid "Text;Markdown;Editor;"
+msgstr ""
 
-#: src/Widgets/SideBar.vala:99 src/Widgets/SideBar.vala:222
-msgid "New File"
-msgstr "Nova datoteka"
-
-#: src/Widgets/StatusBar.vala:76
-msgid "Words: "
-msgstr "Riječi: "
-
-#: src/Widgets/StatusBar.vala:81
-msgid "Sentences: "
-msgstr "Rečenice: "
-
-#: src/Widgets/StatusBar.vala:87
-msgid "Reading Time: "
-msgstr "Vrijema čitanja: "
-
-#: data/ui/cheatsheet.ui:8 data/ui/headerbar.ui:387
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
 msgid "Markdown Cheatsheet"
 msgstr "Šalabahter za Markdown"
 
-#: data/ui/cheatsheet.ui:17
+#: data/ui/cheatsheet.ui:13
 msgid "Common"
 msgstr "Uobičajeno"
 
-#: data/ui/cheatsheet.ui:22
+#: data/ui/cheatsheet.ui:16
 msgid "Text"
 msgstr "Tekst"
 
-#: data/ui/cheatsheet.ui:28
+#: data/ui/cheatsheet.ui:20
 msgid "Bold"
 msgstr "Podebljano"
 
-#: data/ui/cheatsheet.ui:35
+#: data/ui/cheatsheet.ui:25
 msgid "**Bold text**"
 msgstr "**Podebljani tekst**"
 
-#: data/ui/cheatsheet.ui:48
+#: data/ui/cheatsheet.ui:36
 msgid "Italics"
 msgstr "Kurziv"
 
-#: data/ui/cheatsheet.ui:55
+#: data/ui/cheatsheet.ui:41
 msgid "**Italicized text**"
 msgstr "**kurzivni tekst**"
 
-#: data/ui/cheatsheet.ui:68
+#: data/ui/cheatsheet.ui:52
 msgid "Code Line"
 msgstr "Redak koda"
 
-#: data/ui/cheatsheet.ui:75
+#: data/ui/cheatsheet.ui:57
 msgid "`code text`"
 msgstr "`tekst koda`"
 
-#: data/ui/cheatsheet.ui:88
+#: data/ui/cheatsheet.ui:68
 msgid "Code Block"
 msgstr "Blok koda"
 
-#: data/ui/cheatsheet.ui:95
+#: data/ui/cheatsheet.ui:73
 msgid ""
 "```\n"
 "code text\n"
@@ -222,11 +150,11 @@ msgstr ""
 "tekst koda\n"
 "```"
 
-#: data/ui/cheatsheet.ui:110
+#: data/ui/cheatsheet.ui:86
 msgid "Quoting"
 msgstr "Citiranje"
 
-#: data/ui/cheatsheet.ui:117
+#: data/ui/cheatsheet.ui:91
 msgid ""
 "> Quote\n"
 "> something\n"
@@ -236,11 +164,11 @@ msgstr ""
 "> nešto\n"
 "> ovdje"
 
-#: data/ui/cheatsheet.ui:136 data/ui/cheatsheet.ui:142
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
 msgid "Headers"
 msgstr "Zaglavlja"
 
-#: data/ui/cheatsheet.ui:149
+#: data/ui/cheatsheet.ui:117
 msgid ""
 "# Title\n"
 "## Subtitle\n"
@@ -252,11 +180,11 @@ msgstr ""
 "### Odjeljak\n"
 "..."
 
-#: data/ui/cheatsheet.ui:162
+#: data/ui/cheatsheet.ui:128
 msgid "Links"
 msgstr "Poveznice"
 
-#: data/ui/cheatsheet.ui:169
+#: data/ui/cheatsheet.ui:133
 msgid ""
 "[Link Label](http://link.url.com)\n"
 "![Image Label](http://image.url.com)"
@@ -264,51 +192,52 @@ msgstr ""
 "[Oznaka poveznice](http://link.url.com)\n"
 "![Oznaka slike](http://image.url.com)"
 
-#: data/ui/cheatsheet.ui:184
+#: data/ui/cheatsheet.ui:146
 msgid "Extras"
 msgstr "Dodatno"
 
-#: data/ui/cheatsheet.ui:190
+#: data/ui/cheatsheet.ui:150
 msgid "Strikethrough"
 msgstr "Precrtano"
 
-#: data/ui/cheatsheet.ui:197
+#: data/ui/cheatsheet.ui:155
 msgid "~~Striked through text~~"
 msgstr "~~Precrtan tekst~~"
 
-#: data/ui/cheatsheet.ui:210
+#: data/ui/cheatsheet.ui:166
 msgid "Sub/Superscript"
 msgstr "Eksponent/Indeks"
 
-#: data/ui/cheatsheet.ui:217
+#: data/ui/cheatsheet.ui:171
+#, fuzzy
 msgid ""
-"Subscript:\t\t    H~2~O\n"
-"Superscript:\t\t1^st^"
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
 msgstr ""
 "Indeks:\t\t    H~2~O\n"
 "Eksponent:\t\t1^st^"
 
-#: data/ui/cheatsheet.ui:229
+#: data/ui/cheatsheet.ui:180
 msgid "Horzontal Rule"
 msgstr "Vodoravna crta"
 
-#: data/ui/cheatsheet.ui:236
+#: data/ui/cheatsheet.ui:185
 msgid "Use: --- or ***"
 msgstr "Koristi: --- ili ***"
 
-#: data/ui/cheatsheet.ui:254
+#: data/ui/cheatsheet.ui:200
 msgid "Special"
 msgstr "Posebno"
 
-#: data/ui/cheatsheet.ui:259 data/ui/prefs_window.ui:306
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
 msgid "Extensions"
 msgstr "Proširenja"
 
-#: data/ui/cheatsheet.ui:265 data/ui/prefs_window.ui:324
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
 msgid "LaTeX Math"
 msgstr "LaTeX matematika"
 
-#: data/ui/cheatsheet.ui:272
+#: data/ui/cheatsheet.ui:212
 msgid ""
 "$$…$$\tfor equation block\n"
 "\\\\(…\\\\)\t\tfor inline equation"
@@ -316,23 +245,23 @@ msgstr ""
 "$$…$$\tza blok jednadžbe\n"
 "\\\\(…\\\\)\t\tza jednadžbu u jednom retku"
 
-#: data/ui/cheatsheet.ui:284
+#: data/ui/cheatsheet.ui:221
 msgid "Mermaid.js Graphs"
 msgstr "Mermaid.js Graphs"
 
-#: data/ui/cheatsheet.ui:291
+#: data/ui/cheatsheet.ui:226
 msgid "<div class=\"mermaid\">...</div>"
 msgstr "<div class=\"mermaid\">…</div>"
 
-#: data/ui/cheatsheet.ui:304
+#: data/ui/cheatsheet.ui:237
 msgid "Checkboxes"
 msgstr "Potvrdni okviri"
 
-#: data/ui/cheatsheet.ui:305
+#: data/ui/cheatsheet.ui:238
 msgid "Mind the period to avoid collisions."
 msgstr "Pazi na točku za izbjegavanje nepodudarnosti."
 
-#: data/ui/cheatsheet.ui:312
+#: data/ui/cheatsheet.ui:243
 msgid ""
 "- [\t] Empty.\n"
 "- [x] Checked."
@@ -340,11 +269,11 @@ msgstr ""
 "- [\t] Prazno.\n"
 "- [x] Označeno."
 
-#: data/ui/cheatsheet.ui:328 data/ui/cheatsheet.ui:334
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
 msgid "Tables"
 msgstr "Tablice"
 
-#: data/ui/cheatsheet.ui:341
+#: data/ui/cheatsheet.ui:265
 msgid ""
 "|\tA\t|\tB\t|\n"
 "|      ---      |      ---      |\n"
@@ -354,11 +283,11 @@ msgstr ""
 "|      ---      |      ---      |\n"
 "|\t1\t|\t2\t|"
 
-#: data/ui/cheatsheet.ui:356
+#: data/ui/cheatsheet.ui:278
 msgid "Options"
 msgstr "Opcije"
 
-#: data/ui/cheatsheet.ui:363
+#: data/ui/cheatsheet.ui:283
 msgid ""
 "Left\t\t--- \tto\t:---\n"
 "Centered    ---\tto\t:---:\n"
@@ -368,219 +297,234 @@ msgstr ""
 "Centrirano    ---\tdo\t:---:\n"
 "Desno\t\t—\tdo\t---: "
 
-#: data/ui/cheatsheet.ui:380 data/ui/sidebar.ui:30
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
 msgid "Files"
 msgstr "Datoteke"
 
-#: data/ui/cheatsheet.ui:386
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
 msgid "Document"
 msgstr "Dokument"
 
-#: data/ui/cheatsheet.ui:393
+#: data/ui/cheatsheet.ui:306
 msgid "/Folder/Document.md :file"
 msgstr "/Mapa/Dokument.md :datoteka"
 
-#: data/ui/cheatsheet.ui:403
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
 msgid "Image"
 msgstr "Slika"
 
-#: data/ui/cheatsheet.ui:410
+#: data/ui/cheatsheet.ui:319
 msgid "/Folder/Image.png :image"
 msgstr "/Mapa/Slika.png :slika"
 
-#: data/ui/headerbar.ui:33
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Spremi"
+
+#: data/ui/headerbar.ui:21
 msgid "Save As…"
 msgstr "Spremi kao …"
 
-#: data/ui/headerbar.ui:56
+#: data/ui/headerbar.ui:35
 msgid "Export HTML…"
 msgstr "Izvezi HTML …"
 
-#: data/ui/headerbar.ui:69
+#: data/ui/headerbar.ui:45
 msgid "Export PDF…"
 msgstr "Izvezi PDF …"
 
-#: data/ui/headerbar.ui:95
+#: data/ui/headerbar.ui:61
 msgid "Show/Hide the sidebar"
 msgstr "Prikaži/Sakrij bočnu traku"
 
-#: data/ui/headerbar.ui:131
+#: data/ui/headerbar.ui:77
 msgid "Save the current file"
 msgstr "Spremi trenutačnu datoteku"
 
-#: data/ui/headerbar.ui:152
+#: data/ui/headerbar.ui:88
 msgid "Create a new document"
 msgstr "Stvori novi dokument"
 
-#: data/ui/headerbar.ui:169
+#: data/ui/headerbar.ui:98
 msgid "Open"
 msgstr "Otvori"
 
-#: data/ui/headerbar.ui:172
+#: data/ui/headerbar.ui:99
 msgid "Open a file"
 msgstr "Otvori datoteku"
 
-#: data/ui/headerbar.ui:204
-msgid "Go Back"
-msgstr "Idi natrag"
-
-#: data/ui/headerbar.ui:219
-msgid "Editor or Preview, change via menu"
-msgstr "Uređivač ili pregled, promijeni putem izbornika"
-
-#: data/ui/headerbar.ui:221
-msgid "Full-Width"
-msgstr "Puna širina"
-
-#: data/ui/headerbar.ui:234
-msgid "Editor and Preview, side by side"
-msgstr "Uređivač i pregled, jedno pored drugog"
-
-#: data/ui/headerbar.ui:236
-msgid "Half-Width"
-msgstr "Poluširine"
-
-#: data/ui/headerbar.ui:339
-msgid "Focus Mode"
-msgstr "Modus fokusa"
-
-#: data/ui/headerbar.ui:351
-msgid "About Quilter"
-msgstr "O programu Quilter"
-
-#: data/ui/headerbar.ui:363
-msgid "Keyboard Shortcuts"
-msgstr "Tipkovni prečaci"
-
-#: data/ui/headerbar.ui:375 data/ui/prefs_window.ui:11
-msgid "Preferences"
-msgstr "Postavke"
-
-#: data/ui/headerbar.ui:408
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
 msgid "View Type"
 msgstr "Vrsta prikaza"
 
-#: data/ui/headerbar.ui:421
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr "Uređivač ili pregled, promijeni putem izbornika"
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Puna širina"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr "Uređivač i pregled, jedno pored drugog"
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Poluširine"
+
+#: data/ui/headerbar.ui:197
+msgid "About Quilter"
+msgstr "O programu Quilter"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr "Tipkovni prečaci"
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Postavke"
+
+#: data/ui/headerbar.ui:251
 msgid "Find and Replace…"
 msgstr "Traži i zamijeni …"
 
-#: data/ui/prefs_window.ui:19
-msgid "General"
-msgstr "Opće"
-
-#: data/ui/prefs_window.ui:22
-msgid "Appearance"
-msgstr "Izgled"
-
-#: data/ui/prefs_window.ui:25
-msgid "Visual Mode"
-msgstr "Vizualni modus"
-
-#: data/ui/prefs_window.ui:91
-msgid "Interface"
-msgstr "Sučelje"
-
-#: data/ui/prefs_window.ui:98
-msgid "Focus Scope"
-msgstr "Opseg fokusa"
-
-#: data/ui/prefs_window.ui:149
-msgid "Typewriter Scrolling"
-msgstr "Pomicanje pisaćeg stroja"
-
-#: data/ui/prefs_window.ui:165
-msgid "Sidebar"
-msgstr "Bočna traka"
-
-#: data/ui/prefs_window.ui:184 data/ui/prefs_window.ui:187
+#: data/ui/prefs_window.ui:11
 msgid "Editor"
 msgstr "Uređivač"
 
-#: data/ui/prefs_window.ui:194
-msgid "Autosave Delay"
-msgstr "Odgoda automatskog spremanja"
-
-#: data/ui/prefs_window.ui:195
-msgid "Values below 15s affects the storage medium negatively."
-msgstr ""
-"Vrijednosti ispod 15 s negativno utječu na medij za spremanje podataka."
-
-#: data/ui/prefs_window.ui:214
-msgid "Highlight Speech Parts (Beta)"
-msgstr "Istakni govorne dijelove (Beta)"
-
-#. Mind the newlines
-#: data/ui/prefs_window.ui:215
-msgid ""
-"Only available in English\n"
-"Colors words based on type:\n"
-"- Nouns are black\n"
-"- Verbs are blue\n"
-"- Adjectives are yellow\n"
-"- Adverbs are purple\n"
-"- Conjunctions are green"
-msgstr ""
-"Dostupno samo na engleskom jeziku\n"
-"Oboji riječi prema vrsti:\n"
-"- Imenice su crne\n"
-"- Glagoli su plavi\n"
-"- Pridjevi su žuti\n"
-"- Prilozi su ljubičasti\n"
-"- Veznici su zeleni"
-
-#: data/ui/prefs_window.ui:237
+#: data/ui/prefs_window.ui:17
 msgid "Font"
 msgstr "Font"
 
-#: data/ui/prefs_window.ui:240
-msgid "Type"
-msgstr "Vrsta"
+#: data/ui/prefs_window.ui:21
+#, fuzzy
+msgid "Quilt Mono"
+msgstr "Quilter"
 
-#: data/ui/prefs_window.ui:270
-msgid "Preview Font Type"
+#: data/ui/prefs_window.ui:22
+#, fuzzy
+msgid "Quilt Zwei"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:23
+#, fuzzy
+msgid "Quilt Vier"
+msgstr "Quilter"
+
+#: data/ui/prefs_window.ui:43
+msgid "Interface"
+msgstr "Sučelje"
+
+#: data/ui/prefs_window.ui:46
+msgid "Focus Scope"
+msgstr "Opseg fokusa"
+
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr ""
+
+#: data/ui/prefs_window.ui:60
+#, fuzzy
+msgid "Sentence"
+msgstr "Rečenice"
+
+#: data/ui/prefs_window.ui:73
+msgid "Typewriter Scrolling"
+msgstr "Pomicanje pisaćeg stroja"
+
+#: data/ui/prefs_window.ui:83
+#, fuzzy
+msgid "Document Tracker"
+msgstr "Dokument"
+
+#: data/ui/prefs_window.ui:84
+#, fuzzy
+msgid "Tracks words, sentences or reading time."
+msgstr "Ovdje prati riječi, rečenice ili vrijeme čitanja"
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+#, fuzzy
+msgid "Highlight"
+msgstr "Isticanje koda"
+
+#: data/ui/prefs_window.ui:99
+#, fuzzy
+msgid "Speech Parts (Beta)"
+msgstr "Istakni govorne dijelove (Beta)"
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr ""
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Pregled"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr "Opće"
+
+#: data/ui/prefs_window.ui:121
+#, fuzzy
+msgid "Preview Font"
 msgstr "Pregled vrste fonta"
 
-#: data/ui/prefs_window.ui:289
+#: data/ui/prefs_window.ui:125
+msgid "Serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:126
+msgid "Sans-serif"
+msgstr ""
+
+#: data/ui/prefs_window.ui:127
+msgid "Monospace"
+msgstr ""
+
+#: data/ui/prefs_window.ui:135
 msgid "Header Centering"
 msgstr "Centriranje zaglavlja"
 
-#: data/ui/prefs_window.ui:290
+#: data/ui/prefs_window.ui:136
 msgid "This affects #, ##, and ### headers."
 msgstr "Ovo utječe na #, ## i ### zaglavlja."
 
-#: data/ui/prefs_window.ui:309
+#: data/ui/prefs_window.ui:151
 msgid "Code Highlight"
 msgstr "Isticanje koda"
 
-#: data/ui/prefs_window.ui:310
+#: data/ui/prefs_window.ui:152
 msgid "Code blocks will have the contents receive color."
 msgstr "Sadržaji blokova koda bit će obojani."
 
-#: data/ui/prefs_window.ui:325
+#: data/ui/prefs_window.ui:163
 msgid "LaTeX math blocks will be processed into LaTeX output."
 msgstr "Matematički LaTeX blokovi obradit će se u LaTeX rezultat."
 
-#: data/ui/prefs_window.ui:339
+#: data/ui/prefs_window.ui:173
 msgid "Mermaid.js Graph"
 msgstr "Mermaid.js dijagram"
 
-#: data/ui/prefs_window.ui:340
+#: data/ui/prefs_window.ui:174
 msgid "Mermaid blocks will become graphs."
 msgstr "Mermaid blokovi pretvorit će se u dijagrame."
 
-#: data/ui/searchbar.ui:23
+#: data/ui/searchbar.ui:22
 msgid "Replace…"
 msgstr "Zamijeni …"
 
-#: data/ui/searchbar.ui:33
+#: data/ui/searchbar.ui:27
 msgid "Replace"
 msgstr "Zamijeni"
 
-#: data/ui/searchbar.ui:48
+#: data/ui/searchbar.ui:32
 msgid "Replace All"
 msgstr "Zamijeni sve"
 
-#: data/ui/searchbar.ui:78
+#: data/ui/searchbar.ui:45
 msgid "Find…"
 msgstr "Pronađi …"
 
@@ -674,39 +618,252 @@ msgctxt "shortcut window"
 msgid "Export to PDF"
 msgstr "Izvoz u PDF"
 
-#: data/ui/sidebar.ui:46
-msgid "No Files"
-msgstr "Nema datoteka"
-
-#: data/ui/sidebar.ui:76
-msgid "Outline"
-msgstr "Konture"
-
 #: data/ui/sidebarbox.ui:16
 msgid "Remove file from sidebar"
 msgstr "Ukloni datoteku iz bočne trake"
 
-#: data/ui/statusbar.ui:19
+#: data/ui/sidebar.ui:42
+msgid "No Files"
+msgstr "Nema datoteka"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Konture"
+
+#: data/ui/statusbar.ui:13
 msgid "Words"
 msgstr "Riječi"
 
-#: data/ui/statusbar.ui:33
+#: data/ui/statusbar.ui:19
 msgid "Sentences"
 msgstr "Rečenice"
 
-#: data/ui/statusbar.ui:47
+#: data/ui/statusbar.ui:25
 msgid "Reading Time"
 msgstr "Vrijema čitanja"
 
-#: data/ui/statusbar.ui:70
+#: data/ui/statusbar.ui:46
 msgid "Tracks words, sentences or reading time here"
 msgstr "Ovdje prati riječi, rečenice ili vrijeme čitanja"
 
-#~ msgid "Sepia Mode"
-#~ msgstr "Dunkler Modus"
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Novi dokument"
 
-#~ msgid "Dark Mode"
-#~ msgstr "Dunkler Modus"
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr "Još nije spremljeno"
+
+#: src/MainWindow.vala:349
+msgid "Exit focus mode"
+msgstr "Napusti modus fokusa"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Uredi"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr "Usredotoči se na pisanje."
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr "Milo Ivir <mail@milotype.de>"
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+#, fuzzy
+msgid "Load a Checkbox"
+msgstr "Potvrdni okviri"
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+#, fuzzy
+msgid "Checkbox"
+msgstr "Potvrdni okviri"
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr ""
+
+#: src/Plugins/Filep.vala:32
+#, fuzzy
+msgid "File"
+msgstr "Datoteke"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr ""
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr ""
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr ""
+
+#: src/Plugins/Subscript.vala:32
+#, fuzzy
+msgid "Subscript"
+msgstr "Eksponent/Indeks"
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr ""
+
+#: src/Plugins/Superscript.vala:32
+#, fuzzy
+msgid "Superscript"
+msgstr "Eksponent/Indeks"
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Markdown datoteke"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Sve datoteke"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Spremiti otvorenu datoteku?"
+
+#: src/Services/DialogUtils.vala:37
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"Postoje nespremljene promjene u datoteci, sve promjene će se izgubiti ako se "
+"ne spreme."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "Odustani"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Zatvori bez spremanja"
+
+#: src/Services/DialogUtils.vala:52
+msgid "Remove File From Sidebar?"
+msgstr "Ukloniti datoteku iz bočne trake?"
+
+#: src/Services/DialogUtils.vala:53
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Uklanjanjem ove datoteke iz bočne trake, sve promjene će se izgubiti ako se "
+"ne spreme."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Zatvori bez spremanja"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Ispiši u datoteku"
+
+#: src/Services/ExportUtils.vala:142
+msgid "Select Destination PDF File"
+msgstr "Odaberi oderdišnu PDF datoteku"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "PDF datoteka"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Sve datoteke"
+
+#: src/Services/ExportUtils.vala:189
+msgid "Select Destination HTML File"
+msgstr "Odaberi oderdišnu HTML datoteku"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "HTML datoteka"
+
+#: src/Services/FileManager.vala:89
+msgid "Open File"
+msgstr "Otvori datoteku"
+
+#: src/Services/FileManager.vala:101
+msgid "Save File"
+msgstr "Spremi datoteku"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr "Preimenuj"
+
+#: src/Widgets/HeaderBar.vala:130
+msgid "Rename File:"
+msgstr "Preimenuj datoteku:"
+
+#: src/Widgets/HeaderBar.vala:146
+msgid "Rename File"
+msgstr "Preimenuj datoteku"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr "novo_ime.md"
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr "Uključi/Isključi prikaz"
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Nova datoteka"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Riječi: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr "Rečenice: "
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Vrijema čitanja: "
+
+#~ msgid "Go Back"
+#~ msgstr "Idi natrag"
+
+#~ msgid "Appearance"
+#~ msgstr "Izgled"
+
+#~ msgid "Sidebar"
+#~ msgstr "Bočna traka"
+
+#~ msgid "Autosave Delay"
+#~ msgstr "Odgoda automatskog spremanja"
+
+#~ msgid "Values below 15s affects the storage medium negatively."
+#~ msgstr ""
+#~ "Vrijednosti ispod 15 s negativno utječu na medij za spremanje podataka."
+
+#~ msgid ""
+#~ "Only available in English\n"
+#~ "Colors words based on type:\n"
+#~ "- Nouns are black\n"
+#~ "- Verbs are blue\n"
+#~ "- Adjectives are yellow\n"
+#~ "- Adverbs are purple\n"
+#~ "- Conjunctions are green"
+#~ msgstr ""
+#~ "Dostupno samo na engleskom jeziku\n"
+#~ "Oboji riječi prema vrsti:\n"
+#~ "- Imenice su crne\n"
+#~ "- Glagoli su plavi\n"
+#~ "- Pridjevi su žuti\n"
+#~ "- Prilozi su ljubičasti\n"
+#~ "- Veznici su zeleni"
+
+#~ msgid "Type"
+#~ msgstr "Vrsta"
 
 #, fuzzy
 #~ msgid "Focus Mode…"
@@ -718,14 +875,6 @@ msgstr "Ovdje prati riječi, rečenice ili vrijeme čitanja"
 #, fuzzy
 #~ msgid "Rename the File:"
 #~ msgstr "Alle Dateien"
-
-#, fuzzy
-#~ msgid "Quilt Zwei"
-#~ msgstr "Quilter"
-
-#, fuzzy
-#~ msgid "Quilt Vier"
-#~ msgstr "Quilter"
 
 #, fuzzy
 #~ msgid "No files…"
