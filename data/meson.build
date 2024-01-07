@@ -49,13 +49,23 @@ if desktop_file_validate.found()
   )
 endif
 
-i18n.merge_file(
+appdata_file = i18n.merge_file(
     input: meson.project_name() + '.appdata.xml.in',
     output: meson.project_name() + '.appdata.xml',
     po_dir: join_paths(meson.source_root(), 'po', 'extra'),
     install: true,
     install_dir: join_paths(get_option('datadir'), 'metainfo')
 )
+
+# Validate Appdata
+appstreamcli = find_program('appstreamcli', required: false)
+if (appstreamcli.found())
+  test('validate-appdata',
+    appstreamcli,
+    args: ['validate', '--no-net', '--explain', appdata_file.full_path()],
+    workdir: meson.current_build_dir()
+  )
+endif
 
 install_data(
     join_paths('schemes', meson.project_name() + '.xml'),
