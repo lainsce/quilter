@@ -1,0 +1,811 @@
+# Turkish translation for io.github.lainsce.Quilter
+# Copyright (C) 2024 io.github.lainsce.Quilter'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the io.github.lainsce.Quilter package.
+#
+# Sabri Ünal <libreajans@gmail.com>, 2024.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: io.github.lainsce.Quilter\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-08 00:47+0300\n"
+"PO-Revision-Date: 2024-01-08 01:53+0300\n"
+"Last-Translator: Sabri Ünal <libreajans@gmail.com>\n"
+"Language-Team: Türkçe <takim@gnome.org.tr>\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.4\n"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:6
+#: data/io.github.lainsce.Quilter.desktop.in:3 src/MainWindow.vala:722
+msgid "Quilter"
+msgstr "Quilter"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:7
+#: data/io.github.lainsce.Quilter.desktop.in:4
+msgid "Focus on your writing"
+msgstr "Yazınıza odaklanın"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:9
+msgid ""
+"Focus on your writing and write beautiful solid stories with the Focus Mode "
+"in tow in this Markdown editor"
+msgstr ""
+"Markdown düzenleyicideki Odak Kipi ile yazınıza odaklanın ve güzel, sağlam "
+"hikayeler yazın"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:11
+msgid "Work on a story, one file displayed at a time, many files sidebar'd."
+msgstr ""
+"Bir hikaye üzerinde çalışın, her seferinde tek dosya görüntülenir, diğer "
+"dosyalar yan çubuğa eklenir."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:12
+msgid "Save your documents anywhere, even on existing files."
+msgstr "Belgelerinizi her yere, hatta var olan dosyalara kaydedin."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:13
+msgid "Preview your story in the Preview Mode."
+msgstr "Hikayenizi ön izleme kipinde ön izleyin."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:14
+msgid "Configure whether to have Focus Mode or not."
+msgstr "Odak kipi kullanma durumunu yapılandırın."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:15
+msgid "Configure whether to have Dark Mode or not."
+msgstr "Koyu kipi kullanma durumunu yapılandırın."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:16
+msgid "Configure whether to have Sepia Mode or not."
+msgstr "Sepya kipi kullanma durumunu yapılandırın."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:17
+msgid "Fullscreen your writing area with F11."
+msgstr "F11 ile yazı alanınızı tam ekran yapın."
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:18
+msgid "Search anytime with the shortcut Ctrl + F"
+msgstr "Ctrl + F kısayoluyla istediğiniz zaman arama yapın"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:19
+msgid "Quit anytime with the shortcut Ctrl + Q"
+msgstr "Ctrl + Q kısayoluyla istediğiniz zaman çıkın"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:122
+msgid "Light Mode"
+msgstr "Açık Kip"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:126
+msgid "Sepia Mode"
+msgstr "Sepya Kip"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:130
+msgid "Dark Mode"
+msgstr "Koyu Kip"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:134 data/ui/headerbar.ui:187
+msgid "Focus Mode"
+msgstr "Odak Kipi"
+
+#: data/io.github.lainsce.Quilter.appdata.xml.in:138
+msgid "Preview Mode"
+msgstr "Ön İzleme Kipi"
+
+#: data/io.github.lainsce.Quilter.desktop.in:7
+msgid "Text;Markdown;Editor;"
+msgstr "Metin;Markdown;Düzenleyici"
+
+#: data/ui/cheatsheet.ui:7 data/ui/headerbar.ui:227
+msgid "Markdown Cheatsheet"
+msgstr "Markdown Kopya Kağıdı"
+
+#: data/ui/cheatsheet.ui:13
+msgid "Common"
+msgstr "Genel"
+
+#: data/ui/cheatsheet.ui:16
+msgid "Text"
+msgstr "Metin"
+
+#: data/ui/cheatsheet.ui:20
+msgid "Bold"
+msgstr "Kalın"
+
+#: data/ui/cheatsheet.ui:25
+msgid "**Bold text**"
+msgstr "**Kalın metin**"
+
+#: data/ui/cheatsheet.ui:36
+msgid "Italics"
+msgstr "Eğik"
+
+#: data/ui/cheatsheet.ui:41
+msgid "**Italicized text**"
+msgstr "**Eğik metin**"
+
+#: data/ui/cheatsheet.ui:52
+msgid "Code Line"
+msgstr "Kod Satırı"
+
+#: data/ui/cheatsheet.ui:57
+msgid "`code text`"
+msgstr "`kod metni`"
+
+#: data/ui/cheatsheet.ui:68
+msgid "Code Block"
+msgstr "Kod Bloğu"
+
+#: data/ui/cheatsheet.ui:73
+msgid ""
+"```\n"
+"code text\n"
+"```"
+msgstr ""
+"```\n"
+"kod metni\n"
+"```"
+
+#: data/ui/cheatsheet.ui:86
+msgid "Quoting"
+msgstr "Alıntı"
+
+#: data/ui/cheatsheet.ui:91
+msgid ""
+"> Quote\n"
+"> something\n"
+"> here"
+msgstr ""
+"> Bu\n"
+"> metni\n"
+"> alıntıla"
+
+#: data/ui/cheatsheet.ui:108 data/ui/cheatsheet.ui:112
+msgid "Headers"
+msgstr "Başlıklar"
+
+#: data/ui/cheatsheet.ui:117
+msgid ""
+"# Title\n"
+"## Subtitle\n"
+"### Section\n"
+"..."
+msgstr ""
+"# Başlık\n"
+"## Alt Başlık\n"
+"### Bölüm\n"
+"..."
+
+#: data/ui/cheatsheet.ui:128
+msgid "Links"
+msgstr "Bağlantılar"
+
+#: data/ui/cheatsheet.ui:133
+msgid ""
+"[Link Label](http://link.url.com)\n"
+"![Image Label](http://image.url.com)"
+msgstr ""
+"[Bağlantı Etiketi](http://link.url.com)\n"
+"![Görüntü Etiketil](http://image.url.com)"
+
+#: data/ui/cheatsheet.ui:146
+msgid "Extras"
+msgstr "Ek Özellikler"
+
+#: data/ui/cheatsheet.ui:150
+msgid "Strikethrough"
+msgstr "Üstü Çizili"
+
+#: data/ui/cheatsheet.ui:155
+msgid "~~Striked through text~~"
+msgstr "~~Üstü çizili metin~~"
+
+#: data/ui/cheatsheet.ui:166
+msgid "Sub/Superscript"
+msgstr "Alt Simge/Üst Simge"
+
+#: data/ui/cheatsheet.ui:171
+msgid ""
+"Subscript:  H~2~O\n"
+"Superscript:\t1^st^"
+msgstr ""
+"Alt simge:  H~2~O\n"
+"Üst simge:\t1^st^"
+
+#: data/ui/cheatsheet.ui:180
+msgid "Horzontal Rule"
+msgstr "Yatay Çizgi"
+
+#: data/ui/cheatsheet.ui:185
+msgid "Use: --- or ***"
+msgstr "Kullanımı: --- ya da ***"
+
+#: data/ui/cheatsheet.ui:200
+msgid "Special"
+msgstr "Özel"
+
+#: data/ui/cheatsheet.ui:203 data/ui/prefs_window.ui:148
+msgid "Extensions"
+msgstr "Uzantılar"
+
+#: data/ui/cheatsheet.ui:207 data/ui/prefs_window.ui:162
+msgid "LaTeX Math"
+msgstr "LaTeX Matematik"
+
+#: data/ui/cheatsheet.ui:212
+msgid ""
+"$$…$$\tfor equation block\n"
+"\\\\(…\\\\)\t\tfor inline equation"
+msgstr ""
+"$$…$$\tdenklem bloğu için\n"
+"\\\\(…\\\\)\t\tsatı içi denklem için"
+
+#: data/ui/cheatsheet.ui:221
+msgid "Mermaid.js Graphs"
+msgstr "Mermaid.js Grafikleri"
+
+#: data/ui/cheatsheet.ui:226
+msgid "<div class=\"mermaid\">...</div>"
+msgstr "<div class=\"mermaid\">...</div>"
+
+#: data/ui/cheatsheet.ui:237
+msgid "Checkboxes"
+msgstr "Onay Kutuları"
+
+#: data/ui/cheatsheet.ui:238
+msgid "Mind the period to avoid collisions."
+msgstr "Çakışmaları önlemek için noktaya dikkat edin."
+
+#: data/ui/cheatsheet.ui:243
+msgid ""
+"- [\t] Empty.\n"
+"- [x] Checked."
+msgstr ""
+"- [\t] Boş.\n"
+"- [x] Onaylanmış."
+
+#: data/ui/cheatsheet.ui:256 data/ui/cheatsheet.ui:260
+msgid "Tables"
+msgstr "Tablo"
+
+#: data/ui/cheatsheet.ui:265
+msgid ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+msgstr ""
+"|\tA\t|\tB\t|\n"
+"|      ---      |      ---      |\n"
+"|\t1\t|\t2\t|"
+
+#: data/ui/cheatsheet.ui:278
+msgid "Options"
+msgstr "Seçenekler"
+
+#: data/ui/cheatsheet.ui:283
+msgid ""
+"Left\t\t--- \tto\t:---\n"
+"Centered    ---\tto\t:---:\n"
+"Right\t\t---\tto\t---: "
+msgstr ""
+
+#: data/ui/cheatsheet.ui:297 data/ui/sidebar.ui:31
+msgid "Files"
+msgstr "Dosyalar"
+
+#: data/ui/cheatsheet.ui:301 data/ui/prefs_window.ui:14
+msgid "Document"
+msgstr "Belge"
+
+#: data/ui/cheatsheet.ui:306
+msgid "/Folder/Document.md :file"
+msgstr "/Klasör/Belge.md :file"
+
+#: data/ui/cheatsheet.ui:314 src/Plugins/Image.vala:32
+msgid "Image"
+msgstr "Görüntü"
+
+#: data/ui/cheatsheet.ui:319
+msgid "/Folder/Image.png :image"
+msgstr "/Klasör/Görüntü.png :image"
+
+#: data/ui/headerbar.ui:12 src/Services/DialogUtils.vala:42
+#: src/Services/DialogUtils.vala:58 src/Services/ExportUtils.vala:144
+#: src/Services/ExportUtils.vala:191
+msgid "Save"
+msgstr "Kaydet"
+
+#: data/ui/headerbar.ui:21
+msgid "Save As…"
+msgstr "Farklı Kaydet…"
+
+#: data/ui/headerbar.ui:35
+msgid "Export HTML…"
+msgstr "HTML Dışa Aktar.."
+
+#: data/ui/headerbar.ui:45
+msgid "Export PDF…"
+msgstr "PDF Dışa Aktar.."
+
+#: data/ui/headerbar.ui:61
+msgid "Show/Hide the sidebar"
+msgstr "Kenar çubuğunu göster/gizle"
+
+#: data/ui/headerbar.ui:77
+msgid "Save the current file"
+msgstr "Geçerli dosyayı kaydet"
+
+#: data/ui/headerbar.ui:88
+msgid "Create a new document"
+msgstr "Yeni belge oluştur"
+
+#: data/ui/headerbar.ui:98
+msgid "Open"
+msgstr "Aç"
+
+#: data/ui/headerbar.ui:99
+msgid "Open a file"
+msgstr "Dosya aç"
+
+#: data/ui/headerbar.ui:112 data/ui/headerbar.ui:241
+msgid "View Type"
+msgstr "Görünüm Tipi"
+
+#: data/ui/headerbar.ui:125
+msgid "Editor or Preview, change via menu"
+msgstr "Düzenleyici ya da Önizleme, menü ile değiştirin"
+
+#: data/ui/headerbar.ui:127 data/ui/viewmenu.ui:5
+msgid "Full-Width"
+msgstr "Tam Genişlik"
+
+#: data/ui/headerbar.ui:136
+msgid "Editor and Preview, side by side"
+msgstr "Düzenleyici ve Önizleme, yan yana"
+
+#: data/ui/headerbar.ui:138 data/ui/viewmenu.ui:9
+msgid "Half-Width"
+msgstr "Yarım Genişlik"
+
+#: data/ui/headerbar.ui:197
+msgid "About Quilter"
+msgstr "Quilter Hakkında"
+
+#: data/ui/headerbar.ui:207
+msgid "Keyboard Shortcuts"
+msgstr "Klavye Kısayolları"
+
+#: data/ui/headerbar.ui:217 data/ui/prefs_window.ui:7
+msgid "Preferences"
+msgstr "Tercihler"
+
+#: data/ui/headerbar.ui:251
+msgid "Find and Replace…"
+msgstr "Bul ve Değiştir…"
+
+#: data/ui/prefs_window.ui:11
+msgid "Editor"
+msgstr "Düzenleyici"
+
+#: data/ui/prefs_window.ui:17
+msgid "Font"
+msgstr "Yazı Tipi"
+
+#: data/ui/prefs_window.ui:21
+msgid "Quilt Mono"
+msgstr "Quilt Mono"
+
+#: data/ui/prefs_window.ui:22
+msgid "Quilt Zwei"
+msgstr "Quilt Zwei"
+
+#: data/ui/prefs_window.ui:23
+msgid "Quilt Vier"
+msgstr "Quilt Vier"
+
+#: data/ui/prefs_window.ui:43
+msgid "Interface"
+msgstr "Arayüz"
+
+#: data/ui/prefs_window.ui:46
+msgid "Focus Scope"
+msgstr "Odak Kapsamı"
+
+#: data/ui/prefs_window.ui:54
+msgid "Paragraph"
+msgstr "Paragraf"
+
+#: data/ui/prefs_window.ui:60
+msgid "Sentence"
+msgstr "Cümle"
+
+#: data/ui/prefs_window.ui:73
+msgid "Typewriter Scrolling"
+msgstr "Daktilo Kaydırma"
+
+#: data/ui/prefs_window.ui:83
+msgid "Document Tracker"
+msgstr "Belge İzleyici"
+
+#: data/ui/prefs_window.ui:84
+msgid "Tracks words, sentences or reading time."
+msgstr "Sözcükleri, cümleleri ya da okuma süresini izler."
+
+#: data/ui/prefs_window.ui:96 src/Plugins/Highlighter.vala:32
+msgid "Highlight"
+msgstr "Vurgu"
+
+#: data/ui/prefs_window.ui:99
+msgid "Speech Parts (Beta)"
+msgstr "Konuşma Parçaları (Beta)"
+
+#: data/ui/prefs_window.ui:100
+msgid "Only available in English"
+msgstr "Sadece İngilizce olarak kullanılabilir"
+
+#: data/ui/prefs_window.ui:115 src/MainWindow.vala:572
+msgid "Preview"
+msgstr "Ön izle"
+
+#: data/ui/prefs_window.ui:118
+msgid "General"
+msgstr "Genel"
+
+#: data/ui/prefs_window.ui:121
+msgid "Preview Font"
+msgstr "Ön İzleme Yazı Tipi"
+
+#: data/ui/prefs_window.ui:125
+msgid "Serif"
+msgstr "Serif"
+
+#: data/ui/prefs_window.ui:126
+msgid "Sans-serif"
+msgstr "Sans-serif"
+
+#: data/ui/prefs_window.ui:127
+msgid "Monospace"
+msgstr "Eş aralıklı"
+
+#: data/ui/prefs_window.ui:135
+msgid "Header Centering"
+msgstr "Başlık Ortalama"
+
+#: data/ui/prefs_window.ui:136
+msgid "This affects #, ##, and ### headers."
+msgstr "Bu, #, ##, ve ### başlıklarını etkiler."
+
+#: data/ui/prefs_window.ui:151
+msgid "Code Highlight"
+msgstr "Kod Vurgusu"
+
+#: data/ui/prefs_window.ui:152
+msgid "Code blocks will have the contents receive color."
+msgstr "Kod blokları içerik rengini alacak."
+
+#: data/ui/prefs_window.ui:163
+msgid "LaTeX math blocks will be processed into LaTeX output."
+msgstr "LaTeX matematik blokları LaTeX çıktısına işlenecek."
+
+#: data/ui/prefs_window.ui:173
+msgid "Mermaid.js Graph"
+msgstr "Mermaid.js Grafiği"
+
+#: data/ui/prefs_window.ui:174
+msgid "Mermaid blocks will become graphs."
+msgstr "Mermaid blokları grafiklere dönüşecek."
+
+#: data/ui/searchbar.ui:22
+msgid "Replace…"
+msgstr "Değiştir…"
+
+#: data/ui/searchbar.ui:27
+msgid "Replace"
+msgstr "Değiştir"
+
+#: data/ui/searchbar.ui:32
+msgid "Replace All"
+msgstr "Tümünü Değiştir"
+
+#: data/ui/searchbar.ui:45
+msgid "Find…"
+msgstr "Bul…"
+
+#: data/ui/shortcuts.ui:15
+msgctxt "shortcut window"
+msgid "General"
+msgstr "Genel"
+
+#: data/ui/shortcuts.ui:20
+msgctxt "shortcut window"
+msgid "Quit"
+msgstr "Çık"
+
+#: data/ui/shortcuts.ui:27
+msgctxt "shortcut window"
+msgid "New Document"
+msgstr "Yeni Belge"
+
+#: data/ui/shortcuts.ui:34
+msgctxt "shortcut window"
+msgid "Save Document"
+msgstr "Belgeyi Kaydet"
+
+#: data/ui/shortcuts.ui:41
+msgctxt "shortcut window"
+msgid "Save Document As"
+msgstr "Belgeyi Farklı Kaydet"
+
+#: data/ui/shortcuts.ui:48
+msgctxt "shortcut window"
+msgid "Open Document"
+msgstr "Belge Aç"
+
+#: data/ui/shortcuts.ui:55
+msgctxt "shortcut window"
+msgid "Begin Search"
+msgstr "Aramaya Başla"
+
+#: data/ui/shortcuts.ui:62
+msgctxt "shortcut window"
+msgid "Undo"
+msgstr "Geri Al"
+
+#: data/ui/shortcuts.ui:69
+msgctxt "shortcut window"
+msgid "Redo"
+msgstr "Yinele"
+
+#: data/ui/shortcuts.ui:76
+msgctxt "shortcut window"
+msgid "Go Fullscreen"
+msgstr "Tam Ekran"
+
+#: data/ui/shortcuts.ui:84
+msgctxt "shortcut window"
+msgid "Interface"
+msgstr "Arayüz"
+
+#: data/ui/shortcuts.ui:89
+msgctxt "shortcut window"
+msgid "Markdown Cheatsheet"
+msgstr "Markdown Kopya Kağıdı"
+
+#: data/ui/shortcuts.ui:96
+msgctxt "shortcut window"
+msgid "Switch Editor/Preview"
+msgstr "Düzenleyici/Ön İzleme Arasında Geçiş Yap"
+
+#: data/ui/shortcuts.ui:103
+msgctxt "shortcut window"
+msgid "Show/Hide Sidebar"
+msgstr "Kenar Çubuğunu Göster/Gizle"
+
+#: data/ui/shortcuts.ui:110
+msgctxt "shortcut window"
+msgid "Switch to/from Focus Mode"
+msgstr "Odak Kipini Değiştir"
+
+#: data/ui/shortcuts.ui:118
+msgctxt "shortcut window"
+msgid "Exporting"
+msgstr "Dışa Aktarma"
+
+#: data/ui/shortcuts.ui:123
+msgctxt "shortcut window"
+msgid "Export to HTML"
+msgstr "HTML Olarak Dışa Aktar"
+
+#: data/ui/shortcuts.ui:130
+msgctxt "shortcut window"
+msgid "Export to PDF"
+msgstr "PDF Olarak Dışa Aktar"
+
+#: data/ui/sidebarbox.ui:16
+msgid "Remove file from sidebar"
+msgstr "Dosyayı kenar çubuğundan kaldır"
+
+#: data/ui/sidebar.ui:42
+msgid "No Files"
+msgstr "Dosya Yok"
+
+#: data/ui/sidebar.ui:59
+msgid "Outline"
+msgstr "Anahat"
+
+#: data/ui/statusbar.ui:13
+msgid "Words"
+msgstr "Sözcük"
+
+#: data/ui/statusbar.ui:19
+msgid "Sentences"
+msgstr "Cümle"
+
+#: data/ui/statusbar.ui:25
+msgid "Reading Time"
+msgstr "Okuma Süresi"
+
+#: data/ui/statusbar.ui:46
+msgid "Tracks words, sentences or reading time here"
+msgstr "Sözcükleri, cümleleri ya da okuma süresini buradan izleyin"
+
+#: src/MainWindow.vala:117 src/MainWindow.vala:630 src/Widgets/SideBar.vala:113
+#: src/Widgets/SideBar.vala:217
+msgid "New Document"
+msgstr "Yeni Belge"
+
+#: src/MainWindow.vala:118 src/MainWindow.vala:631 src/MainWindow.vala:634
+#: src/Widgets/SideBar.vala:114 src/Widgets/SideBar.vala:218
+msgid "Not Saved Yet"
+msgstr "Henüz Kaydedilmedi"
+
+#: src/MainWindow.vala:349
+msgid "Exit focus mode"
+msgstr "Odak kipinden çık"
+
+#: src/MainWindow.vala:571
+msgid "Edit"
+msgstr "Düzenle"
+
+#: src/MainWindow.vala:727
+msgid "Focus on your writing."
+msgstr "Yazılarınıza odaklanın."
+
+#: src/MainWindow.vala:733
+msgid "translator-credits"
+msgstr "Sabri Ünal <libreajans@gmail.com>"
+
+#: src/Plugins/CheckboxChecked.vala:28 src/Plugins/Checkbox.vala:28
+msgid "Load a Checkbox"
+msgstr "Onay Kutusu Yükle"
+
+#: src/Plugins/CheckboxChecked.vala:32 src/Plugins/Checkbox.vala:32
+msgid "Checkbox"
+msgstr "Onay Kutusu"
+
+#: src/Plugins/Filep.vala:28
+msgid "Load an embeded file"
+msgstr "Gömülü dosya yükle"
+
+#: src/Plugins/Filep.vala:32
+msgid "File"
+msgstr "Dosya"
+
+#: src/Plugins/Highlighter.vala:28
+msgid "Highlight text in marker yellow."
+msgstr "Metni sarı işaretleyici ile vurgula."
+
+#: src/Plugins/Image.vala:28
+msgid "Load an embeded image"
+msgstr "Gömülü görüntü yükle"
+
+#: src/Plugins/Subscript.vala:28
+msgid "Make text on the bottom."
+msgstr "Altta metin oluştur."
+
+#: src/Plugins/Subscript.vala:32
+msgid "Subscript"
+msgstr "Alt Simge"
+
+#: src/Plugins/Superscript.vala:28
+msgid "Make text float."
+msgstr "Metni yüzdür."
+
+#: src/Plugins/Superscript.vala:32
+msgid "Superscript"
+msgstr "Üst Simge"
+
+#: src/Services/DialogUtils.vala:21
+msgid "Markdown files"
+msgstr "Markdown dosyaları"
+
+#: src/Services/DialogUtils.vala:25
+msgid "All files"
+msgstr "Tüm dosyalar"
+
+#: src/Services/DialogUtils.vala:36
+msgid "Save Open File?"
+msgstr "Açık Dosya Kaydedilsin Mi?"
+
+#: src/Services/DialogUtils.vala:37
+msgid ""
+"There are unsaved changes to the file, any changes will be lost if not saved."
+msgstr ""
+"Dosyada kaydedilmemiş değişiklikler var. Kaydetmezseniz tüm değişiklikler "
+"kaybolacak."
+
+#: src/Services/DialogUtils.vala:40 src/Services/DialogUtils.vala:56
+#: src/Services/ExportUtils.vala:164 src/Services/ExportUtils.vala:210
+msgid "Cancel"
+msgstr "İptal"
+
+#: src/Services/DialogUtils.vala:41
+msgid "Close Without Saving"
+msgstr "Kaydetmeden Kapat"
+
+#: src/Services/DialogUtils.vala:52
+msgid "Remove File From Sidebar?"
+msgstr "Dosya Kenar Çubuğundan Kaldırılsın Mı?"
+
+#: src/Services/DialogUtils.vala:53
+msgid ""
+"By removing this file from the Sidebar, any changes will be lost if not "
+"saved."
+msgstr ""
+"Bu dosyayı Kenar Çubuğundan kaldırdığınızda, kaydedilmediği takdirde tüm "
+"değişiklikler kaybolacak."
+
+#: src/Services/DialogUtils.vala:57
+msgid "Remove Without Saving"
+msgstr "Kaydetmeden Kaldır"
+
+#: src/Services/ExportUtils.vala:84
+msgid "Print to File"
+msgstr "Dosyaya Yazdır"
+
+#: src/Services/ExportUtils.vala:142
+msgid "Select Destination PDF File"
+msgstr "Hedef PDF Dosyasını Seç"
+
+#: src/Services/ExportUtils.vala:147
+msgid "PDF File"
+msgstr "PDF Dosyası"
+
+#: src/Services/ExportUtils.vala:155 src/Services/ExportUtils.vala:201
+msgid "All Files"
+msgstr "Tüm Dosyalar"
+
+#: src/Services/ExportUtils.vala:189
+msgid "Select Destination HTML File"
+msgstr "Hedef HTML Dosyasını Seç"
+
+#: src/Services/ExportUtils.vala:194
+msgid "HTML File"
+msgstr "HTML Dosyası"
+
+#: src/Services/FileManager.vala:89
+msgid "Open File"
+msgstr "Dosya Aç"
+
+#: src/Services/FileManager.vala:101
+msgid "Save File"
+msgstr "Dosya Kaydet"
+
+#: src/Widgets/HeaderBar.vala:108
+msgid "Rename"
+msgstr "Yeniden Adlandır"
+
+#: src/Widgets/HeaderBar.vala:130
+msgid "Rename File:"
+msgstr "Dosyayı Yeniden Adlandır:"
+
+#: src/Widgets/HeaderBar.vala:146
+msgid "Rename File"
+msgstr "Dosyayı Yeniden Adlandır"
+
+#: src/Widgets/HeaderBar.vala:149
+msgid "new_name.md"
+msgstr "yeni_ad.md"
+
+#: src/Widgets/HeaderBar.vala:155
+msgid "Toggle View"
+msgstr "Görünümü Değiştir"
+
+#: src/Widgets/SideBar.vala:115 src/Widgets/SideBar.vala:219
+msgid "New File"
+msgstr "Yeni Dosya"
+
+#: src/Widgets/StatusBar.vala:77
+msgid "Words: "
+msgstr "Sözcük: "
+
+#: src/Widgets/StatusBar.vala:82
+msgid "Sentences: "
+msgstr "Cümle: "
+
+#: src/Widgets/StatusBar.vala:88
+msgid "Reading Time: "
+msgstr "Okunma Süresi: "
