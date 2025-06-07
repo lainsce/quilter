@@ -1,261 +1,123 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhelium" version="1.0" />
   <object class="GtkPopover" id="save_as_popover">
     <property name="can-focus">0</property>
     <child>
       <object class="GtkBox" id="save_grid">
         <property name="orientation">vertical</property>
+        <property name="spacing">0</property>
+        <style>
+          <class name="menu" />
+        </style>
         <child>
-          <object class="GtkButton" id="save_button">
-            <property name="label" translatable="yes">Save</property>
+          <object class="HeButton" id="new_button">
+            <property name="label" translatable="yes">New File</property>
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
+            <property name="action-name">win.new</property>
             <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
+              <class name="flat" />
             </style>
           </object>
         </child>
         <child>
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Save As…</property>
+          <object class="HeButton" id="open_button">
+            <property name="label" translatable="yes">Open…</property>
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
+            <property name="action-name">win.open</property>
             <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
+              <class name="flat" />
             </style>
           </object>
         </child>
         <child>
           <object class="GtkSeparator">
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_export_html</property>
-            <property name="label" translatable="yes">Export HTML…</property>
             <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
+              <class name="spacer" />
             </style>
           </object>
         </child>
         <child>
-          <object class="GtkButton">
+          <object class="HeButton" id="save_button">
+            <property name="label" translatable="yes">Save</property>
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
+            <property name="action-name">win.save</property>
+            <style>
+              <class name="flat" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="label" translatable="yes">Save As…</property>
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
+            <property name="action-name">win.save_as</property>
+            <style>
+              <class name="flat" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <style>
+              <class name="spacer" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
+            <property name="action-name">win.action_export_html</property>
+            <property name="label" translatable="yes">Export HTML…</property>
+            <style>
+              <class name="flat" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="halign">start</property>
+            <property name="hexpand">true</property>
             <property name="action-name">win.action_export_pdf</property>
             <property name="label" translatable="yes">Export PDF…</property>
             <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
+              <class name="flat" />
             </style>
           </object>
         </child>
       </object>
     </child>
   </object>
-  <template class="QuilterWidgetsHeaderbar" parent="AdwBin">
+  <template class="QuilterWidgetsHeaderbar" parent="HeBin">
+    <property name="hexpand">1</property>
     <child>
-      <object class="AdwHeaderBar" id="headerbar">
+      <object class="HeAppBar" id="headerbar">
         <property name="hexpand">1</property>
-        <child>
-          <object class="GtkToggleButton" id="sidebar_toggler">
-            <property name="tooltip-text" translatable="yes">Show/Hide the sidebar</property>
-            <property name="icon-name">sidebar-symbolic</property>
-          </object>
-        </child>
-        <child type="end">
-          <object class="GtkMenuButton" id="menu_button">
-            <property name="popover">main_pop</property>
-            <property name="icon-name">open-menu-symbolic</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child type="end">
-          <object class="GtkMenuButton" id="save_as_button">
-            <property name="tooltip-text" translatable="yes">Save the current file</property>
+        <child type="titlebar-menu">
+          <object class="GtkMenuButton" id="doc_button">
+            <property
+              name="tooltip-text"
+              translatable="yes"
+            >Document Operations</property>
             <property name="popover">save_as_popover</property>
-            <property name="icon-name">document-save-symbolic</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
+            <property name="icon-name">document-properties-symbolic</property>
           </object>
         </child>
-        <child>
-          <object class="GtkButton" id="new_button">
-            <property name="tooltip-text" translatable="yes">Create a new document</property>
-            <property name="icon-name">document-new-symbolic</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="open_button">
-            <property name="label" translatable="yes">Open</property>
-            <property name="tooltip-text" translatable="yes">Open a file</property>
+        <child type="titlebar-toggle">
+          <object class="GtkToggleButton" id="preview_toggle_button">
+            <property
+              name="tooltip-text"
+              translatable="yes"
+            >Document Operations</property>
           </object>
         </child>
       </object>
     </child>
   </template>
-  <object class="GtkPopover" id="main_pop">
-    <child>
-      <object class="GtkBox" id="view_menu">
-        <property name="orientation">vertical</property>
-        <property name="spacing">6</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="label" translatable="yes">View Type</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="tooltip-text" translatable="yes">Editor or Preview, change via menu</property>
-            <property name="action-name">win.action_full</property>
-            <property name="label" translatable="yes">Full-Width</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="tooltip-text" translatable="yes">Editor and Preview, side by side</property>
-            <property name="action-name">win.action_half</property>
-            <property name="label" translatable="yes">Half-Width</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-      </object>
-    </child>
-    <child>
-      <object class="GtkGrid" id="top_grid">
-        <property name="hexpand">1</property>
-        <property name="orientation">vertical</property>
-        <property name="row-spacing">6</property>
-        <child>
-          <object class="GtkBox">
-            <property name="spacing">30</property>
-            <property name="homogeneous">1</property>
-            <child>
-              <object class="GtkCheckButton" id="color_button_light">
-                <style>
-                  <class name="color-light"/>
-                  <class name="circular"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="color_button_sepia">
-                <property name="group">color_button_light</property>
-                <style>
-                  <class name="color-sepia"/>
-                  <class name="circular"/>
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="color_button_dark">
-                <property name="group">color_button_light</property>
-                <style>
-                  <class name="color-dark"/>
-                  <class name="circular"/>
-                </style>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_focus</property>
-            <property name="label" translatable="yes">Focus Mode</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_about</property>
-            <property name="label" translatable="yes">About Quilter</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_keys</property>
-            <property name="label" translatable="yes">Keyboard Shortcuts</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_preferences</property>
-            <property name="label" translatable="yes">Preferences</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton">
-            <property name="action-name">win.action_cheatsheet</property>
-            <property name="label" translatable="yes">Markdown Cheatsheet</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkSeparator">
-          </object>
-        </child>
-        <child>
-          <object class="GtkToggleButton">
-            <property name="receives-default">1</property>
-            <property name="label" translatable="yes">View Type</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-        <child>
-          <object class="GtkButton" id="search_button">
-            <property name="action-name">win.action_search</property>
-            <property name="label" translatable="yes">Find and Replace…</property>
-            <style>
-              <class name="flat"/>
-              <class name="flat-button"/>
-            </style>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
 </interface>

@@ -4,9 +4,9 @@
       <file alias="style.css">style.css</file>
       <file alias="style-dark.css">style-dark.css</file>
       <file alias="style-hc.css">style-hc.css</file>
-      <file alias="viewmenu.ui">ui/viewmenu.ui</file>
+
+      <file alias="main_window.ui">ui/main_window.ui</file>
       <file alias="header_button.ui">ui/header_button.ui</file>
-      <file alias="shortcuts.ui">ui/shortcuts.ui</file>
       <file alias="cheatsheet.ui">ui/cheatsheet.ui</file>
       <file alias="headerbar.ui">ui/headerbar.ui</file>
       <file alias="sidebar.ui">ui/sidebar.ui</file>
@@ -16,14 +16,10 @@
       <file alias="prefs_window.ui">ui/prefs_window.ui</file>
     </gresource>
     <gresource prefix="/io/github/lainsce/Quilter/icons">
-      <file alias="scalable/actions/sidebar-symbolic.svg">icons/symbolic/sidebar-symbolic.svg</file>
       <file alias="scalable/actions/outline-symbolic.svg">icons/symbolic/outline-symbolic.svg</file>
-      <file alias="scalable/actions/back-symbolic.svg">icons/symbolic/back-symbolic.svg</file>
-      <file alias="scalable/actions/paragraph-focus-symbolic.svg">icons/symbolic/paragraph-focus-symbolic.svg</file>
-      <file alias="scalable/actions/sentence-focus-symbolic.svg">icons/symbolic/sentence-focus-symbolic.svg</file>
-      <file alias="scalable/actions/full-width-symbolic.svg">icons/symbolic/full-width-symbolic.svg</file>
-      <file alias="scalable/actions/half-width-symbolic.svg">icons/symbolic/half-width-symbolic.svg</file>
-      <file alias="scalable/actions/edit-find-replace-all-symbolic.svg">icons/symbolic/edit-find-replace-all-symbolic.svg</file>
+      <file alias="scalable/actions/outline-filled-symbolic.svg">icons/symbolic/outline-filled-symbolic.svg</file>
+      <file alias="scalable/actions/files-symbolic.svg">icons/symbolic/files-symbolic.svg</file>
+      <file alias="scalable/actions/files-filled-symbolic.svg">icons/symbolic/files-filled-symbolic.svg</file>
       <file alias="scalable/actions/markdown-symbolic.svg">icons/symbolic/markdown-symbolic.svg</file>
     </gresource>
 </gresources>

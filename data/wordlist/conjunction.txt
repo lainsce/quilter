@@ -1,39 +1,40 @@
-for
-and
-nor
-but
-or
-yet
-so
 after
 although
+and
 as
+as far as
 as if
 as long as
-as much as
 as soon as
 as though
+as well as
 because
 before
+but
 by the time
 even if
 even though
+for
+how
 if
-if when
-inasmuch
-in order that
+in as much as
 in case
-just
+if only
+in addition to
+in order that
+just as
 lest
-now
+no matter how
+nor
 now that
 once
 only if
-or so
+or
 provided that
 since
-supposing
+so
 so that
+supposing that
 than
 that
 though
@@ -45,7 +46,6 @@ whenever
 where
 whereas
 wherever
-while
-which
-who
 whether
+while
+yet

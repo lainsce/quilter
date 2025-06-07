@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <template class="QuilterWidgetsSideBarBox" parent="AdwActionRow">
-    <property name="activatable">1</property>
-    <property name="title" bind-source="QuilterWidgetsSideBarBox" bind-property="path" bind-flags="sync-create"/>
-    <property name="subtitle" bind-source="QuilterWidgetsSideBarBox" bind-property="header" bind-flags="sync-create"/>
-    <child type="prefix">
-      <object class="GtkImage">
-        <property name="icon-name">markdown-symbolic</property>
-      </object>
-    </child>
+  <requires lib="libhelium" version="1.0"/>
+  <template class="QuilterWidgetsSideBarBox" parent="GtkListBoxRow">
     <child>
-      <object class="GtkButton" id="file_remove_button">
-        <property name="tooltip-text" translatable="yes">Remove file from sidebar</property>
-        <property name="valign">center</property>
-        <property name="icon-name">window-close-symbolic</property>
-        <style>
-          <class name="flat"/>
-          <class name="tiny-circular-button"/>
-          <class name="quilter-sidebar-button"/>
-        </style>
-      </object>
+        <object class="HeMiniContentBlock" id="row">
+            <property name="title" bind-source="QuilterWidgetsSideBarBox" bind-property="path" bind-flags="sync-create"/>
+            <property name="subtitle" bind-source="QuilterWidgetsSideBarBox" bind-property="header" bind-flags="sync-create"/>
+            <property name="icon">markdown-symbolic</property>
+            <property name="hexpand">1</property>
+            <property name="widget">
+                <object class="GtkButton" id="file_remove_button">
+                    <property name="tooltip-text" translatable="yes">Remove file from sidebar</property>
+                    <property name="valign">center</property>
+                    <property name="halign">end</property>
+                    <property name="hexpand">1</property>
+                    <property name="icon-name">window-close-symbolic</property>
+                    <style>
+                        <class name="flat"/>
+                        <class name="tiny-circular-button"/>
+                        <class name="quilter-sidebar-button"/>
+                    </style>
+                </object>
+            </property>
+            <style>
+                <class name="quilter-sidebar-box"/>
+            </style>
+        </object>
     </child>
-    <style>
-      <class name="quilter-sidebar-box"/>
-    </style>
   </template>
 </interface>

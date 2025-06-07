@@ -179,45 +179,37 @@ namespace Quilter.Services.ExportUtils {
     public static File? get_html_from_user () {
         Widgets.Preview.get_instance ().update_html_view ();
 
-        File? result2 = null;
-
-        string title = "";
-        Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
-        string accept_button_label = "";
-        List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
-
-        title =  _("Select Destination HTML File");
-        chooser_action = Gtk.FileChooserAction.SAVE;
-        accept_button_label = _("Save");
+        var dialog = new Gtk.FileChooserNative (
+            _("Select Destination HTML File"),
+            window,
+            Gtk.FileChooserAction.SAVE,
+            _("Save"),
+            _("Cancel")
+        );
 
         var html_filter = new Gtk.FileFilter ();
         html_filter.set_filter_name (_("HTML File"));
-
-        html_filter.add_mime_type ("document/html");
+        html_filter.add_mime_type ("text/html");
         html_filter.add_pattern ("*.html");
+        dialog.add_filter (html_filter);
 
-        filters.append (html_filter);
         var all_filter = new Gtk.FileFilter ();
         all_filter.set_filter_name (_("All Files"));
         all_filter.add_pattern ("*");
+        dialog.add_filter (all_filter);
 
-        filters.append (all_filter);
+        int response = Gtk.ResponseType.CANCEL;
+        File? file = null;
+        dialog.response.connect ((res) => {
+            response = res;
 
-        var dialog2 = new Gtk.FileChooserDialog (
-            title,
-            window,
-            chooser_action,
-            _("Cancel"), Gtk.ResponseType.CANCEL,
-            accept_button_label, Gtk.ResponseType.ACCEPT);
+            if (response == Gtk.ResponseType.ACCEPT) {
+                file = dialog.get_file ();
+                dialog.destroy ();
+            }
+        });
+        dialog.show ();
 
-
-        dialog2.add_filter (html_filter);
-        dialog2.add_filter (all_filter);
-
-        result2 = dialog2.get_file ();
-
-        dialog2.close ();
-
-        return result2;
+        return file;
     }
 }

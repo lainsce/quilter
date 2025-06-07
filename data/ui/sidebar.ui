@@ -1,92 +1,243 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <template class="QuilterWidgetsSideBar" parent="AdwBin">
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhelium" version="1.0" />
+  <requires lib="libbismuth" version="1.0" />
+  <object class="GtkPopover" id="main_pop">
     <child>
-      <object class="AdwFlap" id="flap">
-        <child type="flap">
-          <object class="GtkGrid" id="flap_grid">
-            <property name="vexpand">True</property>
-            <property name="hexpand">false</property>
-            <property name="width-request">250</property>
+      <object class="GtkBox">
+        <property name="orientation">vertical</property>
+        <property name="spacing">0</property>
+        <style>
+          <class name="menu" />
+        </style>
+        <child>
+          <object class="GtkGrid" id="top_grid">
+            <property name="hexpand">1</property>
+            <property name="orientation">vertical</property>
+            <property name="row-spacing">0</property>
             <child>
-              <object class="GtkScrolledWindow" id="scrolled_window">
-                <property name="hexpand">True</property>
-                <property name="vexpand">True</property>
-                <property name="hscrollbar-policy">never</property>
+              <object class="GtkBox">
+                <property name="spacing">6</property>
+                <property name="margin-top">6</property>
+                <property name="margin-bottom">6</property>
+                <property name="margin-start">6</property>
+                <property name="margin-end">6</property>
+                <property name="halign">center</property>
                 <child>
-                  <object class="GtkViewport">
-                    <child>
-                      <object class="GtkBox">
-                        <property name="orientation">vertical</property>
-                        <property name="spacing">6</property>
-                        <property name="homogeneous">True</property>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="margin-bottom">12</property>
-                                <property name="label" translatable="yes">Files</property>
-                                <property name="xalign">0</property>
-                                <style>
-                                  <class name="heading"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkListBox" id="column">
-                                <child type="placeholder">
-                                  <object class="GtkLabel">
-                                    <property name="label" translatable="yes">No Files</property>
-                                    <style>
-                                      <class name="title-4"/>
-                                      <class name="dim-label"/>
-                                    </style>
-                                  </object>
-                                </child>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                        <child>
-                          <object class="GtkBox">
-                            <property name="orientation">vertical</property>
-                            <child>
-                              <object class="GtkLabel">
-                                <property name="margin-bottom">12</property>
-                                <property name="label" translatable="yes">Outline</property>
-                                <property name="xalign">0</property>
-                                <style>
-                                  <class name="heading"/>
-                                </style>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkSeparator">
-                                <property name="margin-bottom">6</property>
-                              </object>
-                            </child>
-                            <child>
-                              <object class="GtkTreeView" id="view">
-                                <property name="headers-visible">False</property>
-                                <property name="enable-search">False</property>
-                                <property name="show-expanders">False</property>
-                              </object>
-                            </child>
-                          </object>
-                        </child>
-                      </object>
-                    </child>
+                  <object class="GtkCheckButton" id="color_button_light">
+                    <style>
+                      <class name="color-light" />
+                      <class name="circular" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="color_button_sepia">
+                    <property name="group">color_button_light</property>
+                    <style>
+                      <class name="color-sepia" />
+                      <class name="circular" />
+                    </style>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="color_button_dark">
+                    <property name="group">color_button_light</property>
+                    <style>
+                      <class name="color-dark" />
+                      <class name="circular" />
+                    </style>
                   </object>
                 </child>
               </object>
             </child>
-            <style>
-              <class name="quilter-sidebar"/>
-              <class name="background"/>
-            </style>
+            <child>
+              <object class="GtkSeparator">
+                <style>
+                  <class name="spacer" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="HeButton">
+                <property name="action-name">win.action_focus</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property name="label" translatable="yes">Focus Mode</property>
+                <style>
+                  <class name="flat" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="HeButton" id="search_button">
+                <property name="action-name">win.action_search</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property
+                  name="label"
+                  translatable="yes"
+                >Find and Replace…</property>
+                <style>
+                  <class name="flat" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <style>
+                  <class name="spacer" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="HeButton">
+                <property name="action-name">win.action_preferences</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property name="label" translatable="yes">Preferences</property>
+                <style>
+                  <class name="flat" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="HeButton">
+                <property name="action-name">win.action_cheatsheet</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property
+                  name="label"
+                  translatable="yes"
+                >Markdown Cheatsheet</property>
+                <style>
+                  <class name="flat" />
+                </style>
+              </object>
+            </child>
+            <child>
+              <object class="HeButton">
+                <property name="action-name">win.action_about</property>
+                <property name="halign">start</property>
+                <property name="hexpand">true</property>
+                <property
+                  name="label"
+                  translatable="yes"
+                >About Quilter</property>
+                <style>
+                  <class name="flat" />
+                </style>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <template class="QuilterWidgetsSideBar" parent="HeBin">
+    <property name="vexpand">1</property>
+    <property name="hexpand">0</property>
+    <property name="width-request">270</property>
+    <child>
+      <object class="GtkBox" id="navbox">
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="HeAppBar">
+                <property name="width-request">113</property>
+              </object>
+            </child>
+            <child>
+              <object class="HeNavigationRail">
+                <property name="stack">stack</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="HeSideBar" id="flap">
+            <property name="has-margins">0</property>
+            <property name="show-left-title-buttons">0</property>
+            <property name="vexpand">1</property>
+            <property name="hexpand">1</property>
+            <property name="titlewidget">
+              <object class="HeViewTitle" id="viewtitle">
+              </object>
+            </property>
+            <child type="titlebar-menu">
+              <object class="GtkMenuButton" id="menu_button">
+                <property name="popover">main_pop</property>
+                <property name="icon-name">open-menu-symbolic</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkStack" id="stack">
+                <property name="vexpand">True</property>
+                <property name="hexpand">false</property>
+                <property name="visible-child-name">files</property>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">files</property>
+                    <property name="title">Files</property>
+                    <property name="icon-name">files-symbolic</property>
+                    <property name="title" translatable="yes">Files</property>
+                    <property name="child">
+                      <object class="GtkScrolledWindow">
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="hscrollbar-policy">never</property>
+                        <child>
+                          <object class="GtkListBox" id="column">
+                            <child type="placeholder">
+                              <object class="GtkLabel">
+                                <property
+                                  name="label"
+                                  translatable="yes"
+                                >No Files</property>
+                                <style>
+                                  <class name="cb-title" />
+                                  <class name="dim-label" />
+                                </style>
+                              </object>
+                            </child>
+                            <style>
+                              <class name="content-listbox" />
+                            </style>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkStackPage">
+                    <property name="name">outline</property>
+                    <property name="title">Outline</property>
+                    <property name="icon-name">outline-symbolic</property>
+                    <property name="title" translatable="yes">Outline</property>
+                    <property name="child">
+                      <object class="GtkScrolledWindow">
+                        <property name="hexpand">True</property>
+                        <property name="vexpand">True</property>
+                        <property name="hscrollbar-policy">never</property>
+                        <child>
+                          <object class="GtkTreeView" id="view">
+                            <property name="headers-visible">False</property>
+                            <property name="enable-search">False</property>
+                            <property name="show-expanders">False</property>
+                          </object>
+                        </child>
+                      </object>
+                    </property>
+                  </object>
+                </child>
+                <style>
+                  <class name="quilter-sidebar" />
+                </style>
+              </object>
+            </child>
           </object>
         </child>
       </object>

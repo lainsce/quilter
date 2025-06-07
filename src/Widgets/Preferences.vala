@@ -1,26 +1,26 @@
 /*
-* Copyright (C) 2018-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2018-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/prefs_window.ui")]
-    public class Widgets.Preferences : Adw.PreferencesWindow {
+    public class Widgets.Preferences : He.SettingsWindow {
         [GtkChild]
-        unowned Adw.ComboRow font_type;
+        unowned Gtk.ComboBoxText font_type;
         [GtkChild]
         unowned Gtk.Switch autosave;
         [GtkChild]
@@ -34,7 +34,7 @@ namespace Quilter {
         [GtkChild]
         public unowned Gtk.CheckButton scope_sentence;
         [GtkChild]
-        unowned Adw.ComboRow preview_font_type;
+        unowned Gtk.ComboBoxText preview_font_type;
         [GtkChild]
         unowned Gtk.Switch center;
         [GtkChild]
@@ -44,29 +44,31 @@ namespace Quilter {
         [GtkChild]
         unowned Gtk.Switch mermaid;
 
+        public Preferences (MainWindow parent) {
+             base (parent);
+        }
+
         construct {
             preferences_connect ();
         }
 
         private void preferences_connect () {
-            font_type.set_selected ((int) Quilter.Application.gsettings.get_enum("edit-font"));
-            font_type.notify["selected-index"].connect (p => {
-                var i = font_type.get_selected ();
-                Quilter.Application.gsettings.set_enum("edit-font", (int)i);
+            font_type.active = Quilter.Application.gsettings.get_enum ("edit-font");
+            font_type.changed.connect (() => {
+                Quilter.Application.gsettings.set_enum ("edit-font", font_type.active);
             });
 
-            preview_font_type.set_selected ((int) Quilter.Application.gsettings.get_enum("preview-font"));
-            preview_font_type.notify["selected-index"].connect (p => {
-                var i = preview_font_type.get_selected ();
-                Quilter.Application.gsettings.set_enum("preview-font", (int)i);
+            preview_font_type.active = Quilter.Application.gsettings.get_enum ("preview-font");
+            preview_font_type.changed.connect (() => {
+                Quilter.Application.gsettings.set_enum ("preview-font", preview_font_type.active);
             });
 
             scope_paragraph.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_boolean("focus-mode-type", false);
-	        });
+                Quilter.Application.gsettings.set_boolean ("focus-mode-type", false);
+            });
 
-	        scope_sentence.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_boolean("focus-mode-type", true);
+            scope_sentence.toggled.connect (() => {
+                Quilter.Application.gsettings.set_boolean ("focus-mode-type", true);
             });
 
             Quilter.Application.gsettings.bind ("autosave", autosave, "active", GLib.SettingsBindFlags.DEFAULT);

@@ -15,8 +15,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 namespace Quilter.Services.DialogUtils {
-    public Gtk.FileChooserNative create_file_chooser (string title, Gtk.FileChooserAction action) {
-        var chooser = new Gtk.FileChooserNative (title, null, action, null, null);
+    public Gtk.FileChooserNative create_file_chooser (string title, Gtk.FileChooserAction action, Gtk.Window? parent = null) {
+        var chooser = new Gtk.FileChooserNative (title, parent, action, null, null);
+        chooser.set_modal (true);
         var filter1 = new Gtk.FileFilter ();
         filter1.set_filter_name (_("Markdown files"));
         filter1.add_pattern ("*.md");
@@ -25,39 +26,84 @@ namespace Quilter.Services.DialogUtils {
         filter.set_filter_name (_("All files"));
         filter.add_pattern ("*");
         chooser.add_filter (filter);
-        chooser.select_multiple = true;
+        chooser.select_multiple = false;
         return chooser;
     }
 
-    public class Dialog : Adw.MessageDialog {
-        public MainWindow win {get; construct;}
+    public static async int run_file_chooser_async (Gtk.FileChooserNative chooser) {
+        var loop = new MainLoop ();
+        int response = Gtk.ResponseType.CANCEL;
+
+        chooser.response.connect ((res) => {
+            response = res;
+            loop.quit ();
+        });
+
+        chooser.show ();
+        yield run_async (loop);
+
+        return response;
+    }
+
+    private static async void run_async (MainLoop loop) {
+        Idle.add (() => {
+            loop.run ();
+            return false;
+        });
+        yield;
+    }
+
+    public class Dialog : He.Bin {
+        public MainWindow win { get; construct; }
+        public Gtk.MessageDialog dialog;
+
         public Dialog (MainWindow win) {
-            Object (
-                heading: _("Save Open File?"),
-                body: _("There are unsaved changes to the file, any changes will be lost if not saved.")
+            Object (win: win);
+
+            dialog = new Gtk.MessageDialog (
+                                            win,
+                                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                            Gtk.MessageType.QUESTION,
+                                            Gtk.ButtonsType.NONE,
+                                            _("Save Open File?")
             );
 
-            this.add_response ("cancel", _("Cancel"));
-            this.add_response ("no", _("Close Without Saving"));
-            this.add_response ("ok", _("Save"));
-            this.set_default_response ("ok");
-            this.set_close_response ("cancel");
+            dialog.secondary_text = _("There are unsaved changes to the file, any changes will be lost if not saved.");
+
+            dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
+            dialog.add_button (_("Close Without Saving"), Gtk.ResponseType.REJECT);
+            dialog.add_button (_("Save"), Gtk.ResponseType.ACCEPT);
+
+            dialog.set_default_response (Gtk.ResponseType.ACCEPT);
+
+            this.child = dialog;
         }
     }
 
-    public class Dialog2 : Adw.MessageDialog {
-        public MainWindow win {get; construct;}
+    public class Dialog2 : He.Bin {
+        public MainWindow win { get; construct; }
+        public Gtk.MessageDialog dialog;
+
         public Dialog2 (MainWindow win) {
-            Object (
-                heading: _("Remove File From Sidebar?"),
-                body: _("By removing this file from the Sidebar, any changes will be lost if not saved.")
+            Object (win: win);
+
+            dialog = new Gtk.MessageDialog (
+                                            win,
+                                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                                            Gtk.MessageType.QUESTION,
+                                            Gtk.ButtonsType.NONE,
+                                            _("Remove File From Sidebar?")
             );
 
-            this.add_response ("cancel", _("Cancel"));
-            this.add_response ("no", _("Remove Without Saving"));
-            this.add_response ("ok", _("Save"));
-            this.set_default_response ("ok");
-            this.set_close_response ("cancel");
+            dialog.secondary_text = _("By removing this file from the Sidebar, any changes will be lost if not saved.");
+
+            dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
+            dialog.add_button (_("Remove Without Saving"), Gtk.ResponseType.REJECT);
+            dialog.add_button (_("Save"), Gtk.ResponseType.ACCEPT);
+
+            dialog.set_default_response (Gtk.ResponseType.ACCEPT);
+
+            this.child = dialog;
         }
     }
 }

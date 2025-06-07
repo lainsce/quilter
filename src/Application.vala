@@ -1,24 +1,24 @@
 /*
-* Copyright (c) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-*/
+ * Copyright (c) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ */
 namespace Quilter {
-    public class Application : Adw.Application {
+    public class Application : He.Application {
         private static bool open_view = false;
         private static bool print_ver = false;
         private static string _cwd;
@@ -26,6 +26,16 @@ namespace Quilter {
         public static GLib.Settings gsettings;
         public static MainWindow win = null;
         public static string[] supported_mimetypes;
+        public static Application app;
+
+        public Application () {
+            Object (
+                    application_id: Config.APP_ID,
+                    flags: ApplicationFlags.FLAGS_NONE
+            );
+
+            app = this;
+        }
 
         static construct {
             gsettings = new GLib.Settings ("io.github.lainsce.Quilter");
@@ -36,13 +46,18 @@ namespace Quilter {
             flags |= ApplicationFlags.HANDLES_OPEN;
             application_id = Config.APP_ID;
 
-            supported_mimetypes = {"text/markdown"};
+            supported_mimetypes = { "text/markdown" };
         }
 
-        protected override void startup () {
-            set_resource_base_path ("/io/github/lainsce/Quilter");
+        public override void startup () {
+            override_accent_color = true;
+            is_content = true;
+
+            resource_base_path = "/io/github/lainsce/Quilter/";
 
             base.startup ();
+
+            win = new MainWindow (this);
         }
 
         protected override void activate () {
@@ -85,7 +100,7 @@ namespace Quilter {
                 File[] files = new File[unclaimed_args];
                 files.length = 0;
 
-                foreach (string arg in args[1:unclaimed_args + 1]) {
+                foreach (string arg in args[1 : unclaimed_args + 1]) {
                     // We set a message, that later is informed to the user
                     // in a dialog if something noteworthy happens.
                     string msg = "";
@@ -126,28 +141,27 @@ namespace Quilter {
                         string reason = "";
 
                         switch (info.get_file_type ()) {
-                            case FileType.REGULAR:
-                            case FileType.SYMBOLIC_LINK:
-                                files += file;
-                                break;
-                            case FileType.MOUNTABLE:
-                                reason = ("It is a mountable location.");
-                                break;
-                            case FileType.DIRECTORY:
-                                reason = ("It is a directory.");
-                                break;
-                            case FileType.SPECIAL:
-                                reason = ("It is a \"special\" file such as a socket,\n fifo, block device, or character device.");
-                                break;
-                            default:
-                                reason = ("It is an \"unknown\" file type.");
-                                break;
+                        case FileType.REGULAR:
+                        case FileType.SYMBOLIC_LINK:
+                            files += file;
+                            break;
+                        case FileType.MOUNTABLE:
+                            reason = ("It is a mountable location.");
+                            break;
+                        case FileType.DIRECTORY:
+                            reason = ("It is a directory.");
+                            break;
+                        case FileType.SPECIAL:
+                            reason = ("It is a \"special\" file such as a socket,\n fifo, block device, or character device.");
+                            break;
+                        default:
+                            reason = ("It is an \"unknown\" file type.");
+                            break;
                         }
 
                         if (reason.length > 0) {
                             msg = err_msg.printf ("<b>%s</b>".printf (file.get_path ()), reason);
                         }
-
                     } catch (Error e) {
                         warning (e.message);
                     }
@@ -155,15 +169,18 @@ namespace Quilter {
                     // Notify the user that something happened.
                     if (msg.length > 0) {
                         var parent_win = get_last_win () as Gtk.Window;
-                        var dialog = new Adw.MessageDialog (parent_win,
-                            msg, "");
+                        var dialog = new Gtk.MessageDialog (parent_win,
+                                                            Gtk.DialogFlags.MODAL,
+                                                            Gtk.MessageType.WARNING,
+                                                            Gtk.ButtonsType.CLOSE,
+                                                            msg);
                         dialog.show ();
                         dialog.close ();
                     }
                 }
 
                 if (files.length > 0) {
-                    Services.FileManager.open_from_outside (win, files, "");
+                    Services.FileManager.get_instance ().open_from_outside (win, files, "");
                 } else {
                     open_view = false;
                 }
@@ -172,7 +189,7 @@ namespace Quilter {
             return 0;
         }
 
-        public MainWindow? get_last_win () {
+        public MainWindow ? get_last_win () {
             unowned List<Gtk.Window> wins = get_windows ();
             return wins.length () > 0 ? wins.last ().data as MainWindow : null;
         }

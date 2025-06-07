@@ -1,21 +1,21 @@
 /*
-* Copyright (C) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Quilter.Widgets {
     public class EditView : GtkSource.View {
         private Gtk.TextTag blackfont;
@@ -38,7 +38,7 @@ namespace Quilter.Widgets {
         public Gtk.TextTag error_tag;
         public MainWindow window;
         public Services.POSFiles pos;
-        public bool should_scroll {get; set; default = false;}
+        public bool should_scroll { get; set; default = false; }
         public bool should_update_preview { get; set; default = false; }
         public double cursor_position = 0;
         public new unowned GtkSource.Buffer buffer;
@@ -122,7 +122,7 @@ namespace Quilter.Widgets {
 
                 var file = File.new_for_path (file_path);
                 if (!file.query_exists ()) {
-                    Services.FileManager.save_file (file_path, "");
+                    Services.FileManager.get_instance ().save_file (file_path, "");
                 }
 
                 GLib.FileUtils.get_contents (file.get_path (), out text);
@@ -138,7 +138,6 @@ namespace Quilter.Widgets {
                     modified = false;
                     return true;
                 });
-
             }
 
             update_settings ();
@@ -155,8 +154,8 @@ namespace Quilter.Widgets {
             // Sane defaults
             this.set_wrap_mode (Gtk.WrapMode.WORD);
             this.right_margin = this.bottom_margin = this.top_margin = 40;
-            this.left_margin = 0;
-            this.set_pixels_inside_wrap ((int)(1.5 * 4));
+            this.left_margin = 40;
+            this.set_pixels_inside_wrap ((int) (1.5 * 4));
             this.set_pixels_above_lines (4);
             this.set_pixels_below_lines (4);
             this.set_insert_spaces_instead_of_tabs (true);
@@ -230,14 +229,14 @@ namespace Quilter.Widgets {
                 p = (window.is_fullscreen) ? 80 : 0;
                 m = (rect.width * ((Constants.MEDIUM_MARGIN + p) / 100.0));
 
-                this.left_margin = (int)m;
-                this.right_margin = (int)m;
+                this.left_margin = (int) m;
+                this.right_margin = (int) m;
             }
 
-            if (Quilter.Application.gsettings.get_boolean ("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean("focus-mode")) {
+            if (Quilter.Application.gsettings.get_boolean ("typewriter-scrolling") && Quilter.Application.gsettings.get_boolean ("focus-mode")) {
                 int titlebar_h = window.get_titlebar ().get_allocated_height ();
-                this.bottom_margin = (int)(rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
-                this.top_margin = (int)(rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
+                this.bottom_margin = (int) (rect.height * (1 - Constants.TYPEWRITER_POSITION)) - titlebar_h;
+                this.top_margin = (int) (rect.height * Constants.TYPEWRITER_POSITION) - titlebar_h;
             } else {
                 this.top_margin = 40;
                 this.bottom_margin = 40;
@@ -248,21 +247,43 @@ namespace Quilter.Widgets {
             Gtk.TextIter start, end;
             buffer.get_bounds (out start, out end);
 
-            var asm = Adw.StyleManager.get_default ();
-
             if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
-                asm.set_color_scheme (Adw.ColorScheme.FORCE_DARK);
+                Quilter.Application.app.override_dark_style = true;
+                Gdk.RGBA accent_color = { 0 };
+                accent_color.parse ("#888");
+                Quilter.Application.app.default_accent_color = He.from_gdk_rgba (
+                {
+                    accent_color.red* 255,
+                    accent_color.green* 255,
+                    accent_color.blue* 255
+                });
                 buffer.remove_tag (lightsepiafont, start, end);
                 buffer.remove_tag (sepiafont, start, end);
                 buffer.remove_tag (blackfont, start, end);
                 return "quilter-dark";
             } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
-                asm.set_color_scheme (Adw.ColorScheme.DEFAULT);
+                Quilter.Application.app.override_dark_style = false;
+                Gdk.RGBA accent_color = { 0 };
+                accent_color.parse ("#E8DDCE");
+                Quilter.Application.app.default_accent_color = He.from_gdk_rgba (
+                {
+                    accent_color.red* 255,
+                    accent_color.green* 255,
+                    accent_color.blue* 255
+                });
                 buffer.remove_tag (whitefont, start, end);
                 buffer.remove_tag (blackfont, start, end);
                 return "quilter-sepia";
             } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
-                asm.set_color_scheme (Adw.ColorScheme.DEFAULT);
+                Quilter.Application.app.override_dark_style = false;
+                Gdk.RGBA accent_color = { 0 };
+                accent_color.parse ("#888");
+                Quilter.Application.app.default_accent_color = He.from_gdk_rgba (
+                {
+                    accent_color.red* 255,
+                    accent_color.green* 255,
+                    accent_color.blue* 255
+                });
                 buffer.remove_tag (whitefont, start, end);
                 buffer.remove_tag (lightsepiafont, start, end);
                 buffer.remove_tag (sepiafont, start, end);
@@ -296,12 +317,12 @@ namespace Quilter.Widgets {
             buffer.get_bounds (out start, out end);
 
             string no_punct_buffer = buffer.get_text (start, end, false)
-                                           .strip ()
-                                           .down ()
-                                           .delimit ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# äöëïü", ' ');
+                 .strip ()
+                 .down ()
+                 .delimit ("1234567890@$%^&*+=.,/!?<>;:\"{}[]()<>|\\’”“——…-# äöëïü", ' ');
             string[] words = no_punct_buffer.split (" ");
-            string[] nounifier = {"the", "an", "a", "and", "or", "this"};
-            string[] verbifier = {"be", "to", "and"};
+            string[] nounifier = { "the", "an", "a", "and", "or", "this" };
+            string[] verbifier = { "be", "to", "and" };
             int p = 0;
 
             foreach (string word in words) {
@@ -325,7 +346,7 @@ namespace Quilter.Widgets {
                 if (word in pos.abuf_list) {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
-                    buffer.apply_tag(adjfont, match_start, match_end);
+                    buffer.apply_tag (adjfont, match_start, match_end);
                     buffer.remove_tag (verbfont, match_start, match_end);
                     buffer.remove_tag (adverbfont, match_start, match_end);
                     buffer.remove_tag (conjfont, match_start, match_end);
@@ -350,6 +371,21 @@ namespace Quilter.Widgets {
                     buffer.get_iter_at_offset (out match_start, p);
                     buffer.get_iter_at_offset (out match_end, p + word.length);
                     buffer.apply_tag (conjfont, match_start, match_end);
+                    buffer.remove_tag (verbfont, match_start, match_end);
+                    buffer.remove_tag (adjfont, match_start, match_end);
+                    buffer.remove_tag (adverbfont, match_start, match_end);
+                }
+                if (word in pos.vbuf_list && !(word in pos.nbuf_list)) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.remove_tag (conjfont, match_start, match_end);
+                    buffer.apply_tag (verbfont, match_start, match_end);
+                    buffer.remove_tag (adjfont, match_start, match_end);
+                    buffer.remove_tag (adverbfont, match_start, match_end);
+                } else if (word in pos.nbuf_list && !(word in pos.vbuf_list)) {
+                    buffer.get_iter_at_offset (out match_start, p);
+                    buffer.get_iter_at_offset (out match_end, p + word.length);
+                    buffer.remove_tag (conjfont, match_start, match_end);
                     buffer.remove_tag (verbfont, match_start, match_end);
                     buffer.remove_tag (adjfont, match_start, match_end);
                     buffer.remove_tag (adverbfont, match_start, match_end);
@@ -446,31 +482,37 @@ namespace Quilter.Services {
         public File file_conj;
         public File file_adverbs;
         public File file_adj;
+        public File file_noun;
         public string vbuf = "";
         public string abuf = "";
         public string adbuf = "";
         public string cnbuf = "";
+        public string nbuf = "";
         public Gee.TreeSet<string> vbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> abuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> adbuf_list = new Gee.TreeSet<string> ();
         public Gee.TreeSet<string> cnbuf_list = new Gee.TreeSet<string> ();
+        public Gee.TreeSet<string> nbuf_list = new Gee.TreeSet<string> ();
 
         public POSFiles () {
-            file_verbs = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/verb.txt");
-            file_adj = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/adjective.txt");
-            file_adverbs = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/adverb.txt");
-            file_conj = File.new_for_path (Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/wordlist/conjunction.txt");
+            file_verbs = File.new_for_path (Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/wordlist/verb.txt");
+            file_adj = File.new_for_path (Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/wordlist/adjective.txt");
+            file_adverbs = File.new_for_path (Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/wordlist/adverb.txt");
+            file_conj = File.new_for_path (Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/wordlist/conjunction.txt");
+            file_noun = File.new_for_path (Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/wordlist/noun.txt");
 
             try {
                 GLib.FileUtils.get_contents (file_verbs.get_path (), out vbuf, null);
                 GLib.FileUtils.get_contents (file_adj.get_path (), out abuf, null);
                 GLib.FileUtils.get_contents (file_adverbs.get_path (), out adbuf, null);
                 GLib.FileUtils.get_contents (file_conj.get_path (), out cnbuf, null);
+                GLib.FileUtils.get_contents (file_noun.get_path (), out nbuf, null);
 
                 vbuf_list.add_all_array (vbuf.strip ().split ("\n"));
                 abuf_list.add_all_array (abuf.strip ().split ("\n"));
                 adbuf_list.add_all_array (adbuf.strip ().split ("\n"));
                 cnbuf_list.add_all_array (cnbuf.strip ().split ("\n"));
+                nbuf_list.add_all_array (nbuf.strip ().split ("\n"));
             } catch (Error e) {
                 var msg = e.message;
                 warning (@"Error: $msg");

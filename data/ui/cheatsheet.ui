@@ -1,69 +1,188 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.2 -->
+<?xml version="1.0" encoding="UTF-8" ?>
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <object class="AdwPreferencesWindow" id="cheatsheet">
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhelium" version="1.0" />
+  <template class="QuilterWidgetsCheatsheet" parent="HeSettingsWindow">
     <property name="title" translatable="yes">Markdown Cheatsheet</property>
-    <property name="destroy-with-parent">1</property>
-    <property name="icon-name">view-reveal-symbolic</property>
-    <child>
-      <object class="AdwPreferencesPage">
-        <property name="icon-name">text-x-generic-symbolic</property>
-        <property name="title" translatable="yes">Common</property>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Text</property>
         <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Text</property>
+          <object class="HeSettingsList">
+            <property name="title" translatable="yes">Text Formatting</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
                 <property name="title" translatable="yes">Bold</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">**Bold text**</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >**Bold text**</property>
                     <attributes>
-                      <attribute name="weight" value="bold"/>
+                      <attribute name="weight" value="bold" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
                 <property name="title" translatable="yes">Italics</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">**Italicized text**</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >*Italicized text*</property>
                     <attributes>
-                      <attribute name="style" value="italic"/>
+                      <attribute name="style" value="italic" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
-                <property name="title" translatable="yes">Code Line</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Strikethrough</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">`code text`</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >~~Striked through text~~</property>
                     <attributes>
-                      <attribute name="font-desc" value="Monospace 10"/>
+                      <attribute name="strikethrough" value="1" />
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Structure</property>
+        <child>
+          <object class="HeSettingsList">
+            <property
+                            name="title"
+                            translatable="yes"
+                        >Document Structure</property>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Headers</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes"># Title
+## Subtitle
+### Section</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Links</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >[Link Label](http://link.url.com)</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Images</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >![Image Label](http://image.url.com)</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Horizontal Rule</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >--- or ***</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Code</property>
+        <child>
+          <object class="HeSettingsList">
+            <property
+                            name="title"
+                            translatable="yes"
+                        >Code &amp; Quotes</property>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Inline Code</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >`code text`</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
                 <property name="title" translatable="yes">Code Block</property>
                 <child>
@@ -74,262 +193,272 @@
 code text
 ```</property>
                     <attributes>
-                      <attribute name="font-desc" value="Monospace 10"/>
+                      <attribute name="font-desc" value="Monospace 10" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
-                <property name="title" translatable="yes">Quoting</property>
+                <property name="title" translatable="yes">Blockquote</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">&gt; Quote
-&gt; something
-&gt; here</property>
+                    <property name="label" translatable="yes">&gt; Quote text
+&gt; continues here</property>
                     <attributes>
-                      <attribute name="weight" value="semilight"/>
+                      <attribute name="weight" value="semilight" />
                     </attributes>
                   </object>
                 </child>
               </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Headers</property>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Headers</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes"># Title
-## Subtitle
-### Section
-...</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Links</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">[Link Label](http://link.url.com)
-![Image Label](http://image.url.com)</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Extras</property>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Strikethrough</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">~~Striked through text~~</property>
-                    <attributes>
-                      <attribute name="strikethrough" value="1"/>
-                    </attributes>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Sub/Superscript</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">Subscript:  H~2~O
-Superscript:	1^st^</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Horzontal Rule</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">Use: --- or ***</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
         </child>
       </object>
     </child>
-    <child>
-      <object class="AdwPreferencesPage">
-        <property name="icon-name">starred-symbolic</property>
-        <property name="title" translatable="yes">Special</property>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Lists</property>
         <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Extensions</property>
+          <object class="HeSettingsList">
+            <property
+                            name="title"
+                            translatable="yes"
+                        >Lists &amp; Tasks</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Unordered List</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes">- Item one
+- Item two
+- Item three</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Ordered List</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes">1. First item
+2. Second item
+3. Third item</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Checkboxes</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >Mind the period to avoid collisions.</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes">- [ ] Empty.
+- [x] Checked.</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Tables</property>
+        <child>
+          <object class="HeSettingsList">
+            <property name="title" translatable="yes">Table Syntax</property>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property name="title" translatable="yes">Basic Table</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >| Column A | Column B |
+|----------|----------|
+| Value 1  | Value 2  |</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10" />
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Table Alignment</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes">Left:     :---
+Centered: :---:
+Right:    ---:</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10" />
+                    </attributes>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+    <child type="page">
+      <object class="HeSettingsPage">
+        <property name="title" translatable="yes">Extensions</property>
+        <child>
+          <object class="HeSettingsList">
+            <property
+                            name="title"
+                            translatable="yes"
+                        >Math &amp; Special</property>
+            <child>
+              <object class="HeSettingsRow">
+                <property name="activatable">0</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Sub/Superscript</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="margin-top">6</property>
+                    <property name="margin-bottom">6</property>
+                    <property name="label" translatable="yes">H~2~O (subscript)
+1^st^ (superscript)</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
                 <property name="title" translatable="yes">LaTeX Math</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">$$…$$	for equation block
-\\(…\\)		for inline equation</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Mermaid.js Graphs</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">&lt;div class="mermaid"&gt;...&lt;/div&gt;</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >$$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
+\\(E = mc^2\\)</property>
                     <attributes>
-                      <attribute name="font-desc" value="Monospace 10"/>
+                      <attribute name="font-desc" value="Monospace 10" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
-                <property name="title" translatable="yes">Checkboxes</property>
-                <property name="subtitle" translatable="yes">Mind the period to avoid collisions.</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Mermaid Graphs</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">- [	] Empty.
-- [x] Checked.</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >&lt;div class="mermaid"&gt;
+graph TD;
+  A--&gt;B;
+&lt;/div&gt;</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10" />
+                    </attributes>
                   </object>
                 </child>
               </object>
             </child>
-            <child>
-              <placeholder/>
-            </child>
           </object>
         </child>
         <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Tables</property>
+          <object class="HeSettingsList">
+            <property name="title" translatable="yes">File Embedding</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
-                <property name="title" translatable="yes">Tables</property>
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Embed Document</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">|	A	|	B	|
-|      ---      |      ---      |
-|	1	|	2	|</property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >/path/to/file.md :file</property>
                     <attributes>
-                      <attribute name="font-desc" value="Monospace 10"/>
+                      <attribute name="font-desc" value="Monospace 10" />
                     </attributes>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="activatable">0</property>
-                <property name="title" translatable="yes">Options</property>
+                <property name="title" translatable="yes">Embed Image</property>
                 <child>
                   <object class="GtkLabel">
                     <property name="margin-top">6</property>
                     <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">Left		--- 	to	:---
-Centered    ---	to	:---:
-Right		---	to	---: </property>
+                    <property
+                                            name="label"
+                                            translatable="yes"
+                                        >/path/to/image.png :image</property>
+                    <attributes>
+                      <attribute name="font-desc" value="Monospace 10" />
+                    </attributes>
                   </object>
                 </child>
               </object>
-            </child>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object class="AdwPreferencesGroup">
-            <property name="title" translatable="yes">Files</property>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Document</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">/Folder/Document.md :file</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <object class="AdwActionRow">
-                <property name="activatable">0</property>
-                <property name="title" translatable="yes">Image</property>
-                <child>
-                  <object class="GtkLabel">
-                    <property name="margin-top">6</property>
-                    <property name="margin-bottom">6</property>
-                    <property name="label" translatable="yes">/Folder/Image.png :image</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-            <child>
-              <placeholder/>
             </child>
           </object>
         </child>
       </object>
     </child>
-    <style>
-      <class name="quilter-dialog-hb"/>
-    </style>
-  </object>
+  </template>
 </interface>

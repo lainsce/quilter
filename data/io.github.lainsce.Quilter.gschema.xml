@@ -1,14 +1,14 @@
-<?xml version="1.0"?>
+<?xml version="1.0" ?>
 <schemalist>
   <enum id='font'>
-        <value nick='mono' value='0'/>
-        <value nick='zwei' value='1'/>
-        <value nick='vier' value='2'/>
+        <value nick='mono' value='0' />
+        <value nick='zwei' value='1' />
+        <value nick='vier' value='2' />
   </enum>
   <enum id='pfont'>
-        <value nick='serif' value='0'/>
-        <value nick='sans' value='1'/>
-        <value nick='mono' value='2'/>
+        <value nick='serif' value='0' />
+        <value nick='sans' value='1' />
+        <value nick='mono' value='2' />
   </enum>
   <schema id="io.github.lainsce.Quilter" path="/io/github/lainsce/Quilter/">
     <key name="window-position" type="(ii)">
@@ -24,7 +24,8 @@
     <key name="header" type="b">
       <default>true</default>
       <summary>Window header state</summary>
-      <description>The header layout of the window if the Side or Main bar are visible</description>
+      <description
+      >The header layout of the window if the Side or Main bar are visible</description>
     </key>
     <key name="sidebar" type="b">
       <default>true</default>
@@ -44,7 +45,8 @@
     <key name="visual-mode" type="s">
       <default>''</default>
       <summary>Visual Mode</summary>
-      <description>What visual style to use for Quilter (Default is blank which means Light UI)</description>
+      <description
+      >What visual style to use for Quilter (Default is blank which means Light UI)</description>
     </key>
     <key name="autosave" type="b">
       <default>true</default>
@@ -60,7 +62,7 @@
       <summary>Current working file</summary>
       <description>The c.w.f. in Quilter</description>
     </key>
-    <key name="last-files" type="as">
+    <key name="open-files" type="as">
       <default>[]</default>
       <summary>Last opened files</summary>
       <description>The last opened files in Quilter</description>
@@ -68,27 +70,37 @@
     <key name="edit-font" enum='font'>
       <default>'mono'</default>
       <summary>Font used on Edit View</summary>
-      <description>The user-preferred font to use in Edit in Quilter</description>
+      <description
+      >The user-preferred font to use in Edit in Quilter</description>
     </key>
     <key name="preview-font" enum='pfont'>
       <default>'serif'</default>
       <summary>Font used on Preview View</summary>
-      <description>The user-preferred font to use in Preview in Quilter</description>
+      <description
+      >The user-preferred font to use in Preview in Quilter</description>
     </key>
     <key name="preview-type" type="s">
       <default>'full'</default>
       <summary>Preview type for the UI</summary>
-      <description>The user-preferred preview type to use in Preview in Quilter</description>
+      <description
+      >The user-preferred preview type to use in Preview in Quilter</description>
     </key>
     <key name="full-width-changed" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Full-Width Pane to Show</summary>
-      <description>The user-preferred full-width shown pane in Quilter</description>
+      <description
+      >The user-preferred full-width shown pane in Quilter</description>
     </key>
     <key name="track-type" type="s">
       <default>'lines'</default>
       <summary>Tracking type for the Statusbar</summary>
-      <description>The user-preferred tracking to use in Edit in Quilter</description>
+      <description
+      >The user-preferred tracking to use in Edit in Quilter</description>
+    </key>
+    <key name="show-preview" type="b">
+      <default>true</default>
+      <summary>Show Preview</summary>
+      <description>Whether the preview pane should be visible</description>
     </key>
     <key name="spellcheck" type="b">
       <default>true</default>
@@ -97,11 +109,13 @@
     <key name="spellcheck-language" type="s">
       <default>"en"</default>
       <summary>Spell check language used</summary>
-      <description>This must be the name of one of the installed languages, by default the fallback</description>
+      <description
+      >This must be the name of one of the installed languages, by default the fallback</description>
     </key>
     <key name="show-filename" type="b">
       <default>false</default>
-      <summary>Show (true) or Hide (false) the file name in the menu bar</summary>
+      <summary
+      >Show (true) or Hide (false) the file name in the menu bar</summary>
     </key>
     <key name="searchbar" type="b">
       <default>false</default>
@@ -141,4 +155,3 @@
     </key>
   </schema>
 </schemalist>
-

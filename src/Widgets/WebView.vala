@@ -1,22 +1,22 @@
 /*
-* Copyright (c) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*
-*/
+ * Copyright (c) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ *
+ */
 namespace Quilter {
     public class Widgets.Preview : WebKit.WebView {
         private static Preview? instance = null;
@@ -48,22 +48,23 @@ namespace Quilter {
         }
 
         public Preview (MainWindow window, Widgets.EditView buf) {
-            Object (user_content_manager: new WebKit.UserContentManager ());
+            Object (user_content_manager : new WebKit.UserContentManager ());
             this.buf = buf;
             var webkit_settings = get_settings ();
             webkit_settings.enable_page_cache = false;
             webkit_settings.javascript_can_open_windows_automatically = false;
 
             this.scroll_value = -1;
+            this.visible = true;
+            this.hexpand = true;
+            this.vexpand = true;
 
             update_html_view ();
             connect_signals ();
         }
 
-        protected override bool context_menu (
-            WebKit.ContextMenu context_menu,
-            WebKit.HitTestResult hit_test_result
-        ) {
+        protected override bool context_menu (WebKit.ContextMenu context_menu,
+                                              WebKit.HitTestResult hit_test_result) {
             return true;
         }
 
@@ -83,32 +84,31 @@ namespace Quilter {
 
         private string set_font_stylesheet () {
             if (Quilter.Application.gsettings.get_enum ("preview-font") == 0) {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/serif.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/font/serif.css";
             } else if (Quilter.Application.gsettings.get_enum ("preview-font") == 1) {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/sans.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/font/sans.css";
             } else if (Quilter.Application.gsettings.get_enum ("preview-font") == 2) {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/mono.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/font/mono.css";
             }
 
-            return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/font/serif.css";
+            return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/font/serif.css";
         }
 
         private string set_highlight_stylesheet () {
             if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/highlight.js/styles/dark.min.css";
             } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/highlight.js/styles/sepia.min.css";
             } else if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/highlight.js/styles/default.min.css";
             } else {
                 return "";
             }
         }
 
-
         private string set_highlight () {
             if (Quilter.Application.gsettings.get_boolean ("highlight")) {
-                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
+                string render = Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/highlight.js/lib/highlight.min.js";
                 string hl = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s" onload="hljs.initHighlightingOnLoad();"></script>
@@ -121,7 +121,7 @@ namespace Quilter {
 
         private string set_center_headers () {
             if (Quilter.Application.gsettings.get_boolean ("center-headers")) {
-                return Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
+                return Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/center_headers/cheaders.css";
             } else {
                 return "";
             }
@@ -129,9 +129,9 @@ namespace Quilter {
 
         private string set_latex () {
             if (Quilter.Application.gsettings.get_boolean ("latex")) {
-                string katex_main = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/katex.css";
-                string katex_js = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/katex.js";
-                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/katex/render.js";
+                string katex_main = Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/katex/katex.css";
+                string katex_js = Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/katex/katex.js";
+                string render = Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/katex/render.js";
                 string latex = """
                     <link rel="stylesheet" href="%s">
                     <script defer src="%s"></script>
@@ -145,7 +145,7 @@ namespace Quilter {
 
         private string set_mermaid () {
             if (Quilter.Application.gsettings.get_boolean ("mermaid")) {
-                string render = Environment.get_system_data_dirs ()[0] + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
+                string render = Environment.get_system_data_dirs ()[3] + "/io.github.lainsce.Quilter/mermaid/mermaid.js";
                 string mermaid = """
                     <script src="%s"></script>
                     <script>
@@ -208,43 +208,53 @@ namespace Quilter {
             }
         }
 
+        public async void update_html_view_async () {
+            try {
+                warning ("Starting update_html_view_async\n");
+                update_html_view ();
+                warning ("Finished update_html_view_async\n");
+            } catch (Error e) {
+                warning("Error in update_html_view_async: %s\n", e.message);
+            }
+            yield;
+        }
         public void update_html_view () {
             string processed_mk;
             string title, date;
-            processed_mk = Services.FileManager.get_yamlless_markdown(
-                buf.text,
-                0,                                  // Cap number of lines
-                out title,
-                out date,
-                true,                               // Include empty lines
-                true,                               // H1 title:
-                false                               // Include date
+            processed_mk = Services.FileManager.get_instance ().get_yamlless_markdown (
+                                                                       buf.text,
+                                                                       0, // Cap number of lines
+                                                                       out title,
+                                                                       out date,
+                                                                       true, // Include empty lines
+                                                                       true, // H1 title:
+                                                                       false // Include date
             );
 
             var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
-                Markdown.DocumentFlags.TOC +
-                Markdown.DocumentFlags.AUTOLINK +
-                Markdown.DocumentFlags.EXTRA_FOOTNOTE +
-                Markdown.DocumentFlags.DLEXTRA +
-                Markdown.DocumentFlags.FENCEDCODE +
-                Markdown.DocumentFlags.GITHUBTAGS +
-                Markdown.DocumentFlags.LATEX +
-                Markdown.DocumentFlags.URLENCODEDANCHOR +
-                Markdown.DocumentFlags.NOSTYLE +
-                Markdown.DocumentFlags.EXPLICITLIST
+                                                             Markdown.DocumentFlags.TOC
+                                                             + Markdown.DocumentFlags.AUTOLINK
+                                                             + Markdown.DocumentFlags.EXTRA_FOOTNOTE
+                                                             + Markdown.DocumentFlags.DLEXTRA
+                                                             + Markdown.DocumentFlags.FENCEDCODE
+                                                             + Markdown.DocumentFlags.GITHUBTAGS
+                                                             + Markdown.DocumentFlags.LATEX
+                                                             + Markdown.DocumentFlags.URLENCODEDANCHOR
+                                                             + Markdown.DocumentFlags.NOSTYLE
+                                                             + Markdown.DocumentFlags.EXPLICITLIST
             );
 
             mkd.compile (
-                Markdown.DocumentFlags.TOC +
-                Markdown.DocumentFlags.AUTOLINK +
-                Markdown.DocumentFlags.EXTRA_FOOTNOTE +
-                Markdown.DocumentFlags.DLEXTRA +
-                Markdown.DocumentFlags.FENCEDCODE +
-                Markdown.DocumentFlags.GITHUBTAGS +
-                Markdown.DocumentFlags.LATEX +
-                Markdown.DocumentFlags.URLENCODEDANCHOR +
-                Markdown.DocumentFlags.NOSTYLE +
-                Markdown.DocumentFlags.EXPLICITLIST
+                         Markdown.DocumentFlags.TOC
+                         + Markdown.DocumentFlags.AUTOLINK
+                         + Markdown.DocumentFlags.EXTRA_FOOTNOTE
+                         + Markdown.DocumentFlags.DLEXTRA
+                         + Markdown.DocumentFlags.FENCEDCODE
+                         + Markdown.DocumentFlags.GITHUBTAGS
+                         + Markdown.DocumentFlags.LATEX
+                         + Markdown.DocumentFlags.URLENCODEDANCHOR
+                         + Markdown.DocumentFlags.NOSTYLE
+                         + Markdown.DocumentFlags.EXPLICITLIST
             );
 
             mkd.get_document (out processed_mk);
@@ -281,6 +291,11 @@ namespace Quilter {
                     <style>%s</style>
                     %s
                     %s
+                    <style>
+                        body {
+                            border-radius: 12px;
+                        }
+                    </style>
                     <link rel="stylesheet" href="%s"/>
                     <link rel="stylesheet" href="%s"/>
                 </head>

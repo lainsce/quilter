@@ -1,24 +1,24 @@
 /*
-* Copyright (c) 2018-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (c) 2018-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/searchbar.ui")]
-    public class Widgets.SearchBar : Adw.Bin {
+    public class Widgets.SearchBar : He.Bin {
         private EditView? text_view = null;
         private Gtk.TextBuffer? text_buffer = null;
 
@@ -39,12 +39,16 @@ namespace Quilter {
 
         [GtkChild]
         public unowned Gtk.Revealer searchbar;
+        [GtkChild]
+        private unowned Gtk.Box box1;
+        [GtkChild]
+        private unowned Gtk.Box box2;
 
         public GtkSource.SearchContext search_context = null;
         public weak MainWindow window { get; construct; }
 
         public SearchBar (MainWindow window) {
-            Object (window: window);
+            Object (window : window);
         }
 
         construct {
@@ -81,7 +85,7 @@ namespace Quilter {
             Gtk.TextIter? start_iter, end_iter;
             if (text_buffer != null) {
                 text_buffer.get_selection_bounds (out start_iter, out end_iter);
-                if(!search_for_iter_backward (start_iter, out end_iter)) {
+                if (!search_for_iter_backward (start_iter, out end_iter)) {
                     text_buffer.get_end_iter (out start_iter);
                     search_for_iter_backward (start_iter, out end_iter);
                 }
@@ -97,7 +101,7 @@ namespace Quilter {
             Gtk.TextIter? start_iter, end_iter, end_iter_tmp;
             if (text_buffer != null) {
                 text_buffer.get_selection_bounds (out start_iter, out end_iter);
-                if(!search_for_iter (end_iter, out end_iter_tmp)) {
+                if (!search_for_iter (end_iter, out end_iter_tmp)) {
                     text_buffer.get_start_iter (out start_iter);
                     search_for_iter (start_iter, out end_iter);
                 }
@@ -146,7 +150,6 @@ namespace Quilter {
             } catch (Error e) {
                 critical (e.message);
             }
-
         }
 
         private bool search_for_iter (Gtk.TextIter? start_iter, out Gtk.TextIter? end_iter) {

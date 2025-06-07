@@ -2,8 +2,9 @@
 <!-- Generated with glade 3.38.2 -->
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <template class="QuilterWidgetsSearchBar" parent="AdwBin">
+  <requires lib="libhelium" version="1.0"/>
+  <template class="QuilterWidgetsSearchBar" parent="HeBin">
+    <property name="hexpand">1</property>
     <property name="halign">end</property>
     <property name="valign">start</property>
     <child>

@@ -25,12 +25,12 @@ Please make sure you have these dependencies first before building.
 
 ```bash
 valac
-gtk+-3.0
-gtksourceview-4-dev
-libwebkit2gtk-4.0-dev
-libmarkdown2-dev
-libgtkspell3-3-dev
-libadwaita-1-dev >= 0.80.0
+gtk4
+gtksourceview-5
+webkitgtk6.0
+libmarkdown2
+libgtkspell3
+libhelium-1
 meson
 ```
 

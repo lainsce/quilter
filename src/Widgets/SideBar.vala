@@ -1,25 +1,24 @@
 /*
-* Copyright (c) 2018-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (c) 2018-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Quilter.Widgets {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/sidebar.ui")]
-    public class SideBar : Adw.Bin {
-        private Widgets.SideBarBox[] rows;
+    public class SideBar : He.Bin {
         public Widgets.SideBarBox row;
         public Widgets.SideBarBox filebox;
         public Widgets.EditView ev;
@@ -32,21 +31,28 @@ namespace Quilter.Widgets {
         private Gtk.TreeIter subheader;
         private Gtk.TreeIter section;
         private GLib.MatchInfo match;
-        private string[] files;
-        public Gee.LinkedList<SideBarBox> s_files = null;
-        public bool is_modified {get; set; default = false;}
+        public bool is_modified { get; set; default = false; }
 
         [GtkChild]
-        public unowned Adw.Flap flap;
-
+        public unowned He.SideBar flap;
         [GtkChild]
-        public unowned Gtk.Grid flap_grid;
-
+        public unowned He.ViewTitle viewtitle;
+        [GtkChild]
+        public unowned Gtk.Box navbox;
+        [GtkChild]
+        public unowned Gtk.Stack stack;
         [GtkChild]
         public unowned Gtk.ListBox column;
-
         [GtkChild]
         public unowned Gtk.TreeView view;
+        [GtkChild]
+        public unowned Gtk.Grid top_grid;
+        [GtkChild]
+        public unowned Gtk.CheckButton color_button_light;
+        [GtkChild]
+        public unowned Gtk.CheckButton color_button_sepia;
+        [GtkChild]
+        public unowned Gtk.CheckButton color_button_dark;
 
         public signal void save_as ();
 
@@ -64,31 +70,104 @@ namespace Quilter.Widgets {
             this.ev = ev;
             this.is_modified = false;
 
-            sidebar_files_list ();
-            sidebar_outline ();
+            flap.remove_css_class ("sidebar-view");
 
-            this.add_css_class ("sidebar");
-            flap.reveal_flap = Quilter.Application.gsettings.get_boolean ("sidebar");
-            flap.notify["folded"].connect (() => {
-                if (win.titlebar.sidebar_toggler.get_active ()) {
-                    flap.reveal_flap = true;
-                } else {
-                    flap.reveal_flap = false;
+            stack.set_visible_child_name ("files");
+            var visible_child_name = stack.get_visible_child_name ();
+            if (visible_child_name == "files") {
+                viewtitle.label = "Files";
+            } else if (visible_child_name == "outline") {
+                viewtitle.label = "Outline";
+            }
+
+            stack.notify["visible-child-name"].connect (() => {
+                if (visible_child_name == "files") {
+                    viewtitle.label = "Files";
+                } else if (visible_child_name == "outline") {
+                    viewtitle.label = "Outline";
                 }
             });
 
+            sidebar_files_list ();
+            sidebar_outline ();
+
+            column.row_selected.connect (on_row_selected);
+
             if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
-                flap_grid.add_css_class ("quilter-sidebar-sepia");
+                flap.add_css_class ("quilter-sidebar-sepia");
+                stack.add_css_class ("quilter-sidebar-sepia");
+                column.add_css_class ("quilter-sidebar-sepia");
+                view.add_css_class ("quilter-sidebar-sepia");
             } else {
-                flap_grid.remove_css_class ("quilter-sidebar-sepia");
+                if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
+                    flap.remove_css_class ("quilter-sidebar-sepia");
+                    stack.remove_css_class ("quilter-sidebar-sepia");
+                    column.remove_css_class ("quilter-sidebar-sepia");
+                    view.remove_css_class ("quilter-sidebar-sepia");
+                } else {
+                    flap.remove_css_class ("quilter-sidebar-sepia");
+                    stack.remove_css_class ("quilter-sidebar-sepia");
+                    column.remove_css_class ("quilter-sidebar-sepia");
+                    view.remove_css_class ("quilter-sidebar-sepia");
+                }
             }
 
             Quilter.Application.gsettings.changed.connect (() => {
                 if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
-                    flap_grid.add_css_class ("quilter-sidebar-sepia");
+                    flap.add_css_class ("quilter-sidebar-sepia");
+                    stack.add_css_class ("quilter-sidebar-sepia");
+                    column.add_css_class ("quilter-sidebar-sepia");
+                    view.add_css_class ("quilter-sidebar-sepia");
                 } else {
-                    flap_grid.remove_css_class ("quilter-sidebar-sepia");
+                    if (Quilter.Application.gsettings.get_string ("visual-mode") == "light") {
+                        flap.remove_css_class ("quilter-sidebar-sepia");
+                        stack.remove_css_class ("quilter-sidebar-sepia");
+                        column.remove_css_class ("quilter-sidebar-sepia");
+                        view.remove_css_class ("quilter-sidebar-sepia");
+                    } else {
+                        flap.remove_css_class ("quilter-sidebar-sepia");
+                        stack.remove_css_class ("quilter-sidebar-sepia");
+                        column.remove_css_class ("quilter-sidebar-sepia");
+                        view.remove_css_class ("quilter-sidebar-sepia");
+                    }
                 }
+
+                if (Quilter.Application.gsettings.get_boolean ("sidebar")) {
+                    this.visible = true;
+                } else {
+                    this.visible = false;
+                }
+            });
+
+            build_ui ();
+        }
+
+        private void build_ui () {
+            var mode_type = Quilter.Application.gsettings.get_string ("visual-mode");
+
+            switch (mode_type) {
+            case "sepia" :
+                color_button_sepia.set_active (true);
+                break;
+            case "dark":
+                color_button_dark.set_active (true);
+                break;
+            case "light":
+            default:
+                color_button_light.set_active (true);
+                break;
+            }
+
+            color_button_dark.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string ("visual-mode", "dark");
+            });
+
+            color_button_sepia.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string ("visual-mode", "sepia");
+            });
+
+            color_button_light.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string ("visual-mode", "light");
             });
         }
 
@@ -97,40 +176,6 @@ namespace Quilter.Widgets {
             column.activate_on_single_click = true;
             column.selection_mode = Gtk.SelectionMode.SINGLE;
             column.set_sort_func (list_sort);
-
-            for (int i = 0; i < Quilter.Application.gsettings.get_strv ("last-files").length; i++) {
-                rows += add_file (Quilter.Application.gsettings.get_strv ("last-files")[i]);
-            }
-
-            column.row_selected.connect ((selected_row) => {
-                try {
-                    row = get_selected_row ();
-                    string text = "";
-                    GLib.FileUtils.get_contents (row.path, out text);
-                    Quilter.Application.gsettings.set_string ("current-file", row.path);
-
-                    if (Services.FileManager.is_temp_file (row.path)) {
-                        win.titlebar.samenu_button.title = (_("New Document"));
-                        win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-                        row.set_title (_("New File"));
-                        win.edit_view_content.text = text;
-                    } else {
-                        win.titlebar.samenu_button.title = Path.get_basename (row.path);
-                        win.titlebar.samenu_button.subtitle = row.path.replace (GLib.Environment.get_home_dir (), "~")
-                                                                      .replace (Path.get_basename (row.path), "");
-                        row.set_title (Path.get_basename (row.path));
-                        win.edit_view_content.text = text;
-                    }
-
-                    if (win.edit_view_content.modified) {
-                        Services.FileManager.save_file (row.path, text);
-                        win.edit_view_content.modified = false;
-                        outline_populate ();
-                    }
-                } catch (Error e) {
-                    warning ("Unexpected error during selection: " + e.message);
-                }
-            });
         }
 
         public void sidebar_outline () {
@@ -166,9 +211,9 @@ namespace Quilter.Widgets {
 
         public void outline_populate () {
             if (Quilter.Application.gsettings.get_string ("current-file") != "") {
-               var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string ("current-file"));
-               store.clear ();
-               if (file != null && file.query_exists ()) {
+                var file = GLib.File.new_for_path (Quilter.Application.gsettings.get_string ("current-file"));
+                store.clear ();
+                if (file != null && file.query_exists ()) {
                     try {
                         string buffer = "";
                         GLib.FileUtils.get_contents (file.get_path (), out buffer, null);
@@ -178,7 +223,6 @@ namespace Quilter.Widgets {
                                 if (match.fetch_named ("header") == "#") {
                                     store.insert (out root, null, -1);
                                     store.set (root, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
-                                    get_selected_row ().subtitle = match.fetch_named ("header") + " " + match.fetch_named ("text");
                                 } else if (match.fetch_named ("header") == "##") {
                                     store.insert (out subheader, root, -1);
                                     store.set (subheader, 0, match.fetch_named ("header") + " " + match.fetch_named ("text"), -1);
@@ -192,47 +236,77 @@ namespace Quilter.Widgets {
                         warning ("ERR: %s", e.message);
                     }
                 }
-              view.expand_all ();
+                view.expand_all ();
             }
-        }
-
-        public Gee.LinkedList<SideBarBox> get_files () {
-            while (column.get_first_child () != null) {
-                if (files != null)
-                    s_files.add ((SideBarBox)column.get_first_child ());
-            }
-            return s_files;
         }
 
         public unowned SideBarBox get_selected_row () {
             return (SideBarBox) column.get_selected_row ();
         }
 
-        public SideBarBox add_file (string file) {
-            var filebox = new SideBarBox (this.win, file);
-            filebox.save_as.connect (() => save_as ());
-            column.insert (filebox, 1);
+        // Simplified file management methods
+        public SideBarBox add_file (string path, string? title = null) {
+            // Check if file already exists
+            var existing_box = find_file_box (path);
+            if (existing_box != null) {
+                column.select_row (existing_box);
+                return existing_box;
+            }
 
-            if (Services.FileManager.is_temp_file (file)) {
-                win.titlebar.samenu_button.title = (_("New Document"));
-                win.titlebar.samenu_button.subtitle = (_("Not Saved Yet"));
-                filebox.set_title (_("New File"));
-                column.select_row (filebox);
+            // Create new file box
+            var filebox = new SideBarBox (this.win, path);
+            filebox.remove_requested.connect (() => {
+                remove_file (filebox);
+            });
+
+            column.append (filebox);
+
+            // Set title
+            if (title != null) {
+                filebox.row.title = title;
+            } else if (Services.FileManager.get_instance ().is_temp_file (path)) {
+                filebox.row.title = _("New File");
             } else {
-                win.titlebar.samenu_button.title = Path.get_basename (file);
-                win.titlebar.samenu_button.subtitle = file.replace (GLib.Environment.get_home_dir (), "~")
-                                                          .replace (Path.get_basename (file), "");
-                filebox.set_title (Path.get_basename (file));
-                if (file == Quilter.Application.gsettings.get_string ("current-file"))
-                    column.select_row (filebox);
+                filebox.row.title = Path.get_basename (path);
             }
 
             return filebox;
         }
 
-        public void delete_rows () {
+        public SideBarBox ? find_file_box (string path) {
+            var child = column.get_first_child ();
+            while (child != null) {
+                if (child is SideBarBox) {
+                    var box = (SideBarBox) child;
+                    if (box.path == path) {
+                        return box;
+                    }
+                }
+                child = child.get_next_sibling ();
+            }
+            return null;
+        }
+
+        public void update_file_title (string path, string new_title) {
+            var box = find_file_box (path);
+            if (box != null) {
+                box.row.title = new_title;
+                box.path = path;
+                box.remove_css_class ("temp-file");
+            }
+        }
+
+        public void clear_all_files () {
             while (column.get_first_child () != null) {
-                column.get_first_child ().destroy ();
+                column.remove (column.get_first_child ());
+            }
+        }
+
+        public void load_files_from_list (Gee.List<OpenFile> files) {
+            clear_all_files ();
+            foreach (var file in files) {
+                var box = add_file (file.path);
+                box.row.title = file.title;
             }
         }
 
@@ -244,6 +318,82 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
+        }
+
+        private void on_row_selected (Gtk.ListBoxRow? selected_row) {
+            if (selected_row == null)return;
+
+            var box = selected_row as SideBarBox;
+            if (box == null || box.path == null)return;
+
+            try {
+                File file = File.new_for_path (box.path);
+                if (!file.query_exists () || file.query_file_type (FileQueryInfoFlags.NONE) != FileType.REGULAR) {
+                    warning ("Invalid file: %s", box.path);
+                    return;
+                }
+
+                string text;
+                FileUtils.get_contents (box.path, out text);
+                Quilter.Application.gsettings.set_string ("current-file", box.path);
+
+                win.update_samenu_title (box.path);
+                win.edit_view_content.text = text;
+
+                if (win.edit_view_content.modified) {
+                    Services.FileManager.get_instance ().save_file (box.path, text);
+                    win.edit_view_content.modified = false;
+                    outline_populate ();
+                }
+            } catch (Error e) {
+                warning ("Error loading file: %s", e.message);
+            }
+
+            Services.FileManager.get_instance ().save_open_files (win);
+        }
+
+        private void remove_file (SideBarBox box) {
+            var dialog = new Gtk.MessageDialog (win,
+                                                Gtk.DialogFlags.MODAL,
+                                                Gtk.MessageType.QUESTION,
+                                                Gtk.ButtonsType.YES_NO,
+                                                _("Remove this file from the sidebar?"));
+            dialog.secondary_text = _("This will not delete the file from your computer.");
+
+            dialog.response.connect ((response) => {
+                if (response == Gtk.ResponseType.YES) {
+                    column.remove (box);
+
+                    // Select next available row
+                    var next_row = column.get_selected_row ();
+                    if (next_row == null) {
+                        next_row = column.get_row_at_index (0);
+                    }
+
+                    if (next_row != null) {
+                        column.select_row (next_row);
+                    } else {
+                        win.edit_view_content.buffer.text = "";
+                        win.edit_view_content.modified = false;
+                        store.clear ();
+                    }
+
+                    Services.FileManager.get_instance ().save_open_files (win);
+                }
+                dialog.destroy ();
+            });
+
+            dialog.show ();
+        }
+
+        // Legacy compatibility methods
+        public void delete_rows () {
+            clear_all_files ();
+            Services.FileManager.get_instance ().save_open_files (win);
+        }
+
+        public void reorder_files (Gee.List<OpenFile> files) {
+            load_files_from_list (files);
         }
     }
 }

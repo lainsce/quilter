@@ -1,33 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!-- Generated with glade 3.38.2 -->
 <interface>
-  <requires lib="gtk" version="4.0"/>
-  <requires lib="libadwaita" version="1.0"/>
-  <template class="QuilterWidgetsPreferences" parent="AdwPreferencesWindow">
-    <property name="title" translatable="yes">Preferences</property>
-    <child>
-      <object class="AdwPreferencesPage">
-        <property name="icon-name">text-x-generic-symbolic</property>
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libhelium" version="1.0" />
+  <template class="QuilterWidgetsPreferences" parent="HeSettingsWindow">
+    <property name="title" translatable="yes">Settings</property>
+    <child type="page">
+      <object class="HeSettingsPage">
         <property name="title" translatable="yes">Editor</property>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="HeSettingsList">
             <property name="title" translatable="yes">Document</property>
             <child>
-              <object class="AdwComboRow" id="font_type">
-                <property name="title" translatable="yes">Font</property>
-                <property name="model">
-                  <object class="GtkStringList">
-                    <items>
-                      <item translatable="yes">Quilt Mono</item>
-                      <item translatable="yes">Quilt Zwei</item>
-                      <item translatable="yes">Quilt Vier</item>
-                    </items>
-                  </object>
-                </property>
+              <object class="HeSettingsRow">
+                <property name="title">Font Type</property>
+                <child>
+                    <object class="GtkComboBoxText" id="font_type">
+                        <items>
+                            <item translatable="yes">Quilt Mono</item>
+                            <item translatable="yes">Quilt Zwei</item>
+                            <item translatable="yes">Quilt Vier</item>
+                        </items>
+                    </object>
+                </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="title">Autosave</property>
                 <child>
                   <object class="GtkSwitch" id="autosave">
@@ -39,10 +38,10 @@
           </object>
         </child>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="HeSettingsList">
             <property name="title" translatable="yes">Interface</property>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="title" translatable="yes">Focus Scope</property>
                 <child>
                   <object class="GtkBox">
@@ -51,26 +50,35 @@
                     <property name="homogeneous">1</property>
                     <child>
                       <object class="GtkCheckButton" id="scope_paragraph">
-                        <property name="label" translatable="yes">Paragraph</property>
+                        <property
+                                                    name="label"
+                                                    translatable="yes"
+                                                >Paragraph</property>
                         <property name="active">1</property>
                       </object>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="scope_sentence">
-                        <property name="label" translatable="yes">Sentence</property>
+                        <property
+                                                    name="label"
+                                                    translatable="yes"
+                                                >Sentence</property>
                         <property name="group">scope_paragraph</property>
                       </object>
                     </child>
                     <style>
-                      <class name="linked"/>
+                      <class name="linked" />
                     </style>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Typewriter Scrolling</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Typewriter Scrolling</property>
                 <child>
                   <object class="GtkSwitch" id="typewriter">
                     <property name="valign">center</property>
@@ -79,9 +87,15 @@
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Document Tracker</property>
-                <property name="subtitle" translatable="yes">Tracks words, sentences or reading time.</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Document Tracker</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >Tracks words, sentences or reading time.</property>
                 <child>
                   <object class="GtkSwitch" id="statusbar">
                     <property name="valign">center</property>
@@ -92,12 +106,18 @@
           </object>
         </child>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="HeSettingsList">
             <property name="title" translatable="yes">Highlight</property>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Speech Parts (Beta)</property>
-                <property name="subtitle" translatable="yes">Only available in English</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Speech Parts (Beta)</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >Only available in English</property>
                 <child>
                   <object class="GtkSwitch" id="pos">
                     <property name="valign">center</property>
@@ -109,31 +129,36 @@
         </child>
       </object>
     </child>
-    <child>
-      <object class="AdwPreferencesPage">
-        <property name="icon-name">view-dual-symbolic</property>
+    <child type="page">
+      <object class="HeSettingsPage">
         <property name="title" translatable="yes">Preview</property>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="HeSettingsList">
             <property name="title" translatable="yes">General</property>
             <child>
-              <object class="AdwComboRow" id="preview_font_type">
-                <property name="title" translatable="yes">Preview Font</property>
-                <property name="model">
-                  <object class="GtkStringList">
-                    <items>
-                      <item translatable="yes">Serif</item>
-                      <item translatable="yes">Sans-serif</item>
-                      <item translatable="yes">Monospace</item>
-                    </items>
-                  </object>
-                </property>
+              <object class="HeSettingsRow">
+                <property name="title">Preview Font Type</property>
+                <child>
+                    <object class="GtkComboBoxText" id="preview_font_type">
+                        <items>
+                        <item translatable="yes">Serif</item>
+                        <item translatable="yes">Sans-serif</item>
+                        <item translatable="yes">Monospace</item>
+                        </items>
+                    </object>
+                </child>
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Header Centering</property>
-                <property name="subtitle" translatable="yes">This affects #, ##, and ### headers.</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Header Centering</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >This affects #, ##, and ### headers.</property>
                 <child>
                   <object class="GtkSwitch" id="center">
                     <property name="valign">center</property>
@@ -144,12 +169,18 @@
           </object>
         </child>
         <child>
-          <object class="AdwPreferencesGroup">
+          <object class="HeSettingsList">
             <property name="title" translatable="yes">Extensions</property>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Code Highlight</property>
-                <property name="subtitle" translatable="yes">Code blocks will have the contents receive color.</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Code Highlight</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >Code blocks will have the contents receive color.</property>
                 <child>
                   <object class="GtkSwitch" id="highlight">
                     <property name="valign">center</property>
@@ -158,9 +189,12 @@
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
+              <object class="HeSettingsRow">
                 <property name="title" translatable="yes">LaTeX Math</property>
-                <property name="subtitle" translatable="yes">LaTeX math blocks will be processed into LaTeX output.</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >LaTeX math blocks will be processed into LaTeX output.</property>
                 <child>
                   <object class="GtkSwitch" id="latex">
                     <property name="valign">center</property>
@@ -169,9 +203,15 @@
               </object>
             </child>
             <child>
-              <object class="AdwActionRow">
-                <property name="title" translatable="yes">Mermaid.js Graph</property>
-                <property name="subtitle" translatable="yes">Mermaid blocks will become graphs.</property>
+              <object class="HeSettingsRow">
+                <property
+                                    name="title"
+                                    translatable="yes"
+                                >Mermaid.js Graph</property>
+                <property
+                                    name="subtitle"
+                                    translatable="yes"
+                                >Mermaid blocks will become graphs.</property>
                 <child>
                   <object class="GtkSwitch" id="mermaid">
                     <property name="valign">center</property>

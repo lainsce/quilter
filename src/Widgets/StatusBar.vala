@@ -1,24 +1,24 @@
 /*
-* Copyright (C) 2017-2021 Lains
-*
-* This program is free software; you can redistribute it and/or
-* modify it under the terms of the GNU General Public
-* License as published by the Free Software Foundation; either
-* version 2 of the License, or (at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-* General Public License for more details.
-*
-* You should have received a copy of the GNU General Public
-* License along with this program; if not, write to the
-* Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-* Boston, MA 02110-1301 USA
-*/
+ * Copyright (C) 2017-2021 Lains
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public
+ * License as published by the Free Software Foundation; either
+ * version 2 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public
+ * License along with this program; if not, write to the
+ * Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301 USA
+ */
 namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/statusbar.ui")]
-    public class Widgets.StatusBar : Adw.Bin {
+    public class Widgets.StatusBar : He.Bin {
         [GtkChild]
         public unowned Gtk.MenuButton track_type_menu;
         [GtkChild]
@@ -46,19 +46,19 @@ namespace Quilter {
 
         private void tracker () {
             track_words.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string ("track-type", "words");
-	            update_wordcount ();
-	        });
-
-	        track_lines.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string ("track-type", "lines");
-	            update_linecount ();
+                Quilter.Application.gsettings.set_string ("track-type", "words");
+                update_wordcount ();
             });
 
-	        track_rtc.toggled.connect (() => {
-	            Quilter.Application.gsettings.set_string ("track-type", "rtc");
-	            update_readtimecount ();
-	        });
+            track_lines.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string ("track-type", "lines");
+                update_linecount ();
+            });
+
+            track_rtc.toggled.connect (() => {
+                Quilter.Application.gsettings.set_string ("track-type", "rtc");
+                update_readtimecount ();
+            });
 
             if (Quilter.Application.gsettings.get_string ("track-type") == "words") {
                 update_wordcount ();
@@ -84,8 +84,8 @@ namespace Quilter {
 
         public void update_readtimecount () {
             var rtc = get_count ();
-            double rt = Math.round((rtc.words / WPM));
-		    track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string () + "m");
+            double rt = Math.round ((rtc.words / WPM));
+            track_type_menu.set_label ((_("Reading Time: ")) + rt.to_string () + "m");
         }
 
         public WordCount get_count () {
@@ -108,8 +108,8 @@ namespace Quilter {
             var lines = i;
             var words = buf.get_text (start, end, false).split (" ").length;
 
-            return new WordCount(words, lines);
-    	}
+            return new WordCount (words, lines);
+        }
     }
 
     public class Widgets.WordCount {

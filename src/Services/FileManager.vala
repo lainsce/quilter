@@ -15,222 +15,281 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace Quilter.Services.FileManager {
-    public File tmp_file;
-    public File file;
-    public File cachedir;
-    public MainWindow win;
-    public Widgets.EditView view;
-    private string[] files;
+namespace Quilter.Services {
+    public class FileManager : Object {
+        private static FileManager? instance;
+        private string? cache_path;
+        private File cache_dir;
 
-    private static string? cache;
-    public static string get_cache_path () {
-        if (cache == null) {
-            cache = Path.build_filename (Environment.get_user_data_dir (), "io.github.lainsce.Quilter");
-            string cachedirpath = Path.build_filename (Environment.get_user_data_dir (), "io.github.lainsce.Quilter");
-            cachedir = File.new_for_path (cachedirpath);
+        public static FileManager get_instance () {
+            if (instance == null) {
+                instance = new FileManager ();
+            }
+            return instance;
+        }
+
+        private Gee.HashMap<string, bool> temp_files;
+
+        private FileManager () {
+            temp_files = new Gee.HashMap<string, bool> ();
+            cache_path = null;
+            cache_dir = null;
+        }
+
+        public string get_cache_path () {
+            if (cache_path == null) {
+                cache_path = Path.build_filename (Environment.get_user_data_dir (), "io.github.lainsce.Quilter");
+                cache_dir = File.new_for_path (cache_path);
+                try {
+                    if (!cache_dir.query_exists ()) {
+                        cache_dir.make_directory_with_parents ();
+                    }
+                } catch (Error e) {
+                    warning ("Error creating cache directory: %s", e.message);
+                }
+            }
+            return cache_path;
+        }
+
+        public string get_temp_document_path () {
+            var name = new GLib.DateTime.now_local ().format ("%H%M%S");
+            return Path.build_filename (get_cache_path (), @"~markdown-$name.md");
+        }
+
+        public string create_temp_file () {
+            string path = get_temp_document_path ();
+            temp_files[path] = true;
+            return path;
+        }
+
+        public bool is_temp_file (string path) {
+            return temp_files.has_key (path);
+        }
+
+        public void save_file (string path, string contents) throws Error {
             try {
-                if (!cachedir.query_exists()) {
-                    cachedir.make_directory_with_parents ();
+                FileUtils.set_contents (path, contents);
+                if (is_temp_file (path)) {
+                    temp_files.unset (path);
                 }
             } catch (Error e) {
-                warning ("Error writing file: " + e.message);
+                throw new FileError.FAILED (@"Error writing file: $(e.message)");
             }
         }
 
-        return cache;
-    }
-
-    public static string get_temp_document_path () {
-        var name = new GLib.DateTime.now ();
-        return Path.build_filename (get_cache_path (), @"~$name.md");
-    }
-
-    public void save_file (string path, string contents) throws Error {
-        try {
-            GLib.FileUtils.set_contents (path, contents);
-        } catch (Error e) {
-            var msg = e.message;
-            warning (@"Error writing file: $msg");
+        public struct OpenResult {
+            public string path;
+            public string contents;
         }
-    }
 
-    public bool is_temp_file (string path) {
-        return get_cache_path () in path;
-    }
-
-    // File I/O
-    public bool open_from_outside (MainWindow win, File[] ofiles, string hint) {
-        foreach (File f in ofiles) {
-            string text;
-            string file_path = f.get_path ();
-            files += file_path;
-            Quilter.Application.gsettings.set_strv("last-files", files);
-            if (win.sidebar != null && f != null) {
-                win.sidebar.add_file (file_path);
-            }
-            try {
-                GLib.FileUtils.get_contents (file_path, out text);
-                win.edit_view_content.buffer.text = text;
-                win.edit_view_content.buffer.set_modified (false);
-                file = null;
-            } catch (Error e) {
-                warning ("Error: %s", e.message);
-            }
-        }
-        win.save_last_files ();
-        win.welcome_view.visible = false;
-        win.main_stack.visible = true;
-        return true;
-    }
-
-    public static string open (out string contents) {
-        try {
+        public async OpenResult ? open (Gtk.Window? parent = null) throws Error {
             var chooser = Services.DialogUtils.create_file_chooser (_("Open File"),
-                    Gtk.FileChooserAction.OPEN);
-            file = chooser.get_file ();
-            chooser.show();
-            GLib.FileUtils.get_contents (file.get_path (), out contents);
-        } catch (Error e) {
-            warning ("Error: %s", e.message);
-        }
-        return file.get_path ();
-    }
+                                                                    Gtk.FileChooserAction.OPEN,
+                                                                    parent);
+            int response = yield DialogUtils.run_file_chooser_async (chooser);
 
-    public void save_as (string contents, out string path) throws Error {
-        var chooser = Services.DialogUtils.create_file_chooser (_("Save File"),
-                Gtk.FileChooserAction.SAVE);
-        file = chooser.get_file ();
-        chooser.show();
-        if (!file.get_basename ().down ().has_suffix (".md")) {
-            file = File.new_for_path (file.get_path () + ".md");
-        }
+            if (response == Gtk.ResponseType.ACCEPT) {
+                var file = chooser.get_file ();
+                string path = file.get_path ();
+                uint8[] bytes;
+                yield file.load_contents_async (null, out bytes, null);
 
-        path = file.get_path ();
+                string contents = (string) bytes;
 
-        try {
-            if (file == null) {
-                warning ("User cancelled operation. Aborting.");
-            } else {
-                save_file (path, contents);
-                file = null;
+                return OpenResult () {
+                           path = path,
+                           contents = contents
+                };
             }
-        } catch (Error e) {
-            warning ("Unexpected error during save: " + e.message);
-            throw e;
-        }
-    }
-
-    public string get_yamlless_markdown (
-        string markdown,
-        int lines,
-        out string title,
-        out string date,
-        bool non_empty = true,
-        bool include_title = true,
-        bool include_date = true)
-    {
-        string buffer = markdown;
-        Regex headers = null;
-        try {
-            headers = new Regex ("^\\s*(.+)\\s*:\\s+(.*)", RegexCompileFlags.MULTILINE | RegexCompileFlags.CASELESS, 0);
-        } catch (Error e) {
-            warning ("Could not compile regex: %s", e.message);
+            return null;
         }
 
-        string temp_title = "";
-        string temp_date = "";
+        public async string save_as (string contents, Gtk.Window? parent = null) throws Error {
+            var chooser = Services.DialogUtils.create_file_chooser (_("Save File"),
+                                                                    Gtk.FileChooserAction.SAVE,
+                                                                    parent);
+            var response = yield run_file_chooser_async (chooser);
 
-        MatchInfo matches;
-        var markout = new StringBuilder ();
-        int mklines = 0;
-
-        if (buffer.length > 4 && buffer[0:4] == "---\n") {
-            int i = 0;
-            int last_newline = 3;
-            int next_newline;
-            bool valid_frontmatter = true;
-            string line = "";
-
-            while (valid_frontmatter) {
-                next_newline = buffer.index_of_char('\n', last_newline + 1);
-                if (next_newline == -1 && !((buffer.length > last_newline + 1) && buffer.substring (last_newline + 1).has_prefix("---"))) {
-                    valid_frontmatter = false;
-                    break;
+            if (response == Gtk.ResponseType.ACCEPT) {
+                var file = chooser.get_file ();
+                if (!file.get_basename ().down ().has_suffix (".md")) {
+                    file = File.new_for_path (file.get_path () + ".md");
                 }
 
-                if (next_newline == -1) {
-                    line = buffer.substring (last_newline + 1);
-                } else {
-                    line = buffer[last_newline+1:next_newline];
-                }
-                last_newline = next_newline;
+                string path = file.get_path ();
 
-                if (line == "---") {
-                    break;
+                try {
+                    yield save_file_async (path, contents);
+
+                    // If it was a temp file, update its status
+                    if (is_temp_file (path)) {
+                        temp_files.unset (path);
+                    }
+
+                    return path;
+                } catch (Error e) {
+                    warning ("Unexpected error during save: " + e.message);
+                    throw e;
+                }
+            } else {
+                throw new IOError.CANCELLED ("File selection cancelled");
+            }
+        }
+
+        public bool open_from_outside (MainWindow win, File[] files, string hint) {
+            string[] file_paths = {};
+            foreach (File f in files) {
+                string file_path = f.get_path ();
+                file_paths += file_path;
+                if (win.sidebar != null && f != null) {
+                    win.sidebar.add_file (file_path);
+                }
+                try {
+                    string text;
+                    FileUtils.get_contents (file_path, out text);
+                    win.edit_view_content.buffer.text = text;
+                    win.edit_view_content.buffer.set_modified (false);
+                } catch (Error e) {
+                    warning ("Error opening file: %s", e.message);
+                    return false;
+                }
+            }
+            Quilter.Application.gsettings.set_strv ("last-files", file_paths);
+            win.save_last_files ();
+            return true;
+        }
+
+        private async int run_file_chooser_async (Gtk.FileChooserNative chooser) {
+            var loop = new MainLoop ();
+            int response = Gtk.ResponseType.CANCEL;
+
+            chooser.response.connect ((res) => {
+                response = res;
+                loop.quit ();
+            });
+
+            chooser.show ();
+            loop.run ();
+
+            return response;
+        }
+
+        private async void save_file_async (string path, string contents) throws Error {
+            var file = File.new_for_path (path);
+            yield file.replace_contents_async (contents.data, null, false, FileCreateFlags.REPLACE_DESTINATION, null, null);
+        }
+
+        // Simplified file list management - just use a simple text file instead of JSON
+        public void save_open_files (MainWindow win) {
+            try {
+                var cache_dir = File.new_for_path (get_cache_path ());
+                if (!cache_dir.query_exists ()) {
+                    cache_dir.make_directory_with_parents ();
                 }
 
-                if (headers != null) {
-                    if (headers.match (line, RegexMatchFlags.NOTEMPTY_ATSTART, out matches)) {
-                        if (matches.fetch (1).ascii_down() == "title") {
-                            temp_title = matches.fetch (2).chug ().chomp ();
-                            if (temp_title.has_prefix ("\"") && temp_title.has_suffix ("\"")) {
-                                temp_title = temp_title.substring (1, temp_title.length - 2);
-                            }
-                            if (include_title) {
-                                markout.append ("# " + temp_title + "\n");
-                                mklines++;
-                            }
-                        } else if (matches.fetch (1).ascii_down() == "date") {
-                            temp_date = matches.fetch (2).chug ().chomp ();
-                            if (include_date) {
-                                markout.append ("## " + temp_date + "\n");
-                                mklines++;
-                            }
+                var file = File.new_for_path (Path.build_filename (get_cache_path (), "open_files.txt"));
+                var output = new StringBuilder ();
+
+                var child = win.sidebar.column.get_first_child ();
+                while (child != null) {
+                    if (child is Widgets.SideBarBox) {
+                        var box = (Widgets.SideBarBox) child;
+                        // Simple format: path|title
+                        output.append_printf ("%s|%s\n", box.path, box.row.title);
+                    }
+                    child = child.get_next_sibling ();
+                }
+
+                FileUtils.set_contents (file.get_path (), output.str);
+            } catch (Error e) {
+                warning ("Failed to save open files: %s", e.message);
+            }
+        }
+
+        public Gee.List<OpenFile> load_open_files () {
+            var files = new Gee.ArrayList<OpenFile> ();
+            var file = File.new_for_path (Path.build_filename (get_cache_path (), "open_files.txt"));
+
+            if (!file.query_exists ()) {
+                return files;
+            }
+
+            try {
+                string content;
+                FileUtils.get_contents (file.get_path (), out content);
+                string[] lines = content.strip ().split ("\n");
+
+                int id = 0;
+                foreach (string line in lines) {
+                    if (line.strip () == "")continue;
+
+                    string[] parts = line.split ("|", 2);
+                    if (parts.length == 2) {
+                        files.add (new OpenFile (id++, parts[1], parts[0]));
+                    }
+                }
+            } catch (Error e) {
+                warning ("Failed to load open files: %s", e.message);
+            }
+
+            return files;
+        }
+
+        // Simplified YAML processing - just extract title and date without complex regex
+        public string get_yamlless_markdown (string markdown,
+                                             int lines,
+                                             out string title,
+                                             out string date,
+                                             bool non_empty = true,
+                                             bool include_title = true,
+                                             bool include_date = true) {
+            title = "";
+            date = "";
+
+            if (!markdown.has_prefix ("---\n")) {
+                return markdown;
+            }
+
+            string[] lines_array = markdown.split ("\n");
+            var result = new StringBuilder ();
+            bool in_frontmatter = true;
+            bool found_end = false;
+
+            for (int i = 1; i < lines_array.length; i++) {
+                string line = lines_array[i];
+
+                if (in_frontmatter) {
+                    if (line == "---") {
+                        found_end = true;
+                        in_frontmatter = false;
+                        continue;
+                    }
+
+                    // Simple title/date extraction
+                    if (line.has_prefix ("title:")) {
+                        title = line.substring (6).strip ();
+                        if (title.has_prefix ("\"") && title.has_suffix ("\"")) {
+                            title = title.substring (1, title.length - 2);
                         }
-                    } else {
-                        line = line.down ().chomp ();
-                        if (!line.has_prefix ("-") && line != "") {
-                            valid_frontmatter = false;
-                            break;
+                        if (include_title && title != "") {
+                            result.append_printf ("# %s\n", title);
+                        }
+                    } else if (line.has_prefix ("date:")) {
+                        date = line.substring (5).strip ();
+                        if (include_date && date != "") {
+                            result.append_printf ("## %s\n", date);
                         }
                     }
                 } else {
-                    string quick_parse = line.chomp ();
-                    if (quick_parse.has_prefix ("title")) {
-                        temp_title = quick_parse.substring (quick_parse.index_of (":") + 1);
-                        if (temp_title.has_prefix ("\"") && temp_title.has_suffix ("\"")) {
-                            temp_title = temp_title.substring (1, temp_title.length - 2);
-                        }
-                        if (include_title) {
-                            markout.append ("# " + temp_title);
-                            mklines++;
-                        }
-                    } else if (quick_parse.has_prefix ("date")) {
-                        temp_date = quick_parse.substring (quick_parse.index_of (":") + 1).chug ().chomp ();
-                        if (include_date) {
-                            markout.append ("## " + temp_date);
-                            mklines++;
-                        }
-                    }
+                    result.append_printf ("%s\n", line);
                 }
-
-                i++;
             }
 
-            if (!valid_frontmatter) {
-                markout.erase ();
-                markout.append (markdown);
-            } else {
-                markout.append (buffer[last_newline:buffer.length]);
+            if (!found_end) {
+                return markdown; // Invalid frontmatter, return original
             }
-        } else {
-            markout.append (markdown);
+
+            return result.str;
         }
-
-        title = temp_title;
-        date = temp_date;
-
-        return markout.str;
     }
 }
