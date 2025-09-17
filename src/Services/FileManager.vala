@@ -19,7 +19,7 @@ namespace Quilter.Services {
     public class FileManager : Object {
         private static FileManager? instance;
         private string? cache_path;
-        private File cache_dir;
+        private File? cache_dir;
 
         public static FileManager get_instance () {
             if (instance == null) {
@@ -58,7 +58,7 @@ namespace Quilter.Services {
 
         public string create_temp_file () {
             string path = get_temp_document_path ();
-            temp_files[path] = true;
+            temp_files.set (path, true);
             return path;
         }
 
@@ -108,7 +108,7 @@ namespace Quilter.Services {
             var chooser = Services.DialogUtils.create_file_chooser (_("Save File"),
                                                                     Gtk.FileChooserAction.SAVE,
                                                                     parent);
-            var response = yield run_file_chooser_async (chooser);
+            var response = yield DialogUtils.run_file_chooser_async (chooser);
 
             if (response == Gtk.ResponseType.ACCEPT) {
                 var file = chooser.get_file ();
@@ -157,21 +157,6 @@ namespace Quilter.Services {
             Quilter.Application.gsettings.set_strv ("last-files", file_paths);
             win.save_last_files ();
             return true;
-        }
-
-        private async int run_file_chooser_async (Gtk.FileChooserNative chooser) {
-            var loop = new MainLoop ();
-            int response = Gtk.ResponseType.CANCEL;
-
-            chooser.response.connect ((res) => {
-                response = res;
-                loop.quit ();
-            });
-
-            chooser.show ();
-            loop.run ();
-
-            return response;
         }
 
         private async void save_file_async (string path, string contents) throws Error {

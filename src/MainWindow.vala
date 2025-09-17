@@ -8,8 +8,8 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
  * License along with this program; if not, write to the
@@ -233,6 +233,7 @@ namespace Quilter {
         private void on_toggle_sidebar (bool is_active) {
             Quilter.Application.gsettings.set_boolean ("sidebar", is_active);
             sidebar.visible = is_active;
+            update_sidebar_toggle_state (is_active);
         }
 
         private void update_title_buttons_visibility (bool visible) {
@@ -390,6 +391,7 @@ namespace Quilter {
             var current_sidebar_state = Quilter.Application.gsettings.get_boolean ("sidebar");
             Quilter.Application.gsettings.set_boolean ("sidebar", !current_sidebar_state);
             sidebar.visible = !current_sidebar_state;
+            update_sidebar_toggle_state (!current_sidebar_state);
         }
 
         private void toggle_focus_mode_action () {
@@ -408,6 +410,7 @@ namespace Quilter {
             show_searchbar ();
             show_statusbar ();
             update_preview_visibility ();
+            appbar.update_preview_toggle_state (Quilter.Application.gsettings.get_boolean ("show-preview"));
             show_sidebar ();
             exit_focus_mode ();
 
@@ -468,11 +471,13 @@ namespace Quilter {
         }
 
         private void action_export_pdf () {
+            Quilter.Services.ExportUtils.window = this;
             print ("Export PDF action triggered\n");
             Quilter.Services.ExportUtils.export_pdf ();
         }
 
         private void action_export_html () {
+            Quilter.Services.ExportUtils.window = this;
             print ("Export HTML action triggered\n");
             Quilter.Services.ExportUtils.export_html ();
         }

@@ -143,6 +143,7 @@ namespace Quilter.Widgets {
         }
 
         private void build_ui () {
+            // Initialize buttons based on current visual mode
             var mode_type = Quilter.Application.gsettings.get_string ("visual-mode");
 
             switch (mode_type) {
@@ -158,16 +159,23 @@ namespace Quilter.Widgets {
                 break;
             }
 
+            // Only update gsettings when a button becomes active
             color_button_dark.toggled.connect (() => {
-                Quilter.Application.gsettings.set_string ("visual-mode", "dark");
+                if (color_button_dark.active) {
+                    Quilter.Application.gsettings.set_string ("visual-mode", "dark");
+                }
             });
 
             color_button_sepia.toggled.connect (() => {
-                Quilter.Application.gsettings.set_string ("visual-mode", "sepia");
+                if (color_button_sepia.active) {
+                    Quilter.Application.gsettings.set_string ("visual-mode", "sepia");
+                }
             });
 
             color_button_light.toggled.connect (() => {
-                Quilter.Application.gsettings.set_string ("visual-mode", "light");
+                if (color_button_light.active) {
+                    Quilter.Application.gsettings.set_string ("visual-mode", "light");
+                }
             });
         }
 

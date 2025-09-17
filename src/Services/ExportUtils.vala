@@ -16,22 +16,27 @@
  */
 
 namespace Quilter.Services.ExportUtils {
-    public MainWindow window;
-    public static File? export_html (string? file_path = null) {
+    public static MainWindow? window;
+    public static File ? export_html (string? file_path = null) {
         Widgets.Preview.get_instance ().update_html_view ();
+
+        // Ensure we have a parent window
+        if (window == null && Quilter.Application.win != null) {
+            window = Quilter.Application.win;
+        }
 
         File file;
         if (file_path == null) {
-            file = get_html_from_user ();
+            File? selected = get_html_from_user ();
+            if (selected == null) {
+                return null;
+            }
+            file = selected;
             if (!file.get_basename ().down ().has_suffix (".html")) {
                 file = File.new_for_path (file.get_path () + ".html");
             }
         } else {
             file = File.new_for_path (file_path);
-        }
-
-        if (file == null) {
-          return null;
         }
 
         try {
@@ -44,8 +49,13 @@ namespace Quilter.Services.ExportUtils {
         return file;
     }
 
-    public static File? export_pdf (string? file_path = null) {
-        window.render_func ();
+    public static File ? export_pdf (string? file_path = null) {
+        if (window == null && Quilter.Application.win != null) {
+            window = Quilter.Application.win;
+        }
+        if (window != null) {
+            window.render_func ();
+        }
         int type_of_mode = 0;
 
         if (Quilter.Application.gsettings.get_string ("visual-mode") == "dark") {
@@ -60,16 +70,16 @@ namespace Quilter.Services.ExportUtils {
 
         File file;
         if (file_path == null) {
-            file = get_pdf_from_user ();
+            File? selected = get_pdf_from_user ();
+            if (selected == null) {
+                return null;
+            }
+            file = selected;
             if (!file.get_basename ().down ().has_suffix (".pdf")) {
                 file = File.new_for_path (file.get_path () + ".pdf");
             }
         } else {
             file = File.new_for_path (file_path);
-        }
-
-        if (file == null) {
-          return null;
         }
 
         try {
@@ -79,17 +89,17 @@ namespace Quilter.Services.ExportUtils {
             return null;
         }
 
-        var op = new WebKit.PrintOperation (Widgets.Preview.get_instance());
+        var op = new WebKit.PrintOperation (Widgets.Preview.get_instance ());
         var psettings = new Gtk.PrintSettings ();
         psettings.set_printer (_("Print to File"));
 
-        var psize = new Gtk.PaperSize(Gtk.PAPER_NAME_A4);
-		var psetup = new Gtk.PageSetup();
-		psetup.set_top_margin (0.75, Gtk.Unit.INCH);
-		psetup.set_bottom_margin (0.75, Gtk.Unit.INCH);
-		psetup.set_left_margin (0.75, Gtk.Unit.INCH);
-		psetup.set_right_margin (0.75, Gtk.Unit.INCH);
-        psetup.set_paper_size(psize);
+        var psize = new Gtk.PaperSize (Gtk.PAPER_NAME_A4);
+        var psetup = new Gtk.PageSetup ();
+        psetup.set_top_margin (0.75, Gtk.Unit.INCH);
+        psetup.set_bottom_margin (0.75, Gtk.Unit.INCH);
+        psetup.set_left_margin (0.75, Gtk.Unit.INCH);
+        psetup.set_right_margin (0.75, Gtk.Unit.INCH);
+        psetup.set_paper_size (psize);
 
         psettings[Gtk.PRINT_SETTINGS_OUTPUT_URI] = file.get_uri ();
         op.set_print_settings (psettings);
@@ -97,10 +107,10 @@ namespace Quilter.Services.ExportUtils {
         op.print ();
 
         if (type_of_mode == 1) {
-            Quilter.Application.gsettings.set_string("visual-mode", "dark");
+            Quilter.Application.gsettings.set_string ("visual-mode", "dark");
             type_of_mode = 0;
         } else if (type_of_mode == 2) {
-            Quilter.Application.gsettings.set_string("visual-mode", "sepia");
+            Quilter.Application.gsettings.set_string ("visual-mode", "sepia");
             type_of_mode = 0;
         }
 
@@ -131,60 +141,52 @@ namespace Quilter.Services.ExportUtils {
         });
     }
 
-    public static File? get_pdf_from_user () {
-        File? result = null;
-
-        string title = "";
-        Gtk.FileChooserAction chooser_action = Gtk.FileChooserAction.SAVE;
-        string accept_button_label = "";
-        List<Gtk.FileFilter> filters = new List<Gtk.FileFilter> ();
-
-        title =  _("Select Destination PDF File");
-        chooser_action = Gtk.FileChooserAction.SAVE;
-        accept_button_label = _("Save");
+    public static File ? get_pdf_from_user () {
+        var dialog = new Gtk.FileChooserNative (
+                                                _("Select Destination PDF File"),
+                                                window ?? Quilter.Application.win,
+                                                Gtk.FileChooserAction.SAVE,
+                                                _("Save"),
+                                                _("Cancel")
+        );
 
         var pdf_filter = new Gtk.FileFilter ();
         pdf_filter.set_filter_name (_("PDF File"));
-
         pdf_filter.add_mime_type ("application/pdf");
         pdf_filter.add_pattern ("*.pdf");
-
-        filters.append (pdf_filter);
+        dialog.add_filter (pdf_filter);
 
         var all_filter = new Gtk.FileFilter ();
         all_filter.set_filter_name (_("All Files"));
         all_filter.add_pattern ("*");
-
-        filters.append (all_filter);
-
-        var dialog = new Gtk.FileChooserDialog (
-            title,
-            window,
-            chooser_action,
-            _("Cancel"), Gtk.ResponseType.CANCEL,
-            accept_button_label, Gtk.ResponseType.ACCEPT);
-
-
-        dialog.add_filter (pdf_filter);
         dialog.add_filter (all_filter);
 
+        File? result = null;
 
-        result = dialog.get_file ();
-
-        dialog.close ();
+        // Block until the user responds
+        var loop = new MainLoop ();
+        dialog.response.connect ((res) => {
+            if (res == Gtk.ResponseType.ACCEPT) {
+                result = dialog.get_file ();
+            }
+            loop.quit ();
+            dialog.destroy ();
+        });
+        dialog.show ();
+        loop.run ();
 
         return result;
     }
 
-    public static File? get_html_from_user () {
+    public static File ? get_html_from_user () {
         Widgets.Preview.get_instance ().update_html_view ();
 
         var dialog = new Gtk.FileChooserNative (
-            _("Select Destination HTML File"),
-            window,
-            Gtk.FileChooserAction.SAVE,
-            _("Save"),
-            _("Cancel")
+                                                _("Select Destination HTML File"),
+                                                window ?? Quilter.Application.win,
+                                                Gtk.FileChooserAction.SAVE,
+                                                _("Save"),
+                                                _("Cancel")
         );
 
         var html_filter = new Gtk.FileFilter ();
@@ -198,17 +200,19 @@ namespace Quilter.Services.ExportUtils {
         all_filter.add_pattern ("*");
         dialog.add_filter (all_filter);
 
-        int response = Gtk.ResponseType.CANCEL;
         File? file = null;
-        dialog.response.connect ((res) => {
-            response = res;
 
-            if (response == Gtk.ResponseType.ACCEPT) {
+        // Block until the user responds
+        var loop = new MainLoop ();
+        dialog.response.connect ((res) => {
+            if (res == Gtk.ResponseType.ACCEPT) {
                 file = dialog.get_file ();
-                dialog.destroy ();
             }
+            loop.quit ();
+            dialog.destroy ();
         });
         dialog.show ();
+        loop.run ();
 
         return file;
     }

@@ -183,7 +183,7 @@ namespace Quilter {
             search_context.settings.regex_enabled = false;
             search_context.settings.search_text = search_string;
             bool case_sensitive = !((search_string.up () == search_string) || (search_string.down () == search_string));
-            text_view.search_context.settings.case_sensitive = case_sensitive;
+            search_context.settings.case_sensitive = case_sensitive;
 
             if (text_buffer == null || text_buffer.text == "") {
                 warning ("Can't search anything in an inexistant buffer and/or without anything to search.");

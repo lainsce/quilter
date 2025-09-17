@@ -177,7 +177,14 @@
 }
 
 .status-button {
+    padding: 0px;
+}
+.status-button .toggle {
     padding: 6px 12px;
+    border-radius: 999px;
+}
+.status-button .toggle arrow {
+    color: #fff;
 }
 
 .quilter-sidebar {
@@ -251,7 +258,7 @@ popover .menu separator.spacer {
 
 /* Remove any bold styling from labels inside menu buttons */
 popover .menu button.flat label {
-    font-weight: normal;
+    font-weight: 400;
 }
 
 /* Ensure proper alignment for all menu content */
@@ -261,5 +268,22 @@ popover .menu * {
 
 /* Fix any remaining flat-button styling if it exists */
 .flat-button {
-    font-weight: normal !important;
+    font-weight: 400;
+}
+
+.modelbutton {
+    background: none;
+    min-height: 42px;
+}
+.modelbutton label {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    color: @window_fg_color;
+}
+.modelbutton:hover {
+    background: alpha(@view_fg_color, 0.08);
+}
+.modelbutton:active {
+    background: alpha(@view_fg_color, 0.14);
 }

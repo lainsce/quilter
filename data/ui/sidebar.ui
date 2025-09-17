@@ -3,7 +3,9 @@
   <requires lib="gtk" version="4.0" />
   <requires lib="libhelium" version="1.0" />
   <requires lib="libbismuth" version="1.0" />
+
   <object class="GtkPopover" id="main_pop">
+    <property name="has-arrow">0</property>
     <child>
       <object class="GtkBox">
         <property name="orientation">vertical</property>
@@ -59,77 +61,83 @@
                 </style>
               </object>
             </child>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="action-name">win.action_focus</property>
             <child>
-              <object class="HeButton">
-                <property name="action-name">win.action_focus</property>
-                <property name="halign">start</property>
-                <property name="hexpand">true</property>
+              <object class="GtkLabel">
                 <property name="label" translatable="yes">Focus Mode</property>
-                <style>
-                  <class name="flat" />
-                </style>
+                <property name="xalign">0</property>
               </object>
             </child>
+            <style>
+              <class name="modelbutton" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton" id="search_button">
+            <property name="action-name">win.action_search</property>
             <child>
-              <object class="HeButton" id="search_button">
-                <property name="action-name">win.action_search</property>
-                <property name="halign">start</property>
-                <property name="hexpand">true</property>
-                <property
-                  name="label"
-                  translatable="yes"
-                >Find and Replace…</property>
-                <style>
-                  <class name="flat" />
-                </style>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Find and Replace…</property>
+                <property name="xalign">0</property>
               </object>
             </child>
+            <style>
+              <class name="modelbutton" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <style>
+              <class name="spacer" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="action-name">win.action_preferences</property>
             <child>
-              <object class="GtkSeparator">
-                <style>
-                  <class name="spacer" />
-                </style>
-              </object>
-            </child>
-            <child>
-              <object class="HeButton">
-                <property name="action-name">win.action_preferences</property>
-                <property name="halign">start</property>
-                <property name="hexpand">true</property>
+              <object class="GtkLabel">
                 <property name="label" translatable="yes">Preferences</property>
-                <style>
-                  <class name="flat" />
-                </style>
+                <property name="xalign">0</property>
               </object>
             </child>
+            <style>
+              <class name="modelbutton" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="action-name">win.action_cheatsheet</property>
             <child>
-              <object class="HeButton">
-                <property name="action-name">win.action_cheatsheet</property>
-                <property name="halign">start</property>
-                <property name="hexpand">true</property>
-                <property
-                  name="label"
-                  translatable="yes"
-                >Markdown Cheatsheet</property>
-                <style>
-                  <class name="flat" />
-                </style>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">Markdown Cheatsheet</property>
+                <property name="xalign">0</property>
               </object>
             </child>
+            <style>
+              <class name="modelbutton" />
+            </style>
+          </object>
+        </child>
+        <child>
+          <object class="HeButton">
+            <property name="action-name">win.action_about</property>
             <child>
-              <object class="HeButton">
-                <property name="action-name">win.action_about</property>
-                <property name="halign">start</property>
-                <property name="hexpand">true</property>
-                <property
-                  name="label"
-                  translatable="yes"
-                >About Quilter</property>
-                <style>
-                  <class name="flat" />
-                </style>
+              <object class="GtkLabel">
+                <property name="label" translatable="yes">About Quilter</property>
+                <property name="xalign">0</property>
               </object>
             </child>
+            <style>
+              <class name="modelbutton" />
+            </style>
           </object>
         </child>
       </object>

@@ -4,6 +4,7 @@
   <requires lib="libhelium" version="1.0" />
   <object class="GtkPopover" id="save_as_popover">
     <property name="can-focus">0</property>
+    <property name="has-arrow">0</property>
     <child>
       <object class="GtkBox" id="save_grid">
         <property name="orientation">vertical</property>

@@ -44,6 +44,8 @@ public class Quilter.Widgets.SideBarBox : Gtk.ListBoxRow {
         this.win = win;
         this.path = path;
 
+        row.layout = He.CardLayout.HORIZONTAL;
+
         file_remove_button.clicked.connect (() => {
             remove_requested ();
         });
