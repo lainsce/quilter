@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0" />
   <requires lib="libhelium" version="1.0" />
@@ -8,57 +8,61 @@
     <property name="height-request">294</property>
     <property name="default-width">1024</property>
     <property name="default-height">600</property>
-    <child>
-      <object class="GtkBox" id="root_box">
-        <property name="orientation">horizontal</property>
-        <child>
-          <object class="GtkBox" id="content_box">
-            <property name="orientation">vertical</property>
+    <property name="child">
+      <object class="GtkOverlay" id="about_overlay">
+        <property name="child">
+          <object class="GtkBox" id="root_box">
+            <property name="orientation">horizontal</property>
             <child>
-              <object class="GtkRevealer" id="appbar_revealer">
+              <object class="GtkBox" id="content_box">
+                <property name="orientation">vertical</property>
                 <child>
-                  <object class="GtkStack" id="appbar_stack">
-                    <!-- Headerbar will be added programmatically -->
+                  <object class="GtkRevealer" id="appbar_revealer">
+                    <child>
+                      <object class="GtkStack" id="appbar_stack">
+                        <!-- Headerbar will be added programmatically -->
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkBox" id="main_content_box">
+                    <property name="orientation">horizontal</property>
+                    <property name="homogeneous">true</property>
                   </object>
                 </child>
               </object>
             </child>
             <child>
-              <object class="GtkBox" id="main_content_box">
-                <property name="orientation">horizontal</property>
-                <property name="homogeneous">true</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-            <object class="GtkOverlay" id="main_overlay">
+              <object class="GtkOverlay" id="main_overlay">
                 <child type="overlay">
-                <object class="GtkRevealer" id="overlay_button_revealer">
+                  <object class="GtkRevealer" id="overlay_button_revealer">
                     <property name="halign">end</property>
                     <property name="valign">end</property>
                     <property name="margin-end">18</property>
                     <property name="margin-bottom">18</property>
                     <child>
-                    <object class="GtkButton" id="focus_overlay_button">
+                      <object class="GtkButton" id="focus_overlay_button">
                         <property
-                                            name="icon-name"
-                                        >zoom-fit-best-symbolic</property>
+                          name="icon-name"
+                        >zoom-fit-best-symbolic</property>
                         <property
-                                            name="tooltip-text"
-                                            translatable="yes"
-                                        >Exit Focus Mode</property>
+                          name="tooltip-text"
+                          translatable="yes"
+                        >Exit Focus Mode</property>
                         <style>
-                            <class name="quilter-focus-button" />
-                            <class name="osd" />
+                          <class name="quilter-focus-button" />
+                          <class name="osd" />
                         </style>
-                    </object>
+                      </object>
                     </child>
-                </object>
+                  </object>
                 </child>
-            </object>
-        </child>
+              </object>
+            </child>
+          </object>
+        </property>
       </object>
-    </child>
+    </property>
   </template>
 </interface>

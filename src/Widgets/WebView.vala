@@ -214,48 +214,39 @@ namespace Quilter {
                 update_html_view ();
                 warning ("Finished update_html_view_async\n");
             } catch (Error e) {
-                warning("Error in update_html_view_async: %s\n", e.message);
+                warning ("Error in update_html_view_async: %s\n", e.message);
             }
             yield;
         }
+
         public void update_html_view () {
             string processed_mk;
             string title, date;
             processed_mk = Services.FileManager.get_instance ().get_yamlless_markdown (
-                                                                       buf.text,
-                                                                       0, // Cap number of lines
-                                                                       out title,
-                                                                       out date,
-                                                                       true, // Include empty lines
-                                                                       true, // H1 title:
-                                                                       false // Include date
+                                                                                       buf.text,
+                                                                                       0, // Cap number of lines
+                                                                                       out title,
+                                                                                       out date,
+                                                                                       true, // Include empty lines
+                                                                                       true, // H1 title:
+                                                                                       false // Include date
             );
 
-            var mkd = new Markdown.Document.from_gfm_string (processed_mk.data,
-                                                             Markdown.DocumentFlags.TOC
-                                                             + Markdown.DocumentFlags.AUTOLINK
-                                                             + Markdown.DocumentFlags.EXTRA_FOOTNOTE
-                                                             + Markdown.DocumentFlags.DLEXTRA
-                                                             + Markdown.DocumentFlags.FENCEDCODE
-                                                             + Markdown.DocumentFlags.GITHUBTAGS
-                                                             + Markdown.DocumentFlags.LATEX
-                                                             + Markdown.DocumentFlags.URLENCODEDANCHOR
-                                                             + Markdown.DocumentFlags.NOSTYLE
-                                                             + Markdown.DocumentFlags.EXPLICITLIST
-            );
+            var flags = new Markdown.Flags ();
+            flags.set_flag_num (14); // TOC
+            flags.set_flag_num (15); // AUTOLINK
+            flags.set_flag_num (21); // EXTRA_FOOTNOTE
+            flags.set_flag_num (24); // DLEXTRA
+            flags.set_flag_num (25); // FENCEDCODE
+            flags.set_flag_num (27); // GITHUBTAGS
+            flags.set_flag_num (29); // LATEX
+            flags.set_flag_num (28); // URLENCODEDANCHOR
+            flags.set_flag_num (22); // NOSTYLE
+            flags.set_flag_num (7); // EXPLICITLIST
 
-            mkd.compile (
-                         Markdown.DocumentFlags.TOC
-                         + Markdown.DocumentFlags.AUTOLINK
-                         + Markdown.DocumentFlags.EXTRA_FOOTNOTE
-                         + Markdown.DocumentFlags.DLEXTRA
-                         + Markdown.DocumentFlags.FENCEDCODE
-                         + Markdown.DocumentFlags.GITHUBTAGS
-                         + Markdown.DocumentFlags.LATEX
-                         + Markdown.DocumentFlags.URLENCODEDANCHOR
-                         + Markdown.DocumentFlags.NOSTYLE
-                         + Markdown.DocumentFlags.EXPLICITLIST
-            );
+            var mkd = new Markdown.Document.from_gfm_string (processed_mk.data, flags);
+
+            mkd.compile (flags);
 
             mkd.get_document (out processed_mk);
             string highlight = set_highlight ();

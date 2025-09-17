@@ -21,6 +21,8 @@ namespace Quilter {
     public class MainWindow : He.ApplicationWindow {
         // UI Elements
         [GtkChild]
+        private unowned Gtk.Overlay about_overlay;
+        [GtkChild]
         private unowned Gtk.Box root_box;
         [GtkChild]
         private unowned Gtk.Box content_box;
@@ -476,21 +478,23 @@ namespace Quilter {
         }
 
         private void action_about () {
-            new He.AboutWindow (
-                                this,
-                                _("Quilter"),
-                                Config.APP_ID,
-                                Config.VERSION,
-                                Config.APP_ID,
-                                null,
-                                "https://github.com/lainsce/quilter/issues",
-                                "https://github.com/lainsce/quilter",
-                                null,
-                                { "Lains" },
-                                2016,
-                                He.AboutWindow.Licenses.GPLV3,
-                                He.Colors.BLUE
-            ).present ();
+            var about = new He.AboutWindow (
+                                            this,
+                                            _("Quilter"),
+                                            Config.APP_ID,
+                                            Config.VERSION,
+                                            Config.APP_ID,
+                                            null,
+                                            "https://github.com/lainsce/quilter/issues",
+                                            "https://github.com/lainsce/quilter",
+                                            null,
+                                            { "Lains" },
+                                            2016,
+                                            He.AboutWindow.Licenses.GPLV3,
+                                            He.Colors.BLUE
+            );
+            about_overlay.add_overlay (about);
+            about.present ();
         }
 
         private void on_create_new () {
