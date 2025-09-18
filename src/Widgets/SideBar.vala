@@ -91,7 +91,7 @@ namespace Quilter.Widgets {
             sidebar_files_list ();
             sidebar_outline ();
 
-            column.row_selected.connect (on_row_selected);
+            // Row selection is handled centrally by MainWindow
 
             if (Quilter.Application.gsettings.get_string ("visual-mode") == "sepia") {
                 flap.add_css_class ("quilter-sidebar-sepia");
@@ -326,38 +326,6 @@ namespace Quilter.Widgets {
             string name_2 = row_2.name;
 
             return name_1.collate (name_2);
-        }
-
-        private void on_row_selected (Gtk.ListBoxRow? selected_row) {
-            if (selected_row == null)return;
-
-            var box = selected_row as SideBarBox;
-            if (box == null || box.path == null)return;
-
-            try {
-                File file = File.new_for_path (box.path);
-                if (!file.query_exists () || file.query_file_type (FileQueryInfoFlags.NONE) != FileType.REGULAR) {
-                    warning ("Invalid file: %s", box.path);
-                    return;
-                }
-
-                string text;
-                FileUtils.get_contents (box.path, out text);
-                Quilter.Application.gsettings.set_string ("current-file", box.path);
-
-                win.update_samenu_title (box.path);
-                win.edit_view_content.text = text;
-
-                if (win.edit_view_content.modified) {
-                    Services.FileManager.get_instance ().save_file (box.path, text);
-                    win.edit_view_content.modified = false;
-                    outline_populate ();
-                }
-            } catch (Error e) {
-                warning ("Error loading file: %s", e.message);
-            }
-
-            Services.FileManager.get_instance ().save_open_files (win);
         }
 
         private void remove_file (SideBarBox box) {

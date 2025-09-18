@@ -128,8 +128,10 @@ namespace Quilter {
                 sidebar.load_files_from_list (open_files);
                 sidebar.outline_populate ();
             } else {
-                sidebar.add_file (path, "New Document");
-                sidebar.outline_populate ();
+                // Restore last current file, select it and load its content
+                var box = sidebar.add_file (path);
+                sidebar.column.select_row (box);
+                load_file_content (path);
             }
 
             eadj = edit_view.get_vadjustment ();
@@ -242,10 +244,10 @@ namespace Quilter {
 
         private void setup_signals () {
             Quilter.Application.gsettings.changed.connect (on_settings_changed);
-            appbar.open.connect (on_open);
-            appbar.save.connect (on_save);
-            appbar.save_as.connect (on_save_as);
-            appbar.create_new.connect (on_create_new);
+            appbar.open.connect (() => { print ("DEBUG: open clicked\n"); on_open (); });
+            appbar.save.connect (() => { print ("DEBUG: save clicked\n"); on_save (); });
+            appbar.save_as.connect (() => { print ("DEBUG: save_as clicked\n"); on_save_as (); });
+            appbar.create_new.connect (() => { print ("DEBUG: new clicked\n"); on_create_new (); });
             appbar.preview_toggled.connect (on_preview_toggled);
             toggle_sidebar.connect (on_toggle_sidebar);
             focus_overlay_button.clicked.connect (() => {
@@ -288,6 +290,9 @@ namespace Quilter {
                 edit_view_content.buffer.text = content;
                 edit_view_content.modified = false;
                 update_samenu_title (path);
+                Quilter.Application.gsettings.set_string ("current-file", path);
+                sidebar.outline_populate ();
+                file_manager.save_open_files (this);
             } catch (Error e) {
                 warning ("Error loading file content: %s", e.message);
             }
@@ -295,7 +300,17 @@ namespace Quilter {
 
         private void on_rename_requested (string new_name) {
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row == null)return;
+            if (row == null) {
+                var cf = Quilter.Application.gsettings.get_string ("current-file");
+                if (cf != null && cf != "") {
+                    var maybe = sidebar.find_file_box (cf);
+                    if (maybe != null) {
+                        sidebar.column.select_row (maybe);
+                        row = maybe;
+                    }
+                }
+                if (row == null) return;
+            }
 
             try {
                 string old_path = row.path;
@@ -312,8 +327,11 @@ namespace Quilter {
                 if (old_file.move (new_file, FileCopyFlags.NONE)) {
                     row.path = new_path;
                     update_samenu_title (new_path);
+                    // Update by referencing the new path
                     sidebar.update_file_title (new_path, Path.get_basename (new_path));
                     file_manager.save_open_files (this);
+                    Quilter.Application.gsettings.set_string ("current-file", new_path);
+                    sidebar.outline_populate ();
                 }
             } catch (Error e) {
                 warning ("Error renaming file: %s", e.message);
@@ -503,6 +521,7 @@ namespace Quilter {
         }
 
         private void on_create_new () {
+            print ("DEBUG: on_create_new()\n");
             create_new_document ();
             file_manager.save_open_files (this);
         }
@@ -524,6 +543,7 @@ namespace Quilter {
         }
 
         private void on_open () {
+            print ("DEBUG: on_open()\n");
             on_open_async.begin ((obj, res) => {
                 try {
                     on_open_async.end (res);
@@ -534,30 +554,37 @@ namespace Quilter {
         }
 
         private async void on_open_async () {
+            print ("DEBUG: on_open_async() start\n");
             if (is_opening)return;
             is_opening = true;
 
             try {
                 var result = yield file_manager.open (this);
-
+                
                 if (result == null) {
+                    print ("DEBUG: open canceled or null result\n");
                     is_opening = false;
                     return;
                 }
 
-                // Check if file is already open
+                // Check if file is already open and select it; otherwise add and select
                 var existing_box = sidebar.find_file_box (result.path);
                 if (existing_box != null) {
                     sidebar.column.select_row (existing_box);
                 } else {
-                    sidebar.add_file (result.path);
+                    var new_box = sidebar.add_file (result.path);
+                    sidebar.column.select_row (new_box);
                     file_manager.save_open_files (this);
                 }
 
                 edit_view_content.text = result.contents;
+                edit_view_content.modified = false;
+                update_samenu_title (result.path);
+                Quilter.Application.gsettings.set_string ("current-file", result.path);
                 save_last_files ();
                 appbar_stack.set_visible_child_name ("title");
                 Quilter.Application.gsettings.set_boolean ("sidebar", true);
+                sidebar.outline_populate ();
             } catch (Error e) {
                 warning ("Error opening file: %s", e.message);
             }
@@ -566,21 +593,46 @@ namespace Quilter {
         }
 
         private void on_save () {
+            print ("DEBUG: on_save()\n");
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row == null)return;
+            if (row == null) {
+                // Fallback to current-file if no row is selected
+                var cf = Quilter.Application.gsettings.get_string ("current-file");
+                if (cf != null && cf != "") {
+                    var maybe = sidebar.find_file_box (cf);
+                    if (maybe == null) {
+                        maybe = sidebar.add_file (cf);
+                    }
+                    if (maybe != null) {
+                        sidebar.column.select_row (maybe);
+                        row = maybe;
+                    }
+                }
+                if (row == null) return;
+            }
 
             try {
+                // If this is a temp/unsaved file, route to Save As
+                if (file_manager.is_temp_file (row.path)) {
+                    print ("DEBUG: on_save() -> temp file, delegating to Save As\n");
+                    on_save_as ();
+                    return;
+                }
+
                 file_manager.save_file (row.path, edit_view_content.text);
                 edit_view_content.modified = false;
                 sidebar.outline_populate ();
                 update_samenu_title (row.path);
                 row.update_title (Path.get_basename (row.path));
+                Quilter.Application.gsettings.set_string ("current-file", row.path);
+                file_manager.save_open_files (this);
             } catch (Error e) {
                 warning ("Error saving file: %s", e.message);
             }
         }
 
         private void on_save_as () {
+            print ("DEBUG: on_save_as()\n");
             on_save_as_async.begin ((obj, res) => {
                 try {
                     on_save_as_async.end (res);
@@ -591,18 +643,36 @@ namespace Quilter {
         }
 
         private async void on_save_as_async () {
+            print ("DEBUG: on_save_as_async() start\n");
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
-            if (row == null)return;
+            if (row == null) {
+                // Fallback to current-file if no row is selected
+                var cf = Quilter.Application.gsettings.get_string ("current-file");
+                if (cf != null && cf != "") {
+                    var maybe = sidebar.find_file_box (cf);
+                    if (maybe == null) {
+                        maybe = sidebar.add_file (cf);
+                    }
+                    if (maybe != null) {
+                        sidebar.column.select_row (maybe);
+                        row = maybe;
+                    }
+                }
+                if (row == null) return;
+            }
 
             try {
                 string new_path = yield file_manager.save_as (edit_view_content.text, this);
 
                 if (new_path != "") {
+                    print ("DEBUG: save_as -> new path: %s\n", new_path);
                     edit_view_content.modified = false;
                     update_samenu_title (new_path);
-                    sidebar.update_file_title (row.path, Path.get_basename (new_path));
                     row.path = new_path;
+                    sidebar.update_file_title (new_path, Path.get_basename (new_path));
                     file_manager.save_open_files (this);
+                    Quilter.Application.gsettings.set_string ("current-file", new_path);
+                    sidebar.outline_populate ();
                 }
             } catch (Error e) {
                 warning ("Error in save as: %s", e.message);

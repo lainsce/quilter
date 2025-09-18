@@ -40,17 +40,11 @@ namespace Quilter.Services.DialogUtils {
         });
 
         chooser.show ();
-        yield run_async (loop);
+        // Block this async function with a nested loop until the user responds.
+        // This keeps the UI responsive and avoids returning prematurely.
+        loop.run ();
 
         return response;
-    }
-
-    private static async void run_async (MainLoop loop) {
-        Idle.add (() => {
-            loop.run ();
-            return false;
-        });
-        yield;
     }
 
     public class Dialog : He.Bin {

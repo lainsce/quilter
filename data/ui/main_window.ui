@@ -52,7 +52,6 @@
                         >Exit Focus Mode</property>
                         <style>
                           <class name="quilter-focus-button" />
-                          <class name="osd" />
                         </style>
                       </object>
                     </child>
