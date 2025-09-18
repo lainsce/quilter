@@ -329,37 +329,39 @@ namespace Quilter.Widgets {
         }
 
         private void remove_file (SideBarBox box) {
-            var dialog = new Gtk.MessageDialog (win,
-                                                Gtk.DialogFlags.MODAL,
-                                                Gtk.MessageType.QUESTION,
-                                                Gtk.ButtonsType.YES_NO,
-                                                _("Remove this file from the sidebar?"));
-            dialog.secondary_text = _("This will not delete the file from your computer.");
+            var alert = new Gtk.AlertDialog (_("Remove this file from the sidebar?"));
+            alert.set_detail (_("This will not delete the file from your computer."));
+            alert.set_modal (true);
+            alert.set_buttons ({ _("Cancel"), _("Remove") });
+            alert.set_cancel_button (0);
+            alert.set_default_button (1);
 
-            dialog.response.connect ((response) => {
-                if (response == Gtk.ResponseType.YES) {
-                    column.remove (box);
+            alert.choose.begin (win, null, (obj, res) => {
+                try {
+                    int idx = alert.choose.end (res);
+                    if (idx == 1) {
+                        column.remove (box);
 
-                    // Select next available row
-                    var next_row = column.get_selected_row ();
-                    if (next_row == null) {
-                        next_row = column.get_row_at_index (0);
+                        // Select next available row
+                        var next_row = column.get_selected_row ();
+                        if (next_row == null) {
+                            next_row = column.get_row_at_index (0);
+                        }
+
+                        if (next_row != null) {
+                            column.select_row (next_row);
+                        } else {
+                            win.edit_view_content.buffer.text = "";
+                            win.edit_view_content.modified = false;
+                            store.clear ();
+                        }
+
+                        Services.FileManager.get_instance ().save_open_files (win);
                     }
-
-                    if (next_row != null) {
-                        column.select_row (next_row);
-                    } else {
-                        win.edit_view_content.buffer.text = "";
-                        win.edit_view_content.modified = false;
-                        store.clear ();
-                    }
-
-                    Services.FileManager.get_instance ().save_open_files (win);
+                } catch (Error e) {
+                    warning ("Alert error: %s", e.message);
                 }
-                dialog.destroy ();
             });
-
-            dialog.show ();
         }
 
         // Legacy compatibility methods

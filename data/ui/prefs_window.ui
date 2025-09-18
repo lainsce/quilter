@@ -15,12 +15,7 @@
               <object class="HeSettingsRow">
                 <property name="title">Font Type</property>
                 <child>
-                    <object class="GtkComboBoxText" id="font_type">
-                        <items>
-                            <item translatable="yes">Quilt Mono</item>
-                            <item translatable="yes">Quilt Zwei</item>
-                            <item translatable="yes">Quilt Vier</item>
-                        </items>
+                    <object class="GtkDropDown" id="font_type">
                     </object>
                 </child>
               </object>
@@ -139,12 +134,7 @@
               <object class="HeSettingsRow">
                 <property name="title">Preview Font Type</property>
                 <child>
-                    <object class="GtkComboBoxText" id="preview_font_type">
-                        <items>
-                        <item translatable="yes">Serif</item>
-                        <item translatable="yes">Sans-serif</item>
-                        <item translatable="yes">Monospace</item>
-                        </items>
+                    <object class="GtkDropDown" id="preview_font_type">
                     </object>
                 </child>
               </object>

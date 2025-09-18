@@ -244,10 +244,10 @@ namespace Quilter {
 
         private void setup_signals () {
             Quilter.Application.gsettings.changed.connect (on_settings_changed);
-            appbar.open.connect (() => { print ("DEBUG: open clicked\n"); on_open (); });
-            appbar.save.connect (() => { print ("DEBUG: save clicked\n"); on_save (); });
-            appbar.save_as.connect (() => { print ("DEBUG: save_as clicked\n"); on_save_as (); });
-            appbar.create_new.connect (() => { print ("DEBUG: new clicked\n"); on_create_new (); });
+            appbar.open.connect (on_open);
+            appbar.save.connect (on_save);
+            appbar.save_as.connect (on_save_as);
+            appbar.create_new.connect (on_create_new);
             appbar.preview_toggled.connect (on_preview_toggled);
             toggle_sidebar.connect (on_toggle_sidebar);
             focus_overlay_button.clicked.connect (() => {
@@ -521,7 +521,6 @@ namespace Quilter {
         }
 
         private void on_create_new () {
-            print ("DEBUG: on_create_new()\n");
             create_new_document ();
             file_manager.save_open_files (this);
         }
@@ -543,26 +542,19 @@ namespace Quilter {
         }
 
         private void on_open () {
-            print ("DEBUG: on_open()\n");
             on_open_async.begin ((obj, res) => {
-                try {
-                    on_open_async.end (res);
-                } catch (Error e) {
-                    warning ("Error in open operation: %s", e.message);
-                }
+                on_open_async.end (res);
             });
         }
 
         private async void on_open_async () {
-            print ("DEBUG: on_open_async() start\n");
             if (is_opening)return;
             is_opening = true;
 
             try {
                 var result = yield file_manager.open (this);
-                
+
                 if (result == null) {
-                    print ("DEBUG: open canceled or null result\n");
                     is_opening = false;
                     return;
                 }
@@ -593,7 +585,6 @@ namespace Quilter {
         }
 
         private void on_save () {
-            print ("DEBUG: on_save()\n");
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row == null) {
                 // Fallback to current-file if no row is selected
@@ -614,7 +605,6 @@ namespace Quilter {
             try {
                 // If this is a temp/unsaved file, route to Save As
                 if (file_manager.is_temp_file (row.path)) {
-                    print ("DEBUG: on_save() -> temp file, delegating to Save As\n");
                     on_save_as ();
                     return;
                 }
@@ -632,18 +622,12 @@ namespace Quilter {
         }
 
         private void on_save_as () {
-            print ("DEBUG: on_save_as()\n");
             on_save_as_async.begin ((obj, res) => {
-                try {
-                    on_save_as_async.end (res);
-                } catch (Error e) {
-                    warning ("Error in save as operation: %s", e.message);
-                }
+                on_save_as_async.end (res);
             });
         }
 
         private async void on_save_as_async () {
-            print ("DEBUG: on_save_as_async() start\n");
             unowned Widgets.SideBarBox? row = sidebar.get_selected_row ();
             if (row == null) {
                 // Fallback to current-file if no row is selected
@@ -665,7 +649,6 @@ namespace Quilter {
                 string new_path = yield file_manager.save_as (edit_view_content.text, this);
 
                 if (new_path != "") {
-                    print ("DEBUG: save_as -> new path: %s\n", new_path);
                     edit_view_content.modified = false;
                     update_samenu_title (new_path);
                     row.path = new_path;

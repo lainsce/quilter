@@ -20,7 +20,7 @@ namespace Quilter {
     [GtkTemplate (ui = "/io/github/lainsce/Quilter/prefs_window.ui")]
     public class Widgets.Preferences : He.SettingsWindow {
         [GtkChild]
-        unowned Gtk.ComboBoxText font_type;
+        unowned Gtk.DropDown font_type;
         [GtkChild]
         unowned Gtk.Switch autosave;
         [GtkChild]
@@ -34,7 +34,7 @@ namespace Quilter {
         [GtkChild]
         public unowned Gtk.CheckButton scope_sentence;
         [GtkChild]
-        unowned Gtk.ComboBoxText preview_font_type;
+        unowned Gtk.DropDown preview_font_type;
         [GtkChild]
         unowned Gtk.Switch center;
         [GtkChild]
@@ -53,14 +53,26 @@ namespace Quilter {
         }
 
         private void preferences_connect () {
-            font_type.active = Quilter.Application.gsettings.get_enum ("edit-font");
-            font_type.changed.connect (() => {
-                Quilter.Application.gsettings.set_enum ("edit-font", font_type.active);
+            // Editor font type dropdown
+            var edit_list = new Gtk.StringList (null);
+            edit_list.append ("Quilt Mono");
+            edit_list.append ("Quilt Zwei");
+            edit_list.append ("Quilt Vier");
+            font_type.set_model (edit_list);
+            font_type.selected = (uint) Quilter.Application.gsettings.get_enum ("edit-font");
+            font_type.notify["selected"].connect (() => {
+                Quilter.Application.gsettings.set_enum ("edit-font", (int) font_type.selected);
             });
 
-            preview_font_type.active = Quilter.Application.gsettings.get_enum ("preview-font");
-            preview_font_type.changed.connect (() => {
-                Quilter.Application.gsettings.set_enum ("preview-font", preview_font_type.active);
+            // Preview font type dropdown
+            var prev_list = new Gtk.StringList (null);
+            prev_list.append ("Serif");
+            prev_list.append ("Sans-serif");
+            prev_list.append ("Monospace");
+            preview_font_type.set_model (prev_list);
+            preview_font_type.selected = (uint) Quilter.Application.gsettings.get_enum ("preview-font");
+            preview_font_type.notify["selected"].connect (() => {
+                Quilter.Application.gsettings.set_enum ("preview-font", (int) preview_font_type.selected);
             });
 
             scope_paragraph.toggled.connect (() => {

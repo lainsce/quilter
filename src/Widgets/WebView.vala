@@ -209,13 +209,7 @@ namespace Quilter {
         }
 
         public async void update_html_view_async () {
-            try {
-                warning ("Starting update_html_view_async\n");
-                update_html_view ();
-                warning ("Finished update_html_view_async\n");
-            } catch (Error e) {
-                warning ("Error in update_html_view_async: %s\n", e.message);
-            }
+            update_html_view ();
             yield;
         }
 

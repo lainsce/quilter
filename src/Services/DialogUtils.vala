@@ -47,57 +47,5 @@ namespace Quilter.Services.DialogUtils {
         return response;
     }
 
-    public class Dialog : He.Bin {
-        public MainWindow win { get; construct; }
-        public Gtk.MessageDialog dialog;
-
-        public Dialog (MainWindow win) {
-            Object (win: win);
-
-            dialog = new Gtk.MessageDialog (
-                                            win,
-                                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                            Gtk.MessageType.QUESTION,
-                                            Gtk.ButtonsType.NONE,
-                                            _("Save Open File?")
-            );
-
-            dialog.secondary_text = _("There are unsaved changes to the file, any changes will be lost if not saved.");
-
-            dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
-            dialog.add_button (_("Close Without Saving"), Gtk.ResponseType.REJECT);
-            dialog.add_button (_("Save"), Gtk.ResponseType.ACCEPT);
-
-            dialog.set_default_response (Gtk.ResponseType.ACCEPT);
-
-            this.child = dialog;
-        }
-    }
-
-    public class Dialog2 : He.Bin {
-        public MainWindow win { get; construct; }
-        public Gtk.MessageDialog dialog;
-
-        public Dialog2 (MainWindow win) {
-            Object (win: win);
-
-            dialog = new Gtk.MessageDialog (
-                                            win,
-                                            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                            Gtk.MessageType.QUESTION,
-                                            Gtk.ButtonsType.NONE,
-                                            _("Remove File From Sidebar?")
-            );
-
-            dialog.secondary_text = _("By removing this file from the Sidebar, any changes will be lost if not saved.");
-
-            dialog.add_button (_("Cancel"), Gtk.ResponseType.CANCEL);
-            dialog.add_button (_("Remove Without Saving"), Gtk.ResponseType.REJECT);
-            dialog.add_button (_("Save"), Gtk.ResponseType.ACCEPT);
-
-            dialog.set_default_response (Gtk.ResponseType.ACCEPT);
-
-            this.child = dialog;
-        }
-    }
+    // Note: Deprecated MessageDialog wrappers were removed.
 }

@@ -145,8 +145,6 @@
   </object>
   <template class="QuilterWidgetsSideBar" parent="HeBin">
     <property name="vexpand">1</property>
-    <property name="hexpand">0</property>
-    <property name="width-request">270</property>
     <child>
       <object class="GtkBox" id="navbox">
         <child>
@@ -154,7 +152,6 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="HeAppBar">
-                <property name="width-request">113</property>
               </object>
             </child>
             <child>
@@ -167,6 +164,7 @@
         <child>
           <object class="HeSideBar" id="flap">
             <property name="has-margins">0</property>
+            <property name="width-request">280</property>
             <property name="show-left-title-buttons">0</property>
             <property name="vexpand">1</property>
             <property name="hexpand">1</property>

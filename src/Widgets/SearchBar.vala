@@ -39,10 +39,6 @@ namespace Quilter {
 
         [GtkChild]
         public unowned Gtk.Revealer searchbar;
-        [GtkChild]
-        private unowned Gtk.Box box1;
-        [GtkChild]
-        private unowned Gtk.Box box2;
 
         public GtkSource.SearchContext search_context = null;
         public weak MainWindow window { get; construct; }

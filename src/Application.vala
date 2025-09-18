@@ -169,13 +169,9 @@ namespace Quilter {
                     // Notify the user that something happened.
                     if (msg.length > 0) {
                         var parent_win = get_last_win () as Gtk.Window;
-                        var dialog = new Gtk.MessageDialog (parent_win,
-                                                            Gtk.DialogFlags.MODAL,
-                                                            Gtk.MessageType.WARNING,
-                                                            Gtk.ButtonsType.CLOSE,
-                                                            msg);
-                        dialog.show ();
-                        dialog.close ();
+                        var alert = new Gtk.AlertDialog (msg);
+                        alert.set_modal (true);
+                        alert.show (parent_win);
                     }
                 }
 
