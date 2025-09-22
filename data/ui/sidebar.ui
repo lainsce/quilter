@@ -152,6 +152,8 @@
             <property name="orientation">vertical</property>
             <child>
               <object class="HeAppBar">
+              <property name="show-right-title-buttons">0</property>
+              <property name="is-compact">1</property>
               </object>
             </child>
             <child>
@@ -169,7 +171,11 @@
             <property name="vexpand">1</property>
             <property name="hexpand">1</property>
             <property name="titlewidget">
-              <object class="HeViewTitle" id="viewtitle">
+              <object class="GtkLabel" id="viewtitle">
+                <property name="xalign">0</property>
+                <style>
+                  <class name="view-title" />
+                </style>
               </object>
             </property>
             <child type="titlebar-menu">

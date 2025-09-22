@@ -36,7 +36,7 @@ namespace Quilter.Widgets {
         [GtkChild]
         public unowned He.SideBar flap;
         [GtkChild]
-        public unowned He.ViewTitle viewtitle;
+        public unowned Gtk.Label viewtitle;
         [GtkChild]
         public unowned Gtk.Box navbox;
         [GtkChild]
@@ -71,6 +71,7 @@ namespace Quilter.Widgets {
             this.is_modified = false;
 
             flap.remove_css_class ("sidebar-view");
+            flap.show_right_title_buttons = false;
 
             stack.set_visible_child_name ("files");
             var visible_child_name = stack.get_visible_child_name ();
