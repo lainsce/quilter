@@ -11,4 +11,7 @@ obj-x86_64-linux-gnu/
 .vscode
 .buildconfig
 builddir/
-.flatpak*
+.flatpak*io.github.lainsce.Quilter
+main
+.ergo_run.c
+*.o

@@ -1,0 +1,170 @@
+; Quilter SUM Theme — Ergo/Cogito port
+@diagnostics: warn
+@primary: #5B78AD
+@primary-container: #D5DFEF
+@surface: #FAFBFC
+@surface-strong: #EEF1F5
+@sidebar-bg: #F0F2F5
+@text: #2B2D30
+@muted: #6E7681
+@editor-bg: #FFFFFF
+@editor-text: #24292F
+
+*
+  color: @text
+  font-size: 14
+
+window
+  background: @surface
+
+; Transparent backgrounds for containers
+vstack
+hstack
+zstack
+  background: #ffffff00
+
+; Appbar
+appbar
+  background: @surface-strong
+  min-height: 46
+  padding: 6 10
+  color: @text
+
+appbar .iconbtn
+  background: @primary-container
+  color: @primary
+  border-radius: 10
+
+appbar .iconbtn:hover
+  background: mix(@primary-container, #ffffff, 35%)
+
+appbar .iconbtn:active
+  background: mix(@primary-container, #000000, 8%)
+  border-radius: 16
+
+; Sidebar
+vstack.sidebar
+  background: @sidebar-bg
+  min-width: 200
+  max-width: 220
+
+appbar.sidebar
+  background: @sidebar-bg
+  min-height: 40
+  padding: 4 8
+  font-size: 13
+
+scroller.sidebar
+  background: @sidebar-bg
+
+; Editor text view
+textview
+  background: @editor-bg
+  color: @editor-text
+  padding: 24 48
+  border-radius: 0
+  font: "monospace" 15 400
+  letter-spacing: 0.2
+
+textview:focus
+  border: 0 none #000
+
+; Search field
+searchfield
+  background: #ffffff
+  border: 1 solid alpha(@primary, 25%)
+  border-radius: 8
+  padding: 6 10
+  margin: 4 8
+
+searchfield:focus
+  border: 2 solid @primary
+
+; Status bar
+hstack.statusbar
+  background: @surface-strong
+  min-height: 28
+  padding: 4 16
+
+label.statusbar-text
+  color: @muted
+  font-size: 12
+
+; Buttons
+button
+  background: @primary-container
+  color: @primary
+  border-radius: 10
+  min-height: 36
+  padding: 6 10
+
+button:hover
+  background: mix(@primary-container, #ffffff, 35%)
+
+button:active
+  background: mix(@primary-container, #000000, 8%)
+  border-radius: 16
+
+button:focus
+  border: 2 solid @primary
+
+button.outlined
+  background: alpha(@primary, 0%)
+  color: @primary
+  border: 1 solid alpha(@primary, 30%)
+
+button.outlined:hover
+  background: alpha(@primary, 8%)
+
+button.outlined:active
+  background: alpha(@primary, 16%)
+  border-radius: 16
+
+iconbtn:focus
+  border: 2 solid @primary
+
+; List
+list
+  background: #ffffff00
+  padding: 4
+
+; Tooltip
+tooltip
+  background: @text
+  color: #F5F5F5
+  border-radius: 8
+  padding: 6 8
+
+; Dialog
+dialog
+  background: #ffffff
+  color: @text
+  border-radius: 18
+  padding: 20
+
+; Dark mode
+@when dark
+  window
+    background: #1A1B1E
+  vstack.sidebar
+    background: #1E1F23
+  appbar.sidebar
+    background: #1E1F23
+  scroller.sidebar
+    background: #1E1F23
+  appbar
+    background: #222327
+  textview
+    background: #1D1E22
+    color: #D4D5D9
+  hstack.statusbar
+    background: #222327
+  label.statusbar-text
+    color: #8B8D93
+  searchfield
+    background: #2A2B30
+    color: #D4D5D9
+    border-color: alpha(@primary, 30%)
+  dialog
+    background: #2A2B30
+    color: #D4D5D9

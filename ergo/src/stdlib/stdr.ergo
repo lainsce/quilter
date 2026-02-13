@@ -1,0 +1,70 @@
+cask stdr
+
+-- Ergo Standard Library: stdr.ergo
+
+-- Internal formatted output primitive (compiler intrinsic)
+fun __writef(fmt = string, args = any) (( -- )) { }
+
+-- Internal line input primitive (compiler intrinsic)
+fun __read_line() (( string )) { }
+
+-- Internal readf parser (compiler intrinsic)
+fun __readf_parse(fmt = string, line = string, args = any) (( any )) { }
+fun __read_text_file(path = string) (( any )) { }
+fun __write_text_file(path = string, text = string) (( bool )) { }
+fun __open_file_dialog(prompt = string, extension = string) (( any )) { }
+fun __save_file_dialog(prompt = string, default_name = string, extension = string) (( any )) { }
+
+-- Print formatted output
+fun writef(fmt = string, args = any) (( -- )) {
+  __writef(fmt, args)
+}
+
+-- Read formatted input (returns line and parsed values)
+fun readf(fmt = string, args = any) (( string, any )) {
+  __writef(fmt, args)
+  let line = __read_line()
+  let parsed = __readf_parse(fmt, line, args)
+  return (line, parsed)
+}
+
+-- Print a value
+fun write(x = any) (( -- )) {
+  writef(@"{}", x)
+}
+
+-- Check if a value is null
+fun is_null(x = any) (( bool )) {
+  return x == null
+}
+
+-- Convert a value to a string (compiler intrinsic)
+fun str(x = any) (( string )) { }
+
+-- Internal length primitive (compiler intrinsic)
+fun __len(x = any) (( num )) { }
+
+-- Get the length of an array or string
+fun len(x = any) (( num )) {
+  return __len(x)
+}
+
+-- Read text file contents; returns null when file cannot be read
+fun read_text_file(path = string) (( any )) {
+  return __read_text_file(path)
+}
+
+-- Write text to a file; returns true on success
+fun write_text_file(path = string, text = string) (( bool )) {
+  return __write_text_file(path, text)
+}
+
+-- Open native file picker and return selected path or null
+fun open_file_dialog(prompt = string, extension = string) (( any )) {
+  return __open_file_dialog(prompt, extension)
+}
+
+-- Open native save dialog and return selected path or null
+fun save_file_dialog(prompt = string, default_name = string, extension = string) (( any )) {
+  return __save_file_dialog(prompt, default_name, extension)
+}

@@ -1,0 +1,354 @@
+cask main
+
+bring stdr
+bring cogito
+
+-- Global state
+def editor = cogito.textview(@"")
+def bar = cogito.appbar(@"Quilter", @"Ready")
+def status_label = cogito.label(@"Words: 0")
+def sidebar_list = cogito.list()
+def search_field = cogito.searchfield(@"Search in document...")
+
+def ?title_text = @"Quilter"
+def ?subtitle_text = @"Ready"
+def ?current_path = @""
+def ?suspend_dirty = false
+def ?is_dirty = false
+def ?sidebar_visible = true
+def ?search_visible = false
+def ?file_paths = []: [string]
+def ?file_names = []: [string]
+def ?selected_index = -1
+
+-- Utility: check if path ends with .md
+fun is_md_path(path = string) (( bool )) {
+    let n = len(path)
+    if n < 3 {
+        return false
+    }
+    let c1 = path[n - 3]
+    let c2 = path[n - 2]
+    let c3 = path[n - 1]
+    return c1 == @"." && (c2 == @"m" || c2 == @"M") && (c3 == @"d" || c3 == @"D")
+}
+
+-- Utility: get basename from path
+fun basename(path = string) (( string )) {
+    let n = len(path)
+    let ?last_sep = -1
+    for (let ?i = 0; i < n; i += 1) {
+        let ch = path[i]
+        if ch == @"/" || ch == @"\\" {
+            last_sep = i
+        }
+    }
+    if last_sep < 0 {
+        return path
+    }
+    let ?name = @""
+    for (let ?i = last_sep + 1; i < n; i += 1) {
+        name = @"$name$path[i]"
+    }
+    return name
+}
+
+-- Utility: count words in text
+fun count_words(text = string) (( num )) {
+    let n = len(text)
+    let ?words = 0
+    let ?in_word = false
+    for (let ?i = 0; i < n; i += 1) {
+        let ch = text[i]
+        if ch == @" " || ch == @"\n" || ch == @"\t" || ch == @"\r" {
+            if in_word {
+                words += 1
+                in_word = false
+            }
+        } else {
+            in_word = true
+        }
+    }
+    if in_word {
+        words += 1
+    }
+    return words
+}
+
+-- Utility: count lines in text
+fun count_lines(text = string) (( num )) {
+    let n = len(text)
+    if n == 0 {
+        return 0
+    }
+    let ?lines = 1
+    for (let ?i = 0; i < n; i += 1) {
+        if text[i] == @"\n" {
+            lines += 1
+        }
+    }
+    return lines
+}
+
+-- Update status bar with word count
+fun update_status() (( -- )) {
+    let text = editor.text()
+    let words = count_words(text)
+    let lines = count_lines(text)
+    let chars = len(text)
+    status_label.set_text(@"Words: $words  Lines: $lines  Chars: $chars")
+}
+
+-- Set status text
+fun set_status(text = string) (( -- )) {
+    subtitle_text = text
+    bar.set_subtitle(subtitle_text)
+}
+
+-- Refresh header title
+fun refresh_header() (( -- )) {
+    let name = if current_path != @"" { basename(current_path) } else { @"New Document" }
+    title_text = if is_dirty { @"$name *" } else { name }
+    bar.set_title(title_text)
+}
+
+-- Set editor text without triggering dirty flag
+fun set_editor_text(text = string) (( -- )) {
+    suspend_dirty = true
+    editor.set_text(text)
+    suspend_dirty = false
+}
+
+-- Rebuild sidebar list
+fun rebuild_sidebar() (( -- )) {
+    -- Remove all items first (by rebuilding)
+    -- Cogito lists are append-only from Ergo, so we work with the current items
+    -- The sidebar_list is pre-populated in build_ui
+}
+
+-- Add file to sidebar
+fun add_file_to_sidebar(path = string) (( -- )) {
+    let name = basename(path)
+    file_paths.add(path)
+    file_names.add(name)
+}
+
+-- Create new document
+fun new_document() (( -- )) {
+    set_editor_text(@"")
+    current_path = @""
+    is_dirty = false
+    refresh_header()
+    set_status(@"New document")
+    update_status()
+}
+
+-- Open file dialog
+fun show_open_dialog() (( -- )) {
+    let picked = stdr.open_file_dialog(@"Open Markdown", @"md")
+    if is_null(picked) {
+        set_status(@"Open canceled")
+        return
+    }
+    let path = str(picked)
+    let text = stdr.read_text_file(path)
+    let shown = basename(path)
+    if is_null(text) {
+        set_status(@"Open failed: cannot read file")
+    } else {
+        set_editor_text(str(text))
+        current_path = path
+        is_dirty = false
+        refresh_header()
+        set_status(@"Opened $shown")
+        update_status()
+    }
+}
+
+-- Save file (Save As dialog)
+fun show_save_dialog() (( -- )) {
+    let default_name = if current_path == @"" { @"document.md" } else { basename(current_path) }
+    let picked = stdr.save_file_dialog(@"Save Markdown", default_name, @"md")
+    if is_null(picked) {
+        set_status(@"Save canceled")
+        return
+    }
+
+    let ?path = str(picked)
+    if !is_md_path(path) {
+        path = @"$path.md"
+    }
+    let shown = basename(path)
+
+    let ok = stdr.write_text_file(path, editor.text())
+    if !ok {
+        set_status(@"Save failed: cannot write file")
+    } else {
+        current_path = path
+        is_dirty = false
+        refresh_header()
+        set_status(@"Saved $shown")
+    }
+}
+
+-- Quick save (overwrites current file, or opens Save As)
+fun quick_save() (( -- )) {
+    if current_path == @"" {
+        show_save_dialog()
+        return
+    }
+    let ok = stdr.write_text_file(current_path, editor.text())
+    let shown = basename(current_path)
+    if !ok {
+        set_status(@"Save failed: cannot write file")
+    } else {
+        is_dirty = false
+        refresh_header()
+        set_status(@"Saved $shown")
+    }
+}
+
+-- Build the UI
+fun build_ui(win = cogito.Window) (( -- )) {
+    let root = cogito.vstack()
+    root.set_gap(0)
+    root.set_hexpand(true)
+    root.set_vexpand(true)
+
+    -- Appbar
+    title_text = @"Quilter"
+    subtitle_text = @"Ready"
+    bar.set_title(title_text)
+    bar.set_subtitle(subtitle_text)
+    bar.set_hexpand(true)
+
+    let new_btn = bar.add_button(@"sf:doc.badge.plus", (b = cogito.Button) => {
+        new_document()
+    })
+    cogito.set_tooltip(new_btn, @"New Document")
+
+    let open_btn = bar.add_button(@"sf:folder", (b = cogito.Button) => {
+        show_open_dialog()
+    })
+    cogito.set_tooltip(open_btn, @"Open Markdown File")
+
+    let save_btn = bar.add_button(@"sf:square.and.arrow.down", (b = cogito.Button) => {
+        quick_save()
+    })
+    cogito.set_tooltip(save_btn, @"Save")
+
+    let save_as_btn = bar.add_button(@"sf:square.and.arrow.down.on.square", (b = cogito.Button) => {
+        show_save_dialog()
+    })
+    cogito.set_tooltip(save_as_btn, @"Save As")
+
+    root.add(bar)
+
+    -- Main content area (hstack with sidebar + editor)
+    let main_area = cogito.hstack()
+    main_area.set_hexpand(true)
+    main_area.set_vexpand(true)
+    main_area.set_gap(0)
+
+    -- Sidebar
+    let sidebar = cogito.vstack()
+    cogito.set_class(sidebar, @"sidebar")
+    sidebar.set_vexpand(true)
+
+    let sidebar_bar = cogito.appbar(@"Files", @"")
+    cogito.set_class(sidebar_bar, @"sidebar")
+    sidebar.add(sidebar_bar)
+
+    let sidebar_scroller = cogito.scroller()
+    cogito.set_class(sidebar_scroller, @"sidebar")
+    sidebar_scroller.set_axes(false, true)
+    sidebar_scroller.set_vexpand(true)
+
+    sidebar_list.set_vexpand(true)
+    sidebar_list.add(cogito.label(@"New Document"))
+
+    sidebar_list.on_select((idx) => {
+        if idx == 0 {
+            new_document()
+        }
+    })
+
+    sidebar_scroller.add(sidebar_list)
+    sidebar.add(sidebar_scroller)
+    main_area.add(sidebar)
+
+    -- Editor area (vstack with search + editor + status)
+    let editor_area = cogito.vstack()
+    editor_area.set_hexpand(true)
+    editor_area.set_vexpand(true)
+    editor_area.set_gap(0)
+
+    -- Search bar (hidden by default)
+    search_field.set_hexpand(true)
+    search_field.on_change((s = cogito.SearchField) => {
+        let query = s.text()
+        if query != @"" {
+            set_status(@"Searching: $query")
+        } else {
+            set_status(@"Ready")
+        }
+    })
+
+    -- Editor
+    editor.set_hexpand(true)
+    editor.set_vexpand(true)
+    editor.on_change((tv = cogito.TextView) => {
+        if !suspend_dirty {
+            is_dirty = true
+            refresh_header()
+            if current_path == @"" {
+                set_status(@"Editing new document")
+            } else {
+                set_status(@"Modified")
+            }
+            update_status()
+        }
+    })
+
+    editor_area.add(editor)
+
+    -- Status bar
+    let status_bar = cogito.hstack()
+    cogito.set_class(status_bar, @"statusbar")
+    status_bar.set_hexpand(true)
+    status_bar.set_gap(12)
+    status_bar.set_padding(8, 4, 8, 4)
+
+    status_label.set_text(@"Words: 0  Lines: 0  Chars: 0")
+    cogito.set_class(status_label, @"statusbar-text")
+    status_label.set_hexpand(true)
+    status_bar.add(status_label)
+
+    editor_area.add(status_bar)
+
+    main_area.add(editor_area)
+    root.add(main_area)
+
+    win.add(root)
+
+    -- Initialize
+    refresh_header()
+    update_status()
+}
+
+entry() (( -- )) {
+    cogito.load_sum(@"quilter.sum")
+
+    let app = cogito.app()
+    app.set_appid(@"io.github.lainsce.Quilter")
+    app.set_app_name(@"Quilter")
+    app.set_accent_color(@"#5B78AD", false)
+
+    let win = cogito.window_size(@"Quilter", 1000, 700)
+    win.set_autosize(false)
+    win.set_resizable(true)
+    win.set_a11y_label(@"Quilter Markdown Editor")
+    win.build(build_ui)
+
+    app.run(win)
+}
