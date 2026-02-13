@@ -1,14 +1,14 @@
-; Quilter SUM Theme — Ergo/Cogito port
+; Quilter SUM Theme — faithful port of the original GTK4 styles
 @diagnostics: warn
-@primary: #5B78AD
-@primary-container: #D5DFEF
-@surface: #FAFBFC
-@surface-strong: #EEF1F5
-@sidebar-bg: #F0F2F5
-@text: #2B2D30
+@primary: #667885
+@primary-container: #D6DEE5
+@surface: #FAFAFA
+@surface-dim: #F2F2F2
+@sidebar-bg: #F5F5F5
+@text: #303030
 @muted: #6E7681
 @editor-bg: #FFFFFF
-@editor-text: #24292F
+@editor-text: #333333
 
 *
   color: @text
@@ -17,15 +17,14 @@
 window
   background: @surface
 
-; Transparent backgrounds for containers
 vstack
 hstack
 zstack
   background: #ffffff00
 
-; Appbar
+; ── AppBar ────────────────────────────────────────────────────
 appbar
-  background: @surface-strong
+  background: @surface-dim
   min-height: 46
   padding: 6 10
   color: @text
@@ -36,74 +35,75 @@ appbar .iconbtn
   border-radius: 10
 
 appbar .iconbtn:hover
-  background: mix(@primary-container, #ffffff, 35%)
+  background: mix(@primary-container, #ffffff, 30%)
 
 appbar .iconbtn:active
   background: mix(@primary-container, #000000, 8%)
-  border-radius: 16
+  border-radius: 14
 
-; Sidebar
+; ── Sidebar ───────────────────────────────────────────────────
 vstack.sidebar
   background: @sidebar-bg
   min-width: 200
   max-width: 220
 
-appbar.sidebar
+tabs
   background: @sidebar-bg
-  min-height: 40
-  padding: 4 8
-  font-size: 13
+  font-size: 12
+  min-height: 34
 
-scroller.sidebar
-  background: @sidebar-bg
+list
+  background: #ffffff00
+  padding: 2
 
-; Editor text view
+; ── Editor ────────────────────────────────────────────────────
+; The original Quilter uses a monospace font with generous padding
+; and a clean white background for a distraction-free writing feel.
 textview
   background: @editor-bg
   color: @editor-text
-  padding: 24 48
+  padding: 32 64
   border-radius: 0
-  font: "monospace" 15 400
-  letter-spacing: 0.2
+  font: "monospace" 16 400
+  letter-spacing: 0.3
 
 textview:focus
   border: 0 none #000
 
-; Search field
+; ── Search bar ────────────────────────────────────────────────
 searchfield
-  background: #ffffff
-  border: 1 solid alpha(@primary, 25%)
+  background: @surface-dim
+  border: 1 solid alpha(@primary, 20%)
   border-radius: 8
   padding: 6 10
-  margin: 4 8
+  min-height: 32
 
 searchfield:focus
   border: 2 solid @primary
 
-; Status bar
+; ── Status bar ────────────────────────────────────────────────
 hstack.statusbar
-  background: @surface-strong
-  min-height: 28
-  padding: 4 16
+  background: @surface-dim
+  min-height: 26
 
 label.statusbar-text
   color: @muted
   font-size: 12
 
-; Buttons
+; ── Buttons ───────────────────────────────────────────────────
 button
   background: @primary-container
   color: @primary
   border-radius: 10
-  min-height: 36
+  min-height: 34
   padding: 6 10
 
 button:hover
-  background: mix(@primary-container, #ffffff, 35%)
+  background: mix(@primary-container, #ffffff, 30%)
 
 button:active
   background: mix(@primary-container, #000000, 8%)
-  border-radius: 16
+  border-radius: 14
 
 button:focus
   border: 2 solid @primary
@@ -111,60 +111,54 @@ button:focus
 button.outlined
   background: alpha(@primary, 0%)
   color: @primary
-  border: 1 solid alpha(@primary, 30%)
+  border: 1 solid alpha(@primary, 25%)
 
 button.outlined:hover
   background: alpha(@primary, 8%)
 
-button.outlined:active
-  background: alpha(@primary, 16%)
-  border-radius: 16
-
 iconbtn:focus
   border: 2 solid @primary
 
-; List
-list
+; ── Scroller ──────────────────────────────────────────────────
+scroller
   background: #ffffff00
-  padding: 4
 
-; Tooltip
+; ── Tooltip ───────────────────────────────────────────────────
 tooltip
   background: @text
   color: #F5F5F5
   border-radius: 8
   padding: 6 8
 
-; Dialog
+; ── Dialog ────────────────────────────────────────────────────
 dialog
   background: #ffffff
   color: @text
-  border-radius: 18
+  border-radius: 16
   padding: 20
 
-; Dark mode
+; ── Dark mode ─────────────────────────────────────────────────
+; Matches the original Quilter dark scheme (quilter-dark)
 @when dark
   window
-    background: #1A1B1E
-  vstack.sidebar
-    background: #1E1F23
-  appbar.sidebar
-    background: #1E1F23
-  scroller.sidebar
-    background: #1E1F23
+    background: #1E1E1E
   appbar
-    background: #222327
+    background: #252525
+  vstack.sidebar
+    background: #222222
+  tabs
+    background: #222222
   textview
-    background: #1D1E22
-    color: #D4D5D9
+    background: #1A1A1A
+    color: #E0E0E0
   hstack.statusbar
-    background: #222327
+    background: #252525
   label.statusbar-text
     color: #8B8D93
   searchfield
-    background: #2A2B30
+    background: #2A2A2A
     color: #D4D5D9
     border-color: alpha(@primary, 30%)
   dialog
-    background: #2A2B30
+    background: #2A2A2A
     color: #D4D5D9

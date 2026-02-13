@@ -1,0 +1,408 @@
+cask cogito
+
+bring stdr
+
+-- App
+class App {
+    fun set_appid(this, id = string) (( -- )) {}
+    fun set_app_name(this, name = string) (( -- )) {}
+    fun set_accent_color(this, color = string, follow = bool) (( -- )) {}
+    fun run(this, win = Window) (( -- )) {}
+}
+
+fun app() (( App )) {}
+
+-- Window
+class Window {
+    fun add(this, child = any) (( -- )) {}
+    fun build(this, builder = any) (( -- )) {}
+    fun set_resizable(this, on = bool) (( -- )) {}
+    fun set_autosize(this, on = bool) (( -- )) {}
+    fun set_a11y_label(this, label = string) (( -- )) {}
+    fun set_dialog(this, dlg = any) (( -- )) {}
+    fun clear_dialog(this) (( -- )) {}
+}
+
+fun window_title(title = string) (( Window )) {}
+fun window_size(title = string, w = num, h = num) (( Window )) {}
+
+-- VStack
+class VStack {
+    fun add(this, child = any) (( -- )) {}
+    fun set_gap(this, g = num) (( -- )) {}
+    fun set_padding(this, l = num, t = num, r = num, b = num) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+    fun set_halign(this, a = num) (( -- )) {}
+    fun set_valign(this, a = num) (( -- )) {}
+    fun set_margins(this, l = num, t = num, r = num, b = num) (( -- )) {}
+    fun align_center(this) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun vstack() (( VStack )) {}
+
+-- HStack
+class HStack {
+    fun add(this, child = any) (( -- )) {}
+    fun set_gap(this, g = num) (( -- )) {}
+    fun set_padding(this, l = num, t = num, r = num, b = num) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+    fun set_halign(this, a = num) (( -- )) {}
+    fun set_valign(this, a = num) (( -- )) {}
+    fun align_center(this) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun hstack() (( HStack )) {}
+
+-- ZStack
+class ZStack {
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun zstack() (( ZStack )) {}
+
+-- Label
+class Label {
+    fun set_text(this, t = string) (( -- )) {}
+    fun set_class(this, c = string) (( -- )) {}
+    fun set_wrap(this, on = bool) (( -- )) {}
+    fun set_ellipsis(this, on = bool) (( -- )) {}
+    fun set_text_align(this, a = num) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+    fun set_halign(this, a = num) (( -- )) {}
+    fun set_valign(this, a = num) (( -- )) {}
+}
+
+fun label(text = string) (( Label )) {}
+
+-- Button
+class Button {
+    fun set_text(this, t = string) (( -- )) {}
+    fun on_click(this, handler = any) (( -- )) {}
+    fun add_menu(this, label = string, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun button(text = string) (( Button )) {}
+
+-- IconBtn
+class IconBtn {
+    fun on_click(this, handler = any) (( -- )) {}
+    fun add_menu(this, label = string, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun iconbtn(icon = string) (( IconBtn )) {}
+
+-- Appbar
+class Appbar {
+    fun set_title(this, t = string) (( -- )) {}
+    fun set_subtitle(this, t = string) (( -- )) {}
+    fun add_button(this, icon = string, handler = any) (( Button )) {}
+    fun set_controls(this, layout = string) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun appbar(title = string, subtitle = string) (( Appbar )) {}
+
+-- TextField
+class TextField {
+    fun set_text(this, t = string) (( -- )) {}
+    fun text(this) (( string )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun textfield(placeholder = string) (( TextField )) {}
+
+-- SearchField
+class SearchField {
+    fun set_text(this, t = string) (( -- )) {}
+    fun text(this) (( string )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun searchfield(placeholder = string) (( SearchField )) {}
+
+-- TextView
+class TextView {
+    fun set_text(this, t = string) (( -- )) {}
+    fun text(this) (( string )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun textview(text = string) (( TextView )) {}
+
+-- Checkbox
+class Checkbox {
+    fun set_checked(this, b = bool) (( -- )) {}
+    fun checked(this) (( bool )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+}
+
+fun checkbox(text = string, group = any) (( Checkbox )) {}
+
+-- Switch
+class Switch {
+    fun set_checked(this, b = bool) (( -- )) {}
+    fun checked(this) (( bool )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+}
+
+fun switch(text = string) (( Switch )) {}
+
+-- Slider
+class Slider {
+    fun set_value(this, v = num) (( -- )) {}
+    fun value(this) (( num )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun slider(min = num, max = num, value = num) (( Slider )) {}
+
+-- Stepper
+class Stepper {
+    fun set_value(this, v = num) (( -- )) {}
+    fun value(this) (( num )) {}
+}
+
+fun stepper(min = num, max = num, value = num, step = num) (( Stepper )) {}
+
+-- Dropdown
+class Dropdown {
+    fun set_items(this, items = [string]) (( -- )) {}
+    fun set_selected(this, idx = num) (( -- )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun dropdown() (( Dropdown )) {}
+
+-- Tabs
+class Tabs {
+    fun set_items(this, items = [string]) (( -- )) {}
+    fun set_ids(this, ids = [string]) (( -- )) {}
+    fun set_selected(this, idx = num) (( -- )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun bind(this, view = any) (( -- )) {}
+}
+
+fun tabs() (( Tabs )) {}
+
+-- ViewSwitcher
+class ViewSwitcher {
+    fun set_active(this, id = string) (( -- )) {}
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun view_switcher() (( ViewSwitcher )) {}
+
+-- Progress
+class Progress {
+    fun set_value(this, v = num) (( -- )) {}
+    fun value(this) (( num )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun progress(value = num) (( Progress )) {}
+
+-- Dialog
+class Dialog {
+    fun add(this, child = any) (( -- )) {}
+    fun close(this) (( -- )) {}
+}
+
+fun dialog(title = string) (( Dialog )) {}
+
+-- DialogSlot
+class DialogSlot {
+    fun show(this, dlg = any) (( -- )) {}
+    fun clear(this) (( -- )) {}
+}
+
+fun dialog_slot() (( DialogSlot )) {}
+
+-- Toast
+class Toast {
+    fun on_click(this, handler = any) (( -- )) {}
+    fun set_text(this, t = string) (( -- )) {}
+    fun set_action(this, text = string, handler = any) (( -- )) {}
+}
+
+fun toast(text = string) (( Toast )) {}
+
+-- Toasts
+class Toasts {
+    fun add(this, child = any) (( -- )) {}
+}
+
+fun toasts() (( Toasts )) {}
+
+-- List
+class List {
+    fun add(this, child = any) (( -- )) {}
+    fun on_select(this, handler = any) (( -- )) {}
+    fun on_activate(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun list() (( List )) {}
+
+-- Grid
+class Grid {
+    fun add(this, child = any) (( -- )) {}
+    fun set_gap(this, x = num, y = num) (( -- )) {}
+    fun set_span(this, child = any, col = num, row = num) (( -- )) {}
+    fun set_align(this, child = any, h = num, v = num) (( -- )) {}
+    fun on_select(this, handler = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun grid(cols = num) (( Grid )) {}
+
+-- Scroller
+class Scroller {
+    fun add(this, child = any) (( -- )) {}
+    fun set_axes(this, h = bool, v = bool) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun scroller() (( Scroller )) {}
+
+-- Image
+class Image {
+    fun set_icon(this, name = string) (( -- )) {}
+    fun set_class(this, cls = string) (( -- )) {}
+}
+
+fun image(name = string) (( Image )) {}
+
+-- Chip
+class Chip {
+    fun on_click(this, handler = any) (( -- )) {}
+    fun on_close(this, handler = any) (( -- )) {}
+    fun set_selected(this, b = bool) (( -- )) {}
+    fun selected(this) (( bool )) {}
+    fun set_closable(this, b = bool) (( -- )) {}
+}
+
+fun chip(text = string) (( Chip )) {}
+
+-- FAB
+class FAB {
+    fun on_click(this, handler = any) (( -- )) {}
+    fun set_extended(this, b = bool, label = string) (( -- )) {}
+}
+
+fun fab(icon = string) (( FAB )) {}
+
+-- DatePicker
+class DatePicker {
+    fun on_change(this, handler = any) (( -- )) {}
+}
+
+fun datepicker() (( DatePicker )) {}
+
+-- ColorPicker
+class ColorPicker {
+    fun on_change(this, handler = any) (( -- )) {}
+}
+
+fun colorpicker() (( ColorPicker )) {}
+
+-- NavRail
+class NavRail {
+    fun set_items(this, labels = [string], icons = [string]) (( -- )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun nav_rail() (( NavRail )) {}
+
+-- BottomNav
+class BottomNav {
+    fun set_items(this, labels = [string], icons = [string]) (( -- )) {}
+    fun on_change(this, handler = any) (( -- )) {}
+}
+
+fun bottom_nav() (( BottomNav )) {}
+
+-- Segmented
+class Segmented {
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+}
+
+fun segmented() (( Segmented )) {}
+
+-- TreeView
+class TreeView {
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun treeview() (( TreeView )) {}
+
+-- Carousel
+class Carousel {
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+    fun set_active_index(this, idx = num) (( -- )) {}
+    fun get_active_index(this) (( num )) {}
+}
+
+fun carousel() (( Carousel )) {}
+
+-- CarouselItem
+class CarouselItem {
+    fun add(this, child = any) (( -- )) {}
+    fun set_hexpand(this, b = bool) (( -- )) {}
+    fun set_vexpand(this, b = bool) (( -- )) {}
+}
+
+fun carousel_item() (( CarouselItem )) {}
+
+-- Toolbar
+class Toolbar {
+    fun add(this, child = any) (( -- )) {}
+}
+
+fun toolbar() (( Toolbar )) {}
+
+-- Fixed
+class Fixed {
+    fun set_pos(this, child = any, x = num, y = num) (( -- )) {}
+}
+
+fun fixed() (( Fixed )) {}
+
+-- Module-level helpers
+fun set_class(node = any, cls = string) (( -- )) {}
+fun set_id(node = any, id = string) (( -- )) {}
+fun set_tooltip(node = any, text = string) (( -- )) {}
+fun load_sum(path = string) (( -- )) {}
+fun open_url(url = string) (( bool )) {}
+fun state(initial = any) (( any )) {}
+fun state_get(s = any) (( any )) {}
+fun state_set(s = any, v = any) (( -- )) {}
