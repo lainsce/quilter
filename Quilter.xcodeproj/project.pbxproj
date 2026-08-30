@@ -6,154 +6,45 @@
 	objectVersion = 90;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		67186AAA30269A45000FB06E /* CheatsheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67186AA930269A45000FB06E /* CheatsheetView.swift */; };
-		67186AAC3026A7F9000FB06E /* TagFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67186AAB3026A7F9000FB06E /* TagFilterView.swift */; };
-		67186AAE3026A8C5000FB06E /* QuilterLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67186AAD3026A8C5000FB06E /* QuilterLibrary.swift */; };
-		673E620430258F7C00FE8503 /* EditorHighlightsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 673E620330258F7C00FE8503 /* EditorHighlightsMenu.swift */; };
-		674841283022E5FD00E8578F /* OpenDocumentsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841093022E5FD00E8578F /* OpenDocumentsList.swift */; };
-		674841293022E5FD00E8578F /* SidebarSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841103022E5FD00E8578F /* SidebarSectionHeader.swift */; };
-		6748412A3022E5FD00E8578F /* FocusModeExitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841023022E5FD00E8578F /* FocusModeExitButton.swift */; };
-		6748412B3022E5FD00E8578F /* EditorStatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FF3022E5FD00E8578F /* EditorStatusBadge.swift */; };
-		6748412C3022E5FD00E8578F /* OutlineRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410A3022E5FD00E8578F /* OutlineRow.swift */; };
-		6748412D3022E5FD00E8578F /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CB3022E5FD00E8578F /* AppState.swift */; };
-		6748412E3022E5FD00E8578F /* MarkdownTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841063022E5FD00E8578F /* MarkdownTextView.swift */; };
-		6748412F3022E5FD00E8578F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410E3022E5FD00E8578F /* SettingsView.swift */; };
-		674841303022E5FD00E8578F /* MarkdownPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841043022E5FD00E8578F /* MarkdownPreviewView.swift */; };
-		674841313022E5FD00E8578F /* EditorStatusMetric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CF3022E5FD00E8578F /* EditorStatusMetric.swift */; };
-		674841323022E5FD00E8578F /* OpenDocumentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841083022E5FD00E8578F /* OpenDocumentRow.swift */; };
-		674841333022E5FD00E8578F /* EmptyEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841013022E5FD00E8578F /* EmptyEditorView.swift */; };
-		674841343022E5FD00E8578F /* MarkdownPreviewWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841053022E5FD00E8578F /* MarkdownPreviewWebView.swift */; };
-		674841353022E5FD00E8578F /* QuilterApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840D73022E5FD00E8578F /* QuilterApplicationDelegate.swift */; };
-		674841363022E5FD00E8578F /* OpenControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841073022E5FD00E8578F /* OpenControl.swift */; };
-		674841373022E5FD00E8578F /* EditorPaneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FD3022E5FD00E8578F /* EditorPaneView.swift */; };
-		674841383022E5FD00E8578F /* AppWindowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FB3022E5FD00E8578F /* AppWindowView.swift */; };
-		674841393022E5FD00E8578F /* BundledFontRegistrar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840F33022E5FD00E8578F /* BundledFontRegistrar.swift */; };
-		6748413A3022E5FD00E8578F /* DocumentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CC3022E5FD00E8578F /* DocumentItem.swift */; };
-		6748413B3022E5FD00E8578F /* AppPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CA3022E5FD00E8578F /* AppPreferences.swift */; };
-		6748413C3022E5FD00E8578F /* MarkdownSyntaxHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840F63022E5FD00E8578F /* MarkdownSyntaxHighlighter.swift */; };
-		6748413D3022E5FD00E8578F /* HeadingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840D13022E5FD00E8578F /* HeadingItem.swift */; };
-		6748413E3022E5FD00E8578F /* RenameDocumentPopover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410D3022E5FD00E8578F /* RenameDocumentPopover.swift */; };
-		6748413F3022E5FD00E8578F /* WindowConfigurationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841143022E5FD00E8578F /* WindowConfigurationView.swift */; };
-		674841403022E5FD00E8578F /* QuilterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840D63022E5FD00E8578F /* QuilterApp.swift */; };
-		674841413022E5FD00E8578F /* OutlineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410B3022E5FD00E8578F /* OutlineView.swift */; };
-		674841423022E5FD00E8578F /* SidebarEmptyFilesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410F3022E5FD00E8578F /* SidebarEmptyFilesView.swift */; };
-		674841433022E5FD00E8578F /* EditorFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CD3022E5FD00E8578F /* EditorFontType.swift */; };
-		674841443022E5FD00E8578F /* MarkdownHTMLRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840F43022E5FD00E8578F /* MarkdownHTMLRenderer.swift */; };
-		674841453022E5FD00E8578F /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840F83022E5FD00E8578F /* AppTheme.swift */; };
-		674841463022E5FD00E8578F /* PreviewFontType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840D23022E5FD00E8578F /* PreviewFontType.swift */; };
-		674841483022E5FD00E8578F /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840F53022E5FD00E8578F /* MarkdownParser.swift */; };
-		6748414A3022E5FD00E8578F /* QuilterCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840C73022E5FD00E8578F /* QuilterCommands.swift */; };
-		6748414B3022E5FD00E8578F /* PreviewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6748410C3022E5FD00E8578F /* PreviewSettingsView.swift */; };
-		6748414C3022E5FD00E8578F /* EditorSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FE3022E5FD00E8578F /* EditorSettingsView.swift */; };
-		6748414D3022E5FD00E8578F /* MarkdownEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841033022E5FD00E8578F /* MarkdownEditorView.swift */; };
-		6748414E3022E5FD00E8578F /* EditorActionsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FC3022E5FD00E8578F /* EditorActionsMenu.swift */; };
-		6748414F3022E5FD00E8578F /* WindowConfigurationNSView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841133022E5FD00E8578F /* WindowConfigurationNSView.swift */; };
-		674841503022E5FD00E8578F /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674841113022E5FD00E8578F /* SidebarView.swift */; };
-		674841513022E5FD00E8578F /* AppError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840C93022E5FD00E8578F /* AppError.swift */; };
-		674841523022E5FD00E8578F /* EditorScrollTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840CE3022E5FD00E8578F /* EditorScrollTarget.swift */; };
-		674841533022E5FD00E8578F /* FocusScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840D03022E5FD00E8578F /* FocusScope.swift */; };
-		674841543022E5FD00E8578F /* ActiveDocumentTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674840FA3022E5FD00E8578F /* ActiveDocumentTitle.swift */; };
-		67831A3630227AE0006CE572 /* Quilter.icon in Resources */ = {isa = PBXBuildFile; fileRef = 67831A3530227AE0006CE572 /* Quilter.icon */; };
-		67AA00010000000000000001 /* MarkdownDerivedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA00110000000000000001 /* MarkdownDerivedState.swift */; };
-		67AA00020000000000000002 /* CheatsheetEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA00120000000000000002 /* CheatsheetEntry.swift */; };
-		67AA00030000000000000003 /* CheatsheetHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA00130000000000000003 /* CheatsheetHeader.swift */; };
-		67AA00040000000000000004 /* CheatsheetEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA00140000000000000004 /* CheatsheetEffectView.swift */; };
-		67AA00050000000000000005 /* TagChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67AA00150000000000000005 /* TagChip.swift */; };
-		67AA00060000000000000006 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 67AA00160000000000000006 /* Localizable.xcstrings */; };
-		67BB00010000000000000001 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 67BB00110000000000000001 /* Fonts */; };
-		67BB00020000000000000002 /* PreviewAssets in Resources */ = {isa = PBXBuildFile; fileRef = 67BB00120000000000000002 /* PreviewAssets */; };
-		67CC00010000000000000001 /* Legal in Resources */ = {isa = PBXBuildFile; fileRef = 67CC00120000000000000002 /* Legal */; };
-		67CC00020000000000000002 /* LibrarySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC00150000000000000005 /* LibrarySettingsView.swift */; };
-		67CC00030000000000000003 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 67CC00170000000000000007 /* PrivacyInfo.xcprivacy */; };
-		67CC00040000000000000004 /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC00180000000000000008 /* PrivacyPolicyView.swift */; };
-		67CC00050000000000000005 /* ScrollEdgeTreatment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC00190000000000000009 /* ScrollEdgeTreatment.swift */; };
-		67CC00060000000000000006 /* PrivacyPolicySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC001A000000000000000A /* PrivacyPolicySection.swift */; };
-		67CC00070000000000000007 /* LegalNoticesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC001B000000000000000B /* LegalNoticesView.swift */; };
-		67CC00080000000000000008 /* QuilterAboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67CC001C000000000000000C /* QuilterAboutView.swift */; };
-		67DD00010000000000000001 /* ToolbarVisibilityMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DD00110000000000000001 /* ToolbarVisibilityMode.swift */; };
-		67DE00010000000000000001 /* MarkdownHighlightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DE00110000000000000001 /* MarkdownHighlightColor.swift */; };
-		67DF00010000000000000001 /* MarkdownStyleCheckerExpressions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67DF00110000000000000001 /* MarkdownStyleCheckerExpressions.swift */; };
-		67EC68413025021C005A70C4 /* EditorLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67EC68403025021C005A70C4 /* EditorLayout.swift */; };
-		67EE00010000000000000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67EE00110000000000000001 /* Assets.xcassets */; };
-		67FF00220000000000000001 /* NULControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67FF00230000000000000001 /* NULControls.swift */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		000000000000000000000120 /* Quilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		67186AA930269A45000FB06E /* CheatsheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheatsheetView.swift; sourceTree = "<group>"; };
-		67186AAB3026A7F9000FB06E /* TagFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagFilterView.swift; sourceTree = "<group>"; };
-		67186AAD3026A8C5000FB06E /* QuilterLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuilterLibrary.swift; sourceTree = "<group>"; };
-		673E620330258F7C00FE8503 /* EditorHighlightsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorHighlightsMenu.swift; sourceTree = "<group>"; };
-		674840C73022E5FD00E8578F /* QuilterCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuilterCommands.swift; sourceTree = "<group>"; };
-		674840C93022E5FD00E8578F /* AppError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppError.swift; sourceTree = "<group>"; };
-		674840CA3022E5FD00E8578F /* AppPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppPreferences.swift; sourceTree = "<group>"; };
-		674840CB3022E5FD00E8578F /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		674840CC3022E5FD00E8578F /* DocumentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentItem.swift; sourceTree = "<group>"; };
-		674840CD3022E5FD00E8578F /* EditorFontType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorFontType.swift; sourceTree = "<group>"; };
-		674840CE3022E5FD00E8578F /* EditorScrollTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorScrollTarget.swift; sourceTree = "<group>"; };
-		674840CF3022E5FD00E8578F /* EditorStatusMetric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStatusMetric.swift; sourceTree = "<group>"; };
-		674840D03022E5FD00E8578F /* FocusScope.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusScope.swift; sourceTree = "<group>"; };
-		674840D13022E5FD00E8578F /* HeadingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadingItem.swift; sourceTree = "<group>"; };
-		674840D23022E5FD00E8578F /* PreviewFontType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewFontType.swift; sourceTree = "<group>"; };
-		674840D43022E5FD00E8578F /* Quilter.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Quilter.entitlements; sourceTree = "<group>"; };
-		674840D53022E5FD00E8578F /* Quilter-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Quilter-Info.plist"; sourceTree = "<group>"; };
-		674840D63022E5FD00E8578F /* QuilterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuilterApp.swift; sourceTree = "<group>"; };
-		674840D73022E5FD00E8578F /* QuilterApplicationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuilterApplicationDelegate.swift; sourceTree = "<group>"; };
-		674840F33022E5FD00E8578F /* BundledFontRegistrar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledFontRegistrar.swift; sourceTree = "<group>"; };
-		674840F43022E5FD00E8578F /* MarkdownHTMLRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownHTMLRenderer.swift; sourceTree = "<group>"; };
-		674840F53022E5FD00E8578F /* MarkdownParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParser.swift; sourceTree = "<group>"; };
-		674840F63022E5FD00E8578F /* MarkdownSyntaxHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownSyntaxHighlighter.swift; sourceTree = "<group>"; };
-		674840F83022E5FD00E8578F /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
-		674840FA3022E5FD00E8578F /* ActiveDocumentTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveDocumentTitle.swift; sourceTree = "<group>"; };
-		674840FB3022E5FD00E8578F /* AppWindowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppWindowView.swift; sourceTree = "<group>"; };
-		674840FC3022E5FD00E8578F /* EditorActionsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorActionsMenu.swift; sourceTree = "<group>"; };
-		674840FD3022E5FD00E8578F /* EditorPaneView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPaneView.swift; sourceTree = "<group>"; };
-		674840FE3022E5FD00E8578F /* EditorSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSettingsView.swift; sourceTree = "<group>"; };
-		674840FF3022E5FD00E8578F /* EditorStatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorStatusBadge.swift; sourceTree = "<group>"; };
-		674841013022E5FD00E8578F /* EmptyEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyEditorView.swift; sourceTree = "<group>"; };
-		674841023022E5FD00E8578F /* FocusModeExitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusModeExitButton.swift; sourceTree = "<group>"; };
-		674841033022E5FD00E8578F /* MarkdownEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownEditorView.swift; sourceTree = "<group>"; };
-		674841043022E5FD00E8578F /* MarkdownPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreviewView.swift; sourceTree = "<group>"; };
-		674841053022E5FD00E8578F /* MarkdownPreviewWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownPreviewWebView.swift; sourceTree = "<group>"; };
-		674841063022E5FD00E8578F /* MarkdownTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownTextView.swift; sourceTree = "<group>"; };
-		674841073022E5FD00E8578F /* OpenControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenControl.swift; sourceTree = "<group>"; };
-		674841083022E5FD00E8578F /* OpenDocumentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentRow.swift; sourceTree = "<group>"; };
-		674841093022E5FD00E8578F /* OpenDocumentsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenDocumentsList.swift; sourceTree = "<group>"; };
-		6748410A3022E5FD00E8578F /* OutlineRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineRow.swift; sourceTree = "<group>"; };
-		6748410B3022E5FD00E8578F /* OutlineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutlineView.swift; sourceTree = "<group>"; };
-		6748410C3022E5FD00E8578F /* PreviewSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewSettingsView.swift; sourceTree = "<group>"; };
-		6748410D3022E5FD00E8578F /* RenameDocumentPopover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenameDocumentPopover.swift; sourceTree = "<group>"; };
-		6748410E3022E5FD00E8578F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
-		6748410F3022E5FD00E8578F /* SidebarEmptyFilesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarEmptyFilesView.swift; sourceTree = "<group>"; };
-		674841103022E5FD00E8578F /* SidebarSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSectionHeader.swift; sourceTree = "<group>"; };
-		674841113022E5FD00E8578F /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
-		674841133022E5FD00E8578F /* WindowConfigurationNSView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfigurationNSView.swift; sourceTree = "<group>"; };
-		674841143022E5FD00E8578F /* WindowConfigurationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowConfigurationView.swift; sourceTree = "<group>"; };
-		67831A3530227AE0006CE572 /* Quilter.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Quilter.icon; sourceTree = "<group>"; };
-		67AA00110000000000000001 /* MarkdownDerivedState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownDerivedState.swift; sourceTree = "<group>"; };
-		67AA00120000000000000002 /* CheatsheetEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheatsheetEntry.swift; sourceTree = "<group>"; };
-		67AA00130000000000000003 /* CheatsheetHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheatsheetHeader.swift; sourceTree = "<group>"; };
-		67AA00140000000000000004 /* CheatsheetEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheatsheetEffectView.swift; sourceTree = "<group>"; };
-		67AA00150000000000000005 /* TagChip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagChip.swift; sourceTree = "<group>"; };
-		67AA00160000000000000006 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
-		67BB00110000000000000001 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
-		67BB00120000000000000002 /* PreviewAssets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PreviewAssets; sourceTree = "<group>"; };
-		67CC00120000000000000002 /* Legal */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Legal; sourceTree = "<group>"; };
-		67CC00150000000000000005 /* LibrarySettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibrarySettingsView.swift; sourceTree = "<group>"; };
-		67CC00170000000000000007 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		67CC00180000000000000008 /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
-		67CC00190000000000000009 /* ScrollEdgeTreatment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollEdgeTreatment.swift; sourceTree = "<group>"; };
-		67CC001A000000000000000A /* PrivacyPolicySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicySection.swift; sourceTree = "<group>"; };
-		67CC001B000000000000000B /* LegalNoticesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegalNoticesView.swift; sourceTree = "<group>"; };
-		67CC001C000000000000000C /* QuilterAboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuilterAboutView.swift; sourceTree = "<group>"; };
-		67DD00110000000000000001 /* ToolbarVisibilityMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarVisibilityMode.swift; sourceTree = "<group>"; };
-		67DE00110000000000000001 /* MarkdownHighlightColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownHighlightColor.swift; sourceTree = "<group>"; };
-		67DF00110000000000000001 /* MarkdownStyleCheckerExpressions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownStyleCheckerExpressions.swift; sourceTree = "<group>"; };
-		67EC68403025021C005A70C4 /* EditorLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorLayout.swift; sourceTree = "<group>"; };
-		67EE00110000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		67FF00230000000000000001 /* NULControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NULControls.swift; sourceTree = "<group>"; };
+		000000000000000000000120 /* Quilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Quilter.app; path = /Users/nayu/Developer/Quilter/build/Debug/Quilter.app; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		67BCC8C53044812400A74237 /* Exceptions for "data" folder in "Quilter" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Quilter-Info.plist",
+			);
+			target = 000000000000000100000000 /* Quilter */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		67BCC82C304480E400A74237 /* src */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = src;
+			sourceTree = "<group>";
+		};
+		67BCC85F304480F000A74237 /* data */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				67BCC8C53044812400A74237 /* Exceptions for "data" folder in "Quilter" target */,
+			);
+			explicitFolders = (
+				Fonts,
+				Legal,
+				PreviewAssets,
+			);
+			path = data;
+			sourceTree = "<group>";
+		};
+		67BCC8C63044812F00A74237 /* tests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = tests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		000000000000000130000000 /* Frameworks */ = {
@@ -167,144 +58,10 @@
 		000000000000000000000001 = {
 			isa = PBXGroup;
 			children = (
-				67CC00170000000000000007 /* PrivacyInfo.xcprivacy */,
-				67831A3530227AE0006CE572 /* Quilter.icon */,
-				674840C83022E5FD00E8578F /* Commands */,
-				674840D33022E5FD00E8578F /* Models */,
-				674840D43022E5FD00E8578F /* Quilter.entitlements */,
-				674840D53022E5FD00E8578F /* Quilter-Info.plist */,
-				674840D63022E5FD00E8578F /* QuilterApp.swift */,
-				674840D73022E5FD00E8578F /* QuilterApplicationDelegate.swift */,
-				674840F23022E5FD00E8578F /* Resources */,
-				674840F73022E5FD00E8578F /* Services */,
-				674840F93022E5FD00E8578F /* Theme */,
-				67FF00240000000000000002 /* Nuul */,
-				674841153022E5FD00E8578F /* Views */,
-				000000000000000000000020 /* Products */,
+				67BCC82C304480E400A74237 /* src */,
+				67BCC85F304480F000A74237 /* data */,
+				67BCC8C63044812F00A74237 /* tests */,
 			);
-			sourceTree = "<group>";
-		};
-		000000000000000000000020 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000120 /* Quilter.app */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		674840C83022E5FD00E8578F /* Commands */ = {
-			isa = PBXGroup;
-			children = (
-				674840C73022E5FD00E8578F /* QuilterCommands.swift */,
-			);
-			path = Commands;
-			sourceTree = "<group>";
-		};
-		674840D33022E5FD00E8578F /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				674840C93022E5FD00E8578F /* AppError.swift */,
-				674840CA3022E5FD00E8578F /* AppPreferences.swift */,
-				674840CB3022E5FD00E8578F /* AppState.swift */,
-				674840CC3022E5FD00E8578F /* DocumentItem.swift */,
-				674840CD3022E5FD00E8578F /* EditorFontType.swift */,
-				674840CE3022E5FD00E8578F /* EditorScrollTarget.swift */,
-				674840CF3022E5FD00E8578F /* EditorStatusMetric.swift */,
-				674840D03022E5FD00E8578F /* FocusScope.swift */,
-				674840D13022E5FD00E8578F /* HeadingItem.swift */,
-				67AA00120000000000000002 /* CheatsheetEntry.swift */,
-				67AA00110000000000000001 /* MarkdownDerivedState.swift */,
-				674840D23022E5FD00E8578F /* PreviewFontType.swift */,
-				67EC68403025021C005A70C4 /* EditorLayout.swift */,
-				67DD00110000000000000001 /* ToolbarVisibilityMode.swift */,
-				67DE00110000000000000001 /* MarkdownHighlightColor.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		674840F23022E5FD00E8578F /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				67EE00110000000000000001 /* Assets.xcassets */,
-				67BB00110000000000000001 /* Fonts */,
-				67AA00160000000000000006 /* Localizable.xcstrings */,
-				67BB00120000000000000002 /* PreviewAssets */,
-				67CC00120000000000000002 /* Legal */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
-		674840F73022E5FD00E8578F /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				674840F33022E5FD00E8578F /* BundledFontRegistrar.swift */,
-				674840F43022E5FD00E8578F /* MarkdownHTMLRenderer.swift */,
-				674840F53022E5FD00E8578F /* MarkdownParser.swift */,
-				67DF00110000000000000001 /* MarkdownStyleCheckerExpressions.swift */,
-				674840F63022E5FD00E8578F /* MarkdownSyntaxHighlighter.swift */,
-				67186AAD3026A8C5000FB06E /* QuilterLibrary.swift */,
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
-		674840F93022E5FD00E8578F /* Theme */ = {
-			isa = PBXGroup;
-			children = (
-				674840F83022E5FD00E8578F /* AppTheme.swift */,
-			);
-			path = Theme;
-			sourceTree = "<group>";
-		};
-		67FF00240000000000000002 /* Nuul */ = {
-			isa = PBXGroup;
-			children = (
-				67FF00230000000000000001 /* NULControls.swift */,
-			);
-			path = Nuul;
-			sourceTree = "<group>";
-		};
-		674841153022E5FD00E8578F /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				674840FB3022E5FD00E8578F /* AppWindowView.swift */,
-				67CC001A000000000000000A /* PrivacyPolicySection.swift */,
-				67CC00180000000000000008 /* PrivacyPolicyView.swift */,
-				67CC001B000000000000000B /* LegalNoticesView.swift */,
-				674840FE3022E5FD00E8578F /* EditorSettingsView.swift */,
-				6748410C3022E5FD00E8578F /* PreviewSettingsView.swift */,
-				67CC00150000000000000005 /* LibrarySettingsView.swift */,
-				67CC001C000000000000000C /* QuilterAboutView.swift */,
-				6748410E3022E5FD00E8578F /* SettingsView.swift */,
-				674840FA3022E5FD00E8578F /* ActiveDocumentTitle.swift */,
-				674841073022E5FD00E8578F /* OpenControl.swift */,
-				673E620330258F7C00FE8503 /* EditorHighlightsMenu.swift */,
-				674840FC3022E5FD00E8578F /* EditorActionsMenu.swift */,
-				674840FD3022E5FD00E8578F /* EditorPaneView.swift */,
-				674840FF3022E5FD00E8578F /* EditorStatusBadge.swift */,
-				674841013022E5FD00E8578F /* EmptyEditorView.swift */,
-				674841023022E5FD00E8578F /* FocusModeExitButton.swift */,
-				674841033022E5FD00E8578F /* MarkdownEditorView.swift */,
-				674841043022E5FD00E8578F /* MarkdownPreviewView.swift */,
-				674841053022E5FD00E8578F /* MarkdownPreviewWebView.swift */,
-				674841063022E5FD00E8578F /* MarkdownTextView.swift */,
-				674841083022E5FD00E8578F /* OpenDocumentRow.swift */,
-				674841093022E5FD00E8578F /* OpenDocumentsList.swift */,
-				6748410A3022E5FD00E8578F /* OutlineRow.swift */,
-				6748410B3022E5FD00E8578F /* OutlineView.swift */,
-				6748410D3022E5FD00E8578F /* RenameDocumentPopover.swift */,
-				6748410F3022E5FD00E8578F /* SidebarEmptyFilesView.swift */,
-				674841103022E5FD00E8578F /* SidebarSectionHeader.swift */,
-				674841113022E5FD00E8578F /* SidebarView.swift */,
-				674841133022E5FD00E8578F /* WindowConfigurationNSView.swift */,
-				674841143022E5FD00E8578F /* WindowConfigurationView.swift */,
-				67186AA930269A45000FB06E /* CheatsheetView.swift */,
-				67AA00140000000000000004 /* CheatsheetEffectView.swift */,
-				67AA00130000000000000003 /* CheatsheetHeader.swift */,
-				67186AAB3026A7F9000FB06E /* TagFilterView.swift */,
-				67AA00150000000000000005 /* TagChip.swift */,
-				67CC00190000000000000009 /* ScrollEdgeTreatment.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -319,6 +76,11 @@
 				000000000000000140000000 /* Resources */,
 			);
 			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				67BCC82C304480E400A74237 /* src */,
+				67BCC85F304480F000A74237 /* data */,
+				67BCC8C63044812F00A74237 /* tests */,
 			);
 			name = Quilter;
 			productName = Quilter;
@@ -351,7 +113,7 @@
 			mainGroup = 000000000000000000000001;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 90;
-			productRefGroup = 000000000000000000000020 /* Products */;
+			productRefGroup = 000000000000000000000001;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -364,13 +126,6 @@
 		000000000000000140000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
-				67AA00060000000000000006 /* Localizable.xcstrings in Resources */,
-				67BB00010000000000000001 /* Fonts in Resources */,
-				67BB00020000000000000002 /* PreviewAssets in Resources */,
-				67CC00010000000000000001 /* Legal in Resources */,
-				67EE00010000000000000001 /* Assets.xcassets in Resources */,
-				67CC00030000000000000003 /* PrivacyInfo.xcprivacy in Resources */,
-				67831A3630227AE0006CE572 /* Quilter.icon in Resources */,
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -379,69 +134,6 @@
 		000000000000000120000000 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
-				67AA00010000000000000001 /* MarkdownDerivedState.swift in Sources */,
-				67AA00020000000000000002 /* CheatsheetEntry.swift in Sources */,
-				67AA00030000000000000003 /* CheatsheetHeader.swift in Sources */,
-				67AA00040000000000000004 /* CheatsheetEffectView.swift in Sources */,
-				67AA00050000000000000005 /* TagChip.swift in Sources */,
-				67CC00020000000000000002 /* LibrarySettingsView.swift in Sources */,
-				67CC00040000000000000004 /* PrivacyPolicyView.swift in Sources */,
-				67CC00050000000000000005 /* ScrollEdgeTreatment.swift in Sources */,
-				67CC00060000000000000006 /* PrivacyPolicySection.swift in Sources */,
-				67CC00070000000000000007 /* LegalNoticesView.swift in Sources */,
-				67CC00080000000000000008 /* QuilterAboutView.swift in Sources */,
-				674841283022E5FD00E8578F /* OpenDocumentsList.swift in Sources */,
-				674841293022E5FD00E8578F /* SidebarSectionHeader.swift in Sources */,
-				6748412A3022E5FD00E8578F /* FocusModeExitButton.swift in Sources */,
-				6748412B3022E5FD00E8578F /* EditorStatusBadge.swift in Sources */,
-				6748412C3022E5FD00E8578F /* OutlineRow.swift in Sources */,
-				6748412D3022E5FD00E8578F /* AppState.swift in Sources */,
-				6748412E3022E5FD00E8578F /* MarkdownTextView.swift in Sources */,
-				6748412F3022E5FD00E8578F /* SettingsView.swift in Sources */,
-				674841303022E5FD00E8578F /* MarkdownPreviewView.swift in Sources */,
-				674841313022E5FD00E8578F /* EditorStatusMetric.swift in Sources */,
-				674841323022E5FD00E8578F /* OpenDocumentRow.swift in Sources */,
-				674841333022E5FD00E8578F /* EmptyEditorView.swift in Sources */,
-				674841343022E5FD00E8578F /* MarkdownPreviewWebView.swift in Sources */,
-				674841353022E5FD00E8578F /* QuilterApplicationDelegate.swift in Sources */,
-				674841363022E5FD00E8578F /* OpenControl.swift in Sources */,
-				674841373022E5FD00E8578F /* EditorPaneView.swift in Sources */,
-				674841383022E5FD00E8578F /* AppWindowView.swift in Sources */,
-				673E620430258F7C00FE8503 /* EditorHighlightsMenu.swift in Sources */,
-				674841393022E5FD00E8578F /* BundledFontRegistrar.swift in Sources */,
-				6748413A3022E5FD00E8578F /* DocumentItem.swift in Sources */,
-				6748413B3022E5FD00E8578F /* AppPreferences.swift in Sources */,
-				67DF00010000000000000001 /* MarkdownStyleCheckerExpressions.swift in Sources */,
-				6748413C3022E5FD00E8578F /* MarkdownSyntaxHighlighter.swift in Sources */,
-				6748413D3022E5FD00E8578F /* HeadingItem.swift in Sources */,
-				6748413E3022E5FD00E8578F /* RenameDocumentPopover.swift in Sources */,
-				6748413F3022E5FD00E8578F /* WindowConfigurationView.swift in Sources */,
-				674841403022E5FD00E8578F /* QuilterApp.swift in Sources */,
-				674841413022E5FD00E8578F /* OutlineView.swift in Sources */,
-				674841423022E5FD00E8578F /* SidebarEmptyFilesView.swift in Sources */,
-				674841433022E5FD00E8578F /* EditorFontType.swift in Sources */,
-				674841443022E5FD00E8578F /* MarkdownHTMLRenderer.swift in Sources */,
-				674841453022E5FD00E8578F /* AppTheme.swift in Sources */,
-				674841463022E5FD00E8578F /* PreviewFontType.swift in Sources */,
-				67FF00220000000000000001 /* NULControls.swift in Sources */,
-				674841483022E5FD00E8578F /* MarkdownParser.swift in Sources */,
-				6748414A3022E5FD00E8578F /* QuilterCommands.swift in Sources */,
-				67EC68413025021C005A70C4 /* EditorLayout.swift in Sources */,
-				67DD00010000000000000001 /* ToolbarVisibilityMode.swift in Sources */,
-				67DE00010000000000000001 /* MarkdownHighlightColor.swift in Sources */,
-				6748414B3022E5FD00E8578F /* PreviewSettingsView.swift in Sources */,
-				6748414C3022E5FD00E8578F /* EditorSettingsView.swift in Sources */,
-				67186AAA30269A45000FB06E /* CheatsheetView.swift in Sources */,
-				6748414D3022E5FD00E8578F /* MarkdownEditorView.swift in Sources */,
-				6748414E3022E5FD00E8578F /* EditorActionsMenu.swift in Sources */,
-				6748414F3022E5FD00E8578F /* WindowConfigurationNSView.swift in Sources */,
-				67186AAC3026A7F9000FB06E /* TagFilterView.swift in Sources */,
-				674841503022E5FD00E8578F /* SidebarView.swift in Sources */,
-				674841513022E5FD00E8578F /* AppError.swift in Sources */,
-				674841523022E5FD00E8578F /* EditorScrollTarget.swift in Sources */,
-				67186AAE3026A8C5000FB06E /* QuilterLibrary.swift in Sources */,
-				674841533022E5FD00E8578F /* FocusScope.swift in Sources */,
-				674841543022E5FD00E8578F /* ActiveDocumentTitle.swift in Sources */,
 			);
 		};
 /* End PBXSourcesBuildPhase section */
@@ -578,7 +270,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Quilter;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Quilter.entitlements;
+				CODE_SIGN_ENTITLEMENTS = data/Quilter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXLP3297S8;
@@ -597,7 +289,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Quilter-Info.plist";
+				INFOPLIST_FILE = "data/Quilter-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Quilter;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
@@ -623,7 +315,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = Quilter;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_ENTITLEMENTS = Quilter.entitlements;
+				CODE_SIGN_ENTITLEMENTS = data/Quilter.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = GXLP3297S8;
@@ -642,7 +334,7 @@
 				ENABLE_RESOURCE_ACCESS_USB = NO;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Quilter-Info.plist";
+				INFOPLIST_FILE = "data/Quilter-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = Quilter;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";

@@ -8,11 +8,6 @@ struct OutlineView: View {
         VStack(alignment: .leading, spacing: 0) {
             SidebarSectionHeader(title: "Outline")
 
-            Rectangle()
-                .fill(AppTheme.sidebarDivider(for: colorScheme))
-                .frame(height: 1)
-                .padding(.bottom, AppTheme.gridUnit * 3)
-
             if let document, !document.headings.isEmpty {
                 LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(document.headings) { heading in
@@ -26,6 +21,7 @@ struct OutlineView: View {
                     .font(AppTheme.body)
                     .foregroundStyle(.secondary)
                     .padding(.vertical, AppTheme.gridUnit)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
         }
     }

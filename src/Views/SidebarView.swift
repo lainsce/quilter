@@ -70,27 +70,4 @@ struct SidebarView: View {
     }
 }
 
-private struct SidebarHashtagListView: View {
-    @Bindable var appState: AppState
-    @Environment(\.colorScheme) private var colorScheme
 
-    var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            SidebarSectionHeader(title: "Hashtags")
-
-            Rectangle()
-                .fill(AppTheme.sidebarDivider(for: colorScheme))
-                .frame(height: 1)
-                .padding(.bottom, AppTheme.gridUnit * 3)
-
-            if appState.allTags.isEmpty {
-                Text("No hashtags")
-                    .font(AppTheme.body)
-                    .foregroundStyle(.secondary)
-                    .padding(.vertical, AppTheme.gridUnit * 2)
-            } else {
-                TagFilterView(appState: appState)
-            }
-        }
-    }
-}
