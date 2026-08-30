@@ -1,56 +1,9 @@
-# ![icon](data/images/icon.png) Quilter
+# Quilter
 
-## Focus on your writing
+Quilter is a native macOS Markdown editor built with SwiftUI and AppKit. It supports multiple open documents, a live heading outline, native text editing, saving, recent files, drag and drop, and window/sidebar restoration.
 
-<a href='https://flathub.org/apps/details/io.github.lainsce.Quilter'><img width='240' alt='Download on Flathub' src='https://flathub.org/assets/badges/flathub-badge-en.png'/></a>
+## Run
 
-[![Please do not theme this app](https://stopthemingmy.app/badge.svg)](https://stopthemingmy.app)
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
+Open `Quilter.xcodeproj` in Xcode, select the `Quilter` scheme, and run it on My Mac.
 
-![Screenshot](data/images/shot.png)
-
-## License
-
-Fonts under the `/data/font` directory are under [License: SIL OFL 1.1](http://scripts.sil.org/OFL), also copied there in full.
-
-## Donations
-
-Would you like to support the development of this app to new heights? Then:
-
-[Be my backer on Patreon](https://www.patreon.com/lainsce)
-
-## Dependencies
-
-Please make sure you have these dependencies first before building.
-
-```bash
-valac
-gtk4
-gtksourceview-5
-webkitgtk6.0
-libmarkdown2
-libgtkspell3
-libhelium-1
-meson
-```
-
-## Building
-
-Simply clone this repo, then:
-
-```bash
-meson build --prefix=/usr && cd build
-sudo ninja install
-```
-
-## Arch Linux
-
-Arch Linux users can find Quilter under the name [quilter-git](https://aur.archlinux.org/packages/quilter-git/) in the **AUR**:
-
-`$ <aur_helper> -S quilter-git`
-
-## Fedora
-
-Fedora users can find Quilter under the name [quilter](https://src.fedoraproject.org/rpms/quilter) in official repository:
-
-`$ sudo dnf install quilter`
+The project currently targets macOS 27.

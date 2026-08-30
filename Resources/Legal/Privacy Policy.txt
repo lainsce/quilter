@@ -1,0 +1,21 @@
+Quilter Privacy Policy
+
+Last updated: August 9, 2026
+
+Quilter is a local Markdown editor. It does not collect, transmit, sell, or
+share personal information, document contents, usage analytics, advertising
+identifiers, or diagnostics.
+
+Documents and editor preferences are stored on this Mac. When you choose a
+document or Library folder, macOS grants Quilter access to that location and
+Quilter remembers the permission with a security-scoped bookmark. Quilter does
+not upload the selected files. Recent documents and editor preferences are
+stored locally using macOS preferences.
+
+The preview runs from resources bundled with Quilter. When you activate a web
+link in a document, Quilter hands that link to your default browser; the
+browser's own privacy practices then apply.
+
+Quilter does not use tracking, advertising, accounts, or third-party analytics.
+For privacy questions, contact the developer through the support address
+published with the app's App Store listing.
