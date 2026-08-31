@@ -75,5 +75,6 @@ struct EditorHighlightsMenu: View {
         .opacity(chromeState.isVisible ? 1 : 0)
         .fixedSize()
         .onHover { isControlHovered = $0 }
+        .nulWindowActivityAppearance()
     }
 }

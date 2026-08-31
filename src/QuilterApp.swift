@@ -24,6 +24,7 @@ struct QuilterApp: App {
         WindowGroup {
             AppWindowView(appState: appState, preferences: preferences)
                 .font(AppTheme.body)
+                .nulWindowActivityAppearance()
                 .frame(minWidth: 900, minHeight: 600)
                 .background(
                     WindowConfigurationView(
@@ -52,6 +53,7 @@ struct QuilterApp: App {
         Window("About Quilter", id: QuilterWindowID.about) {
             QuilterAboutView()
                 .font(AppTheme.body)
+                .nulWindowActivityAppearance()
                 .tint(AppTheme.accentColor)
                 .environment(\.appAccentColor, AppTheme.accentColor)
         }
@@ -63,6 +65,7 @@ struct QuilterApp: App {
         Window("Privacy Policy", id: QuilterWindowID.privacyPolicy) {
             PrivacyPolicyView()
                 .font(AppTheme.body)
+                .nulWindowActivityAppearance()
                 .tint(AppTheme.accentColor)
                 .environment(\.appAccentColor, AppTheme.accentColor)
         }
@@ -73,6 +76,7 @@ struct QuilterApp: App {
         Settings {
             SettingsView(appState: appState, preferences: preferences)
                 .font(AppTheme.body)
+                .nulWindowActivityAppearance()
                 .tint(AppTheme.accentColor)
                 .environment(\.appAccentColor, AppTheme.accentColor)
         }

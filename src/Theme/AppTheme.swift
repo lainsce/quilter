@@ -4,7 +4,7 @@ import SwiftUI
 enum AppTheme {
     static let accentColor = Color(nsColor: NSColor(name: nil) { appearance in
         appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
-            ? NSColor(srgbRed: 210 / 255, green: 233 / 255, blue: 255 / 255, alpha: 1)
+            ? NSColor(srgbRed: 78 / 255, green: 165 / 255, blue: 241 / 255, alpha: 1)
             : NSColor(srgbRed: 91 / 255, green: 177 / 255, blue: 254 / 255, alpha: 1)
     })
 
@@ -267,7 +267,9 @@ enum AppTheme {
     static let industrialSmallCornerRadius: CGFloat = gridUnit
     static let industrialLargeCornerRadius: CGFloat = gridUnit * 3
     static let delimiterThickness: CGFloat = 1
-    static let sidebarHorizontalPadding: CGFloat = gridGutter
+    // Sidebar content sits eight points from the pane edges. Keep this
+    // separate from the larger layout gutter used by document content.
+    static let sidebarHorizontalPadding: CGFloat = gridUnit * 2
     static let sidebarSectionSpacing: CGFloat = gridSectionGap
 
     static let documentListCornerRadius: CGFloat = industrialCornerRadius

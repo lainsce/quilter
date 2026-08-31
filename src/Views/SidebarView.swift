@@ -61,7 +61,7 @@ struct SidebarView: View {
     private var sidebarToolbarControls: some View {
         HStack(spacing: AppTheme.gridSmallGap) {
             Button("New Document", systemImage: "plus", action: appState.newDocument)
-                .buttonStyle(NULToolbarButtonStyle())
+                .buttonStyle(NULToolbarButtonStyle(accented: true))
                 .labelStyle(.iconOnly)
                 .help("New Document")
 

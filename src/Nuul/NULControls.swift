@@ -152,6 +152,7 @@ struct NULButtonStyle: ButtonStyle {
             .opacity(isEnabled ? (configuration.isPressed ? 0.84 : 1) : 0.42)
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
             .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: configuration.isPressed)
+            .nulWindowActivityAppearance()
     }
 
     private var backgroundColor: Color {
@@ -318,19 +319,33 @@ struct NULIcon: View {
             .foregroundStyle(.primary)
             .frame(width: AppTheme.toolbarIconSize, height: AppTheme.toolbarIconSize)
             .accessibilityHidden(true)
+            .nulWindowActivityAppearance()
     }
 }
 
 /// Nuul toolbar button with a 38-point hit area.
 struct NULToolbarButtonStyle: ButtonStyle {
     let showsSurface: Bool
+    let accented: Bool
+    let accentColor: Color
 
-    init(showsSurface: Bool = true) {
+    init(
+        showsSurface: Bool = true,
+        accented: Bool = false,
+        accentColor: Color = AppTheme.accentColor
+    ) {
         self.showsSurface = showsSurface
+        self.accented = accented
+        self.accentColor = accentColor
     }
 
     func makeBody(configuration: Configuration) -> some View {
-        NULButtonBody(configuration: configuration, showsSurface: showsSurface)
+        NULButtonBody(
+            configuration: configuration,
+            showsSurface: showsSurface,
+            accented: accented,
+            accentColor: accentColor
+        )
     }
 }
 
@@ -347,6 +362,8 @@ struct QuilterSidebarRowButtonStyle: ButtonStyle {
 private struct NULButtonBody: View {
     let configuration: ButtonStyleConfiguration
     let showsSurface: Bool
+    let accented: Bool
+    let accentColor: Color
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.isEnabled) private var isEnabled
 
@@ -354,19 +371,20 @@ private struct NULButtonBody: View {
         configuration.label
             .font(.system(size: 16, weight: .regular))
             .symbolRenderingMode(.monochrome)
-            .foregroundStyle(.primary)
+            .foregroundStyle(accented ? .black : .primary)
             .frame(width: AppTheme.toolbarIconSize, height: AppTheme.toolbarIconSize)
             .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
             .contentShape(Rectangle())
             .background {
                 if showsSurface {
                     RoundedRectangle(cornerRadius: AppTheme.industrialCornerRadius)
-                        .fill(AppTheme.industrialPanel)
+                        .fill(accented ? accentColor : AppTheme.industrialPanel)
                 }
             }
             .opacity(isEnabled ? (configuration.isPressed ? 0.82 : 1) : 0.42)
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.97 : 1)
             .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: configuration.isPressed)
+            .nulWindowActivityAppearance()
     }
 }
 
@@ -388,5 +406,26 @@ struct NULToolbarSurface: ViewModifier {
 extension View {
     func nulToolbarControlSurface(isVisible: Bool) -> some View {
         modifier(NULToolbarSurface(isVisible: isVisible))
+    }
+}
+
+/// Removes chroma from a window while it is inactive, preserving its layout and controls.
+struct NULWindowActivityAppearance: ViewModifier {
+    @Environment(\.appearsActive) private var appearsActive
+    @Environment(\.accessibilityReduceMotion) private var reduceMotion
+
+    func body(content: Content) -> some View {
+        content
+            .saturation(appearsActive ? 1 : 0)
+            .animation(
+                reduceMotion ? nil : .easeInOut(duration: 0.18),
+                value: appearsActive
+            )
+    }
+}
+
+extension View {
+    func nulWindowActivityAppearance() -> some View {
+        modifier(NULWindowActivityAppearance())
     }
 }
