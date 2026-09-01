@@ -2,7 +2,6 @@ import SwiftUI
 
 struct OutlineView: View {
     var document: DocumentItem?
-    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

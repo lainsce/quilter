@@ -7,7 +7,7 @@ final class WindowConfigurationNSView: NSView {
     private var isToolbarPopoverPresented = false
     private var isWindowChromeVisible = true
     private var hasAppliedChromeState = false
-    private var mouseMonitor: Any?
+    private var mouseMonitor: NSObjectProtocol?
     private var accessibilityOptionsObserver: NSObjectProtocol?
     private weak var chromeState: WindowChromeState?
     private weak var configuredWindow: NSWindow?
@@ -111,18 +111,7 @@ final class WindowConfigurationNSView: NSView {
             return
         }
 
-        let overlay: SidebarBoundaryOverlayView
-        if let existingOverlay = sidebarBoundaryOverlay {
-            overlay = existingOverlay
-            if overlay.superview !== hostView {
-                overlay.removeFromSuperview()
-                hostView.addSubview(overlay, positioned: .above, relativeTo: nil)
-            }
-        } else {
-            overlay = SidebarBoundaryOverlayView()
-            sidebarBoundaryOverlay = overlay
-            hostView.addSubview(overlay, positioned: .above, relativeTo: nil)
-        }
+        let overlay = sidebarOverlay(in: hostView)
 
         overlay.isHidden = false
         overlay.autoresizingMask = [.height]
@@ -136,6 +125,20 @@ final class WindowConfigurationNSView: NSView {
         overlay.needsDisplay = true
     }
 
+    private func sidebarOverlay(in hostView: NSView) -> SidebarBoundaryOverlayView {
+        if let existingOverlay = sidebarBoundaryOverlay {
+            if existingOverlay.superview !== hostView {
+                existingOverlay.removeFromSuperview()
+                hostView.addSubview(existingOverlay, positioned: .above, relativeTo: nil)
+            }
+            return existingOverlay
+        }
+        let overlay = SidebarBoundaryOverlayView()
+        sidebarBoundaryOverlay = overlay
+        hostView.addSubview(overlay, positioned: .above, relativeTo: nil)
+        return overlay
+    }
+
     private func applyToolbarVisibility(to window: NSWindow) {
         if isToolbarPopoverPresented {
             stopFocusTracking()
@@ -144,7 +147,10 @@ final class WindowConfigurationNSView: NSView {
         }
 
         let mode = isFocusMode ? ToolbarVisibilityMode.hover : toolbarVisibility
+        applyToolbarMode(mode, to: window)
+    }
 
+    private func applyToolbarMode(_ mode: ToolbarVisibilityMode, to window: NSWindow) {
         switch mode {
         case .alwaysHidden:
             stopFocusTracking()
@@ -154,14 +160,15 @@ final class WindowConfigurationNSView: NSView {
             // enabled so switching that setting back off takes effect on the
             // next native mouse or keyboard event without requiring a relaunch.
             startFocusTracking(on: window)
-            setWindowChromeVisible(
-                accessibilityNavigationIsEnabled || pointerIsInHoverRegion(for: window),
-                in: window
-            )
+            setWindowChromeVisible(hoverChromeVisible(in: window), in: window)
         case .alwaysShown:
             stopFocusTracking()
             setWindowChromeVisible(true, in: window)
         }
+    }
+
+    private func hoverChromeVisible(in window: NSWindow) -> Bool {
+        accessibilityNavigationIsEnabled || pointerIsInHoverRegion(for: window)
     }
 
     private func startAccessibilityOptionsTracking() {
@@ -201,21 +208,21 @@ final class WindowConfigurationNSView: NSView {
             ]
         ) { [weak self, weak window] event in
             guard let self, let window else { return event }
-
-            if self.accessibilityNavigationIsEnabled {
-                self.setWindowChromeVisible(true, in: window)
-            } else if event.type == .keyDown && self.isKeyboardNavigationKey(event) {
-                // Keyboard navigation must have a visible destination even
-                // when the pointer is outside the hover zone. Returning the
-                // event unchanged keeps the native key loop intact.
-                self.setWindowChromeVisible(true, in: window)
-            } else {
-                self.setWindowChromeVisible(
-                    self.pointerIsInHoverRegion(for: window),
-                    in: window
-                )
-            }
+            self.handleFocusEvent(event, in: window)
             return event
+        } as? NSObjectProtocol
+    }
+
+    private func handleFocusEvent(_ event: NSEvent, in window: NSWindow) {
+        if accessibilityNavigationIsEnabled {
+            setWindowChromeVisible(true, in: window)
+        } else if event.type == .keyDown && isKeyboardNavigationKey(event) {
+            // Keyboard navigation must have a visible destination even
+            // when the pointer is outside the hover zone. Returning the
+            // event unchanged keeps the native key loop intact.
+            setWindowChromeVisible(true, in: window)
+        } else {
+            setWindowChromeVisible(pointerIsInHoverRegion(for: window), in: window)
         }
     }
 
@@ -258,37 +265,75 @@ final class WindowConfigurationNSView: NSView {
         // reveal zone; fading its controls keeps the document geometry stable.
         window.toolbar?.isVisible = true
 
+        let components = chromeComponents(for: window)
+        let toolbarItems = components.toolbarItems
+        let trafficLightButtons = components.trafficLightButtons
+        let chromeViews = components.chromeViews
+        let alpha = chromeAlpha(for: visible)
+
+        updateChromeItems(
+            toolbarItems: toolbarItems,
+            trafficLightButtons: trafficLightButtons,
+            chromeViews: chromeViews,
+            visible: visible
+        )
+
+        let shouldAnimate = shouldAnimateChrome(stateChanged: stateChanged)
+        hasAppliedChromeState = true
+
+        if shouldAnimate {
+            animateChrome(chromeViews, alpha: alpha, visible: visible)
+        } else {
+            chromeViews.forEach { $0.alphaValue = alpha }
+        }
+    }
+
+    private struct ChromeComponents {
+        let toolbarItems: [NSToolbarItem]
+        let trafficLightButtons: [NSButton]
+        let chromeViews: [NSView]
+    }
+
+    private func chromeComponents(for window: NSWindow) -> ChromeComponents {
         let toolbarItems = window.toolbar?.items ?? []
         let toolbarViews = toolbarItems.compactMap(\.view)
         let trafficLightButtons = [
             NSWindow.ButtonType.closeButton,
             .miniaturizeButton,
             .zoomButton
-        ]
-        .compactMap { window.standardWindowButton($0) }
-        let chromeViews: [NSView] = toolbarViews + trafficLightButtons.map { $0 as NSView }
-        let alpha: CGFloat = visible ? 1 : 0
+        ].compactMap { window.standardWindowButton($0) }
+        return ChromeComponents(
+            toolbarItems: toolbarItems,
+            trafficLightButtons: trafficLightButtons,
+            chromeViews: toolbarViews + trafficLightButtons.map { $0 as NSView }
+        )
+    }
 
+    private func chromeAlpha(for visible: Bool) -> CGFloat {
+        visible ? 1 : 0
+    }
+
+    private func updateChromeItems(
+        toolbarItems: [NSToolbarItem],
+        trafficLightButtons: [NSButton],
+        chromeViews: [NSView],
+        visible: Bool
+    ) {
         toolbarItems.forEach {
             $0.isEnabled = visible
             $0.isHidden = !visible
         }
         trafficLightButtons.forEach { $0.isEnabled = visible }
+        if visible { chromeViews.forEach { $0.isHidden = false } }
+    }
 
-        if visible {
-            chromeViews.forEach { $0.isHidden = false }
-        }
-
-        let shouldAnimate = stateChanged
+    private func shouldAnimateChrome(stateChanged: Bool) -> Bool {
+        stateChanged
             && hasAppliedChromeState
             && !NSWorkspace.shared.accessibilityDisplayShouldReduceMotion
-        hasAppliedChromeState = true
+    }
 
-        guard shouldAnimate else {
-            chromeViews.forEach { $0.alphaValue = alpha }
-            return
-        }
-
+    private func animateChrome(_ chromeViews: [NSView], alpha: CGFloat, visible: Bool) {
         NSAnimationContext.runAnimationGroup { context in
             context.duration = visible
                 ? AppTheme.toolbarRevealDuration

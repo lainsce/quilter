@@ -1,7 +1,6 @@
 import SwiftUI
 
 struct RenameDocumentPopover: View {
-    let currentFilename: String
     let renameAction: (String) -> Bool
     let cancelAction: () -> Void
 
@@ -14,7 +13,6 @@ struct RenameDocumentPopover: View {
         renameAction: @escaping (String) -> Bool,
         cancelAction: @escaping () -> Void
     ) {
-        self.currentFilename = currentFilename
         self.renameAction = renameAction
         self.cancelAction = cancelAction
         _filename = State(initialValue: currentFilename)

@@ -33,7 +33,7 @@ struct EditorStatusBadge: View {
         .buttonStyle(.borderless)
         .menuIndicator(.hidden)
         .fixedSize()
-        .font(AppTheme.caption)
+        .font(AppTheme.technicalFont(role: .caption))
         .padding(.horizontal, AppTheme.gridUnit * 3)
         .frame(minHeight: AppTheme.gridUnit * 8)
         .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))

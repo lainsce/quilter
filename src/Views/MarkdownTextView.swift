@@ -215,27 +215,28 @@ struct MarkdownTextView: NSViewRepresentable {
 
         scrollView.contentView.postsBoundsChangedNotifications = true
 
-        let coordinator = context.coordinator
-        let observer = NotificationCenter.default.addObserver(
+        context.coordinator.scrollObserver = installScrollObserver(
+            on: scrollView,
+            coordinator: context.coordinator
+        )
+
+        return scrollView
+    }
+
+    private func installScrollObserver(
+        on scrollView: NSScrollView,
+        coordinator: Coordinator
+    ) -> NSObjectProtocol {
+        NotificationCenter.default.addObserver(
             forName: NSView.boundsDidChangeNotification,
             object: scrollView.contentView,
             queue: .main
         ) { [weak coordinator] _ in
             MainActor.assumeIsolated {
                 guard let coordinator else { return }
-                let clipView = scrollView.contentView
-                guard let documentView = scrollView.documentView else { return }
-                let scrollableH = documentView.frame.height - clipView.bounds.height
-                guard scrollableH > 1 else { return }
-                let ratio = max(0, min(1, clipView.bounds.origin.y / scrollableH))
-                guard abs(ratio - coordinator.ownedScrollRatio) > 0.005 else { return }
-                coordinator.ownedScrollRatio = ratio
-                coordinator.syncScrollRatio?.wrappedValue = ratio
+                coordinator.syncScrollRatioIfNeeded(on: scrollView)
             }
         }
-        context.coordinator.scrollObserver = observer
-
-        return scrollView
     }
 
     func updateNSView(
@@ -248,24 +249,7 @@ struct MarkdownTextView: NSViewRepresentable {
 
         let font = preferences.editorFont.font(ofSize: AppTheme.editorFontPointSize)
         let bg = Self.editorBackground()
-
-        // Keep the view's font in sync with the preference, not just newly typed
-        // glyphs. Guarded so it doesn't re-apply to the whole storage on
-        // unrelated updates. AppKit remains responsible for caret geometry.
-        if textView.font != font {
-            textView.font = font
-        }
-        textView.backgroundColor = bg
-        textView.insertionPointColor = Self.editorAccentColor()
-        textView.selectedTextAttributes = [
-            .backgroundColor: Self.editorSelectionColor()
-        ]
-        scrollView.backgroundColor = bg
-
-        textView.configureColumn(
-            font: font,
-            characterCount: preferences.columnCharacterCount
-        )
+        updateEditorAppearance(textView, scrollView: scrollView, font: font, background: bg)
 
         let didChangeSyntaxConfiguration = context.coordinator.configure(
             editorFont: preferences.editorFont,
@@ -283,48 +267,68 @@ struct MarkdownTextView: NSViewRepresentable {
             usesTypewriterScrolling: preferences.typewriterScrolling
         )
 
-        var didReplaceText = false
-        if textView.string != text {
-            let selectedRanges = textView.selectedRanges
-
-            context.coordinator.isApplyingExternalChange = true
-            textView.string = text
-
-            textView.selectedRanges = selectedRanges.filter { value in
-                NSMaxRange(value.rangeValue) <= (text as NSString).length
-            }
-
-            context.coordinator.isApplyingExternalChange = false
-            didReplaceText = true
-        }
-
-        if didChangeSyntaxConfiguration || didReplaceText {
-            context.coordinator.applySyntaxHighlighting(to: textView)
-        } else {
-            context.coordinator.updateFocusHighlighting(in: textView)
-        }
-
+        let didReplaceText = replaceTextIfNeeded(textView, text: text, coordinator: context.coordinator)
+        updateHighlighting(
+            didChangeSyntaxConfiguration || didReplaceText,
+            textView: textView,
+            coordinator: context.coordinator
+        )
         context.coordinator.syncScrollRatio = syncScrollRatio
-        if let ratio = syncScrollRatio?.wrappedValue,
-           abs(ratio - context.coordinator.ownedScrollRatio) > 0.005 {
-            context.coordinator.ownedScrollRatio = ratio
-            let clipView = scrollView.contentView
-            if let documentView = scrollView.documentView {
-                let scrollableH = documentView.frame.height - clipView.bounds.height
-                if scrollableH > 1 {
-                    let targetY = max(0, min(scrollableH, ratio * scrollableH))
-                    clipView.scroll(to: NSPoint(x: clipView.bounds.minX, y: targetY))
-                    scrollView.reflectScrolledClipView(clipView)
-                }
-            }
-        }
+        context.coordinator.syncScrollPositionIfNeeded(on: scrollView)
+        scrollToTargetIfNeeded(scrollTarget, textView: textView, coordinator: context.coordinator)
+    }
 
-        if let scrollTarget,
-           context.coordinator.lastScrollTargetID != scrollTarget.id {
-            context.coordinator.lastScrollTargetID = scrollTarget.id
-            textView.scrollRangeToVisible(scrollTarget.range)
-            textView.showFindIndicator(for: scrollTarget.range)
+    private func updateEditorAppearance(
+        _ textView: ColumnTextView,
+        scrollView: NSScrollView,
+        font: NSFont,
+        background: NSColor
+    ) {
+        if textView.font != font { textView.font = font }
+        textView.backgroundColor = background
+        textView.insertionPointColor = Self.editorAccentColor()
+        textView.selectedTextAttributes = [.backgroundColor: Self.editorSelectionColor()]
+        scrollView.backgroundColor = background
+        textView.configureColumn(font: font, characterCount: preferences.columnCharacterCount)
+    }
+
+    private func replaceTextIfNeeded(
+        _ textView: ColumnTextView,
+        text: String,
+        coordinator: Coordinator
+    ) -> Bool {
+        guard textView.string != text else { return false }
+        let selectedRanges = textView.selectedRanges
+        coordinator.isApplyingExternalChange = true
+        textView.string = text
+        textView.selectedRanges = selectedRanges.filter {
+            NSMaxRange($0.rangeValue) <= (text as NSString).length
         }
+        coordinator.isApplyingExternalChange = false
+        return true
+    }
+
+    private func updateHighlighting(
+        _ shouldApply: Bool,
+        textView: ColumnTextView,
+        coordinator: Coordinator
+    ) {
+        if shouldApply {
+            coordinator.applySyntaxHighlighting(to: textView)
+        } else {
+            coordinator.updateFocusHighlighting(in: textView)
+        }
+    }
+
+    private func scrollToTargetIfNeeded(
+        _ target: EditorScrollTarget?,
+        textView: ColumnTextView,
+        coordinator: Coordinator
+    ) {
+        guard let target, coordinator.lastScrollTargetID != target.id else { return }
+        coordinator.lastScrollTargetID = target.id
+        textView.scrollRangeToVisible(target.range)
+        textView.showFindIndicator(for: target.range)
     }
 
     @MainActor
@@ -336,7 +340,7 @@ struct MarkdownTextView: NSViewRepresentable {
         var lastScrollTargetID: UUID?
         var syncScrollRatio: Binding<CGFloat>?
         var ownedScrollRatio: CGFloat = -1
-        var scrollObserver: Any?
+        var scrollObserver: NSObjectProtocol?
 
         isolated deinit {
             syntaxHighlightTask?.cancel()
@@ -379,16 +383,18 @@ struct MarkdownTextView: NSViewRepresentable {
             isFocusMode: Bool,
             usesTypewriterScrolling: Bool
         ) -> Bool {
-            let didChangeSyntaxConfiguration = self.editorFont != editorFont
-                || self.highlightColor != highlightColor
-                || self.highlightsNouns != highlightsNouns
-                || self.highlightsVerbs != highlightsVerbs
-                || self.highlightsAdjectives != highlightsAdjectives
-                || self.highlightsAdverbs != highlightsAdverbs
-                || self.highlightsConjunctions != highlightsConjunctions
-                || self.checksCliches != checksCliches
-                || self.checksRedundancies != checksRedundancies
-                || self.checksFillers != checksFillers
+            let didChangeSyntaxConfiguration = [
+                self.editorFont != editorFont,
+                self.highlightColor != highlightColor,
+                self.highlightsNouns != highlightsNouns,
+                self.highlightsVerbs != highlightsVerbs,
+                self.highlightsAdjectives != highlightsAdjectives,
+                self.highlightsAdverbs != highlightsAdverbs,
+                self.highlightsConjunctions != highlightsConjunctions,
+                self.checksCliches != checksCliches,
+                self.checksRedundancies != checksRedundancies,
+                self.checksFillers != checksFillers,
+            ].contains(true)
 
             self.editorFont = editorFont
             self.highlightColor = highlightColor
@@ -404,6 +410,40 @@ struct MarkdownTextView: NSViewRepresentable {
             self.isFocusMode = isFocusMode
             self.usesTypewriterScrolling = usesTypewriterScrolling
             return didChangeSyntaxConfiguration
+        }
+
+        fileprivate func syncScrollRatioIfNeeded(on scrollView: NSScrollView) {
+            guard let ratio = scrollRatio(in: scrollView) else { return }
+            guard abs(ratio - ownedScrollRatio) > 0.005 else { return }
+            ownedScrollRatio = ratio
+            syncScrollRatio?.wrappedValue = ratio
+        }
+
+        fileprivate func syncScrollPositionIfNeeded(on scrollView: NSScrollView) {
+            guard let ratio = syncScrollRatio?.wrappedValue else { return }
+            guard abs(ratio - ownedScrollRatio) > 0.005 else { return }
+            guard let position = scrollPosition(for: ratio, in: scrollView) else { return }
+            ownedScrollRatio = ratio
+            let clipView = scrollView.contentView
+            clipView.scroll(to: position)
+            scrollView.reflectScrolledClipView(clipView)
+        }
+
+        private func scrollPosition(for ratio: CGFloat, in scrollView: NSScrollView) -> NSPoint? {
+            let clipView = scrollView.contentView
+            guard let documentView = scrollView.documentView else { return nil }
+            let scrollableH = documentView.frame.height - clipView.bounds.height
+            guard scrollableH > 1 else { return nil }
+            let targetY = max(0, min(scrollableH, ratio * scrollableH))
+            return NSPoint(x: clipView.bounds.minX, y: targetY)
+        }
+
+        private func scrollRatio(in scrollView: NSScrollView) -> CGFloat? {
+            let clipView = scrollView.contentView
+            guard let documentView = scrollView.documentView else { return nil }
+            let scrollableH = documentView.frame.height - clipView.bounds.height
+            guard scrollableH > 1 else { return nil }
+            return max(0, min(1, clipView.bounds.origin.y / scrollableH))
         }
 
         func textDidChange(_ notification: Notification) {

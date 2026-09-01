@@ -36,12 +36,12 @@ enum EditorFontType: String, CaseIterable, Identifiable {
     /// conversion can legitimately return the unchanged font. A small negative
     /// stroke preserves the selected typeface while providing the synthetic
     /// weight that GTK/Pango applies when no bold face is installed.
-    func boldTextAttributes(ofSize size: CGFloat) -> [NSAttributedString.Key: Any] {
+    func boldTextAttributes(ofSize size: CGFloat) -> [NSAttributedString.Key: NSObject] {
         let boldFont = font(ofSize: size, traits: .boldFontMask)
-        var attributes: [NSAttributedString.Key: Any] = [.font: boldFont]
+        var attributes: [NSAttributedString.Key: NSObject] = [.font: boldFont]
 
         if !boldFont.fontDescriptor.symbolicTraits.contains(.bold) {
-            attributes[.strokeWidth] = -7
+            attributes[.strokeWidth] = NSNumber(value: -7)
         }
 
         return attributes

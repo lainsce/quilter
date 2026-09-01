@@ -92,7 +92,7 @@ struct PrivacyPolicyView: View {
                 }
 
                 Text("Last updated: August 9, 2026")
-                    .font(AppTheme.caption)
+                    .font(AppTheme.technicalFont(role: .caption))
                     .foregroundStyle(.secondary)
             }
             .padding(AppTheme.gridContentInset)

@@ -13,7 +13,7 @@ struct ActiveDocumentTitle: View {
 
                 if let document = appState.selectedDocument {
                     Text(document.directoryDisplayName)
-                        .font(AppTheme.micro)
+                        .font(AppTheme.technicalFont(role: .micro))
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                         .truncationMode(.middle)

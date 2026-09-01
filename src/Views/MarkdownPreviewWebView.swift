@@ -11,29 +11,17 @@ private final class PreviewURLSchemeHandler: NSObject, WKURLSchemeHandler {
         self.previewAssetsURL = previewAssetsURL
     }
 
-    func webView(_ webView: WKWebView, start urlSchemeTask: any WKURLSchemeTask) {
+    func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
         guard let url = urlSchemeTask.request.url, let previewAssetsURL else {
             urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
             return
         }
-
-        var relativePath = url.path
-        if relativePath.hasPrefix("/") {
-            relativePath = String(relativePath.dropFirst())
-        }
-        guard !relativePath.isEmpty else {
+        guard let asset = assetData(for: url, in: previewAssetsURL) else {
             urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
             return
         }
-
-        let fileURL = previewAssetsURL.appendingPathComponent(relativePath)
-        let rootPath = previewAssetsURL.standardizedFileURL.path
-        let candidatePath = fileURL.standardizedFileURL.path
-        guard candidatePath == rootPath || candidatePath.hasPrefix(rootPath + "/"),
-              let data = try? Data(contentsOf: fileURL) else {
-            urlSchemeTask.didFailWithError(URLError(.fileDoesNotExist))
-            return
-        }
+        let fileURL = asset.url
+        let data = asset.data
 
         let response = URLResponse(
             url: url,
@@ -46,7 +34,26 @@ private final class PreviewURLSchemeHandler: NSObject, WKURLSchemeHandler {
         urlSchemeTask.didFinish()
     }
 
-    func webView(_ webView: WKWebView, stop urlSchemeTask: any WKURLSchemeTask) {}
+    private func assetData(for url: URL, in root: URL) -> (url: URL, data: Data)? {
+        let relativePath = normalizedPath(url.path)
+        guard !relativePath.isEmpty else { return nil }
+        let fileURL = root.appendingPathComponent(relativePath)
+        let rootPath = root.standardizedFileURL.path
+        let candidatePath = fileURL.standardizedFileURL.path
+        guard isWithinRoot(candidatePath, rootPath: rootPath) else { return nil }
+        guard let data = try? Data(contentsOf: fileURL) else { return nil }
+        return (fileURL, data)
+    }
+
+    private func normalizedPath(_ path: String) -> String {
+        path.hasPrefix("/") ? String(path.dropFirst()) : path
+    }
+
+    private func isWithinRoot(_ path: String, rootPath: String) -> Bool {
+        path == rootPath || path.hasPrefix(rootPath + "/")
+    }
+
+    func webView(_ webView: WKWebView, stop urlSchemeTask: WKURLSchemeTask) {}
 
     private func mimeType(for ext: String) -> String {
         switch ext.lowercased() {
@@ -65,8 +72,8 @@ private final class PreviewURLSchemeHandler: NSObject, WKURLSchemeHandler {
 }
 
 private final class WeakScriptMessageHandler: NSObject, WKScriptMessageHandler {
-    weak var delegate: (AnyObject & WKScriptMessageHandler)?
-    init(_ delegate: AnyObject & WKScriptMessageHandler) { self.delegate = delegate }
+    weak var delegate: WKScriptMessageHandler?
+    init(_ delegate: WKScriptMessageHandler) { self.delegate = delegate }
     func userContentController(_ ucc: WKUserContentController, didReceive message: WKScriptMessage) {
         delegate?.userContentController(ucc, didReceive: message)
     }

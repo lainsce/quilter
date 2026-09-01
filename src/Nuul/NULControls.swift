@@ -15,48 +15,45 @@ struct NULToggleStyle: ToggleStyle {
     @Environment(\.colorScheme) private var colorScheme
 
     func makeBody(configuration: Configuration) -> some View {
-        Button {
-            if reduceMotion {
-                configuration.isOn.toggle()
-            } else {
-                withAnimation(AppTheme.interfaceSpring) {
-                    configuration.isOn.toggle()
-                }
-            }
-        } label: {
+        Button(action: { toggle(&configuration.isOn) }) {
             HStack(spacing: 8) {
-                ZStack(alignment: configuration.isOn ? .trailing : .leading) {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .fill(
-                            configuration.isOn
-                                ? accentColor
-                                : Color.primary.opacity(0.05)
-                        )
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                                .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
-                        }
-
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .fill(.white)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                                .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
-                        }
-                        .frame(width: 24, height: 24)
-                        .padding(4)
-                }
-                .frame(width: 48, height: 32)
-                .animation(
-                    reduceMotion ? nil : AppTheme.interfaceSpring,
-                    value: configuration.isOn
-                )
+                toggleTrack(isOn: configuration.isOn)
             }
         }
         .buttonStyle(.plain)
         .accessibilityValue(configuration.isOn ? "On" : "Off")
         .accessibilityRemoveTraits(.isButton)
         .accessibilityAddTraits(.isToggle)
+    }
+
+    private func toggle(_ isOn: inout Bool) {
+        if reduceMotion {
+            isOn.toggle()
+        } else {
+            withAnimation(AppTheme.interfaceSpring) { isOn.toggle() }
+        }
+    }
+
+    private func toggleTrack(isOn: Bool) -> some View {
+        ZStack(alignment: isOn ? .trailing : .leading) {
+            RoundedRectangle(cornerRadius: 999, style: .continuous)
+                .fill(isOn ? accentColor : Color.primary.opacity(0.05))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 999, style: .continuous)
+                        .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
+                }
+
+            RoundedRectangle(cornerRadius: 999, style: .continuous)
+                .fill(.white)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 999, style: .continuous)
+                        .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
+                }
+                .frame(width: 24, height: 24)
+                .padding(4)
+        }
+        .frame(width: 48, height: 32)
+        .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: isOn)
     }
 }
 
@@ -132,11 +129,8 @@ struct NULButtonStyle: ButtonStyle {
         configuration.label
             .font(AppTheme.contentBlockSubtitle)
             .symbolRenderingMode(.monochrome)
-            .foregroundStyle(labelColor ?? (kind == .primary ? .black : .primary))
-            .padding(
-                .horizontal,
-                horizontalPadding ?? (kind == .quiet ? AppTheme.gridUnit : AppTheme.gridUnit * 2)
-            )
+            .foregroundStyle(resolvedForegroundColor())
+            .padding(.horizontal, resolvedHorizontalPadding())
             .frame(minWidth: AppTheme.toolbarControlSize, minHeight: AppTheme.toolbarControlSize)
             .background(
                 backgroundColor,
@@ -149,10 +143,27 @@ struct NULButtonStyle: ButtonStyle {
                 }
             }
             .contentShape(Rectangle())
-            .opacity(isEnabled ? (configuration.isPressed ? 0.84 : 1) : 0.42)
-            .scaleEffect(configuration.isPressed && !reduceMotion ? 0.98 : 1)
+            .opacity(controlOpacity(isPressed: configuration.isPressed))
+            .scaleEffect(controlScale(isPressed: configuration.isPressed))
             .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: configuration.isPressed)
             .nulWindowActivityAppearance()
+    }
+
+    private func resolvedForegroundColor() -> Color {
+        labelColor ?? (kind == .primary ? .black : .primary)
+    }
+
+    private func resolvedHorizontalPadding() -> CGFloat {
+        horizontalPadding ?? (kind == .quiet ? AppTheme.gridUnit : AppTheme.gridUnit * 2)
+    }
+
+    private func controlOpacity(isPressed: Bool) -> Double {
+        guard isEnabled else { return 0.42 }
+        return isPressed ? 0.84 : 1
+    }
+
+    private func controlScale(isPressed: Bool) -> CGFloat {
+        isPressed && !reduceMotion ? 0.98 : 1
     }
 
     private var backgroundColor: Color {

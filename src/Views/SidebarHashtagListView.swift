@@ -2,7 +2,6 @@ import SwiftUI
 
 struct SidebarHashtagListView: View {
     @Bindable var appState: AppState
-    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {

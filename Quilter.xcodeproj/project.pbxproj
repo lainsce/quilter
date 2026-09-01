@@ -6,8 +6,19 @@
 	objectVersion = 90;
 	objects = {
 
+/* Begin PBXContainerItemProxy section */
+		000000000000000300000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000000000000000000000000 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000100000000;
+			remoteInfo = Quilter;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		000000000000000000000120 /* Quilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Quilter.app; path = /Users/nayu/Developer/Quilter/build/Debug/Quilter.app; sourceTree = "<absolute>"; };
+		000000000000000000000120 /* Quilter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quilter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		000000000000000000000121 /* QuilterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuilterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -52,6 +63,11 @@
 			files = (
 			);
 		};
+		000000000000000230000000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+			);
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -61,6 +77,8 @@
 				67BCC82C304480E400A74237 /* src */,
 				67BCC85F304480F000A74237 /* data */,
 				67BCC8C63044812F00A74237 /* tests */,
+				000000000000000000000120 /* Quilter.app */,
+				000000000000000000000121 /* QuilterTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -80,12 +98,32 @@
 			fileSystemSynchronizedGroups = (
 				67BCC82C304480E400A74237 /* src */,
 				67BCC85F304480F000A74237 /* data */,
-				67BCC8C63044812F00A74237 /* tests */,
 			);
 			name = Quilter;
 			productName = Quilter;
 			productReference = 000000000000000000000120 /* Quilter.app */;
 			productType = "com.apple.product-type.application";
+		};
+		000000000000000100000001 /* QuilterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 000000000000000210000000 /* Build configuration list for PBXNativeTarget "QuilterTests" */;
+			buildPhases = (
+				000000000000000220000000 /* Sources */,
+				000000000000000230000000 /* Frameworks */,
+				000000000000000240000000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				000000000000000300000000 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				67BCC8C63044812F00A74237 /* tests */,
+			);
+			name = QuilterTests;
+			productName = QuilterTests;
+			productReference = 000000000000000000000121 /* QuilterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -99,6 +137,10 @@
 				TargetAttributes = {
 					000000000000000100000000 = {
 						CreatedOnToolsVersion = 26.3;
+					};
+					000000000000000100000001 = {
+						CreatedOnToolsVersion = 27.0;
+						TestTargetID = 000000000000000100000000;
 					};
 				};
 			};
@@ -118,12 +160,18 @@
 			projectRoot = "";
 			targets = (
 				000000000000000100000000 /* Quilter */,
+				000000000000000100000001 /* QuilterTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		000000000000000140000000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
+		000000000000000240000000 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
 			);
@@ -136,7 +184,20 @@
 			files = (
 			);
 		};
+		000000000000000220000000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		000000000000000300000000 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000100000000 /* Quilter */;
+			targetProxy = 000000000000000300000001 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "Quilter" */ = {
@@ -355,6 +416,40 @@
 			};
 			name = Release;
 		};
+		000000000000000211000000 /* Debug configuration for PBXNativeTarget "QuilterTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nayu.QuilterTests;
+				PRODUCT_NAME = QuilterTests;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quilter.app/Contents/MacOS/Quilter";
+			};
+			name = Debug;
+		};
+		000000000000000212000000 /* Release configuration for PBXNativeTarget "QuilterTests" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = GXLP3297S8;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nayu.QuilterTests;
+				PRODUCT_NAME = QuilterTests;
+				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Quilter.app/Contents/MacOS/Quilter";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -371,6 +466,14 @@
 			buildConfigurations = (
 				000000000000000111000000 /* Debug configuration for PBXNativeTarget "Quilter" */,
 				000000000000000112000000 /* Release configuration for PBXNativeTarget "Quilter" */,
+			);
+			defaultConfigurationName = Release;
+		};
+		000000000000000210000000 /* Build configuration list for PBXNativeTarget "QuilterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				000000000000000211000000 /* Debug configuration for PBXNativeTarget "QuilterTests" */,
+				000000000000000212000000 /* Release configuration for PBXNativeTarget "QuilterTests" */,
 			);
 			defaultConfigurationName = Release;
 		};

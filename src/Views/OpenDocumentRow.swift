@@ -90,7 +90,10 @@ struct OpenDocumentRow: View {
         }
         .padding(.horizontal, AppTheme.gridGutter)
         .frame(minHeight: AppTheme.rowHeight)
-        .background(rowBackground, in: rowShape)
+        .background {
+            rowBackground
+                .clipShape(rowShape)
+        }
         .overlay {
             if isSelected && isHovering {
                 rowShape
@@ -114,16 +117,15 @@ struct OpenDocumentRow: View {
         )
     }
 
-    private var rowBackground: AnyShapeStyle {
+    @ViewBuilder
+    private var rowBackground: some View {
         if isSelected {
-            return AnyShapeStyle(accentColor.opacity(AppTheme.sidebarSelectedFillOpacity))
+            accentColor.opacity(AppTheme.sidebarSelectedFillOpacity)
+        } else if isHovering {
+            AppTheme.sidebarHoverFill(for: colorScheme)
+        } else {
+            Color.clear
         }
-
-        if isHovering {
-            return AnyShapeStyle(AppTheme.sidebarHoverFill(for: colorScheme))
-        }
-
-        return AnyShapeStyle(.clear)
     }
 
     private var selectionAccessibilityValue: LocalizedStringResource {

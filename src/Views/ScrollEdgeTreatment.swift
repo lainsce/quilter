@@ -49,23 +49,20 @@ struct ScrollEdgeTreatment: View {
         }
     }
 
+    @ViewBuilder
     private var blurMask: some View {
         switch edge {
         case .top:
-            return AnyView(
-                LinearGradient(
-                    colors: [.white, .white.opacity(0.62), .white.opacity(0.18), .clear],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+            LinearGradient(
+                colors: [.white, .white.opacity(0.62), .white.opacity(0.18), .clear],
+                startPoint: .top,
+                endPoint: .bottom
             )
         case .bottom:
-            return AnyView(
-                LinearGradient(
-                    colors: [.clear, .white.opacity(0.18), .white.opacity(0.62), .white],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
+            LinearGradient(
+                colors: [.clear, .white.opacity(0.18), .white.opacity(0.62), .white],
+                startPoint: .top,
+                endPoint: .bottom
             )
         }
     }

@@ -137,17 +137,11 @@ final class AppPreferences {
             Key.showsHashtagsInSidebar: false
         ])
 
-        editorFont = EditorFontType(
-            rawValue: defaults.string(forKey: Key.editorFont) ?? ""
-        ) ?? .quiltMono
+        editorFont = Self.enumValue(EditorFontType.self, key: Key.editorFont, default: .quiltMono, in: defaults)
         columnCharacterCount = defaults.integer(forKey: Key.columnCharacterCount)
-        highlightColor = MarkdownHighlightColor(
-            rawValue: defaults.string(forKey: Key.highlightColor) ?? ""
-        ) ?? .yellow
+        highlightColor = Self.enumValue(MarkdownHighlightColor.self, key: Key.highlightColor, default: .yellow, in: defaults)
         autosave = defaults.bool(forKey: Key.autosave)
-        focusScope = FocusScope(
-            rawValue: defaults.string(forKey: Key.focusScope) ?? ""
-        ) ?? .paragraph
+        focusScope = Self.enumValue(FocusScope.self, key: Key.focusScope, default: .paragraph, in: defaults)
         typewriterScrolling = defaults.bool(forKey: Key.typewriterScrolling)
         showsDocumentTracker = defaults.bool(forKey: Key.documentTracker)
         highlightsNouns = defaults.bool(forKey: Key.speechNouns)
@@ -158,18 +152,23 @@ final class AppPreferences {
         checksCliches = defaults.bool(forKey: Key.styleCheckerCliches)
         checksRedundancies = defaults.bool(forKey: Key.styleCheckerRedundancies)
         checksFillers = defaults.bool(forKey: Key.styleCheckerFillers)
-        previewFont = PreviewFontType(
-            rawValue: defaults.string(forKey: Key.previewFont) ?? ""
-        ) ?? .serif
+        previewFont = Self.enumValue(PreviewFontType.self, key: Key.previewFont, default: .serif, in: defaults)
         centersPreviewHeaders = defaults.bool(forKey: Key.centersHeaders)
         highlightsPreviewCode = defaults.bool(forKey: Key.codeHighlighting)
         rendersLaTeXMath = defaults.bool(forKey: Key.latexMath)
         rendersMermaidGraphs = defaults.bool(forKey: Key.mermaidGraphs)
-        toolbarVisibility = ToolbarVisibilityMode(
-            rawValue: defaults.string(forKey: Key.toolbarVisibility) ?? ""
-        ) ?? .hover
+        toolbarVisibility = Self.enumValue(ToolbarVisibilityMode.self, key: Key.toolbarVisibility, default: .hover, in: defaults)
         showsFilesInSidebar = defaults.bool(forKey: Key.showsFilesInSidebar)
         showsOutlineInSidebar = defaults.bool(forKey: Key.showsOutlineInSidebar)
         showsHashtagsInSidebar = defaults.bool(forKey: Key.showsHashtagsInSidebar)
+    }
+
+    private static func enumValue<T: RawRepresentable>(
+        _ type: T.Type,
+        key: String,
+        default fallback: T,
+        in defaults: UserDefaults
+    ) -> T where T.RawValue == String {
+        T(rawValue: defaults.string(forKey: key) ?? "") ?? fallback
     }
 }

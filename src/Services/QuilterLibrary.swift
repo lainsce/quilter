@@ -94,13 +94,6 @@ enum QuilterLibrary {
     }
 
     @MainActor
-    static func useDefaultFolder() {
-        UserDefaults.standard.removeObject(forKey: bookmarkKey)
-        UserDefaults.standard.removeObject(forKey: iconSetKey)
-        prepare()
-    }
-
-    @MainActor
     static func revealInFinder() {
         let root = rootURL
         try? FileManager.default.createDirectory(
@@ -168,22 +161,22 @@ enum QuilterLibrary {
             return nil
         }
 
-        if isStale {
-            let didAccess = url.startAccessingSecurityScopedResource()
-            defer {
-                if didAccess {
-                    url.stopAccessingSecurityScopedResource()
-                }
-            }
-            if let refreshed = try? url.bookmarkData(
-                options: .withSecurityScope,
-                includingResourceValuesForKeys: nil,
-                relativeTo: nil
-            ) {
-                UserDefaults.standard.set(refreshed, forKey: bookmarkKey)
-            }
-        }
+        if isStale { refreshBookmark(for: url) }
         return url
+    }
+
+    private static func refreshBookmark(for url: URL) {
+        let didAccess = url.startAccessingSecurityScopedResource()
+        defer {
+            if didAccess { url.stopAccessingSecurityScopedResource() }
+        }
+        if let refreshed = try? url.bookmarkData(
+            options: .withSecurityScope,
+            includingResourceValuesForKeys: nil,
+            relativeTo: nil
+        ) {
+            UserDefaults.standard.set(refreshed, forKey: bookmarkKey)
+        }
     }
 
     private static func resolvedURL(for path: String, in root: URL) -> URL? {
@@ -197,10 +190,12 @@ enum QuilterLibrary {
         let candidate = root
             .appendingPathComponent(relative)
             .standardizedFileURL
-        guard candidate.path == rootPath || candidate.path.hasPrefix(rootPath + "/") else {
-            return nil
-        }
+        guard isWithinRoot(candidate.path, rootPath: rootPath) else { return nil }
         return candidate
+    }
+
+    private static func isWithinRoot(_ path: String, rootPath: String) -> Bool {
+        path == rootPath || path.hasPrefix(rootPath + "/")
     }
 
     @MainActor

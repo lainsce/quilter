@@ -43,27 +43,22 @@ nonisolated enum MarkdownParser {
         let source = text as NSString
         let fullRange = NSRange(location: 0, length: source.length)
 
-        return headingExpression.matches(in: text, range: fullRange).compactMap { match in
-            guard match.numberOfRanges == 3 else { return nil }
-
-            let markerRange = match.range(at: 1)
-            let titleRange = match.range(at: 2)
-            guard markerRange.location != NSNotFound,
-                  titleRange.location != NSNotFound else {
-                return nil
-            }
-
-            let title = source.substring(with: titleRange)
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-
-            guard !title.isEmpty else { return nil }
-
-            return HeadingItem(
-                title: title,
-                level: markerRange.length,
-                textRange: match.range
-            )
+        return headingExpression.matches(in: text, range: fullRange).compactMap {
+            headingItem(from: $0, source: source)
         }
+    }
+
+    private static func headingItem(
+        from match: NSTextCheckingResult,
+        source: NSString
+    ) -> HeadingItem? {
+        guard match.numberOfRanges == 3 else { return nil }
+        let markerRange = match.range(at: 1)
+        let titleRange = match.range(at: 2)
+        guard markerRange.location != NSNotFound, titleRange.location != NSNotFound else { return nil }
+        let title = source.substring(with: titleRange).trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !title.isEmpty else { return nil }
+        return HeadingItem(title: title, level: markerRange.length, textRange: match.range)
     }
 
     static func sentenceCount(in text: String) -> Int {

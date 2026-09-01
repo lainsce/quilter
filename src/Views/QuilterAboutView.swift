@@ -45,7 +45,7 @@ struct QuilterAboutView: View {
 
             VStack(spacing: 4) {
                 Text("Version \(versionString)")
-                    .font(AppTheme.caption)
+                    .font(AppTheme.technicalFont(role: .caption))
                     .foregroundStyle(.secondary)
 
                 Text("Made with SwiftUI and AppKit for Mac.")

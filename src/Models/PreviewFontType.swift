@@ -19,7 +19,7 @@ enum PreviewFontType: String, CaseIterable, Identifiable {
         switch self {
         case .serif: "ui-serif, 'New York', Georgia, serif"
         case .sansSerif: "'Geist', -apple-system, BlinkMacSystemFont, sans-serif"
-        case .monospace: "ui-monospace, 'SFMono-Regular', Menlo, monospace"
+        case .monospace: "'Lekton', ui-monospace, 'SFMono-Regular', Menlo, monospace"
         }
     }
 }

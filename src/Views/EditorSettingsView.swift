@@ -25,6 +25,7 @@ struct EditorSettingsView: View {
                             options: [64, 72, 80]
                         ) { value in
                             Text("\(value)")
+                                .font(AppTheme.technicalFont(role: .body))
                         }
                     }
 

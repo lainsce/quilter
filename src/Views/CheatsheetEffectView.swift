@@ -45,6 +45,7 @@ struct CheatsheetEffectView: View {
             case .numbered:
                 HStack(alignment: .firstTextBaseline, spacing: AppTheme.gridSmallGap) {
                     Text("1.")
+                        .font(AppTheme.technicalFont(role: .body))
                     Text("numbered item")
                 }
             case .codeBlock:

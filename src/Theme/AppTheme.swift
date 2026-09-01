@@ -28,10 +28,9 @@ enum AppTheme {
 
     // Geist Sans is used by the Metro-inspired interface. Old Standard TT is
     // reserved for view titles, while technical UI details use the bundled
-    // Geist Mono family; document text remains in the user's selected editor
-    // font.
+    // Lekton family; document text remains in the user's selected editor font.
     static let uiFontFamily = "Geist"
-    static let technicalFontFamily = "Geist Mono"
+    static let technicalFontFamily = "Lekton"
 
     enum TypographyRole: CaseIterable {
         case bigDisplay, display, viewTitle, viewSubtitle
@@ -111,17 +110,23 @@ enum AppTheme {
     }
 
     private static func role(for size: CGFloat) -> TypographyRole {
-        switch size {
-        case 38...: return .bigDisplay
-        case 30..<38: return .display
-        case 26..<30: return .viewTitle
-        case 21..<26: return .viewSubtitle
-        case 17..<21: return .contentBlockTitle
-        case 15..<17: return .contentBlockSubtitle
-        case 13..<15: return .body
-        case 11..<13: return .caption
-        default: return .micro
-        }
+        let roles: [(lower: CGFloat, upper: CGFloat?, role: TypographyRole)] = [
+            (38, nil, .bigDisplay),
+            (30, 38, .display),
+            (26, 30, .viewTitle),
+            (21, 26, .viewSubtitle),
+            (17, 21, .contentBlockTitle),
+            (15, 17, .contentBlockSubtitle),
+            (13, 15, .body),
+            (11, 13, .caption),
+        ]
+        return roles.first { contains(size, lower: $0.lower, upper: $0.upper) }?.role ?? .micro
+    }
+
+    private static func contains(_ size: CGFloat, lower: CGFloat, upper: CGFloat?) -> Bool {
+        guard size >= lower else { return false }
+        guard let upper else { return true }
+        return size < upper
     }
 
     /// Old Standard TT supplies the Latin view-title treatment. If the
@@ -142,9 +147,6 @@ enum AppTheme {
     // light/dark appearance and the accent is reserved for selection and
     // keyboard focus. These tokens keep the industrial treatment consistent
     // across the sidebar, settings, menus, and document chrome.
-    static let industrialInk = Color(nsColor: .labelColor)
-    static let industrialSecondaryInk = Color(nsColor: .secondaryLabelColor)
-    static let industrialTertiaryInk = Color(nsColor: .tertiaryLabelColor)
     static func industrialControlRule(for colorScheme: ColorScheme) -> Color {
         colorScheme == .dark
             ? Color.white.opacity(0.16)
@@ -180,18 +182,6 @@ enum AppTheme {
         blue: 17 / 255,
         alpha: 1
     )
-    private static let sidebarLightSurfaceNSColor = NSColor(
-        srgbRed: 228 / 255,
-        green: 228 / 255,
-        blue: 228 / 255,
-        alpha: 1
-    )
-    private static let sidebarDarkSurfaceNSColor = NSColor(
-        srgbRed: 42 / 255,
-        green: 42 / 255,
-        blue: 42 / 255,
-        alpha: 1
-    )
     private static let previewLightSurfaceNSColor = NSColor.white
     private static let previewDarkSurfaceNSColor = NSColor.black
     private static let previewLightTextNSColor = NSColor.black
@@ -201,12 +191,6 @@ enum AppTheme {
         appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
             ? industrialDarkSurfaceNSColor
             : industrialLightSurfaceNSColor
-    }
-
-    static func sidebarSurfaceColor(for appearance: NSAppearance) -> NSColor {
-        appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
-            ? sidebarDarkSurfaceNSColor
-            : sidebarLightSurfaceNSColor
     }
 
     static func sidebarDividerColor(for appearance: NSAppearance) -> NSColor {
@@ -255,12 +239,7 @@ enum AppTheme {
     }
 
     static var industrialPanel: Color { industrialSurface }
-    static let industrialHover = Color.primary.opacity(0.055)
-    static let industrialPressed = Color.primary.opacity(0.12)
-    static let industrialSelectionOpacity: Double = 0.13
-    static let industrialSelectionStrongOpacity: Double = 0.22
     static let sidebarSelectedFillOpacity: Double = 0.14
-    static let sidebarPressedFillOpacity: Double = 0.22
     static let sidebarHoverFillOpacity: Double = 0.06
     static let sidebarSelectedBorderOpacity: Double = 0.72
     static let industrialCornerRadius: CGFloat = gridUnit
@@ -298,12 +277,6 @@ enum AppTheme {
             : Color.black.opacity(sidebarHoverFillOpacity)
     }
 
-    // Kept as a compatibility token for older row code. New components should
-    // use the industrial selection values above instead of a broad fill.
-    static let activeFillOpacity: Double = industrialSelectionOpacity
-
-    static let toolbarHoverFillOpacity: Double = 0.07
-    static let toolbarPressedFillOpacity: Double = 0.12
     static let toolbarRevealDuration: TimeInterval = 0.18
     static let toolbarHideDuration: TimeInterval = 0.14
 
@@ -313,9 +286,6 @@ enum AppTheme {
         response: 0.24,
         dampingFraction: 0.88
     )
-    static let navigationSpring = Animation.spring(response: 0.34, dampingFraction: 0.84)
-
-
     static let editorFontPointSize: CGFloat = 16
     static let editorLineHeight: CGFloat = 28
 
