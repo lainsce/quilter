@@ -5,7 +5,7 @@ enum AppTheme {
     static let accentColor = Color(nsColor: NSColor(name: nil) { appearance in
         appearance.bestMatch(from: [.aqua, .darkAqua]) == .darkAqua
             ? NSColor(srgbRed: 78 / 255, green: 165 / 255, blue: 241 / 255, alpha: 1)
-            : NSColor(srgbRed: 91 / 255, green: 177 / 255, blue: 254 / 255, alpha: 1)
+            : NSColor(srgbRed: 36 / 255, green: 128 / 255, blue: 201 / 255, alpha: 1)
     })
 
     // Quilter's interface follows a small, predictable grid. Keeping these
