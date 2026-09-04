@@ -14,6 +14,7 @@ struct QuilterAboutView: View {
             VStack(spacing: AppTheme.gridUnit * 2) {
                 Text("Quilter")
                     .font(AppTheme.viewTitle)
+                    .tracking(-0.4)
 
                 Text("A focused space for Markdown.")
                     .font(AppTheme.viewSubtitle)
@@ -43,7 +44,7 @@ struct QuilterAboutView: View {
                 .frame(height: AppTheme.delimiterThickness)
                 .padding(.vertical, AppTheme.gridUnit)
 
-            VStack(spacing: 4) {
+            VStack(spacing: AppTheme.gridUnit) {
                 Text("Version \(versionString)")
                     .font(AppTheme.technicalFont(role: .caption))
                     .foregroundStyle(.secondary)
@@ -70,6 +71,11 @@ struct QuilterAboutView: View {
         .padding(AppTheme.gridContentInset)
         .frame(width: 440)
         .background(AppTheme.industrialSurface)
+        .overlay(alignment: .top) {
+            Rectangle()
+                .fill(accentColor)
+                .frame(height: 3)
+        }
     }
 
     @ViewBuilder

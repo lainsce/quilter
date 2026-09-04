@@ -21,7 +21,6 @@ struct OutlineRow: View {
             }
             .padding(.vertical, AppTheme.gridUnit * 2)
             .padding(.leading, CGFloat(heading.level - 1) * AppTheme.gridUnit * 3)
-            .padding(.horizontal, AppTheme.gridUnit * 2)
             .background(
                 isHovering ? AppTheme.sidebarHoverFill(for: colorScheme) : .clear,
                 in: .rect(cornerRadius: AppTheme.industrialSmallCornerRadius)

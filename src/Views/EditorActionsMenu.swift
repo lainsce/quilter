@@ -77,9 +77,9 @@ struct EditorActionsMenu: View {
                     .font(AppTheme.body)
                 Spacer()
             }
-            .contentShape(Rectangle())
             .padding(.vertical, AppTheme.gridUnit)
             .padding(.horizontal, AppTheme.gridUnit * 2)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
@@ -117,6 +117,7 @@ struct EditorActionsMenu: View {
                     .strokeBorder(accentColor.opacity(0.70), lineWidth: 1)
                     .opacity(isSelected ? 1 : 0)
             }
+            .contentShape(.rect(cornerRadius: AppTheme.industrialSmallCornerRadius))
         }
         .buttonStyle(.plain)
     }

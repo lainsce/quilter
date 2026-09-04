@@ -12,6 +12,10 @@ enum AppTheme {
     // values in one place makes the sidebar, toolbar, settings, and popovers
     // feel like parts of the same layout rather than individually tuned cards.
     static let gridUnit: CGFloat = 4
+    /// Minimum clearance for content that can approach the rounded window
+    /// corners. This is a Nuul design-pixel value; keep it separate from the
+    /// eight-point inset used inside ordinary modules.
+    static let windowCornerInset: CGFloat = 24
     static let gridGutter: CGFloat = gridUnit * 4
     static let gridSmallGap: CGFloat = gridUnit * 2
     static let gridSectionGap: CGFloat = gridUnit * 6
@@ -23,8 +27,26 @@ enum AppTheme {
     static let rowHeight: CGFloat = toolbarControlSize
     static let formRowSpacing: CGFloat = gridUnit * 4
     static let formLabelWidth: CGFloat = gridUnit * 32
+    // Settings rows and tabs meet the window edges but not its rounded
+    // corners, so keep the ordinary eight-point module inset.
+    static let settingsWindowInset: CGFloat = gridUnit * 2
+    static let settingsTitleInset: CGFloat = windowCornerInset
+    static let settingsTitleBottomSpacing: CGFloat = gridUnit * 3
+    static let settingsSectionSpacing: CGFloat = gridUnit * 4
+    static let settingsItemSpacing: CGFloat = gridUnit * 2
+    static let settingsItemPadding: CGFloat = gridUnit * 2
+    static let tabHeight: CGFloat = gridUnit * 10
+    static let tabSpacing: CGFloat = gridUnit
+    static let tabSlant: CGFloat = gridUnit * 2
+    static let tabRuleThickness: CGFloat = 1
     static let fieldHorizontalPadding: CGFloat = gridUnit * 3
     static let fieldHeight: CGFloat = gridUnit * 9
+    static let switchWidth: CGFloat = gridUnit * 16
+    static let switchHeight: CGFloat = gridUnit * 8
+    static let switchKnobSize: CGFloat = gridUnit * 6
+    static let switchInset: CGFloat = gridUnit
+    static let switchCornerRadius: CGFloat = industrialCornerRadius
+    static let switchLabelSpacing: CGFloat = gridUnit * 3
 
     // Geist Sans is used by the Metro-inspired interface. Old Standard TT is
     // reserved for view titles, while technical UI details use the bundled
@@ -240,6 +262,7 @@ enum AppTheme {
 
     static var industrialPanel: Color { industrialSurface }
     static let sidebarSelectedFillOpacity: Double = 0.14
+    static let sidebarPressedFillOpacity: Double = 0.22
     static let sidebarHoverFillOpacity: Double = 0.06
     static let sidebarSelectedBorderOpacity: Double = 0.72
     static let industrialCornerRadius: CGFloat = gridUnit

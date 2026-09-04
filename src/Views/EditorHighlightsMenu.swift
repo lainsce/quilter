@@ -22,6 +22,7 @@ struct EditorHighlightsMenu: View {
             }
             .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
             .buttonStyle(.plain)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .disabled(appState.selectedDocument == nil)
             .help("Focus Mode")
 
@@ -63,6 +64,8 @@ struct EditorHighlightsMenu: View {
             .menuStyle(.button)
             .buttonStyle(.plain)
             .menuIndicator(.hidden)
+            .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .help("Speech Parts and Writing Focus")
         }
         .frame(width: 100, height: AppTheme.toolbarControlSize)

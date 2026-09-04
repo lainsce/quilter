@@ -23,6 +23,7 @@ struct OpenDocumentRow: View {
                     Image(systemName: "doc.text")
                         .font(.system(size: 16, weight: .semibold))
                         .foregroundStyle(.secondary)
+                        .frame(width: AppTheme.toolbarIconSize, height: AppTheme.toolbarIconSize)
                         .accessibilityHidden(true)
 
                     VStack(alignment: .leading, spacing: 0) {
@@ -70,7 +71,7 @@ struct OpenDocumentRow: View {
             }
             .labelStyle(.iconOnly)
             .buttonStyle(.plain)
-            .frame(width: 38, height: 38)
+            .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
             // The close affordance stays on the content layer. Its 38-point
             // frame preserves the native hit target without another capsule
             // competing with the document row.

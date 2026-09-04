@@ -4,9 +4,9 @@ struct PreviewSettingsView: View {
     @Bindable var preferences: AppPreferences
 
     var body: some View {
-        ScrollView(.vertical) {
-            Form {
-                Section("General") {
+        NULSettingsPage {
+            NULSettingsSection("General") {
+                NULSettingsItem {
                     NULFormRow("Preview Font Type") {
                         NULMenuPicker(
                             "Preview Font Type",
@@ -17,7 +17,9 @@ struct PreviewSettingsView: View {
                             Text(font.title)
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow(
                         "Header Centering",
                         description: "This affects #, ##, and ### headers."
@@ -28,8 +30,10 @@ struct PreviewSettingsView: View {
                             .accessibilityLabel("Header Centering")
                     }
                 }
+            }
 
-                Section("Extensions") {
+            NULSettingsSection("Extensions") {
+                NULSettingsItem {
                     NULFormRow(
                         "Code Highlight",
                         description: "Code blocks receive syntax coloring."
@@ -39,7 +43,9 @@ struct PreviewSettingsView: View {
                             .toggleStyle(NULToggleStyle())
                             .accessibilityLabel("Code Highlight")
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow(
                         "LaTeX Math",
                         description: "LaTeX math blocks are rendered in the preview."
@@ -49,7 +55,9 @@ struct PreviewSettingsView: View {
                             .toggleStyle(NULToggleStyle())
                             .accessibilityLabel("LaTeX Math")
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow(
                         "Mermaid.js Graph",
                         description: "Mermaid code blocks become graphs in the preview."
@@ -61,15 +69,6 @@ struct PreviewSettingsView: View {
                     }
                 }
             }
-            .formStyle(.grouped)
-            .scrollContentBackground(.hidden)
-            .fixedSize(horizontal: false, vertical: true)
-            .background(AppTheme.industrialSurface, in: RoundedRectangle(cornerRadius: AppTheme.industrialLargeCornerRadius, style: .continuous))
         }
-        .scrollIndicators(.automatic)
-        .background(AppTheme.industrialSurface)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .defaultScrollAnchor(.top)
-        .padding(AppTheme.gridSectionGap)
     }
 }

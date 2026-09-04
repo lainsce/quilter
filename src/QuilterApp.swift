@@ -81,6 +81,6 @@ struct QuilterApp: App {
                 .environment(\.appAccentColor, AppTheme.accentColor)
         }
         .windowStyle(.hiddenTitleBar)
-        .windowToolbarStyle(.unifiedCompact)
+        .windowToolbarStyle(.unifiedCompact(showsTitle: false))
     }
 }

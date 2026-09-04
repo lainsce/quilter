@@ -12,6 +12,7 @@ struct OpenControl: View {
                     .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
             }
             .buttonStyle(.plain)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .accessibilityLabel("Open")
             .help("Open Files (⌘O)")
 
@@ -42,6 +43,7 @@ struct OpenControl: View {
             .menuStyle(.button)
             .buttonStyle(.plain)
             .menuIndicator(.hidden)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .accessibilityLabel("Open options")
             .help("Open Recent")
         }

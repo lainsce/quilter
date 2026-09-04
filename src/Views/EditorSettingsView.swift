@@ -5,9 +5,9 @@ struct EditorSettingsView: View {
     @Bindable var preferences: AppPreferences
 
     var body: some View {
-        ScrollView(.vertical) {
-            Form {
-                Section("Document") {
+        NULSettingsPage {
+            NULSettingsSection("Document") {
+                NULSettingsItem {
                     NULFormRow("Font Type") {
                         NULMenuPicker(
                             "Font Type",
@@ -18,7 +18,9 @@ struct EditorSettingsView: View {
                             Text(font.title)
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Column Width") {
                         NULSegmentedPicker(
                             selection: $preferences.columnCharacterCount,
@@ -28,7 +30,9 @@ struct EditorSettingsView: View {
                                 .font(AppTheme.technicalFont(role: .body))
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Highlight Color") {
                         NULMenuPicker(
                             "Highlight Color",
@@ -43,7 +47,9 @@ struct EditorSettingsView: View {
                             }
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Autosave") {
                         Toggle("", isOn: $preferences.autosave)
                             .labelsHidden()
@@ -51,8 +57,10 @@ struct EditorSettingsView: View {
                             .accessibilityLabel("Autosave")
                     }
                 }
+            }
 
-                Section("Interface") {
+            NULSettingsSection("Interface") {
+                NULSettingsItem {
                     NULFormRow("Normal Mode Toolbar") {
                         NULMenuPicker(
                             "Normal Mode Toolbar",
@@ -63,7 +71,9 @@ struct EditorSettingsView: View {
                             Text(mode.title)
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Focus Scope") {
                         NULSegmentedPicker(
                             selection: $preferences.focusScope,
@@ -72,14 +82,18 @@ struct EditorSettingsView: View {
                             Text(scope.title)
                         }
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Typewriter Scrolling") {
                         Toggle("", isOn: $preferences.typewriterScrolling)
                             .labelsHidden()
                             .toggleStyle(NULToggleStyle())
                             .accessibilityLabel("Typewriter Scrolling")
                     }
+                }
 
+                NULSettingsItem {
                     NULFormRow("Document Tracker") {
                         Toggle("", isOn: $preferences.showsDocumentTracker)
                             .labelsHidden()
@@ -87,38 +101,43 @@ struct EditorSettingsView: View {
                             .accessibilityLabel("Document Tracker")
                     }
                 }
+            }
 
-                Section {
+            NULSettingsSection(
+                "Speech Parts",
+                footer: "Only available in English, Spanish, Portuguese, Arabic, Mandarin Chinese, Korean, Japanese, and French."
+            ) {
+                NULSettingsItem {
                     NULFormRow("Nouns") { Toggle("", isOn: $preferences.highlightsNouns).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Nouns") }
-                    NULFormRow("Verbs") { Toggle("", isOn: $preferences.highlightsVerbs).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Verbs") }
-                    NULFormRow("Adjectives") { Toggle("", isOn: $preferences.highlightsAdjectives).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Adjectives") }
-                    NULFormRow("Adverbs") { Toggle("", isOn: $preferences.highlightsAdverbs).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Adverbs") }
-                    NULFormRow("Conjunctions") { Toggle("", isOn: $preferences.highlightsConjunctions).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Conjunctions") }
-                } header: {
-                    Text("Speech Parts")
-                } footer: {
-                    Text("Only available in English, Spanish, Portuguese, Arabic, Mandarin Chinese, Korean, Japanese, and French.")
                 }
-
-                Section {
-                    NULFormRow("Cliches") { Toggle("", isOn: $preferences.checksCliches).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Cliches") }
-                    NULFormRow("Redundancies") { Toggle("", isOn: $preferences.checksRedundancies).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Redundancies") }
-                    NULFormRow("Fillers") { Toggle("", isOn: $preferences.checksFillers).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Fillers") }
-                } header: {
-                    Text("Writing Focus")
-                } footer: {
-                    Text("Highlights fillers, clichés, and redundancies to be removed.")
+                NULSettingsItem {
+                    NULFormRow("Verbs") { Toggle("", isOn: $preferences.highlightsVerbs).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Verbs") }
+                }
+                NULSettingsItem {
+                    NULFormRow("Adjectives") { Toggle("", isOn: $preferences.highlightsAdjectives).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Adjectives") }
+                }
+                NULSettingsItem {
+                    NULFormRow("Adverbs") { Toggle("", isOn: $preferences.highlightsAdverbs).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Adverbs") }
+                }
+                NULSettingsItem {
+                    NULFormRow("Conjunctions") { Toggle("", isOn: $preferences.highlightsConjunctions).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Conjunctions") }
                 }
             }
-            .formStyle(.grouped)
-            .scrollContentBackground(.hidden)
-            .fixedSize(horizontal: false, vertical: true)
-            .background(AppTheme.industrialSurface, in: RoundedRectangle(cornerRadius: AppTheme.industrialLargeCornerRadius, style: .continuous))
-            .padding(AppTheme.gridSectionGap)
+
+            NULSettingsSection(
+                "Writing Focus",
+                footer: "Highlights fillers, clichés, and redundancies to be removed."
+            ) {
+                NULSettingsItem {
+                    NULFormRow("Cliches") { Toggle("", isOn: $preferences.checksCliches).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Cliches") }
+                }
+                NULSettingsItem {
+                    NULFormRow("Redundancies") { Toggle("", isOn: $preferences.checksRedundancies).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Redundancies") }
+                }
+                NULSettingsItem {
+                    NULFormRow("Fillers") { Toggle("", isOn: $preferences.checksFillers).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Fillers") }
+                }
+            }
         }
-        .scrollIndicators(.automatic)
-        .background(AppTheme.industrialSurface)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .defaultScrollAnchor(.top)
     }
 }

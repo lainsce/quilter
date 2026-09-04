@@ -10,6 +10,7 @@ struct AppWindowView: View {
     @Bindable var appState: AppState
     @Bindable var preferences: AppPreferences
     @State private var columnVisibility: NavigationSplitViewVisibility = .automatic
+    @AppStorage("quilter.has-completed-first-run") private var hasCompletedFirstRun = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
     @Environment(\.colorScheme) private var colorScheme
 
@@ -46,6 +47,19 @@ struct AppWindowView: View {
         .dropDestination(for: URL.self) { urls, _ in
             _ = appState.open(urls: urls)
         }
+        .sheet(isPresented: firstRunBinding) {
+            QuilterFirstRunView(
+                onCreateDocument: {
+                    appState.newDocument()
+                    finishFirstRun()
+                },
+                onOpenFile: {
+                    finishFirstRun()
+                    appState.showOpenPanel()
+                },
+                onContinue: finishFirstRun
+            )
+        }
         .onOpenURL { url in
             _ = appState.open(urls: [url])
         }
@@ -80,5 +94,20 @@ struct AppWindowView: View {
                 ? .detailOnly
                 : .all
         }
+    }
+
+    private var firstRunBinding: Binding<Bool> {
+        Binding(
+            get: { !hasCompletedFirstRun },
+            set: { isPresented in
+                if !isPresented {
+                    finishFirstRun()
+                }
+            }
+        )
+    }
+
+    private func finishFirstRun() {
+        hasCompletedFirstRun = true
     }
 }

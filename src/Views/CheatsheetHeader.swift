@@ -18,9 +18,11 @@ struct CheatsheetHeader: View {
 
             Button("Close", systemImage: "xmark.circle.fill", action: closeAction)
                 .labelStyle(.iconOnly)
-                .font(.system(size: 22, weight: .regular))
+                .font(.system(size: AppTheme.toolbarIconSize, weight: .regular))
                 .foregroundStyle(.secondary)
                 .buttonStyle(.plain)
+                .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
+                .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
                 .help("Close")
         }
         .padding(AppTheme.gridUnit * 5)

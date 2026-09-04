@@ -27,6 +27,7 @@ struct ActiveDocumentTitle: View {
         }
         .buttonStyle(.plain)
         .frame(minHeight: AppTheme.toolbarControlSize, alignment: .leading)
+        .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
         .disabled(appState.selectedDocument == nil)
         .help(Text(helpText))
         .accessibilityLabel("Active document")

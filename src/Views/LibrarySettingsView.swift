@@ -7,35 +7,38 @@ struct LibrarySettingsView: View {
     @Environment(\.appAccentColor) private var accentColor
 
     var body: some View {
-        ScrollView(.vertical) {
-            Form {
-                Section {
-                    Text(QuilterLibrary.locationDescription)
-                        .font(AppTheme.technicalFont(role: .contentBlockSubtitle))
-                        .textSelection(.enabled)
-                        .id(libraryVersion)
+        NULSettingsPage {
+            NULSettingsSection(
+                "Library",
+                footer: "The default Library is inside Quilter’s sandbox. A selected folder is retained with a macOS security-scoped bookmark."
+            ) {
+                NULSettingsItem {
+                    VStack(alignment: .leading, spacing: AppTheme.gridUnit * 3) {
+                        Text(QuilterLibrary.locationDescription)
+                            .font(AppTheme.technicalFont(role: .contentBlockSubtitle))
+                            .textSelection(.enabled)
+                            .id(libraryVersion)
 
-                    HStack {
-                        Spacer()
-                        Button("Choose Library…") {
-                            if QuilterLibrary.chooseFolder() {
-                                libraryVersion += 1
+                        HStack {
+                            Spacer()
+                            Button("Choose Library…") {
+                                if QuilterLibrary.chooseFolder() {
+                                    libraryVersion += 1
+                                }
                             }
-                        }
-                        .buttonStyle(NULButtonStyle(kind: .neutral, accentColor: accentColor))
+                            .buttonStyle(NULButtonStyle(kind: .neutral, accentColor: accentColor))
 
-                        Button("Reveal in Finder") {
-                            QuilterLibrary.revealInFinder()
+                            Button("Reveal in Finder") {
+                                QuilterLibrary.revealInFinder()
+                            }
+                            .buttonStyle(NULButtonStyle(kind: .neutral, accentColor: accentColor))
                         }
-                        .buttonStyle(NULButtonStyle(kind: .neutral, accentColor: accentColor))
                     }
-                } header: {
-                    Text("Library")
-                } footer: {
-                    Text("The default Library is inside Quilter’s sandbox. A selected folder is retained with a macOS security-scoped bookmark.")
                 }
+            }
 
-                Section("Sidebar") {
+            NULSettingsSection("Sidebar") {
+                NULSettingsItem {
                     NULFormRow("Show Sidebar") {
                         Toggle("", isOn: $appState.isSidebarVisible)
                             .labelsHidden()
@@ -43,22 +46,19 @@ struct LibrarySettingsView: View {
                             .accessibilityLabel("Show Sidebar")
                     }
                 }
+            }
 
-                Section("Sidebar Sections") {
+            NULSettingsSection("Sidebar Sections") {
+                NULSettingsItem {
                     NULFormRow("Files") { Toggle("", isOn: $preferences.showsFilesInSidebar).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Files") }
+                }
+                NULSettingsItem {
                     NULFormRow("Outline") { Toggle("", isOn: $preferences.showsOutlineInSidebar).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Outline") }
+                }
+                NULSettingsItem {
                     NULFormRow("Hashtag list") { Toggle("", isOn: $preferences.showsHashtagsInSidebar).labelsHidden().toggleStyle(NULToggleStyle()).accessibilityLabel("Hashtag list") }
                 }
             }
-            .formStyle(.grouped)
-            .scrollContentBackground(.hidden)
-            .fixedSize(horizontal: false, vertical: true)
-            .background(AppTheme.industrialSurface, in: RoundedRectangle(cornerRadius: AppTheme.industrialLargeCornerRadius, style: .continuous))
         }
-        .scrollIndicators(.automatic)
-        .background(AppTheme.industrialSurface)
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-        .defaultScrollAnchor(.top)
-        .padding(AppTheme.gridSectionGap)
     }
 }

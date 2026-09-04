@@ -1,258 +1,90 @@
 {
-  "fill" : "system-light",
+  "fill-specializations" : [
+    {
+      "value" : {
+        "solid" : "srgb:0.99216,0.99216,0.99216,1.00000"
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : {
+        "solid" : "srgb:0.00000,0.00000,0.00000,1.00000"
+      }
+    }
+  ],
   "groups" : [
     {
       "layers" : [
         {
-          "blend-mode-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : "overlay"
-            }
-          ],
           "fill-specializations" : [
             {
-              "value" : {
-                "solid" : "extended-srgb:0.00000,0.53333,1.00000,1.00000"
-              }
-            },
-            {
-              "appearance" : "dark",
-              "value" : "automatic"
+              "appearance" : "tinted",
+              "value" : "system-light"
             }
           ],
-          "image-name" : "Group 27.png",
-          "name" : "Pen",
-          "position" : {
-            "scale" : 1,
-            "translation-in-points" : [
-              206.96875,
-              45
-            ]
-          }
+          "image-name" : "Quilter (1).png",
+          "name" : "Quilter"
         }
       ],
       "shadow-specializations" : [
         {
           "value" : {
             "kind" : "layer-color",
-            "opacity" : 0.6
+            "opacity" : 0.5
           }
         },
         {
           "appearance" : "dark",
           "value" : {
             "kind" : "neutral",
-            "opacity" : 0.6
+            "opacity" : 0.5
           }
         }
       ],
       "translucency" : {
         "enabled" : true,
-        "value" : 0.2
+        "value" : 0.3
       }
     },
     {
-      "blend-mode-specializations" : [
-        {
-          "appearance" : "dark",
-          "value" : "normal"
-        },
-        {
-          "appearance" : "tinted",
-          "value" : "normal"
-        }
-      ],
-      "blur-material-specializations" : [
-        {
-          "value" : null
-        },
-        {
-          "appearance" : "dark",
-          "value" : null
-        }
-      ],
       "layers" : [
         {
-          "blend-mode-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : "normal"
-            }
-          ],
           "fill-specializations" : [
             {
               "appearance" : "dark",
               "value" : {
-                "solid" : "srgb:0.22691,0.22691,0.22691,1.00000"
+                "solid" : "srgb:0.99216,0.99216,0.99216,1.00000"
               }
             },
             {
               "appearance" : "tinted",
-              "value" : "system-dark"
+              "value" : {
+                "solid" : "srgb:0.20000,0.20000,0.20000,1.00000"
+              }
             }
           ],
-          "glass-specializations" : [
-            {
-              "value" : false
-            },
-            {
-              "appearance" : "tinted",
-              "value" : false
-            }
-          ],
-          "image-name" : "Group 26 (2).png",
-          "name" : "Faded Text",
-          "opacity-specializations" : [
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 1
-            }
-          ]
+          "image-name" : "Quilter 2.png",
+          "name" : "Quilter 2"
         }
       ],
-      "lighting-specializations" : [
-        {
-          "value" : "individual"
-        },
-        {
-          "appearance" : "tinted",
-          "value" : "individual"
-        }
-      ],
-      "refractivity" : {
-        "depth" : 0,
-        "enabled" : false,
-        "strength" : 0.5
-      },
       "shadow-specializations" : [
         {
           "value" : {
             "kind" : "layer-color",
-            "opacity" : 0.6
+            "opacity" : 0.5
           }
         },
         {
           "appearance" : "dark",
-          "value" : {
-            "kind" : "layer-color",
-            "opacity" : 0.6
-          }
-        },
-        {
-          "appearance" : "tinted",
-          "value" : {
-            "kind" : "none",
-            "opacity" : 0.6
-          }
-        }
-      ],
-      "specular-specializations" : [
-        {
-          "value" : true
-        },
-        {
-          "appearance" : "tinted",
-          "value" : false
-        }
-      ],
-      "translucency-specializations" : [
-        {
-          "value" : {
-            "enabled" : true,
-            "value" : 0.2
-          }
-        },
-        {
-          "appearance" : "dark",
-          "value" : {
-            "enabled" : true,
-            "value" : 0.2
-          }
-        },
-        {
-          "appearance" : "tinted",
-          "value" : {
-            "enabled" : true,
-            "value" : 0.2
-          }
-        }
-      ]
-    },
-    {
-      "layers" : [
-        {
-          "glass-specializations" : [
-            {
-              "value" : false
-            },
-            {
-              "appearance" : "dark",
-              "value" : true
-            }
-          ],
-          "hidden" : false,
-          "image-name" : "Group 26 (3).png",
-          "name" : "Dark Text",
-          "opacity-specializations" : [
-            {
-              "value" : 0
-            },
-            {
-              "appearance" : "dark",
-              "value" : 1
-            },
-            {
-              "appearance" : "tinted",
-              "value" : 0.8
-            }
-          ]
-        }
-      ],
-      "shadow-specializations" : [
-        {
           "value" : {
             "kind" : "neutral",
-            "opacity" : 0.6
-          }
-        },
-        {
-          "appearance" : "dark",
-          "value" : {
-            "kind" : "layer-color",
-            "opacity" : 0.6
+            "opacity" : 0.5
           }
         }
       ],
       "translucency" : {
         "enabled" : true,
-        "value" : 0.2
-      }
-    },
-    {
-      "layers" : [
-        {
-          "image-name" : "Group 26 (1) 2.png",
-          "name" : "Light Text",
-          "opacity-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : 0
-            }
-          ]
-        }
-      ],
-      "shadow" : {
-        "kind" : "layer-color",
-        "opacity" : 0.6
-      },
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.2
+        "value" : 0.3
       }
     }
   ],

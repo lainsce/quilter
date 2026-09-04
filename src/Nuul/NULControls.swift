@@ -16,9 +16,13 @@ struct NULToggleStyle: ToggleStyle {
 
     func makeBody(configuration: Configuration) -> some View {
         Button(action: { toggle(&configuration.isOn) }) {
-            HStack(spacing: 8) {
+            HStack(spacing: AppTheme.switchLabelSpacing) {
                 toggleTrack(isOn: configuration.isOn)
+                configuration.label
             }
+            // The toggle action covers the complete laid-out switch and label,
+            // not only their image/text glyphs.
+            .contentShape(.rect(cornerRadius: AppTheme.switchCornerRadius))
         }
         .buttonStyle(.plain)
         .accessibilityValue(configuration.isOn ? "On" : "Off")
@@ -36,23 +40,23 @@ struct NULToggleStyle: ToggleStyle {
 
     private func toggleTrack(isOn: Bool) -> some View {
         ZStack(alignment: isOn ? .trailing : .leading) {
-            RoundedRectangle(cornerRadius: 999, style: .continuous)
-                .fill(isOn ? accentColor : Color.primary.opacity(0.05))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
-                }
+            RoundedRectangle(cornerRadius: AppTheme.switchCornerRadius, style: .continuous)
+                .fill(isOn ? accentColor : AppTheme.industrialControlRule(for: colorScheme))
 
-            RoundedRectangle(cornerRadius: 999, style: .continuous)
+            RoundedRectangle(cornerRadius: AppTheme.switchCornerRadius, style: .continuous)
                 .fill(.white)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 999, style: .continuous)
-                        .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
+                    HStack(spacing: 4) {
+                        Rectangle().frame(width: 2, height: 12)
+                        Rectangle().frame(width: 2, height: 12)
+                    }
+                    .foregroundStyle(Color.black.opacity(0.2))
+                    .frame(width: 8, height: 12)
                 }
-                .frame(width: 24, height: 24)
-                .padding(4)
+                .frame(width: AppTheme.switchKnobSize, height: AppTheme.switchKnobSize)
+                .padding(AppTheme.switchInset)
         }
-        .frame(width: 48, height: 32)
+        .frame(width: AppTheme.switchWidth, height: AppTheme.switchHeight)
         .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: isOn)
     }
 }
@@ -142,7 +146,7 @@ struct NULButtonStyle: ButtonStyle {
                         .fill(Color.primary.opacity(0.10))
                 }
             }
-            .contentShape(Rectangle())
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .opacity(controlOpacity(isPressed: configuration.isPressed))
             .scaleEffect(controlScale(isPressed: configuration.isPressed))
             .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: configuration.isPressed)
@@ -231,6 +235,7 @@ struct NULMenuPicker<Selection: Hashable, ItemLabel: View>: View {
             }
             .frame(minHeight: AppTheme.toolbarControlSize, alignment: .leading)
             .padding(.horizontal, AppTheme.gridUnit * 2)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
         }
         .menuStyle(.borderlessButton)
         .accessibilityLabel(Text(title))
@@ -270,6 +275,7 @@ struct NULSegmentedPicker<Selection: Hashable, ItemLabel: View>: View {
                             RoundedRectangle(cornerRadius: AppTheme.gridUnit / 2, style: .continuous)
                                 .fill(option == selection ? Color.primary.opacity(0.12) : .clear)
                         }
+                        .contentShape(.rect(cornerRadius: AppTheme.gridUnit / 2))
                 }
                 .buttonStyle(.plain)
                 .accessibilityAddTraits(option == selection ? .isSelected : [])
@@ -316,6 +322,7 @@ struct NULTextFieldStyle: TextFieldStyle {
                 RoundedRectangle(cornerRadius: AppTheme.industrialCornerRadius)
                     .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 2)
             }
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .opacity(isEnabled ? 1 : 0.42)
     }
 }
@@ -364,9 +371,25 @@ struct NULToolbarButtonStyle: ButtonStyle {
 /// pressed response. Press state comes from SwiftUI's button configuration;
 /// a competing zero-distance drag gesture would delay the primary click.
 struct QuilterSidebarRowButtonStyle: ButtonStyle {
+    @Environment(\.appAccentColor) private var accentColor
+    @Environment(\.colorScheme) private var colorScheme
+
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .opacity(configuration.isPressed ? 0.72 : 1)
+            .background {
+                if configuration.isPressed {
+                    RoundedRectangle(cornerRadius: AppTheme.industrialSmallCornerRadius, style: .continuous)
+                        .fill(accentColor.opacity(AppTheme.sidebarPressedFillOpacity))
+                }
+            }
+            .overlay {
+                if configuration.isPressed {
+                    RoundedRectangle(cornerRadius: AppTheme.industrialSmallCornerRadius, style: .continuous)
+                        .strokeBorder(AppTheme.industrialControlRule(for: colorScheme), lineWidth: 1)
+                }
+            }
+            .opacity(configuration.isPressed ? 0.94 : 1)
+            .contentShape(.rect(cornerRadius: AppTheme.industrialSmallCornerRadius))
     }
 }
 
@@ -385,13 +408,13 @@ private struct NULButtonBody: View {
             .foregroundStyle(accented ? .black : .primary)
             .frame(width: AppTheme.toolbarIconSize, height: AppTheme.toolbarIconSize)
             .frame(width: AppTheme.toolbarControlSize, height: AppTheme.toolbarControlSize)
-            .contentShape(Rectangle())
             .background {
                 if showsSurface {
                     RoundedRectangle(cornerRadius: AppTheme.industrialCornerRadius)
                         .fill(accented ? accentColor : AppTheme.industrialPanel)
                 }
             }
+            .contentShape(.rect(cornerRadius: AppTheme.industrialCornerRadius))
             .opacity(isEnabled ? (configuration.isPressed ? 0.82 : 1) : 0.42)
             .scaleEffect(configuration.isPressed && !reduceMotion ? 0.97 : 1)
             .animation(reduceMotion ? nil : AppTheme.interfaceSpring, value: configuration.isPressed)
